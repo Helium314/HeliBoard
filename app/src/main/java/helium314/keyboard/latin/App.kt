@@ -45,8 +45,8 @@ import java.util.EnumMap
 class App : Application() {
     override fun onCreate() {
         super.onCreate()
-        Settings.init(this)
         DebugFlags.init(this)
+        Settings.init(this)
         SubtypeSettings.init(this)
         RichInputMethodManager.init(this)
 

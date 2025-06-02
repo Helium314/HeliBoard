@@ -1,0 +1,10 @@
+* opcional suggerir noms de les apps instal·lades
+* lliscar per canviar les categs. d'emojis
+* mostrar toast en restaurar la còpia de seg.
+* botó i icona de la barra d'eines més grans
+* fer la coma accessible a les finestres emergents de TLD
+* afegir config. per a tema predet. dels emojis
+* afegir codis de tecla per a les tecles alt i ctrl esq. i dreta
+* afegir etiqueta «timestamp» per fer eixa tecla accessible
+* etiquetes de tecla especials per a finestres emergents en dissenys senzills
+* etc

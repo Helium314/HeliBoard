@@ -31,17 +31,13 @@ import helium314.keyboard.latin.utils.locale
 import helium314.keyboard.latin.utils.prefs
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
-import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 import java.io.File
 import java.io.IOException
 import java.util.Locale
 import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.TimeUnit
-import kotlin.concurrent.Volatile
 
 /**
  * Facilitates interaction with different kinds of dictionaries. Provides APIs
@@ -232,23 +228,27 @@ class DictionaryFacilitatorImpl : DictionaryFacilitator {
         val latchForWaitingLoadingMainDictionary = CountDownLatch(1)
         mLatchForWaitingLoadingMainDictionaries = latchForWaitingLoadingMainDictionary
         scope.launch {
-            val dictGroupsWithNewMainDict = locales.mapNotNull {
-                val dictionaryGroup = findDictionaryGroupWithLocale(dictionaryGroups, it)
-                if (dictionaryGroup == null) {
-                    Log.w(TAG, "Expected a dictionary group for $it but none found")
-                    return@mapNotNull null // This should never happen
+            try {
+                val dictGroupsWithNewMainDict = locales.mapNotNull {
+                    val dictionaryGroup = findDictionaryGroupWithLocale(dictionaryGroups, it)
+                    if (dictionaryGroup == null) {
+                        Log.w(TAG, "Expected a dictionary group for $it but none found")
+                        return@mapNotNull null // This should never happen
+                    }
+                    if (dictionaryGroup.getDict(Dictionary.TYPE_MAIN)?.isInitialized == true) null
+                    else dictionaryGroup to DictionaryFactory.createMainDictionaryCollection(context, it)
                 }
-                if (dictionaryGroup.getDict(Dictionary.TYPE_MAIN)?.isInitialized == true) null
-                else dictionaryGroup to DictionaryFactory.createMainDictionaryCollection(context, it)
-            }
-            synchronized(this) {
-                dictGroupsWithNewMainDict.forEach { (dictGroup, mainDict) ->
-                    dictGroup.setMainDict(mainDict)
+                synchronized(this) {
+                    dictGroupsWithNewMainDict.forEach { (dictGroup, mainDict) ->
+                        dictGroup.setMainDict(mainDict)
+                    }
                 }
-            }
 
-            listener?.onUpdateMainDictionaryAvailability(hasAtLeastOneInitializedMainDictionary())
-            latchForWaitingLoadingMainDictionary.countDown()
+                listener?.onUpdateMainDictionaryAvailability(hasAtLeastOneInitializedMainDictionary())
+                latchForWaitingLoadingMainDictionary.countDown()
+            } catch (e: Throwable) {
+                Log.e(TAG, "could not initialize main dictionaries for $locales", e)
+            }
         }
     }
 
@@ -469,18 +469,24 @@ class DictionaryFacilitatorImpl : DictionaryFacilitator {
         val proximityInfoHandle = keyboard.proximityInfo.nativeProximityInfo
         val weightOfLangModelVsSpatialModel = floatArrayOf(Dictionary.NOT_A_WEIGHT_OF_LANG_MODEL_VS_SPATIAL_MODEL)
 
-        val deferredSuggestions = dictionaryGroups.map {
-            scope.async {
-                // todo: if the order does not matter, we could add the suggestions right away without awaitAll first
-                getSuggestions(composedData, ngramContext, settingsValuesForSuggestion, sessionId,
-                    proximityInfoHandle, weightOfLangModelVsSpatialModel, it)
+        val waitForOtherDicts = if (dictionaryGroups.size == 1) null else CountDownLatch(dictionaryGroups.size - 1)
+        val suggestionsArray = Array<List<SuggestedWordInfo>?>(dictionaryGroups.size) { null }
+        for (i in 1..dictionaryGroups.lastIndex) {
+            scope.launch {
+                suggestionsArray[i] = getSuggestions(composedData, ngramContext, settingsValuesForSuggestion, sessionId,
+                    proximityInfoHandle, weightOfLangModelVsSpatialModel, dictionaryGroups[i])
+                waitForOtherDicts?.countDown()
             }
         }
+        suggestionsArray[0] = getSuggestions(composedData, ngramContext, settingsValuesForSuggestion, sessionId,
+            proximityInfoHandle, weightOfLangModelVsSpatialModel, dictionaryGroups[0])
         val suggestionResults = SuggestionResults(
-            SuggestedWords.MAX_SUGGESTIONS, ngramContext.isBeginningOfSentenceContext,
-            false
+            SuggestedWords.MAX_SUGGESTIONS, ngramContext.isBeginningOfSentenceContext, false
         )
-        runBlocking { deferredSuggestions.awaitAll() }.forEach {
+        waitForOtherDicts?.await()
+
+        suggestionsArray.forEach {
+            if (it == null) return@forEach
             suggestionResults.addAll(it)
             suggestionResults.mRawSuggestions?.addAll(it)
         }
@@ -521,6 +527,10 @@ class DictionaryFacilitatorImpl : DictionaryFacilitator {
                     && !dictionary.isInDictionary(word)
                 )
                     continue
+
+                if (word.length == 1 && info.mSourceDict.mDictType == "emoji" && !StringUtils.mightBeEmoji(word[0].code))
+                    continue
+
                 suggestions.add(info)
             }
         }
@@ -720,12 +730,12 @@ private class DictionaryGroup(
     else {
         val file = File(context.filesDir.absolutePath + File.separator + "blacklists" + File.separator + locale.toLanguageTag() + ".txt")
         if (file.isDirectory) file.delete() // this apparently was an issue in some versions
-        if (file.mkdirs()) file
+        if (file.parentFile?.mkdirs() == true) file
         else null
     }
 
     private val blacklist = hashSetOf<String>().apply {
-        if (blacklistFile?.exists() != true) return@apply
+        if (blacklistFile?.isFile != true) return@apply
         scope.launch {
             synchronized(this) {
                 try {

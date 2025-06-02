@@ -1,0 +1,10 @@
+* navrhování názvů nainstalovaných aplikací
+* přepnutí kategorie emoji přejetím
+* zobr. oznámení po obnovení zálohy
+* větší tlačítko a ikona na panelu nástrojů
+* zpřístupnění čárky ve vysk. klávesách při zobrazení vysk. kl. TLD
+* přidáno nastavení vých. odstínu pleti emodži
+* přidány kódy kláves pro levý a pravý Alt a Ctrl
+* přidán popisek klávesy „časové razítko“ pro přístupnější klávesu čas. razítka
+* oprava spec. popisků kláves pro vysk. kl. v jednoduchých rozl.
+* drobné opravy a vylepšení

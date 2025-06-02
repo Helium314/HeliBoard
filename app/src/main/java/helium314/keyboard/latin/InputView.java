@@ -19,7 +19,7 @@ import helium314.keyboard.accessibility.AccessibilityUtils;
 import helium314.keyboard.keyboard.MainKeyboardView;
 import helium314.keyboard.latin.common.ColorType;
 import helium314.keyboard.latin.settings.Settings;
-import helium314.keyboard.latin.suggestions.PopupSuggestionsView;
+import helium314.keyboard.latin.suggestions.MoreSuggestionsView;
 import helium314.keyboard.latin.suggestions.SuggestionStripView;
 import kotlin.Unit;
 
@@ -230,8 +230,8 @@ public final class InputView extends FrameLayout {
 
     /**
      * This class forwards {@link MotionEvent}s happened in the {@link MainKeyboardView} to
-     * {@link SuggestionStripView} when the {@link PopupSuggestionsView} is showing.
-     * {@link SuggestionStripView} dismisses {@link PopupSuggestionsView} when it receives any event
+     * {@link SuggestionStripView} when the {@link MoreSuggestionsView} is showing.
+     * {@link SuggestionStripView} dismisses {@link MoreSuggestionsView} when it receives any event
      * outside of it.
      */
     private static class MoreSuggestionsViewCanceler

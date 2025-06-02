@@ -26,8 +26,8 @@ fun createInputMethodPickerDialog(latinIme: LatinIME, richImm: RichInputMethodMa
     val enabledSubtypes = mutableListOf<Pair<InputMethodInfo, InputMethodSubtype?>>()
     var currentSubtypeIndex = 0
     enabledImis.forEach { imi ->
-        val subtypes = if (imi != thisImi) richImm.getEnabledInputMethodSubtypeList(imi, true)
-            else richImm.getEnabledInputMethodSubtypeList(imi, true).sortedBy { it.displayName() }
+        val subtypes = if (imi != thisImi) richImm.getEnabledInputMethodSubtypes(imi, true)
+            else richImm.getEnabledInputMethodSubtypes(imi, true).sortedBy { it.displayName() }
         if (subtypes.isEmpty()) {
             enabledSubtypes.add(imi to null)
         } else {

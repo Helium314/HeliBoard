@@ -819,12 +819,11 @@ public final class InputLogic {
                 // {@link KeyboardSwitcher#onEvent(Event)}, or {@link #onPressKey(int,int,boolean)} and {@link #onReleaseKey(int,boolean)}.
                 // We need to switch to the shortcut IME. This is handled by LatinIME since the
                 // input logic has no business with IME switching.
-            case KeyCode.CAPS_LOCK,  KeyCode.SYMBOL_ALPHA,  KeyCode.ALPHA, KeyCode.SYMBOL, KeyCode.NUMPAD, KeyCode.EMOJI,
-                    KeyCode.TOGGLE_ONE_HANDED_MODE, KeyCode.SWITCH_ONE_HANDED_MODE, KeyCode.FN,
-                    KeyCode.CTRL, KeyCode.CTRL_LEFT, KeyCode.CTRL_RIGHT, KeyCode.ALT, KeyCode.ALT_LEFT, KeyCode.ALT_RIGHT,
-                    KeyCode.META, KeyCode.META_LEFT, KeyCode.META_RIGHT:
+            case KeyCode.CAPS_LOCK, KeyCode.EMOJI, KeyCode.TOGGLE_ONE_HANDED_MODE, KeyCode.SWITCH_ONE_HANDED_MODE:
                 break;
             default:
+                if (KeyCode.INSTANCE.isModifier(event.getMKeyCode()))
+                    return; // continuation of previous switch case, but modifiers are in a separate place
                 if (event.getMMetaState() != 0) {
                     // need to convert codepoint to KeyEvent.KEYCODE_<xxx>
                     final int codeToConvert = event.getMKeyCode() < 0 ? event.getMKeyCode() : event.getMCodePoint();

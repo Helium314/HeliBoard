@@ -1,6 +1,7 @@
 *.iml
 .idea
 .gradle
+.kotlin
 local.properties
 .DS_Store
 Gemfile
@@ -8,5 +9,6 @@ build
 app/build
 app/release
 app/.cxx
+app/.attach_*
 fastlane/Appfile
 tools/*.txt

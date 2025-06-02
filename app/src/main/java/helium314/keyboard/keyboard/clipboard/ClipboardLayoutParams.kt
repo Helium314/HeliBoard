@@ -3,7 +3,6 @@
 package helium314.keyboard.keyboard.clipboard
 
 import android.content.Context
-import android.content.res.Resources
 import android.view.View
 import android.widget.FrameLayout
 import androidx.recyclerview.widget.RecyclerView
@@ -22,7 +21,7 @@ class ClipboardLayoutParams(ctx: Context) {
     init {
         val res = ctx.resources
         val sv = Settings.getValues()
-        val defaultKeyboardHeight = ResourceUtils.getKeyboardHeight(res, sv)
+        val defaultKeyboardHeight = ResourceUtils.getSecondaryKeyboardHeight(res, sv)
         val defaultKeyboardWidth = ResourceUtils.getKeyboardWidth(ctx, sv)
 
         if (sv.mNarrowKeyGaps) {

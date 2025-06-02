@@ -84,7 +84,7 @@
     <string name="last_update">"Viimati värskendatud"</string>
     <string name="settings">"Seaded"</string>
     <string name="delete">"Kustuta"</string>
-    <string name="version_text">"Versioon %1$s"</string>
+    <string name="version_text">Versioon %s</string>
     <string name="user_dict_settings_add_dialog_title">"Sõnaraamatusse lisamine"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"Otsetee:"</string>
     <string name="user_dict_settings_add_locale_option_name">"Keel:"</string>
@@ -203,7 +203,7 @@
     <string name="page_down" tools:keep="@string/page_down">Lehekülg alla</string>
     <string name="popup_keys_language_priority" tools:keep="@string/popup_keys_language_priority">Keel (prioriteetne)</string>
     <string name="popup_keys_number" tools:keep="@string/popup_keys_number">Numbrite rida</string>
-    <string name="popup_keys_language" tools:keep="@string/popup_keys_language">Keel</string>
+    <string name="popup_keys_language" tools:keep="@string/popup_keys_language">@string/subtype_locale</string>
     <string name="popup_keys_layout" tools:keep="@string/popup_keys_layout">Paigutus</string>
     <string name="popup_keys_symbols" tools:keep="@string/popup_keys_symbols">Sümbolid</string>
     <string name="up" tools:keep="@string/up">Üles</string>
@@ -464,4 +464,5 @@
     <string name="use_apps_dict_summary">Otsi soovituste ja paranduste jaoks välja paigaldatud rakenduste nimed</string>
     <string name="prefs_emoji_skin_tone">Emoji vaikimisi taustavärv</string>
     <string name="prefs_emoji_skin_tone_neutral">Neutraalne</string>
+    <string name="subtype_with_layout_generic">%1$s (%2$s)</string>
 </resources>

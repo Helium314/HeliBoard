@@ -28,8 +28,10 @@ object SubtypeSettings {
     fun getEnabledSubtypes(fallback: Boolean = false): List<InputMethodSubtype> {
         if (fallback && enabledSubtypes.isEmpty())
             return getDefaultEnabledSubtypes()
-        return enabledSubtypes.toList()
+        return enabledSubtypes
     }
+
+    fun isEnabled(subtype: InputMethodSubtype?): Boolean = subtype in enabledSubtypes || subtype in getDefaultEnabledSubtypes()
 
     fun getAllAvailableSubtypes(): List<InputMethodSubtype> =
         resourceSubtypesByLocale.values.flatten() + additionalSubtypes
