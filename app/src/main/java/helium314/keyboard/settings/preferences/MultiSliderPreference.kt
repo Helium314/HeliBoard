@@ -43,6 +43,13 @@ import helium314.keyboard.settings.previewDark
 
 // too specialized for using a more generic dialog
 // actual key for each setting is baseKey with one _true/_false appended per dimension (need to keep order!)
+// todo: possible adjustments, maybe depending on user feedback
+//  should dimension checkboxes have any other effect than just showing / hiding sliders?
+//   one could argue that e.g. when disabling split, then split mode should not affect the setting
+//  store checkboxes?
+//   if so, per setting or global?
+//  show a description? currently commented because it could get long, even without showing the variations
+//   maybe if we store the checkbox state in a setting, we could use it for determining what to show
 @Composable
 fun MultiSliderPreference(
     name: String,
@@ -56,18 +63,13 @@ fun MultiSliderPreference(
     if (defaults.size != 1.shl(dimensions.size))
         throw ArithmeticException("defaults size does not match with dimensions, expected ${1.shl(dimensions.size)}, got ${defaults.size}")
     var showDialog by remember { mutableStateOf(false) }
-    val (vars, keys) = remember { createVariantsAndKeys(dimensions, baseKey) }
-    val prefs = LocalContext.current.prefs()
+    //val (_, keys) = remember { createVariantsAndKeys(dimensions, baseKey) }
+    //val prefs = LocalContext.current.prefs()
     Preference(
         name = name,
         onClick = { showDialog = true },
-        description = keys.mapIndexed { i, it -> description(prefs.getFloat(it, defaults[i])) }.joinToString(" $SPLIT ")
-        // todo: description is good, but just showing all values doesn't seem right
-        //  maybe if we store the checkbox state in a setting we could use it for determining what to show
+        //description = keys.mapIndexed { i, it -> description(prefs.getFloat(it, defaults[i])) }.joinToString(" $SPLIT ")
     )
-    // todo: should the dimension checkboxes have any other effect than display?
-    // todo: background image and split layout switch should use the same multi-pref style
-    //  just expand scope of the PR, after all it's a preparation for folded / unfolded settings
     if (showDialog)
         MultiSliderDialog(
             onDismissRequest = { showDialog = false },
@@ -111,14 +113,16 @@ private fun MultiSliderDialog(
             ) {
                 val state = rememberScrollState()
                 Column(Modifier.verticalScroll(state)) {
-                    dimensions.forEach { dimension ->
-                        var checked by remember { mutableStateOf(shown[variants.indexOfFirst { it.split(SPLIT).contains(dimension) }]) }
-                        DimensionCheckbox(checked, dimension) {
-                            shown = shown.mapIndexed { i, checked ->
-                                if (SpacedTokens(variants[i]).contains(dimension)) it
-                                else checked
+                    if (dimensions.size > 1) {
+                        dimensions.forEach { dimension ->
+                            var checked by remember { mutableStateOf(shown[variants.indexOfFirst { it.split(SPLIT).contains(dimension) }]) }
+                            DimensionCheckbox(checked, dimension) {
+                                shown = shown.mapIndexed { i, checked ->
+                                    if (SpacedTokens(variants[i]).contains(dimension)) it
+                                    else checked
+                                }
+                                checked = it
                             }
-                            checked = it
                         }
                     }
                     variants.forEachIndexed { i, variant ->
