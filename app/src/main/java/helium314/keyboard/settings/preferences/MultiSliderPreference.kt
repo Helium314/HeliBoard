@@ -34,7 +34,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.settings.createPrefKeyForBooleanSettings
-import helium314.keyboard.latin.utils.SpacedTokens
 import helium314.keyboard.latin.utils.prefs
 import helium314.keyboard.settings.Theme
 import helium314.keyboard.settings.WithSmallTitle
@@ -97,8 +96,7 @@ private fun MultiSliderDialog(
     positionString: (Float) -> String,
 ) {
     val (variants, keys) = createVariantsAndKeys(dimensions, baseKey)
-    var shown by remember { mutableStateOf(List(variants.size) { true }) }
-
+    var checked by remember { mutableStateOf(List(variants.size) { true }) }
     val prefs = LocalContext.current.prefs()
     val done = remember { mutableMapOf<String, () -> Unit>() }
 
@@ -114,14 +112,9 @@ private fun MultiSliderDialog(
                 val state = rememberScrollState()
                 Column(Modifier.verticalScroll(state)) {
                     if (dimensions.size > 1) {
-                        dimensions.forEach { dimension ->
-                            var checked by remember { mutableStateOf(shown[variants.indexOfFirst { it.split(SPLIT).contains(dimension) }]) }
-                            DimensionCheckbox(checked, dimension) {
-                                shown = shown.mapIndexed { i, checked ->
-                                    if (SpacedTokens(variants[i]).contains(dimension)) it
-                                    else checked
-                                }
-                                checked = it
+                        dimensions.forEachIndexed { i, dimension ->
+                            DimensionCheckbox(checked[i], dimension) {
+                                checked = checked.mapIndexed { j, c -> if (i == j) it else c }
                             }
                         }
                     }
@@ -135,8 +128,10 @@ private fun MultiSliderDialog(
                                 else
                                     prefs.edit().putFloat(key, sliderPosition).apply()
                             }
+                        val forbiddenDimensions = dimensions.filterIndexed { index, _ -> !checked[index] }
+                        val visible = variant.split(SPLIT).none { it in forbiddenDimensions }
                         // default animations make the dialog flash (see also DictionaryDialog)
-                        AnimatedVisibility(shown[i], exit = fadeOut(), enter = fadeIn()) {
+                        AnimatedVisibility(visible, exit = fadeOut(), enter = fadeIn()) {
                             WithSmallTitle(variant.ifEmpty { stringResource(R.string.button_default) }) {
                                 Slider(
                                     value = sliderPosition,
@@ -182,7 +177,7 @@ private fun createVariantsAndKeys(dimensions: List<String>, baseKey: String): Pa
     dimensions.forEach { dimension ->
         variants.toList().forEach { variant ->
             if (variant.isEmpty()) variants.add(dimension)
-            else variants.add("$variant $SPLIT $dimension")
+            else variants.add(variant + SPLIT + dimension)
             keys.add(createPrefKeyForBooleanSettings(baseKey, i, dimensions.size))
             i++
         }
@@ -190,7 +185,7 @@ private fun createVariantsAndKeys(dimensions: List<String>, baseKey: String): Pa
     return variants to keys
 }
 
-private const val SPLIT = "/"
+private const val SPLIT = " / "
 
 @Preview
 @Composable
