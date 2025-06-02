@@ -44,6 +44,7 @@ object Defaults {
         LayoutType.CLIPBOARD_BOTTOM -> "clip_bottom_row"
     }
 
+    private const val DEFAULT_SIZE_SCALE = 1.0f // 100%
     const val PREF_THEME_STYLE = KeyboardTheme.STYLE_MATERIAL
     const val PREF_ICON_STYLE = KeyboardTheme.STYLE_MATERIAL
     const val PREF_THEME_COLORS = KeyboardTheme.THEME_LIGHT
@@ -80,15 +81,16 @@ object Defaults {
             "hu${Separators.SET}${ExtraValue.KEYBOARD_LAYOUT_SET}=MAIN:qwerty"
     const val PREF_ENABLE_SPLIT_KEYBOARD = false
     const val PREF_ENABLE_SPLIT_KEYBOARD_LANDSCAPE = false
-    const val PREF_SPLIT_SPACER_SCALE = SettingsValues.DEFAULT_SIZE_SCALE
-    const val PREF_SPLIT_SPACER_SCALE_LANDSCAPE = SettingsValues.DEFAULT_SIZE_SCALE
-    const val PREF_KEYBOARD_HEIGHT_SCALE =  SettingsValues.DEFAULT_SIZE_SCALE
-    const val PREF_BOTTOM_PADDING_SCALE = SettingsValues.DEFAULT_SIZE_SCALE
-    const val PREF_BOTTOM_PADDING_SCALE_LANDSCAPE = 0f
-    const val PREF_SIDE_PADDING_SCALE = 0f
-    const val PREF_SIDE_PADDING_SCALE_LANDSCAPE = 0f
-    const val PREF_FONT_SCALE = SettingsValues.DEFAULT_SIZE_SCALE
-    const val PREF_EMOJI_FONT_SCALE = SettingsValues.DEFAULT_SIZE_SCALE
+    @JvmField
+    val PREF_SPLIT_SPACER_SCALE = Array(2) { DEFAULT_SIZE_SCALE }
+    @JvmField
+    val PREF_KEYBOARD_HEIGHT_SCALE = Array(2) { DEFAULT_SIZE_SCALE }
+    @JvmField
+    val PREF_BOTTOM_PADDING_SCALE = arrayOf(DEFAULT_SIZE_SCALE, 0f)
+    @JvmField
+    val PREF_SIDE_PADDING_SCALE = Array(4) { 0f }
+    const val PREF_FONT_SCALE = DEFAULT_SIZE_SCALE
+    const val PREF_EMOJI_FONT_SCALE = DEFAULT_SIZE_SCALE
     const val PREF_EMOJI_KEY_FIT = true
     const val PREF_EMOJI_SKIN_TONE = ""
     const val PREF_SPACE_HORIZONTAL_SWIPE = "move_cursor"

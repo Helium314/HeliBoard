@@ -87,13 +87,10 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_ADDITIONAL_SUBTYPES = "additional_subtypes";
     public static final String PREF_ENABLE_SPLIT_KEYBOARD = "split_keyboard";
     public static final String PREF_ENABLE_SPLIT_KEYBOARD_LANDSCAPE = "split_keyboard_landscape";
-    public static final String PREF_SPLIT_SPACER_SCALE = "split_spacer_scale";
-    public static final String PREF_SPLIT_SPACER_SCALE_LANDSCAPE = "split_spacer_scale_landscape";
-    public static final String PREF_KEYBOARD_HEIGHT_SCALE = "keyboard_height_scale";
-    public static final String PREF_BOTTOM_PADDING_SCALE = "bottom_padding_scale";
-    public static final String PREF_BOTTOM_PADDING_SCALE_LANDSCAPE = "bottom_padding_scale_landscape";
-    public static final String PREF_SIDE_PADDING_SCALE = "side_padding_scale";
-    public static final String PREF_SIDE_PADDING_SCALE_LANDSCAPE = "side_padding_scale_landscape";
+    public static final String PREF_SPLIT_SPACER_SCALE_PREFIX = "split_spacer_scale";
+    public static final String PREF_KEYBOARD_HEIGHT_SCALE_PREFIX = "keyboard_height_scale";
+    public static final String PREF_BOTTOM_PADDING_SCALE_PREFIX = "bottom_padding_scale";
+    public static final String PREF_SIDE_PADDING_SCALE_PREFIX = "side_padding_scale";
     public static final String PREF_FONT_SCALE = "font_scale";
     public static final String PREF_EMOJI_FONT_SCALE = "emoji_font_scale";
     public static final String PREF_EMOJI_KEY_FIT = "emoji_key_fit";
@@ -126,10 +123,9 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_USE_APPS = "use_apps";
     public static final String PREFS_LONG_PRESS_SYMBOLS_FOR_NUMPAD = "long_press_symbols_for_numpad";
 
-    // one-handed mode gravity, enablement and scale, stored separately per orientation
-    public static final String PREF_ONE_HANDED_MODE_PREFIX = "one_handed_mode_enabled_p_";
-    public static final String PREF_ONE_HANDED_GRAVITY_PREFIX = "one_handed_mode_gravity_p_";
-    public static final String PREF_ONE_HANDED_SCALE_PREFIX = "one_handed_mode_scale_p_";
+    public static final String PREF_ONE_HANDED_MODE_PREFIX = "one_handed_mode_enabled";
+    public static final String PREF_ONE_HANDED_GRAVITY_PREFIX = "one_handed_mode_gravity";
+    public static final String PREF_ONE_HANDED_SCALE_PREFIX = "one_handed_mode_scale";
 
     public static final String PREF_SHOW_NUMBER_ROW = "show_number_row";
     public static final String PREF_LOCALIZED_NUMBER_ROW = "localized_number_row";
@@ -365,31 +361,43 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
         return prefs.getBoolean(PREF_SHOW_SETUP_WIZARD_ICON, Defaults.PREF_SHOW_SETUP_WIZARD_ICON);
     }
 
-    public static boolean readOneHandedModeEnabled(final SharedPreferences prefs, final boolean isLandscape) {
-        return prefs.getBoolean(PREF_ONE_HANDED_MODE_PREFIX + !isLandscape, Defaults.PREF_ONE_HANDED_MODE);
+    public static boolean readOneHandedModeEnabled(final SharedPreferences prefs, final boolean landscape, final boolean split) {
+        final int index = SettingsKt.findIndexOfDefaultSetting(landscape, split);
+        final String key = SettingsKt.createPrefKeyForBooleanSettings(PREF_ONE_HANDED_MODE_PREFIX, index, 2);
+        return prefs.getBoolean(key, Defaults.PREF_ONE_HANDED_MODE);
     }
 
     public void writeOneHandedModeEnabled(final boolean enabled) {
-        mPrefs.edit().putBoolean(PREF_ONE_HANDED_MODE_PREFIX +
-                (mSettingsValues.mDisplayOrientation != Configuration.ORIENTATION_LANDSCAPE), enabled).apply();
+        final boolean landscape = mSettingsValues.mDisplayOrientation == Configuration.ORIENTATION_LANDSCAPE;
+        final int index = SettingsKt.findIndexOfDefaultSetting(landscape, mSettingsValues.mIsSplitKeyboardEnabled);
+        final String key = SettingsKt.createPrefKeyForBooleanSettings(PREF_ONE_HANDED_MODE_PREFIX, index, 2);
+        mPrefs.edit().putBoolean(key, enabled).apply();
     }
 
-    public static float readOneHandedModeScale(final SharedPreferences prefs, final boolean isLandscape) {
-        return prefs.getFloat(PREF_ONE_HANDED_SCALE_PREFIX + !isLandscape, Defaults.PREF_ONE_HANDED_SCALE);
+    public static float readOneHandedModeScale(final SharedPreferences prefs, final boolean landscape, final boolean split) {
+        final int index = SettingsKt.findIndexOfDefaultSetting(landscape, split);
+        final String key = SettingsKt.createPrefKeyForBooleanSettings(PREF_ONE_HANDED_SCALE_PREFIX, index, 2);
+        return prefs.getFloat(key, Defaults.PREF_ONE_HANDED_SCALE);
     }
 
     public void writeOneHandedModeScale(final Float scale) {
-        mPrefs.edit().putFloat(PREF_ONE_HANDED_SCALE_PREFIX +
-                (mSettingsValues.mDisplayOrientation != Configuration.ORIENTATION_LANDSCAPE), scale).apply();
+        final boolean landscape = mSettingsValues.mDisplayOrientation == Configuration.ORIENTATION_LANDSCAPE;
+        final int index = SettingsKt.findIndexOfDefaultSetting(landscape, mSettingsValues.mIsSplitKeyboardEnabled);
+        final String key = SettingsKt.createPrefKeyForBooleanSettings(PREF_ONE_HANDED_SCALE_PREFIX, index, 2);
+        mPrefs.edit().putFloat(key, scale).apply();
     }
 
-    public static int readOneHandedModeGravity(final SharedPreferences prefs, final boolean isLandscape) {
-        return prefs.getInt(PREF_ONE_HANDED_GRAVITY_PREFIX + !isLandscape, Defaults.PREF_ONE_HANDED_GRAVITY);
+    public static int readOneHandedModeGravity(final SharedPreferences prefs, final boolean landscape, final boolean split) {
+        final int index = SettingsKt.findIndexOfDefaultSetting(landscape, split);
+        final String key = SettingsKt.createPrefKeyForBooleanSettings(PREF_ONE_HANDED_GRAVITY_PREFIX, index, 2);
+        return prefs.getInt(key, Defaults.PREF_ONE_HANDED_GRAVITY);
     }
 
     public void writeOneHandedModeGravity(final int gravity) {
-        mPrefs.edit().putInt(PREF_ONE_HANDED_GRAVITY_PREFIX +
-                (mSettingsValues.mDisplayOrientation != Configuration.ORIENTATION_LANDSCAPE), gravity).apply();
+        final boolean landscape = mSettingsValues.mDisplayOrientation == Configuration.ORIENTATION_LANDSCAPE;
+        final int index = SettingsKt.findIndexOfDefaultSetting(landscape, mSettingsValues.mIsSplitKeyboardEnabled);
+        final String key = SettingsKt.createPrefKeyForBooleanSettings(PREF_ONE_HANDED_GRAVITY_PREFIX, index, 2);
+        mPrefs.edit().putInt(key, gravity).apply();
     }
 
     public void writeSplitKeyboardEnabled(final boolean enabled, final boolean isLandscape) {
@@ -402,21 +410,32 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
         return prefs.getBoolean(pref, isLandscape ? Defaults.PREF_ENABLE_SPLIT_KEYBOARD_LANDSCAPE : Defaults.PREF_ENABLE_SPLIT_KEYBOARD);
     }
 
-    public static float readSplitSpacerScale(final SharedPreferences prefs, final boolean isLandscape) {
-        final String pref = isLandscape ? PREF_SPLIT_SPACER_SCALE_LANDSCAPE : PREF_SPLIT_SPACER_SCALE;
-        return prefs.getFloat(pref, isLandscape ? Defaults.PREF_SPLIT_SPACER_SCALE_LANDSCAPE : Defaults.PREF_SPLIT_SPACER_SCALE);
+    public static float readSplitSpacerScale(final SharedPreferences prefs, final boolean landscape) {
+        final int index = SettingsKt.findIndexOfDefaultSetting(landscape);
+        final Float[] defaults = Defaults.PREF_SPLIT_SPACER_SCALE;
+        final float defaultValue = defaults[index];
+        return prefs.getFloat(SettingsKt.createPrefKeyForBooleanSettings(PREF_SPLIT_SPACER_SCALE_PREFIX, index, 1), defaultValue);
     }
 
     public static float readBottomPaddingScale(final SharedPreferences prefs, final boolean landscape) {
-        if (landscape)
-            return prefs.getFloat(PREF_BOTTOM_PADDING_SCALE_LANDSCAPE, Defaults.PREF_BOTTOM_PADDING_SCALE_LANDSCAPE);
-        return prefs.getFloat(PREF_BOTTOM_PADDING_SCALE, Defaults.PREF_BOTTOM_PADDING_SCALE);
+        final int index = SettingsKt.findIndexOfDefaultSetting(landscape);
+        final Float[] defaults = Defaults.PREF_BOTTOM_PADDING_SCALE;
+        final float defaultValue = defaults[index];
+        return prefs.getFloat(SettingsKt.createPrefKeyForBooleanSettings(PREF_BOTTOM_PADDING_SCALE_PREFIX, index, 1), defaultValue);
     }
 
-    public static float readSidePaddingScale(final SharedPreferences prefs, final boolean landscape) {
-        if (landscape)
-            return prefs.getFloat(PREF_SIDE_PADDING_SCALE_LANDSCAPE, Defaults.PREF_SIDE_PADDING_SCALE_LANDSCAPE);
-        return prefs.getFloat(PREF_SIDE_PADDING_SCALE, Defaults.PREF_SIDE_PADDING_SCALE);
+    public static float readSidePaddingScale(final SharedPreferences prefs, final boolean landscape, final boolean split) {
+        final int index = SettingsKt.findIndexOfDefaultSetting(landscape, split);
+        final Float[] defaults = Defaults.PREF_SIDE_PADDING_SCALE;
+        final float defaultValue = defaults[index];
+        return prefs.getFloat(SettingsKt.createPrefKeyForBooleanSettings(PREF_SIDE_PADDING_SCALE_PREFIX, index, 2), defaultValue);
+    }
+
+    public static float readHeightScale(final SharedPreferences prefs, final boolean landscape) {
+        final int index = SettingsKt.findIndexOfDefaultSetting(landscape);
+        final Float[] defaults = Defaults.PREF_KEYBOARD_HEIGHT_SCALE;
+        final float defaultValue = defaults[index];
+        return prefs.getFloat(SettingsKt.createPrefKeyForBooleanSettings(PREF_KEYBOARD_HEIGHT_SCALE_PREFIX, index, 1), defaultValue);
     }
 
     public static boolean readHasHardwareKeyboard(final Configuration conf) {

@@ -18,6 +18,7 @@ import helium314.keyboard.latin.settings.Defaults
 import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.settings.SettingsSubtype
 import helium314.keyboard.latin.settings.SettingsSubtype.Companion.toSettingsSubtype
+import helium314.keyboard.latin.settings.createPrefKeyForBooleanSettings
 import helium314.keyboard.latin.utils.DeviceProtectedUtils
 import helium314.keyboard.latin.utils.DictionaryInfoUtils
 import helium314.keyboard.latin.utils.DictionaryInfoUtils.USER_DICTIONARY_SUFFIX
@@ -561,6 +562,45 @@ fun checkVersionUpgrade(context: Context) {
             val newValue = oldValue.replace("KEY_PREVIEW", "KEY_PREVIEW_BACKGROUND")
             prefs.edit().putString(it.key, newValue).apply()
         }
+    }
+    if (oldVersion <= 3101) {
+        val e = prefs.edit()
+        prefs.all.toMap().forEach { (key, value) ->
+            if (key == "side_padding_scale") {
+                e.putFloat(createPrefKeyForBooleanSettings(Settings.PREF_SIDE_PADDING_SCALE_PREFIX, 0, 2), value as Float)
+                e.putFloat(createPrefKeyForBooleanSettings(Settings.PREF_SIDE_PADDING_SCALE_PREFIX, 2, 2), value)
+            } else if (key == "side_padding_scale_landscape") {
+                e.putFloat(createPrefKeyForBooleanSettings(Settings.PREF_SIDE_PADDING_SCALE_PREFIX, 1, 2), value as Float)
+                e.putFloat(createPrefKeyForBooleanSettings(Settings.PREF_SIDE_PADDING_SCALE_PREFIX, 3, 2), value)
+            } else if (key == "bottom_padding_scale") {
+                e.putFloat(createPrefKeyForBooleanSettings(Settings.PREF_BOTTOM_PADDING_SCALE_PREFIX, 0, 1), value as Float)
+            } else if (key == "bottom_padding_scale_landscape") {
+                e.putFloat(createPrefKeyForBooleanSettings(Settings.PREF_BOTTOM_PADDING_SCALE_PREFIX, 1, 1), value as Float)
+            } else if (key == "split_spacer_scale") {
+                e.putFloat(createPrefKeyForBooleanSettings(Settings.PREF_SPLIT_SPACER_SCALE_PREFIX, 0, 1), value as Float)
+            } else if (key == "split_spacer_scale_landscape") {
+                e.putFloat(createPrefKeyForBooleanSettings(Settings.PREF_SPLIT_SPACER_SCALE_PREFIX, 1, 1), value as Float)
+            } else if (key == "one_handed_mode_enabled_p_true") {
+                e.putBoolean(createPrefKeyForBooleanSettings(Settings.PREF_ONE_HANDED_MODE_PREFIX, 0, 2), value as Boolean)
+            } else if (key == "one_handed_mode_enabled_p_false") {
+                e.putBoolean(createPrefKeyForBooleanSettings(Settings.PREF_ONE_HANDED_MODE_PREFIX, 1, 2), value as Boolean)
+            } else if (key == "one_handed_mode_scale_p_true") {
+                e.putFloat(createPrefKeyForBooleanSettings(Settings.PREF_ONE_HANDED_SCALE_PREFIX, 0, 2), value as Float)
+            } else if (key == "one_handed_mode_scale_p_false") {
+                e.putFloat(createPrefKeyForBooleanSettings(Settings.PREF_ONE_HANDED_SCALE_PREFIX, 1, 2), value as Float)
+            } else if (key == "one_handed_mode_gravity_p_true") {
+                e.putInt(createPrefKeyForBooleanSettings(Settings.PREF_ONE_HANDED_GRAVITY_PREFIX, 0, 2), value as Int)
+            } else if (key == "one_handed_mode_gravity_p_false") {
+                e.putInt(createPrefKeyForBooleanSettings(Settings.PREF_ONE_HANDED_GRAVITY_PREFIX, 1, 2), value as Int)
+            } else if (key == "keyboard_height_scale") {
+                e.putFloat(createPrefKeyForBooleanSettings(Settings.PREF_KEYBOARD_HEIGHT_SCALE_PREFIX, 1, 1), value as Float)
+                e.putFloat(createPrefKeyForBooleanSettings(Settings.PREF_KEYBOARD_HEIGHT_SCALE_PREFIX, 1, 1), value)
+            } else {
+                return@forEach
+            }
+            e.remove(key)
+        }
+        e.apply()
     }
     upgradeToolbarPrefs(prefs)
     LayoutUtilsCustom.onLayoutFileChanged() // just to be sure
