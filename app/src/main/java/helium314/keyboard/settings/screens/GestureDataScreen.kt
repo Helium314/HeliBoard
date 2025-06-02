@@ -84,6 +84,7 @@ import helium314.keyboard.settings.filePicker
 import helium314.keyboard.settings.initPreview
 import helium314.keyboard.settings.previewDark
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
@@ -125,7 +126,7 @@ fun GestureDataScreen(
     var dict by remember { mutableStateOf(
         availableDicts.firstOrNull { it.locale == currentLocale } ?: availableDicts.firstOrNull { it.locale.language == "en" }
     ) }
-    var words by remember { mutableStateOf<List<String>?>(null) }
+    val words = remember { mutableListOf<String>() }
     var wordFromDict by remember { mutableStateOf<String?>(null) } // some word from the dictionary
     var typed by remember { mutableStateOf(TextFieldValue()) }
     var userId by remember { mutableStateOf(prefs.getString(PREF_GESTURE_USER_ID, "")!!) }
@@ -163,7 +164,7 @@ fun GestureDataScreen(
             lastData = null
         lastData?.save(dict, ctx)
         typed = TextFieldValue()
-        wordFromDict = words?.random() // randomly choose from dict
+        wordFromDict = words.ifEmpty { null }?.random() // randomly choose from dict
         lastData = null
         // reset the data
     }
@@ -173,8 +174,17 @@ fun GestureDataScreen(
         facilitator = SingleDictionaryFacilitator(dict.getDictionary(ctx))
         facilitator?.suggestionLogger = suggestionLogger
         lastData = null
+        wordFromDict = null
         scope.launch(Dispatchers.Default) {
-            words = dict.getWords(ctx)
+            words.clear()
+            dict.addWords(ctx, words)
+        }
+        scope.launch(Dispatchers.Default) {
+            delay(500)
+            var i = 0
+            while (words.isEmpty() && i++ < 20)
+                delay(50)
+            // at least a few words should be loaded now
             nextWord(false)
         }
     }
@@ -294,7 +304,7 @@ private interface Dict {
     val internal: Boolean
     fun getDictionary(context: Context): BinaryDictionary
     // not actually suspending, but makes clear that it shouldn't be called on UI thread (because it's slow)
-    suspend fun getWords(context: Context) = getDictionary(context).getWords()
+    suspend fun addWords(context: Context, words: MutableList<String>) = getDictionary(context).addWords(words)
 }
 
 private class CacheDict(private val file: File): Dict {
@@ -316,9 +326,8 @@ private class AssetsDict(private val name: String, context: Context): Dict {
     }
 }
 
-private fun BinaryDictionary.getWords(): List<String> {
+private fun BinaryDictionary.addWords(words: MutableList<String>) {
     var token = 0
-    val words = mutableListOf<String>()
     do {
         val result = getNextWordProperty(token)
         if (!result.mWordProperty.mIsNotAWord
@@ -328,7 +337,6 @@ private fun BinaryDictionary.getWords(): List<String> {
             words.add(result.mWordProperty.mWord)
         token = result.mNextToken
     } while (token != 0)
-    return words
 }
 
 const val dictTestImeOption = "useTestDictionaryFacilitator"
