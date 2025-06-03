@@ -406,6 +406,7 @@ private class WordData(
             keys.map { KeyInfo(it.x + it.width / 2, it.y + it.height / 2, it.code) }
         )
         val data = GestureData(
+            BuildConfig.VERSION_CODE,
             userId,
             targetWord,
             listOf(), // todo: this is annoying to create... and currently not relevant
@@ -421,6 +422,7 @@ private class WordData(
 
 @Serializable
 private data class GestureData(
+    val appVersionCode: Int,
     val uid: String,
     val targetWord: String,
     val precedingWords: List<String>,
