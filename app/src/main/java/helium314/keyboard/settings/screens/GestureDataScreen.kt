@@ -407,6 +407,7 @@ private class WordData(
         )
         val data = GestureData(
             BuildConfig.VERSION_CODE,
+            context.prefs().getString(Settings.PREF_LIBRARY_CHECKSUM, "")!!,
             userId,
             targetWord,
             listOf(), // todo: this is annoying to create... and currently not relevant
@@ -423,6 +424,7 @@ private class WordData(
 @Serializable
 private data class GestureData(
     val appVersionCode: Int,
+    val libraryHash: String,
     val uid: String,
     val targetWord: String,
     val precedingWords: List<String>,
