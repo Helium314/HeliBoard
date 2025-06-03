@@ -86,7 +86,6 @@ fun MissingDictionaryDialog(onDismissRequest: () -> Unit, locale: Locale) {
 fun createDictionaryTextAnnotated(locale: Locale): AnnotatedString {
     val knownDicts = mutableListOf<Pair<String, String>>()
     val builder = AnnotatedString.Builder()
-    builder.appendLine(stringResource(R.string.dictionary_available))
     val context = LocalContext.current
     context.assets.open("dictionaries_in_dict_repo.csv").reader().forEachLine {
         if (it.isBlank()) return@forEachLine

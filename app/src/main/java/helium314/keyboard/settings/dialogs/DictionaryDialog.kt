@@ -38,7 +38,6 @@ import helium314.keyboard.settings.DeleteButton
 import helium314.keyboard.settings.ExpandButton
 import helium314.keyboard.settings.Theme
 import helium314.keyboard.settings.dictionaryFilePicker
-import helium314.keyboard.settings.preferences.PreferenceCategory
 import helium314.keyboard.settings.previewDark
 import helium314.keyboard.settings.screens.getUserAndInternalDictionaries
 import java.io.File
@@ -65,19 +64,34 @@ fun DictionaryDialog(
             val state = rememberScrollState()
             Column(Modifier.verticalScroll(state)) {
                 if (hasInternal) {
-                    val color = if (mainDict == null) MaterialTheme.colorScheme.onSurface
+                    val color = if (mainDict == null) MaterialTheme.typography.titleSmall.color
                     else MaterialTheme.colorScheme.onSurface.copy(alpha = 0.38f) // for disabled look
-                    Text(stringResource(R.string.internal_dictionary_summary), color = color, modifier = Modifier.fillMaxWidth())
+                    val bottomPadding = if (mainDict == null) 12.dp else 0.dp
+                    Text(stringResource(R.string.internal_dictionary_summary),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(bottom = bottomPadding),
+                        color = color,
+                        style = MaterialTheme.typography.titleSmall
+                    )
                 }
                 if (mainDict != null)
                     DictionaryDetails(mainDict)
                 if (addonDicts.isNotEmpty()) {
-                    PreferenceCategory(stringResource(R.string.dictionary_category_title))
+                    HorizontalDivider()
+                    Text(stringResource(R.string.dictionary_category_title),
+                        modifier = Modifier.padding(vertical = 12.dp),
+                        style = MaterialTheme.typography.titleSmall
+                    )
                     addonDicts.forEach { DictionaryDetails(it) }
                 }
                 val dictString = createDictionaryTextAnnotated(locale)
                 if (dictString.isNotEmpty()) {
                     HorizontalDivider()
+                    Text(stringResource(R.string.dictionary_available),
+                        modifier = Modifier.padding(top = 12.dp, bottom = 4.dp),
+                        style = MaterialTheme.typography.titleSmall
+                    )
                     Text(dictString, style = LocalTextStyle.current.merge(lineHeight = 1.8.em))
                 }
             }
@@ -114,7 +128,7 @@ private fun DictionaryDetails(dict: File) {
         Text(
             header.info(LocalConfiguration.current.locale()),
             style = MaterialTheme.typography.bodyMedium,
-            modifier = Modifier.padding(horizontal = 10.dp)
+            modifier = Modifier.padding(start = 10.dp, top = 0.dp, end = 10.dp, bottom = 12.dp)
         )
     }
     if (showDeleteDialog)
