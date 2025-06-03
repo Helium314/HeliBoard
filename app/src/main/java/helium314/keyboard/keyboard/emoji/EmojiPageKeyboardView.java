@@ -16,11 +16,9 @@ import android.util.AttributeSet;
 import android.view.Gravity;
 import android.widget.LinearLayout;
 import helium314.keyboard.keyboard.PopupTextView;
-import helium314.keyboard.latin.DictionaryFactory;
 import helium314.keyboard.latin.RichInputMethodManager;
 import helium314.keyboard.latin.SingleDictionaryFacilitator;
 import helium314.keyboard.latin.SuggestedWords;
-import helium314.keyboard.latin.utils.DictionaryInfoUtils;
 import helium314.keyboard.latin.utils.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -92,6 +90,7 @@ public final class EmojiPageKeyboardView extends KeyboardView implements
     // TODO: Consider extending to support multiple popup keys panels
     private PopupKeysPanel mPopupKeysPanel;
     private SingleDictionaryFacilitator mDictionaryFacilitator;
+    private final int mDefaultLayoutGravity;
 
     public EmojiPageKeyboardView(final Context context, final AttributeSet attrs) {
         this(context, attrs, R.attr.keyboardViewStyle);
@@ -117,12 +116,7 @@ public final class EmojiPageKeyboardView extends KeyboardView implements
         mDescriptionView = mPopupKeysKeyboardContainer.findViewById(R.id.description_view);
         mPopupKeysKeyboardView = mPopupKeysKeyboardContainer.findViewById(R.id.popup_keys_keyboard_view);
         var locale = RichInputMethodManager.getInstance().getCurrentSubtype().getLocale();
-        var layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
-                                                   ViewGroup.LayoutParams.WRAP_CONTENT);
-        layoutParams.gravity = ScriptUtils.isScriptRtl(ScriptUtils.script(locale))? Gravity.RIGHT : Gravity.LEFT;
-        mPopupKeysKeyboardContainer.setLayoutParams(layoutParams);
-        mDescriptionView.setLayoutParams(layoutParams);
-        mPopupKeysKeyboardView.setLayoutParams(layoutParams);
+        mDefaultLayoutGravity = ScriptUtils.isScriptRtl(ScriptUtils.script(locale))? Gravity.RIGHT : Gravity.LEFT;
     }
 
     @Override
@@ -221,6 +215,16 @@ public final class EmojiPageKeyboardView extends KeyboardView implements
 
     public boolean isShowingPopupKeysPanel() {
         return mPopupKeysPanel != null;
+    }
+
+    @Override
+    public void setLayoutGravity(int layoutGravity) {
+        var layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
+                                                   ViewGroup.LayoutParams.WRAP_CONTENT);
+        layoutParams.gravity = layoutGravity != Gravity.NO_GRAVITY? layoutGravity : mDefaultLayoutGravity;
+        mPopupKeysKeyboardContainer.setLayoutParams(layoutParams);
+        mDescriptionView.setLayoutParams(layoutParams);
+        mPopupKeysKeyboardView.setLayoutParams(layoutParams);
     }
 
     @Override
@@ -328,7 +332,7 @@ public final class EmojiPageKeyboardView extends KeyboardView implements
             final int pointX = mConfigShowPopupKeysKeyboardAtTouchedPoint
                     ? CoordinateUtils.x(lastCoords)
                     : key.getX() + key.getWidth() / 2;
-            final int pointY = key.getY();
+            final int pointY = key.getY() - getKeyboard().mVerticalGap;
             (popupKeysPanel != null? popupKeysPanel : descriptionPanel)
                             .showPopupKeysPanel(this, this, pointX, pointY, mListener);
         }

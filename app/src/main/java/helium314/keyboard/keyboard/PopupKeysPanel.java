@@ -13,6 +13,13 @@ import helium314.keyboard.keyboard.emoji.OnKeyEventListener;
 public interface PopupKeysPanel {
     interface Controller {
         /**
+         * Set the layout gravity.
+         * @param layoutGravity requested by the popup
+         */
+        default void setLayoutGravity(int layoutGravity) {
+        }
+
+        /**
          * Add the {@link PopupKeysPanel} to the target view.
          * @param panel the panel to be shown.
          */

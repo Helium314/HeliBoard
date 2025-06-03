@@ -10,6 +10,7 @@ import android.content.Context;
 import android.graphics.Typeface;
 import android.util.AttributeSet;
 import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.TextView;
 import helium314.keyboard.keyboard.emoji.OnKeyEventListener;
@@ -69,7 +70,7 @@ public class PopupTextView extends TextView implements PopupKeysPanel {
         final View container = getContainerView();
         // The coordinates of panel's left-top corner in parentView's coordinate system.
         // We need to consider background drawable paddings.
-        final int x = pointX - container.getPaddingLeft() - getPaddingLeft();
+        final int x = pointX - getMeasuredWidth() / 2 - container.getPaddingLeft() - getPaddingLeft();
         final int y = pointY - container.getMeasuredHeight() + container.getPaddingBottom()
                 + getPaddingBottom();
 
@@ -83,6 +84,7 @@ public class PopupTextView extends TextView implements PopupKeysPanel {
 
         mOriginX = x + container.getPaddingLeft();
         mOriginY = y + container.getPaddingTop();
+        controller.setLayoutGravity(Gravity.NO_GRAVITY);
         controller.onShowPopupKeysPanel(this);
     }
 
