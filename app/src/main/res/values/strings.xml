@@ -20,7 +20,7 @@
     <!-- Option to perform inline emoji search -->
     <string name="inline_emoji_search">Focused emoji suggestions</string>
     <!-- Description for option to perform inline emoji search -->
-    <string name="inline_emoji_search_summary">Limit suggestions to emojis when a word starts with colon</string>
+    <string name="inline_emoji_search_summary">Show emoji suggestions only when a word is preceded by a colon</string>
     <!-- Option to control whether or not to show a popup with a larger font on each key press. -->
     <string name="popup_on_keypress">Popup on keypress</string>
     <!-- Settings screen title for preferences-->
@@ -396,7 +396,7 @@
     <string name="subtype_mns">Mansi</string>
     <!-- Description for Kaitag (https://en.wikipedia.org/wiki/Kaitag_language) keyboard subtype -->
     <string name="subtype_xdq">Kaitag</string>
-    <!-- Description for Dagbani (https://en.wikipedia.org/wiki/Dagbani_language) keyboard subtype --> 
+    <!-- Description for Dagbani (https://en.wikipedia.org/wiki/Dagbani_language) keyboard subtype -->
     <string name="subtype_dag">Dagbani</string>
     <!-- Description for Sesotho (https://en.wikipedia.org/wiki/Sesotho_language) keyboard subtype -->
     <string name="subtype_st">Sesotho</string>
