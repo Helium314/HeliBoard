@@ -20,7 +20,7 @@
     <!-- Option to perform inline emoji search -->
     <string name="inline_emoji_search">Focused emoji suggestions</string>
     <!-- Description for option to perform inline emoji search -->
-    <string name="inline_emoji_search_summary">Show emoji suggestions only when a word is preceded by a colon</string>
+    <string name="inline_emoji_search_summary">Show only emoji suggestions when a word is preceded by a colon</string>
     <!-- Option to control whether or not to show a popup with a larger font on each key press. -->
     <string name="popup_on_keypress">Popup on keypress</string>
     <!-- Settings screen title for preferences-->
