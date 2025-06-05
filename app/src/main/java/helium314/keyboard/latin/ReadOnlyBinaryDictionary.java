@@ -10,6 +10,7 @@ import com.android.inputmethod.latin.BinaryDictionary;
 
 import helium314.keyboard.latin.SuggestedWords.SuggestedWordInfo;
 import helium314.keyboard.latin.common.ComposedData;
+import helium314.keyboard.latin.makedict.WordProperty;
 import helium314.keyboard.latin.settings.SettingsValuesForSuggestion;
 
 import java.util.ArrayList;
@@ -105,6 +106,18 @@ public final class ReadOnlyBinaryDictionary extends Dictionary {
             }
         }
         return NOT_A_PROBABILITY;
+    }
+
+    @Override
+    public WordProperty getWordProperty(String word, boolean isBeginningOfSentence) {
+        if (mLock.readLock().tryLock()) {
+            try {
+                return mBinaryDictionary.getWordProperty(word, isBeginningOfSentence);
+            } finally {
+                mLock.readLock().unlock();
+            }
+        }
+        return null;
     }
 
     @Override
