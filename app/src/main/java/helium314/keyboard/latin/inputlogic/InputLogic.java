@@ -127,6 +127,9 @@ public final class InputLogic {
     }
 
     public void setEmojiDictionaryFacilitator(SingleDictionaryFacilitator emojiDictionaryFacilitator) {
+        if (mEmojiDictionaryFacilitator != null) {
+            mEmojiDictionaryFacilitator.closeDictionaries();
+        }
         mEmojiDictionaryFacilitator = emojiDictionaryFacilitator;
     }
 
@@ -2499,8 +2502,8 @@ public final class InputLogic {
                 }
             }
             callback.onGetSuggestedWords(new SuggestedWords(suggestedWordInfos, suggestions.mRawSuggestions, null,
-                                                        false /* typedWordValid */, false /* willAutoCorrect */,
-                                                        false /* isObsoleteSuggestions */, inputStyle, sequenceNumber));
+                                         false /* typedWordValid */, false /* willAutoCorrect */, false /* isObsoleteSuggestions */,
+                                         SuggestedWords.INPUT_STYLE_PREDICTION, sequenceNumber));
         }
 
         return true;
