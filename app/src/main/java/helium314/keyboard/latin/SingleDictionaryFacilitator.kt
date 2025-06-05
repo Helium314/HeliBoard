@@ -16,6 +16,25 @@ import java.util.concurrent.TimeUnit
 class SingleDictionaryFacilitator(private val dict: Dictionary) : DictionaryFacilitator {
     var suggestionLogger: SuggestionLogger? = null
 
+    /**
+     * Returns combined suggestions that match any of the given words, with scores that reflect the matches against all words.
+     * Other suggestion fields of combined matches are taken arbitrarily from one of them.
+     */
+    fun getSuggestions(words: List<String>): SuggestionResults {
+        val infos = mutableMapOf<String, Pair<SuggestedWords.SuggestedWordInfo, Long>>()
+        words.forEach {
+            getSuggestions(it).forEach { infos.put(it.word, Pair(it, (infos[it.word]?.second ?: 0L) + it.mScore - Int.MIN_VALUE)) }
+        }
+        val suggestionResults = SuggestionResults(SuggestedWords.MAX_SUGGESTIONS, false, false)
+        suggestionResults.addAll(infos.values.map {
+            SuggestedWords.SuggestedWordInfo(
+                it.first.word, it.first.mPrevWordsContext, (it.second / words.size + Int.MIN_VALUE).toInt(), it.first.mKindAndFlags,
+                it.first.mSourceDict, it.first.mIndexOfTouchPointOfSecondWord, it.first.mAutoCommitFirstWordConfidence
+            )
+        })
+        return suggestionResults
+    }
+
     // this will not work from spell checker if used together with a different keyboard app
     fun getSuggestions(word: String): SuggestionResults {
         val suggestionResults = getSuggestionResults(

@@ -58,6 +58,7 @@ import helium314.keyboard.latin.utils.TextRange;
 import helium314.keyboard.latin.utils.TimestampKt;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Locale;
 import java.util.TreeSet;
 import java.util.concurrent.TimeUnit;
@@ -2464,7 +2465,7 @@ public final class InputLogic {
     public void getSuggestedWords(final SettingsValues settingsValues,
             final Keyboard keyboard, final int keyboardShiftMode, final int inputStyle,
             final int sequenceNumber, final OnGetSuggestedWordsCallback callback) {
-        if (searchForEmoji(inputStyle, sequenceNumber, callback)) {
+        if (searchForEmoji(sequenceNumber, callback)) {
             return;
         }
 
@@ -2483,7 +2484,7 @@ public final class InputLogic {
                 inputStyle, sequenceNumber, callback);
     }
 
-    private boolean searchForEmoji(int inputStyle, int sequenceNumber, OnGetSuggestedWordsCallback callback) {
+    private boolean searchForEmoji(int sequenceNumber, OnGetSuggestedWordsCallback callback) {
         if (mEmojiDictionaryFacilitator == null
                         || mWordComposer.getTypedWord().isEmpty() || mWordComposer.getTypedWord().charAt(0) != ':') {
             return false;
@@ -2492,18 +2493,18 @@ public final class InputLogic {
         if (mWordComposer.getTypedWord().length() == 1) {
             callback.onGetSuggestedWords(SuggestedWords.getEmptyInstance());
         } else {
-            var word = mWordComposer.getTypedWord().substring(1).replace('~', ' ');
-            var suggestions = mEmojiDictionaryFacilitator.getSuggestions(word);
+            var words = mWordComposer.getTypedWord().substring(1).split("~");
+            var suggestions = mEmojiDictionaryFacilitator.getSuggestions(Arrays.asList(words));
             var suggestedWordInfos = new ArrayList<SuggestedWordInfo>(suggestions.size());
             for (var suggestion: suggestions) {
                 if (StringUtils.mightBeEmoji(suggestion.mWord)) {
-                    Suggest.addDebugInfo(suggestion, word);
+                    Suggest.addDebugInfo(suggestion, words[0]);
                     suggestedWordInfos.add(suggestion);
                 }
             }
             callback.onGetSuggestedWords(new SuggestedWords(suggestedWordInfos, suggestions.mRawSuggestions, null,
                                          false /* typedWordValid */, false /* willAutoCorrect */, false /* isObsoleteSuggestions */,
-                                         SuggestedWords.INPUT_STYLE_PREDICTION, sequenceNumber));
+                                         SuggestedWords.INPUT_STYLE_PREDICTION /* avoid dropping the first suggestion */, sequenceNumber));
         }
 
         return true;
