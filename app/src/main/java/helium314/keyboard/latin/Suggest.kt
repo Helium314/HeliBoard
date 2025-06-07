@@ -45,19 +45,20 @@ class Suggest(private val mDictionaryFacilitator: DictionaryFacilitator) {
         mAutoCorrectionThreshold = threshold
     }
 
+    // todo: remove when InputLogic is ready
     interface OnGetSuggestedWordsCallback {
         fun onGetSuggestedWords(suggestedWords: SuggestedWords?)
     }
 
     fun getSuggestedWords(wordComposer: WordComposer, ngramContext: NgramContext, keyboard: Keyboard,
                           settingsValuesForSuggestion: SettingsValuesForSuggestion, isCorrectionEnabled: Boolean,
-                          inputStyle: Int, sequenceNumber: Int, callback: OnGetSuggestedWordsCallback) {
-        if (wordComposer.isBatchMode) {
+                          inputStyle: Int, sequenceNumber: Int): SuggestedWords {
+        return if (wordComposer.isBatchMode) {
             getSuggestedWordsForBatchInput(wordComposer, ngramContext, keyboard, settingsValuesForSuggestion,
-                inputStyle, sequenceNumber, callback)
+                inputStyle, sequenceNumber)
         } else {
             getSuggestedWordsForNonBatchInput(wordComposer, ngramContext, keyboard, settingsValuesForSuggestion,
-                inputStyle, isCorrectionEnabled, sequenceNumber, callback)
+                inputStyle, isCorrectionEnabled, sequenceNumber)
         }
     }
 
@@ -65,7 +66,7 @@ class Suggest(private val mDictionaryFacilitator: DictionaryFacilitator) {
     // and calls the callback function with the suggestions.
     private fun getSuggestedWordsForNonBatchInput(wordComposer: WordComposer, ngramContext: NgramContext, keyboard: Keyboard,
                       settingsValuesForSuggestion: SettingsValuesForSuggestion, inputStyleIfNotPrediction: Int,
-                      isCorrectionEnabled: Boolean, sequenceNumber: Int, callback: OnGetSuggestedWordsCallback) {
+                      isCorrectionEnabled: Boolean, sequenceNumber: Int): SuggestedWords {
         val typedWordString = wordComposer.typedWord
         val resultsArePredictions = !wordComposer.isComposingWord
         val suggestionResults = if (typedWordString.isEmpty())
@@ -131,8 +132,8 @@ class Suggest(private val mDictionaryFacilitator: DictionaryFacilitator) {
             }
         }
         val isTypedWordValid = firstOccurrenceOfTypedWordInSuggestions > -1 || (!resultsArePredictions && !allowsToBeAutoCorrected)
-        callback.onGetSuggestedWords(SuggestedWords(suggestionsList, suggestionResults.mRawSuggestions,
-            typedWordInfo, isTypedWordValid, hasAutoCorrection, false, inputStyle, sequenceNumber))
+        return SuggestedWords(suggestionsList, suggestionResults.mRawSuggestions,
+            typedWordInfo, isTypedWordValid, hasAutoCorrection, false, inputStyle, sequenceNumber)
     }
 
     // returns [allowsToBeAutoCorrected, hasAutoCorrection]
@@ -252,9 +253,8 @@ class Suggest(private val mDictionaryFacilitator: DictionaryFacilitator) {
         wordComposer: WordComposer,
         ngramContext: NgramContext, keyboard: Keyboard,
         settingsValuesForSuggestion: SettingsValuesForSuggestion,
-        inputStyle: Int, sequenceNumber: Int,
-        callback: OnGetSuggestedWordsCallback
-    ) {
+        inputStyle: Int, sequenceNumber: Int
+    ): SuggestedWords {
         val suggestionResults = mDictionaryFacilitator.getSuggestionResults(
             wordComposer.composedDataSnapshot, ngramContext, keyboard,
             settingsValuesForSuggestion, SESSION_ID_GESTURE, inputStyle
@@ -312,10 +312,8 @@ class Suggest(private val mDictionaryFacilitator: DictionaryFacilitator) {
         } else {
             suggestionsContainer
         }
-        callback.onGetSuggestedWords(
-            SuggestedWords(suggestionsList, suggestionResults.mRawSuggestions, pseudoTypedWordInfo, true,
-                false, false, inputStyle, sequenceNumber)
-        )
+        return SuggestedWords(suggestionsList, suggestionResults.mRawSuggestions, pseudoTypedWordInfo, true,
+            false, false, inputStyle, sequenceNumber)
     }
 
     /** reduces score of the first suggestion if next one is close and has more than a single letter  */
