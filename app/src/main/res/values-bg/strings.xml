@@ -137,7 +137,6 @@
     <string name="prefs_always_show_suggestions_summary">Игнорирайте искането на други приложения за деактивиране на предложенията (може да причини проблеми)</string>
     <string name="more_autocorrect">Повече автоматична корекция</string>
     <string name="load_gesture_library_button_delete">Изтриване на библиотека</string>
-    <string name="popup_keys_language" tools:keep="@string/popup_keys_language">@string/subtype_locale</string>
     <string name="language_switch_key_behavior">Поведение на клавиша за превключване на език</string>
     <string name="more_autocorrect_summary">Автоматично коригиране, дори когато не е изрично поискано от полето за въвеждане</string>
     <string name="auto_correction_confidence">Доверие за автоматично коригиране</string>

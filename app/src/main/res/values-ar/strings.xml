@@ -145,7 +145,6 @@
     <string name="theme_colors">الألوان</string>
     <string name="popup_keys_number" tools:keep="@string/popup_keys_number">صف الأرقام</string>
     <string name="available_dictionary_experimental">%s (تجريبي)</string>
-    <string name="popup_keys_language" tools:keep="@string/popup_keys_language">@string/subtype_locale</string>
     <string name="dictionary_file_wrong_locale_ok">استخدمه على أي حال</string>
     <string name="theme_style">النمط</string>
     <string name="style_name_Rounded" tools:keep="@string/style_name_Rounded">دائري</string>

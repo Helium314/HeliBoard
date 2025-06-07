@@ -205,7 +205,6 @@
     <string name="localized_number_row_summary">Nahiago lokalizatutakoak zenbaki latindarren aldean</string>
     <string name="popup_order">Teklen pop-upeko ordena hautatu</string>
     <string name="popup_keys_number" tools:keep="@string/popup_keys_number">Zenbakien errenkada</string>
-    <string name="popup_keys_language" tools:keep="@string/popup_keys_language">Hizkuntza</string>
     <string name="popup_keys_language_priority" tools:keep="@string/popup_keys_language_priority">Hizkuntza (lehenetsia)</string>
     <string name="popup_keys_layout" tools:keep="@string/popup_keys_layout">Diseinua</string>
     <string name="popup_keys_symbols" tools:keep="@string/popup_keys_symbols">Ikurrak</string>

@@ -394,7 +394,7 @@
     <string name="subtype_mns">Mansi</string>
     <!-- Description for Kaitag (https://en.wikipedia.org/wiki/Kaitag_language) keyboard subtype -->
     <string name="subtype_xdq">Kaitag</string>
-    <!-- Description for Dagbani (https://en.wikipedia.org/wiki/Dagbani_language) keyboard subtype --> 
+    <!-- Description for Dagbani (https://en.wikipedia.org/wiki/Dagbani_language) keyboard subtype -->
     <string name="subtype_dag">Dagbani</string>
     <!-- Description for Sesotho (https://en.wikipedia.org/wiki/Sesotho_language) keyboard subtype -->
     <string name="subtype_st">Sesotho</string>

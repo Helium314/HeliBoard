@@ -210,7 +210,6 @@
     <string name="message_add_custom_layout">Выберыце файл ў сумяшчальным фармаце. Інфармацыя пра фарматы даступна %s.</string>
     <string name="popup_keys_language_priority" tools:keep="@string/popup_keys_language_priority">Мова (прыярытэт)</string>
     <string name="file_read_error">Немагчыма прачытаць файл</string>
-    <string name="popup_keys_language" tools:keep="@string/popup_keys_language">Мова</string>
     <string name="right" tools:keep="@string/right">Направа</string>
     <string name="clipboard" tools:keep="@string/clipboard">Буфер абмену</string>
     <string name="down" tools:keep="@string/down">Ўніз</string>
@@ -250,7 +249,6 @@
     <string name="show_horizontal_space_swipe">Гарызантальны свайп па прабелу</string>
     <string name="localized_number_row_summary">Аддаваць перавагу лакалізаваныя лацінскія лічбы</string>
     <string name="show_popup_hints_summary">Паказваць падказкі, калі працяглы націск клавішы запускае дадатковыя функцыі</string>
-    <string name="cut" tools:keep="@string/cut">Выразаць</string>
     <string name="layout_error">Памылка раскладкі: %s</string>
     <string name="edit_layout">Націсніце, каб адрэдагаваць базавую раскладку</string>
     <string name="layout_symbols_shifted" tools:keep="@string/layout_symbols_shifted">Больш сімвалаў</string>

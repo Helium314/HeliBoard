@@ -39,7 +39,6 @@
     <string name="switch_language">Abeddel n tutlayt</string>
     <string name="show_emoji_key">Tiqfilt n imujiyen</string>
     <string name="settings_system_default">Amezwer n unagraw</string>
-    <string name="popup_keys_language" tools:keep="@string/popup_keys_language">Tutlayt</string>
     <string name="popup_keys_layout" tools:keep="@string/popup_keys_layout">Asettef</string>
     <string name="undo" tools:keep="@string/undo">Sefsex</string>
     <string name="button_default">Amezwer</string>

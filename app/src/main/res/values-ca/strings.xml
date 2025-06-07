@@ -179,7 +179,6 @@
     <string name="localized_number_row_summary">Prefereix els localitzats als nombres llatins</string>
     <string name="quick_pin_toolbar_keys">Fixa la tecla de la barra d\'eines en prémer llargament</string>
     <string name="popup_keys_number" tools:keep="@string/popup_keys_number">Fila de nombres</string>
-    <string name="popup_keys_language" tools:keep="@string/popup_keys_language">@string/subtype_locale</string>
     <string name="popup_keys_language_priority" tools:keep="@string/popup_keys_language_priority">Idioma (prioritat)</string>
     <string name="hint_source">Selecciona l\'origen del consell</string>
     <string name="popup_keys_layout" tools:keep="@string/popup_keys_layout">Disposició</string>

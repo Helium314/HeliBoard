@@ -151,7 +151,6 @@
     <string name="label_enter_key" tools:keep="@string/label_enter_key">Enter</string>
     <string name="label_tab_key" tools:keep="@string/label_tab_key">Tab</string>
     <string name="theme_name_sand" tools:keep="@string/theme_name_sand">沙</string>
-    <string name="popup_keys_language" tools:keep="@string/popup_keys_language">語言</string>
     <string name="left" tools:keep="@string/left">左</string>
     <string name="right" tools:keep="@string/right">右</string>
     <string name="down" tools:keep="@string/down">下</string>

@@ -157,7 +157,6 @@
     <string name="hint_source">Selecionar fonte de dicas</string>
     <string name="popup_order">Selecionar ordem do pop-up de teclas</string>
     <string name="popup_keys_number" tools:keep="@string/popup_keys_number">Linha de números</string>
-    <string name="popup_keys_language" tools:keep="@string/popup_keys_language">@string/subtype_locale</string>
     <string name="popup_keys_language_priority" tools:keep="@string/popup_keys_language_priority">Idioma (prioridade)</string>
     <string name="popup_keys_layout" tools:keep="@string/popup_keys_layout">Layout</string>
     <string name="popup_keys_symbols" tools:keep="@string/popup_keys_symbols">Símbolos</string>

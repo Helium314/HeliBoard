@@ -191,7 +191,6 @@
     <string name="prefs_narrow_key_gaps">מרווחי קלידים צרים</string>
     <string name="localized_number_row">תרגום number row</string>
     <string name="popup_keys_number" tools:keep="@string/popup_keys_number">שורת מספרים</string>
-    <string name="popup_keys_language" tools:keep="@string/popup_keys_language">@string/subtype_locale</string>
     <string name="popup_keys_language_priority" tools:keep="@string/popup_keys_language_priority">שפה (עדיפות)</string>
     <string name="popup_keys_layout" tools:keep="@string/popup_keys_layout">פריסה</string>
     <string name="popup_keys_symbols" tools:keep="@string/popup_keys_symbols">סימנים</string>

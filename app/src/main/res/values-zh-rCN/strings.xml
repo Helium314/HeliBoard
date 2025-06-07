@@ -178,7 +178,6 @@
     <string name="right" tools:keep="@string/right">右</string>
     <string name="up" tools:keep="@string/up">上</string>
     <string name="popup_keys_number" tools:keep="@string/popup_keys_number">数字行</string>
-    <string name="popup_keys_language" tools:keep="@string/popup_keys_language">@string/subtype_locale</string>
     <string name="down" tools:keep="@string/down">下</string>
     <string name="select_color_suggestion">建议条文本</string>
     <string name="split_spacer_scale">分离距离</string>

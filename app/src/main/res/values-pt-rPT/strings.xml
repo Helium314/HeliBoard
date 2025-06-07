@@ -198,7 +198,6 @@
     <string name="popup_keys_language_priority" tools:keep="@string/popup_keys_language_priority">Língua (prioridade)</string>
     <string name="emoji" tools:keep="@string/emoji">Emoji</string>
     <string name="show_popup_keys_all">Adicionar todas as variantes disponíveis</string>
-    <string name="popup_keys_language" tools:keep="@string/popup_keys_language">Idioma</string>
     <string name="up" tools:keep="@string/up">Cima</string>
     <string name="down" tools:keep="@string/down">Baixo</string>
     <string name="clear_clipboard" tools:keep="@string/clear_clipboard">Limpar a área de transferência</string>

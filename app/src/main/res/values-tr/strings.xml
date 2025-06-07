@@ -169,7 +169,6 @@
     <string name="gesture_trail_fadeout_duration">Hareket izi ömrü</string>
     <string name="url_detection_summary">Bağlantı vb. tek kelime olarak tespit etmeye çalış</string>
     <string name="popup_keys_number" tools:keep="@string/popup_keys_number">Sayı satırı</string>
-    <string name="popup_keys_language" tools:keep="@string/popup_keys_language">Dil</string>
     <string name="popup_keys_language_priority" tools:keep="@string/popup_keys_language_priority">Dil (öncelikli)</string>
     <string name="popup_keys_layout" tools:keep="@string/popup_keys_layout">Düzen</string>
     <string name="popup_keys_symbols" tools:keep="@string/popup_keys_symbols">Semboller</string>

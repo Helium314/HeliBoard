@@ -178,7 +178,6 @@ Nouveau dictionnaire:
     <string name="hint_source">Sélectionner la source des indices</string>
     <string name="popup_order">Sélectionner l\'ordre des touches pop-up</string>
     <string name="popup_keys_number">Nombre</string>
-    <string name="popup_keys_language">@string/subtype_locale</string>
     <string name="popup_keys_language_priority">Langue (prioritaire)</string>
     <string name="popup_keys_layout">Disposition</string>
     <string name="popup_keys_symbols">Symboles</string>
@@ -296,7 +295,6 @@ Nouveau dictionnaire:
     <string name="action_none">Aucun</string>
     <string name="show_horizontal_space_swipe">Balayage horizontal de la barre d\'espace</string>
     <string name="layout_numpad_landscape" tools:keep="@string/layout_numpad_landscape">Pavé numérique (paysage)</string>
-    <string name="cut" tools:keep="@string/cut">Couper</string>
     <string name="layout_symbols_arabic" tools:keep="@string/layout_symbols_arabic">Symboles (Arabe)</string>
     <string name="layout_phone_symbols" tools:keep="@string/layout_phone_symbols">Symboles du pavé téléphonique</string>
     <string name="layout_number" tools:keep="@string/layout_number">Chiffres</string>
