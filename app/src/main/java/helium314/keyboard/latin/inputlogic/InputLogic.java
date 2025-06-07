@@ -22,7 +22,6 @@ import android.view.inputmethod.EditorInfo;
 import androidx.annotation.NonNull;
 
 import helium314.keyboard.event.Event;
-import helium314.keyboard.event.HangulEventDecoder;
 import helium314.keyboard.event.InputTransaction;
 import helium314.keyboard.keyboard.Keyboard;
 import helium314.keyboard.keyboard.KeyboardSwitcher;
@@ -130,7 +129,7 @@ public final class InputLogic {
      * <p>
      * Call this when input starts or restarts in some editor (typically, in onStartInputView).
      *
-     * @param combiningSpec the combining spec string for this subtype
+     * @param combiningSpec the combining spec string for this subtype (from extra value)
      * @param settingsValues the current settings values
      */
     public void startInput(final String combiningSpec, final SettingsValues settingsValues) {
@@ -425,35 +424,7 @@ public final class InputLogic {
             final String currentKeyboardScript, final LatinIME.UIHandler handler) {
         mWordBeingCorrectedByCursor = null;
         mJustRevertedACommit = false;
-        final Event processedEvent;
-        if (currentKeyboardScript.equals(ScriptUtils.SCRIPT_HANGUL)) {
-            // only use the Hangul chain if codepoint may actually be Hangul
-            // todo: this whole hangul-related logic should probably be somewhere else
-            // need to use hangul combiner for functional keys (codePoint -1), because otherwise the current word
-            // seems to get deleted / replaced by space during mConnection.endBatchEdit()
-            if (event.getMCodePoint() >= 0x1100 || event.getMCodePoint() == -1) {
-                mWordComposer.setHangul(true);
-                final Event hangulDecodedEvent = HangulEventDecoder.decodeSoftwareKeyEvent(event);
-                // todo: here hangul combiner does already consume the event, and appends typed codepoint
-                //  to the current word instead of considering the cursor position
-                //  position is actually not visible to the combiner, how to fix?
-                processedEvent = mWordComposer.processEvent(hangulDecodedEvent);
-                if (event.getMKeyCode() == KeyCode.DELETE)
-                    mWordComposer.resetInvalidCursorPosition();
-            } else {
-                mWordComposer.setHangul(false);
-                final boolean wasComposingWord = mWordComposer.isComposingWord();
-                processedEvent = mWordComposer.processEvent(event);
-                // workaround for space and some other separators deleting / replacing the word
-                if (wasComposingWord && !mWordComposer.isComposingWord()) {
-                    mWordComposer.resetInvalidCursorPosition();
-                    mConnection.finishComposingText();
-                }
-            }
-        } else {
-            mWordComposer.setHangul(false);
-            processedEvent = mWordComposer.processEvent(event);
-        }
+        final Event processedEvent = mWordComposer.processEvent(event);
         final InputTransaction inputTransaction = new InputTransaction(settingsValues,
                 processedEvent, SystemClock.uptimeMillis(), mSpaceState,
                 getActualCapsMode(settingsValues, keyboardShiftMode));

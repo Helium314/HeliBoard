@@ -34,7 +34,6 @@ import helium314.keyboard.latin.utils.ToolbarKey
 import helium314.keyboard.latin.utils.defaultPinnedToolbarPref
 import helium314.keyboard.latin.utils.getResourceSubtypes
 import helium314.keyboard.latin.utils.locale
-import helium314.keyboard.latin.utils.mainLayoutName
 import helium314.keyboard.latin.utils.mainLayoutNameOrQwerty
 import helium314.keyboard.latin.utils.prefs
 import helium314.keyboard.latin.utils.upgradeToolbarPrefs
@@ -596,6 +595,18 @@ fun checkVersionUpgrade(context: Context) {
                 e.putFloat(createPrefKeyForBooleanSettings(Settings.PREF_KEYBOARD_HEIGHT_SCALE_PREFIX, 1, 1), value as Float)
                 e.putFloat(createPrefKeyForBooleanSettings(Settings.PREF_KEYBOARD_HEIGHT_SCALE_PREFIX, 1, 1), value)
             } else {
+                if (key == Settings.PREF_ADDITIONAL_SUBTYPES || key == Settings.PREF_ENABLED_SUBTYPES) {
+                    val subtypes = prefs.getString(key, "")!!.split(Separators.SETS).filter { it.isNotEmpty() }.map {
+                        val st = it.toSettingsSubtype()
+                        if (st.locale.language == "ko") st.with(ExtraValue.COMBINING_RULES, "hangul")
+                        else st
+                    }
+                    e.putString(key, subtypes.joinToString(Separators.SETS) { it.toPref() })
+                } else if (key == Settings.PREF_SELECTED_SUBTYPE) {
+                    val subtype = prefs.getString(key, "")!!.toSettingsSubtype()
+                    if (subtype.locale.language == "ko")
+                        e.putString(key, subtype.with(ExtraValue.COMBINING_RULES, "hangul").toPref())
+                }
                 return@forEach
             }
             e.remove(key)
