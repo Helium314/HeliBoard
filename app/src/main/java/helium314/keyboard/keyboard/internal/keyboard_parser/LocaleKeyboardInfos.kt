@@ -84,7 +84,7 @@ class LocaleKeyboardInfos(dataStream: InputStream?, locale: Locale) {
                     READER_MODE_EXTRA_KEYS -> if (!onlyPopupKeys) addExtraKey(line.split(colonSpaceRegex, 2))
                     READER_MODE_LABELS -> if (!onlyPopupKeys) addLabel(line.split(colonSpaceRegex, 2))
                     READER_MODE_NUMBER_ROW -> localizedNumberKeys = line.splitOnWhitespace()
-                    READER_MODE_TLD -> SpacedTokens(line).forEach { tlds.add(".$it") }
+                    READER_MODE_TLD -> tlds.addAll(1, SpacedTokens(line).map { ".$it" })
                 }
             }
         }
@@ -220,25 +220,20 @@ private fun getStreamForLocale(locale: Locale, context: Context) =
         }
     }
 
-private fun getLocaleTlds(locale: Locale): LinkedHashSet<String> {
-    val tlds = getDefaultTlds(locale)
-    val ccLower = locale.country.lowercase()
-    if (ccLower.isEmpty() || locale.language == SubtypeLocaleUtils.NO_LANGUAGE)
-        return tlds
-    specialCountryTlds.forEach {
-        if (ccLower != it.first) return@forEach
-        tlds.addAll(SpacedTokens(it.second))
-        return@getLocaleTlds tlds
-    }
-    tlds.add(".$ccLower")
-    return tlds
-}
-
-private fun getDefaultTlds(locale: Locale): LinkedHashSet<String> {
-    val tlds = linkedSetOf<String>()
-    tlds.addAll(SpacedTokens(defaultTlds))
+private fun getLocaleTlds(locale: Locale): MutableList<String> {
+    val tlds = mutableListOf<String>()
+    tlds.add(comTld)
     if ((locale.language != "en" && euroLocales.matches(locale.language)) || euroCountries.matches(locale.country))
         tlds.add(".eu")
+    val ccLower = locale.country.lowercase()
+    if (!ccLower.isEmpty() && locale.language != SubtypeLocaleUtils.NO_LANGUAGE) {
+        specialCountryTlds.forEach {
+            if (ccLower != it.first) return@forEach
+            tlds.addAll(SpacedTokens(it.second))
+        }
+        tlds.add(".$ccLower")
+    }
+    tlds.addAll(SpacedTokens(otherDefaultTlds))
     return tlds
 }
 
@@ -351,4 +346,5 @@ private val specialCountryTlds = listOf(
     "mf" to ".mf .gp .fr",
     "tl" to ".tl .tp",
 )
-private const val defaultTlds = ".com .gov .edu .org .net"
+private const val comTld = ".com"
+private const val otherDefaultTlds = ".gov .edu .org .net"
