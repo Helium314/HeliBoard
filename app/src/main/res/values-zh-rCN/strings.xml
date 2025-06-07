@@ -84,7 +84,7 @@
     <string name="last_update">最后更新时间</string>
     <string name="settings">"设置"</string>
     <string name="delete">"删除"</string>
-    <string name="version_text">版本 %1$s</string>
+    <string name="version_text">版本 %s</string>
     <string name="user_dict_settings_add_dialog_title">添加到词典</string>
     <string name="user_dict_settings_add_shortcut_option_name">"快捷键："</string>
     <string name="user_dict_settings_add_locale_option_name">"语言："</string>
@@ -228,8 +228,8 @@
     <string name="theme_name_darker" tools:keep="@string/theme_name_darker">更暗</string>
     <string name="theme_name_dynamic" tools:keep="@string/theme_name_dynamic">动态配色</string>
     <string name="save_log">保存日志</string>
-    <string name="license">开源许可证</string>
-    <string name="gnu_gpl">GNU 通用公共许可证 v3.0</string>
+    <string name="license">开放源代码许可</string>
+    <string name="gnu_gpl">GNU General Public License v3.0</string>
     <string name="dialog_close">关闭</string>
     <string name="settings_screen_about">关于</string>
     <string name="version">版本</string>
@@ -431,4 +431,12 @@
     <string name="prefs_emoji_skin_tone_neutral">中性</string>
     <string name="prefs_emoji_skin_tone">默认表情符号肤色</string>
     <string name="subtype_with_layout_generic">%1$s（%2$s）</string>
+    <string name="toolbar_mode">工具栏模式</string>
+    <string name="toolbar_mode_expandable">‌工具栏键与建议</string>
+    <string name="toolbar_mode_toolbar_keys">‌仅工具栏键</string>
+    <string name="toolbar_mode_suggestion_strip">‌仅建议</string>
+    <string name="toolbar_mode_hidden">‌隐藏</string>
+    <string name="toolbar_hiding_global">同时隐藏剪贴板和表情符号工具栏</string>
+    <string name="popup_order_and_hint_source">弹出键顺序和提示源</string>
+    <string name="landscape">横屏</string>
 </resources>

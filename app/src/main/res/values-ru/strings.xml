@@ -429,4 +429,12 @@
     <string name="prefs_emoji_skin_tone">Тон кожи эмодзи по умолчанию</string>
     <string name="prefs_emoji_skin_tone_neutral">Нейтральный</string>
     <string name="subtype_with_layout_generic">%1$s (%2$s)</string>
+    <string name="toolbar_mode_expandable">Клавиши и предложения в панели инструментов</string>
+    <string name="toolbar_mode">Режим панели инструментов</string>
+    <string name="toolbar_mode_toolbar_keys">Только клавиши в панели инструментов</string>
+    <string name="toolbar_mode_suggestion_strip">Только предложения</string>
+    <string name="toolbar_mode_hidden">Скрыто</string>
+    <string name="toolbar_hiding_global">Скрыть панели инструментов буфера обмена и эмодзи</string>
+    <string name="popup_order_and_hint_source">Порядок всплывающих клавиш и источник подсказок</string>
+    <string name="landscape">Ландшафт</string>
 </resources>

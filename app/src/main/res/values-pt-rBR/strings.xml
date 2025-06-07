@@ -116,7 +116,7 @@
     <string name="setup_step2_instruction">Em seguida, selecione o \"%s\" como o seu método de entrada ativo.</string>
     <string name="setup_step3_instruction">Agora, você pode usar o %s para digitar nos seus apps favoritos.</string>
     <string name="user_dict_settings_add_dialog_title">Adicionar ao dicionário</string>
-    <string name="version_text">Versão %1$s</string>
+    <string name="version_text">Versão %s</string>
     <string name="user_dict_settings_add_word_hint">Escreva uma palavra</string>
     <string name="user_dict_settings_add_shortcut_hint">Atalho opcional</string>
     <string name="day_night_mode">Modo de dia/noite automático</string>
@@ -437,4 +437,12 @@
     <string name="prefs_emoji_skin_tone">Cor de pele padrão para os emojis</string>
     <string name="prefs_emoji_skin_tone_neutral">Neutra</string>
     <string name="subtype_with_layout_generic">%1$s (%2$s)</string>
+    <string name="toolbar_mode">Modo da barra de ferramentas</string>
+    <string name="toolbar_hiding_global">Ocultar a área de transferência e as barras de ferramentas de emoji também</string>
+    <string name="toolbar_mode_expandable">Teclas da barra de ferramentas e sugestões</string>
+    <string name="toolbar_mode_toolbar_keys">Somente teclas da barra de ferramentas</string>
+    <string name="toolbar_mode_suggestion_strip">Somente sugestões</string>
+    <string name="toolbar_mode_hidden">Oculta</string>
+    <string name="landscape">Paisagem</string>
+    <string name="popup_order_and_hint_source">Ordem das teclas de pop-up e fonte de dicas</string>
 </resources>

@@ -465,4 +465,12 @@
     <string name="prefs_emoji_skin_tone">Emoji vaikimisi taustavärv</string>
     <string name="prefs_emoji_skin_tone_neutral">Neutraalne</string>
     <string name="subtype_with_layout_generic">%1$s (%2$s)</string>
+    <string name="toolbar_mode">Tööriistariba vaade</string>
+    <string name="toolbar_mode_suggestion_strip">Ainult soovitused</string>
+    <string name="toolbar_mode_expandable">Tööriistariba nupud ja soovitused</string>
+    <string name="toolbar_mode_toolbar_keys">Ainult tööriistariba nupud</string>
+    <string name="toolbar_mode_hidden">Peidetud</string>
+    <string name="toolbar_hiding_global">Peida ka lõikelaud ja emojide rida</string>
+    <string name="popup_order_and_hint_source">Klahvide järjestus hüpikaknas ja vihjete allikas</string>
+    <string name="landscape">Rõhtvaade</string>
 </resources>

@@ -428,4 +428,12 @@
     <string name="use_apps_dict_summary">Utilitzar els noms de les aplicacions instal·lades per a suggeriments i correccions</string>
     <string name="prefs_emoji_skin_tone_neutral">Neutre</string>
     <string name="subtype_with_layout_generic">%1$s (%2$s)</string>
+    <string name="toolbar_mode_suggestion_strip">Només suggeriments</string>
+    <string name="toolbar_hiding_global">Amagar també el porta-retalls i les barres d\'eines d\'emojis</string>
+    <string name="toolbar_mode">Mode barra d\'eines</string>
+    <string name="toolbar_mode_expandable">Tecles de la barra d\'eines i suggeriments</string>
+    <string name="toolbar_mode_toolbar_keys">Només tecles de la barra d\'eines</string>
+    <string name="toolbar_mode_hidden">Amagat</string>
+    <string name="popup_order_and_hint_source">Ordre de les tecles emergents i font de pistes</string>
+    <string name="landscape">Apaïsat</string>
 </resources>

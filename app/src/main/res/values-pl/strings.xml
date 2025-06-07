@@ -474,4 +474,12 @@
     <string name="prefs_emoji_skin_tone">Domyślny odcień skóry emoji</string>
     <string name="prefs_emoji_skin_tone_neutral">Neutralny</string>
     <string name="subtype_with_layout_generic">%1$s (%2$s)</string>
+    <string name="toolbar_mode">Tryb paska narzędzi</string>
+    <string name="toolbar_mode_expandable">Klawisze i sugestie</string>
+    <string name="toolbar_mode_toolbar_keys">Tylko klawisze</string>
+    <string name="toolbar_mode_suggestion_strip">Tylko sugestie</string>
+    <string name="toolbar_mode_hidden">Ukryty</string>
+    <string name="toolbar_hiding_global">Ukryj także paski schowka i emotikonów</string>
+    <string name="landscape">Poziomo</string>
+    <string name="popup_order_and_hint_source">Kolejność wyskakujących okienek i źródło wskazówek</string>
 </resources>

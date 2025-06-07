@@ -405,4 +405,29 @@
     <string name="label_resize_onehanded_key" tools:keep="@string/label_resize_onehanded_key">Змяніць памер у рэжыме адной рукой</string>
     <string name="label_shortcut_key_disabled" tools:keep="@string/label_shortcut_key_disabled">Галасавы ўвод адключаны</string>
     <string name="label_toolbar_key" tools:keep="@string/label_toolbar_key">Паказаць / схаваць панэль інструментаў</string>
+    <string name="prefs_always_show_suggestions_except_web_text">Не заўсёды паказваць падказкі для палёў уводу на вэб-старонках</string>
+    <string name="layout_number_row_basic" tools:keep="@string/layout_number_row_basic">Шэраг з лічбамі (асноўны)</string>
+    <string name="subtype_baishakhi_bn_IN">%s (Байсахі)</string>
+    <string name="settings_category_space">Прабел</string>
+    <string name="autospace_after_gesture_typing">Аўтапрабел пасля набору слова жэстамі</string>
+    <string name="shift_removes_autospace_summary">Націск Shift прыбірае запланаваны аўтапрабел</string>
+    <string name="subtype_st">Сесото</string>
+    <string name="backup_restored">Рэзервовая копія адноўлена</string>
+    <string name="timestamp_format_title">Фармат ключа часовай пазнакі</string>
+    <string name="use_apps_dict">Выкарыстоўваць назвы праграм</string>
+    <string name="use_apps_dict_summary">Выкарыстоўваць назвы ўсталяваных праграм для прапаноў і выпраўленняў</string>
+    <string name="autospace_after_suggestion">Аўтапрабел пасля ручнога выбару прапановы</string>
+    <string name="shift_removes_autospace">Аўтапрабел адключаецца пры націску Shift</string>
+    <string name="prefs_emoji_key_fit">Маштабаваць памер клавіш эмодзі разам з памерам шрыфта</string>
+    <string name="backspace_reverts_autocorrect">Націск Backspace адмяняе аўтавыпраўленне</string>
+    <string name="subtype_dag">Дагбані</string>
+    <string name="subtype_with_layout_generic">%1$s (%2$s)</string>
+    <string name="prefs_always_show_suggestions_except_web_text_summary">Палі ўводу на вэб-старонках (у асноўным у браўзэрах) часта выклікаюць праблемы з наладай пастаяннага адлюстравання падказак</string>
+    <string name="autospace_before_gesture_typing">Аўтапрабел перад наборам слова жэстамі</string>
+    <string name="show_tld_popup_keys">Паказаць усплывальныя клавішы TLD</string>
+    <string name="show_tld_popup_keys_summary">Пры ўводзе URL і адрасоў электроннай пошты замяніць усплывальныя падказкі клавішы кропкі на падказкі з даменамі верхняга ўзроўню</string>
+    <string name="prefs_emoji_skin_tone">Тон скуры эмоджы па змаўчанні</string>
+    <string name="prefs_emoji_skin_tone_neutral">Нейтральны</string>
+    <string name="subtype_generic_phonetic">%s (Фанетыка)</string>
+    <string name="after_numpad_and_space">Націску Enter або прабелу пасля іншых клавіш на лічбавай клавіятуры</string>
 </resources>

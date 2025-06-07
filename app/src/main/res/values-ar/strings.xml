@@ -437,4 +437,10 @@
     <string name="prefs_emoji_skin_tone">لون بشرة الرموز التعبيرية الافتراضي</string>
     <string name="prefs_emoji_skin_tone_neutral">طبيعي</string>
     <string name="subtype_with_layout_generic">%1$s (%2$s)</string>
+    <string name="toolbar_mode">وضع شريط الأدوات</string>
+    <string name="toolbar_mode_expandable">مفاتيح شريط الأدوات والاقتراحات</string>
+    <string name="toolbar_mode_toolbar_keys">مفاتيح شريط الأدوات فقط</string>
+    <string name="toolbar_mode_suggestion_strip">اقتراحات فقط</string>
+    <string name="toolbar_mode_hidden">مخفي</string>
+    <string name="toolbar_hiding_global">أخفِ أشرطة أدوات الحافظة والرموز التعبيرية أيضًا</string>
 </resources>

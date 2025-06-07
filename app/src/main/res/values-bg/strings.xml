@@ -172,11 +172,11 @@
     <string name="autospace_after_punctuation">Автоматичен интервал след препинателни знаци</string>
     <string name="show_popup_keys_main">Добавете много често срещани варианти (по подразбиране)</string>
     <string name="localized_number_row_summary">Предпочитайте локализирани пред латински цифри</string>
-    <string name="show_hints">Показване на ключови съвети</string>
+    <string name="show_hints">Показване на клавишни съвети</string>
     <string name="show_hints_summary">Показване на съвети при продължително натискане</string>
     <string name="localized_number_row">Локализиране на ред с числа</string>
     <string name="number_row_summary">Винаги показвайте ред с числа</string>
-    <string name="hint_source">Изберете източник на подсказка</string>
+    <string name="hint_source">Изберете източник на съвети</string>
     <string name="popup_order">Изберете ред на изскачащи клавиши</string>
     <string name="popup_keys_layout" tools:keep="@string/popup_keys_layout">Оформление</string>
     <string name="popup_keys_symbols" tools:keep="@string/popup_keys_symbols">Символи</string>
@@ -325,7 +325,7 @@
     <string name="select_color_functional_key_background">Функционален клавишен фон</string>
     <string name="select_color_spacebar_background">Фон на интервала</string>
     <string name="select_color_key">Клавиши текст</string>
-    <string name="select_color_key_hint">Клавиши текст за подсказване</string>
+    <string name="select_color_key_hint">Текст на клавиш за съвети</string>
     <string name="license">Лиценз с отворен код</string>
     <string name="key_borders">Ключови граници</string>
     <string name="day_night_mode">Автоматичен дневен/нощен режим</string>
@@ -426,7 +426,7 @@
     <string name="prefs_emoji_font_scale">Мащаб на шрифта за изглед на емотикони</string>
     <string name="prefs_side_padding_scale">Мащаб на страничната подложка</string>
     <string name="prefs_side_padding_scale_landscape">Мащаб на страничната подложка (пейзаж)</string>
-    <string name="number_row_hints">Показване на подсказки на реда с числа</string>
+    <string name="number_row_hints">Показване на съвети в реда с числа</string>
     <string name="prefs_language_swipe_distance">Разстояние на плъзгане за превключване на езика</string>
     <string name="split_spacer_scale_landscape">Разделно разстояние (пейзаж)</string>
     <string name="split" tools:keep="@string/split">Разделена клавиатура</string>
@@ -465,4 +465,12 @@
     <string name="prefs_emoji_skin_tone">Тон на кожата на емотиконите по подразбиране</string>
     <string name="prefs_emoji_skin_tone_neutral">Неутрален</string>
     <string name="subtype_with_layout_generic">%1$s (%2$s)</string>
+    <string name="toolbar_mode">Режим на лентата с инструменти</string>
+    <string name="toolbar_mode_toolbar_keys">Само клавиши в лентата с инструменти</string>
+    <string name="toolbar_mode_suggestion_strip">Само предложения</string>
+    <string name="toolbar_mode_hidden">Скрито</string>
+    <string name="toolbar_mode_expandable">Клавиши и предложения в лентата с инструменти</string>
+    <string name="toolbar_hiding_global">Скриване и на лентите с инструменти за клипборда и емотиконите</string>
+    <string name="landscape">Пейзаж</string>
+    <string name="popup_order_and_hint_source">Ред на изскачащите клавиши и източник на съвети</string>
 </resources>
