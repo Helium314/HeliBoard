@@ -11,14 +11,19 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.draw.scale
+import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.LayoutDirection
 import helium314.keyboard.latin.R
 
 @Composable
 fun NextScreenIcon() {
-    Icon(painterResource(R.drawable.ic_arrow_left), null, Modifier.scale(-1f, 1f))
+    Icon(
+        painterResource(R.drawable.ic_arrow_left), null,
+        if (LocalLayoutDirection.current == LayoutDirection.Ltr) Modifier.scale(-1f, 1f) else Modifier
+    )
 }
 
 @Composable
