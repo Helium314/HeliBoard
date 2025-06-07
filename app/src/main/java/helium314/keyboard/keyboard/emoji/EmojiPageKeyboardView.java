@@ -344,13 +344,12 @@ public final class EmojiPageKeyboardView extends KeyboardView implements
             return null;
         }
 
-        var results = mDictionaryFacilitator.getWordProperty(key.getLabel());
-        if (! results.mHasShortcuts) {
+        var wordProperty = mDictionaryFacilitator.getWordProperty(key.getLabel());
+        if (! wordProperty.mHasShortcuts) {
             return null;
         }
 
-        var result = results.mShortcutTargets.get(0);
-        mDescriptionView.setText(result.mWord);
+        mDescriptionView.setText(wordProperty.mShortcutTargets.get(0).mWord);
         mDescriptionView.setKeyDrawParams(key, getKeyDrawParams());
         mDescriptionView.setVisibility(VISIBLE);
         return mDescriptionView;
