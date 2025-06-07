@@ -227,11 +227,7 @@ private fun getLocaleTlds(locale: Locale): MutableList<String> {
         tlds.add(".eu")
     val ccLower = locale.country.lowercase()
     if (!ccLower.isEmpty() && locale.language != SubtypeLocaleUtils.NO_LANGUAGE) {
-        specialCountryTlds.forEach {
-            if (ccLower != it.first) return@forEach
-            tlds.addAll(SpacedTokens(it.second))
-        }
-        tlds.add(".$ccLower")
+        specialCountryTlds[ccLower]?.let { tlds.addAll(SpacedTokens(it)) } ?: tlds.add(".$ccLower")
     }
     tlds.addAll(SpacedTokens(otherDefaultTlds))
     return tlds
@@ -336,7 +332,7 @@ const val POPUP_KEYS_NORMAL = "normal"
 private const val LOCALE_TEXTS_FOLDER = "locale_key_texts"
 
 // either tld is not simply lowercase ISO 3166-1 code, or there are multiple according to some list
-private val specialCountryTlds = listOf(
+private val specialCountryTlds = mapOf<String, String>(
     "bd" to ".bd .com.bd",
     "bq" to ".bq .an .nl",
     "bl" to ".bl .gp .fr",
