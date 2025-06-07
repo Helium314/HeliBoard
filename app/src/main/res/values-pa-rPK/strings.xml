@@ -74,7 +74,6 @@
     <string name="theme_style">طنز</string>
     <string name="theme_name_brown" tools:keep="@string/theme_name_brown">بھورا</string>
     <string name="theme_name_violette" tools:keep="@string/theme_name_violette">جامنی</string>
-    <string name="popup_keys_language" tools:keep="@string/popup_keys_language">بولی</string>
     <string name="popup_keys_layout" tools:keep="@string/popup_keys_layout">وکھالا</string>
     <string name="subtype_sr_Latn">سربیائی (لاطینی)</string>
     <string name="dialog_close">بند کرو</string>

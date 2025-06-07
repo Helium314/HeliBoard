@@ -60,7 +60,6 @@ import helium314.keyboard.keyboard.KeyboardId;
 import helium314.keyboard.keyboard.KeyboardLayoutSet;
 import helium314.keyboard.keyboard.KeyboardSwitcher;
 import helium314.keyboard.keyboard.MainKeyboardView;
-import helium314.keyboard.latin.Suggest.OnGetSuggestedWordsCallback;
 import helium314.keyboard.latin.SuggestedWords.SuggestedWordInfo;
 import helium314.keyboard.latin.common.ColorType;
 import helium314.keyboard.latin.common.Constants;
@@ -130,6 +129,9 @@ public class LatinIME extends InputMethodService implements
     public final KeyboardActionListener mKeyboardActionListener;
     private int mOriginalNavBarColor = 0;
     private int mOriginalNavBarFlags = 0;
+
+    // UIHandler is needed when creating InputLogic
+    public final UIHandler mHandler = new UIHandler(this);
     private final DictionaryFacilitator mDictionaryFacilitator =
             DictionaryFacilitatorProvider.getDictionaryFacilitator(false);
     final InputLogic mInputLogic = new InputLogic(this, this, mDictionaryFacilitator);
@@ -187,8 +189,6 @@ public class LatinIME extends InputMethodService implements
     private GestureConsumer mGestureConsumer = GestureConsumer.NULL_GESTURE_CONSUMER;
 
     private final ClipboardHistoryManager mClipboardHistoryManager = new ClipboardHistoryManager(this);
-
-    public final UIHandler mHandler = new UIHandler(this);
 
     public static final class UIHandler extends LeakGuardHandlerWrapper<LatinIME> {
         private static final int MSG_UPDATE_SHIFT_STATE = 0;
@@ -796,14 +796,6 @@ public class LatinIME extends InputMethodService implements
         super.onDestroy();
         mHandler.removeCallbacksAndMessages(null);
         deallocateMemory();
-    }
-
-    public void recycle() {
-        unregisterReceiver(mDictionaryPackInstallReceiver);
-        unregisterReceiver(mDictionaryDumpBroadcastReceiver);
-        unregisterReceiver(mRingerModeChangeReceiver);
-        unregisterReceiver(mRestartAfterDeviceUnlockReceiver);
-        mInputLogic.recycle();
     }
 
     private boolean isImeSuppressedByHardwareKeyboard() {
@@ -1683,18 +1675,6 @@ public class LatinIME extends InputMethodService implements
                 mSuggestionStripView.setToolbarVisibility(false);
             }
         }
-    }
-
-    // TODO[IL]: Move this out of LatinIME.
-    public void getSuggestedWords(final int inputStyle, final int sequenceNumber,
-                                  final OnGetSuggestedWordsCallback callback) {
-        final Keyboard keyboard = mKeyboardSwitcher.getKeyboard();
-        if (keyboard == null) {
-            callback.onGetSuggestedWords(SuggestedWords.getEmptyInstance());
-            return;
-        }
-        mInputLogic.getSuggestedWords(mSettings.getCurrent(), keyboard,
-                mKeyboardSwitcher.getKeyboardShiftMode(), inputStyle, sequenceNumber, callback);
     }
 
     @Override

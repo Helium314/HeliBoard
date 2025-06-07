@@ -159,7 +159,6 @@
 \n
 \nAttenzione: il caricamento di codice esterno può essere un rischio per la sicurezza. Utilizzare solo librerie di provenienza affidabile.</string>
     <string name="load_gesture_library_button_delete">Elimina libreria</string>
-    <string name="popup_keys_language" tools:keep="@string/popup_keys_language">@string/subtype_locale</string>
     <string name="right" tools:keep="@string/right">Cursore a destra</string>
     <string name="localized_number_row_summary">Mostra i numeri in uso nella lingua attiva anziché quelli latini</string>
     <string name="checksum_mismatch_message">File di libreria sconosciuto. Verifica di averlo ottenuto da una fonte affidabile e che sia per \'%s\'.</string>
@@ -304,7 +303,6 @@
     <string name="space_swipe_move_cursor_entry">Sposta il cursore</string>
     <string name="subtype_probhat_bn_BD">%s (Probhat)</string>
     <string name="prefs_long_press_symbol_for_numpad">Pressione lunga sul tasto simboli per aprire il tastierino numerico</string>
-    <string name="cut" tools:keep="@string/cut">Taglia</string>
     <string name="var_toolbar_direction_summary">Inverte la direzione quando la tastiera è di tipo destra-sinistra</string>
     <string name="var_toolbar_direction">Direzione della barra degli strumenti</string>
     <string name="select_color_accent">Colore di risalto</string>

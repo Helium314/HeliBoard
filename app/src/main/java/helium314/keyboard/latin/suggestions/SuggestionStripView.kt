@@ -60,6 +60,7 @@ import helium314.keyboard.latin.utils.setToolbarButtonsActivatedStateOnPrefChang
 import java.util.concurrent.atomic.AtomicBoolean
 import kotlin.math.min
 
+@SuppressLint("InflateParams")
 class SuggestionStripView(context: Context, attrs: AttributeSet?, defStyle: Int) :
     RelativeLayout(context, attrs, defStyle), View.OnClickListener, OnLongClickListener, OnSharedPreferenceChangeListener {
 
@@ -119,6 +120,8 @@ class SuggestionStripView(context: Context, attrs: AttributeSet?, defStyle: Int)
         val colors = Settings.getValues().mColors
 
         // expand key
+        // weird way of setting size (default is config_suggestions_strip_edge_key_width)
+        // but better not change it or people will complain
         val toolbarHeight = min(toolbarExpandKey.layoutParams.height, resources.getDimension(R.dimen.config_suggestions_strip_height).toInt())
         toolbarExpandKey.layoutParams.height = toolbarHeight
         toolbarExpandKey.layoutParams.width = toolbarHeight // we want it square

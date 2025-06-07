@@ -482,7 +482,11 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
     // Implements {@link KeyboardState.SwitchActions}.
     @Override
     public void setOneHandedModeEnabled(boolean enabled) {
-        if (mKeyboardViewWrapper.getOneHandedModeEnabled() == enabled) {
+        setOneHandedModeEnabled(enabled, false);
+    }
+
+    public void setOneHandedModeEnabled(boolean enabled, boolean force) {
+        if (!force && mKeyboardViewWrapper.getOneHandedModeEnabled() == enabled) {
             return;
         }
         final Settings settings = Settings.getInstance();
@@ -515,6 +519,7 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
                 !settings.getCurrent().mIsSplitKeyboardEnabled,
                 mCurrentOrientation == Configuration.ORIENTATION_LANDSCAPE
         );
+        setOneHandedModeEnabled(settings.getCurrent().mOneHandedModeEnabled, true);
         reloadKeyboard();
     }
 

@@ -221,7 +221,6 @@
     <string name="clear_clipboard" tools:keep="@string/clear_clipboard">Klembord wissen</string>
     <string name="select_word" tools:keep="@string/select_word">Woord selecteren</string>
     <string name="toolbar_keys">Werkbalktoetsen kiezen</string>
-    <string name="popup_keys_language" tools:keep="@string/popup_keys_language">@string/subtype_locale</string>
     <string name="full_left" tools:keep="@string/full_left">Geheel links</string>
     <string name="full_right" tools:keep="@string/full_right">Geheel rechts</string>
     <string name="left" tools:keep="@string/left">Links</string>
@@ -236,7 +235,6 @@
     <string name="layout_number" tools:keep="@string/layout_number">Cijfers</string>
     <string name="layout_numpad" tools:keep="@string/layout_numpad">Numpad</string>
     <string name="layout_numpad_landscape" tools:keep="@string/layout_numpad_landscape">Numpad (liggend)</string>
-    <string name="cut" tools:keep="@string/Cut">Knippen</string>
     <string name="subtype_probhat_bn_BD">%s (Probhat)</string>
     <string name="internal_dictionary_summary">Intern hoofdwoordenboek</string>
     <string name="settings_screen_about">Over</string>
@@ -415,7 +413,6 @@
     <string name="customize_toolbar_key_codes">Werkbalktoetscodes aanpassen</string>
     <string name="long_press_code">Code voor lang drukken</string>
     <string name="customize_icons">Pictogrammen aanpassen</string>
-    <string name="label_language_switch_key" tools:keep="@string/label_language_switch_key">@string/show_language_switch_key</string>
     <string name="label_shift_key_shifted" tools:keep="@string/label_shift_key_shifted">Shift (ingedrukt)</string>
     <string name="label_switch_onehanded_key" tools:keep="@string/label_switch_onehanded_key">Bediening met één hand wisselen</string>
     <string name="label_bin" tools:keep="@string/label_bin">Vuilnisbak</string>
@@ -474,4 +471,12 @@
     <string name="prefs_emoji_skin_tone_neutral">Neutraal</string>
     <string name="prefs_emoji_skin_tone">Standaard emoji-huidskleur</string>
     <string name="subtype_with_layout_generic">%1$s (%2$s)</string>
+    <string name="toolbar_mode">Werkbalk-modus</string>
+    <string name="toolbar_mode_expandable">Werkbalktoetsen en suggesties</string>
+    <string name="toolbar_mode_toolbar_keys">Alleen werkbalktoetsen</string>
+    <string name="toolbar_mode_suggestion_strip">Alleen suggesties</string>
+    <string name="toolbar_mode_hidden">Verborgen</string>
+    <string name="toolbar_hiding_global">Klembord- en emoji-werkbalken ook verbergen</string>
+    <string name="popup_order_and_hint_source">Popup toetsvolgorde en bron van hints</string>
+    <string name="landscape">Liggend</string>
 </resources>

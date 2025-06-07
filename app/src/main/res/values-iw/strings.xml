@@ -191,7 +191,6 @@
     <string name="prefs_narrow_key_gaps">מרווחי קלידים צרים</string>
     <string name="localized_number_row">תרגום number row</string>
     <string name="popup_keys_number" tools:keep="@string/popup_keys_number">שורת מספרים</string>
-    <string name="popup_keys_language" tools:keep="@string/popup_keys_language">@string/subtype_locale</string>
     <string name="popup_keys_language_priority" tools:keep="@string/popup_keys_language_priority">שפה (עדיפות)</string>
     <string name="popup_keys_layout" tools:keep="@string/popup_keys_layout">פריסה</string>
     <string name="popup_keys_symbols" tools:keep="@string/popup_keys_symbols">סימנים</string>
@@ -436,4 +435,12 @@
     <string name="prefs_emoji_skin_tone_neutral">נייטרלי</string>
     <string name="use_apps_dict_summary">שימוש בשמות יישומים מותקנים להצעות ולתיקונים</string>
     <string name="subtype_with_layout_generic">%1$s (%2$s)</string>
+    <string name="popup_order_and_hint_source">סדר הסימנים בחלון צץ ומקור הרמזים</string>
+    <string name="landscape">אופקי</string>
+    <string name="toolbar_mode_suggestion_strip">הצעות בלבד</string>
+    <string name="toolbar_mode_hidden">מוסתר</string>
+    <string name="toolbar_hiding_global">הסתרת סרגלי כלי הלוח והאמוג\'ים גם</string>
+    <string name="toolbar_mode">מצב סרגל הכלים</string>
+    <string name="toolbar_mode_expandable">פקדי סרגל הכלים והצעות</string>
+    <string name="toolbar_mode_toolbar_keys">פקדי סרגל הכלים בלבד</string>
 </resources>

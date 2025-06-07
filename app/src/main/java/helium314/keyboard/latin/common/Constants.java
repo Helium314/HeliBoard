@@ -77,7 +77,7 @@ public final class Constants {
             /** Indicates that this subtype is an additional subtype that the user defined. This extra value is private to LatinIME. */
             public static final String IS_ADDITIONAL_SUBTYPE = "isAdditionalSubtype";
 
-            /** The subtype extra value used to specify the combining rules (currently not used). */
+            /** The subtype extra value used to specify the combining rules. */
             public static final String COMBINING_RULES = "CombiningRules";
 
             /** Overrides the general popup order setting */

@@ -24,7 +24,6 @@
     <string name="android_spell_checker_settings">‫HeliBoard‬ یازم دنەتلەییجیسی عیارلری</string>
     <string name="use_contacts_dict">كیشی آدلرڭی دنەتلە</string>
     <string name="settings_screen_gesture">حركتلە یازمە</string>
-    <string name="popup_keys_language" tools:keep="@string/popup_keys_language">دیل</string>
     <string name="popup_keys_layout" tools:keep="@string/popup_keys_layout">دوزن</string>
     <string name="popup_keys_symbols" tools:keep="@string/popup_keys_symbols">سمبوللر</string>
     <string name="clipboard" tools:keep="@string/clipboard">پانو</string>

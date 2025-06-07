@@ -11,7 +11,6 @@ import android.os.HandlerThread;
 import android.os.Message;
 
 import helium314.keyboard.latin.LatinIME;
-import helium314.keyboard.latin.Suggest.OnGetSuggestedWordsCallback;
 import helium314.keyboard.latin.SuggestedWords;
 import helium314.keyboard.latin.common.InputPointers;
 
@@ -20,59 +19,24 @@ import helium314.keyboard.latin.common.InputPointers;
  */
 class InputLogicHandler implements Handler.Callback {
     final Handler mNonUIThreadHandler;
-    // TODO: remove this reference.
-    final LatinIME mLatinIME;
+    final LatinIME.UIHandler mLatinIMEHandler;
     final InputLogic mInputLogic;
     private final Object mLock = new Object();
     private boolean mInBatchInput; // synchronized using {@link #mLock}.
 
     private static final int MSG_GET_SUGGESTED_WORDS = 1;
 
-    // A handler that never does anything. This is used for cases where events come before anything
-    // is initialized, though probably only the monkey can actually do this.
-    public static final InputLogicHandler NULL_HANDLER = new InputLogicHandler() {
-        @Override
-        public void reset() {}
-        @Override
-        public boolean handleMessage(final Message msg) { return true; }
-        @Override
-        public void onStartBatchInput() {}
-        @Override
-        public void onUpdateBatchInput(final InputPointers batchPointers,
-                final int sequenceNumber) {}
-        @Override
-        public void onCancelBatchInput() {}
-        @Override
-        public void updateTailBatchInput(final InputPointers batchPointers,
-                final int sequenceNumber) {}
-        @Override
-        public void getSuggestedWords(final int sessionId, final int sequenceNumber,
-                final OnGetSuggestedWordsCallback callback) {}
-    };
-
-    InputLogicHandler() {
-        mNonUIThreadHandler = null;
-        mLatinIME = null;
-        mInputLogic = null;
-    }
-
-    public InputLogicHandler(final LatinIME latinIME, final InputLogic inputLogic) {
+    public InputLogicHandler(final LatinIME.UIHandler latinIMEHandler, final InputLogic inputLogic) {
         final HandlerThread handlerThread = new HandlerThread(
                 InputLogicHandler.class.getSimpleName());
         handlerThread.start();
         mNonUIThreadHandler = new Handler(handlerThread.getLooper(), this);
-        mLatinIME = latinIME;
+        mLatinIMEHandler = latinIMEHandler;
         mInputLogic = inputLogic;
     }
 
     public void reset() {
         mNonUIThreadHandler.removeCallbacksAndMessages(null);
-    }
-
-    // In unit tests, we create several instances of LatinIME, which results in several instances
-    // of InputLogicHandler. To avoid these handlers lingering, we call this.
-    public void destroy() {
-        mNonUIThreadHandler.getLooper().quitSafely();
     }
 
     /**
@@ -83,7 +47,7 @@ class InputLogicHandler implements Handler.Callback {
     @Override
     public boolean handleMessage(final Message msg) {
         if (msg.what == MSG_GET_SUGGESTED_WORDS)
-            mLatinIME.getSuggestedWords(msg.arg1, msg.arg2, (OnGetSuggestedWordsCallback) msg.obj);
+            ((Runnable)msg.obj).run();
         return true;
     }
 
@@ -118,13 +82,14 @@ class InputLogicHandler implements Handler.Callback {
                 return;
             }
             mInputLogic.mWordComposer.setBatchInputPointers(batchPointers);
-            final OnGetSuggestedWordsCallback callback = suggestedWords -> showGestureSuggestionsWithPreviewVisuals(suggestedWords, isTailBatchInput);
-            getSuggestedWords(isTailBatchInput ? SuggestedWords.INPUT_STYLE_TAIL_BATCH
-                    : SuggestedWords.INPUT_STYLE_UPDATE_BATCH, sequenceNumber, callback);
+            getSuggestedWords(() -> mInputLogic.getSuggestedWords(
+                isTailBatchInput ? SuggestedWords.INPUT_STYLE_TAIL_BATCH : SuggestedWords.INPUT_STYLE_UPDATE_BATCH, sequenceNumber,
+                suggestedWords -> showGestureSuggestionsWithPreviewVisuals(suggestedWords, isTailBatchInput))
+            );
         }
     }
 
-    void showGestureSuggestionsWithPreviewVisuals(final SuggestedWords suggestedWordsForBatchInput,
+    private void showGestureSuggestionsWithPreviewVisuals(final SuggestedWords suggestedWordsForBatchInput,
             final boolean isTailBatchInput) {
         final SuggestedWords suggestedWordsToShowSuggestions;
         // We're now inside the callback. This always runs on the Non-UI thread,
@@ -138,13 +103,12 @@ class InputLogicHandler implements Handler.Callback {
         } else {
             suggestedWordsToShowSuggestions = suggestedWordsForBatchInput;
         }
-        mLatinIME.mHandler.showGesturePreviewAndSuggestionStrip(suggestedWordsToShowSuggestions,
-                isTailBatchInput /* dismissGestureFloatingPreviewText */);
+        mLatinIMEHandler.showGesturePreviewAndSuggestionStrip(suggestedWordsToShowSuggestions, isTailBatchInput);
         if (isTailBatchInput) {
             mInBatchInput = false;
             // The following call schedules onEndBatchInputInternal
             // to be called on the UI thread.
-            mLatinIME.mHandler.showTailBatchInputResult(suggestedWordsToShowSuggestions);
+            mLatinIMEHandler.showTailBatchInputResult(suggestedWordsToShowSuggestions);
         }
     }
 
@@ -193,9 +157,7 @@ class InputLogicHandler implements Handler.Callback {
         updateBatchInput(batchPointers, sequenceNumber, true);
     }
 
-    public void getSuggestedWords(final int inputStyle, final int sequenceNumber,
-            final OnGetSuggestedWordsCallback callback) {
-        mNonUIThreadHandler.obtainMessage(
-                MSG_GET_SUGGESTED_WORDS, inputStyle, sequenceNumber, callback).sendToTarget();
+    public void getSuggestedWords(final Runnable callback) {
+        mNonUIThreadHandler.obtainMessage(MSG_GET_SUGGESTED_WORDS, callback).sendToTarget();
     }
 }

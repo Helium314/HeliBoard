@@ -214,7 +214,7 @@ private fun getStreamForLocale(locale: Locale, context: Context) =
         else context.assets.open("$LOCALE_TEXTS_FOLDER/${locale.toLanguageTag()}.txt")
     } catch (_: Exception) {
         try {
-            context.assets.open("$LOCALE_TEXTS_FOLDER/${locale.language}.txt")
+            context.assets.open("$LOCALE_TEXTS_FOLDER/${if (locale.language == "he") "iw" else locale.language}.txt")
         } catch (_: Exception) {
             null
         }

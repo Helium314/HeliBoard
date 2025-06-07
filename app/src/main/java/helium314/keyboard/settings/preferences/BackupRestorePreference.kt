@@ -67,7 +67,7 @@ fun BackupRestorePreference(setting: Setting) {
         val files = mutableListOf<File>()
         filesDir.walk().forEach { file ->
             val path = file.path.replace(filesPath, "")
-            if (backupFilePatterns.any { path.matches(it) })
+            if (file.isFile && backupFilePatterns.any { path.matches(it) })
                 files.add(file)
         }
         val protectedFilesDir = DeviceProtectedUtils.getFilesDir(ctx)
@@ -75,7 +75,7 @@ fun BackupRestorePreference(setting: Setting) {
         val protectedFiles = mutableListOf<File>()
         protectedFilesDir.walk().forEach { file ->
             val path = file.path.replace(protectedFilesPath, "")
-            if (backupFilePatterns.any { path.matches(it) })
+            if (file.isFile && backupFilePatterns.any { path.matches(it) })
                 protectedFiles.add(file)
         }
         val wait = CountDownLatch(1)
