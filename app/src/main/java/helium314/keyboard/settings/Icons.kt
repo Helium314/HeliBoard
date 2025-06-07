@@ -1,6 +1,8 @@
 // SPDX-License-Identifier: GPL-3.0-only
 package helium314.keyboard.settings
 
+import android.content.res.Resources
+import android.view.View
 import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material3.Icon
@@ -18,7 +20,10 @@ import helium314.keyboard.latin.R
 
 @Composable
 fun NextScreenIcon() {
-    Icon(painterResource(R.drawable.ic_arrow_left), null, Modifier.scale(-1f, 1f))
+    Icon(
+        painterResource(R.drawable.ic_arrow_left), null,
+        if (Resources.getSystem().configuration.layoutDirection == View.LAYOUT_DIRECTION_LTR) Modifier.scale(-1f, 1f) else Modifier
+    )
 }
 
 @Composable
