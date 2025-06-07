@@ -67,6 +67,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_VIBRATE_ON = "vibrate_on";
     public static final String PREF_VIBRATE_IN_DND_MODE = "vibrate_in_dnd_mode";
     public static final String PREF_SOUND_ON = "sound_on";
+    public static final String PREF_SHOW_EMOJI_DESCRIPTIONS = "show_emoji_descriptions";
     public static final String PREF_POPUP_ON = "popup_on";
     public static final String PREF_AUTO_CORRECTION = "auto_correction";
     public static final String PREF_MORE_AUTO_CORRECTION = "more_auto_correction";

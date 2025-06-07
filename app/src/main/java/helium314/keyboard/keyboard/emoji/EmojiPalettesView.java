@@ -38,12 +38,16 @@ import helium314.keyboard.keyboard.internal.KeyDrawParams;
 import helium314.keyboard.keyboard.internal.KeyVisualAttributes;
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode;
 import helium314.keyboard.latin.AudioAndHapticFeedbackManager;
+import helium314.keyboard.latin.DictionaryFactory;
 import helium314.keyboard.latin.R;
+import helium314.keyboard.latin.RichInputMethodManager;
 import helium314.keyboard.latin.RichInputMethodSubtype;
+import helium314.keyboard.latin.SingleDictionaryFacilitator;
 import helium314.keyboard.latin.common.ColorType;
 import helium314.keyboard.latin.common.Colors;
 import helium314.keyboard.latin.settings.Settings;
 import helium314.keyboard.latin.settings.SettingsValues;
+import helium314.keyboard.latin.utils.DictionaryInfoUtils;
 import helium314.keyboard.latin.utils.ResourceUtils;
 
 import static helium314.keyboard.latin.common.Constants.NOT_A_COORDINATE;
@@ -123,7 +127,7 @@ public final class EmojiPalettesView extends LinearLayout
             var recyclerView = getRecyclerView(holder.itemView);
             mViews.put(position, recyclerView);
             recyclerView.setAdapter(new EmojiPalettesAdapter(mEmojiCategory, (int) holder.mCategoryId,
-                                                                  EmojiPalettesView.this));
+                                                                  EmojiPalettesView.this, mDictionaryFacilitator));
 
             if (! mInitialized) {
                 recyclerView.scrollToPosition(mEmojiCategory.getCurrentCategoryPageId());
@@ -190,6 +194,7 @@ public final class EmojiPalettesView extends LinearLayout
 
     private final EmojiCategory mEmojiCategory;
     private ViewPager2 mPager;
+    private SingleDictionaryFacilitator mDictionaryFacilitator;
 
     public EmojiPalettesView(final Context context, final AttributeSet attrs) {
         this(context, attrs, R.attr.emojiPalettesViewStyle);
@@ -254,10 +259,9 @@ public final class EmojiPalettesView extends LinearLayout
         mEmojiLayoutParams.setEmojiListProperties(mPager);
         mEmojiCategoryPageIndicatorView = findViewById(R.id.emoji_category_page_id_view);
         mEmojiLayoutParams.setCategoryPageIdViewProperties(mEmojiCategoryPageIndicatorView);
-
         setCurrentCategoryId(mEmojiCategory.getCurrentCategoryId(), true);
-
         mEmojiCategoryPageIndicatorView.setColors(mColors.get(ColorType.EMOJI_CATEGORY_SELECTED), mColors.get(ColorType.STRIP_BACKGROUND));
+        initDictionaryFacilitator();
         initialized = true;
     }
 
@@ -424,6 +428,22 @@ public final class EmojiPalettesView extends LinearLayout
         }
 
         mEmojiCategory.clearKeyboardCache();
+        initDictionaryFacilitator();
         mPager.getAdapter().notifyDataSetChanged();
+    }
+
+    private void initDictionaryFacilitator() {
+        if (mDictionaryFacilitator != null) {
+            mDictionaryFacilitator.closeDictionaries();
+        }
+
+        if (Settings.getValues().mShowEmojiDescriptions) {
+            var locale = RichInputMethodManager.getInstance().getCurrentSubtype().getLocale();
+            var dictFile = DictionaryInfoUtils.getCachedDictForLocaleAndType(locale, "emoji", getContext());
+            mDictionaryFacilitator = dictFile != null?
+                            new SingleDictionaryFacilitator(DictionaryFactory.getDictionary(dictFile, locale)) : null;
+        } else {
+            mDictionaryFacilitator = null;
+        }
     }
 }

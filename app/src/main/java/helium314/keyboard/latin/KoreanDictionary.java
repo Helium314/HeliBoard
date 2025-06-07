@@ -4,6 +4,7 @@ package helium314.keyboard.latin;
 
 import helium314.keyboard.event.HangulCombiner;
 import helium314.keyboard.latin.common.ComposedData;
+import helium314.keyboard.latin.makedict.WordProperty;
 import helium314.keyboard.latin.settings.SettingsValuesForSuggestion;
 
 import java.text.Normalizer;
@@ -70,6 +71,11 @@ public class KoreanDictionary extends Dictionary {
     @Override
     public int getMaxFrequencyOfExactMatches(String word) {
         return mDictionary.getMaxFrequencyOfExactMatches(processInput(word));
+    }
+
+    @Override
+    public WordProperty getWordProperty(String word, boolean isBeginningOfSentence) {
+        return mDictionary.getWordProperty(processInput(word), isBeginningOfSentence);
     }
 
     @Override

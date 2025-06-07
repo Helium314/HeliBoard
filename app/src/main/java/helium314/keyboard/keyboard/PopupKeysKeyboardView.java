@@ -12,9 +12,9 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
+import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 
@@ -157,6 +157,8 @@ public class PopupKeysKeyboardView extends KeyboardView implements PopupKeysPane
 
         mOriginX = x + container.getPaddingLeft();
         mOriginY = y + container.getPaddingTop();
+        var center = panelX + getMeasuredWidth() / 2;
+        controller.setLayoutGravity(center < pointX? Gravity.RIGHT : center > pointX? Gravity.LEFT : Gravity.NO_GRAVITY);
         controller.onShowPopupKeysPanel(this);
         final PopupKeysKeyboardAccessibilityDelegate accessibilityDelegate = mAccessibilityDelegate;
         if (accessibilityDelegate != null
@@ -313,29 +315,5 @@ public class PopupKeysKeyboardView extends KeyboardView implements PopupKeysPane
             return accessibilityDelegate.onHoverEvent(event);
         }
         return super.onHoverEvent(event);
-    }
-
-    private View getContainerView() {
-        return (View)getParent();
-    }
-
-    @Override
-    public void showInParent(final ViewGroup parentView) {
-        removeFromParent();
-        parentView.addView(getContainerView());
-    }
-
-    @Override
-    public void removeFromParent() {
-        final View containerView = getContainerView();
-        final ViewGroup currentParent = (ViewGroup)containerView.getParent();
-        if (currentParent != null) {
-            currentParent.removeView(containerView);
-        }
-    }
-
-    @Override
-    public boolean isShowingInParent() {
-        return (getContainerView().getParent() != null);
     }
 }

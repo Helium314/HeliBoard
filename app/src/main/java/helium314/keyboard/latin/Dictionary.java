@@ -11,6 +11,7 @@ import java.util.Locale;
 
 import helium314.keyboard.latin.SuggestedWords.SuggestedWordInfo;
 import helium314.keyboard.latin.common.ComposedData;
+import helium314.keyboard.latin.makedict.WordProperty;
 import helium314.keyboard.latin.settings.SettingsValuesForSuggestion;
 
 /**
@@ -175,6 +176,10 @@ public abstract class Dictionary {
                  TYPE_USER_HISTORY -> true;
             default -> false;
         };
+    }
+
+    public WordProperty getWordProperty(final String word, final boolean isBeginningOfSentence) {
+        return null;
     }
 
     /**
