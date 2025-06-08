@@ -897,4 +897,6 @@ New dictionary:
     <string name="custom_subtype">Custom subtype</string>
     <!-- Name for landscape orientation, used in various settings -->
     <string name="landscape">Landscape</string>
+    <string name="action_send_intent">helium314.keyboard.latin.ACTION_SEND_INTENT</string>
+    <string name="extra_number">EXTRA_NUMBER</string>
 </resources>
