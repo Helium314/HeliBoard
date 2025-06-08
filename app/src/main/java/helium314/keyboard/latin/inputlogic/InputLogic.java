@@ -6,6 +6,7 @@
 
 package helium314.keyboard.latin.inputlogic;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.SystemClock;
 import android.text.InputType;
@@ -31,6 +32,7 @@ import helium314.keyboard.latin.DictionaryFacilitator;
 import helium314.keyboard.latin.LastComposedWord;
 import helium314.keyboard.latin.LatinIME;
 import helium314.keyboard.latin.NgramContext;
+import helium314.keyboard.latin.R;
 import helium314.keyboard.latin.RichInputConnection;
 import helium314.keyboard.latin.Suggest;
 import helium314.keyboard.latin.Suggest.OnGetSuggestedWordsCallback;
@@ -766,6 +768,9 @@ public final class InputLogic {
             case KeyCode.TIMESTAMP:
                 mLatinIME.onTextInput(TimestampKt.getTimestamp(mLatinIME));
                 break;
+            case KeyCode.SEND_INTENT_ONE, KeyCode.SEND_INTENT_TWO, KeyCode.SEND_INTENT_THREE:
+                handleSendIntentKey(event.getMKeyCode());
+                break;
             case KeyCode.VOICE_INPUT:
                 // switching to shortcut IME, shift state, keyboard,... is handled by LatinIME,
                 // {@link KeyboardSwitcher#onEvent(Event)}, or {@link #onPressKey(int,int,boolean)} and {@link #onReleaseKey(int,boolean)}.
@@ -794,6 +799,15 @@ public final class InputLogic {
         }
     }
 
+    private void handleSendIntentKey(int mKeyCode) {
+        var intentNumber = 1 + (-mKeyCode) - (-KeyCode.SEND_INTENT_ONE);
+
+        Intent intent = new Intent(mLatinIME.getString(R.string.action_send_intent));
+        intent.putExtra(mLatinIME.getString(R.string.extra_number), intentNumber);
+
+        mLatinIME.sendBroadcast(intent);
+        Log.i(TAG, "Sent broadcast for intent number: " + intentNumber);
+    }
     /**
      * Handle an event that is not a functional event.
      * <p>
@@ -1213,7 +1227,7 @@ public final class InputLogic {
             //  see https://github.com/Helium314/HeliBoard/issues/1019
             //  with better emoji detection on backspace (getFullEmojiAtEnd), this functionality might not be necessary
             //  -> enable again if there are issues, otherwise delete the code, together with mEnteredText
-            if (false && mEnteredText != null && mConnection.sameAsTextBeforeCursor(mEnteredText)) {
+            if (false) {
                 // Cancel multi-character input: remove the text we just entered.
                 // This is triggered on backspace after a key that inputs multiple characters,
                 // like the smiley key or the .com key.
@@ -1825,8 +1839,7 @@ public final class InputLogic {
         final String stringToCommit = originallyTypedWord +
                 (usePhantomSpace ? "" : separatorString);
         final SpannableString textToCommit = new SpannableString(stringToCommit);
-        if (committedWord instanceof SpannableString) {
-            final SpannableString committedWordWithSuggestionSpans = (SpannableString)committedWord;
+        if (committedWord instanceof SpannableString committedWordWithSuggestionSpans) {
             final Object[] spans = committedWordWithSuggestionSpans.getSpans(0,
                     committedWord.length(), Object.class);
             final int lastCharIndex = textToCommit.length() - 1;
@@ -2175,9 +2188,7 @@ public final class InputLogic {
             return true;
         // "://" before typed word -> very much looks like URL
         final CharSequence textBeforeCursor = mConnection.getTextBeforeCursor(mWordComposer.getTypedWord().length() + 3, 0);
-        if (textBeforeCursor != null && textBeforeCursor.toString().startsWith("://"))
-            return true;
-        return false;
+        return textBeforeCursor != null && textBeforeCursor.toString().startsWith("://");
     }
 
     /**
