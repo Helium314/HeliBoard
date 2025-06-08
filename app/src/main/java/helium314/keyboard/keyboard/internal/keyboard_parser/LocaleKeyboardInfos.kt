@@ -45,7 +45,7 @@ class LocaleKeyboardInfos(dataStream: InputStream?, locale: Locale) {
         "mns" -> Key.LABEL_FLAGS_FOLLOW_KEY_LETTER_RATIO
         else -> 0
     }
-    val tlds = getLocaleTlds(locale)
+    val tlds = mutableListOf<String>()
 
     init {
         readStream(dataStream, false, true)
@@ -84,7 +84,7 @@ class LocaleKeyboardInfos(dataStream: InputStream?, locale: Locale) {
                     READER_MODE_EXTRA_KEYS -> if (!onlyPopupKeys) addExtraKey(line.split(colonSpaceRegex, 2))
                     READER_MODE_LABELS -> if (!onlyPopupKeys) addLabel(line.split(colonSpaceRegex, 2))
                     READER_MODE_NUMBER_ROW -> localizedNumberKeys = line.splitOnWhitespace()
-                    READER_MODE_TLD -> tlds.addAll(1, SpacedTokens(line).map { ".$it" })
+                    READER_MODE_TLD -> tlds.addAll(SpacedTokens(line).map { ".$it" })
                 }
             }
         }
@@ -156,6 +156,16 @@ class LocaleKeyboardInfos(dataStream: InputStream?, locale: Locale) {
         }
     }
 
+    internal fun addLocaleTlds(locale: Locale) {
+        tlds.add(0, comTld)
+        val ccLower = locale.country.lowercase()
+        if (!ccLower.isEmpty() && locale.language != SubtypeLocaleUtils.NO_LANGUAGE) {
+            specialCountryTlds[ccLower]?.let { tlds.addAll(SpacedTokens(it)) } ?: tlds.add(".$ccLower")
+        }
+        if ((locale.language != "en" && euroLocales.matches(locale.language)) || euroCountries.matches(locale.country))
+            tlds.add(".eu")
+        tlds.addAll(SpacedTokens(otherDefaultTlds))
+    }
 }
 
 private fun addFixedColumnOrder(popupKeys: MutableCollection<String>) {
@@ -205,6 +215,7 @@ private fun createLocaleKeyTexts(context: Context, params: KeyboardParams, popup
         POPUP_KEYS_MORE -> lkt.addFile(context.assets.open("$LOCALE_TEXTS_FOLDER/more_popups_more.txt"), false)
         POPUP_KEYS_ALL -> lkt.addFile(context.assets.open("$LOCALE_TEXTS_FOLDER/more_popups_all.txt"), false)
     }
+    lkt.addLocaleTlds(params.mId.locale)
     return lkt
 }
 
@@ -219,19 +230,6 @@ private fun getStreamForLocale(locale: Locale, context: Context) =
             null
         }
     }
-
-private fun getLocaleTlds(locale: Locale): MutableList<String> {
-    val tlds = mutableListOf<String>()
-    tlds.add(comTld)
-    if ((locale.language != "en" && euroLocales.matches(locale.language)) || euroCountries.matches(locale.country))
-        tlds.add(".eu")
-    val ccLower = locale.country.lowercase()
-    if (!ccLower.isEmpty() && locale.language != SubtypeLocaleUtils.NO_LANGUAGE) {
-        specialCountryTlds[ccLower]?.let { tlds.addAll(SpacedTokens(it)) } ?: tlds.add(".$ccLower")
-    }
-    tlds.addAll(SpacedTokens(otherDefaultTlds))
-    return tlds
-}
 
 fun clearCache() = localeKeyboardInfosCache.clear()
 
