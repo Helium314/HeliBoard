@@ -231,11 +231,11 @@ class KeyboardParser(private val params: KeyboardParams, private val context: Co
         if (baseKeys.last().size == 2) {
             functionalKeysBottom.replaceFirst(
                 { it.label == KeyLabel.COMMA || it.groupId == KeyData.GROUP_COMMA},
-                { baseKeys.last()[0].copy(newGroupId = 1, newType = baseKeys.last()[0].type ?: it.type) }
+                { baseKeys.last()[0].copy(newGroupId = 1, newType = baseKeys.last()[0].type) }
             )
             functionalKeysBottom.replaceFirst(
                 { it.label == KeyLabel.PERIOD || it.groupId == KeyData.GROUP_PERIOD},
-                { baseKeys.last()[1].copy(newGroupId = 2, newType = baseKeys.last()[1].type ?: it.type) }
+                { baseKeys.last()[1].copy(newGroupId = 2, newType = baseKeys.last()[1].type) }
             )
             baseKeys.removeAt(baseKeys.lastIndex)
         }
