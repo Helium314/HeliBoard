@@ -1227,7 +1227,7 @@ public final class InputLogic {
             //  see https://github.com/Helium314/HeliBoard/issues/1019
             //  with better emoji detection on backspace (getFullEmojiAtEnd), this functionality might not be necessary
             //  -> enable again if there are issues, otherwise delete the code, together with mEnteredText
-            if (false) {
+            if (false && mEnteredText != null && mConnection.sameAsTextBeforeCursor(mEnteredText)) {
                 // Cancel multi-character input: remove the text we just entered.
                 // This is triggered on backspace after a key that inputs multiple characters,
                 // like the smiley key or the .com key.
@@ -1839,7 +1839,8 @@ public final class InputLogic {
         final String stringToCommit = originallyTypedWord +
                 (usePhantomSpace ? "" : separatorString);
         final SpannableString textToCommit = new SpannableString(stringToCommit);
-        if (committedWord instanceof SpannableString committedWordWithSuggestionSpans) {
+        if (committedWord instanceof SpannableString) {
+            final SpannableString committedWordWithSuggestionSpans = (SpannableString)committedWord;
             final Object[] spans = committedWordWithSuggestionSpans.getSpans(0,
                     committedWord.length(), Object.class);
             final int lastCharIndex = textToCommit.length() - 1;
@@ -2188,7 +2189,9 @@ public final class InputLogic {
             return true;
         // "://" before typed word -> very much looks like URL
         final CharSequence textBeforeCursor = mConnection.getTextBeforeCursor(mWordComposer.getTypedWord().length() + 3, 0);
-        return textBeforeCursor != null && textBeforeCursor.toString().startsWith("://");
+        if (textBeforeCursor != null && textBeforeCursor.toString().startsWith("://"))
+            return true;
+        return false;
     }
 
     /**
