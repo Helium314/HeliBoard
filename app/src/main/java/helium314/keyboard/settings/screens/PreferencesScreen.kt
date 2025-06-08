@@ -117,7 +117,7 @@ fun createPreferencesSettings(context: Context) = listOf(
         R.string.show_emoji_descriptions_summary
     ) {
         SwitchPreference(it, Defaults.PREF_SHOW_EMOJI_DESCRIPTIONS) {
-            KeyboardSwitcher.getInstance().setThemeNeedsReload()
+            KeyboardSwitcher.getInstance().reloadKeyboard()
         }
     },
     Setting(context, Settings.PREF_ENABLE_CLIPBOARD_HISTORY,

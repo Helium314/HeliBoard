@@ -111,7 +111,7 @@ public final class EmojiPalettesView extends LinearLayout
             holder.mCategoryId = getItemId(position);
             var recyclerView = getRecyclerView(holder.itemView);
             recyclerView.setAdapter(new EmojiPalettesAdapter(mEmojiCategory, (int) holder.mCategoryId,
-                                                                  EmojiPalettesView.this, mDictionaryFacilitator));
+                                                                  EmojiPalettesView.this));
 
             if (! mInitialized) {
                 recyclerView.scrollToPosition(mEmojiCategory.getCurrentCategoryPageId());
@@ -253,7 +253,6 @@ public final class EmojiPalettesView extends LinearLayout
         mEmojiLayoutParams.setCategoryPageIdViewProperties(mEmojiCategoryPageIndicatorView);
         setCurrentCategoryId(mEmojiCategory.getCurrentCategoryId(), true);
         mEmojiCategoryPageIndicatorView.setColors(mColors.get(ColorType.EMOJI_CATEGORY_SELECTED), mColors.get(ColorType.STRIP_BACKGROUND));
-        initDictionaryFacilitator();
         initialized = true;
     }
 
@@ -306,6 +305,20 @@ public final class EmojiPalettesView extends LinearLayout
             mKeyboardActionListener.onCodeInput(KeyCode.ALPHA, NOT_A_COORDINATE, NOT_A_COORDINATE, false);
     }
 
+    @Override
+    public String getDescription(String emoji) {
+        if (mDictionaryFacilitator == null) {
+            return null;
+        }
+
+        var wordProperty = mDictionaryFacilitator.getWordProperty(emoji);
+        if (! wordProperty.mHasShortcuts) {
+            return null;
+        }
+
+        return wordProperty.mShortcutTargets.get(0).mWord;
+    }
+
     public void setHardwareAcceleratedDrawingEnabled(final boolean enabled) {
         if (!enabled) return;
         // TODO: Should use LAYER_TYPE_SOFTWARE when hardware acceleration is off?
@@ -320,6 +333,7 @@ public final class EmojiPalettesView extends LinearLayout
         final KeyDrawParams params = new KeyDrawParams();
         params.updateParams(mEmojiLayoutParams.getBottomRowKeyboardHeight(), keyVisualAttr);
         setupSidePadding();
+        initDictionaryFacilitator();
     }
 
     private void addRecentKey(final Key key) {
@@ -372,6 +386,9 @@ public final class EmojiPalettesView extends LinearLayout
     public void stopEmojiPalettes() {
         if (!initialized) return;
         getRecentsKeyboard().flushPendingRecentKeys();
+        if (mDictionaryFacilitator != null) {
+            mDictionaryFacilitator.closeDictionaries();
+        }
     }
 
     private DynamicGridKeyboard getRecentsKeyboard() {
@@ -418,15 +435,10 @@ public final class EmojiPalettesView extends LinearLayout
         }
 
         mEmojiCategory.clearKeyboardCache();
-        initDictionaryFacilitator();
         mPager.getAdapter().notifyDataSetChanged();
     }
 
     private void initDictionaryFacilitator() {
-        if (mDictionaryFacilitator != null) {
-            mDictionaryFacilitator.closeDictionaries();
-        }
-
         if (Settings.getValues().mShowEmojiDescriptions) {
             var locale = RichInputMethodManager.getInstance().getCurrentSubtype().getLocale();
             var dictFile = DictionaryInfoUtils.getCachedDictForLocaleAndType(locale, "emoji", getContext());

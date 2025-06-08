@@ -6,7 +6,6 @@
 
 package helium314.keyboard.keyboard.emoji;
 
-import helium314.keyboard.latin.SingleDictionaryFacilitator;
 import helium314.keyboard.latin.utils.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,14 +24,11 @@ final class EmojiPalettesAdapter extends RecyclerView.Adapter<EmojiPalettesAdapt
     private final int mCategoryId;
     private final OnKeyEventListener mListener;
     private final EmojiCategory mEmojiCategory;
-    private final SingleDictionaryFacilitator mDictionaryFacilitator;
 
-    public EmojiPalettesAdapter(final EmojiCategory emojiCategory, int categoryId, final OnKeyEventListener listener,
-                                SingleDictionaryFacilitator dictionaryFacilitator) {
+    public EmojiPalettesAdapter(final EmojiCategory emojiCategory, int categoryId, final OnKeyEventListener listener) {
         mEmojiCategory = emojiCategory;
         mCategoryId = categoryId;
         mListener = listener;
-        mDictionaryFacilitator = dictionaryFacilitator;
     }
 
     @NonNull
@@ -42,7 +38,6 @@ final class EmojiPalettesAdapter extends RecyclerView.Adapter<EmojiPalettesAdapt
         final EmojiPageKeyboardView keyboardView = (EmojiPageKeyboardView)inflater.inflate(
                 R.layout.emoji_keyboard_page, parent, false);
         keyboardView.setOnKeyEventListener(mListener);
-        keyboardView.setDictionaryFacilitator(mDictionaryFacilitator);
         return new ViewHolder(keyboardView);
     }
 

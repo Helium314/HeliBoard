@@ -16,9 +16,6 @@ import android.util.AttributeSet;
 import android.view.Gravity;
 import android.widget.LinearLayout;
 import helium314.keyboard.keyboard.PopupTextView;
-import helium314.keyboard.latin.RichInputMethodManager;
-import helium314.keyboard.latin.SingleDictionaryFacilitator;
-import helium314.keyboard.latin.SuggestedWords;
 import helium314.keyboard.latin.utils.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -45,7 +42,6 @@ import helium314.keyboard.keyboard.internal.PopupKeySpec;
 import helium314.keyboard.latin.R;
 import helium314.keyboard.latin.common.CoordinateUtils;
 import helium314.keyboard.latin.settings.Settings;
-import helium314.keyboard.latin.utils.ScriptUtils;
 
 import java.util.WeakHashMap;
 
@@ -65,6 +61,10 @@ public final class EmojiPageKeyboardView extends KeyboardView implements
         public void onPressKey(final Key key) {}
         @Override
         public void onReleaseKey(final Key key) {}
+        @Override
+        public String getDescription(String emoji) {
+            return null;
+        }
     };
 
     private OnKeyEventListener mListener = EMPTY_LISTENER;
@@ -89,8 +89,6 @@ public final class EmojiPageKeyboardView extends KeyboardView implements
     // More keys panel (used by popup keys keyboard view)
     // TODO: Consider extending to support multiple popup keys panels
     private PopupKeysPanel mPopupKeysPanel;
-    private SingleDictionaryFacilitator mDictionaryFacilitator;
-    private final int mDefaultLayoutGravity;
 
     public EmojiPageKeyboardView(final Context context, final AttributeSet attrs) {
         this(context, attrs, R.attr.keyboardViewStyle);
@@ -115,8 +113,6 @@ public final class EmojiPageKeyboardView extends KeyboardView implements
         mPopupKeysKeyboardContainer = inflater.inflate(popupKeysKeyboardLayoutId, null);
         mDescriptionView = mPopupKeysKeyboardContainer.findViewById(R.id.description_view);
         mPopupKeysKeyboardView = mPopupKeysKeyboardContainer.findViewById(R.id.popup_keys_keyboard_view);
-        var locale = RichInputMethodManager.getInstance().getCurrentSubtype().getLocale();
-        mDefaultLayoutGravity = ScriptUtils.isScriptRtl(ScriptUtils.script(locale))? Gravity.RIGHT : Gravity.LEFT;
     }
 
     @Override
@@ -163,10 +159,6 @@ public final class EmojiPageKeyboardView extends KeyboardView implements
 
     public void setOnKeyEventListener(final OnKeyEventListener listener) {
         mListener = listener;
-    }
-
-    void setDictionaryFacilitator(SingleDictionaryFacilitator dictionaryFacilitator) {
-        mDictionaryFacilitator = dictionaryFacilitator;
     }
 
     /**
@@ -221,7 +213,8 @@ public final class EmojiPageKeyboardView extends KeyboardView implements
     public void setLayoutGravity(int layoutGravity) {
         var layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
                                                    ViewGroup.LayoutParams.WRAP_CONTENT);
-        layoutParams.gravity = layoutGravity != Gravity.NO_GRAVITY? layoutGravity : mDefaultLayoutGravity;
+        layoutParams.gravity = mDescriptionView.getMeasuredWidth() > mPopupKeysKeyboardView.getMeasuredWidth()?
+                                layoutGravity : Gravity.CENTER_HORIZONTAL;
         mPopupKeysKeyboardContainer.setLayoutParams(layoutParams);
         mDescriptionView.setLayoutParams(layoutParams);
         mPopupKeysKeyboardView.setLayoutParams(layoutParams);
@@ -340,16 +333,12 @@ public final class EmojiPageKeyboardView extends KeyboardView implements
 
     private PopupKeysPanel showDescription(Key key) {
         mDescriptionView.setVisibility(GONE);
-        if (mDictionaryFacilitator == null) {
+        var description = mListener.getDescription(key.getLabel());
+        if (description == null) {
             return null;
         }
 
-        var wordProperty = mDictionaryFacilitator.getWordProperty(key.getLabel());
-        if (! wordProperty.mHasShortcuts) {
-            return null;
-        }
-
-        mDescriptionView.setText(wordProperty.mShortcutTargets.get(0).mWord);
+        mDescriptionView.setText(description);
         mDescriptionView.setKeyDrawParams(key, getKeyDrawParams());
         mDescriptionView.setVisibility(VISIBLE);
         return mDescriptionView;

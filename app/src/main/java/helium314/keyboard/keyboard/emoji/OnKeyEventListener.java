@@ -21,4 +21,6 @@ public interface OnKeyEventListener {
      * for example when a key from a popup keys keyboard is selected by releasing touch on it.
      */
     void onReleaseKey(Key key);
+
+    String getDescription(String emoji);
 }
