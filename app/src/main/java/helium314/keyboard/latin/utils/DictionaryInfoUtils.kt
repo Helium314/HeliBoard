@@ -102,14 +102,12 @@ object DictionaryInfoUtils {
     }
 
     @JvmStatic
-    fun getCachedDictForLocaleAndType(locale: Locale, type: String, context: Context): File? {
-        val file = getCachedDictsForLocale(locale, context).firstOrNull { it.name.substringBefore("_") == type }
-        if (file != null) return file
-        if (locale.language != locale.toLanguageTag())
-            return getCachedDictsForLocale(Locale(locale.language), context)
-                .firstOrNull { it.name.substringBefore("_") == type }
-        return null
-    }
+    fun getCachedDictForLocaleAndType(locale: Locale, type: String, context: Context): File? =
+        getCachedDictsForLocale(locale, context).firstOrNull { it.name.substringBefore("_") == type }
+            ?: if (locale.language != locale.toLanguageTag())
+                getCachedDictsForLocale(Locale(locale.language), context)
+                    .firstOrNull { it.name.substringBefore("_") == type }
+            else null
 
     fun getCachedDictsForLocale(locale: Locale, context: Context) =
         getCacheDirectoryForLocale(locale, context)?.let { File(it).listFiles() }.orEmpty()
