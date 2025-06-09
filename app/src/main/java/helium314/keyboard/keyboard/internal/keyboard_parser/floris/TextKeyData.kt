@@ -538,7 +538,6 @@ sealed interface KeyData : AbstractKeyData {
     private fun getAdditionalLabelFlags(params: KeyboardParams): Int {
         return when (label) {
             KeyLabel.ALPHA, KeyLabel.SYMBOL_ALPHA, KeyLabel.SYMBOL -> Key.LABEL_FLAGS_PRESERVE_CASE
-            // essentially the first term only changes the appearance of the armenian period key in holo theme
             KeyLabel.PERIOD -> Key.LABEL_FLAGS_PRESERVE_CASE or
                     // in functional_keys.json the label flag is already defined, let's not override it in case it's removed by the user
                     if (!params.mId.isAlphaOrSymbolKeyboard && shouldShowTldPopups(params)) Key.LABEL_FLAGS_DISABLE_HINT_LABEL else 0
