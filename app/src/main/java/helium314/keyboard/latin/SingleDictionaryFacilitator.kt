@@ -5,6 +5,7 @@ import android.content.Context
 import android.util.LruCache
 import helium314.keyboard.keyboard.Keyboard
 import helium314.keyboard.keyboard.KeyboardSwitcher
+import helium314.keyboard.keyboard.emoji.SupportedEmojis
 import helium314.keyboard.latin.DictionaryFacilitator.DictionaryInitializationListener
 import helium314.keyboard.latin.common.ComposedData
 import helium314.keyboard.latin.settings.SettingsValuesForSuggestion
@@ -61,7 +62,7 @@ class SingleDictionaryFacilitator(private val dict: Dictionary) : DictionaryFaci
             dict.getSuggestions(composedData, ngramContext, keyboard.proximityInfo.nativeProximityInfo,
                 settingsValuesForSuggestion, sessionId, 1f,
                 floatArrayOf(Dictionary.NOT_A_WEIGHT_OF_LANG_MODEL_VS_SPATIAL_MODEL)
-            )
+            )?.filter { !SupportedEmojis.isUnsupported(it.word) }
         )
         suggestionLogger?.onNewSuggestions(suggestionResults, composedData, ngramContext, keyboard, inputStyle)
 
