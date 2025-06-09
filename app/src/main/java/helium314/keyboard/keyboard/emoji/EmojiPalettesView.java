@@ -445,7 +445,7 @@ public final class EmojiPalettesView extends LinearLayout
     private void initDictionaryFacilitator() {
         if (Settings.getValues().mShowEmojiDescriptions) {
             var locale = RichInputMethodManager.getInstance().getCurrentSubtype().getLocale();
-            if (mDictionaryFacilitator == null || ! locale.equals(mDictionaryFacilitator.getCurrentLocale())) {
+            if (mDictionaryFacilitator == null || ! mDictionaryFacilitator.isForLocale(locale)) {
                 closeDictionaryFacilitator();
                 var dictFile = DictionaryInfoUtils.getCachedDictForLocaleAndType(locale, "emoji", getContext());
                 mDictionaryFacilitator = dictFile != null?
