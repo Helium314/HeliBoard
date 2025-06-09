@@ -538,7 +538,6 @@ sealed interface KeyData : AbstractKeyData {
     private fun getAdditionalLabelFlags(params: KeyboardParams): Int {
         return when (label) {
             KeyLabel.ALPHA, KeyLabel.SYMBOL_ALPHA, KeyLabel.SYMBOL -> Key.LABEL_FLAGS_PRESERVE_CASE
-            KeyLabel.COMMA -> 0
             // essentially the first term only changes the appearance of the armenian period key in holo theme
             KeyLabel.PERIOD -> Key.LABEL_FLAGS_PRESERVE_CASE or
                     // in functional_keys.json the label flag is already defined, let's not override it in case it's removed by the user
@@ -551,7 +550,6 @@ sealed interface KeyData : AbstractKeyData {
             KeyLabel.SHIFT -> Key.LABEL_FLAGS_PRESERVE_CASE
             toolbarKeyStrings[ToolbarKey.EMOJI] -> KeyboardTheme.getThemeActionAndEmojiKeyLabelFlags(params.mThemeId)
             KeyLabel.COM -> Key.LABEL_FLAGS_AUTO_X_SCALE or Key.LABEL_FLAGS_FONT_NORMAL or Key.LABEL_FLAGS_PRESERVE_CASE
-            KeyLabel.ZWNJ -> 0
             KeyLabel.CURRENCY -> Key.LABEL_FLAGS_FOLLOW_KEY_LETTER_RATIO
             KeyLabel.CTRL, KeyLabel.ALT, KeyLabel.FN, KeyLabel.META -> Key.LABEL_FLAGS_PRESERVE_CASE
             else -> 0
