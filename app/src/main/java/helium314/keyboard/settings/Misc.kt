@@ -8,6 +8,9 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.RowScope
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.DropdownMenu
@@ -41,6 +44,25 @@ fun WithSmallTitle(
         Text(description, style = MaterialTheme.typography.titleSmall)
         content()
     }
+}
+
+@Composable
+fun ActionRow(
+    modifier: Modifier = Modifier,
+    onClick: (() -> Unit)? = null,
+    verticalAlignment: Alignment.Vertical = Alignment.CenterVertically,
+    content: @Composable RowScope.() -> Unit
+) {
+    val clickableModifier = if (onClick != null) Modifier.clickable(onClick = onClick)
+    else Modifier
+    Row(
+        modifier = modifier
+            .then(clickableModifier)
+            .fillMaxWidth()
+            .heightIn(min = 44.dp),
+        verticalAlignment = verticalAlignment,
+        content = content
+    )
 }
 
 /** Icon if resource is a vector image, (bitmap) Image otherwise */

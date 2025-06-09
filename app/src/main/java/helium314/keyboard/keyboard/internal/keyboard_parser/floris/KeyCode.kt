@@ -83,7 +83,7 @@ object KeyCode {
     const val LANGUAGE_SWITCH =             -227
 
     //const val IME_SHOW_UI =                 -231
-    //const val IME_HIDE_UI =                 -232
+    const val IME_HIDE_UI =                 -232
     const val VOICE_INPUT =                 -233
 
     //const val TOGGLE_SMARTBAR_VISIBILITY =  -241
@@ -183,7 +183,7 @@ object KeyCode {
         REDO, ARROW_DOWN, ARROW_UP, ARROW_RIGHT, ARROW_LEFT, CLIPBOARD_COPY, CLIPBOARD_PASTE, CLIPBOARD_SELECT_ALL,
         CLIPBOARD_SELECT_WORD, TOGGLE_INCOGNITO_MODE, TOGGLE_AUTOCORRECT, MOVE_START_OF_LINE, MOVE_END_OF_LINE,
         MOVE_START_OF_PAGE, MOVE_END_OF_PAGE, SHIFT, CAPS_LOCK, MULTIPLE_CODE_POINTS, UNSPECIFIED, CTRL, ALT,
-        FN, CLIPBOARD_CLEAR_HISTORY, NUMPAD,
+        FN, CLIPBOARD_CLEAR_HISTORY, NUMPAD, IME_HIDE_UI,
 
         // heliboard only
         SYMBOL_ALPHA, TOGGLE_ONE_HANDED_MODE, SWITCH_ONE_HANDED_MODE, SPLIT_LAYOUT, SHIFT_ENTER,
@@ -200,6 +200,12 @@ object KeyCode {
         TOGGLE_ONE_HANDED_MODE_2 -> TOGGLE_ONE_HANDED_MODE
 
         else -> throw IllegalStateException("key code $this not yet supported")
+    }
+
+    fun Int.isModifier() = when (this) {
+        SHIFT, SYMBOL_ALPHA, ALPHA, SYMBOL, NUMPAD, FN, CTRL, CTRL_LEFT, CTRL_RIGHT, ALT, ALT_LEFT, ALT_RIGHT,
+        META, META_LEFT, META_RIGHT -> true
+        else -> false
     }
 
     // todo: there are many more keys, see near https://developer.android.com/reference/android/view/KeyEvent#KEYCODE_0

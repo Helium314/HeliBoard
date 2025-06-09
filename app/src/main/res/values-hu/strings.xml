@@ -158,7 +158,6 @@
     <string name="show_popup_keys_all">Minden elérhető variáció hozzáadása</string>
     <string name="popup_order">Felugró gomb sorrend kiválasztása</string>
     <string name="popup_keys_number" tools:keep="@string/popup_keys_number">Számsor</string>
-    <string name="popup_keys_language" tools:keep="@string/popup_keys_language">Nyelv</string>
     <string name="popup_keys_language_priority" tools:keep="@string/popup_keys_language_priority">Nyelv (elsőbbség)</string>
     <string name="popup_keys_layout" tools:keep="@string/popup_keys_layout">Elrendezés</string>
     <string name="popup_keys_symbols" tools:keep="@string/popup_keys_symbols">Szimbólumok</string>

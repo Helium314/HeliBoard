@@ -226,7 +226,6 @@
     <string name="popup_keys_number" tools:keep="@string/popup_keys_number">Sifferrad</string>
     <string name="popup_keys_symbols" tools:keep="@string/popup_keys_symbols">Symboler</string>
     <string name="popup_keys_layout" tools:keep="@string/popup_keys_layout">Layout</string>
-    <string name="popup_keys_language" tools:keep="@string/popup_keys_language">Språk</string>
     <string name="toolbar_keys">Välj verktygsfältstangenter</string>
     <string name="close_history" tools:keep="@string/close_history">Stäng urklippshistorik</string>
     <string name="clipboard_toolbar_keys">Välj verktygsfältstangenter för urklipp</string>
@@ -236,7 +235,6 @@
     <string name="clear_clipboard" tools:keep="@string/clear_clipboard">Rensa urklipp</string>
     <string name="voice" tools:keep="@string/voice">Röstinmatning</string>
     <string name="select_word" tools:keep="@string/select_word">Markera ord</string>
-    <string name="cut" tools:keep="@string/cut">Klipp ut</string>
     <string name="one_handed" tools:keep="@string/one_handed">Enhandsläge</string>
     <string name="up" tools:keep="@string/up">Upp</string>
     <string name="down" tools:keep="@string/down">Ner</string>

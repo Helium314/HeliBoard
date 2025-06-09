@@ -6,12 +6,11 @@
 
 package helium314.keyboard.keyboard;
 
-import android.app.KeyguardManager;
 import android.content.Context;
-import android.os.Build;
 import android.text.InputType;
 import android.view.inputmethod.EditorInfo;
 
+import helium314.keyboard.compat.IsLockedCompatKt;
 import helium314.keyboard.keyboard.internal.KeyboardBuilder;
 import helium314.keyboard.keyboard.internal.KeyboardIconsSet;
 import helium314.keyboard.keyboard.internal.KeyboardParams;
@@ -207,14 +206,8 @@ public final class KeyboardLayoutSet {
             params.mEditorInfo = editorInfo;
             params.mIsPasswordField = InputTypeUtils.isPasswordInputType(editorInfo.inputType);
 
-            // When the device is still locked, features like showing the IME setting app need to
-            // be locked down.
-            final KeyguardManager km = (KeyguardManager) context.getSystemService(Context.KEYGUARD_SERVICE);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1) {
-                params.mDeviceLocked = km.isDeviceLocked();
-            } else {
-                params.mDeviceLocked = km.isKeyguardLocked();
-            }
+            // When the device is still locked, features like showing the IME setting app need to be locked down.
+            params.mDeviceLocked = IsLockedCompatKt.isDeviceLocked(context);
         }
 
         public static KeyboardLayoutSet buildEmojiClipBottomRow(final Context context, @Nullable final EditorInfo ei) {
@@ -252,7 +245,7 @@ public final class KeyboardLayoutSet {
             mParams.mVoiceInputKeyEnabled = enabled;
             return this;
         }
-        
+
         public Builder setNumberRowEnabled(final boolean enabled) {
             mParams.mNumberRowEnabled = enabled;
             return this;

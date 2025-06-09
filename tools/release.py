@@ -65,25 +65,21 @@ def update_dict_list():
     for line in lines:
         line = line.strip()
         if line.startswith("#"):
-            if line == "# Dictionaries":
-                mode = 1
-            elif line == "# Experimental dictionaries":
-                mode = 2
-            else:
-                mode = 0
-        if mode == 0 or not line.startswith("*"):
+            mode = 0
+        if line.startswith("# Dictionaries"):
+            mode = 1
+        if mode == 0 or not line.startswith("|") or line.startswith("| Language |") or line.startswith("| --- |"):
             continue
-        dict_name = line.split("]")[1].split("(")[1].split(")")[0].split("/")[-1].split(".dict")[0]
+        split = line.split("|")
+        dict_name = split[2].split("]")[1].split("(")[1].split(")")[0].split("/")[-1].split(".dict")[0]
         (dict_type, locale) = dict_name.split("_", 1)
         if "_" in locale:
             sp = locale.split("_")
             locale = sp[0]
             for s in sp[1:]:
                 locale = locale + "_" + s.upper()
-        if mode == 2:
-            dicts.append(f"{dict_type},{locale},exp\n")
-        else:
-            dicts.append(f"{dict_type},{locale},\n")
+        exp = "exp" if split[3].strip() == "yes" else ""
+        dicts.append(f"{dict_type},{locale},{exp}\n")
     target_file = "app/src/main/assets/dictionaries_in_dict_repo.csv"
     with open(target_file, 'w') as f:
         f.writelines(dicts)

@@ -3,7 +3,7 @@
     Copyright (C) 2008 The Android Open Source Project
     modified
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
---><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+--><resources>
     <string name="use_contacts_dict">"連絡先の名前の照合"</string>
     <string name="vibrate_on_keypress">"キー操作バイブレーション"</string>
     <string name="sound_on_keypress">"キー操作音"</string>
@@ -13,7 +13,7 @@
     <string name="settings_screen_correction">"テキストの修正"</string>
     <string name="settings_screen_advanced">"詳細設定"</string>
     <string name="settings_screen_theme">"テーマ"</string>
-    <string name="enable_split_keyboard">"スプリットキーボードを有効にする"</string>
+    <string name="enable_split_keyboard">スプリットキーボードをイネーブルする</string>
     <string name="language_switch_key_switch_input_method">"他の入力方法に切り替え"</string>
     <string name="show_language_switch_key">"言語切り替えキー"</string>
     <string name="abbreviation_unit_milliseconds">"%sミリ秒"</string>
@@ -32,7 +32,7 @@
     <string name="prefs_block_potentially_offensive_summary">"不適切な可能性がある語句を候補にしない"</string>
     <string name="autocorrect">"自動修正"</string>
     <string name="auto_correction_summary">"誤入力をスペースまたは句読点キーで修正する"</string>
-    <string name="auto_correction_threshold_mode_off">"OFF"</string>
+    <string name="auto_correction_threshold_mode_off">オフ</string>
     <string name="auto_correction_threshold_mode_modest">"中"</string>
     <string name="auto_correction_threshold_mode_aggressive">"強"</string>
     <string name="auto_correction_threshold_mode_very_aggressive">"最も強い"</string>
@@ -51,7 +51,7 @@
     <string name="subtype_sr_Latn">"セルビア語（ラテン文字）"</string>
     <string name="subtype_generic_traditional">"%s（伝統言語）"</string>
     <string name="subtype_generic_compact">"%s（コンパクト）"</string>
-    <string name="subtype_no_language">"言語なし（アルファベット）"</string>
+    <string name="subtype_no_language">言語なし（アルファベット）</string>
     <string name="subtype_emoji">"絵文字"</string>
     <string name="add">"追加"</string>
     <string name="remove">"削除"</string>
@@ -69,12 +69,12 @@
     <string name="setup_start_action">"開始"</string>
     <string name="setup_steps_title">%sの設定\"</string>
     <string name="setup_step1_title">%sの有効化\"</string>
-    <string name="setup_step1_instruction">[言語と入力] 設定で%s」のチェックボックスをオンにしてください。これで、このデバイスで利用できるようになります。\"</string>
+    <string name="setup_step1_instruction">[言語と入力] 設定で%s」のチェックボックスをオンにしてください。これで、このデバイスで利用できるようになります。</string>
     <string name="setup_step1_action">"設定での有効化"</string>
     <string name="setup_step2_title">%sへの切り替え\"</string>
-    <string name="setup_step2_instruction">次に、有効なテキスト入力方法として%s」を選択します。\"</string>
+    <string name="setup_step2_instruction">次に、有効なテキスト入力方法として%s」を選択します。</string>
     <string name="setup_step2_action">"入力方法を切り替える"</string>
-    <string name="setup_step3_title">"設定完了"</string>
+    <string name="setup_step3_title">設定完了！</string>
     <string name="setup_step3_instruction">"これで、お気に入りのすべてのアプリで%sを使用して入力できます。"</string>
     <string name="setup_finish_action">"完了"</string>
     <string name="show_setup_wizard_icon">"アプリアイコンを表示"</string>
@@ -84,7 +84,7 @@
     <string name="last_update">"最終更新"</string>
     <string name="settings">"設定"</string>
     <string name="delete">"削除"</string>
-    <string name="version_text">"バージョン%1$s"</string>
+    <string name="version_text">バージョン %s</string>
     <string name="user_dict_settings_add_dialog_title">"辞書に追加"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"ショートカット:"</string>
     <string name="user_dict_settings_add_locale_option_name">"言語:"</string>
@@ -107,4 +107,56 @@
     <string name="label_search_key">"検索"</string>
     <string name="label_pause_key">"停止"</string>
     <string name="label_wait_key">"待機"</string>
+    <string name="ime_settings">ヘリボードの設定</string>
+    <string name="settings_no_limit">遅延無し</string>
+    <string name="spell_checker_service_name">ヘリボードスペルチェッカ</string>
+    <string name="settings_category_input">入力</string>
+    <string name="abbreviation_unit_minutes">%s 分</string>
+    <string name="backup_restore_title">退避とレストア</string>
+    <string name="enable_split_keyboard_landscape">スプリットキーボードをイネーブルする（横向き）</string>
+    <string name="android_spell_checker_settings">ヘリボードスペルチェッカの設定</string>
+    <string name="settings_category_suggestions">提案</string>
+    <string name="settings_category_experimental">実験的</string>
+    <string name="disable_personalized_dicts_message">注意：この設定をディセーブルしたら習ったデータが消える</string>
+    <string name="add_to_personal_dictionary_summary">デバイスの個人用辞書を使用して学習した単語を保存する</string>
+    <string name="center_suggestion_text_to_enter">いつも中間の入力候補を使う</string>
+    <string name="settings_category_miscellaneous">雑多</string>
+    <string name="settings_category_space">スペース</string>
+    <string name="language_switch_key_switch_both">両方を切り替える</string>
+    <string name="switch_language">言語を切り替える</string>
+    <string name="show_emoji_key">絵文字キー</string>
+    <string name="gesture_fast_typing_cooldown_instant">必ずすぐに始まる</string>
+    <string name="button_backup">バックアップ</string>
+    <string name="restore_error">バックアップをレストアする中エラー：%s</string>
+    <string name="backup_error">バックアップエラー： %s</string>
+    <string name="button_restore">レストア</string>
+    <string name="add_to_personal_dictionary">個人用辞書に単語を追加する</string>
+    <string name="backup_restored">バックアップをレストアした</string>
+    <string name="load_gesture_library_button_load">ライブラリーをロードする</string>
+    <string name="settings_category_clipboard_history">クリップボードの履歴</string>
+    <string name="settings_category_correction">修正</string>
+    <string name="secondary_locale">多言語入力</string>
+    <string name="settings_category_additional_keys">余分なキー</string>
+    <string name="autospace_after_punctuation">句読点の後で自動にスペースする</string>
+    <string name="vibrate_in_dnd_mode">マナーモードでバイブレーション</string>
+    <string name="prefs_always_show_suggestions">必ず修正候補を表示する</string>
+    <string name="more_autocorrect">その他の自動修正</string>
+    <string name="gesture_floating_preview_static">フローティングプレビュー</string>
+    <string name="gesture_floating_preview_static_summary">ゲスチャー中に修正候補を見る</string>
+    <string name="gesture_floating_preview_dynamic_summary">ゲスチャー中にプレビューが動ける</string>
+    <string name="gesture_fast_typing_cooldown">急速入力クールダウン</string>
+    <string name="enable_clipboard_history">クリップボード履歴をイネーブルする</string>
+    <string name="clipboard_history_retention_time">履歴を保つ時間</string>
+    <string name="delete_swipe">デリートスワイプ</string>
+    <string name="load_gesture_library_button_delete">ライブラリーをデリートする</string>
+    <string name="autospace_before_gesture_typing">ゲスチャー入力の前に自動にスペースする</string>
+    <string name="autospace_after_gesture_typing">ゲスチャー入力の後で自動にスペースする</string>
+    <string name="autospace_after_suggestion">修正候補を選ぶ後で自動にスペースする</string>
+    <string name="shift_removes_autospace">シフトキーを押しながら自動にスペースしない</string>
+    <string name="auto_correct_shortcuts">自動修正ショートカット</string>
+    <string name="suggest_clipboard_content">クリップボードのコンテントを勧める</string>
+    <string name="suggest_clipboard_content_summary">修正候補で最近コピーしたクリップボードのコンテントを見せる</string>
+    <string name="autospace_after_punctuation_summary">新シー言葉を入力場合に句読点の後で自動にスペースする</string>
+    <string name="locales_with_dict">辞書を盛り込む言語</string>
+    <string name="url_detection_title">URL 検出</string>
 </resources>

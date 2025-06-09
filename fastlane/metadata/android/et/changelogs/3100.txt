@@ -1,0 +1,10 @@
+* paigaldatud rakenduste nimede soovitamine (kui tahad)
+* emojide kategooriate vahetamine viibates
+* süsteemne teade peale varukoopiast taastamist
+* suurem tööriistariba nupp ja ikoon
+* koma on kasutatav ülataseme domeenide hüpikakendes
+* emojide taust on nüüd seadistatav
+* koodid vasaku ja parema alt ja ctrl klahvi jaoks
+* ajatempli klahv on paremini märgitud
+* eriklahvide sildid hüpikakende jaoks lihtsate paigutuste puhul
+* pisiparandused ja täiendused

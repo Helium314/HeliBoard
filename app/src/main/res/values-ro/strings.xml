@@ -162,7 +162,6 @@
     <string name="more_keys_strip_description">Mai multe taste</string>
     <string name="language_and_layouts_title">Limbi și aspecte</string>
     <string name="popup_keys_number" tools:keep="@string/popup_keys_number">Rând de numere</string>
-    <string name="popup_keys_language" tools:keep="@string/popup_keys_language">Limbă</string>
     <string name="popup_keys_language_priority" tools:keep="@string/popup_keys_language_priority">Limbă (prioritate)</string>
     <string name="popup_keys_layout" tools:keep="@string/popup_keys_layout">Aspect</string>
     <string name="popup_keys_symbols" tools:keep="@string/popup_keys_symbols">Simboluri</string>
@@ -405,4 +404,23 @@
     <string name="prefs_language_swipe_distance">Distanța de deplasare pentru comutarea limbii</string>
     <string name="get_colors_message">Poți găsi și împărtăși culori în %s.</string>
     <string name="discussion_section_link">secțiunea de discuții</string>
+    <string name="prefs_always_show_suggestions_except_web_text">Nu afișa întotdeauna sugestii pentru câmpurile de editare web</string>
+    <string name="prefs_always_show_suggestions_except_web_text_summary">Câmpurile de editare web (mai ales în browser-e) sunt o cauză foarte frecventă pentru problemele cu setarea de afișare a sugestiilor întotdeauna</string>
+    <string name="timestamp_format_title">Format pentru tasta Timestamp</string>
+    <string name="show_tld_popup_keys">Afișează tastele pop-up TLD</string>
+    <string name="backspace_reverts_autocorrect">Apăsarea Backspace anulează corectarea automată</string>
+    <string name="autospace_after_gesture_typing">Spațiu automat după tastarea unui cuvânt prin gesturi</string>
+    <string name="shift_removes_autospace">Fără spațiu automat la apăsarea tastei Shift</string>
+    <string name="shift_removes_autospace_summary">Shift elimină în spațiul automat în așteptare</string>
+    <string name="use_apps_dict">Folosește numele aplicațiilor</string>
+    <string name="autospace_after_suggestion">Spațiu automat după ce s-a ales o sugestie</string>
+    <string name="settings_category_space">Spațiu</string>
+    <string name="autospace_before_gesture_typing">Spațiu automat înainte de tastarea unui cuvânt prin gesturi</string>
+    <string name="layout_number_row_basic" tools:keep="@string/layout_number_row_basic">Rândul cu numere (de bază)</string>
+    <string name="prefs_emoji_key_fit">Scalarea dimensiunii tastelor emoji împreună cu dimensiunea fontului</string>
+    <string name="backup_restored">Copie de rezervă restabilită</string>
+    <string name="after_numpad_and_space">Apăsarea Enter sau Spațiu după alte taste în Numpad</string>
+    <string name="use_apps_dict_summary">Utilizează numele aplicațiilor instalate pentru sugestii și corecții</string>
+    <string name="prefs_emoji_skin_tone">Ton implicit al pielii emoji</string>
+    <string name="prefs_emoji_skin_tone_neutral">Neutru</string>
 </resources>

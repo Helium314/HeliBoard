@@ -65,14 +65,14 @@
     <string name="prefs_enable_emoji_alt_physical_key">"Emoji para teclado físico"</string>
     <string name="prefs_enable_emoji_alt_physical_key_summary">"A tecla Alt física mostra a paleta de emoji"</string>
     <string name="button_default">"Predefinido"</string>
-    <string name="setup_welcome_title">Bem-vindo ao%s</string>
+    <string name="setup_welcome_title">Bem-vindo ao %s</string>
     <string name="setup_welcome_additional_description">"com a Escrita com Gestos"</string>
     <string name="setup_start_action">"Começar"</string>
-    <string name="setup_steps_title">A configurar%s</string>
-    <string name="setup_step1_title">Ative o%s</string>
+    <string name="setup_steps_title">A configurar %s</string>
+    <string name="setup_step1_title">Ative o %s</string>
     <string name="setup_step1_instruction">Assinale %s na área \"Idioma e introdução\" das definições. Assim, já poderá executar a aplicação no dispositivo.</string>
     <string name="setup_step1_action">Ativar nas definições</string>
-    <string name="setup_step2_title">Alternar para%s</string>
+    <string name="setup_step2_title">Alternar para %s</string>
     <string name="setup_step2_instruction">De seguida, selecione %s\" como método de introdução ativo.\"</string>
     <string name="setup_step2_action">Alternar métodos de introdução</string>
     <string name="setup_step3_title">Parabéns, configuração terminada!</string>
@@ -129,7 +129,7 @@
     <string name="subtype_akkhor_bn_BD">%s (Akkhor)</string>
     <string name="settings_no_limit">Sem limite</string>
     <string name="enable_clipboard_history">Ativar Histórico da Área de Transferência</string>
-    <string name="abbreviation_unit_minutes">%smin.</string>
+    <string name="abbreviation_unit_minutes">%s min.</string>
     <string name="autospace_after_punctuation_summary">Inserir espaço automaticamente após pontuação ao digitar uma nova palavra</string>
     <string name="settings_category_clipboard_history">Histórico da área de transferência</string>
     <string name="undo">"Anular"</string>
@@ -198,7 +198,6 @@
     <string name="popup_keys_language_priority" tools:keep="@string/popup_keys_language_priority">Língua (prioridade)</string>
     <string name="emoji" tools:keep="@string/emoji">Emoji</string>
     <string name="show_popup_keys_all">Adicionar todas as variantes disponíveis</string>
-    <string name="popup_keys_language" tools:keep="@string/popup_keys_language">Idioma</string>
     <string name="up" tools:keep="@string/up">Cima</string>
     <string name="down" tools:keep="@string/down">Baixo</string>
     <string name="clear_clipboard" tools:keep="@string/clear_clipboard">Limpar a área de transferência</string>
@@ -250,7 +249,7 @@
     <string name="url_detection_summary">Tenta detetar URLs e similares como uma única palavra</string>
     <string name="hint_source">Selecionar fonte de dicas</string>
     <string name="prefs_bottom_padding_scale">Escala do espaço inferior</string>
-    <string name="delete_layout">Excluir realmente o layout personalizado%s?</string>
+    <string name="delete_layout">Excluir realmente o layout personalizado %s?</string>
     <string name="layout_number_row_basic" tools:keep="@string/layout_number_row_basic">Linha de números (básica)</string>
     <string name="customize_background_image">Definir imagem de fundo</string>
     <string name="label_zwnj_key" tools:keep="@string/label_zwnj_key">Não-conector de zero largura</string>
@@ -326,7 +325,7 @@
     <string name="available_dictionary_experimental">%s (experimental)</string>
     <string name="label_shift_key_shifted" tools:keep="@string/label_shift_key_shifted">Shift (ativado)</string>
     <string name="theme_name_forest" tools:keep="@string/theme_name_forest">Foresta</string>
-    <string name="user_dict_word_already_present">Esta palavra já está presente no dicionário de utilizador%s. Introduza outra.</string>
+    <string name="user_dict_word_already_present">Esta palavra já está presente no dicionário de utilizador %s. Introduza outra.</string>
     <string name="select_color_spacebar_text">Texto da barra de espaço</string>
     <string name="auto_show_toolbar_summary">Mostrar a barra de ferramentas se a digitação começar ou se o texto é selecionado</string>
     <string name="delete_confirmation">Apagar %s realmente?</string>
@@ -407,7 +406,7 @@
     <string name="prefs_side_padding_scale">Escala do espaço lateral</string>
     <string name="prefs_side_padding_scale_landscape">Escala do espaço lateral (paisagem)</string>
     <string name="label_bin" tools:keep="@string/label_bin">Reciclagem</string>
-    <string name="language_and_layouts_title">Idiomas e Layouts</string>
+    <string name="language_and_layouts_title">Idiomas &amp; Layouts</string>
     <string name="localized_number_row">Localizar linha de números</string>
     <string name="localized_number_row_summary">Preferir localizados em vez de números latinos</string>
     <string name="button_save_file">Guardar em ficheiro</string>

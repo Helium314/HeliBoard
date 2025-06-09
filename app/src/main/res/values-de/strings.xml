@@ -186,7 +186,6 @@
     <string name="load_gesture_library_message">Du benötigst die Bibliothek für „%s“. Inkompatible Bibliotheken können zu Abstürzen beim Gesten-Tippen führen. \n \nWarnung: Das Laden von externem Code kann ein Sicherheitsrisiko darstellen. Verwende nur Bibliotheken aus Quellen, denen du vertraust.</string>
     <string name="add_dictionary">Wörterbuch zum Hinzufügen auswählen. Wörterbücher im .dict-Format können %s heruntergeladen werden.</string>
     <string name="load_gesture_library_button_delete">Bibliothek löschen</string>
-    <string name="popup_keys_language" tools:keep="@string/popup_keys_language">Sprache</string>
     <string name="right" tools:keep="@string/right">Rechts</string>
     <string name="dictionary_load_error">Fehler beim Laden der Wörterbuchdatei</string>
     <string name="localized_number_row_summary">Lokalisierte Zahlen gegenüber lateinischen bevorzugen</string>
@@ -296,7 +295,6 @@
     <string name="space_swipe_move_cursor_entry">Cursor bewegen</string>
     <string name="show_horizontal_space_swipe">Horizontale Wischgeste der Leertaste</string>
     <string name="prefs_long_press_symbol_for_numpad">Symbole-Taste für Ziffernblock gedrückt halten</string>
-    <string name="cut" tools:keep="@string/cut">Ausschneiden</string>
     <string name="var_toolbar_direction">Variable Symbolleisten-Richtung</string>
     <string name="var_toolbar_direction_summary">Richtung umkehren, wenn die Tastatur einer Rechts-nach-Links-Sprache ausgewählt ist</string>
     <string name="subtype_generic_student">%s (Student)</string>

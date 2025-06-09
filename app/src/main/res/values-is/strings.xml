@@ -140,7 +140,6 @@
     <string name="language_switch_key_switch_both">Skipta um bæði</string>
     <string name="show_emoji_key">Tjáningartáknalykill</string>
     <string name="popup_keys_number" tools:keep="@string/popup_keys_number">Talnaröð</string>
-    <string name="popup_keys_language" tools:keep="@string/popup_keys_language">Tungumál</string>
     <string name="popup_keys_layout" tools:keep="@string/popup_keys_layout">Framsetning</string>
     <string name="popup_keys_symbols" tools:keep="@string/popup_keys_symbols">Tákn</string>
     <string name="emoji" tools:keep="@string/emoji">Tjáningartákn</string>

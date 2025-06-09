@@ -145,7 +145,6 @@
     <string name="theme_colors">الألوان</string>
     <string name="popup_keys_number" tools:keep="@string/popup_keys_number">صف الأرقام</string>
     <string name="available_dictionary_experimental">%s (تجريبي)</string>
-    <string name="popup_keys_language" tools:keep="@string/popup_keys_language">اللغة</string>
     <string name="dictionary_file_wrong_locale_ok">استخدمه على أي حال</string>
     <string name="theme_style">النمط</string>
     <string name="style_name_Rounded" tools:keep="@string/style_name_Rounded">دائري</string>
@@ -436,4 +435,11 @@
     <string name="use_apps_dict_summary">استخدام أسماء التطبيقات المثبتة للاقتراحات والتصحيحات</string>
     <string name="prefs_emoji_skin_tone">لون بشرة الرموز التعبيرية الافتراضي</string>
     <string name="prefs_emoji_skin_tone_neutral">طبيعي</string>
+    <string name="subtype_with_layout_generic">%1$s (%2$s)</string>
+    <string name="toolbar_mode">وضع شريط الأدوات</string>
+    <string name="toolbar_mode_expandable">مفاتيح شريط الأدوات والاقتراحات</string>
+    <string name="toolbar_mode_toolbar_keys">مفاتيح شريط الأدوات فقط</string>
+    <string name="toolbar_mode_suggestion_strip">اقتراحات فقط</string>
+    <string name="toolbar_mode_hidden">مخفي</string>
+    <string name="toolbar_hiding_global">أخفِ أشرطة أدوات الحافظة والرموز التعبيرية أيضًا</string>
 </resources>

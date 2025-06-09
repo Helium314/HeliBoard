@@ -172,7 +172,6 @@
     <string name="backup_restore_title">Backup og gendannelse</string>
     <string name="popup_keys_symbols" tools:keep="@string/popup_keys_symbols">Symboler</string>
     <string name="file_read_error">Kan ikke læse fil</string>
-    <string name="popup_keys_language" tools:keep="@string/popup_keys_language">Sprog</string>
     <string name="customize_currencies_detail">Indstil primær og op til 6 sekundære valutasymboler, adskilt med mellemrum</string>
     <string name="show_popup_hints">Vis funktionelle hints</string>
     <string name="subtype_generic_sebeolsik_390">%s (Sebeolsik 390)</string>

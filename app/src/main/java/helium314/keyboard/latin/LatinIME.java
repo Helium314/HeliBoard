@@ -60,7 +60,6 @@ import helium314.keyboard.keyboard.KeyboardId;
 import helium314.keyboard.keyboard.KeyboardLayoutSet;
 import helium314.keyboard.keyboard.KeyboardSwitcher;
 import helium314.keyboard.keyboard.MainKeyboardView;
-import helium314.keyboard.latin.Suggest.OnGetSuggestedWordsCallback;
 import helium314.keyboard.latin.SuggestedWords.SuggestedWordInfo;
 import helium314.keyboard.latin.common.ColorType;
 import helium314.keyboard.latin.common.Constants;
@@ -87,6 +86,7 @@ import helium314.keyboard.latin.utils.StatsUtils;
 import helium314.keyboard.latin.utils.StatsUtilsManager;
 import helium314.keyboard.latin.utils.SubtypeLocaleUtils;
 import helium314.keyboard.latin.utils.SubtypeSettings;
+import helium314.keyboard.latin.utils.ToolbarMode;
 import helium314.keyboard.latin.utils.ViewLayoutUtils;
 import helium314.keyboard.settings.SettingsActivity;
 import kotlin.collections.CollectionsKt;
@@ -128,6 +128,9 @@ public class LatinIME extends InputMethodService implements
     public final KeyboardActionListener mKeyboardActionListener;
     private int mOriginalNavBarColor = 0;
     private int mOriginalNavBarFlags = 0;
+
+    // UIHandler is needed when creating InputLogic
+    public final UIHandler mHandler = new UIHandler(this);
     private final DictionaryFacilitator mDictionaryFacilitator =
             DictionaryFacilitatorProvider.getDictionaryFacilitator(false);
     final InputLogic mInputLogic = new InputLogic(this, this, mDictionaryFacilitator);
@@ -185,8 +188,6 @@ public class LatinIME extends InputMethodService implements
     private GestureConsumer mGestureConsumer = GestureConsumer.NULL_GESTURE_CONSUMER;
 
     private final ClipboardHistoryManager mClipboardHistoryManager = new ClipboardHistoryManager(this);
-
-    public final UIHandler mHandler = new UIHandler(this);
 
     public static final class UIHandler extends LeakGuardHandlerWrapper<LatinIME> {
         private static final int MSG_UPDATE_SHIFT_STATE = 0;
@@ -606,7 +607,7 @@ public class LatinIME extends InputMethodService implements
                 mCurrentSubtypeHasBeenUsed = false;
             }
             if (currentSubtypeHasBeenUsed
-                    && richImm.checkIfSubtypeBelongsToThisImeAndEnabled(lastActiveSubtype)
+                    && SubtypeSettings.INSTANCE.isEnabled(lastActiveSubtype)
                     && !currentSubtype.equals(lastActiveSubtype)) {
                 switchToSubtype(lastActiveSubtype);
                 return;
@@ -752,9 +753,14 @@ public class LatinIME extends InputMethodService implements
     // TODO: make sure the current settings always have the right locales, and read from them.
     private void resetDictionaryFacilitator(@NonNull final Locale locale) {
         final SettingsValues settingsValues = mSettings.getCurrent();
-        mDictionaryFacilitator.resetDictionaries(this, locale,
+        try {
+            mDictionaryFacilitator.resetDictionaries(this, locale,
                 settingsValues.mUseContactsDictionary, settingsValues.mUseAppsDictionary,
                 settingsValues.mUsePersonalizedDicts, false, "", this);
+        } catch (Throwable e) {
+            // this should not happen, but in case it does we at least want to show a keyboard
+            Log.e(TAG, "Could not reset dictionary facilitator, please fix ASAP", e);
+        }
         mInputLogic.mSuggest.setAutoCorrectionThreshold(settingsValues.mAutoCorrectionThreshold);
     }
 
@@ -786,14 +792,6 @@ public class LatinIME extends InputMethodService implements
         super.onDestroy();
         mHandler.removeCallbacksAndMessages(null);
         deallocateMemory();
-    }
-
-    public void recycle() {
-        unregisterReceiver(mDictionaryPackInstallReceiver);
-        unregisterReceiver(mDictionaryDumpBroadcastReceiver);
-        unregisterReceiver(mRingerModeChangeReceiver);
-        unregisterReceiver(mRestartAfterDeviceUnlockReceiver);
-        mInputLogic.recycle();
     }
 
     private boolean isImeSuppressedByHardwareKeyboard() {
@@ -877,7 +875,8 @@ public class LatinIME extends InputMethodService implements
         mInputView = view;
         mInsetsUpdater = ViewOutlineProviderUtilsKt.setInsetsOutlineProvider(view);
         updateSoftInputWindowLayoutParameters();
-        mSuggestionStripView = view.findViewById(R.id.suggestion_strip_view);
+        mSuggestionStripView = mSettings.getCurrent().mToolbarMode == ToolbarMode.HIDDEN?
+                        null : view.findViewById(R.id.suggestion_strip_view);
         if (hasSuggestionStripView()) {
             mSuggestionStripView.setListener(this, view);
         }
@@ -929,8 +928,9 @@ public class LatinIME extends InputMethodService implements
         mInputLogic.onSubtypeChanged(SubtypeLocaleUtils.getCombiningRulesExtraValue(subtype),
                 mSettings.getCurrent());
         loadKeyboard();
-        if (mSuggestionStripView != null)
+        if (hasSuggestionStripView()) {
             mSuggestionStripView.setRtl(mRichImm.getCurrentSubtype().isRtlSubtype());
+        }
     }
 
     /** alias to onCurrentInputMethodSubtypeChanged with a better name, as it's also used for internal switching */
@@ -1018,6 +1018,8 @@ public class LatinIME extends InputMethodService implements
                 !currentSettingsValues.hasSameOrientation(getResources().getConfiguration())) {
             loadSettings();
             currentSettingsValues = mSettings.getCurrent();
+            if (hasSuggestionStripView())
+                mSuggestionStripView.updateVoiceKey();
         }
         // ALERT: settings have not been reloaded and there is a chance they may be stale.
         // In the practice, if it is, we should have gotten onConfigurationChanged so it should
@@ -1213,7 +1215,7 @@ public class LatinIME extends InputMethodService implements
 
     @Override
     public void hideWindow() {
-        if (mSuggestionStripView != null)
+        if (hasSuggestionStripView() && mSettings.getCurrent().mToolbarMode == ToolbarMode.EXPANDABLE)
             mSuggestionStripView.setToolbarVisibility(false);
         mKeyboardSwitcher.onHideWindow();
 
@@ -1269,7 +1271,7 @@ public class LatinIME extends InputMethodService implements
             return;
         }
         final View visibleKeyboardView = mKeyboardSwitcher.getWrapperView();
-        if (visibleKeyboardView == null || !hasSuggestionStripView()) {
+        if (visibleKeyboardView == null) {
             return;
         }
         final int inputHeight = mInputView.getHeight();
@@ -1281,8 +1283,13 @@ public class LatinIME extends InputMethodService implements
             mInsetsUpdater.setInsets(outInsets);
             return;
         }
-        final int visibleTopY = inputHeight - visibleKeyboardView.getHeight() - mSuggestionStripView.getHeight();
-        mSuggestionStripView.setMoreSuggestionsHeight(visibleTopY);
+        final int stripHeight = mKeyboardSwitcher.isShowingStripContainer() ? mKeyboardSwitcher.getStripContainer().getHeight() : 0;
+        final int visibleTopY = inputHeight - visibleKeyboardView.getHeight() - stripHeight;
+
+        if (hasSuggestionStripView()) {
+            mSuggestionStripView.setMoreSuggestionsHeight(visibleTopY);
+        }
+
         // Need to set expanded touchable region only if a keyboard view is being shown.
         if (visibleKeyboardView.isShown()) {
             final int touchLeft = 0;
@@ -1366,6 +1373,10 @@ public class LatinIME extends InputMethodService implements
     @RequiresApi(api = Build.VERSION_CODES.R)
     public InlineSuggestionsRequest onCreateInlineSuggestionsRequest(@NonNull Bundle uiExtras) {
         Log.d(TAG,"onCreateInlineSuggestionsRequest called");
+        if (Settings.getValues().mSuggestionStripHiddenPerUserSettings) {
+            return null;
+        }
+
         return InlineAutofillUtils.createInlineSuggestionRequest(mDisplayContext);
     }
 
@@ -1459,7 +1470,7 @@ public class LatinIME extends InputMethodService implements
         // switch IME if wanted and possible
         if (switchIme && !switchSubtype && switchInputMethod())
             return;
-        final boolean hasMoreThanOneSubtype = mRichImm.getMyEnabledInputMethodSubtypeList(true).size() > 1;
+        final boolean hasMoreThanOneSubtype = mRichImm.hasMultipleEnabledSubtypesInThisIme(true);
         // switch subtype if wanted, do nothing if no other subtype is available
         if (switchSubtype && !switchIme) {
             if (hasMoreThanOneSubtype)
@@ -1627,7 +1638,7 @@ public class LatinIME extends InputMethodService implements
                 dismissGestureFloatingPreviewText /* dismissDelayed */);
     }
 
-    public boolean hasSuggestionStripView() {
+    private boolean hasSuggestionStripView() {
         return null != mSuggestionStripView;
     }
 
@@ -1660,18 +1671,6 @@ public class LatinIME extends InputMethodService implements
                 mSuggestionStripView.setToolbarVisibility(false);
             }
         }
-    }
-
-    // TODO[IL]: Move this out of LatinIME.
-    public void getSuggestedWords(final int inputStyle, final int sequenceNumber,
-                                  final OnGetSuggestedWordsCallback callback) {
-        final Keyboard keyboard = mKeyboardSwitcher.getKeyboard();
-        if (keyboard == null) {
-            callback.onGetSuggestedWords(SuggestedWords.getEmptyInstance());
-            return;
-        }
-        mInputLogic.getSuggestedWords(mSettings.getCurrent(), keyboard,
-                mKeyboardSwitcher.getKeyboardShiftMode(), inputStyle, sequenceNumber, callback);
     }
 
     @Override

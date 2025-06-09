@@ -85,7 +85,7 @@
     <string name="last_update">"Poslední aktualizace"</string>
     <string name="settings">"Nastavení"</string>
     <string name="delete">"Smazat"</string>
-    <string name="version_text">"Verze %1$s"</string>
+    <string name="version_text">Verze %s</string>
     <string name="user_dict_settings_add_dialog_title">"Přidat do slovníku"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"Zkratka:"</string>
     <string name="user_dict_settings_add_locale_option_name">"Jazyk:"</string>
@@ -147,7 +147,6 @@
     <string name="add_to_personal_dictionary_summary">Použít osobní slovník zařízení k ukládání naučených slovíček</string>
     <string name="more_autocorrect">Další automatické opravy</string>
     <string name="more_autocorrect_summary">Automatické opravy, i když to není výslovně požadováno ve vstupním poli</string>
-    <string name="popup_keys_language" tools:keep="@string/popup_keys_language">Jazyk</string>
     <string name="day_or_night_day">Denní</string>
     <string name="center_suggestion_text_to_enter">Vždy používat prostřední návrh</string>
     <string name="center_suggestion_text_to_enter_summary">Po stisknutí mezery nebo interpunkčního znaménka se zadá prostřední návrh</string>
@@ -172,7 +171,6 @@
     <string name="popup_keys_language_priority" tools:keep="@string/popup_keys_language_priority">Jazyk (prioritní)</string>
     <string name="popup_keys_layout" tools:keep="@string/popup_keys_layout">Rozvržení</string>
     <string name="popup_keys_symbols" tools:keep="@string/popup_keys_symbols">Symboly</string>
-    <string name="cut" tools:keep="@string/cut">Vyjmout</string>
     <string name="select_word" tools:keep="@string/select_word">Vybrat slovo</string>
     <string name="one_handed" tools:keep="@string/one_handed">Režim ovládání jednou rukou</string>
     <string name="full_left" tools:keep="@string/full_left">Úplně vlevo</string>
@@ -430,4 +428,13 @@
     <string name="use_apps_dict">Používat názvy aplikací</string>
     <string name="prefs_emoji_skin_tone_neutral">Neutrální</string>
     <string name="prefs_emoji_skin_tone">Výchozí barva pokožky emodži</string>
+    <string name="subtype_with_layout_generic">%1$s (%2$s)</string>
+    <string name="toolbar_mode_expandable">Klávesy a návrhy panelu nástrojů</string>
+    <string name="toolbar_mode_toolbar_keys">Pouze klávesy panelu nástrojů</string>
+    <string name="toolbar_mode_suggestion_strip">Pouze návrhy</string>
+    <string name="toolbar_mode_hidden">Skryté</string>
+    <string name="toolbar_hiding_global">Skrýt také panely schránky a emoji</string>
+    <string name="toolbar_mode">Režim panelu nástrojů</string>
+    <string name="popup_order_and_hint_source">Pořadí vyskakovacích kláves a zdroj tipů</string>
+    <string name="landscape">Na šířku</string>
 </resources>

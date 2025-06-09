@@ -55,7 +55,7 @@
     <string name="enable_split_keyboard_landscape">Enable split keyboard (landscape)</string>
     <!--  Option for setting distance for split keyboard in portrait mode -->
     <string name="split_spacer_scale">Split distance</string>
-    <!--  Option for setting distance for split keyboard in landscape mode -->
+    <!--  Option for setting distance for split keyboard in landscape mode, todo: remove after merge -->
     <string name="split_spacer_scale_landscape">Split distance (landscape)</string>
     <!-- Option name for including other IMEs in the language key switch list -->
     <string name="language_switch_key_switch_input_method">Switch to other input methods</string>
@@ -274,6 +274,8 @@
     <string name="show_hints">Show key hints</string>
     <!-- Description of the settings to show hints -->
     <string name="show_hints_summary">Show long-press hints</string>
+    <!-- Preferences item to set popup key order and select hints source -->
+    <string name="popup_order_and_hint_source">Popup key order and hints source</string>
     <!-- Title of the setting to select key hints source -->
     <string name="hint_source">Select hint source</string>
     <!-- Title of the setting to set popup key order -->
@@ -284,10 +286,22 @@
     <string name="show_tld_popup_keys_summary">Replace period key popups with top level domains when typing URLs and email addresses</string>
     <!-- Names of the popup key classes -->
     <string name="popup_keys_number" tools:keep="@string/popup_keys_number">Number row</string>
-    <string name="popup_keys_language" tools:keep="@string/popup_keys_language">@string/subtype_locale</string>
+    <string name="popup_keys_language" translatable="false" tools:keep="@string/popup_keys_language">@string/subtype_locale</string>
     <string name="popup_keys_language_priority" tools:keep="@string/popup_keys_language_priority">Language (priority)</string>
     <string name="popup_keys_layout" tools:keep="@string/popup_keys_layout">Layout</string>
     <string name="popup_keys_symbols" tools:keep="@string/popup_keys_symbols">Symbols</string>
+    <!-- Title of the setting to set the toolbar mode -->
+    <string name="toolbar_mode">Toolbar mode</string>
+    <!-- Option to set the toolbar mode to show an expandable toolbar -->
+    <string name="toolbar_mode_expandable">Toolbar keys and suggestions</string>
+    <!-- Option to set the toolbar mode to show the toolbar keys only -->
+    <string name="toolbar_mode_toolbar_keys">Toolbar keys only</string>
+    <!-- Option to set the toolbar mode to show the suggestions strip only -->
+    <string name="toolbar_mode_suggestion_strip">Suggestions only</string>
+    <!-- Option to set the toolbar mode to hidden -->
+    <string name="toolbar_mode_hidden">Hidden</string>
+    <!-- Option to hide clipboard and emoji toolbars when main toolbar is hidden -->
+    <string name="toolbar_hiding_global">Hide clipboard and emoji toolbars too</string>
     <!-- Title of the setting to set toolbar keys -->
     <string name="toolbar_keys">Select toolbar keys</string>
     <!-- Names of the toolbar keys-->
@@ -347,12 +361,12 @@
     <string name="prefs_keyboard_height_scale">Keyboard height scale</string>
     <!-- Title of the setting for setting bottom padding height -->
     <string name="prefs_bottom_padding_scale">Bottom padding scale</string>
-    <!-- Title of the setting for setting bottom padding height in landscape mode -->
+    <!-- Title of the setting for setting bottom padding height in landscape mode, todo: remove after merge -->
     <string name="prefs_bottom_padding_scale_landscape">Bottom padding scale (landscape)</string>
     <!-- Title of the setting for adjusting font size on the keyboard -->
     <!-- Title of the setting for setting side padding -->
     <string name="prefs_side_padding_scale">Side padding scale</string>
-    <!-- Title of the setting for setting side padding in landscape mode -->
+    <!-- Title of the setting for setting side padding in landscape mode, todo: remove after merge -->
     <string name="prefs_side_padding_scale_landscape">Side padding scale (landscape)</string>
     <string name="prefs_font_scale">Keyboard font scale</string>
     <!-- Title of the setting for adjusting font size in emoji view -->
@@ -384,7 +398,7 @@
     <string name="subtype_mns">Mansi</string>
     <!-- Description for Kaitag (https://en.wikipedia.org/wiki/Kaitag_language) keyboard subtype -->
     <string name="subtype_xdq">Kaitag</string>
-    <!-- Description for Dagbani (https://en.wikipedia.org/wiki/Dagbani_language) keyboard subtype --> 
+    <!-- Description for Dagbani (https://en.wikipedia.org/wiki/Dagbani_language) keyboard subtype -->
     <string name="subtype_dag">Dagbani</string>
     <!-- Description for Sesotho (https://en.wikipedia.org/wiki/Sesotho_language) keyboard subtype -->
     <string name="subtype_st">Sesotho</string>
@@ -885,4 +899,6 @@ New dictionary:
     <string name="name_invalid">Invalid name</string>
     <!-- Description indicating a subtype in Locales & Layouts has customizations -->
     <string name="custom_subtype">Custom subtype</string>
+    <!-- Name for landscape orientation, used in various settings -->
+    <string name="landscape">Landscape</string>
 </resources>

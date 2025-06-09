@@ -188,7 +188,6 @@
 \nUwaga: dodawanie zewnętrznego kodu może stanowić zagrożenie bezpieczeństwa. Korzystaj z biblioteki pochodzącej tylko z zaufanego źródła.</string>
     <string name="add_dictionary">Wybierz słownik do dodania. Słowniki w formacie .dict można pobrać %s.</string>
     <string name="load_gesture_library_button_delete">Usuń bibliotekę</string>
-    <string name="popup_keys_language" tools:keep="@string/popup_keys_language">Język (główny)</string>
     <string name="right" tools:keep="@string/right">W prawo</string>
     <string name="dictionary_load_error">Błąd podczas dodawania słownika</string>
     <string name="localized_number_row_summary">Preferuj liczby lokalne zamiast łacińskich</string>
@@ -344,7 +343,6 @@
     <string name="subtype_probhat_bn_BD">%s (Probhat)</string>
     <string name="subtype_generic_student">%s (Uczeń)</string>
     <string name="prefs_long_press_symbol_for_numpad">Przytrzymaj klawisz symboli, aby wyświetlić klawiaturę numeryczną</string>
-    <string name="cut" tools:keep="@string/cut">Wytnij</string>
     <string name="center_suggestion_text_to_enter">Zawsze używaj środkowej sugestii</string>
     <string name="center_suggestion_text_to_enter_summary">Po naciśnięciu spacji lub znaku interpunkcyjnego zostanie wpisana środkowa sugestia</string>
     <string name="close_history" tools:keep="@string/close_history">Zamknij schowek</string>
@@ -410,7 +408,6 @@
     <string name="label_delete_key" tools:keep="@string/label_delete_key">Usuwanie</string>
     <string name="label_shortcut_key_disabled" tools:keep="@string/label_shortcut_key_disabled">Wprowadzanie głosowe wyłączone</string>
     <string name="label_toolbar_key" tools:keep="@string/label_toolbar_key">Pokaż/ukryj pasek narzędzi</string>
-    <string name="label_language_switch_key" tools:keep="@string/label_language_switch_key">\@string/show_language_switch_key</string>
     <string name="customize_toolbar_key_codes">Dostosuj kody klawiszy paska narzędzi</string>
     <string name="key_code">Kod klawisza</string>
     <string name="long_press_code">Kod długiego naciśnięcia</string>
@@ -473,4 +470,13 @@
     <string name="use_apps_dict">Przeszukaj nazwy aplikacji</string>
     <string name="prefs_emoji_skin_tone">Domyślny odcień skóry emoji</string>
     <string name="prefs_emoji_skin_tone_neutral">Neutralny</string>
+    <string name="subtype_with_layout_generic">%1$s (%2$s)</string>
+    <string name="toolbar_mode">Tryb paska narzędzi</string>
+    <string name="toolbar_mode_expandable">Klawisze i sugestie</string>
+    <string name="toolbar_mode_toolbar_keys">Tylko klawisze</string>
+    <string name="toolbar_mode_suggestion_strip">Tylko sugestie</string>
+    <string name="toolbar_mode_hidden">Ukryty</string>
+    <string name="toolbar_hiding_global">Ukryj także paski schowka i emotikonów</string>
+    <string name="landscape">Poziomo</string>
+    <string name="popup_order_and_hint_source">Kolejność wyskakujących okienek i źródło wskazówek</string>
 </resources>

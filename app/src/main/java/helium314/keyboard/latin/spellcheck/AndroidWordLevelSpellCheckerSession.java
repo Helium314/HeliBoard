@@ -335,6 +335,8 @@ public abstract class AndroidWordLevelSpellCheckerSession extends Session {
             }
 
             final WordComposer composer = new WordComposer();
+            if (mLocale.getLanguage().equals("ko"))
+                composer.restartCombining("hangul");
             final int[] codePoints = StringUtils.toCodePointArray(text);
             final int[] coordinates;
             coordinates = keyboard.getCoordinates(codePoints);

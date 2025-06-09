@@ -22,7 +22,6 @@ import android.view.inputmethod.EditorInfo;
 import androidx.annotation.NonNull;
 
 import helium314.keyboard.event.Event;
-import helium314.keyboard.event.HangulEventDecoder;
 import helium314.keyboard.event.InputTransaction;
 import helium314.keyboard.keyboard.Keyboard;
 import helium314.keyboard.keyboard.KeyboardSwitcher;
@@ -44,6 +43,7 @@ import helium314.keyboard.latin.common.StringUtils;
 import helium314.keyboard.latin.common.StringUtilsKt;
 import helium314.keyboard.latin.common.SuggestionSpanUtilsKt;
 import helium314.keyboard.latin.define.DebugFlags;
+import helium314.keyboard.latin.settings.Settings;
 import helium314.keyboard.latin.settings.SettingsValues;
 import helium314.keyboard.latin.settings.SpacingAndPunctuations;
 import helium314.keyboard.latin.suggestions.SuggestionStripViewAccessor;
@@ -71,7 +71,7 @@ public final class InputLogic {
     final LatinIME mLatinIME;
     private final SuggestionStripViewAccessor mSuggestionStripViewAccessor;
 
-    @NonNull private InputLogicHandler mInputLogicHandler;
+    @NonNull private final InputLogicHandler mInputLogicHandler;
 
     // TODO : make all these fields private as soon as possible.
     // Current space state of the input method. This can be any of the above constants.
@@ -119,7 +119,7 @@ public final class InputLogic {
         mSuggestionStripViewAccessor = suggestionStripViewAccessor;
         mWordComposer = new WordComposer();
         mConnection = new RichInputConnection(latinIME);
-        mInputLogicHandler = InputLogicHandler.NULL_HANDLER;
+        mInputLogicHandler = new InputLogicHandler(mLatinIME.mHandler, this);
         mSuggest = new Suggest(dictionaryFacilitator);
         mDictionaryFacilitator = dictionaryFacilitator;
     }
@@ -129,7 +129,7 @@ public final class InputLogic {
      * <p>
      * Call this when input starts or restarts in some editor (typically, in onStartInputView).
      *
-     * @param combiningSpec the combining spec string for this subtype
+     * @param combiningSpec the combining spec string for this subtype (from extra value)
      * @param settingsValues the current settings values
      */
     public void startInput(final String combiningSpec, final SettingsValues settingsValues) {
@@ -153,11 +153,7 @@ public final class InputLogic {
         // editorInfo.initialSelStart is not the actual cursor position, so we try using some heuristics to find the correct position.
         mConnection.tryFixIncorrectCursorPosition();
         cancelDoubleSpacePeriodCountdown();
-        if (InputLogicHandler.NULL_HANDLER == mInputLogicHandler) {
-            mInputLogicHandler = new InputLogicHandler(mLatinIME, this);
-        } else {
-            mInputLogicHandler.reset();
-        }
+        mInputLogicHandler.reset();
         mConnection.requestCursorUpdates(true, true);
     }
 
@@ -198,17 +194,6 @@ public final class InputLogic {
         }
         resetComposingState(true);
         mInputLogicHandler.reset();
-    }
-
-    // Normally this class just gets out of scope after the process ends, but in unit tests, we
-    // create several instances of LatinIME in the same process, which results in several
-    // instances of InputLogic. This cleans up the associated handler so that tests don't leak
-    // handlers.
-    public void recycle() {
-        final InputLogicHandler inputLogicHandler = mInputLogicHandler;
-        mInputLogicHandler = InputLogicHandler.NULL_HANDLER;
-        inputLogicHandler.destroy();
-        mDictionaryFacilitator.closeDictionaries();
     }
 
     /**
@@ -439,35 +424,7 @@ public final class InputLogic {
             final String currentKeyboardScript, final LatinIME.UIHandler handler) {
         mWordBeingCorrectedByCursor = null;
         mJustRevertedACommit = false;
-        final Event processedEvent;
-        if (currentKeyboardScript.equals(ScriptUtils.SCRIPT_HANGUL)) {
-            // only use the Hangul chain if codepoint may actually be Hangul
-            // todo: this whole hangul-related logic should probably be somewhere else
-            // need to use hangul combiner for functional keys (codePoint -1), because otherwise the current word
-            // seems to get deleted / replaced by space during mConnection.endBatchEdit()
-            if (event.getMCodePoint() >= 0x1100 || event.getMCodePoint() == -1) {
-                mWordComposer.setHangul(true);
-                final Event hangulDecodedEvent = HangulEventDecoder.decodeSoftwareKeyEvent(event);
-                // todo: here hangul combiner does already consume the event, and appends typed codepoint
-                //  to the current word instead of considering the cursor position
-                //  position is actually not visible to the combiner, how to fix?
-                processedEvent = mWordComposer.processEvent(hangulDecodedEvent);
-                if (event.getMKeyCode() == KeyCode.DELETE)
-                    mWordComposer.resetInvalidCursorPosition();
-            } else {
-                mWordComposer.setHangul(false);
-                final boolean wasComposingWord = mWordComposer.isComposingWord();
-                processedEvent = mWordComposer.processEvent(event);
-                // workaround for space and some other separators deleting / replacing the word
-                if (wasComposingWord && !mWordComposer.isComposingWord()) {
-                    mWordComposer.resetInvalidCursorPosition();
-                    mConnection.finishComposingText();
-                }
-            }
-        } else {
-            mWordComposer.setHangul(false);
-            processedEvent = mWordComposer.processEvent(event);
-        }
+        final Event processedEvent = mWordComposer.processEvent(event);
         final InputTransaction inputTransaction = new InputTransaction(settingsValues,
                 processedEvent, SystemClock.uptimeMillis(), mSpaceState,
                 getActualCapsMode(settingsValues, keyboardShiftMode));
@@ -809,17 +766,19 @@ public final class InputLogic {
             case KeyCode.TIMESTAMP:
                 mLatinIME.onTextInput(TimestampKt.getTimestamp(mLatinIME));
                 break;
+            case KeyCode.IME_HIDE_UI:
+                mLatinIME.hideWindow();
+                break;
             case KeyCode.VOICE_INPUT:
                 // switching to shortcut IME, shift state, keyboard,... is handled by LatinIME,
                 // {@link KeyboardSwitcher#onEvent(Event)}, or {@link #onPressKey(int,int,boolean)} and {@link #onReleaseKey(int,boolean)}.
                 // We need to switch to the shortcut IME. This is handled by LatinIME since the
                 // input logic has no business with IME switching.
-            case KeyCode.CAPS_LOCK,  KeyCode.SYMBOL_ALPHA,  KeyCode.ALPHA, KeyCode.SYMBOL, KeyCode.NUMPAD, KeyCode.EMOJI,
-                    KeyCode.TOGGLE_ONE_HANDED_MODE, KeyCode.SWITCH_ONE_HANDED_MODE, KeyCode.FN,
-                    KeyCode.CTRL, KeyCode.CTRL_LEFT, KeyCode.CTRL_RIGHT, KeyCode.ALT, KeyCode.ALT_LEFT, KeyCode.ALT_RIGHT,
-                    KeyCode.META, KeyCode.META_LEFT, KeyCode.META_RIGHT:
+            case KeyCode.CAPS_LOCK, KeyCode.EMOJI, KeyCode.TOGGLE_ONE_HANDED_MODE, KeyCode.SWITCH_ONE_HANDED_MODE:
                 break;
             default:
+                if (KeyCode.INSTANCE.isModifier(event.getMKeyCode()))
+                    return; // continuation of previous switch case, but modifiers are in a separate place
                 if (event.getMMetaState() != 0) {
                     // need to convert codepoint to KeyEvent.KEYCODE_<xxx>
                     final int codeToConvert = event.getMKeyCode() < 0 ? event.getMKeyCode() : event.getMCodePoint();
@@ -1681,26 +1640,24 @@ public final class InputLogic {
         }
 
         final AsyncResultHolder<SuggestedWords> holder = new AsyncResultHolder<>("Suggest");
-        mInputLogicHandler.getSuggestedWords(inputStyle, SuggestedWords.NOT_A_SEQUENCE_NUMBER,
-                suggestedWords -> {
-                    final String typedWordString = mWordComposer.getTypedWord();
-                    final SuggestedWordInfo typedWordInfo = new SuggestedWordInfo(
-                            typedWordString, "" /* prevWordsContext */,
-                            SuggestedWordInfo.MAX_SCORE,
-                            SuggestedWordInfo.KIND_TYPED, Dictionary.DICTIONARY_USER_TYPED,
-                            SuggestedWordInfo.NOT_AN_INDEX /* indexOfTouchPointOfSecondWord */,
-                            SuggestedWordInfo.NOT_A_CONFIDENCE);
-                    // Show new suggestions if we have at least one. Otherwise keep the old
-                    // suggestions with the new typed word. Exception: if the length of the
-                    // typed word is <= 1 (after a deletion typically) we clear old suggestions.
-                    if (suggestedWords.size() > 1 || typedWordString.length() <= 1) {
-                        holder.set(suggestedWords);
-                    } else {
-                        holder.set(retrieveOlderSuggestions(typedWordInfo, mSuggestedWords));
-                    }
+        mInputLogicHandler.getSuggestedWords(() -> getSuggestedWords(
+            inputStyle, SuggestedWords.NOT_A_SEQUENCE_NUMBER,
+            suggestedWords -> {
+                final String typedWordString = mWordComposer.getTypedWord();
+                final SuggestedWordInfo typedWordInfo = new SuggestedWordInfo(
+                    typedWordString, "", SuggestedWordInfo.MAX_SCORE, SuggestedWordInfo.KIND_TYPED,
+                    Dictionary.DICTIONARY_USER_TYPED, SuggestedWordInfo.NOT_AN_INDEX, SuggestedWordInfo.NOT_A_CONFIDENCE
+                );
+                // Show new suggestions if we have at least one. Otherwise keep the old
+                // suggestions with the new typed word. Exception: if the length of the
+                // typed word is <= 1 (after a deletion typically) we clear old suggestions.
+                if (suggestedWords.size() > 1 || typedWordString.length() <= 1) {
+                    holder.set(suggestedWords);
+                } else {
+                    holder.set(retrieveOlderSuggestions(typedWordInfo, mSuggestedWords));
                 }
-        );
-
+            }
+        ));
         // This line may cause the current thread to wait.
         final SuggestedWords suggestedWords = holder.get(null,
                 Constants.GET_SUGGESTED_WORDS_TIMEOUT);
@@ -1810,8 +1767,8 @@ public final class InputLogic {
             // If there weren't any suggestion spans on this word, suggestions#size() will be 1
             // if shouldIncludeResumedWordInSuggestions is true, 0 otherwise. In this case, we
             // have no useful suggestions, so we will try to compute some for it instead.
-            mInputLogicHandler.getSuggestedWords(Suggest.SESSION_ID_TYPING,
-                    SuggestedWords.NOT_A_SEQUENCE_NUMBER, this::doShowSuggestionsAndClearAutoCorrectionIndicator);
+            mInputLogicHandler.getSuggestedWords(() -> getSuggestedWords(Suggest.SESSION_ID_TYPING,
+                SuggestedWords.NOT_A_SEQUENCE_NUMBER, this::doShowSuggestionsAndClearAutoCorrectionIndicator));
         } else {
             // We found suggestion spans in the word. We'll create the SuggestedWords out of
             // them, and make willAutoCorrect false. We make typedWordValid false, because the
@@ -2435,12 +2392,17 @@ public final class InputLogic {
         return true;
     }
 
-    public void getSuggestedWords(final SettingsValues settingsValues,
-            final Keyboard keyboard, final int keyboardShiftMode, final int inputStyle,
-            final int sequenceNumber, final OnGetSuggestedWordsCallback callback) {
+    // we used to provide keyboard, settingsValues and keyboardShiftMode, but every time read it from current instance anyway
+    public void getSuggestedWords(final int inputStyle, final int sequenceNumber, final OnGetSuggestedWordsCallback callback) {
+        final Keyboard keyboard = KeyboardSwitcher.getInstance().getKeyboard();
+        if (keyboard == null) {
+            callback.onGetSuggestedWords(SuggestedWords.getEmptyInstance());
+            return;
+        }
+        final SettingsValues settingsValues = Settings.getValues();
         mWordComposer.adviseCapitalizedModeBeforeFetchingSuggestions(
-                getActualCapsMode(settingsValues, keyboardShiftMode));
-        mSuggest.getSuggestedWords(mWordComposer,
+                getActualCapsMode(settingsValues, KeyboardSwitcher.getInstance().getKeyboardShiftMode()));
+        final SuggestedWords suggestedWords = mSuggest.getSuggestedWords(mWordComposer,
                 getNgramContextFromNthPreviousWordForSuggestion(
                         settingsValues.mSpacingAndPunctuations,
                         // Get the word on which we should search the bigrams. If we are composing
@@ -2450,7 +2412,8 @@ public final class InputLogic {
                 keyboard,
                 settingsValues.mSettingsValuesForSuggestion,
                 settingsValues.mAutoCorrectEnabled,
-                inputStyle, sequenceNumber, callback);
+                inputStyle, sequenceNumber);
+        callback.onGetSuggestedWords(suggestedWords);
     }
 
     /**
