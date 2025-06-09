@@ -110,6 +110,7 @@ fun createAppearanceSettings(context: Context) = listOf(
                     prefs.edit().remove(Settings.PREF_THEME_COLORS_NIGHT).apply()
             }
             KeyboardIconsSet.needsReload = true // only relevant for Settings.PREF_CUSTOM_ICON_NAMES
+            KeyboardSwitcher.getInstance().setThemeNeedsReload()
         }
     },
     Setting(context, Settings.PREF_ICON_STYLE, R.string.icon_style) { setting ->
