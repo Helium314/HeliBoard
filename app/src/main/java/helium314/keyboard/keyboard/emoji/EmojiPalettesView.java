@@ -61,7 +61,7 @@ import static helium314.keyboard.latin.common.Constants.NOT_A_COORDINATE;
  * Because of the above reasons, this class doesn't extend {@link KeyboardView}.
  */
 public final class EmojiPalettesView extends LinearLayout
-        implements View.OnClickListener, OnKeyEventListener {
+        implements View.OnClickListener, EmojiViewCallback {
     private static final class PagerViewHolder extends RecyclerView.ViewHolder {
         private long mCategoryId;
 
@@ -177,18 +177,16 @@ public final class EmojiPalettesView extends LinearLayout
         }
     }
 
+    private static SingleDictionaryFacilitator mDictionaryFacilitator;
+
     private boolean initialized = false;
     private final Colors mColors;
     private final EmojiLayoutParams mEmojiLayoutParams;
-
     private LinearLayout mTabStrip;
     private EmojiCategoryPageIndicatorView mEmojiCategoryPageIndicatorView;
-
     private KeyboardActionListener mKeyboardActionListener = KeyboardActionListener.EMPTY_LISTENER;
-
     private final EmojiCategory mEmojiCategory;
     private ViewPager2 mPager;
-    private SingleDictionaryFacilitator mDictionaryFacilitator;
 
     public EmojiPalettesView(final Context context, final AttributeSet attrs) {
         this(context, attrs, R.attr.emojiPalettesViewStyle);
@@ -275,8 +273,7 @@ public final class EmojiPalettesView extends LinearLayout
     }
 
     /**
-     * Called from {@link EmojiPageKeyboardView} through
-     * {@link helium314.keyboard.keyboard.emoji.OnKeyEventListener}
+     * Called from {@link EmojiPageKeyboardView} through {@link EmojiViewCallback}
      * interface to handle touch events from non-View-based elements such as Emoji buttons.
      */
     @Override
@@ -286,10 +283,9 @@ public final class EmojiPalettesView extends LinearLayout
     }
 
     /**
-     * Called from {@link EmojiPageKeyboardView} through
-     * {@link helium314.keyboard.keyboard.emoji.OnKeyEventListener}
+     * Called from {@link EmojiPageKeyboardView} through {@link EmojiViewCallback}
      * interface to handle touch events from non-View-based elements such as Emoji buttons.
-     * This may be called without any prior call to {@link OnKeyEventListener#onPressKey(Key)}.
+     * This may be called without any prior call to {@link EmojiViewCallback#onPressKey(Key)}.
      */
     @Override
     public void onReleaseKey(final Key key) {
@@ -312,7 +308,7 @@ public final class EmojiPalettesView extends LinearLayout
         }
 
         var wordProperty = mDictionaryFacilitator.getWordProperty(emoji);
-        if (! wordProperty.mHasShortcuts) {
+        if (wordProperty == null || ! wordProperty.mHasShortcuts) {
             return null;
         }
 
@@ -386,9 +382,6 @@ public final class EmojiPalettesView extends LinearLayout
     public void stopEmojiPalettes() {
         if (!initialized) return;
         getRecentsKeyboard().flushPendingRecentKeys();
-        if (mDictionaryFacilitator != null) {
-            mDictionaryFacilitator.closeDictionaries();
-        }
     }
 
     private DynamicGridKeyboard getRecentsKeyboard() {
@@ -436,15 +429,26 @@ public final class EmojiPalettesView extends LinearLayout
 
         mEmojiCategory.clearKeyboardCache();
         mPager.getAdapter().notifyDataSetChanged();
+        closeDictionaryFacilitator();
     }
 
     private void initDictionaryFacilitator() {
         if (Settings.getValues().mShowEmojiDescriptions) {
             var locale = RichInputMethodManager.getInstance().getCurrentSubtype().getLocale();
-            var dictFile = DictionaryInfoUtils.getCachedDictForLocaleAndType(locale, "emoji", getContext());
-            mDictionaryFacilitator = dictFile != null?
+            if (mDictionaryFacilitator == null || ! locale.equals(mDictionaryFacilitator.getCurrentLocale())) {
+                closeDictionaryFacilitator();
+                var dictFile = DictionaryInfoUtils.getCachedDictForLocaleAndType(locale, "emoji", getContext());
+                mDictionaryFacilitator = dictFile != null?
                             new SingleDictionaryFacilitator(DictionaryFactory.getDictionary(dictFile, locale)) : null;
+            }
         } else {
+            closeDictionaryFacilitator();
+        }
+    }
+
+    private static void closeDictionaryFacilitator() {
+        if (mDictionaryFacilitator != null) {
+            mDictionaryFacilitator.closeDictionaries();
             mDictionaryFacilitator = null;
         }
     }

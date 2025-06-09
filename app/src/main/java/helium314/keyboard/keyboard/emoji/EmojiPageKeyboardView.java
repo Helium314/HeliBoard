@@ -56,7 +56,7 @@ public final class EmojiPageKeyboardView extends KeyboardView implements
     private static final long KEY_PRESS_DELAY_TIME = 250;  // msec
     private static final long KEY_RELEASE_DELAY_TIME = 30;  // msec
 
-    private static final OnKeyEventListener EMPTY_LISTENER = new OnKeyEventListener() {
+    private static final EmojiViewCallback EMPTY_EMOJI_VIEW_CALLBACK = new EmojiViewCallback() {
         @Override
         public void onPressKey(final Key key) {}
         @Override
@@ -67,7 +67,7 @@ public final class EmojiPageKeyboardView extends KeyboardView implements
         }
     };
 
-    private OnKeyEventListener mListener = EMPTY_LISTENER;
+    private EmojiViewCallback mEmojiViewCallback = EMPTY_EMOJI_VIEW_CALLBACK;
     private final KeyDetector mKeyDetector = new KeyDetector();
     private KeyboardAccessibilityDelegate<EmojiPageKeyboardView> mAccessibilityDelegate;
 
@@ -157,8 +157,8 @@ public final class EmojiPageKeyboardView extends KeyboardView implements
         }
     }
 
-    public void setOnKeyEventListener(final OnKeyEventListener listener) {
-        mListener = listener;
+    public void setEmojiViewCallback(final EmojiViewCallback emojiViewCallback) {
+        mEmojiViewCallback = emojiViewCallback;
     }
 
     /**
@@ -327,13 +327,13 @@ public final class EmojiPageKeyboardView extends KeyboardView implements
                     : key.getX() + key.getWidth() / 2;
             final int pointY = key.getY() - getKeyboard().mVerticalGap;
             (popupKeysPanel != null? popupKeysPanel : descriptionPanel)
-                            .showPopupKeysPanel(this, this, pointX, pointY, mListener);
+                            .showPopupKeysPanel(this, this, pointX, pointY, mEmojiViewCallback);
         }
     }
 
     private PopupKeysPanel showDescription(Key key) {
         mDescriptionView.setVisibility(GONE);
-        var description = mListener.getDescription(key.getLabel());
+        var description = mEmojiViewCallback.getDescription(key.getLabel());
         if (description == null) {
             return null;
         }
@@ -359,7 +359,7 @@ public final class EmojiPageKeyboardView extends KeyboardView implements
         releasedKey.onReleased();
         invalidateKey(releasedKey);
         if (withKeyRegistering) {
-            mListener.onReleaseKey(releasedKey);
+            mEmojiViewCallback.onReleaseKey(releasedKey);
         }
     }
 
@@ -367,7 +367,7 @@ public final class EmojiPageKeyboardView extends KeyboardView implements
         mPendingKeyDown = null;
         pressedKey.onPressed();
         invalidateKey(pressedKey);
-        mListener.onPressKey(pressedKey);
+        mEmojiViewCallback.onPressKey(pressedKey);
     }
 
     public void releaseCurrentKey(final boolean withKeyRegistering) {

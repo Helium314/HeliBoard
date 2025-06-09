@@ -278,7 +278,7 @@ public class LatinIME extends InputMethodService implements
                             msg.arg2 /* remainingTries */, this /* handler */)) {
                         // If we were able to reset the caches, then we can reload the keyboard.
                         // Otherwise, we'll do it when we can.
-                        latinIme.mKeyboardSwitcher.loadCurrentKeyboard();
+                        latinIme.mKeyboardSwitcher.reloadMainKeyboard();
                     }
                     break;
                 case MSG_WAIT_FOR_DICTIONARY_LOAD:
@@ -1067,7 +1067,7 @@ public class LatinIME extends InputMethodService implements
         if (isDifferentTextField) {
             mainKeyboardView.closing();
             suggest.setAutoCorrectionThreshold(currentSettingsValues.mAutoCorrectionThreshold);
-            switcher.loadCurrentKeyboard();
+            switcher.reloadMainKeyboard();
             if (needToCallLoadKeyboardLater) {
                 // If we need to call loadKeyboard again later, we need to save its state now. The
                 // later call will be done in #retryResetCaches.
@@ -1758,7 +1758,7 @@ public class LatinIME extends InputMethodService implements
         loadSettings();
         if (mKeyboardSwitcher.getMainKeyboardView() != null) {
             // Reload keyboard because the current language has been changed.
-            mKeyboardSwitcher.loadCurrentKeyboard();
+            mKeyboardSwitcher.reloadMainKeyboard();
         }
     }
 

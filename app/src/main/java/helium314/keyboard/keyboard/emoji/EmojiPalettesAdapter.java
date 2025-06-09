@@ -22,13 +22,13 @@ final class EmojiPalettesAdapter extends RecyclerView.Adapter<EmojiPalettesAdapt
     private static final boolean DEBUG_PAGER = false;
 
     private final int mCategoryId;
-    private final OnKeyEventListener mListener;
+    private final EmojiViewCallback mEmojiViewCallback;
     private final EmojiCategory mEmojiCategory;
 
-    public EmojiPalettesAdapter(final EmojiCategory emojiCategory, int categoryId, final OnKeyEventListener listener) {
+    public EmojiPalettesAdapter(final EmojiCategory emojiCategory, int categoryId, final EmojiViewCallback emojiViewCallback) {
         mEmojiCategory = emojiCategory;
         mCategoryId = categoryId;
-        mListener = listener;
+        mEmojiViewCallback = emojiViewCallback;
     }
 
     @NonNull
@@ -37,7 +37,7 @@ final class EmojiPalettesAdapter extends RecyclerView.Adapter<EmojiPalettesAdapt
         final LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         final EmojiPageKeyboardView keyboardView = (EmojiPageKeyboardView)inflater.inflate(
                 R.layout.emoji_keyboard_page, parent, false);
-        keyboardView.setOnKeyEventListener(mListener);
+        keyboardView.setEmojiViewCallback(mEmojiViewCallback);
         return new ViewHolder(keyboardView);
     }
 

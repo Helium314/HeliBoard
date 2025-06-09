@@ -516,10 +516,10 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
         if (mCurrentInputView == null)
             return;
         mEmojiPalettesView.clearKeyboardCache();
-        loadCurrentKeyboard();
+        reloadMainKeyboard();
     }
 
-    public void loadCurrentKeyboard() {
+    public void reloadMainKeyboard() {
         loadKeyboard(mLatinIME.getCurrentInputEditorInfo(), Settings.getValues(),
                 mLatinIME.getCurrentAutoCapsState(), mLatinIME.getCurrentRecapitalizeState());
     }

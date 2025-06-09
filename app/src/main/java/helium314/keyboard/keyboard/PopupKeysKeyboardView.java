@@ -20,7 +20,7 @@ import androidx.annotation.NonNull;
 
 import helium314.keyboard.accessibility.AccessibilityUtils;
 import helium314.keyboard.accessibility.PopupKeysKeyboardAccessibilityDelegate;
-import helium314.keyboard.keyboard.emoji.OnKeyEventListener;
+import helium314.keyboard.keyboard.emoji.EmojiViewCallback;
 import helium314.keyboard.keyboard.internal.KeyDrawParams;
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode;
 import helium314.keyboard.latin.R;
@@ -39,7 +39,7 @@ public class PopupKeysKeyboardView extends KeyboardView implements PopupKeysPane
     protected final KeyDetector mKeyDetector;
     private Controller mController = EMPTY_CONTROLLER;
     protected KeyboardActionListener mListener;
-    protected OnKeyEventListener mKeyEventListener;
+    protected EmojiViewCallback mEmojiViewCallback;
     private int mOriginX;
     private int mOriginY;
     private Key mCurrentKey;
@@ -122,7 +122,7 @@ public class PopupKeysKeyboardView extends KeyboardView implements PopupKeysPane
     public void showPopupKeysPanel(final View parentView, final Controller controller,
             final int pointX, final int pointY, final KeyboardActionListener listener) {
         mListener = listener;
-        mKeyEventListener = null;
+        mEmojiViewCallback = null;
         showPopupKeysPanelInternal(parentView, controller, pointX, pointY);
     }
 
@@ -131,9 +131,9 @@ public class PopupKeysKeyboardView extends KeyboardView implements PopupKeysPane
      */
     @Override
     public void showPopupKeysPanel(final View parentView, final Controller controller,
-            final int pointX, final int pointY, final OnKeyEventListener listener) {
+            final int pointX, final int pointY, final EmojiViewCallback emojiViewCallback) {
         mListener = null;
-        mKeyEventListener = listener;
+        mEmojiViewCallback = emojiViewCallback;
         showPopupKeysPanelInternal(parentView, controller, pointX, pointY);
     }
 
@@ -225,8 +225,8 @@ public class PopupKeysKeyboardView extends KeyboardView implements PopupKeysPane
                             false /* isKeyRepeat */);
                 }
             }
-        } else if (mKeyEventListener != null) {
-            mKeyEventListener.onReleaseKey(key);
+        } else if (mEmojiViewCallback != null) {
+            mEmojiViewCallback.onReleaseKey(key);
         }
     }
 
