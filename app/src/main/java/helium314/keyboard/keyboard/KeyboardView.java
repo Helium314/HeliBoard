@@ -501,6 +501,8 @@ public class KeyboardView extends View {
                     ? hintBaseline * 0.5f
                     : params.mHintLabelVerticalAdjustment * labelCharHeight;
             canvas.drawText(hintLabel, 0, hintLabel.length(), hintX, hintBaseline + adjustmentY, paint);
+        } else if (key.getPopupKeys() != null) {
+            drawKeyPopupHint(key, canvas, paint, params);
         }
 
         // Draw key icon.
@@ -521,10 +523,6 @@ public class KeyboardView extends View {
             final int iconX = (keyWidth - iconWidth) / 2; // Align horizontally center.
             setKeyIconColor(key, icon, keyboard);
             drawIcon(canvas, icon, iconX, iconY, iconWidth, iconHeight);
-        }
-
-        if (key.hasPopupHint() && key.getPopupKeys() != null) {
-            drawKeyPopupHint(key, canvas, paint, params);
         }
     }
 
