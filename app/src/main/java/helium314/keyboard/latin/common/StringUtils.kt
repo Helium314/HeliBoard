@@ -6,13 +6,18 @@ import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode
 import helium314.keyboard.latin.common.StringUtils.mightBeEmoji
 import helium314.keyboard.latin.common.StringUtils.newSingleCodePointString
 import helium314.keyboard.latin.settings.SpacingAndPunctuations
+import helium314.keyboard.latin.utils.ScriptUtils
 import helium314.keyboard.latin.utils.SpacedTokens
+import helium314.keyboard.latin.utils.SpannableStringUtils
+import helium314.keyboard.latin.utils.TextRange
 import java.math.BigInteger
 import java.util.Locale
+import kotlin.math.max
 
 fun CharSequence.codePointAt(offset: Int) = Character.codePointAt(this, offset)
 fun CharSequence.codePointBefore(offset: Int) = Character.codePointBefore(this, offset)
 
+/** Loops over the codepoints in [text]. Exits when [loop] returns true */
 inline fun loopOverCodePoints(text: CharSequence, loop: (cp: Int, charCount: Int) -> Boolean) {
     var offset = 0
     while (offset < text.length) {
@@ -23,6 +28,7 @@ inline fun loopOverCodePoints(text: CharSequence, loop: (cp: Int, charCount: Int
     }
 }
 
+/** Loops backwards over the codepoints in [text]. Exits when [loop] returns true */
 inline fun loopOverCodePointsBackwards(text: CharSequence, loop: (cp: Int, charCount: Int) -> Boolean) {
     var offset = text.length
     while (offset > 0) {
@@ -87,6 +93,111 @@ fun getFullEmojiAtEnd(text: CharSequence): String {
     }
     return s.substring(offset)
 }
+
+/**
+ *  Returns whether the [text] does not end with word separator, ignoring all word connectors.
+ *  If the [text] is empty (after ignoring word connectors), the method returns false.
+ */
+// todo: this returns true on numbers, why isn't Character.isLetter(code) used?
+fun endsWithWordCodepoint(text: String, spacingAndPunctuations: SpacingAndPunctuations): Boolean {
+    if (text.isEmpty()) return false
+    var codePoint = 0 // initial value irrelevant since length is always > 0
+    loopOverCodePointsBackwards(text) { cp, _ ->
+        codePoint = cp
+        !spacingAndPunctuations.isWordConnector(cp)
+    }
+    // codePoint might still be a wordConnector (if text consists of wordConnectors)
+    return !spacingAndPunctuations.isWordConnector(codePoint) && !spacingAndPunctuations.isWordSeparator(codePoint)
+}
+
+// todo: simplify... maybe compare with original code?
+fun getTouchedWordRange(before: CharSequence, after: CharSequence, script: String, spacingAndPunctuations: SpacingAndPunctuations): TextRange {
+    // Going backward, find the first breaking point (separator)
+    var startIndexInBefore = before.length
+    var endIndexInAfter = -1 // todo: clarify why might we want to set it when checking before
+    loopOverCodePointsBackwards(before) { codePoint, cpLength ->
+        if (!isPartOfCompositionForScript(codePoint, spacingAndPunctuations, script)) {
+            if (Character.isWhitespace(codePoint) || !spacingAndPunctuations.mCurrentLanguageHasSpaces)
+                return@loopOverCodePointsBackwards true
+            // continue to the next whitespace and see whether this contains a sometimesWordConnector
+            for (i in startIndexInBefore - 1 downTo 0) {
+                val c = before[i]
+                if (spacingAndPunctuations.isSometimesWordConnector(c.code)) {
+                    // if yes -> whitespace is the index
+                    startIndexInBefore = max(StringUtils.charIndexOfLastWhitespace(before).toDouble(), 0.0).toInt()
+                    val firstSpaceAfter = StringUtils.charIndexOfFirstWhitespace(after)
+                    endIndexInAfter = if (firstSpaceAfter == -1) after.length else firstSpaceAfter - 1
+                    return@loopOverCodePointsBackwards true
+                } else if (Character.isWhitespace(c)) {
+                    // if no, just break normally
+                    return@loopOverCodePointsBackwards true
+                }
+            }
+            return@loopOverCodePointsBackwards true
+        }
+        startIndexInBefore -= cpLength
+        false
+    }
+
+    // Find last word separator after the cursor
+    if (endIndexInAfter == -1) {
+        endIndexInAfter = 0
+        loopOverCodePoints(after) { codePoint, cpLength ->
+            if (!isPartOfCompositionForScript(codePoint, spacingAndPunctuations, script)) {
+                if (Character.isWhitespace(codePoint) || !spacingAndPunctuations.mCurrentLanguageHasSpaces)
+                    return@loopOverCodePoints true
+                // continue to the next whitespace and see whether this contains a sometimesWordConnector
+                for (i in endIndexInAfter..<after.length) {
+                    val c = after[i]
+                    if (spacingAndPunctuations.isSometimesWordConnector(c.code)) {
+                        // if yes -> whitespace is next to the index
+                        startIndexInBefore = max(StringUtils.charIndexOfLastWhitespace(before), 0)
+                        val firstSpaceAfter = StringUtils.charIndexOfFirstWhitespace(after)
+                        endIndexInAfter = if (firstSpaceAfter == -1) after.length else firstSpaceAfter - 1
+                        return@loopOverCodePoints true
+                    } else if (Character.isWhitespace(c)) {
+                        // if no, just break normally
+                        return@loopOverCodePoints true
+                    }
+                }
+                return@loopOverCodePoints true
+            }
+            endIndexInAfter += cpLength
+            false
+        }
+    }
+
+    // strip text before "//" (i.e. ignore http and other protocols)
+    val beforeConsideringStart = before.substring(startIndexInBefore, before.length)
+    val protocolEnd = beforeConsideringStart.lastIndexOf("//")
+    if (protocolEnd != -1) startIndexInBefore += protocolEnd + 1
+
+    // we don't want the end characters to be word separators
+    while (endIndexInAfter > 0 && spacingAndPunctuations.isWordSeparator(after[endIndexInAfter - 1].code)) {
+        --endIndexInAfter
+    }
+    while (startIndexInBefore < before.length && spacingAndPunctuations.isWordSeparator(before[startIndexInBefore].code)) {
+        ++startIndexInBefore
+    }
+
+    val hasUrlSpans = SpannableStringUtils.hasUrlSpans(before, startIndexInBefore, before.length)
+        || SpannableStringUtils.hasUrlSpans(after, 0, endIndexInAfter)
+
+    // We don't use TextUtils#concat because it copies all spans without respect to their
+    // nature. If the text includes a PARAGRAPH span and it has been split, then
+    // TextUtils#concat will crash when it tries to concat both sides of it.
+    return TextRange(
+        SpannableStringUtils.concatWithNonParagraphSuggestionSpansOnly(before, after),
+        startIndexInBefore, before.length + endIndexInAfter, before.length,
+        hasUrlSpans
+    )
+}
+
+// actually this should not be in STRING Utils, but only used for getTouchedWordRange
+private fun isPartOfCompositionForScript(codePoint: Int, spacingAndPunctuations: SpacingAndPunctuations, script: String) =
+    spacingAndPunctuations.isWordConnector(codePoint) // We always consider word connectors part of compositions.
+        // Otherwise, it's part of composition if it's part of script and not a separator.
+        || (!spacingAndPunctuations.isWordSeparator(codePoint) && ScriptUtils.isLetterPartOfScript(codePoint, script))
 
 /** split the string on the first of consecutive space only, further consecutive spaces are added to the next split */
 fun String.splitOnFirstSpacesOnly(): List<String> {
