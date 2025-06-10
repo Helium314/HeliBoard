@@ -7,9 +7,13 @@
 package helium314.keyboard.latin.utils;
 
 import android.text.Spanned;
+import android.text.TextUtils;
 import android.text.style.SuggestionSpan;
 
+import androidx.annotation.NonNull;
+
 import java.util.Arrays;
+import java.util.Objects;
 
 /**
  * Represents a range of text, relative to the current cursor position.
@@ -93,6 +97,28 @@ public final class TextRange {
             }
         }
         return writeIndex == readIndex ? spans : Arrays.copyOfRange(spans, 0, writeIndex);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (!(other instanceof TextRange textRange)) return false;
+        return mWordAtCursorStartIndex == textRange.mWordAtCursorStartIndex
+            && mWordAtCursorEndIndex == textRange.mWordAtCursorEndIndex
+            && mCursorIndex == textRange.mCursorIndex
+            && mHasUrlSpans == textRange.mHasUrlSpans
+            && TextUtils.equals(mTextAtCursor, textRange.mTextAtCursor)
+            && TextUtils.equals(mWord, textRange.mWord);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(mTextAtCursor, mWordAtCursorStartIndex, mWordAtCursorEndIndex, mCursorIndex, mWord, mHasUrlSpans);
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return mTextAtCursor + ", " + mWord + ", " + mCursorIndex;
     }
 
     public TextRange(final CharSequence textAtCursor, final int wordAtCursorStartIndex,

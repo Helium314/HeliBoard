@@ -40,8 +40,6 @@ import helium314.keyboard.latin.settings.SpacingAndPunctuations;
 import helium314.keyboard.latin.utils.CapsModeUtils;
 import helium314.keyboard.latin.utils.DebugLogUtils;
 import helium314.keyboard.latin.utils.NgramContextUtils;
-import helium314.keyboard.latin.utils.ScriptUtils;
-import helium314.keyboard.latin.utils.SpannableStringUtils;
 import helium314.keyboard.latin.utils.StatsUtils;
 import helium314.keyboard.latin.utils.TextRange;
 
@@ -825,15 +823,6 @@ public final class RichInputConnection implements PrivateCommandPerformer {
         return NgramContextUtils.getNgramContextFromNthPreviousWord(prev, spacingAndPunctuations, n);
     }
 
-    private static boolean isPartOfCompositionForScript(final int codePoint,
-            final SpacingAndPunctuations spacingAndPunctuations, final String script) {
-        // We always consider word connectors part of compositions.
-        return spacingAndPunctuations.isWordConnector(codePoint)
-                // Otherwise, it's part of composition if it's part of script and not a separator.
-                || (!spacingAndPunctuations.isWordSeparator(codePoint)
-                        && ScriptUtils.isLetterPartOfScript(codePoint, script));
-    }
-
     /**
      * Returns the text surrounding the cursor.
      *
@@ -860,90 +849,7 @@ public final class RichInputConnection implements PrivateCommandPerformer {
         if (before == null || after == null) {
             return null;
         }
-
-        // Going backward, find the first breaking point (separator)
-        int startIndexInBefore = before.length();
-        int endIndexInAfter = -1;
-        while (startIndexInBefore > 0) {
-            final int codePoint = Character.codePointBefore(before, startIndexInBefore);
-            if (!isPartOfCompositionForScript(codePoint, spacingAndPunctuations, script)) {
-                if (Character.isWhitespace(codePoint) || !spacingAndPunctuations.mCurrentLanguageHasSpaces)
-                    break;
-                // continue to the next whitespace and see whether this contains a sometimesWordConnector
-                for (int i = startIndexInBefore - 1; i >= 0; i--) {
-                    final char c = before.charAt(i);
-                    if (spacingAndPunctuations.isSometimesWordConnector(c)) {
-                        // if yes -> whitespace is the index
-                        startIndexInBefore = Math.max(StringUtils.charIndexOfLastWhitespace(before), 0);
-                        final int firstSpaceAfter = StringUtils.charIndexOfFirstWhitespace(after);
-                        endIndexInAfter = firstSpaceAfter == -1 ? after.length() : firstSpaceAfter -1;
-                        break;
-                    } else if (Character.isWhitespace(c)) {
-                        // if no, just break normally
-                        break;
-                    }
-                }
-                break;
-            }
-            --startIndexInBefore;
-            if (Character.isSupplementaryCodePoint(codePoint)) {
-                --startIndexInBefore;
-            }
-        }
-
-        // Find last word separator after the cursor
-        if (endIndexInAfter == -1) {
-            while (++endIndexInAfter < after.length()) {
-                final int codePoint = Character.codePointAt(after, endIndexInAfter);
-                if (!isPartOfCompositionForScript(codePoint, spacingAndPunctuations, script)) {
-                    if (Character.isWhitespace(codePoint) || !spacingAndPunctuations.mCurrentLanguageHasSpaces)
-                        break;
-                    // continue to the next whitespace and see whether this contains a sometimesWordConnector
-                    for (int i = endIndexInAfter; i < after.length(); i++) {
-                        final char c = after.charAt(i);
-                        if (spacingAndPunctuations.isSometimesWordConnector(c)) {
-                            // if yes -> whitespace is next to the index
-                            startIndexInBefore = Math.max(StringUtils.charIndexOfLastWhitespace(before), 0);
-                            final int firstSpaceAfter = StringUtils.charIndexOfFirstWhitespace(after);
-                            endIndexInAfter = firstSpaceAfter == -1 ? after.length() : firstSpaceAfter - 1;
-                            break;
-                        } else if (Character.isWhitespace(c)) {
-                            // if no, just break normally
-                            break;
-                        }
-                    }
-                    break;
-                }
-                if (Character.isSupplementaryCodePoint(codePoint)) {
-                    ++endIndexInAfter;
-                }
-            }
-        }
-
-        // strip stuff before "//" (i.e. ignore http and other protocols)
-        final String beforeConsideringStart = before.subSequence(startIndexInBefore, before.length()).toString();
-        final int protocolEnd = beforeConsideringStart.lastIndexOf("//");
-        if (protocolEnd != -1)
-            startIndexInBefore += protocolEnd + 1;
-
-        // we don't want the end characters to be word separators
-        while (endIndexInAfter > 0 && spacingAndPunctuations.isWordSeparator(after.charAt(endIndexInAfter - 1))) {
-            --endIndexInAfter;
-        }
-        while (startIndexInBefore < before.length() && spacingAndPunctuations.isWordSeparator(before.charAt(startIndexInBefore))) {
-            ++startIndexInBefore;
-        }
-
-        final boolean hasUrlSpans =
-                SpannableStringUtils.hasUrlSpans(before, startIndexInBefore, before.length())
-                || SpannableStringUtils.hasUrlSpans(after, 0, endIndexInAfter);
-        // We don't use TextUtils#concat because it copies all spans without respect to their
-        // nature. If the text includes a PARAGRAPH span and it has been split, then
-        // TextUtils#concat will crash when it tries to concat both sides of it.
-        return new TextRange(
-                SpannableStringUtils.concatWithNonParagraphSuggestionSpansOnly(before, after),
-                        startIndexInBefore, before.length() + endIndexInAfter, before.length(),
-                        hasUrlSpans);
+        return StringUtilsKt.getTouchedWordRange(before, after, script, spacingAndPunctuations);
     }
 
     public boolean isCursorTouchingWord(final SpacingAndPunctuations spacingAndPunctuations,
@@ -956,17 +862,7 @@ public final class RichInputConnection implements PrivateCommandPerformer {
             // a composing region should always count as a word
             return true;
         }
-        final String textBeforeCursor = mCommittedTextBeforeComposingText.toString();
-        int indexOfCodePointInJavaChars = textBeforeCursor.length();
-        int consideredCodePoint = 0 == indexOfCodePointInJavaChars ? Constants.NOT_A_CODE
-                : textBeforeCursor.codePointBefore(indexOfCodePointInJavaChars);
-        // Search for the first non word-connector char
-        if (spacingAndPunctuations.isWordConnector(consideredCodePoint)) {
-            indexOfCodePointInJavaChars -= Character.charCount(consideredCodePoint);
-            consideredCodePoint = 0 == indexOfCodePointInJavaChars ? Constants.NOT_A_CODE
-                    : textBeforeCursor.codePointBefore(indexOfCodePointInJavaChars);
-        }
-        return Constants.NOT_A_CODE != consideredCodePoint && spacingAndPunctuations.isWordCodePoint(consideredCodePoint);
+        return StringUtilsKt.endsWithWordCodepoint(mCommittedTextBeforeComposingText.toString(), spacingAndPunctuations);
     }
 
     public boolean isCursorFollowedByWordCharacter(
