@@ -28,9 +28,11 @@ import helium314.keyboard.keyboard.KeyboardSwitcher;
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode;
 import helium314.keyboard.latin.Dictionary;
 import helium314.keyboard.latin.DictionaryFacilitator;
+import helium314.keyboard.latin.DictionaryFactory;
 import helium314.keyboard.latin.LastComposedWord;
 import helium314.keyboard.latin.LatinIME;
 import helium314.keyboard.latin.NgramContext;
+import helium314.keyboard.latin.R;
 import helium314.keyboard.latin.RichInputConnection;
 import helium314.keyboard.latin.SingleDictionaryFacilitator;
 import helium314.keyboard.latin.Suggest;
@@ -49,6 +51,7 @@ import helium314.keyboard.latin.settings.SettingsValues;
 import helium314.keyboard.latin.settings.SpacingAndPunctuations;
 import helium314.keyboard.latin.suggestions.SuggestionStripViewAccessor;
 import helium314.keyboard.latin.utils.AsyncResultHolder;
+import helium314.keyboard.latin.utils.DictionaryInfoUtils;
 import helium314.keyboard.latin.utils.InputTypeUtils;
 import helium314.keyboard.latin.utils.Log;
 import helium314.keyboard.latin.utils.RecapitalizeStatus;
@@ -62,12 +65,16 @@ import java.util.Arrays;
 import java.util.Locale;
 import java.util.TreeSet;
 import java.util.concurrent.TimeUnit;
+import java.util.regex.Pattern;
+
 
 /**
  * This class manages the input logic.
  */
 public final class InputLogic {
     private static final String TAG = InputLogic.class.getSimpleName();
+    private static final Pattern WHITESPACE_PATTERN = Pattern.compile("\\s+");
+    private static final int EMOJI_SEARCH_DONE_ACTION = 1;
 
     // TODO : Remove this member when we can.
     final LatinIME mLatinIME;
@@ -125,13 +132,6 @@ public final class InputLogic {
         mInputLogicHandler = new InputLogicHandler(mLatinIME.mHandler, this);
         mSuggest = new Suggest(dictionaryFacilitator);
         mDictionaryFacilitator = dictionaryFacilitator;
-    }
-
-    public void setEmojiDictionaryFacilitator(SingleDictionaryFacilitator emojiDictionaryFacilitator) {
-        if (mEmojiDictionaryFacilitator != null) {
-            mEmojiDictionaryFacilitator.closeDictionaries();
-        }
-        mEmojiDictionaryFacilitator = emojiDictionaryFacilitator;
     }
 
     /**
@@ -266,6 +266,7 @@ public final class InputLogic {
     public InputTransaction onPickSuggestionManually(final SettingsValues settingsValues,
             final SuggestedWordInfo suggestionInfo, final int keyboardShiftState,
             final String currentKeyboardScript, final LatinIME.UIHandler handler) {
+        setEmojiSearch(false);
         final SuggestedWords suggestedWords = mSuggestedWords;
         final String suggestion = suggestionInfo.mWord;
         // If this is a punctuation picked from the suggestion strip, pass it to onCodeInput
@@ -414,6 +415,11 @@ public final class InputLogic {
 
     public boolean moveCursorByAndReturnIfInsideComposingWord(int distance) {
         return mWordComposer.moveCursorByAndReturnIfInsideComposingWord(distance);
+    }
+
+    public void onSettingsChanged(Locale locale) {
+        mSuggest.clearNextWordSuggestionsCache();
+        updateEmojiDictionary(locale);
     }
 
     /**
@@ -674,10 +680,10 @@ public final class InputLogic {
                 onSettingsKeyPressed();
                 break;
             case KeyCode.ACTION_NEXT:
-                performEditorAction(EditorInfo.IME_ACTION_NEXT);
+                performEditorAction(EditorInfo.IME_ACTION_NEXT, inputTransaction, handler);
                 break;
             case KeyCode.ACTION_PREVIOUS:
-                performEditorAction(EditorInfo.IME_ACTION_PREVIOUS);
+                performEditorAction(EditorInfo.IME_ACTION_PREVIOUS, inputTransaction, handler);
                 break;
             case KeyCode.LANGUAGE_SWITCH:
                 handleLanguageSwitchKey();
@@ -824,7 +830,7 @@ public final class InputLogic {
             if (InputTypeUtils.IME_ACTION_CUSTOM_LABEL == imeOptionsActionId) {
                 // Either we have an actionLabel and we should performEditorAction with
                 // actionId regardless of its value.
-                performEditorAction(editorInfo.actionId);
+                performEditorAction(editorInfo.actionId, inputTransaction, handler);
             } else if (EditorInfo.IME_ACTION_NONE != imeOptionsActionId) {
                 // We didn't have an actionLabel, but we had another action to execute.
                 // EditorInfo.IME_ACTION_NONE explicitly means no action. In contrast,
@@ -833,7 +839,7 @@ public final class InputLogic {
                 // code for it - presumably it only handles one. It does not have to be treated
                 // in any specific way: anything that is not IME_ACTION_NONE should be sent to
                 // performEditorAction.
-                performEditorAction(imeOptionsActionId);
+                performEditorAction(imeOptionsActionId, inputTransaction, handler);
             } else {
                 // No action label, and the action from imeOptions is NONE: this is a regular
                 // enter key that should input a carriage return.
@@ -1035,14 +1041,10 @@ public final class InputLogic {
     }
 
     private boolean isEmojiSearch(int codePoint) {
-        if (mEmojiDictionaryFacilitator == null) {
-            return false;
-        }
-
-        // Include all characters except whitespace in emoji search string
-        return ! mWordComposer.isComposingWord() && codePoint == ':'
-                        || mWordComposer.isComposingWord() && mWordComposer.getTypedWord().charAt(0) == ':'
-                        && ! Character.isWhitespace(codePoint);
+        var on = mEmojiDictionaryFacilitator != null && (! mWordComposer.isComposingWord() && codePoint == ':'
+            || mWordComposer.isComposingWord() && mWordComposer.getTypedWord().charAt(0) == ':');
+        setEmojiSearch(on);
+        return on;
     }
 
     /**
@@ -1213,6 +1215,7 @@ public final class InputLogic {
             } else {
                 mConnection.commitText("", 1);
             }
+            isEmojiSearch(event.getMCodePoint());
             inputTransaction.setRequiresUpdateSuggestions();
         } else {
             if (mLastComposedWord.canRevertCommit() && inputTransaction.getMSettingsValues().mBackspaceRevertsAutocorrect) {
@@ -1706,6 +1709,7 @@ public final class InputLogic {
     public void restartSuggestionsOnWordTouchedByCursor(final SettingsValues settingsValues,
             // TODO: remove this argument, put it into settingsValues
             final String currentKeyboardScript) {
+        setEmojiSearch(false);
         // HACK: We may want to special-case some apps that exhibit bad behavior in case of
         // recorrection. This is a temporary, stopgap measure that will be removed later.
         // TODO: remove this.
@@ -1756,6 +1760,7 @@ public final class InputLogic {
             // Restart emoji search. Will only expand up to closest word separators, which should work in most cases.
             range = new TextRange(":" + range.mWord, 0, range.length() + 1,
                                   range.getNumberOfCharsInWordBeforeCursor() + 1, false);
+            setEmojiSearch(true);
         }
         restartSuggestions(range);
     }
@@ -2008,8 +2013,29 @@ public final class InputLogic {
     /**
      * @param actionId the action to perform
      */
-    private void performEditorAction(final int actionId) {
-        mConnection.performEditorAction(actionId);
+    private void performEditorAction(final int actionId, InputTransaction inputTransaction, LatinIME.UIHandler handler) {
+        if (actionId == EMOJI_SEARCH_DONE_ACTION) {
+            if (Settings.getValues().mAutoCorrectEnabled) {
+                commitCurrentAutoCorrection(Settings.getValues(), LastComposedWord.NOT_A_SEPARATOR, handler);
+                inputTransaction.setDidAutoCorrect();
+            } else {
+                commitTyped(Settings.getValues(), LastComposedWord.NOT_A_SEPARATOR);
+            }
+
+            mSuggestionStripViewAccessor.setNeutralSuggestionStrip();
+            setEmojiSearch(false);
+        } else {
+            mConnection.performEditorAction(actionId);
+        }
+    }
+
+    private void setEmojiSearch(boolean on) {
+        var wasOn = getCurrentInputEditorInfo().actionId == EMOJI_SEARCH_DONE_ACTION;
+        if (on != wasOn) {
+            getCurrentInputEditorInfo().actionLabel = on? mLatinIME.getText(R.string.label_done_key) : null;
+            getCurrentInputEditorInfo().actionId = on? EMOJI_SEARCH_DONE_ACTION : 0;
+            KeyboardSwitcher.getInstance().reloadKeyboard();
+        }
     }
 
     /**
@@ -2456,17 +2482,19 @@ public final class InputLogic {
         if (mWordComposer.getTypedWord().length() == 1) {
             callback.onGetSuggestedWords(SuggestedWords.getEmptyInstance());
         } else {
-            var words = mWordComposer.getTypedWord().substring(1).split("~");
+            var input = mWordComposer.getTypedWord().substring(1);
+            var words = WHITESPACE_PATTERN.matcher(input).replaceAll(" ").split(" ");
             var suggestions = mEmojiDictionaryFacilitator.getSuggestions(Arrays.asList(words));
             var suggestedWordInfos = new ArrayList<SuggestedWordInfo>(suggestions.size());
             for (var suggestion: suggestions) {
                 if (StringUtils.mightBeEmoji(suggestion.mWord)) {
-                    Suggest.addDebugInfo(suggestion, words[0]);
+                    Suggest.addDebugInfo(suggestion, input);
                     suggestedWordInfos.add(suggestion);
                 }
             }
             callback.onGetSuggestedWords(new SuggestedWords(suggestedWordInfos, suggestions.mRawSuggestions, null,
-                                         false /* typedWordValid */, false /* willAutoCorrect */, false /* isObsoleteSuggestions */,
+                                         false /* typedWordValid */, Settings.getValues().mAutoCorrectEnabled,
+                                         false /* isObsoleteSuggestions */,
                                          SuggestedWords.INPUT_STYLE_PREDICTION /* avoid dropping the first suggestion */, sequenceNumber));
         }
 
@@ -2563,5 +2591,25 @@ public final class InputLogic {
     // never need to know this.
     public int getComposingLength() {
         return mWordComposer.size();
+    }
+
+    private void updateEmojiDictionary(Locale locale) {
+        if (Settings.getValues().mInlineEmojiSearch) {
+            if (mEmojiDictionaryFacilitator == null || ! mEmojiDictionaryFacilitator.isForLocale(locale)) {
+                closeEmojiDictionary();
+                var dictFile = DictionaryInfoUtils.getCachedDictForLocaleAndType(locale, "emoji", mLatinIME);
+                mEmojiDictionaryFacilitator = dictFile != null?
+                            new SingleDictionaryFacilitator(DictionaryFactory.getDictionary(dictFile, locale)) : null;
+            }
+        } else {
+            closeEmojiDictionary();
+        }
+    }
+
+    private void closeEmojiDictionary() {
+        if (mEmojiDictionaryFacilitator != null) {
+            mEmojiDictionaryFacilitator.closeDictionaries();
+            mEmojiDictionaryFacilitator = null;
+        }
     }
 }

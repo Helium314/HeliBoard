@@ -95,19 +95,19 @@ fun getFullEmojiAtEnd(text: CharSequence): String {
 }
 
 /**
- *  Returns whether the [text] does not end with word separator, ignoring all word connectors.
+ *  Returns whether the [text] ends with word codepoint, ignoring all word connectors.
  *  If the [text] is empty (after ignoring word connectors), the method returns false.
  */
-// todo: this returns true on numbers, why isn't Character.isLetter(code) used?
 fun endsWithWordCodepoint(text: String, spacingAndPunctuations: SpacingAndPunctuations): Boolean {
     if (text.isEmpty()) return false
-    var codePoint = 0 // initial value irrelevant since length is always > 0
+    var codePoint = Constants.NOT_A_CODE
     loopOverCodePointsBackwards(text) { cp, _ ->
-        codePoint = cp
-        !spacingAndPunctuations.isWordConnector(cp)
+        val bool = !spacingAndPunctuations.isWordConnector(cp)
+        if (bool)
+            codePoint = cp
+        bool
     }
-    // codePoint might still be a wordConnector (if text consists of wordConnectors)
-    return !spacingAndPunctuations.isWordConnector(codePoint) && !spacingAndPunctuations.isWordSeparator(codePoint)
+    return codePoint != Constants.NOT_A_CODE && spacingAndPunctuations.isWordCodePoint(codePoint)
 }
 
 // todo: simplify... maybe compare with original code?

@@ -694,9 +694,8 @@ public class LatinIME extends InputMethodService implements
             resetDictionaryFacilitatorIfNecessary();
         }
         refreshPersonalizationDictionarySession(currentSettingsValues);
-        mInputLogic.mSuggest.clearNextWordSuggestionsCache();
+        mInputLogic.onSettingsChanged(locale);
         mStatsUtilsManager.onLoadSettings(this, currentSettingsValues);
-        updateEmojiDictionary();
     }
 
     private void refreshPersonalizationDictionarySession(
@@ -2011,17 +2010,6 @@ public class LatinIME extends InputMethodService implements
         }
         if (Build.VERSION.SDK_INT == Build.VERSION_CODES.S && Build.MANUFACTURER.equals("HUAWEI")) {
             window.setStatusBarColor(Color.TRANSPARENT);
-        }
-    }
-
-    private void updateEmojiDictionary() {
-        if (Settings.getValues().mInlineEmojiSearch) {
-            var locale = mRichImm.getCurrentSubtype().getLocale();
-            var dictFile = DictionaryInfoUtils.getCachedDictForLocaleAndType(locale, "emoji", mDisplayContext);
-            mInputLogic.setEmojiDictionaryFacilitator(dictFile != null?
-                           new SingleDictionaryFacilitator(DictionaryFactory.getDictionary(dictFile, locale)) : null);
-        } else {
-            mInputLogic.setEmojiDictionaryFacilitator(null);
         }
     }
 
