@@ -116,28 +116,7 @@ class SuggestionStripView(context: Context, attrs: AttributeSet?, defStyle: Int)
     private val toolbarArrowIcon = KeyboardIconsSet.instance.getNewDrawable(KeyboardIconsSet.NAME_TOOLBAR_KEY, context)
     private val defaultToolbarBackground: Drawable = toolbarExpandKey.background
     private val enabledToolKeyBackground = GradientDrawable()
-    private lateinit var listener: Listener
-    private var suggestedWords = SuggestedWords.getEmptyInstance()
-    private var startIndexOfMoreSuggestions = 0
     private var direction = 1 // 1 if LTR, -1 if RTL
-    private var isExternalSuggestionVisible = false // Required to disable the more suggestions if other suggestions are visible
-    private val layoutHelper = SuggestionStripLayoutHelper(context, attrs, defStyle, wordViews, dividerViews, debugInfoViews)
-    private val moreSuggestionsView = moreSuggestionsContainer.findViewById<MoreSuggestionsView>(R.id.more_suggestions_view).apply {
-        val slidingListener = object : SimpleOnGestureListener() {
-            override fun onScroll(down: MotionEvent?, me: MotionEvent, deltaX: Float, deltaY: Float): Boolean {
-                if (down == null) return false
-                val dy = me.y - down.y
-                return if (toolbarContainer.visibility != VISIBLE && deltaY > 0 && dy < 0) showMoreSuggestions()
-                else false
-            }
-        }
-        gestureDetector = GestureDetector(context, slidingListener)
-    }
-
-    // public stuff
-
-    val isShowingMoreSuggestionPanel get() = moreSuggestionsView.isShowingInParent
-
     init {
         val colors = Settings.getValues().mColors
 
@@ -189,6 +168,27 @@ class SuggestionStripView(context: Context, attrs: AttributeSet?, defStyle: Int)
 
         updateKeys()
     }
+
+    private lateinit var listener: Listener
+    private var suggestedWords = SuggestedWords.getEmptyInstance()
+    private var startIndexOfMoreSuggestions = 0
+    private var isExternalSuggestionVisible = false // Required to disable the more suggestions if other suggestions are visible
+    private val layoutHelper = SuggestionStripLayoutHelper(context, attrs, defStyle, wordViews, dividerViews, debugInfoViews)
+    private val moreSuggestionsView = moreSuggestionsContainer.findViewById<MoreSuggestionsView>(R.id.more_suggestions_view).apply {
+        val slidingListener = object : SimpleOnGestureListener() {
+            override fun onScroll(down: MotionEvent?, me: MotionEvent, deltaX: Float, deltaY: Float): Boolean {
+                if (down == null) return false
+                val dy = me.y - down.y
+                return if (toolbarContainer.visibility != VISIBLE && deltaY > 0 && dy < 0) showMoreSuggestions()
+                else false
+            }
+        }
+        gestureDetector = GestureDetector(context, slidingListener)
+    }
+
+    // public stuff
+
+    val isShowingMoreSuggestionPanel get() = moreSuggestionsView.isShowingInParent
 
     /** A connection back to the input method. */
     fun setListener(newListener: Listener, inputView: View) {
