@@ -1695,7 +1695,7 @@ public final class InputLogic {
                     && mLatinIME.tryShowClipboardSuggestion())) {
                 mSuggestionStripViewAccessor.setSuggestions(suggestedWords);
             }
-            if (isEmojiSearch(0)) {
+            if (! suggestedWords.isEmpty() && isEmojiSearch(0)) {
                 mSuggestionStripViewAccessor.showSuggestionStrip();
             }
         }
@@ -2479,8 +2479,7 @@ public final class InputLogic {
     }
 
     private boolean searchForEmoji(int sequenceNumber, OnGetSuggestedWordsCallback callback) {
-        if (mEmojiDictionaryFacilitator == null
-                        || mWordComposer.getTypedWord().isEmpty() || mWordComposer.getTypedWord().charAt(0) != ':') {
+        if (! isEmojiSearch(0)) {
             return false;
         }
 

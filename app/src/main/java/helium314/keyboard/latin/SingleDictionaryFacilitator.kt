@@ -20,7 +20,7 @@ class SingleDictionaryFacilitator(private val dict: Dictionary) : DictionaryFaci
     /**
      * Returns combined suggestions that match any of the given words, with scores that reflect the matches against all words.
      * The combined score is calculated as the average absolute (above [Int.MIN_VALUE]) score,
-     * where a non-match is considered an absolute 0.
+     * where a non-match is considered an absolute zero.
      * Other suggestion fields of combined matches are taken arbitrarily from one of them.
      */
     fun getSuggestions(words: List<String>): SuggestionResults {
@@ -30,9 +30,10 @@ class SingleDictionaryFacilitator(private val dict: Dictionary) : DictionaryFaci
         }
         val suggestionResults = SuggestionResults(SuggestedWords.MAX_SUGGESTIONS, false, false)
         suggestionResults.addAll(infos.values.map {
+            val info = it.first
             SuggestedWords.SuggestedWordInfo(
-                it.first.word, it.first.mPrevWordsContext, (it.second / words.size + Int.MIN_VALUE).toInt(), it.first.mKindAndFlags,
-                it.first.mSourceDict, it.first.mIndexOfTouchPointOfSecondWord, it.first.mAutoCommitFirstWordConfidence
+                info.word, info.mPrevWordsContext, (it.second / words.size + Int.MIN_VALUE).toInt(), info.mKindAndFlags,
+                info.mSourceDict, info.mIndexOfTouchPointOfSecondWord, info.mAutoCommitFirstWordConfidence
             )
         })
         return suggestionResults
