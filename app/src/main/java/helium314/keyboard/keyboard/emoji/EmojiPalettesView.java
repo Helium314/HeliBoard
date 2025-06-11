@@ -403,7 +403,7 @@ public final class EmojiPalettesView extends LinearLayout
             if (mPager.getScrollState() != ViewPager2.SCROLL_STATE_DRAGGING) {
                 // Not swiping
                 mPager.setCurrentItem(mEmojiCategory.getTabIdFromCategoryId(
-                                mEmojiCategory.getCurrentCategoryId()), ! initial && ! Settings.getValues().mAnimationDisabled);
+                                mEmojiCategory.getCurrentCategoryId()), ! initial && ! isAnimationsDisabled());
             }
 
             if (Settings.getValues().mSecondaryStripVisible) {
@@ -416,6 +416,11 @@ public final class EmojiPalettesView extends LinearLayout
                     Settings.getValues().mColors.setColor((ImageView) current, ColorType.EMOJI_CATEGORY_SELECTED);
             }
         }
+    }
+
+    private boolean isAnimationsDisabled() {
+        return android.provider.Settings.Global.getFloat(getContext().getContentResolver(),
+                                                         android.provider.Settings.Global.ANIMATOR_DURATION_SCALE, 1.0f) == 0.0f;
     }
 
     public void clearKeyboardCache() {
