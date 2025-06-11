@@ -8,10 +8,17 @@ package helium314.keyboard.keyboard;
 
 import android.view.View;
 import android.view.ViewGroup;
-import helium314.keyboard.keyboard.emoji.OnKeyEventListener;
+import helium314.keyboard.keyboard.emoji.EmojiViewCallback;
 
 public interface PopupKeysPanel {
     interface Controller {
+        /**
+         * Set the layout gravity.
+         * @param layoutGravity requested by the popup
+         */
+        default void setLayoutGravity(int layoutGravity) {
+        }
+
         /**
          * Add the {@link PopupKeysPanel} to the target view.
          * @param panel the panel to be shown.
@@ -59,19 +66,18 @@ public interface PopupKeysPanel {
      * Initializes the layout and event handling of this {@link PopupKeysPanel} and calls the
      * controller's onShowPopupKeysPanel to add the panel's container view.
      * Same as {@link PopupKeysPanel#showPopupKeysPanel(View, Controller, int, int, KeyboardActionListener)},
-     * but with a {@link OnKeyEventListener}.
+     * but with a {@link EmojiViewCallback}.
      *
      * @param parentView the parent view of this {@link PopupKeysPanel}
      * @param controller the controller that can dismiss this {@link PopupKeysPanel}
      * @param pointX x coordinate of this {@link PopupKeysPanel}
      * @param pointY y coordinate of this {@link PopupKeysPanel}
-     * @param listener the listener that will receive keyboard action from this
-     * {@link PopupKeysPanel}.
+     * @param emojiViewCallback to receive keyboard actions from this {@link PopupKeysPanel}.
      */
     // TODO: Currently the PopupKeysPanel is inside a container view that is added to the parent.
     // Consider the simpler approach of placing the PopupKeysPanel itself into the parent view.
     void showPopupKeysPanel(View parentView, Controller controller, int pointX,
-                           int pointY, OnKeyEventListener listener);
+                           int pointY, EmojiViewCallback emojiViewCallback);
 
     /**
      * Dismisses the popup keys panel and calls the controller's onDismissPopupKeysPanel to remove
@@ -127,20 +133,35 @@ public interface PopupKeysPanel {
      */
     int translateY(int y);
 
+    default View getContainerView() {
+        return (View) ((View) this).getParent();
+    }
+
     /**
      * Show this {@link PopupKeysPanel} in the parent view.
      *
      * @param parentView the {@link ViewGroup} that hosts this {@link PopupKeysPanel}.
      */
-    void showInParent(ViewGroup parentView);
+    default void showInParent(ViewGroup parentView) {
+        removeFromParent();
+        parentView.addView(getContainerView());
+    }
 
     /**
      * Remove this {@link PopupKeysPanel} from the parent view.
      */
-    void removeFromParent();
+    default void removeFromParent() {
+        final View containerView = getContainerView();
+        final ViewGroup currentParent = (ViewGroup)containerView.getParent();
+        if (currentParent != null) {
+            currentParent.removeView(containerView);
+        }
+    }
 
     /**
      * Return whether the panel is currently being shown.
      */
-    boolean isShowingInParent();
+    default boolean isShowingInParent() {
+        return getContainerView().getParent() != null;
+    }
 }

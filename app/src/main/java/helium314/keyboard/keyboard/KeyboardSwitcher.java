@@ -138,7 +138,7 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
         return false;
     }
 
-    public void loadKeyboard(final EditorInfo editorInfo, final SettingsValues settingsValues,
+    private void loadKeyboard(final EditorInfo editorInfo, final SettingsValues settingsValues,
             final int currentAutoCapsState, final int currentRecapitalizeState) {
         final KeyboardLayoutSet.Builder builder = new KeyboardLayoutSet.Builder(
                 mThemeContext, editorInfo);
@@ -527,6 +527,10 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
         if (mCurrentInputView == null)
             return;
         mEmojiPalettesView.clearKeyboardCache();
+        reloadMainKeyboard();
+    }
+
+    public void reloadMainKeyboard() {
         loadKeyboard(mLatinIME.getCurrentInputEditorInfo(), Settings.getValues(),
                 mLatinIME.getCurrentAutoCapsState(), mLatinIME.getCurrentRecapitalizeState());
     }

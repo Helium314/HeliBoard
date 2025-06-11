@@ -38,12 +38,16 @@ import helium314.keyboard.keyboard.internal.KeyDrawParams;
 import helium314.keyboard.keyboard.internal.KeyVisualAttributes;
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode;
 import helium314.keyboard.latin.AudioAndHapticFeedbackManager;
+import helium314.keyboard.latin.DictionaryFactory;
 import helium314.keyboard.latin.R;
+import helium314.keyboard.latin.RichInputMethodManager;
 import helium314.keyboard.latin.RichInputMethodSubtype;
+import helium314.keyboard.latin.SingleDictionaryFacilitator;
 import helium314.keyboard.latin.common.ColorType;
 import helium314.keyboard.latin.common.Colors;
 import helium314.keyboard.latin.settings.Settings;
 import helium314.keyboard.latin.settings.SettingsValues;
+import helium314.keyboard.latin.utils.DictionaryInfoUtils;
 import helium314.keyboard.latin.utils.ResourceUtils;
 
 import static helium314.keyboard.latin.common.Constants.NOT_A_COORDINATE;
@@ -60,7 +64,7 @@ import static helium314.keyboard.latin.common.Constants.NOT_A_COORDINATE;
  * Because of the above reasons, this class doesn't extend {@link KeyboardView}.
  */
 public final class EmojiPalettesView extends LinearLayout
-        implements View.OnClickListener, OnKeyEventListener {
+        implements View.OnClickListener, EmojiViewCallback {
     private static final class PagerViewHolder extends RecyclerView.ViewHolder {
         private long mCategoryId;
 
@@ -179,15 +183,14 @@ public final class EmojiPalettesView extends LinearLayout
         }
     }
 
+    private static SingleDictionaryFacilitator sDictionaryFacilitator;
+
     private boolean initialized = false;
     private final Colors mColors;
     private final EmojiLayoutParams mEmojiLayoutParams;
-
     private LinearLayout mTabStrip;
     private EmojiCategoryPageIndicatorView mEmojiCategoryPageIndicatorView;
-
     private KeyboardActionListener mKeyboardActionListener = KeyboardActionListener.EMPTY_LISTENER;
-
     private final EmojiCategory mEmojiCategory;
     private ViewPager2 mPager;
 
@@ -254,9 +257,7 @@ public final class EmojiPalettesView extends LinearLayout
         mEmojiLayoutParams.setEmojiListProperties(mPager);
         mEmojiCategoryPageIndicatorView = findViewById(R.id.emoji_category_page_id_view);
         mEmojiLayoutParams.setCategoryPageIdViewProperties(mEmojiCategoryPageIndicatorView);
-
         setCurrentCategoryId(mEmojiCategory.getCurrentCategoryId(), true);
-
         mEmojiCategoryPageIndicatorView.setColors(mColors.get(ColorType.EMOJI_CATEGORY_SELECTED), mColors.get(ColorType.STRIP_BACKGROUND));
         initialized = true;
     }
@@ -280,8 +281,7 @@ public final class EmojiPalettesView extends LinearLayout
     }
 
     /**
-     * Called from {@link EmojiPageKeyboardView} through
-     * {@link helium314.keyboard.keyboard.emoji.OnKeyEventListener}
+     * Called from {@link EmojiPageKeyboardView} through {@link EmojiViewCallback}
      * interface to handle touch events from non-View-based elements such as Emoji buttons.
      */
     @Override
@@ -291,10 +291,9 @@ public final class EmojiPalettesView extends LinearLayout
     }
 
     /**
-     * Called from {@link EmojiPageKeyboardView} through
-     * {@link helium314.keyboard.keyboard.emoji.OnKeyEventListener}
+     * Called from {@link EmojiPageKeyboardView} through {@link EmojiViewCallback}
      * interface to handle touch events from non-View-based elements such as Emoji buttons.
-     * This may be called without any prior call to {@link OnKeyEventListener#onPressKey(Key)}.
+     * This may be called without any prior call to {@link EmojiViewCallback#onPressKey(Key)}.
      */
     @Override
     public void onReleaseKey(final Key key) {
@@ -308,6 +307,20 @@ public final class EmojiPalettesView extends LinearLayout
         mKeyboardActionListener.onReleaseKey(code, false);
         if (Settings.getValues().mAlphaAfterEmojiInEmojiView)
             mKeyboardActionListener.onCodeInput(KeyCode.ALPHA, NOT_A_COORDINATE, NOT_A_COORDINATE, false);
+    }
+
+    @Override
+    public String getDescription(String emoji) {
+        if (sDictionaryFacilitator == null) {
+            return null;
+        }
+
+        var wordProperty = sDictionaryFacilitator.getWordProperty(emoji);
+        if (wordProperty == null || ! wordProperty.mHasShortcuts) {
+            return null;
+        }
+
+        return wordProperty.mShortcutTargets.get(0).mWord;
     }
 
     public void setHardwareAcceleratedDrawingEnabled(final boolean enabled) {
@@ -324,6 +337,7 @@ public final class EmojiPalettesView extends LinearLayout
         final KeyDrawParams params = new KeyDrawParams();
         params.updateParams(mEmojiLayoutParams.getBottomRowKeyboardHeight(), keyVisualAttr);
         setupSidePadding();
+        initDictionaryFacilitator();
     }
 
     private void addRecentKey(final Key key) {
@@ -430,5 +444,27 @@ public final class EmojiPalettesView extends LinearLayout
 
         mEmojiCategory.clearKeyboardCache();
         mPager.getAdapter().notifyDataSetChanged();
+        closeDictionaryFacilitator();
+    }
+
+    private void initDictionaryFacilitator() {
+        if (Settings.getValues().mShowEmojiDescriptions) {
+            var locale = RichInputMethodManager.getInstance().getCurrentSubtype().getLocale();
+            if (sDictionaryFacilitator == null || ! sDictionaryFacilitator.isForLocale(locale)) {
+                closeDictionaryFacilitator();
+                var dictFile = DictionaryInfoUtils.getCachedDictForLocaleAndType(locale, "emoji", getContext());
+                var dictionary = dictFile != null? DictionaryFactory.getDictionary(dictFile, locale) : null;
+                sDictionaryFacilitator = dictionary != null? new SingleDictionaryFacilitator(dictionary) : null;
+            }
+        } else {
+            closeDictionaryFacilitator();
+        }
+    }
+
+    private static void closeDictionaryFacilitator() {
+        if (sDictionaryFacilitator != null) {
+            sDictionaryFacilitator.closeDictionaries();
+            sDictionaryFacilitator = null;
+        }
     }
 }
