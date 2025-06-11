@@ -71,7 +71,7 @@ public final class EmojiPalettesView extends LinearLayout
 
     private final class PagerAdapter extends RecyclerView.Adapter<PagerViewHolder> {
         private boolean mInitialized;
-        private Map<Integer, RecyclerView> mViews = new HashMap<>(mEmojiCategory.getShownCategories().size());
+        private final Map<Integer, RecyclerView> mViews = new HashMap<>(mEmojiCategory.getShownCategories().size());
 
         private PagerAdapter(ViewPager2 pager) {
             setHasStableIds(true);
@@ -403,7 +403,7 @@ public final class EmojiPalettesView extends LinearLayout
             if (mPager.getScrollState() != ViewPager2.SCROLL_STATE_DRAGGING) {
                 // Not swiping
                 mPager.setCurrentItem(mEmojiCategory.getTabIdFromCategoryId(
-                                mEmojiCategory.getCurrentCategoryId()), ! initial);
+                                mEmojiCategory.getCurrentCategoryId()), ! initial && ! Settings.getValues().mAnimationDisabled);
             }
 
             if (Settings.getValues().mSecondaryStripVisible) {

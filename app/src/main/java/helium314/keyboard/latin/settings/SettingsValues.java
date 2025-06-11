@@ -49,6 +49,10 @@ public class SettingsValues {
     public final Locale mLocale;
     public final boolean mHasHardwareKeyboard;
     public final int mDisplayOrientation;
+
+    // From system
+    public final boolean mAnimationDisabled;
+
     // From preferences
     public final boolean mAutoCap;
     public final boolean mVibrateOn;
@@ -158,6 +162,8 @@ public class SettingsValues {
         mLocale = ConfigurationCompatKt.locale(res.getConfiguration());
         mDisplayOrientation = res.getConfiguration().orientation;
         final InputMethodSubtype selectedSubtype = SubtypeSettings.INSTANCE.getSelectedSubtype(prefs);
+
+        mAnimationDisabled = isAnimationDisabled(context);
 
         // Store the input attributes
         mInputAttributes = inputAttributes;
@@ -423,5 +429,15 @@ public class SettingsValues {
         sb.append("" + mDisplayOrientation);
         sb.append("\n   mAppWorkarounds = ");
         return sb.toString();
+    }
+
+    private static boolean isAnimationDisabled(Context context) {
+        return isZeroSetting(android.provider.Settings.Global.ANIMATOR_DURATION_SCALE, context)
+            && isZeroSetting(android.provider.Settings.Global.TRANSITION_ANIMATION_SCALE, context)
+            && isZeroSetting(android.provider.Settings.Global.WINDOW_ANIMATION_SCALE, context);
+    }
+
+    private static boolean isZeroSetting(String name, Context context) {
+        return android.provider.Settings.Global.getFloat(context.getContentResolver(), name, 1.0f) == 0.0f;
     }
 }
