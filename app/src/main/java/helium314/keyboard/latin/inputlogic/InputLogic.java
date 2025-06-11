@@ -59,10 +59,12 @@ import helium314.keyboard.latin.utils.ScriptUtils;
 import helium314.keyboard.latin.utils.StatsUtils;
 import helium314.keyboard.latin.utils.TextRange;
 import helium314.keyboard.latin.utils.TimestampKt;
+import helium314.keyboard.latin.utils.ToolbarMode;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Locale;
+import java.util.Set;
 import java.util.TreeSet;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Pattern;
@@ -1656,7 +1658,7 @@ public final class InputLogic {
                         + "requested!");
             }
             // Clear the suggestions strip.
-            mSuggestionStripViewAccessor.showSuggestionStrip(SuggestedWords.getEmptyInstance());
+            mSuggestionStripViewAccessor.setSuggestions(SuggestedWords.getEmptyInstance());
             return;
         }
 
@@ -1691,7 +1693,10 @@ public final class InputLogic {
             // Prefer clipboard suggestions (if available and setting is enabled) over beginning of sentence predictions.
             if (!(suggestedWords.mInputStyle == SuggestedWords.INPUT_STYLE_BEGINNING_OF_SENTENCE_PREDICTION
                     && mLatinIME.tryShowClipboardSuggestion())) {
-                mSuggestionStripViewAccessor.showSuggestionStrip(suggestedWords);
+                mSuggestionStripViewAccessor.setSuggestions(suggestedWords);
+            }
+            if (isEmojiSearch(0)) {
+                mSuggestionStripViewAccessor.showSuggestionStrip();
             }
         }
         if (DebugFlags.DEBUG_ENABLED) {
@@ -2594,7 +2599,8 @@ public final class InputLogic {
     }
 
     private void updateEmojiDictionary(Locale locale) {
-        if (Settings.getValues().mInlineEmojiSearch) {
+        if (Settings.getValues().mInlineEmojiSearch
+                    && Set.of(ToolbarMode.SUGGESTION_STRIP, ToolbarMode.EXPANDABLE).contains(Settings.getValues().mToolbarMode)) {
             if (mEmojiDictionaryFacilitator == null || ! mEmojiDictionaryFacilitator.isForLocale(locale)) {
                 closeEmojiDictionary();
                 var dictFile = DictionaryInfoUtils.getCachedDictForLocaleAndType(locale, "emoji", mLatinIME);

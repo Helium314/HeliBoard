@@ -77,7 +77,6 @@ import helium314.keyboard.latin.suggestions.SuggestionStripView;
 import helium314.keyboard.latin.suggestions.SuggestionStripViewAccessor;
 import helium314.keyboard.latin.touchinputconsumer.GestureConsumer;
 import helium314.keyboard.latin.utils.ColorUtilKt;
-import helium314.keyboard.latin.utils.DictionaryInfoUtils;
 import helium314.keyboard.latin.utils.InlineAutofillUtils;
 import helium314.keyboard.latin.utils.InputMethodPickerKt;
 import helium314.keyboard.latin.utils.JniUtils;
@@ -249,7 +248,7 @@ public class LatinIME extends InputMethodService implements
                 case MSG_SHOW_GESTURE_PREVIEW_AND_SUGGESTION_STRIP:
                     if (msg.arg1 == ARG1_NOT_GESTURE_INPUT) {
                         final SuggestedWords suggestedWords = (SuggestedWords) msg.obj;
-                        latinIme.showSuggestionStrip(suggestedWords);
+                        latinIme.setSuggestions(suggestedWords);
                     } else {
                         latinIme.showGesturePreviewAndSuggestionStrip((SuggestedWords) msg.obj,
                                 msg.arg1 == ARG1_DISMISS_GESTURE_FLOATING_PREVIEW_TEXT);
@@ -1635,7 +1634,7 @@ public class LatinIME extends InputMethodService implements
     // This method must run on the UI Thread.
     void showGesturePreviewAndSuggestionStrip(@NonNull final SuggestedWords suggestedWords,
                                               final boolean dismissGestureFloatingPreviewText) {
-        showSuggestionStrip(suggestedWords);
+        setSuggestions(suggestedWords);
         final MainKeyboardView mainKeyboardView = mKeyboardSwitcher.getMainKeyboardView();
         mainKeyboardView.showGestureFloatingPreviewText(suggestedWords,
                 dismissGestureFloatingPreviewText /* dismissDelayed */);
@@ -1677,7 +1676,7 @@ public class LatinIME extends InputMethodService implements
     }
 
     @Override
-    public void showSuggestionStrip(final SuggestedWords suggestedWords) {
+    public void setSuggestions(final SuggestedWords suggestedWords) {
         if (suggestedWords.isEmpty()) {
             // avoids showing clipboard suggestion when starting gesture typing
             // should be fine, as there will be another suggestion in a few ms
@@ -1690,6 +1689,11 @@ public class LatinIME extends InputMethodService implements
         // Cache the auto-correction in accessibility code so we can speak it if the user
         // touches a key that will insert it.
         AccessibilityUtils.Companion.getInstance().setAutoCorrection(suggestedWords);
+    }
+
+    @Override
+    public void showSuggestionStrip() {
+        mSuggestionStripView.setToolbarVisibility(false);
     }
 
     // Called from {@link SuggestionStripView} through the {@link SuggestionStripView#Listener}
