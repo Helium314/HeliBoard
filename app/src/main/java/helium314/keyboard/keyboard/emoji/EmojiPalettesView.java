@@ -183,7 +183,7 @@ public final class EmojiPalettesView extends LinearLayout
         }
     }
 
-    private static SingleDictionaryFacilitator mDictionaryFacilitator;
+    private static SingleDictionaryFacilitator sDictionaryFacilitator;
 
     private boolean initialized = false;
     private final Colors mColors;
@@ -311,11 +311,11 @@ public final class EmojiPalettesView extends LinearLayout
 
     @Override
     public String getDescription(String emoji) {
-        if (mDictionaryFacilitator == null) {
+        if (sDictionaryFacilitator == null) {
             return null;
         }
 
-        var wordProperty = mDictionaryFacilitator.getWordProperty(emoji);
+        var wordProperty = sDictionaryFacilitator.getWordProperty(emoji);
         if (wordProperty == null || ! wordProperty.mHasShortcuts) {
             return null;
         }
@@ -445,11 +445,11 @@ public final class EmojiPalettesView extends LinearLayout
     private void initDictionaryFacilitator() {
         if (Settings.getValues().mShowEmojiDescriptions) {
             var locale = RichInputMethodManager.getInstance().getCurrentSubtype().getLocale();
-            if (mDictionaryFacilitator == null || ! mDictionaryFacilitator.isForLocale(locale)) {
+            if (sDictionaryFacilitator == null || ! sDictionaryFacilitator.isForLocale(locale)) {
                 closeDictionaryFacilitator();
                 var dictFile = DictionaryInfoUtils.getCachedDictForLocaleAndType(locale, "emoji", getContext());
-                mDictionaryFacilitator = dictFile != null?
-                            new SingleDictionaryFacilitator(DictionaryFactory.getDictionary(dictFile, locale)) : null;
+                var dictionary = dictFile != null? DictionaryFactory.getDictionary(dictFile, locale) : null;
+                sDictionaryFacilitator = dictionary != null? new SingleDictionaryFacilitator(dictionary) : null;
             }
         } else {
             closeDictionaryFacilitator();
@@ -457,9 +457,9 @@ public final class EmojiPalettesView extends LinearLayout
     }
 
     private static void closeDictionaryFacilitator() {
-        if (mDictionaryFacilitator != null) {
-            mDictionaryFacilitator.closeDictionaries();
-            mDictionaryFacilitator = null;
+        if (sDictionaryFacilitator != null) {
+            sDictionaryFacilitator.closeDictionaries();
+            sDictionaryFacilitator = null;
         }
     }
 }
