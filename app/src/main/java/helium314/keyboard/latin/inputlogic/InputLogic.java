@@ -2603,8 +2603,8 @@ public final class InputLogic {
             if (mEmojiDictionaryFacilitator == null || ! mEmojiDictionaryFacilitator.isForLocale(locale)) {
                 closeEmojiDictionary();
                 var dictFile = DictionaryInfoUtils.getCachedDictForLocaleAndType(locale, "emoji", mLatinIME);
-                mEmojiDictionaryFacilitator = dictFile != null?
-                            new SingleDictionaryFacilitator(DictionaryFactory.getDictionary(dictFile, locale)) : null;
+                var dictionary = dictFile != null? DictionaryFactory.getDictionary(dictFile, locale) : null;
+                mEmojiDictionaryFacilitator = dictionary != null? new SingleDictionaryFacilitator(dictionary) : null;
             }
         } else {
             closeEmojiDictionary();
