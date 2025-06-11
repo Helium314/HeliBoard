@@ -1,0 +1,10 @@
+* af. modes de barra d'eines (permet ocultar-la)
+* af. alguns emojis
+* millorar pantalla de subtipus i el diàleg del dicc.
+* corr. colors en forçar el mode fosc
+* moure la majoria de la configuració d'escala vert/horiz a un diàleg
+* elim. les trads. de les cadenes marcades com a no traduïbles
+* corr. direcció de fletxa de la pantalla següent a idiomes RTL
+* corr. la càrrega correcta de la config. regional hebrea a Android 15
+* tenir almenys un teclat bàsic quan la biblio. no funciona
+* corr. etc

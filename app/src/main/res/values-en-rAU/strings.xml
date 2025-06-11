@@ -1,10 +1,9 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!--
     Copyright (C) 2008 The Android Open Source Project
     modified
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
--->
-<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+--><resources>
     <string name="use_contacts_dict">"Look up contact names"</string>
     <string name="vibrate_on_keypress">"Vibrate on keypress"</string>
     <string name="sound_on_keypress">"Sound on keypress"</string>
@@ -109,4 +108,29 @@
     <string name="label_search_key">"Search"</string>
     <string name="label_pause_key">"Pause"</string>
     <string name="label_wait_key">"Wait"</string>
+    <string name="split_spacer_scale_landscape">Split distance (landscape)</string>
+    <string name="spell_checker_service_name">HeliBoard Spell Checker</string>
+    <string name="ime_settings">HeliBoard Settings</string>
+    <string name="android_spell_checker_settings">HeliBoard Spell Checker Settings</string>
+    <string name="split_spacer_scale">Split distance</string>
+    <string name="show_emoji_key">Emoji key</string>
+    <string name="switch_language">Switch Language</string>
+    <string name="settings_category_input">Input</string>
+    <string name="settings_category_additional_keys">Additional keys</string>
+    <string name="settings_category_suggestions">Suggestions</string>
+    <string name="vibrate_in_dnd_mode">Vibrate in do not disturb mode</string>
+    <string name="settings_category_correction">Corrections</string>
+    <string name="enable_split_keyboard_landscape">Enable split keyboard (landscape)</string>
+    <string name="disable_personalized_dicts_message">Warning: Disabling this setting will clear learned data</string>
+    <string name="settings_category_clipboard_history">Clipboard history</string>
+    <string name="settings_category_space">Space</string>
+    <string name="settings_category_experimental">Experimental</string>
+    <string name="settings_category_miscellaneous">Uncategorised</string>
+    <string name="language_switch_key_switch_both">Switch both</string>
+    <string name="language_switch_key_behavior">Language switch key behavior</string>
+    <string name="abbreviation_unit_minutes">%s min</string>
+    <string name="settings_no_limit">No limit</string>
+    <string name="add_to_personal_dictionary">Add learnt words to personal dictionary</string>
+    <string name="use_apps_dict">Look up app names</string>
+    <string name="use_apps_dict_summary">Use names of installed apps for suggestions and corrections</string>
 </resources>

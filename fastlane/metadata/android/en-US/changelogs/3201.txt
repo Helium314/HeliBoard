@@ -1,0 +1,10 @@
+* add toolbar modes (allows hiding toolbar)
+* add some missing emoji variants
+* improve subtype screen and dictionary dialog
+* fix colors when forcing dark mode
+* move most of the portrait / landscape scale settings into a dialog
+* remove translations of strings marked as non-translatable
+* fix next-screen arrow direction for RTL languages
+* fix proper loading of Hebrew locale on Android 15
+* have at least a basic keyboard when library doesn't work at all
+* minor bug fixes

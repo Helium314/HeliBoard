@@ -426,4 +426,13 @@
     <string name="use_apps_dict_summary">Namen der installierten Apps für Vorschläge und Korrekturen verwenden</string>
     <string name="prefs_emoji_skin_tone">Standard-Emoji-Hautton</string>
     <string name="prefs_emoji_skin_tone_neutral">Neutral</string>
+    <string name="toolbar_mode_expandable">Symbolleiste Tasten und Vorschläge</string>
+    <string name="toolbar_mode_toolbar_keys">Symbolleiste nur Tasten</string>
+    <string name="popup_order_and_hint_source">Popup Tasten Reihenfolge und Vorschlag Quelle</string>
+    <string name="toolbar_mode_hidden">Versteckt</string>
+    <string name="toolbar_hiding_global">Auch Zwischenablage und Emoji Symbolleisten verstecken</string>
+    <string name="subtype_with_layout_generic">%1$s (%2$s)</string>
+    <string name="landscape">Querformat</string>
+    <string name="toolbar_mode_suggestion_strip">Nur Vorschläge</string>
+    <string name="toolbar_mode">Symbolleiste Modus</string>
 </resources>

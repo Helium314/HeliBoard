@@ -1,0 +1,10 @@
+* přidány režimy panelu nástrojů (umožňuje skrýt p. n.)
+* přidány chybějící varianty emodži
+* vylepšena obrazovka podtypů a dialog slovníku
+* opraveny barvy při vynuceném tmavém režimu
+* přesun většiny nastavení měřítka do dialogu
+* odstraněny překlady řetězců označených jako nepřekládatelné
+* opraven směr šipky „dále“ pro jazyky RTL
+* opraveno správné načítání hebrejského jazyka na Androidu 15
+* zajištění alespoň základní klávesnice, když knihovna vůbec nefunguje
+* drobné opravy chyb
