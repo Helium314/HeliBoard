@@ -428,11 +428,19 @@
     <string name="timestamp_format_title">Formato per il tasto data/ora</string>
     <string name="subtype_dag">Dagbani</string>
     <string name="subtype_st">Sesotho</string>
-    <string name="prefs_emoji_key_fit">Scala la dimensione dei tasti con la dimensione dei caratteri</string>
+    <string name="prefs_emoji_key_fit">Ridimensiona il tasto emoji in base alla dimensione dei caratteri</string>
     <string name="subtype_with_layout_generic">%1$s (%2$s)</string>
     <string name="backup_restored">Backup ripristinato</string>
     <string name="use_apps_dict">Suggerisci nomi delle app installate</string>
     <string name="use_apps_dict_summary">Aggiunge i nomi delle app installate alla lista di suggerimenti e correzioni</string>
     <string name="prefs_emoji_skin_tone">Tonalità di pelle predefinita per le emoji</string>
     <string name="prefs_emoji_skin_tone_neutral">Neutro (giallo)</string>
+    <string name="toolbar_mode_expandable">Tasti funzione e suggerimenti</string>
+    <string name="toolbar_mode_toolbar_keys">Solo tasti funzione</string>
+    <string name="toolbar_mode_hidden">Nascosta</string>
+    <string name="toolbar_hiding_global">Nascondi anche le barre degli appunti e delle emoji</string>
+    <string name="landscape">Orizzontale</string>
+    <string name="popup_order_and_hint_source">Ordine dei caratteri popup e fonti dei suggerimenti</string>
+    <string name="toolbar_mode_suggestion_strip">Solo suggerimenti</string>
+    <string name="toolbar_mode">Modalità</string>
 </resources>

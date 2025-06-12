@@ -60,6 +60,7 @@ fun PreferencesScreen(
             Settings.PREF_KEYPRESS_SOUND_VOLUME else null,
         if (Settings.readToolbarMode(prefs) in setOf(ToolbarMode.SUGGESTION_STRIP, ToolbarMode.EXPANDABLE))
             Settings.PREF_INLINE_EMOJI_SEARCH else null,
+        Settings.PREF_SHOW_EMOJI_DESCRIPTIONS,
         R.string.settings_category_additional_keys,
         Settings.PREF_SHOW_NUMBER_ROW,
         if (SubtypeSettings.getEnabledSubtypes(true).any { it.locale().language in localesWithLocalizedNumberRow })
@@ -119,6 +120,14 @@ fun createPreferencesSettings(context: Context) = listOf(
         R.string.inline_emoji_search_summary
     ) {
         SwitchPreference(it, Defaults.PREF_INLINE_EMOJI_SEARCH)
+    },
+    Setting(
+        context, Settings.PREF_SHOW_EMOJI_DESCRIPTIONS, R.string.show_emoji_descriptions,
+        R.string.show_emoji_descriptions_summary
+    ) {
+        SwitchPreference(it, Defaults.PREF_SHOW_EMOJI_DESCRIPTIONS) {
+            KeyboardSwitcher.getInstance().reloadKeyboard()
+        }
     },
     Setting(context, Settings.PREF_ENABLE_CLIPBOARD_HISTORY,
         R.string.enable_clipboard_history, R.string.enable_clipboard_history_summary)
