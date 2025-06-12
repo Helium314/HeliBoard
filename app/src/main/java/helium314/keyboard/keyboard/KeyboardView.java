@@ -501,7 +501,7 @@ public class KeyboardView extends View {
                     ? hintBaseline * 0.5f
                     : params.mHintLabelVerticalAdjustment * labelCharHeight;
             canvas.drawText(hintLabel, 0, hintLabel.length(), hintX, hintBaseline + adjustmentY, paint);
-        } else if (key.getPopupKeys() != null) {
+        } else if (key.getPopupKeys() != null && (key.hasActionKeyBackground() || key.getBackgroundType() == Key.BACKGROUND_TYPE_FUNCTIONAL)) {
             drawKeyPopupHint(key, canvas, paint, params);
         }
 
