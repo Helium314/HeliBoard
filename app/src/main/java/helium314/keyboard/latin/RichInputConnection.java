@@ -716,8 +716,13 @@ public final class RichInputConnection implements PrivateCommandPerformer {
         if (start < 0 || end < 0) {
             return false;
         }
-        mExpectedSelStart = start;
-        mExpectedSelEnd = end;
+        if (start > end) {
+            mExpectedSelStart = end;
+            mExpectedSelEnd = start;
+        } else {
+            mExpectedSelStart = start;
+            mExpectedSelEnd = end;
+        }
         if (isConnected()) {
             final boolean isIcValid = mIC.setSelection(start, end);
             if (!isIcValid) {
