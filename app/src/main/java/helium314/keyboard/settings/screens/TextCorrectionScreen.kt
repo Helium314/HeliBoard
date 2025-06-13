@@ -76,6 +76,7 @@ fun TextCorrectionScreen(
         if (suggestionsEnabled && prefs.getBoolean(Settings.PREF_ALWAYS_SHOW_SUGGESTIONS, Defaults.PREF_ALWAYS_SHOW_SUGGESTIONS))
             Settings.PREF_ALWAYS_SHOW_SUGGESTIONS_EXCEPT_WEB_TEXT else null,
         if (suggestionsEnabled) Settings.PREF_CENTER_SUGGESTION_TEXT_TO_ENTER else null,
+        if (suggestionsEnabled || autocorrectEnabled) Settings.PREF_INLINE_EMOJI_SEARCH else null,
         Settings.PREF_KEY_USE_PERSONALIZED_DICTS,
         Settings.PREF_BIGRAM_PREDICTIONS,
         Settings.PREF_SUGGEST_CLIPBOARD_CONTENT,
@@ -232,6 +233,12 @@ fun createCorrectionSettings(context: Context) = listOf(
         R.string.use_apps_dict, R.string.use_apps_dict_summary
     ) { setting ->
         SwitchPreference(setting, Defaults.PREF_USE_APPS)
+    },
+    Setting(
+        context, Settings.PREF_INLINE_EMOJI_SEARCH, R.string.inline_emoji_search,
+        R.string.inline_emoji_search_summary
+    ) {
+        SwitchPreference(it, Defaults.PREF_INLINE_EMOJI_SEARCH)
     },
     Setting(context, Settings.PREF_ADD_TO_PERSONAL_DICTIONARY,
         R.string.add_to_personal_dictionary, R.string.add_to_personal_dictionary_summary

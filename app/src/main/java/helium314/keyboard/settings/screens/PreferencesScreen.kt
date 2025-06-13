@@ -58,8 +58,6 @@ fun PreferencesScreen(
         Settings.PREF_SOUND_ON,
         if (prefs.getBoolean(Settings.PREF_SOUND_ON, Defaults.PREF_SOUND_ON))
             Settings.PREF_KEYPRESS_SOUND_VOLUME else null,
-        if (Settings.readToolbarMode(prefs) in setOf(ToolbarMode.SUGGESTION_STRIP, ToolbarMode.EXPANDABLE))
-            Settings.PREF_INLINE_EMOJI_SEARCH else null,
         Settings.PREF_SHOW_EMOJI_DESCRIPTIONS,
         R.string.settings_category_additional_keys,
         Settings.PREF_SHOW_NUMBER_ROW,
@@ -114,12 +112,6 @@ fun createPreferencesSettings(context: Context) = listOf(
     },
     Setting(context, Settings.PREF_SOUND_ON, R.string.sound_on_keypress) {
         SwitchPreference(it, Defaults.PREF_SOUND_ON)
-    },
-    Setting(
-        context, Settings.PREF_INLINE_EMOJI_SEARCH, R.string.inline_emoji_search,
-        R.string.inline_emoji_search_summary
-    ) {
-        SwitchPreference(it, Defaults.PREF_INLINE_EMOJI_SEARCH)
     },
     Setting(
         context, Settings.PREF_SHOW_EMOJI_DESCRIPTIONS, R.string.show_emoji_descriptions,

@@ -302,7 +302,7 @@ public class LatinIME extends InputMethodService implements
             if (latinIme == null) {
                 return;
             }
-            if (!latinIme.mSettings.getCurrent().isSuggestionsEnabledPerUserSettings()) {
+            if (!latinIme.mSettings.getCurrent().needsToLookupSuggestions()) {
                 return;
             }
             removeMessages(MSG_RESUME_SUGGESTIONS);

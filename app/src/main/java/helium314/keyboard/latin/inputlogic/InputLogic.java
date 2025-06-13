@@ -59,12 +59,10 @@ import helium314.keyboard.latin.utils.ScriptUtils;
 import helium314.keyboard.latin.utils.StatsUtils;
 import helium314.keyboard.latin.utils.TextRange;
 import helium314.keyboard.latin.utils.TimestampKt;
-import helium314.keyboard.latin.utils.ToolbarMode;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Locale;
-import java.util.Set;
 import java.util.TreeSet;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Pattern;
@@ -1229,7 +1227,7 @@ public final class InputLogic {
                 //
                 // Note: restartSuggestionsOnWordTouchedByCursor is already called for normal
                 // (non-revert) backspace handling.
-                if (inputTransaction.getMSettingsValues().isSuggestionsEnabledPerUserSettings()
+                if (inputTransaction.getMSettingsValues().needsToLookupSuggestions()
                         && inputTransaction.getMSettingsValues().mSpacingAndPunctuations.mCurrentLanguageHasSpaces) {
                     restartSuggestionsOnWordTouchedByCursor(inputTransaction.getMSettingsValues(), currentKeyboardScript);
                 }
@@ -1364,7 +1362,7 @@ public final class InputLogic {
             }
             if (mConnection.hasSlowInputConnection()) {
                 mSuggestionStripViewAccessor.setNeutralSuggestionStrip();
-            } else if (inputTransaction.getMSettingsValues().isSuggestionsEnabledPerUserSettings()
+            } else if (inputTransaction.getMSettingsValues().needsToLookupSuggestions()
                     && inputTransaction.getMSettingsValues().mSpacingAndPunctuations.mCurrentLanguageHasSpaces) {
                 restartSuggestionsOnWordTouchedByCursor(inputTransaction.getMSettingsValues(), currentKeyboardScript);
             }
@@ -1373,7 +1371,7 @@ public final class InputLogic {
 
     String getWordAtCursor(final SettingsValues settingsValues, final String currentKeyboardScript) {
         if (!mConnection.hasSelection()
-                && settingsValues.isSuggestionsEnabledPerUserSettings()
+                && settingsValues.needsToLookupSuggestions()
                 && settingsValues.mSpacingAndPunctuations.mCurrentLanguageHasSpaces) {
             final TextRange range = mConnection.getWordRangeAtCursor(settingsValues.mSpacingAndPunctuations, currentKeyboardScript);
             if (range != null) {
@@ -1689,7 +1687,7 @@ public final class InputLogic {
                     && mLatinIME.tryShowClipboardSuggestion())) {
                 mSuggestionStripViewAccessor.setSuggestions(suggestedWords);
             }
-            if (! suggestedWords.isEmpty() && isEmojiSearch()) {
+            if (shouldAutoShowSuggestions(settingsValues, suggestedWords)) {
                 mSuggestionStripViewAccessor.showSuggestionStrip();
             }
         }
@@ -1822,10 +1820,14 @@ public final class InputLogic {
         mIsAutoCorrectionIndicatorOn = false;
         if (suggestedWords != null) {
             mSuggestionStripViewAccessor.setSuggestions(suggestedWords);
-            if (! suggestedWords.isEmpty() && isEmojiSearch()) {
+            if (shouldAutoShowSuggestions(Settings.getValues(), suggestedWords)) {
                 mSuggestionStripViewAccessor.showSuggestionStrip();
             }
         }
+    }
+
+    private boolean shouldAutoShowSuggestions(SettingsValues settingsValues, SuggestedWords suggestedWords) {
+        return ! suggestedWords.isEmpty() && settingsValues.isSuggestionsEnabledPerUserSettings() && isEmojiSearch();
     }
 
     /**
@@ -2611,8 +2613,7 @@ public final class InputLogic {
     }
 
     private void updateEmojiDictionary(Locale locale) {
-        if (Settings.getValues().mInlineEmojiSearch
-                    && Set.of(ToolbarMode.SUGGESTION_STRIP, ToolbarMode.EXPANDABLE).contains(Settings.getValues().mToolbarMode)) {
+        if (Settings.getValues().mInlineEmojiSearch && Settings.getValues().needsToLookupSuggestions()) {
             if (mEmojiDictionaryFacilitator == null || ! mEmojiDictionaryFacilitator.isForLocale(locale)) {
                 closeEmojiDictionary();
                 var dictFile = DictionaryInfoUtils.getCachedDictForLocaleAndType(locale, "emoji", mLatinIME);
