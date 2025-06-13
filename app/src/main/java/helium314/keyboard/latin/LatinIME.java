@@ -204,7 +204,6 @@ public class LatinIME extends InputMethodService implements
         // Update this when adding new messages
         private static final int MSG_LAST = MSG_SWITCH_LANGUAGE_AUTOMATICALLY;
 
-        private static final int ARG1_NOT_GESTURE_INPUT = 0;
         private static final int ARG1_DISMISS_GESTURE_FLOATING_PREVIEW_TEXT = 1;
         private static final int ARG1_SHOW_GESTURE_FLOATING_PREVIEW_TEXT = 2;
         private static final int ARG2_UNUSED = 0;
@@ -246,13 +245,8 @@ public class LatinIME extends InputMethodService implements
                             latinIme.getCurrentRecapitalizeState());
                     break;
                 case MSG_SHOW_GESTURE_PREVIEW_AND_SUGGESTION_STRIP:
-                    if (msg.arg1 == ARG1_NOT_GESTURE_INPUT) {
-                        final SuggestedWords suggestedWords = (SuggestedWords) msg.obj;
-                        latinIme.setSuggestions(suggestedWords);
-                    } else {
-                        latinIme.showGesturePreviewAndSuggestionStrip((SuggestedWords) msg.obj,
+                    latinIme.showGesturePreviewAndSuggestionStrip((SuggestedWords) msg.obj,
                                 msg.arg1 == ARG1_DISMISS_GESTURE_FLOATING_PREVIEW_TEXT);
-                    }
                     break;
                 case MSG_RESUME_SUGGESTIONS:
                     latinIme.mInputLogic.restartSuggestionsOnWordTouchedByCursor(
@@ -393,12 +387,6 @@ public class LatinIME extends InputMethodService implements
                     : ARG1_SHOW_GESTURE_FLOATING_PREVIEW_TEXT;
             obtainMessage(MSG_SHOW_GESTURE_PREVIEW_AND_SUGGESTION_STRIP, arg1,
                     ARG2_UNUSED, suggestedWords).sendToTarget();
-        }
-
-        public void showSuggestionStrip(final SuggestedWords suggestedWords) {
-            removeMessages(MSG_SHOW_GESTURE_PREVIEW_AND_SUGGESTION_STRIP);
-            obtainMessage(MSG_SHOW_GESTURE_PREVIEW_AND_SUGGESTION_STRIP,
-                    ARG1_NOT_GESTURE_INPUT, ARG2_UNUSED, suggestedWords).sendToTarget();
         }
 
         public void showTailBatchInputResult(final SuggestedWords suggestedWords) {

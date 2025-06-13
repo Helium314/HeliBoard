@@ -268,7 +268,6 @@ public final class InputLogic {
     public InputTransaction onPickSuggestionManually(final SettingsValues settingsValues,
             final SuggestedWordInfo suggestionInfo, final int keyboardShiftState,
             final String currentKeyboardScript, final LatinIME.UIHandler handler) {
-        setEmojiSearch(false);
         final SuggestedWords suggestedWords = mSuggestedWords;
         final String suggestion = suggestionInfo.mWord;
         // If this is a punctuation picked from the suggestion strip, pass it to onCodeInput
@@ -1019,6 +1018,7 @@ public final class InputLogic {
         }
         if (isComposingWord) {
             mWordComposer.applyProcessedEvent(event);
+            updateEmojiSearch();
             // If it's the first letter, make note of auto-caps state
             if (mWordComposer.isSingleLetter()) {
                 mWordComposer.setCapitalizedModeAtStartComposingTime(inputTransaction.getMShiftState());
@@ -1043,10 +1043,8 @@ public final class InputLogic {
     }
 
     private boolean isEmojiSearch(int codePoint) {
-        var on = mEmojiDictionaryFacilitator != null && (! mWordComposer.isComposingWord() && codePoint == ':'
+        return mEmojiDictionaryFacilitator != null && (! mWordComposer.isComposingWord() && codePoint == ':'
             || mWordComposer.isComposingWord() && mWordComposer.getTypedWord().charAt(0) == ':');
-        setEmojiSearch(on);
-        return on;
     }
 
     /**
@@ -1210,6 +1208,7 @@ public final class InputLogic {
                 StatsUtils.onBackspaceWordDelete(rejectedSuggestion.length());
             } else {
                 mWordComposer.applyProcessedEvent(event);
+                updateEmojiSearch();
                 StatsUtils.onBackspacePressed(1);
             }
             if (mWordComposer.isComposingWord()) {
@@ -1217,7 +1216,6 @@ public final class InputLogic {
             } else {
                 mConnection.commitText("", 1);
             }
-            isEmojiSearch(event.getMCodePoint());
             inputTransaction.setRequiresUpdateSuggestions();
         } else {
             if (mLastComposedWord.canRevertCommit() && inputTransaction.getMSettingsValues().mBackspaceRevertsAutocorrect) {
@@ -1232,9 +1230,7 @@ public final class InputLogic {
                 // Note: restartSuggestionsOnWordTouchedByCursor is already called for normal
                 // (non-revert) backspace handling.
                 if (inputTransaction.getMSettingsValues().isSuggestionsEnabledPerUserSettings()
-                        && inputTransaction.getMSettingsValues().mSpacingAndPunctuations.mCurrentLanguageHasSpaces
-                        && !mConnection.isCursorFollowedByWordCharacter(
-                                inputTransaction.getMSettingsValues().mSpacingAndPunctuations)) {
+                        && inputTransaction.getMSettingsValues().mSpacingAndPunctuations.mCurrentLanguageHasSpaces) {
                     restartSuggestionsOnWordTouchedByCursor(inputTransaction.getMSettingsValues(), currentKeyboardScript);
                 }
                 return;
@@ -1369,9 +1365,7 @@ public final class InputLogic {
             if (mConnection.hasSlowInputConnection()) {
                 mSuggestionStripViewAccessor.setNeutralSuggestionStrip();
             } else if (inputTransaction.getMSettingsValues().isSuggestionsEnabledPerUserSettings()
-                    && inputTransaction.getMSettingsValues().mSpacingAndPunctuations.mCurrentLanguageHasSpaces
-                    && !mConnection.isCursorFollowedByWordCharacter(
-                            inputTransaction.getMSettingsValues().mSpacingAndPunctuations)) {
+                    && inputTransaction.getMSettingsValues().mSpacingAndPunctuations.mCurrentLanguageHasSpaces) {
                 restartSuggestionsOnWordTouchedByCursor(inputTransaction.getMSettingsValues(), currentKeyboardScript);
             }
         }
@@ -1695,7 +1689,7 @@ public final class InputLogic {
                     && mLatinIME.tryShowClipboardSuggestion())) {
                 mSuggestionStripViewAccessor.setSuggestions(suggestedWords);
             }
-            if (! suggestedWords.isEmpty() && isEmojiSearch(0)) {
+            if (! suggestedWords.isEmpty() && isEmojiSearch()) {
                 mSuggestionStripViewAccessor.showSuggestionStrip();
             }
         }
@@ -1805,8 +1799,12 @@ public final class InputLogic {
             // If there weren't any suggestion spans on this word, suggestions#size() will be 1
             // if shouldIncludeResumedWordInSuggestions is true, 0 otherwise. In this case, we
             // have no useful suggestions, so we will try to compute some for it instead.
+            final AsyncResultHolder<SuggestedWords> holder = new AsyncResultHolder<>("Suggest");
             mInputLogicHandler.getSuggestedWords(() -> getSuggestedWords(Suggest.SESSION_ID_TYPING,
-                SuggestedWords.NOT_A_SEQUENCE_NUMBER, this::doShowSuggestionsAndClearAutoCorrectionIndicator));
+                                                                         SuggestedWords.NOT_A_SEQUENCE_NUMBER, holder::set));
+            // This line may cause the current thread to wait.
+            final SuggestedWords suggestedWords = holder.get(null, Constants.GET_SUGGESTED_WORDS_TIMEOUT);
+            doShowSuggestionsAndClearAutoCorrectionIndicator(suggestedWords);
         } else {
             // We found suggestion spans in the word. We'll create the SuggestedWords out of
             // them, and make willAutoCorrect false. We make typedWordValid false, because the
@@ -1820,9 +1818,12 @@ public final class InputLogic {
         }
     }
 
-    void doShowSuggestionsAndClearAutoCorrectionIndicator(final SuggestedWords suggestedWords) {
+    private void doShowSuggestionsAndClearAutoCorrectionIndicator(final SuggestedWords suggestedWords) {
         mIsAutoCorrectionIndicatorOn = false;
-        mLatinIME.mHandler.showSuggestionStrip(suggestedWords);
+        mSuggestionStripViewAccessor.setSuggestions(suggestedWords);
+        if (! suggestedWords.isEmpty() && isEmojiSearch()) {
+            mSuggestionStripViewAccessor.showSuggestionStrip();
+        }
     }
 
     /**
@@ -2034,15 +2035,6 @@ public final class InputLogic {
         }
     }
 
-    private void setEmojiSearch(boolean on) {
-        var wasOn = getCurrentInputEditorInfo().actionId == EMOJI_SEARCH_DONE_ACTION;
-        if (on != wasOn) {
-            getCurrentInputEditorInfo().actionLabel = on? mLatinIME.getText(R.string.label_done_key) : null;
-            getCurrentInputEditorInfo().actionId = on? EMOJI_SEARCH_DONE_ACTION : 0;
-            KeyboardSwitcher.getInstance().reloadKeyboard();
-        }
-    }
-
     /**
      * Perform the processing specific to inputting TLDs.
      * <p>
@@ -2111,6 +2103,7 @@ public final class InputLogic {
      */
     private void resetComposingState(final boolean alsoResetLastComposedWord) {
         mWordComposer.reset();
+        setEmojiSearch(false);
         if (alsoResetLastComposedWord) {
             mLastComposedWord = LastComposedWord.NOT_A_COMPOSED_WORD;
         }
@@ -2259,12 +2252,26 @@ public final class InputLogic {
             mSpaceState = SpaceState.NONE;
         }
         mWordComposer.setBatchInputWord(batchInputText);
+        updateEmojiSearch();
         setComposingTextInternal(batchInputText, 1);
         mConnection.endBatchEdit();
         // Space state must be updated before calling updateShiftState
         if (settingsValues.mAutospaceAfterGestureTyping)
             mSpaceState = SpaceState.PHANTOM;
         keyboardSwitcher.requestUpdatingShiftState(getCurrentAutoCapsState(settingsValues), getCurrentRecapitalizeState());
+    }
+
+    private void updateEmojiSearch() {
+        setEmojiSearch(isEmojiSearch());
+    }
+
+    private void setEmojiSearch(boolean on) {
+        var wasOn = getCurrentInputEditorInfo().actionId == EMOJI_SEARCH_DONE_ACTION;
+        if (on != wasOn) {
+            getCurrentInputEditorInfo().actionLabel = on? mLatinIME.getText(R.string.label_done_key) : null;
+            getCurrentInputEditorInfo().actionId = on? EMOJI_SEARCH_DONE_ACTION : 0;
+            KeyboardSwitcher.getInstance().reloadKeyboard();
+        }
     }
 
     /**
@@ -2479,7 +2486,7 @@ public final class InputLogic {
     }
 
     private boolean searchForEmoji(int sequenceNumber, OnGetSuggestedWordsCallback callback) {
-        if (! isEmojiSearch(0)) {
+        if (! isEmojiSearch()) {
             return false;
         }
 
@@ -2503,6 +2510,10 @@ public final class InputLogic {
         }
 
         return true;
+    }
+
+    private boolean isEmojiSearch() {
+        return mEmojiDictionaryFacilitator != null && mWordComposer.isComposingWord() && mWordComposer.getTypedWord().charAt(0) == ':';
     }
 
     /**
