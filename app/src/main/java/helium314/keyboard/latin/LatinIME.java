@@ -1537,9 +1537,10 @@ public class LatinIME extends InputMethodService implements
     // Implementation of {@link SuggestionStripView.Listener}.
     @Override
     public void onCodeInput(final int codePoint, final int x, final int y, final boolean isKeyRepeat) {
-        onCodeInput(codePoint, 0, x, y, isKeyRepeat);
+        mKeyboardActionListener.onCodeInput(codePoint, x, y, isKeyRepeat);
     }
 
+    // called by KeyboardActionListener
     public void onCodeInput(final int codePoint, final int metaState, final int x, final int y, final boolean isKeyRepeat) {
         if (codePoint < 0) {
             switch (codePoint) {
