@@ -1820,9 +1820,11 @@ public final class InputLogic {
 
     private void doShowSuggestionsAndClearAutoCorrectionIndicator(final SuggestedWords suggestedWords) {
         mIsAutoCorrectionIndicatorOn = false;
-        mSuggestionStripViewAccessor.setSuggestions(suggestedWords);
-        if (! suggestedWords.isEmpty() && isEmojiSearch()) {
-            mSuggestionStripViewAccessor.showSuggestionStrip();
+        if (suggestedWords != null) {
+            mSuggestionStripViewAccessor.setSuggestions(suggestedWords);
+            if (! suggestedWords.isEmpty() && isEmojiSearch()) {
+                mSuggestionStripViewAccessor.showSuggestionStrip();
+            }
         }
     }
 

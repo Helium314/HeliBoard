@@ -97,10 +97,7 @@ class InputLogicTest {
         setCursorPosition(8) // after o in you
         functionalKeyPress(KeyCode.DELETE)
         assertEquals("hello yu there", text)
-        // todo: do we really want an empty composing text in this case?
-        //  setting whole word composing will delete text behind cursor
-        //  setting part before cursor as composing may be bad if user just wants to adjust a letter and result is some autocorrect
-        assertEquals("", composingText)
+        assertEquals("yu", composingText)
     }
 
     @Test fun insertLetterIntoWord() {
