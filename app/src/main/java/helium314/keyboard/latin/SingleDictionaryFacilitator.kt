@@ -5,6 +5,7 @@ import android.content.Context
 import android.util.LruCache
 import helium314.keyboard.keyboard.Keyboard
 import helium314.keyboard.keyboard.KeyboardSwitcher
+import helium314.keyboard.keyboard.emoji.SupportedEmojis
 import helium314.keyboard.latin.DictionaryFacilitator.DictionaryInitializationListener
 import helium314.keyboard.latin.common.ComposedData
 import helium314.keyboard.latin.makedict.WordProperty
@@ -16,6 +17,28 @@ import java.util.concurrent.TimeUnit
 /** Simple DictionaryFacilitator for a single Dictionary. Has some optional special purpose functionality. */
 class SingleDictionaryFacilitator(private val dict: Dictionary) : DictionaryFacilitator {
     var suggestionLogger: SuggestionLogger? = null
+
+    /**
+     * Returns combined suggestions that match any of the given words, with scores that reflect the matches against all words.
+     * The combined score is calculated as the average absolute (above [Int.MIN_VALUE]) score,
+     * where a non-match is considered an absolute zero.
+     * Other suggestion fields of combined matches are taken arbitrarily from one of them.
+     */
+    fun getSuggestions(words: List<String>): SuggestionResults {
+        val infos = mutableMapOf<String, Pair<SuggestedWords.SuggestedWordInfo, Long>>()
+        words.forEach {
+            getSuggestions(it).forEach { infos.put(it.word, Pair(it, (infos[it.word]?.second ?: 0L) + it.mScore - Int.MIN_VALUE)) }
+        }
+        val suggestionResults = SuggestionResults(SuggestedWords.MAX_SUGGESTIONS, false, false)
+        suggestionResults.addAll(infos.values.map {
+            val info = it.first
+            SuggestedWords.SuggestedWordInfo(
+                info.word, info.mPrevWordsContext, (it.second / words.size + Int.MIN_VALUE).toInt(), info.mKindAndFlags,
+                info.mSourceDict, info.mIndexOfTouchPointOfSecondWord, info.mAutoCommitFirstWordConfidence
+            )
+        })
+        return suggestionResults
+    }
 
     // this will not work from spell checker if used together with a different keyboard app
     fun getSuggestions(word: String): SuggestionResults {
@@ -41,7 +64,7 @@ class SingleDictionaryFacilitator(private val dict: Dictionary) : DictionaryFaci
             dict.getSuggestions(composedData, ngramContext, keyboard.proximityInfo.nativeProximityInfo,
                 settingsValuesForSuggestion, sessionId, 1f,
                 floatArrayOf(Dictionary.NOT_A_WEIGHT_OF_LANG_MODEL_VS_SPATIAL_MODEL)
-            )
+            )?.filter { !SupportedEmojis.isUnsupported(it.word) }
         )
         suggestionLogger?.onNewSuggestions(suggestionResults, composedData, ngramContext, keyboard, inputStyle)
 
