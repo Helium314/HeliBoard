@@ -26,7 +26,6 @@ import android.os.Process;
 import android.text.InputType;
 import android.util.PrintWriterPrinter;
 import android.util.Printer;
-import android.util.SparseArray;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
@@ -51,9 +50,6 @@ import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode;
 import helium314.keyboard.latin.common.InsetsOutlineProvider;
 import helium314.keyboard.dictionarypack.DictionaryPackConstants;
 import helium314.keyboard.event.Event;
-import helium314.keyboard.event.HangulEventDecoder;
-import helium314.keyboard.event.HardwareEventDecoder;
-import helium314.keyboard.event.HardwareKeyboardEventDecoder;
 import helium314.keyboard.event.InputTransaction;
 import helium314.keyboard.keyboard.Keyboard;
 import helium314.keyboard.keyboard.KeyboardId;
@@ -68,7 +64,6 @@ import helium314.keyboard.latin.common.InputPointers;
 import helium314.keyboard.latin.common.LocaleUtils;
 import helium314.keyboard.latin.common.ViewOutlineProviderUtilsKt;
 import helium314.keyboard.latin.define.DebugFlags;
-import helium314.keyboard.latin.define.ProductionFlags;
 import helium314.keyboard.latin.inputlogic.InputLogic;
 import helium314.keyboard.latin.personalization.PersonalizationHelper;
 import helium314.keyboard.latin.settings.Settings;
@@ -134,9 +129,6 @@ public class LatinIME extends InputMethodService implements
     private final DictionaryFacilitator mDictionaryFacilitator =
             DictionaryFacilitatorProvider.getDictionaryFacilitator(false);
     final InputLogic mInputLogic = new InputLogic(this, this, mDictionaryFacilitator);
-    // We expect to have only one decoder in almost all cases, hence the default capacity of 1.
-    // If it turns out we need several, it will get grown seamlessly.
-    final SparseArray<HardwareEventDecoder> mHardwareEventDecoders = new SparseArray<>(1);
 
     // TODO: Move these {@link View}s to {@link KeyboardSwitcher}.
     private View mInputView;
@@ -146,7 +138,6 @@ public class LatinIME extends InputMethodService implements
     private RichInputMethodManager mRichImm;
     final KeyboardSwitcher mKeyboardSwitcher;
     private final SubtypeState mSubtypeState = new SubtypeState();
-    private EmojiAltPhysicalKeyDetector mEmojiAltPhysicalKeyDetector;
     private final StatsUtilsManager mStatsUtilsManager;
     // Working variable for {@link #startShowingInputView()} and
     // {@link #onEvaluateInputViewShown()}.
@@ -1540,25 +1531,6 @@ public class LatinIME extends InputMethodService implements
         mKeyboardActionListener.onCodeInput(codePoint, x, y, isKeyRepeat);
     }
 
-    // called by KeyboardActionListener
-    public void onCodeInput(final int codePoint, final int metaState, final int x, final int y, final boolean isKeyRepeat) {
-        if (codePoint < 0) {
-            switch (codePoint) {
-                case KeyCode.TOGGLE_AUTOCORRECT -> {mSettings.toggleAutoCorrect(); return; }
-                case KeyCode.TOGGLE_INCOGNITO_MODE -> {mSettings.toggleAlwaysIncognitoMode(); return; }
-            }
-        }
-        final Event event;
-        // checking if the character is a combining accent
-        if (0x300 <= codePoint && codePoint <= 0x35b) {
-            event = Event.createSoftwareDeadEvent(codePoint, 0, metaState, x, y, null);
-        } else {
-            event = createSoftwareKeypressEvent(codePoint, metaState, x, y, isKeyRepeat);
-        }
-
-        onEvent(event);
-    }
-
     // This method is public for testability of LatinIME, but also in the future it should
     // completely replace #onCodeInput.
     public void onEvent(@NonNull final Event event) {
@@ -1571,24 +1543,6 @@ public class LatinIME extends InputMethodService implements
                         mKeyboardSwitcher.getCurrentKeyboardScript(), mHandler);
         updateStateAfterInputTransaction(completeInputTransaction);
         mKeyboardSwitcher.onEvent(event, getCurrentAutoCapsState(), getCurrentRecapitalizeState());
-    }
-
-    // A helper method to split the code point and the key code. Ultimately, they should not be
-    // squashed into the same variable, and this method should be removed.
-    // public for testing, as we don't want to copy the same logic into test code
-    @NonNull
-    public static Event createSoftwareKeypressEvent(final int keyCodeOrCodePoint, final int metaState,
-                                                    final int keyX, final int keyY, final boolean isKeyRepeat) {
-        final int keyCode;
-        final int codePoint;
-        if (keyCodeOrCodePoint <= 0) {
-            keyCode = keyCodeOrCodePoint;
-            codePoint = Event.NOT_A_CODE_POINT;
-        } else {
-            keyCode = Event.NOT_A_KEY_CODE;
-            codePoint = keyCodeOrCodePoint;
-        }
-        return Event.createSoftwareKeypressEvent(codePoint, keyCode, metaState, keyX, keyY, isKeyRepeat);
     }
 
     public void onTextInput(final String rawText) {
@@ -1830,63 +1784,18 @@ public class LatinIME extends InputMethodService implements
         feedbackManager.performAudioFeedback(code);
     }
 
-    private HardwareEventDecoder getHardwareKeyEventDecoder(final int deviceId) {
-        final HardwareEventDecoder decoder = mHardwareEventDecoders.get(deviceId);
-        if (null != decoder) return decoder;
-        // TODO: create the decoder according to the specification
-        final HardwareEventDecoder newDecoder = new HardwareKeyboardEventDecoder(deviceId);
-        mHardwareEventDecoders.put(deviceId, newDecoder);
-        return newDecoder;
-    }
-
     // Hooks for hardware keyboard
     @Override
     public boolean onKeyDown(final int keyCode, final KeyEvent keyEvent) {
-        if (mEmojiAltPhysicalKeyDetector == null) {
-            mEmojiAltPhysicalKeyDetector = new EmojiAltPhysicalKeyDetector(
-                    getApplicationContext().getResources());
-        }
-        mEmojiAltPhysicalKeyDetector.onKeyDown(keyEvent);
-        if (!ProductionFlags.IS_HARDWARE_KEYBOARD_SUPPORTED) {
-            return super.onKeyDown(keyCode, keyEvent);
-        }
-        final Event event;
-        if (mRichImm.getCurrentSubtypeLocale().getLanguage().equals("ko")) {
-            final RichInputMethodSubtype subtype = mKeyboardSwitcher.getKeyboard() == null
-                    ? mRichImm.getCurrentSubtype()
-                    : mKeyboardSwitcher.getKeyboard().mId.mSubtype;
-            event = HangulEventDecoder.decodeHardwareKeyEvent(subtype, keyEvent,
-                        () -> getHardwareKeyEventDecoder(keyEvent.getDeviceId()).decodeHardwareKey(keyEvent));
-        } else {
-            event = getHardwareKeyEventDecoder(keyEvent.getDeviceId()).decodeHardwareKey(keyEvent);
-        }
-        // If the event is not handled by LatinIME, we just pass it to the parent implementation.
-        // If it's handled, we return true because we did handle it.
-        if (event.isHandled()) {
-            mInputLogic.onCodeInput(mSettings.getCurrent(), event,
-                    mKeyboardSwitcher.getKeyboardShiftMode(),
-                    // TODO: this is not necessarily correct for a hardware keyboard right now
-                    mKeyboardSwitcher.getCurrentKeyboardScript(),
-                    mHandler);
+        if (mKeyboardActionListener.onKeyDown(keyCode, keyEvent))
             return true;
-        }
         return super.onKeyDown(keyCode, keyEvent);
     }
 
     @Override
     public boolean onKeyUp(final int keyCode, final KeyEvent keyEvent) {
-        if (mEmojiAltPhysicalKeyDetector == null) {
-            mEmojiAltPhysicalKeyDetector = new EmojiAltPhysicalKeyDetector(
-                    getApplicationContext().getResources());
-        }
-        mEmojiAltPhysicalKeyDetector.onKeyUp(keyEvent);
-        if (!ProductionFlags.IS_HARDWARE_KEYBOARD_SUPPORTED) {
-            return super.onKeyUp(keyCode, keyEvent);
-        }
-        final long keyIdentifier = (long) keyEvent.getDeviceId() << 32 + keyEvent.getKeyCode();
-        if (mInputLogic.mCurrentlyPressedHardwareKeys.remove(keyIdentifier)) {
+        if (mKeyboardActionListener.onKeyUp(keyCode, keyEvent))
             return true;
-        }
         return super.onKeyUp(keyCode, keyEvent);
     }
 

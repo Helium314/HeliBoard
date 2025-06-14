@@ -139,6 +139,16 @@ class Event private constructor(
                     null, if (isKeyRepeat) FLAG_REPEAT else FLAG_NONE, null)
         }
 
+        // A helper method to split the code point and the key code.
+        // todo: Ultimately, they should not be squashed into the same variable, and this method should be removed.
+        @JvmStatic
+        fun createSoftwareKeypressEvent(keyCodeOrCodePoint: Int, metaState: Int, keyX: Int, keyY: Int, isKeyRepeat: Boolean) =
+            if (keyCodeOrCodePoint <= 0) {
+                createSoftwareKeypressEvent(NOT_A_CODE_POINT, keyCodeOrCodePoint, metaState, keyX, keyY, isKeyRepeat)
+            } else {
+                createSoftwareKeypressEvent(keyCodeOrCodePoint, NOT_A_KEY_CODE, metaState, keyX, keyY, isKeyRepeat)
+            }
+
         fun createHardwareKeypressEvent(codePoint: Int, keyCode: Int, metaState: Int, next: Event?, isKeyRepeat: Boolean): Event {
             return Event(EVENT_TYPE_INPUT_KEYPRESS, null, codePoint, keyCode, metaState,
                     Constants.EXTERNAL_KEYBOARD_COORDINATE, Constants.EXTERNAL_KEYBOARD_COORDINATE,
