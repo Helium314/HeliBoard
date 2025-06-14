@@ -48,6 +48,8 @@ class HardwareKeyboardEventDecoder(val mDeviceId: Int) : HardwareEventDecoder {
             } else Event.createHardwareKeypressEvent(codePointAndFlags, keyCode, metaState, null, isKeyRepeat)
             // If not Enter, then this is just a regular keypress event for a normal character
             // that can be committed right away, taking into account the current state.
-        } else Event.createNotHandledEvent()
+        } else {
+            Event.notHandledEvent
+        }
     }
 }

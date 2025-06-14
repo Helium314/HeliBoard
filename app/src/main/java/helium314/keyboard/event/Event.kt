@@ -256,10 +256,8 @@ class Event private constructor(
                     source.mX, source.mY, source.mSuggestedWordInfo, source.mFlags or FLAG_COMBINING, source.mNextEvent)
         }
 
-        fun createNotHandledEvent(): Event {
-            return Event(EVENT_TYPE_NOT_HANDLED, null, NOT_A_CODE_POINT, NOT_A_KEY_CODE, 0,
+        val notHandledEvent = Event(EVENT_TYPE_NOT_HANDLED, null, NOT_A_CODE_POINT, NOT_A_KEY_CODE, 0,
                     Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE, null, FLAG_NONE, null)
-        }
     }
 
     // This method is private - to create a new event, use one of the create* utility methods.

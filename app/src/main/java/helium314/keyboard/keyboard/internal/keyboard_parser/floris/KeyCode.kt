@@ -210,66 +210,11 @@ object KeyCode {
 
     // todo: there are many more keys, see near https://developer.android.com/reference/android/view/KeyEvent#KEYCODE_0
     /**
-     *  Convert a keyCode / codePoint to a KeyEvent.KEYCODE_<xxx>.
-     *  Fallback to KeyEvent.KEYCODE_UNKNOWN.
+     *  Convert an internal keyCode to a KeyEvent.KEYCODE_<xxx>.
+     *  Positive codes are passed through, unknown negative codes result in KeyEvent.KEYCODE_UNKNOWN.
      *  To be uses for fake hardware key press.
-     *  */
-    fun Int.toKeyEventCode(): Int = if (this > 0)
-        when (this.toChar().uppercaseChar()) {
-            '/' -> KeyEvent.KEYCODE_SLASH
-            '\\' -> KeyEvent.KEYCODE_BACKSLASH
-            ';' -> KeyEvent.KEYCODE_SEMICOLON
-            ',' -> KeyEvent.KEYCODE_COMMA
-            '.' -> KeyEvent.KEYCODE_PERIOD
-            '\'' -> KeyEvent.KEYCODE_APOSTROPHE
-            '`' -> KeyEvent.KEYCODE_GRAVE
-            '*' -> KeyEvent.KEYCODE_STAR
-            ']' -> KeyEvent.KEYCODE_RIGHT_BRACKET
-            '[' -> KeyEvent.KEYCODE_LEFT_BRACKET
-            '+' -> KeyEvent.KEYCODE_PLUS
-            '-' -> KeyEvent.KEYCODE_MINUS
-            '=' -> KeyEvent.KEYCODE_EQUALS
-            '\n' -> KeyEvent.KEYCODE_ENTER
-            '\t' -> KeyEvent.KEYCODE_TAB
-            '0' -> KeyEvent.KEYCODE_0
-            '1' -> KeyEvent.KEYCODE_1
-            '2' -> KeyEvent.KEYCODE_2
-            '3' -> KeyEvent.KEYCODE_3
-            '4' -> KeyEvent.KEYCODE_4
-            '5' -> KeyEvent.KEYCODE_5
-            '6' -> KeyEvent.KEYCODE_6
-            '7' -> KeyEvent.KEYCODE_7
-            '8' -> KeyEvent.KEYCODE_8
-            '9' -> KeyEvent.KEYCODE_9
-            'A' -> KeyEvent.KEYCODE_A
-            'B' -> KeyEvent.KEYCODE_B
-            'C' -> KeyEvent.KEYCODE_C
-            'D' -> KeyEvent.KEYCODE_D
-            'E' -> KeyEvent.KEYCODE_E
-            'F' -> KeyEvent.KEYCODE_F
-            'G' -> KeyEvent.KEYCODE_G
-            'H' -> KeyEvent.KEYCODE_H
-            'I' -> KeyEvent.KEYCODE_I
-            'J' -> KeyEvent.KEYCODE_J
-            'K' -> KeyEvent.KEYCODE_K
-            'L' -> KeyEvent.KEYCODE_L
-            'M' -> KeyEvent.KEYCODE_M
-            'N' -> KeyEvent.KEYCODE_N
-            'O' -> KeyEvent.KEYCODE_O
-            'P' -> KeyEvent.KEYCODE_P
-            'Q' -> KeyEvent.KEYCODE_Q
-            'R' -> KeyEvent.KEYCODE_R
-            'S' -> KeyEvent.KEYCODE_S
-            'T' -> KeyEvent.KEYCODE_T
-            'U' -> KeyEvent.KEYCODE_U
-            'V' -> KeyEvent.KEYCODE_V
-            'W' -> KeyEvent.KEYCODE_W
-            'X' -> KeyEvent.KEYCODE_X
-            'Y' -> KeyEvent.KEYCODE_Y
-            'Z' -> KeyEvent.KEYCODE_Z
-            else -> KeyEvent.KEYCODE_UNKNOWN
-        }
-    else when (this) {
+     */
+    @JvmStatic fun keyCodeToKeyEventCode(keyCode: Int) = when (keyCode) {
         ARROW_UP -> KeyEvent.KEYCODE_DPAD_UP
         ARROW_RIGHT -> KeyEvent.KEYCODE_DPAD_RIGHT
         ARROW_DOWN -> KeyEvent.KEYCODE_DPAD_DOWN
@@ -303,6 +248,67 @@ object KeyCode {
         F10 -> KeyEvent.KEYCODE_F10
         F11 -> KeyEvent.KEYCODE_F11
         F12 -> KeyEvent.KEYCODE_F12
+        else -> if (keyCode < 0) KeyEvent.KEYCODE_UNKNOWN else keyCode
+    }
+
+    // todo: there are many more keys, see near https://developer.android.com/reference/android/view/KeyEvent#KEYCODE_0
+    /**
+     *  Convert a codePoint to a KeyEvent.KEYCODE_<xxx>.
+     *  Fallback to KeyEvent.KEYCODE_UNKNOWN.
+     *  To be uses for fake hardware key press.
+     */
+    @JvmStatic fun codePointToKeyEventCode(codePoint: Int): Int = when (codePoint.toChar().uppercaseChar()) {
+        '/' -> KeyEvent.KEYCODE_SLASH
+        '\\' -> KeyEvent.KEYCODE_BACKSLASH
+        ';' -> KeyEvent.KEYCODE_SEMICOLON
+        ',' -> KeyEvent.KEYCODE_COMMA
+        '.' -> KeyEvent.KEYCODE_PERIOD
+        '\'' -> KeyEvent.KEYCODE_APOSTROPHE
+        '`' -> KeyEvent.KEYCODE_GRAVE
+        '*' -> KeyEvent.KEYCODE_STAR
+        ']' -> KeyEvent.KEYCODE_RIGHT_BRACKET
+        '[' -> KeyEvent.KEYCODE_LEFT_BRACKET
+        '+' -> KeyEvent.KEYCODE_PLUS
+        '-' -> KeyEvent.KEYCODE_MINUS
+        '=' -> KeyEvent.KEYCODE_EQUALS
+        '\n' -> KeyEvent.KEYCODE_ENTER
+        '\t' -> KeyEvent.KEYCODE_TAB
+        '0' -> KeyEvent.KEYCODE_0
+        '1' -> KeyEvent.KEYCODE_1
+        '2' -> KeyEvent.KEYCODE_2
+        '3' -> KeyEvent.KEYCODE_3
+        '4' -> KeyEvent.KEYCODE_4
+        '5' -> KeyEvent.KEYCODE_5
+        '6' -> KeyEvent.KEYCODE_6
+        '7' -> KeyEvent.KEYCODE_7
+        '8' -> KeyEvent.KEYCODE_8
+        '9' -> KeyEvent.KEYCODE_9
+        'A' -> KeyEvent.KEYCODE_A
+        'B' -> KeyEvent.KEYCODE_B
+        'C' -> KeyEvent.KEYCODE_C
+        'D' -> KeyEvent.KEYCODE_D
+        'E' -> KeyEvent.KEYCODE_E
+        'F' -> KeyEvent.KEYCODE_F
+        'G' -> KeyEvent.KEYCODE_G
+        'H' -> KeyEvent.KEYCODE_H
+        'I' -> KeyEvent.KEYCODE_I
+        'J' -> KeyEvent.KEYCODE_J
+        'K' -> KeyEvent.KEYCODE_K
+        'L' -> KeyEvent.KEYCODE_L
+        'M' -> KeyEvent.KEYCODE_M
+        'N' -> KeyEvent.KEYCODE_N
+        'O' -> KeyEvent.KEYCODE_O
+        'P' -> KeyEvent.KEYCODE_P
+        'Q' -> KeyEvent.KEYCODE_Q
+        'R' -> KeyEvent.KEYCODE_R
+        'S' -> KeyEvent.KEYCODE_S
+        'T' -> KeyEvent.KEYCODE_T
+        'U' -> KeyEvent.KEYCODE_U
+        'V' -> KeyEvent.KEYCODE_V
+        'W' -> KeyEvent.KEYCODE_W
+        'X' -> KeyEvent.KEYCODE_X
+        'Y' -> KeyEvent.KEYCODE_Y
+        'Z' -> KeyEvent.KEYCODE_Z
         else -> KeyEvent.KEYCODE_UNKNOWN
     }
 }

@@ -643,7 +643,8 @@ public final class InputLogic {
      */
     private void handleFunctionalEvent(final Event event, final InputTransaction inputTransaction,
             final String currentKeyboardScript, final LatinIME.UIHandler handler) {
-        switch (event.getMKeyCode()) {
+        final int keyCode = event.getMKeyCode();
+        switch (keyCode) {
             case KeyCode.DELETE:
                 handleBackspaceEvent(event, inputTransaction, currentKeyboardScript);
                 // Backspace is a functional key, but it affects the contents of the editor.
@@ -686,7 +687,7 @@ public final class InputLogic {
             case KeyCode.SHIFT_ENTER:
                 // todo: try using sendDownUpKeyEventWithMetaState() and remove the key code maybe
                 final Event tmpEvent = Event.createSoftwareKeypressEvent(Constants.CODE_ENTER,
-                        event.getMKeyCode(), 0, event.getMX(), event.getMY(), event.isKeyRepeat());
+                        keyCode, 0, event.getMX(), event.getMY(), event.isKeyRepeat());
                 handleNonSpecialCharacterEvent(tmpEvent, inputTransaction, handler);
                 // Shift + Enter is treated as a functional key but it results in adding a new
                 // line, so that does affect the contents of the editor.
@@ -777,23 +778,19 @@ public final class InputLogic {
             case KeyCode.CAPS_LOCK, KeyCode.EMOJI, KeyCode.TOGGLE_ONE_HANDED_MODE, KeyCode.SWITCH_ONE_HANDED_MODE:
                 break;
             default:
-                if (KeyCode.INSTANCE.isModifier(event.getMKeyCode()))
-                    return; // continuation of previous switch case, but modifiers are in a separate place
-                if (event.getMMetaState() != 0) {
-                    // need to convert codepoint to KeyEvent.KEYCODE_<xxx>
-                    final int codeToConvert = event.getMKeyCode() < 0 ? event.getMKeyCode() : event.getMCodePoint();
-                    int keyEventCode = KeyCode.INSTANCE.toKeyEventCode(codeToConvert);
-                    if (keyEventCode != KeyEvent.KEYCODE_UNKNOWN)
-                        sendDownUpKeyEventWithMetaState(keyEventCode, event.getMMetaState());
-                    return; // never crash if user inputs sth we don't have a KeyEvent.KEYCODE for
-                } else if (event.getMKeyCode() < 0) {
-                    int keyEventCode = KeyCode.INSTANCE.toKeyEventCode(event.getMKeyCode());
-                    if (keyEventCode != KeyEvent.KEYCODE_UNKNOWN) {
-                        sendDownUpKeyEvent(keyEventCode);
-                        return;
-                    }
+                if (KeyCode.INSTANCE.isModifier(keyCode))
+                    return; // continuation of previous switch case above, but modifiers are held in a separate place
+                final int keyEventCode = event.getMCodePoint() <= 0
+                    ? KeyCode.keyCodeToKeyEventCode(keyCode)
+                    : KeyCode.codePointToKeyEventCode(event.getMCodePoint());
+                if (keyEventCode != KeyEvent.KEYCODE_UNKNOWN) {
+                    sendDownUpKeyEventWithMetaState(keyEventCode, event.getMMetaState());
+                    return;
                 }
-                throw new RuntimeException("Unknown key code : " + event.getMKeyCode());
+                // unknown event
+                Log.e(TAG, "unknown event, key code: "+keyCode+", functional: "+event.isFunctionalKeyEvent()+", meta: "+event.getMMetaState());
+                if (DebugFlags.DEBUG_ENABLED)
+                    throw new RuntimeException("Unknown event");
         }
     }
 
