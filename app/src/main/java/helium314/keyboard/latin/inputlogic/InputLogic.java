@@ -780,15 +780,16 @@ public final class InputLogic {
             default:
                 if (KeyCode.INSTANCE.isModifier(keyCode))
                     return; // continuation of previous switch case above, but modifiers are held in a separate place
-                final int keyEventCode = event.getMCodePoint() <= 0
-                    ? KeyCode.keyCodeToKeyEventCode(keyCode)
-                    : KeyCode.codePointToKeyEventCode(event.getMCodePoint());
+                final int keyEventCode = keyCode > 0
+                    ? keyCode
+                    : event.getMCodePoint() >= 0 ? KeyCode.codePointToKeyEventCode(event.getMCodePoint())
+                    : KeyCode.keyCodeToKeyEventCode(keyCode);
                 if (keyEventCode != KeyEvent.KEYCODE_UNKNOWN) {
                     sendDownUpKeyEventWithMetaState(keyEventCode, event.getMMetaState());
                     return;
                 }
                 // unknown event
-                Log.e(TAG, "unknown event, key code: "+keyCode+", functional: "+event.isFunctionalKeyEvent()+", meta: "+event.getMMetaState());
+                Log.e(TAG, "unknown event, key code: "+keyCode+", meta: "+event.getMMetaState());
                 if (DebugFlags.DEBUG_ENABLED)
                     throw new RuntimeException("Unknown event");
         }
