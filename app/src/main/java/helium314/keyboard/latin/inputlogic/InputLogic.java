@@ -1827,7 +1827,8 @@ public final class InputLogic {
     }
 
     private boolean shouldAutoShowSuggestions(SettingsValues settingsValues, SuggestedWords suggestedWords) {
-        return ! suggestedWords.isEmpty() && settingsValues.isSuggestionsEnabledPerUserSettings() && isEmojiSearch();
+        return ! suggestedWords.isEmpty() && settingsValues.isSuggestionsEnabledPerUserSettings() && ! mWordComposer.isResumed()
+                    && isEmojiSearch();
     }
 
     /**
@@ -2508,7 +2509,8 @@ public final class InputLogic {
                 }
             }
             callback.onGetSuggestedWords(new SuggestedWords(suggestedWordInfos, suggestions.mRawSuggestions, null,
-                                         false /* typedWordValid */, Settings.getValues().mAutoCorrectEnabled,
+                                         false /* typedWordValid */,
+                                        Settings.getValues().mAutoCorrectEnabled && ! mWordComposer.isResumed(),
                                          false /* isObsoleteSuggestions */,
                                          SuggestedWords.INPUT_STYLE_PREDICTION /* avoid dropping the first suggestion */, sequenceNumber));
         }
