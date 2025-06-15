@@ -17,6 +17,10 @@
     <string name="vibrate_in_dnd_mode">Vibrate in do not disturb mode</string>
     <!-- Option to play back sound on keypress in soft keyboard -->
     <string name="sound_on_keypress">Sound on keypress</string>
+    <!-- Option to perform inline emoji search -->
+    <string name="inline_emoji_search">Focused emoji suggestions</string>
+    <!-- Description for option to perform inline emoji search -->
+    <string name="inline_emoji_search_summary">Suggest only emojis when a word is preceded by a colon</string>
     <!-- Option to show emoji descriptions on long press -->
     <string name="show_emoji_descriptions">Show emoji description on long press</string>
     <!-- Description for option to show emoji descriptions on long press -->
