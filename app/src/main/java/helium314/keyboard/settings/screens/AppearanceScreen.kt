@@ -79,7 +79,8 @@ fun AppearanceScreen(
         SettingsWithoutKey.CUSTOM_FONT,
         Settings.PREF_FONT_SCALE,
         Settings.PREF_EMOJI_FONT_SCALE,
-        Settings.PREF_EMOJI_KEY_FIT,
+        if (prefs.getFloat(Settings.PREF_EMOJI_FONT_SCALE, Defaults.PREF_EMOJI_FONT_SCALE) != 1f)
+            Settings.PREF_EMOJI_KEY_FIT else null,
         if (prefs.getInt(Settings.PREF_EMOJI_MAX_SDK, Defaults.PREF_EMOJI_MAX_SDK) >= 24)
             Settings.PREF_EMOJI_SKIN_TONE else null,
     )
@@ -109,6 +110,7 @@ fun createAppearanceSettings(context: Context) = listOf(
                     prefs.edit().remove(Settings.PREF_THEME_COLORS_NIGHT).apply()
             }
             KeyboardIconsSet.needsReload = true // only relevant for Settings.PREF_CUSTOM_ICON_NAMES
+            KeyboardSwitcher.getInstance().setThemeNeedsReload()
         }
     },
     Setting(context, Settings.PREF_ICON_STYLE, R.string.icon_style) { setting ->

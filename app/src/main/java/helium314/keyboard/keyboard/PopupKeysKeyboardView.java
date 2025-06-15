@@ -12,15 +12,15 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
+import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 
 import helium314.keyboard.accessibility.AccessibilityUtils;
 import helium314.keyboard.accessibility.PopupKeysKeyboardAccessibilityDelegate;
-import helium314.keyboard.keyboard.emoji.OnKeyEventListener;
+import helium314.keyboard.keyboard.emoji.EmojiViewCallback;
 import helium314.keyboard.keyboard.internal.KeyDrawParams;
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode;
 import helium314.keyboard.latin.R;
@@ -39,7 +39,7 @@ public class PopupKeysKeyboardView extends KeyboardView implements PopupKeysPane
     protected final KeyDetector mKeyDetector;
     private Controller mController = EMPTY_CONTROLLER;
     protected KeyboardActionListener mListener;
-    protected OnKeyEventListener mKeyEventListener;
+    protected EmojiViewCallback mEmojiViewCallback;
     private int mOriginX;
     private int mOriginY;
     private Key mCurrentKey;
@@ -122,7 +122,7 @@ public class PopupKeysKeyboardView extends KeyboardView implements PopupKeysPane
     public void showPopupKeysPanel(final View parentView, final Controller controller,
             final int pointX, final int pointY, final KeyboardActionListener listener) {
         mListener = listener;
-        mKeyEventListener = null;
+        mEmojiViewCallback = null;
         showPopupKeysPanelInternal(parentView, controller, pointX, pointY);
     }
 
@@ -131,9 +131,9 @@ public class PopupKeysKeyboardView extends KeyboardView implements PopupKeysPane
      */
     @Override
     public void showPopupKeysPanel(final View parentView, final Controller controller,
-            final int pointX, final int pointY, final OnKeyEventListener listener) {
+            final int pointX, final int pointY, final EmojiViewCallback emojiViewCallback) {
         mListener = null;
-        mKeyEventListener = listener;
+        mEmojiViewCallback = emojiViewCallback;
         showPopupKeysPanelInternal(parentView, controller, pointX, pointY);
     }
 
@@ -157,6 +157,9 @@ public class PopupKeysKeyboardView extends KeyboardView implements PopupKeysPane
 
         mOriginX = x + container.getPaddingLeft();
         mOriginY = y + container.getPaddingTop();
+        var center = panelX + getMeasuredWidth() / 2;
+        // This is needed for cases where there's also a long text popup above this keyboard
+        controller.setLayoutGravity(center < pointX? Gravity.RIGHT : center > pointX? Gravity.LEFT : Gravity.CENTER_HORIZONTAL);
         controller.onShowPopupKeysPanel(this);
         final PopupKeysKeyboardAccessibilityDelegate accessibilityDelegate = mAccessibilityDelegate;
         if (accessibilityDelegate != null
@@ -222,8 +225,8 @@ public class PopupKeysKeyboardView extends KeyboardView implements PopupKeysPane
                             false /* isKeyRepeat */);
                 }
             }
-        } else if (mKeyEventListener != null) {
-            mKeyEventListener.onReleaseKey(key);
+        } else if (mEmojiViewCallback != null) {
+            mEmojiViewCallback.onReleaseKey(key);
         }
     }
 
@@ -313,29 +316,5 @@ public class PopupKeysKeyboardView extends KeyboardView implements PopupKeysPane
             return accessibilityDelegate.onHoverEvent(event);
         }
         return super.onHoverEvent(event);
-    }
-
-    private View getContainerView() {
-        return (View)getParent();
-    }
-
-    @Override
-    public void showInParent(final ViewGroup parentView) {
-        removeFromParent();
-        parentView.addView(getContainerView());
-    }
-
-    @Override
-    public void removeFromParent() {
-        final View containerView = getContainerView();
-        final ViewGroup currentParent = (ViewGroup)containerView.getParent();
-        if (currentParent != null) {
-            currentParent.removeView(containerView);
-        }
-    }
-
-    @Override
-    public boolean isShowingInParent() {
-        return (getContainerView().getParent() != null);
     }
 }

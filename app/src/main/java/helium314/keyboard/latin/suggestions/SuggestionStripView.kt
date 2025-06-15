@@ -116,6 +116,7 @@ class SuggestionStripView(context: Context, attrs: AttributeSet?, defStyle: Int)
     private val toolbarArrowIcon = KeyboardIconsSet.instance.getNewDrawable(KeyboardIconsSet.NAME_TOOLBAR_KEY, context)
     private val defaultToolbarBackground: Drawable = toolbarExpandKey.background
     private val enabledToolKeyBackground = GradientDrawable()
+    private var direction = 1 // 1 if LTR, -1 if RTL
     init {
         val colors = Settings.getValues().mColors
 
@@ -171,7 +172,6 @@ class SuggestionStripView(context: Context, attrs: AttributeSet?, defStyle: Int)
     private lateinit var listener: Listener
     private var suggestedWords = SuggestedWords.getEmptyInstance()
     private var startIndexOfMoreSuggestions = 0
-    private var direction = 1 // 1 if LTR, -1 if RTL
     private var isExternalSuggestionVisible = false // Required to disable the more suggestions if other suggestions are visible
     private val layoutHelper = SuggestionStripLayoutHelper(context, attrs, defStyle, wordViews, dividerViews, debugInfoViews)
     private val moreSuggestionsView = moreSuggestionsContainer.findViewById<MoreSuggestionsView>(R.id.more_suggestions_view).apply {
@@ -234,6 +234,7 @@ class SuggestionStripView(context: Context, attrs: AttributeSet?, defStyle: Int)
             context, suggestedWords, suggestionsStrip, this
         )
         isExternalSuggestionVisible = false
+        updateKeys();
     }
 
     fun setExternalSuggestionView(view: View?) {

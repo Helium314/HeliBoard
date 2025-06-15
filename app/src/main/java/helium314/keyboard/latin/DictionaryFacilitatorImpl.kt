@@ -381,6 +381,7 @@ class DictionaryFacilitatorImpl : DictionaryFacilitator {
     }
 
     private fun addToPersonalDictionaryIfInvalidButInHistory(word: String) {
+        if (word.length <= 1) return
         val dictionaryGroup = clearlyPreferredDictionaryGroup ?: return
         val userDict = dictionaryGroup.getSubDict(Dictionary.TYPE_USER) ?: return
         val userHistoryDict = dictionaryGroup.getSubDict(Dictionary.TYPE_USER_HISTORY) ?: return

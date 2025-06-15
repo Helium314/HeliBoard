@@ -770,6 +770,8 @@ public final class InputLogic {
                 break;
             case KeyCode.SEND_INTENT_ONE, KeyCode.SEND_INTENT_TWO, KeyCode.SEND_INTENT_THREE:
                 handleSendIntentKey(event.getMKeyCode());
+            case KeyCode.IME_HIDE_UI:
+                mLatinIME.hideWindow();
                 break;
             case KeyCode.VOICE_INPUT:
                 // switching to shortcut IME, shift state, keyboard,... is handled by LatinIME,

@@ -124,7 +124,7 @@ Nouveau dictionnaire:
     <string name="dictionary_file_wrong_script">Erreur : script non compatible avec ce clavier</string>
     <string name="dictionary_file_wrong_locale_ok">"Utiliser quand même"</string>
     <string name="dictionary_load_error">"Erreur de chargement du fichier dictionnaire"</string>
-    <string name="dictionary_available">"Dictionnaire disponible"</string>
+    <string name="dictionary_available">Dictionnaires disponibles</string>
     <string name="last_update">"Dernière mise à jour"</string>
     <string name="delete">"Supprimer"</string>
     <string name="version_text">Version %s</string>
