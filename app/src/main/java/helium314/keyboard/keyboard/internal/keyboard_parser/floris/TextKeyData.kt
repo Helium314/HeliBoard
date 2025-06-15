@@ -311,9 +311,6 @@ sealed interface KeyData : AbstractKeyData {
             KeyLabel.CTRL, KeyLabel.ALT, KeyLabel.FN, KeyLabel.META , KeyLabel.ESCAPE -> label.uppercase(Locale.US)
             KeyLabel.TAB -> "!icon/tab_key|!code/${KeyCode.TAB}"
             KeyLabel.TIMESTAMP -> "⌚|!code/${KeyCode.TIMESTAMP}"
-            KeyLabel.SEND_INTENT_ONE -> "<1>|!code/${KeyCode.SEND_INTENT_ONE}"
-            KeyLabel.SEND_INTENT_TWO -> "<2>|!code/${KeyCode.SEND_INTENT_TWO}"
-            KeyLabel.SEND_INTENT_THREE -> "<3>|!code/${KeyCode.SEND_INTENT_THREE}"
             else -> {
                 if (label in toolbarKeyStrings.values) {
                     "!icon/$label|!code/${getCodeForToolbarKey(ToolbarKey.valueOf(label.uppercase(Locale.US)))}"

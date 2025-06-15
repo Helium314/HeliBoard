@@ -33,10 +33,6 @@ object KeyLabel {
     const val ESCAPE = "esc"
     const val TIMESTAMP = "timestamp"
 
-    const val SEND_INTENT_ONE = "intent_one"
-    const val SEND_INTENT_TWO = "intent_two"
-    const val SEND_INTENT_THREE = "intent_three"
-
     /** to make sure a FlorisBoard label works when reading a JSON layout */
     // resulting special labels should be names of FunctionalKey enum, case insensitive
     fun String.convertFlorisLabel(): String = when (this) {

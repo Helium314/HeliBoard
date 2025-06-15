@@ -6,7 +6,6 @@
 
 package helium314.keyboard.latin.inputlogic;
 
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.SystemClock;
 import android.text.InputType;
@@ -32,7 +31,6 @@ import helium314.keyboard.latin.DictionaryFacilitator;
 import helium314.keyboard.latin.LastComposedWord;
 import helium314.keyboard.latin.LatinIME;
 import helium314.keyboard.latin.NgramContext;
-import helium314.keyboard.latin.R;
 import helium314.keyboard.latin.RichInputConnection;
 import helium314.keyboard.latin.Suggest;
 import helium314.keyboard.latin.Suggest.OnGetSuggestedWordsCallback;
@@ -51,6 +49,7 @@ import helium314.keyboard.latin.settings.SpacingAndPunctuations;
 import helium314.keyboard.latin.suggestions.SuggestionStripViewAccessor;
 import helium314.keyboard.latin.utils.AsyncResultHolder;
 import helium314.keyboard.latin.utils.InputTypeUtils;
+import helium314.keyboard.latin.utils.IntentUtils;
 import helium314.keyboard.latin.utils.Log;
 import helium314.keyboard.latin.utils.RecapitalizeStatus;
 import helium314.keyboard.latin.utils.ScriptUtils;
@@ -769,7 +768,7 @@ public final class InputLogic {
                 mLatinIME.onTextInput(TimestampKt.getTimestamp(mLatinIME));
                 break;
             case KeyCode.SEND_INTENT_ONE, KeyCode.SEND_INTENT_TWO, KeyCode.SEND_INTENT_THREE:
-                handleSendIntentKey(event.getMKeyCode());
+                IntentUtils.handleSendIntentKey(mLatinIME, event.getMKeyCode());
             case KeyCode.IME_HIDE_UI:
                 mLatinIME.hideWindow();
                 break;
@@ -801,15 +800,6 @@ public final class InputLogic {
         }
     }
 
-    private void handleSendIntentKey(int mKeyCode) {
-        var intentNumber = 1 + (-mKeyCode) - (-KeyCode.SEND_INTENT_ONE);
-
-        Intent intent = new Intent(mLatinIME.getString(R.string.action_send_intent));
-        intent.putExtra(mLatinIME.getString(R.string.extra_number), intentNumber);
-
-        mLatinIME.sendBroadcast(intent);
-        Log.i(TAG, "Sent broadcast for intent number: " + intentNumber);
-    }
     /**
      * Handle an event that is not a functional event.
      * <p>
