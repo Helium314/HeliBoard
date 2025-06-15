@@ -779,7 +779,7 @@ public final class InputLogic {
                 mLatinIME.onTextInput(TimestampKt.getTimestamp(mLatinIME));
                 break;
             case KeyCode.IME_HIDE_UI:
-                mLatinIME.hideWindow();
+                mLatinIME.requestHideSelf(0);
                 break;
             case KeyCode.VOICE_INPUT:
                 // switching to shortcut IME, shift state, keyboard,... is handled by LatinIME,
