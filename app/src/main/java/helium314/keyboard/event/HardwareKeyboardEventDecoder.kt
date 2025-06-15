@@ -10,8 +10,6 @@ import android.view.KeyCharacterMap
 import android.view.KeyEvent
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode
 import helium314.keyboard.latin.common.Constants
-import helium314.keyboard.latin.utils.Log
-import helium314.keyboard.latin.utils.getCustomKeyCode
 
 /**
  * A hardware event decoder for a hardware qwerty-ish keyboard.

@@ -184,6 +184,11 @@ public final class KeyboardId {
                 || mElementId == ELEMENT_ALPHABET_AUTOMATIC_SHIFTED || mElementId == ELEMENT_ALPHABET_MANUAL_SHIFTED;
     }
 
+    public boolean isAlphabetShiftedManually() {
+        return mElementId == ELEMENT_ALPHABET_SHIFT_LOCKED || mElementId == ELEMENT_ALPHABET_SHIFT_LOCK_SHIFTED
+            || mElementId == ELEMENT_ALPHABET_MANUAL_SHIFTED;
+    }
+
     public boolean isNumberLayout() {
         return mElementId == ELEMENT_NUMBER || mElementId == ELEMENT_NUMPAD
                 || mElementId == ELEMENT_PHONE || mElementId == ELEMENT_PHONE_SYMBOLS;

@@ -89,6 +89,7 @@ public final class InputLogic {
 
     private int mDeleteCount;
     private long mLastKeyTime;
+    // todo: this is not used, so either remove it or do something with it
     public final TreeSet<Long> mCurrentlyPressedHardwareKeys = new TreeSet<>();
 
     // Keeps track of most recently inserted text (multi-character key) for reverting
@@ -399,7 +400,11 @@ public final class InputLogic {
         // Stop the last recapitalization, if started.
         mRecapitalizeStatus.stop();
         mWordBeingCorrectedByCursor = null;
-        return true;
+
+        // we do not return true if
+        final boolean oneSidedSelectionMove = hasOrHadSelection
+            && ((oldSelEnd == newSelEnd && oldSelStart != newSelStart) || (oldSelEnd != newSelEnd && oldSelStart == newSelStart));
+        return !oneSidedSelectionMove;
     }
 
     public boolean moveCursorByAndReturnIfInsideComposingWord(int distance) {
@@ -725,30 +730,36 @@ public final class InputLogic {
                 }
                 break;
             case KeyCode.WORD_LEFT:
-                sendDownUpKeyEventWithMetaState(ScriptUtils.isScriptRtl(currentKeyboardScript)?
-                                     KeyEvent.KEYCODE_DPAD_RIGHT : KeyEvent.KEYCODE_DPAD_LEFT, KeyEvent.META_CTRL_ON);
+                sendDownUpKeyEventWithMetaState(
+                    ScriptUtils.isScriptRtl(currentKeyboardScript) ? KeyEvent.KEYCODE_DPAD_RIGHT : KeyEvent.KEYCODE_DPAD_LEFT,
+                    KeyEvent.META_CTRL_ON | event.getMMetaState());
                 break;
             case KeyCode.WORD_RIGHT:
-                sendDownUpKeyEventWithMetaState(ScriptUtils.isScriptRtl(currentKeyboardScript)?
-                                     KeyEvent.KEYCODE_DPAD_LEFT : KeyEvent.KEYCODE_DPAD_RIGHT, KeyEvent.META_CTRL_ON);
+                sendDownUpKeyEventWithMetaState(
+                    ScriptUtils.isScriptRtl(currentKeyboardScript) ? KeyEvent.KEYCODE_DPAD_LEFT : KeyEvent.KEYCODE_DPAD_RIGHT,
+                    KeyEvent.META_CTRL_ON | event.getMMetaState());
                 break;
             case KeyCode.MOVE_START_OF_PAGE:
-                final int selectionEnd = mConnection.getExpectedSelectionEnd();
-                sendDownUpKeyEventWithMetaState(KeyEvent.KEYCODE_MOVE_HOME, KeyEvent.META_CTRL_ON);
-                if (mConnection.getExpectedSelectionStart() > 0 && mConnection.getExpectedSelectionEnd() == selectionEnd) {
-                    // unchanged, and we're not at the top -> try a different method (necessary for compose fields)
-                    mConnection.setSelection(0, 0);
+                final int selectionEnd1 = mConnection.getExpectedSelectionEnd();
+                final int selectionStart1 = mConnection.getExpectedSelectionStart();
+                sendDownUpKeyEventWithMetaState(KeyEvent.KEYCODE_MOVE_HOME, KeyEvent.META_CTRL_ON | event.getMMetaState());
+                if (mConnection.getExpectedSelectionStart() == selectionStart1 && mConnection.getExpectedSelectionEnd() == selectionEnd1) {
+                    // unchanged -> try a different method (necessary for compose fields)
+                    final int newEnd = (event.getMMetaState() & KeyEvent.META_SHIFT_MASK) != 0 ? selectionEnd1 : 0;
+                    mConnection.setSelection(0, newEnd);
                 }
                 break;
             case KeyCode.MOVE_END_OF_PAGE:
-                final int selectionStart = mConnection.getExpectedSelectionEnd();
-                sendDownUpKeyEventWithMetaState(KeyEvent.KEYCODE_MOVE_END, KeyEvent.META_CTRL_ON);
-                if (mConnection.getExpectedSelectionStart() == selectionStart) {
+                final int selectionStart2 = mConnection.getExpectedSelectionStart();
+                final int selectionEnd2 = mConnection.getExpectedSelectionEnd();
+                sendDownUpKeyEventWithMetaState(KeyEvent.KEYCODE_MOVE_END, KeyEvent.META_CTRL_ON | event.getMMetaState());
+                if (mConnection.getExpectedSelectionStart() == selectionStart2 && mConnection.getExpectedSelectionEnd() == selectionEnd2) {
                     // unchanged, try fallback e.g. for compose fields that don't care about ctrl + end
                     // we just move to a very large index, and hope the field is prepared to deal with this
                     // getting the actual length of the text for setting the correct position can be tricky for some apps...
                     try {
-                        mConnection.setSelection(Integer.MAX_VALUE, Integer.MAX_VALUE);
+                        final int newStart = (event.getMMetaState() & KeyEvent.META_SHIFT_MASK) != 0 ? selectionStart2 : Integer.MAX_VALUE;
+                        mConnection.setSelection(newStart, Integer.MAX_VALUE);
                     } catch (Exception e) {
                         // better catch potential errors and just do nothing in this case
                         Log.i(TAG, "error when trying to move cursor to last position: " + e);

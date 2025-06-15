@@ -5,7 +5,7 @@ import android.util.SparseArray
 import android.view.KeyEvent
 import android.view.inputmethod.InputMethodSubtype
 import helium314.keyboard.event.Event
-import helium314.keyboard.event.HangulEventDecoder.decodeHardwareKeyEvent
+import helium314.keyboard.event.HangulEventDecoder
 import helium314.keyboard.event.HardwareEventDecoder
 import helium314.keyboard.event.HardwareKeyboardEventDecoder
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode
@@ -88,7 +88,7 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
         val event: Event
         if (settings.current.mLocale.language == "ko") { // todo: this does not appear to be the right place
             val subtype = keyboardSwitcher.keyboard?.mId?.mSubtype ?: RichInputMethodManager.getInstance().currentSubtype
-            event = decodeHardwareKeyEvent(subtype, keyEvent) {
+            event = HangulEventDecoder.decodeHardwareKeyEvent(subtype, keyEvent) {
                 getHardwareKeyEventDecoder(keyEvent.deviceId).decodeHardwareKey(keyEvent)
             }
         } else {
@@ -118,6 +118,12 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
         val event = if (primaryCode in combiningRange) { // todo: should this be done later, maybe in inputLogic?
             Event.createSoftwareDeadEvent(primaryCode, 0, metaState, mkv.getKeyX(x), mkv.getKeyY(y), null)
         } else {
+            // todo:
+            //  setting meta shift should only be done for arrow and similar cursor movement keys
+            //  should only be enabled once it works more reliably (currently depends on app for some reason)
+//            if (mkv.keyboard?.mId?.isAlphabetShiftedManually == true)
+//                Event.createSoftwareKeypressEvent(primaryCode, metaState or KeyEvent.META_SHIFT_ON, mkv.getKeyX(x), mkv.getKeyY(y), isKeyRepeat)
+//            else Event.createSoftwareKeypressEvent(primaryCode, metaState, mkv.getKeyX(x), mkv.getKeyY(y), isKeyRepeat)
             Event.createSoftwareKeypressEvent(primaryCode, metaState, mkv.getKeyX(x), mkv.getKeyY(y), isKeyRepeat)
         }
         latinIME.onEvent(event)
