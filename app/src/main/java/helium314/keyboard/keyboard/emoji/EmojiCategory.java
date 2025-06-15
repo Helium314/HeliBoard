@@ -324,7 +324,7 @@ final class EmojiCategory {
         final DynamicGridKeyboard tempKeyboard = new DynamicGridKeyboard(mPrefs,
                 mLayoutSet.getKeyboard(KeyboardId.ELEMENT_EMOJI_RECENTS),
                 0, 0, ResourceUtils.getKeyboardWidth(mContext, Settings.getValues()));
-        return MAX_LINE_COUNT_PER_PAGE * tempKeyboard.getColumnsCount();
+        return MAX_LINE_COUNT_PER_PAGE * tempKeyboard.getOccupiedColumnCount();
     }
 
     private static final Comparator<Key> EMOJI_KEY_COMPARATOR = (lhs, rhs) -> {
