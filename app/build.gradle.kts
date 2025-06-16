@@ -51,6 +51,7 @@ android {
             isJniDebuggable = false
             signingConfig = signingConfigs.getByName("debug")
             applicationIdSuffix = ".debug"
+            isDefault = true
         }
         base.archivesBaseName = "HeliBoard_" + defaultConfig.versionName
     }
