@@ -1108,6 +1108,7 @@ public class LatinIME extends InputMethodService implements
     @Override
     public void onWindowHidden() {
         super.onWindowHidden();
+        Log.i(TAG, "onWindowHidden");
         final MainKeyboardView mainKeyboardView = mKeyboardSwitcher.getMainKeyboardView();
         if (mainKeyboardView != null) {
             mainKeyboardView.closing();
@@ -1210,6 +1211,7 @@ public class LatinIME extends InputMethodService implements
 
     @Override
     public void hideWindow() {
+        Log.i(TAG, "hideWindow");
         if (hasSuggestionStripView() && mSettings.getCurrent().mToolbarMode == ToolbarMode.EXPANDABLE)
             mSuggestionStripView.setToolbarVisibility(false);
         mKeyboardSwitcher.onHideWindow();
@@ -1220,6 +1222,12 @@ public class LatinIME extends InputMethodService implements
             mOptionsDialog = null;
         }
         super.hideWindow();
+    }
+
+    @Override
+    public void requestHideSelf(int flags) {
+        super.requestHideSelf(flags);
+        Log.i(TAG, "requestHideSelf: " + flags);
     }
 
     @Override
