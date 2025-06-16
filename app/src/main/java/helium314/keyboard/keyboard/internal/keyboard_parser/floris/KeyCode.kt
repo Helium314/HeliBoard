@@ -175,9 +175,11 @@ object KeyCode {
     const val META_LEFT =                 -10048
     const val META_RIGHT =                -10049
 
-    const val SEND_INTENT_ONE =            -10050
-    const val SEND_INTENT_TWO =            -10051
-    const val SEND_INTENT_THREE =          -10052
+
+    // Intents
+    const val SEND_INTENT_ONE =            -20000
+    const val SEND_INTENT_TWO =            -20001
+    const val SEND_INTENT_THREE =          -20002
 
     /** to make sure a FlorisBoard code works when reading a JSON layout */
     fun Int.checkAndConvertCode(): Int = if (this > 0) this else when (this) {
