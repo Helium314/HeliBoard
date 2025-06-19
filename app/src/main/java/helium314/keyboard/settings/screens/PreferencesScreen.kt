@@ -17,7 +17,6 @@ import helium314.keyboard.latin.settings.Defaults
 import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.utils.Log
 import helium314.keyboard.latin.utils.SubtypeSettings
-import helium314.keyboard.latin.utils.ToolbarMode
 import helium314.keyboard.latin.utils.getActivity
 import helium314.keyboard.latin.utils.locale
 import helium314.keyboard.latin.utils.prefs
