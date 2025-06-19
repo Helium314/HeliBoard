@@ -105,11 +105,8 @@ object DictionaryInfoUtils {
     fun getCachedDictForLocaleAndType(locale: Locale, type: String, context: Context): File? =
         getCachedDictsForLocale(locale, context).firstOrNull { it.name.substringBefore("_") == type }
 
-    fun getCachedDictsForLocale(locale: Locale, context: Context): Array<out File> =
-        getCacheDirectoryForLocale(locale, context)?.let { File(it).listFiles() }.orEmpty().ifEmpty {
-            if (locale.language != locale.toLanguageTag())
-                getCachedDictsForLocale(Locale(locale.language), context) else emptyArray()
-        }
+    fun getCachedDictsForLocale(locale: Locale, context: Context) =
+        getCacheDirectoryForLocale(locale, context)?.let { File(it).listFiles() }.orEmpty()
 
     fun getDictionaryFileHeaderOrNull(file: File, offset: Long, length: Long): DictionaryHeader? {
         return try {
