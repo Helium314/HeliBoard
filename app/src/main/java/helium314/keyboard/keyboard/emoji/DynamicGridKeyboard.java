@@ -112,12 +112,12 @@ final class DynamicGridKeyboard extends Keyboard {
     }
 
     public int getDynamicOccupiedHeight() {
-        final int row = (mGridKeys.size() - 1) / mColumnsNum + 1;
+        final int row = (mGridKeys.size() - 1) / getOccupiedColumnCount() + 1;
         return row * mVerticalStep;
     }
 
-    public int getColumnsCount() {
-        return mColumnsNum;
+    public int getOccupiedColumnCount() {
+        return mColumnsNum - mEmptyColumnIndices.size();
     }
 
     public void addPendingKey(final Key usedKey) {
