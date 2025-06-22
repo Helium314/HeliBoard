@@ -397,7 +397,10 @@ class DictionaryFacilitatorImpl : DictionaryFacilitator {
         // This is not too bad, but it delays adding in case a user wants to fill a dictionary using this functionality
         if (userHistoryDict.getFrequency(word) > 120) {
             scope.launch {
-                UserDictionary.Words.addWord(userDict.mContext, word, 250, null, dictionaryGroup.locale)
+                // adding can throw IllegalArgumentException: Unknown URL content://user_dictionary/words
+                // https://stackoverflow.com/q/41474623 https://github.com/AnySoftKeyboard/AnySoftKeyboard/issues/490
+                // apparently some devices don't have a dictionary? or it's just sporadic hiccups?
+                runCatching { UserDictionary.Words.addWord(userDict.mContext, word, 250, null, dictionaryGroup.locale) }
             }
         }
     }
