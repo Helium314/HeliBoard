@@ -28,17 +28,17 @@ import helium314.keyboard.latin.utils.ToolbarMode
 import helium314.keyboard.latin.utils.getActivity
 import helium314.keyboard.latin.utils.prefs
 import helium314.keyboard.settings.NextScreenIcon
-import helium314.keyboard.settings.preferences.ListPreference
-import helium314.keyboard.settings.SettingsWithoutKey
-import helium314.keyboard.settings.Setting
-import helium314.keyboard.settings.preferences.Preference
 import helium314.keyboard.settings.SearchSettingsScreen
+import helium314.keyboard.settings.Setting
 import helium314.keyboard.settings.SettingsActivity
 import helium314.keyboard.settings.SettingsDestination
-import helium314.keyboard.settings.preferences.SwitchPreference
+import helium314.keyboard.settings.SettingsWithoutKey
 import helium314.keyboard.settings.Theme
 import helium314.keyboard.settings.dialogs.ConfirmationDialog
 import helium314.keyboard.settings.initPreview
+import helium314.keyboard.settings.preferences.ListPreference
+import helium314.keyboard.settings.preferences.Preference
+import helium314.keyboard.settings.preferences.SwitchPreference
 import helium314.keyboard.settings.previewDark
 
 @Composable
@@ -76,6 +76,7 @@ fun TextCorrectionScreen(
         if (suggestionsEnabled && prefs.getBoolean(Settings.PREF_ALWAYS_SHOW_SUGGESTIONS, Defaults.PREF_ALWAYS_SHOW_SUGGESTIONS))
             Settings.PREF_ALWAYS_SHOW_SUGGESTIONS_EXCEPT_WEB_TEXT else null,
         if (suggestionsEnabled) Settings.PREF_CENTER_SUGGESTION_TEXT_TO_ENTER else null,
+        if (suggestionsEnabled || autocorrectEnabled) Settings.PREF_SUGGEST_EMOJIS else null,
         Settings.PREF_KEY_USE_PERSONALIZED_DICTS,
         Settings.PREF_BIGRAM_PREDICTIONS,
         Settings.PREF_SUGGEST_CLIPBOARD_CONTENT,
@@ -232,6 +233,11 @@ fun createCorrectionSettings(context: Context) = listOf(
         R.string.use_apps_dict, R.string.use_apps_dict_summary
     ) { setting ->
         SwitchPreference(setting, Defaults.PREF_USE_APPS)
+    },
+    Setting(
+        context, Settings.PREF_SUGGEST_EMOJIS, R.string.suggest_emojis, R.string.suggest_emojis_summary
+    ) {
+        SwitchPreference(it, Defaults.PREF_SUGGEST_EMOJIS) { KeyboardSwitcher.getInstance().closeDictionaries() }
     },
     Setting(context, Settings.PREF_ADD_TO_PERSONAL_DICTIONARY,
         R.string.add_to_personal_dictionary, R.string.add_to_personal_dictionary_summary

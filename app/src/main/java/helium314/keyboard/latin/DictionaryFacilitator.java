@@ -98,6 +98,7 @@ public interface DictionaryFacilitator {
             final boolean useContactsDict,
             final boolean useAppsDict,
             final boolean usePersonalizedDicts,
+            boolean useEmojiDict,
             final boolean forceReloadMainDictionary,
             final String dictNamePrefix,
             @Nullable final DictionaryInitializationListener listener);

@@ -123,6 +123,7 @@ class DictionaryFacilitatorImpl : DictionaryFacilitator {
         useContactsDict: Boolean,
         useAppsDict: Boolean,
         usePersonalizedDicts: Boolean,
+        useEmojiDict: Boolean,
         forceReloadMainDictionary: Boolean,
         dictNamePrefix: String,
         listener: DictionaryInitializationListener?
@@ -148,7 +149,7 @@ class DictionaryFacilitatorImpl : DictionaryFacilitator {
             oldDictionaryGroups = dictionaryGroups
             dictionaryGroups = newDictionaryGroups
             if (hasAtLeastOneUninitializedMainDictionary()) {
-                asyncReloadUninitializedMainDictionaries(context, locales, listener)
+                asyncReloadUninitializedMainDictionaries(context, locales, useEmojiDict, listener)
             }
         }
 
@@ -223,7 +224,7 @@ class DictionaryFacilitatorImpl : DictionaryFacilitator {
     }
 
     private fun asyncReloadUninitializedMainDictionaries(
-        context: Context, locales: Collection<Locale>, listener: DictionaryInitializationListener?
+        context: Context, locales: Collection<Locale>, useEmojiDict: Boolean, listener: DictionaryInitializationListener?
     ) {
         val latchForWaitingLoadingMainDictionary = CountDownLatch(1)
         mLatchForWaitingLoadingMainDictionaries = latchForWaitingLoadingMainDictionary
@@ -236,7 +237,7 @@ class DictionaryFacilitatorImpl : DictionaryFacilitator {
                         return@mapNotNull null // This should never happen
                     }
                     if (dictionaryGroup.getDict(Dictionary.TYPE_MAIN)?.isInitialized == true) null
-                    else dictionaryGroup to DictionaryFactory.createMainDictionaryCollection(context, it)
+                    else dictionaryGroup to DictionaryFactory.createMainDictionaryCollection(context, it, useEmojiDict)
                 }
                 synchronized(this) {
                     dictGroupsWithNewMainDict.forEach { (dictGroup, mainDict) ->
@@ -532,7 +533,7 @@ class DictionaryFacilitatorImpl : DictionaryFacilitator {
                 )
                     continue
 
-                if (word.length == 1 && info.mSourceDict.mDictType == "emoji" && !StringUtils.mightBeEmoji(word[0].code))
+                if (word.length == 1 && info.mSourceDict.mDictType == Dictionary.TYPE_EMOJI && !StringUtils.mightBeEmoji(word[0].code))
                     continue
 
                 suggestions.add(info)

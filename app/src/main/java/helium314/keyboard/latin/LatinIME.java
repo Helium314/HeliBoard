@@ -748,7 +748,7 @@ public class LatinIME extends InputMethodService implements
         try {
             mDictionaryFacilitator.resetDictionaries(this, locale,
                 settingsValues.mUseContactsDictionary, settingsValues.mUseAppsDictionary,
-                settingsValues.mUsePersonalizedDicts, false, "", this);
+                settingsValues.mUsePersonalizedDicts, settingsValues.mSuggestEmojis, false, "", this);
         } catch (Throwable e) {
             // this should not happen, but in case it does we at least want to show a keyboard
             Log.e(TAG, "Could not reset dictionary facilitator, please fix ASAP", e);
@@ -763,7 +763,7 @@ public class LatinIME extends InputMethodService implements
         final SettingsValues settingsValues = mSettings.getCurrent();
         mDictionaryFacilitator.resetDictionaries(this, mDictionaryFacilitator.getMainLocale(),
                 settingsValues.mUseContactsDictionary, settingsValues.mUseAppsDictionary,
-                settingsValues.mUsePersonalizedDicts, true, "", this);
+                settingsValues.mUsePersonalizedDicts, settingsValues.mSuggestEmojis, true, "", this);
     }
 
     // used for debug
@@ -784,6 +784,10 @@ public class LatinIME extends InputMethodService implements
         super.onDestroy();
         mHandler.removeCallbacksAndMessages(null);
         deallocateMemory();
+    }
+
+    public void closeDictionaries() {
+        mDictionaryFacilitator.closeDictionaries();
     }
 
     private boolean isImeSuppressedByHardwareKeyboard() {

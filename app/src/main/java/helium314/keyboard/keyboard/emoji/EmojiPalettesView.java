@@ -38,6 +38,7 @@ import helium314.keyboard.keyboard.internal.KeyDrawParams;
 import helium314.keyboard.keyboard.internal.KeyVisualAttributes;
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode;
 import helium314.keyboard.latin.AudioAndHapticFeedbackManager;
+import helium314.keyboard.latin.Dictionary;
 import helium314.keyboard.latin.DictionaryFactory;
 import helium314.keyboard.latin.R;
 import helium314.keyboard.latin.RichInputMethodManager;
@@ -452,7 +453,7 @@ public final class EmojiPalettesView extends LinearLayout
             var locale = RichInputMethodManager.getInstance().getCurrentSubtype().getLocale();
             if (sDictionaryFacilitator == null || ! sDictionaryFacilitator.isForLocale(locale)) {
                 closeDictionaryFacilitator();
-                var dictFile = DictionaryInfoUtils.getCachedDictForLocaleAndType(locale, "emoji", getContext());
+                var dictFile = DictionaryInfoUtils.getCachedDictForLocaleAndType(locale, Dictionary.TYPE_EMOJI, getContext());
                 var dictionary = dictFile != null? DictionaryFactory.getDictionary(dictFile, locale) : null;
                 sDictionaryFacilitator = dictionary != null? new SingleDictionaryFacilitator(dictionary) : null;
             }

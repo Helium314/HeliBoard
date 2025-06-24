@@ -79,7 +79,8 @@ class SingleDictionaryFacilitator(private val dict: Dictionary) : DictionaryFaci
     }
 
     override fun resetDictionaries(context: Context, newLocale: Locale, useContactsDict: Boolean, useAppsDict: Boolean,
-                                   usePersonalizedDicts: Boolean, forceReloadMainDictionary: Boolean, dictNamePrefix: String, listener: DictionaryInitializationListener?
+                                   usePersonalizedDicts: Boolean, useEmojiDict: Boolean, forceReloadMainDictionary: Boolean,
+                                   dictNamePrefix: String, listener: DictionaryInitializationListener?
     ) { }
 
     override fun hasAtLeastOneInitializedMainDictionary(): Boolean = dict.isInitialized
