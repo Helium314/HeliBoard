@@ -893,6 +893,9 @@ public final class InputLogic {
             }
             handleNonSeparatorEvent(event, sv, inputTransaction);
         }
+
+        mRecapitalizeStatus.enable();
+        mRecapitalizeStatus.stop();
     }
 
     private void addToHistoryIfEmoji(final String text, final SettingsValues settingsValues) {
@@ -1555,24 +1558,47 @@ public final class InputLogic {
      * @param settingsValues The current settings values.
      */
     private void performRecapitalization(final SettingsValues settingsValues) {
-        if (!mConnection.hasSelection() || !mRecapitalizeStatus.mIsEnabled()) {
-            return; // No selection or recapitalize is disabled for now
+        if (!mRecapitalizeStatus.mIsEnabled()) {
+            return; // Recapitalize is disabled for now
         }
-        final int selectionStart = mConnection.getExpectedSelectionStart();
-        final int selectionEnd = mConnection.getExpectedSelectionEnd();
-        final int numCharsSelected = selectionEnd - selectionStart;
+        if (mConnection.hasSelection()) {
+            final int selectionStart = mConnection.getExpectedSelectionStart();
+            final int selectionEnd = mConnection.getExpectedSelectionEnd();
+            if (! performRecapitalization(mConnection.getSelectedText(0 /* flags, 0 for no styles */), selectionStart, selectionEnd,
+                                          settingsValues)) {
+                return;
+            }
+            mConnection.setSelection(mRecapitalizeStatus.getNewCursorStart(), mRecapitalizeStatus.getNewCursorEnd());
+            return;
+        }
+
+        var script = KeyboardSwitcher.getInstance().getCurrentKeyboardScript();
+        var wordAtCursor = mConnection.getWordRangeAtCursor(settingsValues.mSpacingAndPunctuations, script);
+        if (wordAtCursor != null && wordAtCursor.length() > 0) {
+            var cursorPosition = mConnection.getExpectedSelectionStart();
+            var wordStart = cursorPosition - wordAtCursor.getNumberOfCharsInWordBeforeCursor();
+            var wordEnd = cursorPosition + wordAtCursor.getNumberOfCharsInWordAfterCursor();
+            if (! performRecapitalization(wordAtCursor.mWord, wordStart, wordEnd, settingsValues)) {
+                return;
+            }
+            mWordComposer.reset();
+            mConnection.setSelection(cursorPosition, cursorPosition);
+            restartSuggestionsOnWordTouchedByCursor(settingsValues, script);
+        }
+    }
+
+    private boolean performRecapitalization(CharSequence text, int start, int end, SettingsValues settingsValues) {
+        final int numCharsSelected = end - start;
         if (numCharsSelected > Constants.MAX_CHARACTERS_FOR_RECAPITALIZATION) {
             // We bail out if we have too many characters for performance reasons. We don't want
             // to suck possibly multiple-megabyte data.
-            return;
+            return false;
         }
         // If we have a recapitalize in progress, use it; otherwise, start a new one.
         if (!mRecapitalizeStatus.isStarted()
-                || !mRecapitalizeStatus.isSetAt(selectionStart, selectionEnd)) {
-            final CharSequence selectedText =
-                    mConnection.getSelectedText(0 /* flags, 0 for no styles */);
-            if (TextUtils.isEmpty(selectedText)) return; // Race condition with the input connection
-            mRecapitalizeStatus.start(selectionStart, selectionEnd, selectedText.toString(),
+                || !mRecapitalizeStatus.isSetAt(start, end)) {
+            if (TextUtils.isEmpty(text)) return false; // Race condition with the input connection
+            mRecapitalizeStatus.start(start, end, text.toString(),
                     settingsValues.mLocale,
                     settingsValues.mSpacingAndPunctuations.mSortedWordSeparators);
             // We trim leading and trailing whitespace.
@@ -1580,11 +1606,10 @@ public final class InputLogic {
         }
         mConnection.finishComposingText();
         mRecapitalizeStatus.rotate();
-        mConnection.setSelection(selectionEnd, selectionEnd);
+        mConnection.setSelection(end, end);
         mConnection.deleteTextBeforeCursor(numCharsSelected);
         mConnection.commitText(mRecapitalizeStatus.getRecapitalizedString(), 0);
-        mConnection.setSelection(mRecapitalizeStatus.getNewCursorStart(),
-                mRecapitalizeStatus.getNewCursorEnd());
+        return true;
     }
 
     private void performAdditionToUserHistoryDictionary(final SettingsValues settingsValues,
@@ -1936,9 +1961,7 @@ public final class InputLogic {
     }
 
     public int getCurrentRecapitalizeState() {
-        if (!mRecapitalizeStatus.isStarted()
-                || !mRecapitalizeStatus.isSetAt(mConnection.getExpectedSelectionStart(),
-                        mConnection.getExpectedSelectionEnd())) {
+        if (!mRecapitalizeStatus.isStarted()) {
             // Not recapitalizing at the moment
             return RecapitalizeStatus.NOT_A_RECAPITALIZE_MODE;
         }
