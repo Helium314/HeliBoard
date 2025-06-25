@@ -1574,7 +1574,8 @@ public final class InputLogic {
 
         var script = KeyboardSwitcher.getInstance().getCurrentKeyboardScript();
         var wordAtCursor = mConnection.getWordRangeAtCursor(settingsValues.mSpacingAndPunctuations, script);
-        if (wordAtCursor != null && wordAtCursor.length() > 0) {
+        if (wordAtCursor != null && wordAtCursor.length() > 0 && ! (settingsValues.mUrlDetectionEnabled
+                    && settingsValues.mSpacingAndPunctuations.containsSometimesWordConnector(wordAtCursor.mWord))) {
             var cursorPosition = mConnection.getExpectedSelectionStart();
             var wordStart = cursorPosition - wordAtCursor.getNumberOfCharsInWordBeforeCursor();
             var wordEnd = cursorPosition + wordAtCursor.getNumberOfCharsInWordAfterCursor();
