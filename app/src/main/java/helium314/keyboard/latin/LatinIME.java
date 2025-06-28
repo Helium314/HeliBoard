@@ -654,7 +654,7 @@ public class LatinIME extends InputMethodService implements
 
         final IntentFilter newDictFilter = new IntentFilter();
         newDictFilter.addAction(DictionaryPackConstants.NEW_DICTIONARY_INTENT_ACTION);
-        ContextCompat.registerReceiver(this, mDictionaryPackInstallReceiver, newDictFilter, ContextCompat.RECEIVER_NOT_EXPORTED);
+        ContextCompat.registerReceiver(this, mDictionaryPackInstallReceiver, newDictFilter, ContextCompat.RECEIVER_EXPORTED);
 
         final IntentFilter dictDumpFilter = new IntentFilter();
         dictDumpFilter.addAction(DictionaryDumpBroadcastReceiver.DICTIONARY_DUMP_INTENT_ACTION);
