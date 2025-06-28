@@ -1282,8 +1282,8 @@ public class LatinIME extends InputMethodService implements
         if (isImeSuppressedByHardwareKeyboard() && !visibleKeyboardView.isShown()) {
             // If there is a hardware keyboard and a visible software keyboard view has been hidden,
             // no visual element will be shown on the screen.
-            outInsets.contentTopInsets = inputHeight;
-            outInsets.visibleTopInsets = inputHeight;
+            // for some reason setting contentTopInsets and visibleTopInsets broke somewhere along the
+            // way from OpenBoard to HeliBoard (GH-702, GH-1455), but not setting anything seems to work
             mInsetsUpdater.setInsets(outInsets);
             return;
         }
