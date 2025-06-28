@@ -734,7 +734,7 @@ private class DictionaryGroup(
     else {
         val file = File(context.filesDir.absolutePath + File.separator + "blacklists" + File.separator + locale.toLanguageTag() + ".txt")
         if (file.isDirectory) file.delete() // this apparently was an issue in some versions
-        if (file.parentFile?.mkdirs() == true) file
+        if (file.parentFile?.exists() == true || file.parentFile?.mkdirs() == true) file
         else null
     }
 
