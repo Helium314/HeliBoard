@@ -3,6 +3,7 @@ package helium314.keyboard.settings.screens
 
 import android.Manifest
 import android.content.Context
+import android.content.Intent
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.material3.Surface
@@ -17,6 +18,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import helium314.keyboard.dictionarypack.DictionaryPackConstants
 import helium314.keyboard.keyboard.KeyboardSwitcher
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.permissions.PermissionsUtil
@@ -237,7 +239,9 @@ fun createCorrectionSettings(context: Context) = listOf(
     Setting(
         context, Settings.PREF_SUGGEST_EMOJIS, R.string.suggest_emojis, R.string.suggest_emojis_summary
     ) {
-        SwitchPreference(it, Defaults.PREF_SUGGEST_EMOJIS) { KeyboardSwitcher.getInstance().closeDictionaries() }
+        SwitchPreference(it, Defaults.PREF_SUGGEST_EMOJIS) {
+            context.sendBroadcast(Intent(DictionaryPackConstants.NEW_DICTIONARY_INTENT_ACTION))
+        }
     },
     Setting(context, Settings.PREF_ADD_TO_PERSONAL_DICTIONARY,
         R.string.add_to_personal_dictionary, R.string.add_to_personal_dictionary_summary

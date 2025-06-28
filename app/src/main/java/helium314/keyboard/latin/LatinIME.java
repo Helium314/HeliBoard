@@ -786,10 +786,6 @@ public class LatinIME extends InputMethodService implements
         deallocateMemory();
     }
 
-    public void closeDictionaries() {
-        mDictionaryFacilitator.closeDictionaries();
-    }
-
     private boolean isImeSuppressedByHardwareKeyboard() {
         final KeyboardSwitcher switcher = KeyboardSwitcher.getInstance();
         return !onEvaluateInputViewShown() && switcher.isImeSuppressedByHardwareKeyboard(

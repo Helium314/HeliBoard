@@ -554,10 +554,6 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
         }
     }
 
-    public void closeDictionaries() {
-        mLatinIME.closeDictionaries();
-    }
-
     private static int getSecondaryStripVisibility() {
         return Settings.getValues().mSecondaryStripVisible? View.VISIBLE : View.GONE;
     }
