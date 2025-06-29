@@ -748,7 +748,7 @@ public class LatinIME extends InputMethodService implements
         try {
             mDictionaryFacilitator.resetDictionaries(this, locale,
                 settingsValues.mUseContactsDictionary, settingsValues.mUseAppsDictionary,
-                settingsValues.mUsePersonalizedDicts, settingsValues.mSuggestEmojis, false, "", this);
+                settingsValues.mUsePersonalizedDicts, false, "", this);
         } catch (Throwable e) {
             // this should not happen, but in case it does we at least want to show a keyboard
             Log.e(TAG, "Could not reset dictionary facilitator, please fix ASAP", e);
@@ -763,7 +763,7 @@ public class LatinIME extends InputMethodService implements
         final SettingsValues settingsValues = mSettings.getCurrent();
         mDictionaryFacilitator.resetDictionaries(this, mDictionaryFacilitator.getMainLocale(),
                 settingsValues.mUseContactsDictionary, settingsValues.mUseAppsDictionary,
-                settingsValues.mUsePersonalizedDicts, settingsValues.mSuggestEmojis, true, "", this);
+                settingsValues.mUsePersonalizedDicts, true, "", this);
     }
 
     // used for debug

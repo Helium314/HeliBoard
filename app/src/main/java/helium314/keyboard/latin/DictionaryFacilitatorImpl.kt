@@ -123,7 +123,6 @@ class DictionaryFacilitatorImpl : DictionaryFacilitator {
         useContactsDict: Boolean,
         useAppsDict: Boolean,
         usePersonalizedDicts: Boolean,
-        useEmojiDict: Boolean,
         forceReloadMainDictionary: Boolean,
         dictNamePrefix: String,
         listener: DictionaryInitializationListener?
@@ -149,7 +148,7 @@ class DictionaryFacilitatorImpl : DictionaryFacilitator {
             oldDictionaryGroups = dictionaryGroups
             dictionaryGroups = newDictionaryGroups
             if (hasAtLeastOneUninitializedMainDictionary()) {
-                asyncReloadUninitializedMainDictionaries(context, locales, useEmojiDict, listener)
+                asyncReloadUninitializedMainDictionaries(context, locales, listener)
             }
         }
 
@@ -224,12 +223,13 @@ class DictionaryFacilitatorImpl : DictionaryFacilitator {
     }
 
     private fun asyncReloadUninitializedMainDictionaries(
-        context: Context, locales: Collection<Locale>, useEmojiDict: Boolean, listener: DictionaryInitializationListener?
+        context: Context, locales: Collection<Locale>, listener: DictionaryInitializationListener?
     ) {
         val latchForWaitingLoadingMainDictionary = CountDownLatch(1)
         mLatchForWaitingLoadingMainDictionaries = latchForWaitingLoadingMainDictionary
         scope.launch {
             try {
+                val useEmojiDict = Settings.getValues().mSuggestEmojis
                 val dictGroupsWithNewMainDict = locales.mapNotNull {
                     val dictionaryGroup = findDictionaryGroupWithLocale(dictionaryGroups, it)
                     if (dictionaryGroup == null) {
