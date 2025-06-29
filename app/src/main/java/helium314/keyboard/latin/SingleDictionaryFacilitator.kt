@@ -25,18 +25,19 @@ class SingleDictionaryFacilitator(private val dict: Dictionary) : DictionaryFaci
      * Other suggestion fields of combined matches are taken arbitrarily from one of them.
      */
     fun getSuggestions(words: List<String>): SuggestionResults {
-        val infos = mutableMapOf<String, Pair<SuggestedWords.SuggestedWordInfo, Long>>()
-        words.forEach {
-            getSuggestions(it).forEach { infos.put(it.word, Pair(it, (infos[it.word]?.second ?: 0L) + it.mScore - Int.MIN_VALUE)) }
-        }
         val suggestionResults = SuggestionResults(SuggestedWords.MAX_SUGGESTIONS, false, false)
-        suggestionResults.addAll(infos.values.map {
-            val info = it.first
-            SuggestedWords.SuggestedWordInfo(
-                info.word, info.mPrevWordsContext, (it.second / words.size + Int.MIN_VALUE).toInt(), info.mKindAndFlags,
-                info.mSourceDict, info.mIndexOfTouchPointOfSecondWord, info.mAutoCommitFirstWordConfidence
-            )
-        })
+        words.flatMap { word -> getSuggestions(word).distinctBy { it.word } } // Filter out duplicate results per word
+            .groupBy { it.word }
+            .forEach { (_, results) ->
+                val info = results.maxBy { it.mScore }
+                val score = (results.sumOf { it.mScore.toLong() - Int.MIN_VALUE } / words.size + Int.MIN_VALUE).toInt()
+                suggestionResults.add(
+                    SuggestedWords.SuggestedWordInfo(
+                        info.word, info.mPrevWordsContext, score, info.mKindAndFlags,
+                        info.mSourceDict, info.mIndexOfTouchPointOfSecondWord, info.mAutoCommitFirstWordConfidence
+                    )
+                )
+            }
         return suggestionResults
     }
 
