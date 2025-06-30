@@ -323,6 +323,7 @@ public final class InputLogic {
         // That's going to be predictions (or punctuation suggestions), so INPUT_STYLE_NONE.
         handler.postUpdateSuggestionStrip(SuggestedWords.INPUT_STYLE_NONE);
 
+        updateEmojiSearch();
         StatsUtils.onPickSuggestionManually(mSuggestedWords, suggestionInfo, mDictionaryFacilitator);
         StatsUtils.onWordCommitSuggestionPickedManually(suggestionInfo.mWord, mWordComposer.isBatchMode());
         return inputTransaction;
