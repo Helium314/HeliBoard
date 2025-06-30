@@ -158,34 +158,34 @@ sealed interface KeyData : AbstractKeyData {
             val navigateNext = keyboardId.navigateNext()
             return when {
                 keyboardId.passwordInput() -> when {
-                    navigatePrev && action == EditorInfo.IME_ACTION_NEXT -> POPUP_EYS_NAVIGATE_PREVIOUS
+                    navigatePrev && action == EditorInfo.IME_ACTION_NEXT -> POPUP_KEYS_NAVIGATE_PREVIOUS
                     action == EditorInfo.IME_ACTION_NEXT -> null
-                    navigateNext && action == EditorInfo.IME_ACTION_PREVIOUS -> POPUP_EYS_NAVIGATE_NEXT
+                    navigateNext && action == EditorInfo.IME_ACTION_PREVIOUS -> POPUP_KEYS_NAVIGATE_NEXT
                     action == EditorInfo.IME_ACTION_PREVIOUS -> null
-                    navigateNext && navigatePrev -> POPUP_EYS_NAVIGATE_PREVIOUS_NEXT
-                    navigateNext -> POPUP_EYS_NAVIGATE_NEXT
-                    navigatePrev -> POPUP_EYS_NAVIGATE_PREVIOUS
+                    navigateNext && navigatePrev -> POPUP_KEYS_NAVIGATE_PREVIOUS_NEXT
+                    navigateNext -> POPUP_KEYS_NAVIGATE_NEXT
+                    navigatePrev -> POPUP_KEYS_NAVIGATE_PREVIOUS
                     else -> null
                 }
                 // could change definition of numbers to query a range, or have a pre-defined list, but not that crucial
                 keyboardId.isNumberLayout || keyboardId.mMode in listOf(KeyboardId.MODE_EMAIL, KeyboardId.MODE_DATE, KeyboardId.MODE_TIME, KeyboardId.MODE_DATETIME) -> when {
-                    action == EditorInfo.IME_ACTION_NEXT && navigatePrev -> POPUP_EYS_NAVIGATE_PREVIOUS
+                    action == EditorInfo.IME_ACTION_NEXT && navigatePrev -> POPUP_KEYS_NAVIGATE_PREVIOUS
                     action == EditorInfo.IME_ACTION_NEXT -> null
-                    action == EditorInfo.IME_ACTION_PREVIOUS && navigateNext -> POPUP_EYS_NAVIGATE_NEXT
+                    action == EditorInfo.IME_ACTION_PREVIOUS && navigateNext -> POPUP_KEYS_NAVIGATE_NEXT
                     action == EditorInfo.IME_ACTION_PREVIOUS -> null
-                    navigateNext && navigatePrev -> POPUP_EYS_NAVIGATE_PREVIOUS_NEXT
-                    navigateNext -> POPUP_EYS_NAVIGATE_NEXT
-                    navigatePrev -> POPUP_EYS_NAVIGATE_PREVIOUS
+                    navigateNext && navigatePrev -> POPUP_KEYS_NAVIGATE_PREVIOUS_NEXT
+                    navigateNext -> POPUP_KEYS_NAVIGATE_NEXT
+                    navigatePrev -> POPUP_KEYS_NAVIGATE_PREVIOUS
                     else -> null
                 }
-                action == EditorInfo.IME_ACTION_NEXT && navigatePrev -> POPUP_EYS_NAVIGATE_EMOJI_PREVIOUS
-                action == EditorInfo.IME_ACTION_NEXT -> POPUP_EYS_NAVIGATE_EMOJI
-                action == EditorInfo.IME_ACTION_PREVIOUS && navigateNext -> POPUP_EYS_NAVIGATE_EMOJI_NEXT
-                action == EditorInfo.IME_ACTION_PREVIOUS -> POPUP_EYS_NAVIGATE_EMOJI
-                navigateNext && navigatePrev -> POPUP_EYS_NAVIGATE_EMOJI_PREVIOUS_NEXT
-                navigateNext -> POPUP_EYS_NAVIGATE_EMOJI_NEXT
-                navigatePrev -> POPUP_EYS_NAVIGATE_EMOJI_PREVIOUS
-                else -> POPUP_EYS_NAVIGATE_EMOJI
+                action == EditorInfo.IME_ACTION_NEXT && navigatePrev -> POPUP_KEYS_NAVIGATE_EMOJI_PREVIOUS
+                action == EditorInfo.IME_ACTION_NEXT -> POPUP_KEYS_NAVIGATE_EMOJI
+                action == EditorInfo.IME_ACTION_PREVIOUS && navigateNext -> POPUP_KEYS_NAVIGATE_EMOJI_NEXT
+                action == EditorInfo.IME_ACTION_PREVIOUS -> POPUP_KEYS_NAVIGATE_EMOJI
+                navigateNext && navigatePrev -> POPUP_KEYS_NAVIGATE_EMOJI_PREVIOUS_NEXT
+                navigateNext -> POPUP_KEYS_NAVIGATE_EMOJI_NEXT
+                navigatePrev -> POPUP_KEYS_NAVIGATE_EMOJI_PREVIOUS
+                else -> POPUP_KEYS_NAVIGATE_EMOJI
             }
         }
 
@@ -248,13 +248,13 @@ sealed interface KeyData : AbstractKeyData {
                     && params.mId.mMode in setOf(KeyboardId.MODE_URL, KeyboardId.MODE_EMAIL))
 
         // could make arrays right away, but they need to be copied anyway as popupKeys arrays are modified when creating KeyParams
-        private const val POPUP_EYS_NAVIGATE_PREVIOUS = "!icon/previous_key|!code/key_action_previous,!icon/clipboard_action_key|!code/key_clipboard"
-        private const val POPUP_EYS_NAVIGATE_NEXT = "!icon/clipboard_action_key|!code/key_clipboard,!icon/next_key|!code/key_action_next"
-        private const val POPUP_EYS_NAVIGATE_PREVIOUS_NEXT = "!fixedColumnOrder!3,!needsDividers!,!icon/previous_key|!code/key_action_previous,!icon/clipboard_action_key|!code/key_clipboard,!icon/next_key|!code/key_action_next"
-        private const val POPUP_EYS_NAVIGATE_EMOJI_PREVIOUS = "!fixedColumnOrder!3,!needsDividers!,!icon/previous_key|!code/key_action_previous,!icon/clipboard_action_key|!code/key_clipboard,!icon/emoji_action_key|!code/key_emoji"
-        private const val POPUP_EYS_NAVIGATE_EMOJI = "!icon/clipboard_action_key|!code/key_clipboard,!icon/emoji_action_key|!code/key_emoji"
-        private const val POPUP_EYS_NAVIGATE_EMOJI_NEXT = "!fixedColumnOrder!3,!needsDividers!,!icon/clipboard_action_key|!code/key_clipboard,!icon/emoji_action_key|!code/key_emoji,!icon/next_key|!code/key_action_next"
-        private const val POPUP_EYS_NAVIGATE_EMOJI_PREVIOUS_NEXT = "!fixedColumnOrder!4,!needsDividers!,!icon/previous_key|!code/key_action_previous,!icon/clipboard_action_key|!code/key_clipboard,!icon/emoji_action_key|!code/key_emoji,!icon/next_key|!code/key_action_next"
+        private const val POPUP_KEYS_NAVIGATE_PREVIOUS = "!icon/previous_key|!code/key_action_previous,!icon/clipboard_action_key|!code/key_clipboard"
+        private const val POPUP_KEYS_NAVIGATE_NEXT = "!icon/clipboard_action_key|!code/key_clipboard,!icon/next_key|!code/key_action_next"
+        private const val POPUP_KEYS_NAVIGATE_PREVIOUS_NEXT = "!fixedColumnOrder!3,!needsDividers!,!icon/previous_key|!code/key_action_previous,!icon/clipboard_action_key|!code/key_clipboard,!icon/next_key|!code/key_action_next"
+        private const val POPUP_KEYS_NAVIGATE_EMOJI_PREVIOUS = "!fixedColumnOrder!3,!needsDividers!,!icon/previous_key|!code/key_action_previous,!icon/clipboard_action_key|!code/key_clipboard,!icon/emoji_action_key|!code/key_emoji"
+        private const val POPUP_KEYS_NAVIGATE_EMOJI = "!icon/clipboard_action_key|!code/key_clipboard,!icon/emoji_action_key|!code/key_emoji"
+        private const val POPUP_KEYS_NAVIGATE_EMOJI_NEXT = "!fixedColumnOrder!3,!needsDividers!,!icon/clipboard_action_key|!code/key_clipboard,!icon/emoji_action_key|!code/key_emoji,!icon/next_key|!code/key_action_next"
+        private const val POPUP_KEYS_NAVIGATE_EMOJI_PREVIOUS_NEXT = "!fixedColumnOrder!4,!needsDividers!,!icon/previous_key|!code/key_action_previous,!icon/clipboard_action_key|!code/key_clipboard,!icon/emoji_action_key|!code/key_emoji,!icon/next_key|!code/key_action_next"
     }
 
     /** get the label, but also considers code, which can't be set separately for popup keys and thus goes into the label */
