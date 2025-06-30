@@ -24,7 +24,6 @@ import helium314.keyboard.latin.common.LocaleUtils.constructLocale
 import helium314.keyboard.latin.common.StringUtils
 import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.spellcheck.AndroidSpellCheckerService
-import helium314.keyboard.latin.utils.InputTypeUtils
 import helium314.keyboard.latin.utils.LayoutType
 import helium314.keyboard.latin.utils.Log
 import helium314.keyboard.latin.utils.ToolbarKey
@@ -94,30 +93,6 @@ sealed interface KeyData : AbstractKeyData {
          */
         const val GROUP_KANA: Int = 97
 
-        private fun getShiftLabel(params: KeyboardParams) = when (params.mId.mElementId) {
-            KeyboardId.ELEMENT_SYMBOLS_SHIFTED -> params.mLocaleKeyboardInfos.labelSymbol
-            KeyboardId.ELEMENT_SYMBOLS -> params.mLocaleKeyboardInfos.getShiftSymbolLabel(Settings.getInstance().isTablet)
-            KeyboardId.ELEMENT_ALPHABET_MANUAL_SHIFTED, KeyboardId.ELEMENT_ALPHABET_AUTOMATIC_SHIFTED -> "!icon/${KeyboardIconsSet.NAME_SHIFT_KEY_SHIFTED}"
-            KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCKED, KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCK_SHIFTED -> "!icon/${KeyboardIconsSet.NAME_SHIFT_KEY_LOCKED}"
-
-            else -> "!icon/${KeyboardIconsSet.NAME_SHIFT_KEY}"
-        }
-
-        // todo (later): try avoiding this weirdness
-        //  maybe just remove it and if users want it they can use custom functional layouts?
-        //  but it has been like this "forever" and actually seems to make sense
-        private fun getPeriodLabel(params: KeyboardParams): String {
-            if (params.mId.isNumberLayout) return "."
-            if (params.mId.isAlphabetKeyboard || params.mId.locale.language in listOf("ar", "fa"))
-                return params.mLocaleKeyboardInfos.labelPeriod
-            return "."
-        }
-
-        private fun getSpaceLabel(params: KeyboardParams): String =
-            if (params.mId.isAlphaOrSymbolKeyboard || params.mId.isEmojiClipBottomRow)
-                "!icon/space_key|!code/key_space"
-            else "!icon/space_key_for_number_layout|!code/key_space"
-
         // todo: emoji and language switch popups should actually disappear depending on current layout (including functional keys)
         //  keys could be replaced with toolbar keys, but parsing needs to be adjusted (should happen anyway...)
         private fun getCommaPopupKeys(params: KeyboardParams): List<String> {
@@ -172,34 +147,6 @@ sealed interface KeyData : AbstractKeyData {
             val locale = if (params.mId.locale.toLanguageTag() == "hi-Latn") "en_IN".constructLocale()
             else params.mId.locale
             return Settings.getInstance().getInLocale(id, locale)
-        }
-
-        // action key stuff below
-
-        // todo (later): should this be handled with metaState? but metaState shift would require LOTS of changes...
-        private fun getActionKeyCode(params: KeyboardParams) =
-            if (params.mId.isMultiLine && (params.mId.mElementId == KeyboardId.ELEMENT_ALPHABET_MANUAL_SHIFTED || params.mId.mElementId == KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCK_SHIFTED))
-                "!code/key_shift_enter"
-            else "!code/key_enter"
-
-        private fun getActionKeyLabel(params: KeyboardParams): String {
-            if (params.mId.isMultiLine && (params.mId.mElementId == KeyboardId.ELEMENT_ALPHABET_MANUAL_SHIFTED || params.mId.mElementId == KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCK_SHIFTED))
-                return "!icon/enter_key"
-            val iconName = when (params.mId.imeAction()) {
-                EditorInfo.IME_ACTION_GO -> KeyboardIconsSet.NAME_GO_KEY
-                EditorInfo.IME_ACTION_SEARCH -> KeyboardIconsSet.NAME_SEARCH_KEY
-                EditorInfo.IME_ACTION_SEND -> KeyboardIconsSet.NAME_SEND_KEY
-                EditorInfo.IME_ACTION_NEXT -> KeyboardIconsSet.NAME_NEXT_KEY
-                EditorInfo.IME_ACTION_DONE -> KeyboardIconsSet.NAME_DONE_KEY
-                EditorInfo.IME_ACTION_PREVIOUS -> KeyboardIconsSet.NAME_PREVIOUS_KEY
-                InputTypeUtils.IME_ACTION_CUSTOM_LABEL -> return params.mId.mCustomActionLabel
-                else -> return "!icon/enter_key"
-            }
-            val replacement = iconName.replaceIconWithLabelIfNoDrawable(params)
-            return if (iconName == replacement) // i.e. icon exists
-                "!icon/$iconName"
-            else
-                replacement
         }
 
         private fun getActionKeyPopupKeys(params: KeyboardParams): SimplePopups? =
@@ -272,7 +219,7 @@ sealed interface KeyData : AbstractKeyData {
             return SimplePopups(popupKeys)
         }
 
-        private fun String.replaceIconWithLabelIfNoDrawable(params: KeyboardParams): String {
+        fun String.replaceIconWithLabelIfNoDrawable(params: KeyboardParams): String {
             if (params.mIconsSet.getIconDrawable(this) != null) return this
             if (params.mId.mWidth == AndroidSpellCheckerService.SPELLCHECKER_DUMMY_KEYBOARD_WIDTH
                 && params.mId.mHeight == AndroidSpellCheckerService.SPELLCHECKER_DUMMY_KEYBOARD_HEIGHT
@@ -289,34 +236,11 @@ sealed interface KeyData : AbstractKeyData {
             return getStringInLocale(id, params)
         }
 
-        fun processLabel(label: String, params: KeyboardParams): String = when (label) {
-            KeyLabel.SYMBOL_ALPHA -> if (params.mId.isAlphabetKeyboard) params.mLocaleKeyboardInfos.labelSymbol else params.mLocaleKeyboardInfos.labelAlphabet
-            KeyLabel.SYMBOL -> params.mLocaleKeyboardInfos.labelSymbol
-            KeyLabel.ALPHA -> params.mLocaleKeyboardInfos.labelAlphabet
-            KeyLabel.COMMA -> params.mLocaleKeyboardInfos.labelComma
-            KeyLabel.PERIOD -> getPeriodLabel(params)
-            KeyLabel.SPACE -> getSpaceLabel(params)
-            KeyLabel.ACTION -> "${getActionKeyLabel(params)}|${getActionKeyCode(params)}"
-            KeyLabel.DELETE -> "!icon/delete_key|!code/key_delete"
-            KeyLabel.SHIFT -> "${getShiftLabel(params)}|!code/key_shift"
-            KeyLabel.COM -> params.mLocaleKeyboardInfos.tlds.first()
-            KeyLabel.LANGUAGE_SWITCH -> "!icon/language_switch_key|!code/key_language_switch"
-            KeyLabel.ZWNJ -> "!icon/zwnj_key|\u200C"
-            KeyLabel.CURRENCY -> params.mLocaleKeyboardInfos.currencyKey.first
-            KeyLabel.CURRENCY1 -> params.mLocaleKeyboardInfos.currencyKey.second[0]
-            KeyLabel.CURRENCY2 -> params.mLocaleKeyboardInfos.currencyKey.second[1]
-            KeyLabel.CURRENCY3 -> params.mLocaleKeyboardInfos.currencyKey.second[2]
-            KeyLabel.CURRENCY4 -> params.mLocaleKeyboardInfos.currencyKey.second[3]
-            KeyLabel.CURRENCY5 -> params.mLocaleKeyboardInfos.currencyKey.second[4]
-            KeyLabel.CTRL, KeyLabel.ALT, KeyLabel.FN, KeyLabel.META , KeyLabel.ESCAPE -> label.uppercase(Locale.US)
-            KeyLabel.TAB -> "!icon/tab_key|!code/${KeyCode.TAB}"
-            KeyLabel.TIMESTAMP -> "⌚|!code/${KeyCode.TIMESTAMP}"
-            else -> {
-                if (label in toolbarKeyStrings.values) {
+        fun processLabel(label: String, params: KeyboardParams): String =
+            KeyLabel.keyLabelToActualLabel(label, params)
+                ?: if (label in toolbarKeyStrings.values)
                     "!icon/$label|!code/${getCodeForToolbarKey(ToolbarKey.valueOf(label.uppercase(Locale.US)))}"
-                } else label
-            }
-        }
+                else label
 
         private fun shouldShowTldPopups(params: KeyboardParams): Boolean =
             (Settings.getInstance().current.mShowTldPopupKeys
