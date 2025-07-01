@@ -229,6 +229,7 @@ class DictionaryFacilitatorImpl : DictionaryFacilitator {
         mLatchForWaitingLoadingMainDictionaries = latchForWaitingLoadingMainDictionary
         scope.launch {
             try {
+                val useEmojiDict = Settings.getValues().mSuggestEmojis
                 val dictGroupsWithNewMainDict = locales.mapNotNull {
                     val dictionaryGroup = findDictionaryGroupWithLocale(dictionaryGroups, it)
                     if (dictionaryGroup == null) {
@@ -236,7 +237,7 @@ class DictionaryFacilitatorImpl : DictionaryFacilitator {
                         return@mapNotNull null // This should never happen
                     }
                     if (dictionaryGroup.getDict(Dictionary.TYPE_MAIN)?.isInitialized == true) null
-                    else dictionaryGroup to DictionaryFactory.createMainDictionaryCollection(context, it)
+                    else dictionaryGroup to DictionaryFactory.createMainDictionaryCollection(context, it, useEmojiDict)
                 }
                 synchronized(this) {
                     dictGroupsWithNewMainDict.forEach { (dictGroup, mainDict) ->
@@ -532,7 +533,7 @@ class DictionaryFacilitatorImpl : DictionaryFacilitator {
                 )
                     continue
 
-                if (word.length == 1 && info.mSourceDict.mDictType == "emoji" && !StringUtils.mightBeEmoji(word[0].code))
+                if (word.length == 1 && info.mSourceDict.mDictType == Dictionary.TYPE_EMOJI && !StringUtils.mightBeEmoji(word[0].code))
                     continue
 
                 suggestions.add(info)
