@@ -309,11 +309,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
 
     public static boolean readGestureDynamicPreviewDefault(final Context context) {
         // if transitions are disabled for the system (reduced motion), moving preview should be disabled
-        return android.provider.Settings.System.getFloat(
-                context.getContentResolver(),
-                android.provider.Settings.Global.TRANSITION_ANIMATION_SCALE,
-                1.0f
-        ) != 0.0f;
+        return SettingsKt.getTransitionAnimationScale(context) != 0.0f;
     }
 
     public static int readDefaultGestureFastTypingCooldown(final Resources res) {
