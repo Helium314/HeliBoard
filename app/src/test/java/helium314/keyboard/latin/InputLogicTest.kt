@@ -658,6 +658,14 @@ class InputLogicTest {
         assertEquals("", text)
     }
 
+    // emoRegex update to unicode 16.0 was required, https://github.com/Helium314/HeliBoard/issues/1760
+    @Test fun `emojis deleted one by one`() {
+        reset()
+        chainInput("\uD83E\uDEC6\uD83E\uDEC6\uD83E\uDEC6")
+        functionalKeyPress(KeyCode.DELETE)
+        assertEquals("\uD83E\uDEC6\uD83E\uDEC6", text)
+    }
+
     @Test fun `revert autocorrect on delete`() {
         reset()
         setInputType(InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_FLAG_AUTO_CORRECT)
