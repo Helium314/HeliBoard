@@ -1829,7 +1829,9 @@ public class LatinIME extends InputMethodService implements
                     dnd = android.provider.Settings.Global.getInt(context.getContentResolver(), "zen_mode") != 0;
                 } catch (android.provider.Settings.SettingNotFoundException e) {
                     dnd = false;
+                    Log.w(TAG, "zen_mode setting not found, assuming disabled");
                 }
+                Log.i(TAG, "ringer mode changed, zen_mode on: "+dnd);
                 AudioAndHapticFeedbackManager.getInstance().onRingerModeChanged(dnd);
             }
         }
