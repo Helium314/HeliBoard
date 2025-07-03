@@ -45,7 +45,7 @@ class LocaleKeyboardInfos(dataStream: InputStream?, locale: Locale) {
         "mns" -> Key.LABEL_FLAGS_FOLLOW_KEY_LETTER_RATIO
         else -> 0
     }
-    val tlds = mutableListOf<String>()
+    val tlds = mutableListOf(Key.POPUP_KEYS_HAS_LABELS)
 
     init {
         readStream(dataStream, false, true)

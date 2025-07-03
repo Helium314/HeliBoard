@@ -24,7 +24,6 @@ import helium314.keyboard.latin.common.LocaleUtils.constructLocale
 import helium314.keyboard.latin.common.StringUtils
 import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.spellcheck.AndroidSpellCheckerService
-import helium314.keyboard.latin.utils.InputTypeUtils
 import helium314.keyboard.latin.utils.LayoutType
 import helium314.keyboard.latin.utils.Log
 import helium314.keyboard.latin.utils.ToolbarKey
@@ -94,30 +93,6 @@ sealed interface KeyData : AbstractKeyData {
          */
         const val GROUP_KANA: Int = 97
 
-        private fun getShiftLabel(params: KeyboardParams) = when (params.mId.mElementId) {
-            KeyboardId.ELEMENT_SYMBOLS_SHIFTED -> params.mLocaleKeyboardInfos.labelSymbol
-            KeyboardId.ELEMENT_SYMBOLS -> params.mLocaleKeyboardInfos.getShiftSymbolLabel(Settings.getInstance().isTablet)
-            KeyboardId.ELEMENT_ALPHABET_MANUAL_SHIFTED, KeyboardId.ELEMENT_ALPHABET_AUTOMATIC_SHIFTED -> "!icon/${KeyboardIconsSet.NAME_SHIFT_KEY_SHIFTED}"
-            KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCKED, KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCK_SHIFTED -> "!icon/${KeyboardIconsSet.NAME_SHIFT_KEY_LOCKED}"
-
-            else -> "!icon/${KeyboardIconsSet.NAME_SHIFT_KEY}"
-        }
-
-        // todo (later): try avoiding this weirdness
-        //  maybe just remove it and if users want it they can use custom functional layouts?
-        //  but it has been like this "forever" and actually seems to make sense
-        private fun getPeriodLabel(params: KeyboardParams): String {
-            if (params.mId.isNumberLayout) return "."
-            if (params.mId.isAlphabetKeyboard || params.mId.locale.language in listOf("ar", "fa"))
-                return params.mLocaleKeyboardInfos.labelPeriod
-            return "."
-        }
-
-        private fun getSpaceLabel(params: KeyboardParams): String =
-            if (params.mId.isAlphaOrSymbolKeyboard || params.mId.isEmojiClipBottomRow)
-                "!icon/space_key|!code/key_space"
-            else "!icon/space_key_for_number_layout|!code/key_space"
-
         // todo: emoji and language switch popups should actually disappear depending on current layout (including functional keys)
         //  keys could be replaced with toolbar keys, but parsing needs to be adjusted (should happen anyway...)
         private fun getCommaPopupKeys(params: KeyboardParams): List<String> {
@@ -174,34 +149,6 @@ sealed interface KeyData : AbstractKeyData {
             return Settings.getInstance().getInLocale(id, locale)
         }
 
-        // action key stuff below
-
-        // todo (later): should this be handled with metaState? but metaState shift would require LOTS of changes...
-        private fun getActionKeyCode(params: KeyboardParams) =
-            if (params.mId.isMultiLine && (params.mId.mElementId == KeyboardId.ELEMENT_ALPHABET_MANUAL_SHIFTED || params.mId.mElementId == KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCK_SHIFTED))
-                "!code/key_shift_enter"
-            else "!code/key_enter"
-
-        private fun getActionKeyLabel(params: KeyboardParams): String {
-            if (params.mId.isMultiLine && (params.mId.mElementId == KeyboardId.ELEMENT_ALPHABET_MANUAL_SHIFTED || params.mId.mElementId == KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCK_SHIFTED))
-                return "!icon/enter_key"
-            val iconName = when (params.mId.imeAction()) {
-                EditorInfo.IME_ACTION_GO -> KeyboardIconsSet.NAME_GO_KEY
-                EditorInfo.IME_ACTION_SEARCH -> KeyboardIconsSet.NAME_SEARCH_KEY
-                EditorInfo.IME_ACTION_SEND -> KeyboardIconsSet.NAME_SEND_KEY
-                EditorInfo.IME_ACTION_NEXT -> KeyboardIconsSet.NAME_NEXT_KEY
-                EditorInfo.IME_ACTION_DONE -> KeyboardIconsSet.NAME_DONE_KEY
-                EditorInfo.IME_ACTION_PREVIOUS -> KeyboardIconsSet.NAME_PREVIOUS_KEY
-                InputTypeUtils.IME_ACTION_CUSTOM_LABEL -> return params.mId.mCustomActionLabel
-                else -> return "!icon/enter_key"
-            }
-            val replacement = iconName.replaceIconWithLabelIfNoDrawable(params)
-            return if (iconName == replacement) // i.e. icon exists
-                "!icon/$iconName"
-            else
-                replacement
-        }
-
         private fun getActionKeyPopupKeys(params: KeyboardParams): SimplePopups? =
             getActionKeyPopupKeyString(params.mId)?.let { createActionPopupKeys(it, params) }
 
@@ -211,34 +158,34 @@ sealed interface KeyData : AbstractKeyData {
             val navigateNext = keyboardId.navigateNext()
             return when {
                 keyboardId.passwordInput() -> when {
-                    navigatePrev && action == EditorInfo.IME_ACTION_NEXT -> POPUP_EYS_NAVIGATE_PREVIOUS
+                    navigatePrev && action == EditorInfo.IME_ACTION_NEXT -> POPUP_KEYS_NAVIGATE_PREVIOUS
                     action == EditorInfo.IME_ACTION_NEXT -> null
-                    navigateNext && action == EditorInfo.IME_ACTION_PREVIOUS -> POPUP_EYS_NAVIGATE_NEXT
+                    navigateNext && action == EditorInfo.IME_ACTION_PREVIOUS -> POPUP_KEYS_NAVIGATE_NEXT
                     action == EditorInfo.IME_ACTION_PREVIOUS -> null
-                    navigateNext && navigatePrev -> POPUP_EYS_NAVIGATE_PREVIOUS_NEXT
-                    navigateNext -> POPUP_EYS_NAVIGATE_NEXT
-                    navigatePrev -> POPUP_EYS_NAVIGATE_PREVIOUS
+                    navigateNext && navigatePrev -> POPUP_KEYS_NAVIGATE_PREVIOUS_NEXT
+                    navigateNext -> POPUP_KEYS_NAVIGATE_NEXT
+                    navigatePrev -> POPUP_KEYS_NAVIGATE_PREVIOUS
                     else -> null
                 }
                 // could change definition of numbers to query a range, or have a pre-defined list, but not that crucial
                 keyboardId.isNumberLayout || keyboardId.mMode in listOf(KeyboardId.MODE_EMAIL, KeyboardId.MODE_DATE, KeyboardId.MODE_TIME, KeyboardId.MODE_DATETIME) -> when {
-                    action == EditorInfo.IME_ACTION_NEXT && navigatePrev -> POPUP_EYS_NAVIGATE_PREVIOUS
+                    action == EditorInfo.IME_ACTION_NEXT && navigatePrev -> POPUP_KEYS_NAVIGATE_PREVIOUS
                     action == EditorInfo.IME_ACTION_NEXT -> null
-                    action == EditorInfo.IME_ACTION_PREVIOUS && navigateNext -> POPUP_EYS_NAVIGATE_NEXT
+                    action == EditorInfo.IME_ACTION_PREVIOUS && navigateNext -> POPUP_KEYS_NAVIGATE_NEXT
                     action == EditorInfo.IME_ACTION_PREVIOUS -> null
-                    navigateNext && navigatePrev -> POPUP_EYS_NAVIGATE_PREVIOUS_NEXT
-                    navigateNext -> POPUP_EYS_NAVIGATE_NEXT
-                    navigatePrev -> POPUP_EYS_NAVIGATE_PREVIOUS
+                    navigateNext && navigatePrev -> POPUP_KEYS_NAVIGATE_PREVIOUS_NEXT
+                    navigateNext -> POPUP_KEYS_NAVIGATE_NEXT
+                    navigatePrev -> POPUP_KEYS_NAVIGATE_PREVIOUS
                     else -> null
                 }
-                action == EditorInfo.IME_ACTION_NEXT && navigatePrev -> POPUP_EYS_NAVIGATE_EMOJI_PREVIOUS
-                action == EditorInfo.IME_ACTION_NEXT -> POPUP_EYS_NAVIGATE_EMOJI
-                action == EditorInfo.IME_ACTION_PREVIOUS && navigateNext -> POPUP_EYS_NAVIGATE_EMOJI_NEXT
-                action == EditorInfo.IME_ACTION_PREVIOUS -> POPUP_EYS_NAVIGATE_EMOJI
-                navigateNext && navigatePrev -> POPUP_EYS_NAVIGATE_EMOJI_PREVIOUS_NEXT
-                navigateNext -> POPUP_EYS_NAVIGATE_EMOJI_NEXT
-                navigatePrev -> POPUP_EYS_NAVIGATE_EMOJI_PREVIOUS
-                else -> POPUP_EYS_NAVIGATE_EMOJI
+                action == EditorInfo.IME_ACTION_NEXT && navigatePrev -> POPUP_KEYS_NAVIGATE_EMOJI_PREVIOUS
+                action == EditorInfo.IME_ACTION_NEXT -> POPUP_KEYS_NAVIGATE_EMOJI
+                action == EditorInfo.IME_ACTION_PREVIOUS && navigateNext -> POPUP_KEYS_NAVIGATE_EMOJI_NEXT
+                action == EditorInfo.IME_ACTION_PREVIOUS -> POPUP_KEYS_NAVIGATE_EMOJI
+                navigateNext && navigatePrev -> POPUP_KEYS_NAVIGATE_EMOJI_PREVIOUS_NEXT
+                navigateNext -> POPUP_KEYS_NAVIGATE_EMOJI_NEXT
+                navigatePrev -> POPUP_KEYS_NAVIGATE_EMOJI_PREVIOUS
+                else -> POPUP_KEYS_NAVIGATE_EMOJI
             }
         }
 
@@ -272,7 +219,7 @@ sealed interface KeyData : AbstractKeyData {
             return SimplePopups(popupKeys)
         }
 
-        private fun String.replaceIconWithLabelIfNoDrawable(params: KeyboardParams): String {
+        fun String.replaceIconWithLabelIfNoDrawable(params: KeyboardParams): String {
             if (params.mIconsSet.getIconDrawable(this) != null) return this
             if (params.mId.mWidth == AndroidSpellCheckerService.SPELLCHECKER_DUMMY_KEYBOARD_WIDTH
                 && params.mId.mHeight == AndroidSpellCheckerService.SPELLCHECKER_DUMMY_KEYBOARD_HEIGHT
@@ -289,34 +236,11 @@ sealed interface KeyData : AbstractKeyData {
             return getStringInLocale(id, params)
         }
 
-        fun processLabel(label: String, params: KeyboardParams): String = when (label) {
-            KeyLabel.SYMBOL_ALPHA -> if (params.mId.isAlphabetKeyboard) params.mLocaleKeyboardInfos.labelSymbol else params.mLocaleKeyboardInfos.labelAlphabet
-            KeyLabel.SYMBOL -> params.mLocaleKeyboardInfos.labelSymbol
-            KeyLabel.ALPHA -> params.mLocaleKeyboardInfos.labelAlphabet
-            KeyLabel.COMMA -> params.mLocaleKeyboardInfos.labelComma
-            KeyLabel.PERIOD -> getPeriodLabel(params)
-            KeyLabel.SPACE -> getSpaceLabel(params)
-            KeyLabel.ACTION -> "${getActionKeyLabel(params)}|${getActionKeyCode(params)}"
-            KeyLabel.DELETE -> "!icon/delete_key|!code/key_delete"
-            KeyLabel.SHIFT -> "${getShiftLabel(params)}|!code/key_shift"
-            KeyLabel.COM -> params.mLocaleKeyboardInfos.tlds.first()
-            KeyLabel.LANGUAGE_SWITCH -> "!icon/language_switch_key|!code/key_language_switch"
-            KeyLabel.ZWNJ -> "!icon/zwnj_key|\u200C"
-            KeyLabel.CURRENCY -> params.mLocaleKeyboardInfos.currencyKey.first
-            KeyLabel.CURRENCY1 -> params.mLocaleKeyboardInfos.currencyKey.second[0]
-            KeyLabel.CURRENCY2 -> params.mLocaleKeyboardInfos.currencyKey.second[1]
-            KeyLabel.CURRENCY3 -> params.mLocaleKeyboardInfos.currencyKey.second[2]
-            KeyLabel.CURRENCY4 -> params.mLocaleKeyboardInfos.currencyKey.second[3]
-            KeyLabel.CURRENCY5 -> params.mLocaleKeyboardInfos.currencyKey.second[4]
-            KeyLabel.CTRL, KeyLabel.ALT, KeyLabel.FN, KeyLabel.META , KeyLabel.ESCAPE -> label.uppercase(Locale.US)
-            KeyLabel.TAB -> "!icon/tab_key|!code/${KeyCode.TAB}"
-            KeyLabel.TIMESTAMP -> "⌚|!code/${KeyCode.TIMESTAMP}"
-            else -> {
-                if (label in toolbarKeyStrings.values) {
+        fun processLabel(label: String, params: KeyboardParams): String =
+            KeyLabel.keyLabelToActualLabel(label, params)
+                ?: if (label in toolbarKeyStrings.values)
                     "!icon/$label|!code/${getCodeForToolbarKey(ToolbarKey.valueOf(label.uppercase(Locale.US)))}"
-                } else label
-            }
-        }
+                else label
 
         private fun shouldShowTldPopups(params: KeyboardParams): Boolean =
             (Settings.getInstance().current.mShowTldPopupKeys
@@ -324,13 +248,13 @@ sealed interface KeyData : AbstractKeyData {
                     && params.mId.mMode in setOf(KeyboardId.MODE_URL, KeyboardId.MODE_EMAIL))
 
         // could make arrays right away, but they need to be copied anyway as popupKeys arrays are modified when creating KeyParams
-        private const val POPUP_EYS_NAVIGATE_PREVIOUS = "!icon/previous_key|!code/key_action_previous,!icon/clipboard_action_key|!code/key_clipboard"
-        private const val POPUP_EYS_NAVIGATE_NEXT = "!icon/clipboard_action_key|!code/key_clipboard,!icon/next_key|!code/key_action_next"
-        private const val POPUP_EYS_NAVIGATE_PREVIOUS_NEXT = "!fixedColumnOrder!3,!needsDividers!,!icon/previous_key|!code/key_action_previous,!icon/clipboard_action_key|!code/key_clipboard,!icon/next_key|!code/key_action_next"
-        private const val POPUP_EYS_NAVIGATE_EMOJI_PREVIOUS = "!fixedColumnOrder!3,!needsDividers!,!icon/previous_key|!code/key_action_previous,!icon/clipboard_action_key|!code/key_clipboard,!icon/emoji_action_key|!code/key_emoji"
-        private const val POPUP_EYS_NAVIGATE_EMOJI = "!icon/clipboard_action_key|!code/key_clipboard,!icon/emoji_action_key|!code/key_emoji"
-        private const val POPUP_EYS_NAVIGATE_EMOJI_NEXT = "!fixedColumnOrder!3,!needsDividers!,!icon/clipboard_action_key|!code/key_clipboard,!icon/emoji_action_key|!code/key_emoji,!icon/next_key|!code/key_action_next"
-        private const val POPUP_EYS_NAVIGATE_EMOJI_PREVIOUS_NEXT = "!fixedColumnOrder!4,!needsDividers!,!icon/previous_key|!code/key_action_previous,!icon/clipboard_action_key|!code/key_clipboard,!icon/emoji_action_key|!code/key_emoji,!icon/next_key|!code/key_action_next"
+        private const val POPUP_KEYS_NAVIGATE_PREVIOUS = "!icon/previous_key|!code/key_action_previous,!icon/clipboard_action_key|!code/key_clipboard"
+        private const val POPUP_KEYS_NAVIGATE_NEXT = "!icon/clipboard_action_key|!code/key_clipboard,!icon/next_key|!code/key_action_next"
+        private const val POPUP_KEYS_NAVIGATE_PREVIOUS_NEXT = "!fixedColumnOrder!3,!needsDividers!,!icon/previous_key|!code/key_action_previous,!icon/clipboard_action_key|!code/key_clipboard,!icon/next_key|!code/key_action_next"
+        private const val POPUP_KEYS_NAVIGATE_EMOJI_PREVIOUS = "!fixedColumnOrder!3,!needsDividers!,!icon/previous_key|!code/key_action_previous,!icon/clipboard_action_key|!code/key_clipboard,!icon/emoji_action_key|!code/key_emoji"
+        private const val POPUP_KEYS_NAVIGATE_EMOJI = "!icon/clipboard_action_key|!code/key_clipboard,!icon/emoji_action_key|!code/key_emoji"
+        private const val POPUP_KEYS_NAVIGATE_EMOJI_NEXT = "!fixedColumnOrder!3,!needsDividers!,!icon/clipboard_action_key|!code/key_clipboard,!icon/emoji_action_key|!code/key_emoji,!icon/next_key|!code/key_action_next"
+        private const val POPUP_KEYS_NAVIGATE_EMOJI_PREVIOUS_NEXT = "!fixedColumnOrder!4,!needsDividers!,!icon/previous_key|!code/key_action_previous,!icon/clipboard_action_key|!code/key_clipboard,!icon/emoji_action_key|!code/key_emoji,!icon/next_key|!code/key_action_next"
     }
 
     /** get the label, but also considers code, which can't be set separately for popup keys and thus goes into the label */

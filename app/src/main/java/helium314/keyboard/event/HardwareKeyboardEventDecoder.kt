@@ -24,7 +24,8 @@ class HardwareKeyboardEventDecoder(val mDeviceId: Int) : HardwareEventDecoder {
         // KeyEvent#getUnicodeChar() does not exactly returns a unicode char, but rather a value
         // that includes both the unicode char in the lower 21 bits and flags in the upper bits,
         // hence the name "codePointAndFlags". {@see KeyEvent#getUnicodeChar()} for more info.
-        val codePointAndFlags = keyEvent.unicodeChar
+        val codePointAndFlags = keyEvent.unicodeChar.takeIf { it != 0 }
+            ?: Event.NOT_A_CODE_POINT // KeyEvent has 0 if no codePoint, but that's actually valid so we convert it to -1
         // The keyCode is the abstraction used by the KeyEvent to represent different keys that
         // do not necessarily map to a unicode character. This represents a physical key, like
         // the key for 'A' or Space, but also Backspace or Ctrl or Caps Lock.
@@ -48,6 +49,21 @@ class HardwareKeyboardEventDecoder(val mDeviceId: Int) : HardwareEventDecoder {
             } else Event.createHardwareKeypressEvent(codePointAndFlags, keyCode, metaState, null, isKeyRepeat)
             // If not Enter, then this is just a regular keypress event for a normal character
             // that can be committed right away, taking into account the current state.
-        } else Event.createNotHandledEvent()
+        } else if (isDpadDirection(keyCode)) {
+            Event.createHardwareKeypressEvent(codePointAndFlags, keyCode, metaState, null, isKeyRepeat)
+//        } else if (KeyEvent.isModifierKey(keyCode)) {
+//            todo: we could synchronize meta state across HW and SW keyboard, but that's more work for little benefit (especially with shift & caps lock)
+        } else {
+            Event.notHandledEvent
+        }
+    }
+
+    companion object {
+        private fun isDpadDirection(keyCode: Int) = when (keyCode) {
+            KeyEvent.KEYCODE_DPAD_UP, KeyEvent.KEYCODE_DPAD_DOWN, KeyEvent.KEYCODE_DPAD_LEFT, KeyEvent.KEYCODE_DPAD_RIGHT,
+            KeyEvent.KEYCODE_DPAD_DOWN_LEFT, KeyEvent.KEYCODE_DPAD_DOWN_RIGHT, KeyEvent.KEYCODE_DPAD_UP_RIGHT,
+            KeyEvent.KEYCODE_DPAD_UP_LEFT -> true
+            else -> false
+        }
     }
 }

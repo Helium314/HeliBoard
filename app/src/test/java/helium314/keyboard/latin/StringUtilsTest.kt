@@ -128,6 +128,8 @@ class StringUtilsTest {
         assertEquals("\uD83D\uDD75\uD83C\uDFFC", getFullEmojiAtEnd(" 🕵🏼"))
         assertEquals("\uD83D\uDD75\uD83C\uDFFC", getFullEmojiAtEnd("🕵🏼"))
         assertEquals("\uD83C\uDFFC", getFullEmojiAtEnd(" \uD83C\uDFFC"))
+        assertEquals("1\uFE0F⃣", getFullEmojiAtEnd("1\uFE0F⃣")) // 1️⃣
+        assertEquals("©\uFE0F", getFullEmojiAtEnd("©\uFE0F")) // ©️
         // fails, but unlikely enough that we leave it unfixed
         //assertEquals("\uD83C\uDFFC", getFullEmojiAtEnd("\uD83C\uDF84\uD83C\uDFFC"))
         // below also fail, because ZWJ handling is not suitable for some unusual cases

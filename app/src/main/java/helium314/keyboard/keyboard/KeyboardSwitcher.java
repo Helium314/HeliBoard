@@ -601,7 +601,10 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
         if (mKeyboardView == null || !mKeyboardView.isShown()) {
             return false;
         }
-        int activeKeyboardId = mKeyboardView.getKeyboard().mId.mElementId;
+        final Keyboard keyboard = mKeyboardView.getKeyboard();
+        if (keyboard == null) // may happen when using hardware keyboard
+            return false;
+        int activeKeyboardId = keyboard.mId.mElementId;
         for (int keyboardId : keyboardIds) {
             if (activeKeyboardId == keyboardId) {
                 return true;

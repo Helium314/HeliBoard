@@ -18,11 +18,7 @@ import helium314.keyboard.latin.utils.defaultToolbarPref
 
 object Defaults {
     fun initDynamicDefaults(context: Context) {
-        PREF_GESTURE_DYNAMIC_PREVIEW_FOLLOW_SYSTEM = android.provider.Settings.System.getFloat(
-            context.contentResolver,
-            android.provider.Settings.Global.TRANSITION_ANIMATION_SCALE,
-            1.0f
-        ) != 0.0f
+        PREF_GESTURE_DYNAMIC_PREVIEW_FOLLOW_SYSTEM = getTransitionAnimationScale(context) != 0.0f
         val dm = context.resources.displayMetrics
         val px600 = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 600f, dm)
         PREF_POPUP_ON = dm.widthPixels >= px600 || dm.heightPixels >= px600
@@ -58,6 +54,7 @@ object Defaults {
     const val PREF_VIBRATE_ON = false
     const val PREF_VIBRATE_IN_DND_MODE = false
     const val PREF_SOUND_ON = false
+    const val PREF_SUGGEST_EMOJIS = true
     const val PREF_INLINE_EMOJI_SEARCH = true
     const val PREF_SHOW_EMOJI_DESCRIPTIONS = true
     @JvmField

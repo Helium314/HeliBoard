@@ -3,6 +3,7 @@ package helium314.keyboard.settings.screens
 
 import android.Manifest
 import android.content.Context
+import android.content.Intent
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.material3.Surface
@@ -17,6 +18,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import helium314.keyboard.dictionarypack.DictionaryPackConstants
 import helium314.keyboard.keyboard.KeyboardSwitcher
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.permissions.PermissionsUtil
@@ -28,17 +30,17 @@ import helium314.keyboard.latin.utils.ToolbarMode
 import helium314.keyboard.latin.utils.getActivity
 import helium314.keyboard.latin.utils.prefs
 import helium314.keyboard.settings.NextScreenIcon
-import helium314.keyboard.settings.preferences.ListPreference
-import helium314.keyboard.settings.SettingsWithoutKey
-import helium314.keyboard.settings.Setting
-import helium314.keyboard.settings.preferences.Preference
 import helium314.keyboard.settings.SearchSettingsScreen
+import helium314.keyboard.settings.Setting
 import helium314.keyboard.settings.SettingsActivity
 import helium314.keyboard.settings.SettingsDestination
-import helium314.keyboard.settings.preferences.SwitchPreference
+import helium314.keyboard.settings.SettingsWithoutKey
 import helium314.keyboard.settings.Theme
 import helium314.keyboard.settings.dialogs.ConfirmationDialog
 import helium314.keyboard.settings.initPreview
+import helium314.keyboard.settings.preferences.ListPreference
+import helium314.keyboard.settings.preferences.Preference
+import helium314.keyboard.settings.preferences.SwitchPreference
 import helium314.keyboard.settings.previewDark
 
 @Composable
@@ -76,6 +78,7 @@ fun TextCorrectionScreen(
         if (suggestionsEnabled && prefs.getBoolean(Settings.PREF_ALWAYS_SHOW_SUGGESTIONS, Defaults.PREF_ALWAYS_SHOW_SUGGESTIONS))
             Settings.PREF_ALWAYS_SHOW_SUGGESTIONS_EXCEPT_WEB_TEXT else null,
         if (suggestionsEnabled) Settings.PREF_CENTER_SUGGESTION_TEXT_TO_ENTER else null,
+        if (suggestionsEnabled || autocorrectEnabled) Settings.PREF_SUGGEST_EMOJIS else null,
         if (suggestionsEnabled || autocorrectEnabled) Settings.PREF_INLINE_EMOJI_SEARCH else null,
         Settings.PREF_KEY_USE_PERSONALIZED_DICTS,
         Settings.PREF_BIGRAM_PREDICTIONS,
@@ -233,6 +236,13 @@ fun createCorrectionSettings(context: Context) = listOf(
         R.string.use_apps_dict, R.string.use_apps_dict_summary
     ) { setting ->
         SwitchPreference(setting, Defaults.PREF_USE_APPS)
+    },
+    Setting(
+        context, Settings.PREF_SUGGEST_EMOJIS, R.string.suggest_emojis, R.string.suggest_emojis_summary
+    ) {
+        SwitchPreference(it, Defaults.PREF_SUGGEST_EMOJIS) {
+            context.sendBroadcast(Intent(DictionaryPackConstants.NEW_DICTIONARY_INTENT_ACTION))
+        }
     },
     Setting(
         context, Settings.PREF_INLINE_EMOJI_SEARCH, R.string.inline_emoji_search,

@@ -67,6 +67,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_VIBRATE_ON = "vibrate_on";
     public static final String PREF_VIBRATE_IN_DND_MODE = "vibrate_in_dnd_mode";
     public static final String PREF_SOUND_ON = "sound_on";
+    public static final String PREF_SUGGEST_EMOJIS = "suggest_emojis";
     public static final String PREF_INLINE_EMOJI_SEARCH = "inline_emoji_search";
     public static final String PREF_SHOW_EMOJI_DESCRIPTIONS = "show_emoji_descriptions";
     public static final String PREF_POPUP_ON = "popup_on";
@@ -309,11 +310,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
 
     public static boolean readGestureDynamicPreviewDefault(final Context context) {
         // if transitions are disabled for the system (reduced motion), moving preview should be disabled
-        return android.provider.Settings.System.getFloat(
-                context.getContentResolver(),
-                android.provider.Settings.Global.TRANSITION_ANIMATION_SCALE,
-                1.0f
-        ) != 0.0f;
+        return SettingsKt.getTransitionAnimationScale(context) != 0.0f;
     }
 
     public static int readDefaultGestureFastTypingCooldown(final Resources res) {

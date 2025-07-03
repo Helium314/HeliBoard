@@ -52,6 +52,7 @@ import helium314.keyboard.latin.suggestions.SuggestionStripViewAccessor;
 import helium314.keyboard.latin.utils.AsyncResultHolder;
 import helium314.keyboard.latin.utils.DictionaryInfoUtils;
 import helium314.keyboard.latin.utils.InputTypeUtils;
+import helium314.keyboard.latin.utils.IntentUtils;
 import helium314.keyboard.latin.utils.Log;
 import helium314.keyboard.latin.utils.RecapitalizeStatus;
 import helium314.keyboard.latin.utils.ScriptUtils;
@@ -95,6 +96,7 @@ public final class InputLogic {
 
     private int mDeleteCount;
     private long mLastKeyTime;
+    // todo: this is not used, so either remove it or do something with it
     public final TreeSet<Long> mCurrentlyPressedHardwareKeys = new TreeSet<>();
 
     // Keeps track of most recently inserted text (multi-character key) for reverting
@@ -406,7 +408,11 @@ public final class InputLogic {
         // Stop the last recapitalization, if started.
         mRecapitalizeStatus.stop();
         mWordBeingCorrectedByCursor = null;
-        return true;
+
+        // we do not return true if
+        final boolean oneSidedSelectionMove = hasOrHadSelection
+            && ((oldSelEnd == newSelEnd && oldSelStart != newSelStart) || (oldSelEnd != newSelEnd && oldSelStart == newSelStart));
+        return !oneSidedSelectionMove;
     }
 
     public boolean moveCursorByAndReturnIfInsideComposingWord(int distance) {
@@ -650,7 +656,8 @@ public final class InputLogic {
      */
     private void handleFunctionalEvent(final Event event, final InputTransaction inputTransaction,
             final String currentKeyboardScript, final LatinIME.UIHandler handler) {
-        switch (event.getMKeyCode()) {
+        final int keyCode = event.getMKeyCode();
+        switch (keyCode) {
             case KeyCode.DELETE:
                 handleBackspaceEvent(event, inputTransaction, currentKeyboardScript);
                 // Backspace is a functional key, but it affects the contents of the editor.
@@ -693,7 +700,7 @@ public final class InputLogic {
             case KeyCode.SHIFT_ENTER:
                 // todo: try using sendDownUpKeyEventWithMetaState() and remove the key code maybe
                 final Event tmpEvent = Event.createSoftwareKeypressEvent(Constants.CODE_ENTER,
-                        event.getMKeyCode(), 0, event.getMX(), event.getMY(), event.isKeyRepeat());
+                        keyCode, 0, event.getMX(), event.getMY(), event.isKeyRepeat());
                 handleNonSpecialCharacterEvent(tmpEvent, inputTransaction, handler);
                 // Shift + Enter is treated as a functional key but it results in adding a new
                 // line, so that does affect the contents of the editor.
@@ -724,37 +731,43 @@ public final class InputLogic {
                 if (mConnection.hasSelection()) {
                     mConnection.copyText(true);
                     // fake delete keypress to remove the text
-                    final Event backspaceEvent = LatinIME.createSoftwareKeypressEvent(KeyCode.DELETE, 0,
+                    final Event backspaceEvent = Event.createSoftwareKeypressEvent(KeyCode.DELETE, 0,
                             event.getMX(), event.getMY(), event.isKeyRepeat());
                     handleBackspaceEvent(backspaceEvent, inputTransaction, currentKeyboardScript);
                     inputTransaction.setDidAffectContents();
                 }
                 break;
             case KeyCode.WORD_LEFT:
-                sendDownUpKeyEventWithMetaState(ScriptUtils.isScriptRtl(currentKeyboardScript)?
-                                     KeyEvent.KEYCODE_DPAD_RIGHT : KeyEvent.KEYCODE_DPAD_LEFT, KeyEvent.META_CTRL_ON);
+                sendDownUpKeyEventWithMetaState(
+                    ScriptUtils.isScriptRtl(currentKeyboardScript) ? KeyEvent.KEYCODE_DPAD_RIGHT : KeyEvent.KEYCODE_DPAD_LEFT,
+                    KeyEvent.META_CTRL_ON | event.getMMetaState());
                 break;
             case KeyCode.WORD_RIGHT:
-                sendDownUpKeyEventWithMetaState(ScriptUtils.isScriptRtl(currentKeyboardScript)?
-                                     KeyEvent.KEYCODE_DPAD_LEFT : KeyEvent.KEYCODE_DPAD_RIGHT, KeyEvent.META_CTRL_ON);
+                sendDownUpKeyEventWithMetaState(
+                    ScriptUtils.isScriptRtl(currentKeyboardScript) ? KeyEvent.KEYCODE_DPAD_LEFT : KeyEvent.KEYCODE_DPAD_RIGHT,
+                    KeyEvent.META_CTRL_ON | event.getMMetaState());
                 break;
             case KeyCode.MOVE_START_OF_PAGE:
-                final int selectionEnd = mConnection.getExpectedSelectionEnd();
-                sendDownUpKeyEventWithMetaState(KeyEvent.KEYCODE_MOVE_HOME, KeyEvent.META_CTRL_ON);
-                if (mConnection.getExpectedSelectionStart() > 0 && mConnection.getExpectedSelectionEnd() == selectionEnd) {
-                    // unchanged, and we're not at the top -> try a different method (necessary for compose fields)
-                    mConnection.setSelection(0, 0);
+                final int selectionEnd1 = mConnection.getExpectedSelectionEnd();
+                final int selectionStart1 = mConnection.getExpectedSelectionStart();
+                sendDownUpKeyEventWithMetaState(KeyEvent.KEYCODE_MOVE_HOME, KeyEvent.META_CTRL_ON | event.getMMetaState());
+                if (mConnection.getExpectedSelectionStart() == selectionStart1 && mConnection.getExpectedSelectionEnd() == selectionEnd1) {
+                    // unchanged -> try a different method (necessary for compose fields)
+                    final int newEnd = (event.getMMetaState() & KeyEvent.META_SHIFT_MASK) != 0 ? selectionEnd1 : 0;
+                    mConnection.setSelection(0, newEnd);
                 }
                 break;
             case KeyCode.MOVE_END_OF_PAGE:
-                final int selectionStart = mConnection.getExpectedSelectionEnd();
-                sendDownUpKeyEventWithMetaState(KeyEvent.KEYCODE_MOVE_END, KeyEvent.META_CTRL_ON);
-                if (mConnection.getExpectedSelectionStart() == selectionStart) {
+                final int selectionStart2 = mConnection.getExpectedSelectionStart();
+                final int selectionEnd2 = mConnection.getExpectedSelectionEnd();
+                sendDownUpKeyEventWithMetaState(KeyEvent.KEYCODE_MOVE_END, KeyEvent.META_CTRL_ON | event.getMMetaState());
+                if (mConnection.getExpectedSelectionStart() == selectionStart2 && mConnection.getExpectedSelectionEnd() == selectionEnd2) {
                     // unchanged, try fallback e.g. for compose fields that don't care about ctrl + end
                     // we just move to a very large index, and hope the field is prepared to deal with this
                     // getting the actual length of the text for setting the correct position can be tricky for some apps...
                     try {
-                        mConnection.setSelection(Integer.MAX_VALUE, Integer.MAX_VALUE);
+                        final int newStart = (event.getMMetaState() & KeyEvent.META_SHIFT_MASK) != 0 ? selectionStart2 : Integer.MAX_VALUE;
+                        mConnection.setSelection(newStart, Integer.MAX_VALUE);
                     } catch (Exception e) {
                         // better catch potential errors and just do nothing in this case
                         Log.i(TAG, "error when trying to move cursor to last position: " + e);
@@ -773,8 +786,10 @@ public final class InputLogic {
             case KeyCode.TIMESTAMP:
                 mLatinIME.onTextInput(TimestampKt.getTimestamp(mLatinIME));
                 break;
+            case KeyCode.SEND_INTENT_ONE, KeyCode.SEND_INTENT_TWO, KeyCode.SEND_INTENT_THREE:
+                IntentUtils.handleSendIntentKey(mLatinIME, event.getMKeyCode());
             case KeyCode.IME_HIDE_UI:
-                mLatinIME.hideWindow();
+                mLatinIME.requestHideSelf(0);
                 break;
             case KeyCode.VOICE_INPUT:
                 // switching to shortcut IME, shift state, keyboard,... is handled by LatinIME,
@@ -784,23 +799,20 @@ public final class InputLogic {
             case KeyCode.CAPS_LOCK, KeyCode.EMOJI, KeyCode.TOGGLE_ONE_HANDED_MODE, KeyCode.SWITCH_ONE_HANDED_MODE:
                 break;
             default:
-                if (KeyCode.INSTANCE.isModifier(event.getMKeyCode()))
-                    return; // continuation of previous switch case, but modifiers are in a separate place
-                if (event.getMMetaState() != 0) {
-                    // need to convert codepoint to KeyEvent.KEYCODE_<xxx>
-                    final int codeToConvert = event.getMKeyCode() < 0 ? event.getMKeyCode() : event.getMCodePoint();
-                    int keyEventCode = KeyCode.INSTANCE.toKeyEventCode(codeToConvert);
-                    if (keyEventCode != KeyEvent.KEYCODE_UNKNOWN)
-                        sendDownUpKeyEventWithMetaState(keyEventCode, event.getMMetaState());
-                    return; // never crash if user inputs sth we don't have a KeyEvent.KEYCODE for
-                } else if (event.getMKeyCode() < 0) {
-                    int keyEventCode = KeyCode.INSTANCE.toKeyEventCode(event.getMKeyCode());
-                    if (keyEventCode != KeyEvent.KEYCODE_UNKNOWN) {
-                        sendDownUpKeyEvent(keyEventCode);
-                        return;
-                    }
+                if (KeyCode.INSTANCE.isModifier(keyCode))
+                    return; // continuation of previous switch case above, but modifiers are held in a separate place
+                final int keyEventCode = keyCode > 0
+                    ? keyCode
+                    : event.getMCodePoint() >= 0 ? KeyCode.codePointToKeyEventCode(event.getMCodePoint())
+                    : KeyCode.keyCodeToKeyEventCode(keyCode);
+                if (keyEventCode != KeyEvent.KEYCODE_UNKNOWN) {
+                    sendDownUpKeyEventWithMetaState(keyEventCode, event.getMMetaState());
+                    return;
                 }
-                throw new RuntimeException("Unknown key code : " + event.getMKeyCode());
+                // unknown event
+                Log.e(TAG, "unknown event, key code: "+keyCode+", meta: "+event.getMMetaState());
+                if (DebugFlags.DEBUG_ENABLED)
+                    throw new RuntimeException("Unknown event");
         }
     }
 
@@ -1320,7 +1332,7 @@ public final class InputLogic {
                         // TODO: Add a new StatsUtils method onBackspaceWhenNoText()
                         return;
                     }
-                    final int lengthToDelete = codePointBeforeCursor > 0xFE00
+                    final int lengthToDelete = codePointBeforeCursor > 0xFE00 || StringUtils.mightBeEmoji(codePointBeforeCursor)
                             ? mConnection.getCharCountToDeleteBeforeCursor() : 1;
                     mConnection.deleteTextBeforeCursor(lengthToDelete);
                     int totalDeletedLength = lengthToDelete;
@@ -1333,7 +1345,7 @@ public final class InputLogic {
                         final int codePointBeforeCursorToDeleteAgain =
                                 mConnection.getCodePointBeforeCursor();
                         if (codePointBeforeCursorToDeleteAgain != Constants.NOT_A_CODE) {
-                            final int lengthToDeleteAgain = codePointBeforeCursor > 0xFE00
+                            final int lengthToDeleteAgain = codePointBeforeCursor > 0xFE00 || StringUtils.mightBeEmoji(codePointBeforeCursor)
                                     ? mConnection.getCharCountToDeleteBeforeCursor() : 1;
                             mConnection.deleteTextBeforeCursor(lengthToDeleteAgain);
                             totalDeletedLength += lengthToDeleteAgain;

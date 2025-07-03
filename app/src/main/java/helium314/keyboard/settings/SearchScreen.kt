@@ -16,6 +16,7 @@ import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
@@ -45,6 +46,7 @@ import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import helium314.keyboard.latin.R
@@ -241,7 +243,8 @@ fun ExpandableSearchField(
             }) { CloseIcon(android.R.string.cancel) } },
             singleLine = true,
             colors = colors,
-            textStyle = contentTextDirectionStyle
+            textStyle = contentTextDirectionStyle,
+            keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search)
         )
     }
 }

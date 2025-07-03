@@ -439,7 +439,7 @@ public final class RichInputConnection implements PrivateCommandPerformer {
         // test for this explicitly)
         if (INVALID_CURSOR_POSITION != mExpectedSelStart
                 && (cachedLength >= n || cachedLength >= mExpectedSelStart)) {
-            final StringBuilder s = new StringBuilder(mCommittedTextBeforeComposingText);
+            final StringBuilder s = new StringBuilder(mCommittedTextBeforeComposingText.toString());
             // We call #toString() here to create a temporary object.
             // In some situations, this method is called on a worker thread, and it's possible
             // the main thread touches the contents of mComposingText while this worker thread
@@ -716,8 +716,13 @@ public final class RichInputConnection implements PrivateCommandPerformer {
         if (start < 0 || end < 0) {
             return false;
         }
-        mExpectedSelStart = start;
-        mExpectedSelEnd = end;
+        if (start > end) {
+            mExpectedSelStart = end;
+            mExpectedSelEnd = start;
+        } else {
+            mExpectedSelStart = start;
+            mExpectedSelEnd = end;
+        }
         if (isConnected()) {
             final boolean isIcValid = mIC.setSelection(start, end);
             if (!isIcValid) {

@@ -360,25 +360,21 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
     public void onKeyPressed(@NonNull final Key key, final boolean withPreview) {
         key.onPressed();
         invalidateKey(key);
-        if (withPreview && !key.noKeyPreview()) {
+
+        final Keyboard keyboard = getKeyboard();
+        if (keyboard == null) {
+            return;
+        }
+        mKeyPreviewDrawParams.setVisibleOffset(-keyboard.mVerticalGap);
+        if (withPreview && !key.noKeyPreview() && mKeyPreviewDrawParams.isPopupEnabled()) {
             showKeyPreview(key);
         }
     }
 
     private void showKeyPreview(@NonNull final Key key) {
-        final Keyboard keyboard = getKeyboard();
-        if (keyboard == null) {
-            return;
-        }
-        final KeyPreviewDrawParams previewParams = mKeyPreviewDrawParams;
-        if (!previewParams.isPopupEnabled()) {
-            previewParams.setVisibleOffset(-keyboard.mVerticalGap);
-            return;
-        }
-
         locatePreviewPlacerView();
         getLocationInWindow(mOriginCoords);
-        mKeyPreviewChoreographer.placeAndShowKeyPreview(key, keyboard.mIconsSet, getKeyDrawParams(),
+        mKeyPreviewChoreographer.placeAndShowKeyPreview(key, getKeyboard().mIconsSet, getKeyDrawParams(),
                 KeyboardSwitcher.getInstance().getWrapperView().getWidth(), mOriginCoords, mDrawingPreviewPlacerView);
     }
 

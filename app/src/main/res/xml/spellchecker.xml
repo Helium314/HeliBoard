@@ -94,6 +94,9 @@
         android:subtypeLocale="kn" />
     <subtype
         android:label="@string/subtype_generic"
+        android:subtypeLocale="la" />
+    <subtype
+        android:label="@string/subtype_generic"
         android:subtypeLocale="lb" />
     <subtype
         android:label="@string/subtype_generic"

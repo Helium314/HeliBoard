@@ -12,3 +12,5 @@ object Links {
     const val CUSTOM_LAYOUTS = "$GITHUB/discussions/categories/custom-layout"
     const val CUSTOM_COLORS = "$GITHUB/discussions/categories/custom-colors"
 }
+
+val combiningRange = 0x300..0x35b
