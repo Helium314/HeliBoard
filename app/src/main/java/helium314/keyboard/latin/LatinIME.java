@@ -184,7 +184,7 @@ public class LatinIME extends InputMethodService implements
         private static final int MSG_UPDATE_SHIFT_STATE = 0;
         private static final int MSG_PENDING_IMS_CALLBACK = 1;
         private static final int MSG_UPDATE_SUGGESTION_STRIP = 2;
-        private static final int MSG_SHOW_GESTURE_PREVIEW_AND_SUGGESTION_STRIP = 3;
+        private static final int MSG_SHOW_GESTURE_PREVIEW_AND_SET_SUGGESTIONS = 3;
         private static final int MSG_RESUME_SUGGESTIONS = 4;
         private static final int MSG_REOPEN_DICTIONARIES = 5;
         private static final int MSG_UPDATE_TAIL_BATCH_INPUT_COMPLETED = 6;
@@ -235,8 +235,8 @@ public class LatinIME extends InputMethodService implements
                     latinIme.mKeyboardSwitcher.requestUpdatingShiftState(latinIme.getCurrentAutoCapsState(),
                             latinIme.getCurrentRecapitalizeState());
                     break;
-                case MSG_SHOW_GESTURE_PREVIEW_AND_SUGGESTION_STRIP:
-                    latinIme.showGesturePreviewAndSuggestionStrip((SuggestedWords) msg.obj,
+                case MSG_SHOW_GESTURE_PREVIEW_AND_SET_SUGGESTIONS:
+                    latinIme.showGesturePreviewAndSetSuggestions((SuggestedWords) msg.obj,
                                 msg.arg1 == ARG1_DISMISS_GESTURE_FLOATING_PREVIEW_TEXT);
                     break;
                 case MSG_RESUME_SUGGESTIONS:
@@ -372,11 +372,11 @@ public class LatinIME extends InputMethodService implements
 
         public void showGesturePreviewAndSuggestionStrip(final SuggestedWords suggestedWords,
                                                          final boolean dismissGestureFloatingPreviewText) {
-            removeMessages(MSG_SHOW_GESTURE_PREVIEW_AND_SUGGESTION_STRIP);
+            removeMessages(MSG_SHOW_GESTURE_PREVIEW_AND_SET_SUGGESTIONS);
             final int arg1 = dismissGestureFloatingPreviewText
                     ? ARG1_DISMISS_GESTURE_FLOATING_PREVIEW_TEXT
                     : ARG1_SHOW_GESTURE_FLOATING_PREVIEW_TEXT;
-            obtainMessage(MSG_SHOW_GESTURE_PREVIEW_AND_SUGGESTION_STRIP, arg1,
+            obtainMessage(MSG_SHOW_GESTURE_PREVIEW_AND_SET_SUGGESTIONS, arg1,
                     ARG2_UNUSED, suggestedWords).sendToTarget();
         }
 
@@ -1591,7 +1591,7 @@ public class LatinIME extends InputMethodService implements
     }
 
     // This method must run on the UI Thread.
-    void showGesturePreviewAndSuggestionStrip(@NonNull final SuggestedWords suggestedWords,
+    private void showGesturePreviewAndSetSuggestions(@NonNull final SuggestedWords suggestedWords,
                                               final boolean dismissGestureFloatingPreviewText) {
         setSuggestions(suggestedWords);
         final MainKeyboardView mainKeyboardView = mKeyboardSwitcher.getMainKeyboardView();
