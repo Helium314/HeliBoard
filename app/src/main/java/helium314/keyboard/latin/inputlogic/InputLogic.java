@@ -70,8 +70,8 @@ import java.util.concurrent.TimeUnit;
  */
 public final class InputLogic {
     private static final String TAG = InputLogic.class.getSimpleName();
-    private static final char EMOJI_SEARCH_MARKER = ':';
-    private static final int EMOJI_SEARCH_DONE_ACTION = 1;
+    private static final char INLINE_EMOJI_SEARCH_MARKER = ':';
+    private static final int INLINE_EMOJI_SEARCH_DONE_ACTION = 1;
 
     // TODO : Remove this member when we can.
     final LatinIME mLatinIME;
@@ -325,7 +325,7 @@ public final class InputLogic {
         // That's going to be predictions (or punctuation suggestions), so INPUT_STYLE_NONE.
         handler.postUpdateSuggestionStrip(SuggestedWords.INPUT_STYLE_NONE);
 
-        updateEmojiSearch();
+        updateInlineEmojiSearch();
         StatsUtils.onPickSuggestionManually(mSuggestedWords, suggestionInfo, mDictionaryFacilitator);
         StatsUtils.onWordCommitSuggestionPickedManually(suggestionInfo.mWord, mWordComposer.isBatchMode());
         return inputTransaction;
@@ -870,7 +870,7 @@ public final class InputLogic {
         final int codePoint = event.getMCodePoint();
         mSpaceState = SpaceState.NONE;
         final SettingsValues sv = inputTransaction.getMSettingsValues();
-        if (isEmojiSearch(codePoint)) {
+        if (isInlineEmojiSearch(codePoint)) {
             handleNonSeparatorEvent(event, sv, inputTransaction);
         } else if (Character.getType(codePoint) == Character.OTHER_SYMBOL
                 || (Character.getType(codePoint) == Character.UNASSIGNED && StringUtils.mightBeEmoji(codePoint)) // outdated java doesn't detect some emojis
@@ -994,7 +994,7 @@ public final class InputLogic {
         if (!isComposingWord
         // We only start composing if this is a word code point. Essentially that means it's a
         // a letter, a word connector, or the start of emoji search.
-                && (settingsValues.isWordCodePoint(codePoint) || isEmojiSearch(codePoint))
+                && (settingsValues.isWordCodePoint(codePoint) || isInlineEmojiSearch(codePoint))
         // We never go into composing state if suggestions are not requested.
                 && settingsValues.needsToLookupSuggestions() &&
         // In languages with spaces, we only start composing a word when we are not already
@@ -1020,7 +1020,7 @@ public final class InputLogic {
         }
         if (isComposingWord) {
             mWordComposer.applyProcessedEvent(event);
-            updateEmojiSearch();
+            updateInlineEmojiSearch();
             // If it's the first letter, make note of auto-caps state
             if (mWordComposer.isSingleLetter()) {
                 mWordComposer.setCapitalizedModeAtStartComposingTime(inputTransaction.getMShiftState());
@@ -1205,7 +1205,7 @@ public final class InputLogic {
                 StatsUtils.onBackspaceWordDelete(rejectedSuggestion.length());
             } else {
                 mWordComposer.applyProcessedEvent(event);
-                updateEmojiSearch();
+                updateInlineEmojiSearch();
                 StatsUtils.onBackspacePressed(1);
             }
             if (mWordComposer.isComposingWord()) {
@@ -1705,7 +1705,7 @@ public final class InputLogic {
     public void restartSuggestionsOnWordTouchedByCursor(final SettingsValues settingsValues,
             // TODO: remove this argument, put it into settingsValues
             final String currentKeyboardScript) {
-        setEmojiSearchAction(false);
+        setInlineEmojiSearchAction(false);
         // HACK: We may want to special-case some apps that exhibit bad behavior in case of
         // recorrection. This is a temporary, stopgap measure that will be removed later.
         // TODO: remove this.
@@ -1752,11 +1752,11 @@ public final class InputLogic {
             mConnection.finishComposingText();
             return;
         }
-        if (mEmojiDictionaryFacilitator != null && Character.valueOf(EMOJI_SEARCH_MARKER).equals(range.getCharBeforeWord())) {
+        if (mEmojiDictionaryFacilitator != null && Character.valueOf(INLINE_EMOJI_SEARCH_MARKER).equals(range.getCharBeforeWord())) {
             // Restart emoji search. Will only expand up to closest word separators, which should work in most cases.
             range = new TextRange(":" + range.mWord, 0, range.length() + 1,
                                   range.getNumberOfCharsInWordBeforeCursor() + 1, false);
-            setEmojiSearchAction(true);
+            setInlineEmojiSearchAction(true);
         }
         restartSuggestions(range);
     }
@@ -1827,7 +1827,7 @@ public final class InputLogic {
 
     private boolean shouldAutoShowSuggestions(SettingsValues settingsValues, SuggestedWords suggestedWords) {
         return ! suggestedWords.isEmpty() && settingsValues.isSuggestionsEnabledPerUserSettings() && ! mWordComposer.isResumed()
-                    && isEmojiSearch();
+                    && isInlineEmojiSearch();
     }
 
     /**
@@ -2024,7 +2024,7 @@ public final class InputLogic {
      * @param actionId the action to perform
      */
     private void performEditorAction(final int actionId, InputTransaction inputTransaction, LatinIME.UIHandler handler) {
-        if (actionId == EMOJI_SEARCH_DONE_ACTION) {
+        if (actionId == INLINE_EMOJI_SEARCH_DONE_ACTION) {
             if (Settings.getValues().mAutoCorrectEnabled) {
                 commitCurrentAutoCorrection(Settings.getValues(), LastComposedWord.NOT_A_SEPARATOR, handler);
                 inputTransaction.setDidAutoCorrect();
@@ -2033,7 +2033,7 @@ public final class InputLogic {
             }
 
             mSuggestionStripViewAccessor.setNeutralSuggestionStrip();
-            setEmojiSearchAction(false);
+            setInlineEmojiSearchAction(false);
         } else {
             mConnection.performEditorAction(actionId);
         }
@@ -2107,7 +2107,7 @@ public final class InputLogic {
      */
     private void resetComposingState(final boolean alsoResetLastComposedWord) {
         mWordComposer.reset();
-        setEmojiSearchAction(false);
+        setInlineEmojiSearchAction(false);
         if (alsoResetLastComposedWord) {
             mLastComposedWord = LastComposedWord.NOT_A_COMPOSED_WORD;
         }
@@ -2256,7 +2256,7 @@ public final class InputLogic {
             mSpaceState = SpaceState.NONE;
         }
         mWordComposer.setBatchInputWord(batchInputText);
-        updateEmojiSearch();
+        updateInlineEmojiSearch();
         setComposingTextInternal(batchInputText, 1);
         mConnection.endBatchEdit();
         // Space state must be updated before calling updateShiftState
@@ -2573,26 +2573,26 @@ public final class InputLogic {
         updateEmojiDictionary(locale);
     }
 
-    private void updateEmojiSearch() {
-        setEmojiSearchAction(isEmojiSearch());
+    private void updateInlineEmojiSearch() {
+        setInlineEmojiSearchAction(isInlineEmojiSearch());
     }
 
-    private boolean isEmojiSearch(int codePoint) {
-        return mEmojiDictionaryFacilitator != null && (! mWordComposer.isComposingWord() && codePoint == EMOJI_SEARCH_MARKER
-            || mWordComposer.isComposingWord() && mWordComposer.getTypedWord().charAt(0) == EMOJI_SEARCH_MARKER);
+    private boolean isInlineEmojiSearch(int codePoint) {
+        return mEmojiDictionaryFacilitator != null && (! mWordComposer.isComposingWord() && codePoint == INLINE_EMOJI_SEARCH_MARKER
+            || mWordComposer.isComposingWord() && mWordComposer.getTypedWord().charAt(0) == INLINE_EMOJI_SEARCH_MARKER);
     }
 
-    private void setEmojiSearchAction(boolean on) {
-        var wasOn = getCurrentInputEditorInfo().actionId == EMOJI_SEARCH_DONE_ACTION;
+    private void setInlineEmojiSearchAction(boolean on) {
+        var wasOn = getCurrentInputEditorInfo().actionId == INLINE_EMOJI_SEARCH_DONE_ACTION;
         if (on != wasOn) {
             getCurrentInputEditorInfo().actionLabel = on? "\uD83D\uDC4D" : null;
-            getCurrentInputEditorInfo().actionId = on? EMOJI_SEARCH_DONE_ACTION : 0;
+            getCurrentInputEditorInfo().actionId = on? INLINE_EMOJI_SEARCH_DONE_ACTION : 0;
             KeyboardSwitcher.getInstance().reloadKeyboard();
         }
     }
 
     private boolean searchForEmoji(int sequenceNumber, OnGetSuggestedWordsCallback callback) {
-        if (! isEmojiSearch()) {
+        if (! isInlineEmojiSearch()) {
             return false;
         }
 
@@ -2619,9 +2619,9 @@ public final class InputLogic {
         return true;
     }
 
-    private boolean isEmojiSearch() {
+    private boolean isInlineEmojiSearch() {
         return mEmojiDictionaryFacilitator != null && mWordComposer.isComposingWord()
-                    && mWordComposer.getTypedWord().charAt(0) == EMOJI_SEARCH_MARKER;
+                    && mWordComposer.getTypedWord().charAt(0) == INLINE_EMOJI_SEARCH_MARKER;
     }
 
     private void updateEmojiDictionary(Locale locale) {
