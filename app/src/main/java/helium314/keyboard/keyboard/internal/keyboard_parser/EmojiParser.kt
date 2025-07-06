@@ -52,6 +52,7 @@ class EmojiParser(private val params: KeyboardParams, private val context: Conte
                 // find the line containing the skin tone, and swap with first
                 val foundIndex = split.indexOfFirst { it.contains(defaultSkinTone) }
                 if (foundIndex > 0) {
+                    emojiDefaultVersions[split[0]] = split[foundIndex]
                     Collections.swap(split, 0, foundIndex)
                 }
                 split.joinToString(" ")
@@ -131,6 +132,8 @@ fun String.getCode(): Int =
 
 const val EMOJI_HINT_LABEL = "◥"
 
+private val emojiDefaultVersions: MutableMap<String, String> = mutableMapOf()
 private val emojiPopupSpecs: MutableMap<String, String> = mutableMapOf()
 
+fun getEmojiDefaultVersion(emoji: String): String = emojiDefaultVersions[emoji] ?: emoji
 fun getEmojiPopupSpec(emoji: String): String? = emojiPopupSpecs[emoji]

@@ -73,6 +73,7 @@ import helium314.keyboard.keyboard.internal.KeyboardParams
 import helium314.keyboard.keyboard.internal.keyboard_parser.EMOJI_HINT_LABEL
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode
 import helium314.keyboard.keyboard.internal.keyboard_parser.getCode
+import helium314.keyboard.keyboard.internal.keyboard_parser.getEmojiDefaultVersion
 import helium314.keyboard.keyboard.internal.keyboard_parser.getEmojiKeyDimensions
 import helium314.keyboard.keyboard.internal.keyboard_parser.getEmojiPopupSpec
 import helium314.keyboard.latin.Dictionary
@@ -222,7 +223,7 @@ class EmojiSearchActivity : ComponentActivity() {
             .setSubtype(RichInputMethodSubtype.emojiSubtype)
             .setKeyboardGeometry(keyboardWidth, EmojiLayoutParams(contextThemeWrapper.resources).emojiKeyboardHeight).build()
 
-        // Initialize popup specs
+        // Initialize default versions and popup specs
         layoutSet.getKeyboard(KeyboardId.ELEMENT_EMOJI_CATEGORY2)
 
         val keyboard = DynamicGridKeyboard(contextThemeWrapper.prefs(), layoutSet.getKeyboard(KeyboardId.ELEMENT_EMOJI_RECENTS),
@@ -269,12 +270,10 @@ class EmojiSearchActivity : ComponentActivity() {
         keyboard.removeAllKeys()
         pressedKey = null
         dictionaryFacilitator!!.getSuggestions(text.splitOnWhitespace()).filter { StringUtils.mightBeEmoji(it.word) }.forEach {
-            val emoji = it.word
+            val emoji = getEmojiDefaultVersion(it.word)
             val popupSpec = getEmojiPopupSpec(emoji)
-            val keyParams = KeyParams(
-                emoji, emoji.getCode(), if (popupSpec != null) EMOJI_HINT_LABEL else null, popupSpec,
-                Key.LABEL_FLAGS_FONT_NORMAL, keyboardParams
-            )
+            val keyParams = KeyParams(emoji, emoji.getCode(), if (popupSpec != null) EMOJI_HINT_LABEL else null, popupSpec,
+                Key.LABEL_FLAGS_FONT_NORMAL, keyboardParams)
             keyParams.mAbsoluteWidth = keyWidth!!
             keyParams.mAbsoluteHeight = keyHeight!!
             val key = keyParams.createKey()
