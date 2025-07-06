@@ -17,6 +17,7 @@ import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.utils.ResourceUtils
 import helium314.keyboard.latin.utils.prefs
 import java.util.Collections
+import kotlin.let
 import kotlin.math.sqrt
 
 class EmojiParser(private val params: KeyboardParams, private val context: Context) {
@@ -65,21 +66,7 @@ class EmojiParser(private val params: KeyboardParams, private val context: Conte
         var currentX = params.mLeftPadding.toFloat()
         val currentY = params.mTopPadding.toFloat() // no need to ever change, assignment to rows into rows is done in DynamicGridKeyboard
 
-        // determine key width for default settings (no number row, no one-handed mode, 100% height and bottom padding scale)
-        // this is a bit long, but ensures that emoji size stays the same, independent of these settings
-        // we also ignore side padding for key width, and prefer fewer keys per row over narrower keys
-        val defaultKeyWidth = ResourceUtils.getDefaultKeyboardWidth(context)  * params.mDefaultKeyWidth
-        var keyWidth = defaultKeyWidth * sqrt(Settings.getValues().mKeyboardHeightScale)
-        val defaultKeyboardHeight = ResourceUtils.getDefaultKeyboardHeight(context.resources, false)
-        val defaultBottomPadding = context.resources.getFraction(R.fraction.config_keyboard_bottom_padding_holo, defaultKeyboardHeight, defaultKeyboardHeight)
-        val emojiKeyboardHeight = defaultKeyboardHeight * 0.75f + params.mVerticalGap - defaultBottomPadding - context.resources.getDimensionPixelSize(R.dimen.config_emoji_category_page_id_height)
-        var keyHeight = emojiKeyboardHeight * params.mDefaultRowHeight * Settings.getValues().mKeyboardHeightScale // still apply height scale to key
-
-        if (Settings.getValues().mEmojiKeyFit) {
-            keyWidth *= Settings.getValues().mFontSizeMultiplierEmoji
-            keyHeight *= Settings.getValues().mFontSizeMultiplierEmoji
-        }
-
+        val (keyWidth, keyHeight) = getEmojiKeyDimensions(params, context)
 
         lines.forEach { line ->
             val keyParams = parseEmojiKeyNew(line) ?: return@forEach
@@ -104,6 +91,7 @@ class EmojiParser(private val params: KeyboardParams, private val context: Conte
         if (SupportedEmojis.isUnsupported(label)) return null
         val popupKeysSpec = split.drop(1).filterNot { SupportedEmojis.isUnsupported(it) }
             .takeIf { it.isNotEmpty() }?.joinToString(",")
+        popupKeysSpec?.let { emojiPopupSpecs[label] = popupKeysSpec }
         return KeyParams(
             label,
             label.getCode(),
@@ -113,10 +101,36 @@ class EmojiParser(private val params: KeyboardParams, private val context: Conte
             params
         )
     }
-
-    private fun String.getCode(): Int =
-        if (StringUtils.codePointCount(this) != 1) KeyCode.MULTIPLE_CODE_POINTS
-        else Character.codePointAt(this, 0)
 }
 
+fun getEmojiKeyDimensions(params: KeyboardParams, context: Context): Pair<Float, Float> {
+    // determine key width for default settings (no number row, no one-handed mode, 100% height and bottom padding scale)
+    // this is a bit long, but ensures that emoji size stays the same, independent of these settings
+    // we also ignore side padding for key width, and prefer fewer keys per row over narrower keys
+    val defaultKeyWidth = ResourceUtils.getDefaultKeyboardWidth(context) * params.mDefaultKeyWidth
+    var keyWidth = defaultKeyWidth * sqrt(Settings.getValues().mKeyboardHeightScale)
+    val defaultKeyboardHeight = ResourceUtils.getDefaultKeyboardHeight(context.resources, false)
+    val defaultBottomPadding = context.resources.getFraction(
+        R.fraction.config_keyboard_bottom_padding_holo, defaultKeyboardHeight, defaultKeyboardHeight
+    )
+    val emojiKeyboardHeight = defaultKeyboardHeight * 0.75f + params.mVerticalGap - defaultBottomPadding -
+        context.resources.getDimensionPixelSize(R.dimen.config_emoji_category_page_id_height)
+    var keyHeight =
+        emojiKeyboardHeight * params.mDefaultRowHeight * Settings.getValues().mKeyboardHeightScale // still apply height scale to key
+
+    if (Settings.getValues().mEmojiKeyFit) {
+        keyWidth *= Settings.getValues().mFontSizeMultiplierEmoji
+        keyHeight *= Settings.getValues().mFontSizeMultiplierEmoji
+    }
+    return Pair(keyWidth, keyHeight)
+}
+
+fun String.getCode(): Int =
+    if (StringUtils.codePointCount(this) != 1) KeyCode.MULTIPLE_CODE_POINTS
+    else Character.codePointAt(this, 0)
+
 const val EMOJI_HINT_LABEL = "◥"
+
+private val emojiPopupSpecs: MutableMap<String, String> = mutableMapOf()
+
+fun getEmojiPopupSpec(emoji: String): String? = emojiPopupSpecs[emoji]

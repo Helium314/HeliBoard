@@ -45,6 +45,7 @@ import helium314.keyboard.compat.ConfigurationCompatKt;
 import helium314.keyboard.compat.EditorInfoCompatUtils;
 import helium314.keyboard.keyboard.KeyboardActionListener;
 import helium314.keyboard.keyboard.KeyboardActionListenerImpl;
+import helium314.keyboard.keyboard.emoji.EmojiSearchActivity;
 import helium314.keyboard.keyboard.internal.KeyboardIconsSet;
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode;
 import helium314.keyboard.latin.common.InsetsOutlineProvider;
@@ -868,7 +869,7 @@ public class LatinIME extends InputMethodService implements
         mInputView = view;
         mInsetsUpdater = ViewOutlineProviderUtilsKt.setInsetsOutlineProvider(view);
         updateSoftInputWindowLayoutParameters();
-        mSuggestionStripView = mSettings.getCurrent().mToolbarMode == ToolbarMode.HIDDEN?
+        mSuggestionStripView = mSettings.getCurrent().mToolbarMode == ToolbarMode.HIDDEN || isEmojiSearch()?
                         null : view.findViewById(R.id.suggestion_strip_view);
         if (hasSuggestionStripView()) {
             mSuggestionStripView.setListener(this, view);
@@ -1289,7 +1290,7 @@ public class LatinIME extends InputMethodService implements
             return;
         }
         final int stripHeight = mKeyboardSwitcher.isShowingStripContainer() ? mKeyboardSwitcher.getStripContainer().getHeight() : 0;
-        final int visibleTopY = inputHeight - visibleKeyboardView.getHeight() - stripHeight;
+        int visibleTopY = inputHeight - visibleKeyboardView.getHeight() - stripHeight;
 
         if (hasSuggestionStripView()) {
             mSuggestionStripView.setMoreSuggestionsHeight(visibleTopY);
@@ -1306,6 +1307,10 @@ public class LatinIME extends InputMethodService implements
             outInsets.touchableInsets = InputMethodService.Insets.TOUCHABLE_INSETS_REGION;
             outInsets.touchableRegion.set(touchLeft, touchTop, touchRight, touchBottom);
         }
+
+        // Has to be subtracted after calculating touchableRegion
+        visibleTopY -= getEmojiSearchActivityHeight();
+
         outInsets.contentTopInsets = visibleTopY;
         outInsets.visibleTopInsets = visibleTopY;
         mInsetsUpdater.setInsets(outInsets);
@@ -1854,6 +1859,35 @@ public class LatinIME extends InputMethodService implements
                 | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED
                 | Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
+    }
+
+    public void launchEmojiSearch() {
+        startActivity(new Intent().setClass(this, EmojiSearchActivity.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+    }
+
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        if (intent != null && EmojiSearchActivity.EMOJI_SEARCH_DONE_ACTION.equals(intent.getAction())) {
+            if (intent.getBooleanExtra(EmojiSearchActivity.IME_CLOSED_KEY, false)) {
+                requestHideSelf(0);
+            } else {
+                KeyboardSwitcher.getInstance().setEmojiKeyboard();
+                if (intent.hasExtra(EmojiSearchActivity.EMOJI_KEY)) {
+                     onTextInput(intent.getStringExtra(EmojiSearchActivity.EMOJI_KEY));
+                }
+            }
+            return START_STICKY;
+        }
+
+        return super.onStartCommand(intent, flags, startId);
+    }
+
+    public boolean isEmojiSearch() {
+        return getEmojiSearchActivityHeight() > 0;
+    }
+
+    private int getEmojiSearchActivityHeight() {
+        return EmojiSearchActivity.Companion.decodePrivateImeOptions(getCurrentInputEditorInfo()).height();
     }
 
     public void dumpDictionaryForDebug(final String dictName) {

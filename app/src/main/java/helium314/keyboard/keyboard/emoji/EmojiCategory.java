@@ -119,7 +119,7 @@ final class EmojiCategory {
     private final SharedPreferences mPrefs;
     private final Resources mRes;
     private final Context mContext;
-    private final int mMaxRecentsKeyCount;
+    private final int mMaxRecentsRowCount;
     private final KeyboardLayoutSet mLayoutSet;
     private final HashMap<String, Integer> mCategoryNameToIdMap = new HashMap<>();
     private final int[] mCategoryTabIconId = new int[sCategoryName.length];
@@ -133,7 +133,7 @@ final class EmojiCategory {
         mPrefs = KtxKt.prefs(ctx);
         mRes = ctx.getResources();
         mContext = ctx;
-        mMaxRecentsKeyCount = mRes.getInteger(R.integer.config_emoji_keyboard_max_recents_key_count);
+        mMaxRecentsRowCount = mRes.getInteger(R.integer.config_emoji_keyboard_max_recents_row_count);
         mLayoutSet = layoutSet;
         for (int i = 0; i < sCategoryName.length; ++i) {
             mCategoryNameToIdMap.put(sCategoryName[i], i);
@@ -294,7 +294,7 @@ final class EmojiCategory {
             if (categoryId == EmojiCategory.ID_RECENTS) {
                 final DynamicGridKeyboard kbd = new DynamicGridKeyboard(mPrefs,
                         mLayoutSet.getKeyboard(KeyboardId.ELEMENT_EMOJI_RECENTS),
-                        mMaxRecentsKeyCount, categoryId, currentWidth);
+                        mMaxRecentsRowCount, categoryId, currentWidth);
                 mCategoryKeyboardMap.put(categoryKeyboardMapKey, kbd);
                 kbd.loadRecentKeys(mCategoryKeyboardMap.values());
                 return kbd;
@@ -307,7 +307,7 @@ final class EmojiCategory {
             for (int pageId = 0; pageId < sortedKeysPages.length; ++pageId) {
                 final DynamicGridKeyboard tempKeyboard = new DynamicGridKeyboard(mPrefs,
                         mLayoutSet.getKeyboard(KeyboardId.ELEMENT_EMOJI_RECENTS),
-                        keyCountPerPage, categoryId, currentWidth);
+                        MAX_LINE_COUNT_PER_PAGE, categoryId, currentWidth);
                 for (final Key emojiKey : sortedKeysPages[pageId]) {
                     if (emojiKey == null) {
                         break;

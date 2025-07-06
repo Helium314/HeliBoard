@@ -51,7 +51,7 @@ final class DynamicGridKeyboard extends Keyboard {
     private final ArrayList<Integer> mEmptyColumnIndices = new ArrayList<>(4);
 
     public DynamicGridKeyboard(final SharedPreferences prefs, final Keyboard templateKeyboard,
-            final int maxKeyCount, final int categoryId, final int width) {
+            final int maxRowCount, final int categoryId, final int width) {
         super(templateKeyboard);
         // todo: would be better to keep them final and not require width, but how to properly set width of the template keyboard?
         //  an alternative would be to always create the templateKeyboard with full width
@@ -69,7 +69,7 @@ final class DynamicGridKeyboard extends Keyboard {
         mColumnsNum = mBaseWidth / mHorizontalStep;
         if (spacerWidth > 0)
             setSpacerColumns(spacerWidth);
-        mMaxKeyCount = maxKeyCount;
+        mMaxKeyCount = maxRowCount * getOccupiedColumnCount();
         mIsRecents = categoryId == EmojiCategory.ID_RECENTS;
         mPrefs = prefs;
     }
@@ -111,8 +111,8 @@ final class DynamicGridKeyboard extends Keyboard {
         throw new RuntimeException("Can't find template key: code=" + code);
     }
 
-    public int getDynamicOccupiedHeight() {
-        final int row = (mGridKeys.size() - 1) / getOccupiedColumnCount() + 1;
+    int getOccupiedHeight() {
+        final int row = (mMaxKeyCount - 1) / getOccupiedColumnCount() + 1;
         return row * mVerticalStep;
     }
 
@@ -144,6 +144,13 @@ final class DynamicGridKeyboard extends Keyboard {
 
     public void addKeyLast(final Key usedKey) {
         addKey(usedKey, false);
+    }
+
+    public void removeAllKeys() {
+        synchronized (mLock) {
+            mGridKeys.clear();
+            mCachedGridKeys = null;
+        }
     }
 
     private void addKey(final Key usedKey, final boolean addFirst) {
