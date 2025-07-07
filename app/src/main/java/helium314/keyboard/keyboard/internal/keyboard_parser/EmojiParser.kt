@@ -45,19 +45,23 @@ class EmojiParser(private val params: KeyboardParams, private val context: Conte
             context.assets.open("emoji/$emojiFileName").reader().use { it.readLines() }
         }
         val defaultSkinTone = context.prefs().getString(Settings.PREF_EMOJI_SKIN_TONE, Defaults.PREF_EMOJI_SKIN_TONE)!!
-        if (params.mId.mElementId == KeyboardId.ELEMENT_EMOJI_CATEGORY2 && defaultSkinTone != "") {
-            // adjust PEOPLE_AND_BODY if we have a non-yellow default skin tone
-            val modifiedLines = emojiLines.map {
-                val split = it.splitOnWhitespace().toMutableList()
-                // find the line containing the skin tone, and swap with first
-                val foundIndex = split.indexOfFirst { it.contains(defaultSkinTone) }
-                if (foundIndex > 0) {
-                    emojiDefaultVersions[split[0]] = split[foundIndex]
-                    Collections.swap(split, 0, foundIndex)
+        if (params.mId.mElementId == KeyboardId.ELEMENT_EMOJI_CATEGORY2) {
+            emojiDefaultVersions.clear()
+            emojiPopupSpecs.clear()
+            if (defaultSkinTone != "") {
+                // adjust PEOPLE_AND_BODY if we have a non-yellow default skin tone
+                val modifiedLines = emojiLines.map {
+                    val split = it.splitOnWhitespace().toMutableList()
+                    // find the line containing the skin tone, and swap with first
+                    val foundIndex = split.indexOfFirst { it.contains(defaultSkinTone) }
+                    if (foundIndex > 0) {
+                        emojiDefaultVersions[split[0]] = split[foundIndex]
+                        Collections.swap(split, 0, foundIndex)
+                    }
+                    split.joinToString(" ")
                 }
-                split.joinToString(" ")
+                return parseLines(modifiedLines)
             }
-            return parseLines(modifiedLines)
         }
         return parseLines(emojiLines)
     }

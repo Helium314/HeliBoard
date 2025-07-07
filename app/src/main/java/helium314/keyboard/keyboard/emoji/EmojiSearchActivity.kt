@@ -63,7 +63,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.viewinterop.AndroidView
 import helium314.keyboard.keyboard.Key
-import helium314.keyboard.keyboard.Key.KeyParams
 import helium314.keyboard.keyboard.KeyboardId
 import helium314.keyboard.keyboard.KeyboardLayoutSet
 import helium314.keyboard.keyboard.KeyboardSwitcher
@@ -272,7 +271,7 @@ class EmojiSearchActivity : ComponentActivity() {
         dictionaryFacilitator!!.getSuggestions(text.splitOnWhitespace()).filter { StringUtils.mightBeEmoji(it.word) }.forEach {
             val emoji = getEmojiDefaultVersion(it.word)
             val popupSpec = getEmojiPopupSpec(emoji)
-            val keyParams = KeyParams(emoji, emoji.getCode(), if (popupSpec != null) EMOJI_HINT_LABEL else null, popupSpec,
+            val keyParams = Key.KeyParams(emoji, emoji.getCode(), if (popupSpec != null) EMOJI_HINT_LABEL else null, popupSpec,
                 Key.LABEL_FLAGS_FONT_NORMAL, keyboardParams)
             keyParams.mAbsoluteWidth = keyWidth!!
             keyParams.mAbsoluteHeight = keyHeight!!
