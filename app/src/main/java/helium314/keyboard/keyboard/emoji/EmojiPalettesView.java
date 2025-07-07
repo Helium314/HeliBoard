@@ -36,6 +36,7 @@ import helium314.keyboard.keyboard.MainKeyboardView;
 import helium314.keyboard.keyboard.PointerTracker;
 import helium314.keyboard.keyboard.internal.KeyDrawParams;
 import helium314.keyboard.keyboard.internal.KeyVisualAttributes;
+import helium314.keyboard.keyboard.internal.keyboard_parser.EmojiParserKt;
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode;
 import helium314.keyboard.latin.AudioAndHapticFeedbackManager;
 import helium314.keyboard.latin.Dictionary;
@@ -316,7 +317,7 @@ public final class EmojiPalettesView extends LinearLayout
             return null;
         }
 
-        var wordProperty = sDictionaryFacilitator.getWordProperty(emoji);
+        var wordProperty = sDictionaryFacilitator.getWordProperty(EmojiParserKt.getEmojiNeutralVersion(emoji));
         if (wordProperty == null || ! wordProperty.mHasShortcuts) {
             return null;
         }

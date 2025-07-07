@@ -74,6 +74,7 @@ import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode
 import helium314.keyboard.keyboard.internal.keyboard_parser.getCode
 import helium314.keyboard.keyboard.internal.keyboard_parser.getEmojiDefaultVersion
 import helium314.keyboard.keyboard.internal.keyboard_parser.getEmojiKeyDimensions
+import helium314.keyboard.keyboard.internal.keyboard_parser.getEmojiNeutralVersion
 import helium314.keyboard.keyboard.internal.keyboard_parser.getEmojiPopupSpec
 import helium314.keyboard.latin.Dictionary
 import helium314.keyboard.latin.DictionaryFactory
@@ -252,7 +253,7 @@ class EmojiSearchActivity : ComponentActivity() {
             }
 
             override fun getDescription(emoji: String): String? = if (Settings.getValues().mShowEmojiDescriptions)
-                dictionaryFacilitator?.getWordProperty(emoji)?.mShortcutTargets[0]?.mWord else null
+                dictionaryFacilitator?.getWordProperty(getEmojiNeutralVersion(emoji))?.mShortcutTargets[0]?.mWord else null
         })
     }
 

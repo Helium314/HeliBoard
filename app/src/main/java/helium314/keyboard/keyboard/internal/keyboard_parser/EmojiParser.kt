@@ -47,6 +47,7 @@ class EmojiParser(private val params: KeyboardParams, private val context: Conte
         val defaultSkinTone = context.prefs().getString(Settings.PREF_EMOJI_SKIN_TONE, Defaults.PREF_EMOJI_SKIN_TONE)!!
         if (params.mId.mElementId == KeyboardId.ELEMENT_EMOJI_CATEGORY2) {
             emojiDefaultVersions.clear()
+            emojiNeutralVersions.clear()
             emojiPopupSpecs.clear()
             if (defaultSkinTone != "") {
                 // adjust PEOPLE_AND_BODY if we have a non-yellow default skin tone
@@ -56,6 +57,7 @@ class EmojiParser(private val params: KeyboardParams, private val context: Conte
                     val foundIndex = split.indexOfFirst { it.contains(defaultSkinTone) }
                     if (foundIndex > 0) {
                         emojiDefaultVersions[split[0]] = split[foundIndex]
+                        emojiNeutralVersions[split[foundIndex]] = split[0]
                         Collections.swap(split, 0, foundIndex)
                     }
                     split.joinToString(" ")
@@ -137,7 +139,9 @@ fun String.getCode(): Int =
 const val EMOJI_HINT_LABEL = "◥"
 
 private val emojiDefaultVersions: MutableMap<String, String> = mutableMapOf()
+private val emojiNeutralVersions: MutableMap<String, String> = mutableMapOf()
 private val emojiPopupSpecs: MutableMap<String, String> = mutableMapOf()
 
 fun getEmojiDefaultVersion(emoji: String): String = emojiDefaultVersions[emoji] ?: emoji
+fun getEmojiNeutralVersion(emoji: String): String = emojiNeutralVersions[emoji] ?: emoji
 fun getEmojiPopupSpec(emoji: String): String? = emojiPopupSpecs[emoji]
