@@ -12,6 +12,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -120,9 +121,8 @@ class EmojiSearchActivity : ComponentActivity() {
                 var heightDp by remember {
                     mutableStateOf(0.dp)
                 }
-                Column(
-                    modifier = Modifier.fillMaxSize()
-                        .windowInsetsPadding(WindowInsets.safeDrawing.exclude(WindowInsets(bottom = heightDp))),
+                Column(modifier = Modifier.fillMaxSize().clickable(onClick = { cancel() })
+                    .windowInsetsPadding(WindowInsets.safeDrawing.exclude(WindowInsets(bottom = heightDp))),
                     verticalArrangement = Arrangement.Bottom
                 ) {
                     Column(modifier = Modifier.wrapContentHeight().onGloballyPositioned {
