@@ -5,7 +5,6 @@ import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
-import android.view.ContextThemeWrapper
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import androidx.activity.ComponentActivity
@@ -32,12 +31,14 @@ import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.text.selection.LocalTextSelectionColors
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldDefaults
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
@@ -49,7 +50,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.lerp
 import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -98,6 +101,7 @@ import helium314.keyboard.settings.SearchIcon
  * This activity is displayed in a gap created for it above the keyboard and below the host app, and partly obscures the host app.
  */
 class EmojiSearchActivity : ComponentActivity() {
+    private val colors = Settings.getValues().mColors
     private var startup: Boolean = true
     private var emojiPageKeyboardView: EmojiPageKeyboardView? = null
     private var keyboardParams: KeyboardParams? = null
@@ -112,6 +116,7 @@ class EmojiSearchActivity : ComponentActivity() {
         init()
         enableEdgeToEdge()
         setContent {
+            LocalContext.current.setTheme(KeyboardTheme.getKeyboardTheme(this).mStyleId)
             Surface(modifier = Modifier.fillMaxSize(), color = Color(0x80000000)) {
                 val imeVisible = WindowInsets.isImeVisible
                 val localDensity = LocalDensity.current
@@ -125,68 +130,78 @@ class EmojiSearchActivity : ComponentActivity() {
                     .windowInsetsPadding(WindowInsets.safeDrawing.exclude(WindowInsets(bottom = heightDp))),
                     verticalArrangement = Arrangement.Bottom
                 ) {
-                    Column(modifier = Modifier.wrapContentHeight().onGloballyPositioned {
-                        if (!startup && !imeVisible) {
-                            imeClosed = true
-                            cancel()
-                            return@onGloballyPositioned
-                        }
-                        if (!startup && (KeyboardSwitcher.getInstance().isShowingEmojiPalettes
-                                || KeyboardSwitcher.getInstance().isShowingClipboardHistory)) {
-                            cancel()
-                            return@onGloballyPositioned
-                        }
-                        heightPx = it.size.height
-                        heightDp = with(localDensity) { it.size.height.toDp() }
-                    }) {
-                        Row(modifier = Modifier.background(Color.White).fillMaxWidth().height(30.dp)) {
-                            IconButton(onClick = { cancel() }) {
-                                Icon(
-                                    painterResource(R.drawable.ic_arrow_back),
-                                    stringResource(R.string.spoken_description_action_previous)
-                                )
+                    Column(modifier = Modifier.wrapContentHeight()
+                        .background(Color(colors.get(ColorType.MAIN_BACKGROUND))).onGloballyPositioned {
+                            if (!startup && !imeVisible) {
+                                imeClosed = true
+                                cancel()
+                                return@onGloballyPositioned
                             }
-                            Text(
-                                text = stringResource(R.string.emoji_search_title), fontSize = 18.sp,
-                                modifier = Modifier.fillMaxWidth().align(Alignment.CenterVertically)
-                            )
+                            if (!startup && (KeyboardSwitcher.getInstance().isShowingEmojiPalettes
+                                    || KeyboardSwitcher.getInstance().isShowingClipboardHistory)) {
+                                cancel()
+                                return@onGloballyPositioned
+                            }
+                            heightPx = it.size.height
+                            heightDp = with(localDensity) { it.size.height.toDp() }
+                        }) {
+                        Row(modifier = Modifier.fillMaxWidth().height(30.dp)) {
+                            IconButton(onClick = { cancel() }) {
+                                Icon(painter = painterResource(R.drawable.ic_arrow_back),
+                                    stringResource(R.string.spoken_description_action_previous),
+                                    tint = Color(colors.get(ColorType.EMOJI_KEY_TEXT)))
+                            }
+                            Text(text = stringResource(R.string.emoji_search_title), fontSize = 18.sp,
+                                color = Color(colors.get(ColorType.EMOJI_KEY_TEXT)),
+                                modifier = Modifier.fillMaxWidth().align(Alignment.CenterVertically))
                         }
                         AndroidView({ emojiPageKeyboardView!! }, modifier = Modifier.wrapContentHeight().fillMaxWidth())
                         val focusRequester = remember { FocusRequester() }
                         var text by remember { mutableStateOf(TextFieldValue(searchText, selection = TextRange(searchText.length))) }
-                        BasicTextField(
-                            value = text,
-                            modifier = Modifier.fillMaxWidth().heightIn(20.dp, 30.dp).focusRequester(focusRequester),
-                            textStyle = TextStyle(textDirection = TextDirection.Content),
-                            onValueChange = { it: TextFieldValue ->
-                                text = it
-                                search(it.text)
-                            },
-                            enabled = true,
-                            keyboardOptions = KeyboardOptions(
-                                imeAction = ImeAction.Done,
-                                platformImeOptions = PlatformImeOptions(encodePrivateImeOptions(PrivateImeOptions(heightPx)))
-                            ),
-                            keyboardActions = KeyboardActions(onDone = { finish() }),
-                            singleLine = true,
-                        ) {
-                            TextFieldDefaults.DecorationBox(
-                                value = text.text,
-                                contentPadding = PaddingValues(0.dp),
-                                visualTransformation = VisualTransformation.None,
-                                innerTextField = it,
-                                placeholder = { Text(stringResource(R.string.search_field_placeholder)) },
-                                leadingIcon = { SearchIcon() },
-                                trailingIcon = {
-                                    IconButton(onClick = {
-                                        text = TextFieldValue()
-                                        search("")
-                                    }) { CloseIcon(cancel) }
+                        val textFieldColors = TextFieldDefaults.colors()
+                            .copy(unfocusedContainerColor = Color(colors.get(ColorType.FUNCTIONAL_KEY_BACKGROUND)),
+                                unfocusedTextColor = Color(colors.get(ColorType.FUNCTIONAL_KEY_TEXT)),
+                                cursorColor = Color(colors.get(ColorType.FUNCTIONAL_KEY_TEXT)),
+                                unfocusedLeadingIconColor = Color(colors.get(ColorType.FUNCTIONAL_KEY_TEXT)),
+                                unfocusedTrailingIconColor = Color(colors.get(ColorType.FUNCTIONAL_KEY_TEXT)),
+                                unfocusedPlaceholderColor = lerp(Color(colors.get(ColorType.FUNCTIONAL_KEY_BACKGROUND)),
+                                    Color(colors.get(ColorType.FUNCTIONAL_KEY_TEXT)), 0.5f))
+                        CompositionLocalProvider(LocalTextSelectionColors provides textFieldColors.textSelectionColors) {
+                            BasicTextField(
+                                value = text,
+                                modifier = Modifier.fillMaxWidth().heightIn(20.dp, 30.dp).focusRequester(focusRequester),
+                                textStyle = TextStyle(textDirection = TextDirection.Content, color = textFieldColors.unfocusedTextColor),
+                                onValueChange = { it: TextFieldValue ->
+                                    text = it
+                                    search(it.text)
                                 },
-                                singleLine = true,
                                 enabled = true,
-                                interactionSource = MutableInteractionSource(),
-                            )
+                                keyboardOptions = KeyboardOptions(
+                                    imeAction = ImeAction.Done,
+                                    platformImeOptions = PlatformImeOptions(encodePrivateImeOptions(PrivateImeOptions(heightPx)))
+                                ),
+                                keyboardActions = KeyboardActions(onDone = { finish() }),
+                                singleLine = true,
+                            ) {
+                                TextFieldDefaults.DecorationBox(
+                                    value = text.text,
+                                    colors = textFieldColors,
+                                    contentPadding = PaddingValues(2.dp),
+                                    visualTransformation = VisualTransformation.None,
+                                    innerTextField = it,
+                                    placeholder = { Text(stringResource(R.string.search_field_placeholder)) },
+                                    leadingIcon = { SearchIcon() },
+                                    trailingIcon = {
+                                        IconButton(onClick = {
+                                            text = TextFieldValue()
+                                            search("")
+                                        }) { CloseIcon(cancel) }
+                                    },
+                                    singleLine = true,
+                                    enabled = true,
+                                    interactionSource = MutableInteractionSource(),
+                                )
+                            }
                         }
                         LaunchedEffect(Unit) { focusRequester.requestFocus() }
                     }
@@ -201,14 +216,12 @@ class EmojiSearchActivity : ComponentActivity() {
 
     override fun onStop() {
         val intent = Intent(this, LatinIME::class.java).setAction(EMOJI_SEARCH_DONE_ACTION)
-        intent.putExtra(IME_CLOSED_KEY, imeClosed)
+            .putExtra(IME_CLOSED_KEY, imeClosed)
         if (pressedKey != null) {
-            intent.putExtra(
-                EMOJI_KEY, if (pressedKey!!.code == KeyCode.MULTIPLE_CODE_POINTS)
-                    pressedKey!!.getOutputText()
-                else
-                    Character.toString(pressedKey!!.code)
-            )
+            intent.putExtra(EMOJI_KEY, if (pressedKey!!.code == KeyCode.MULTIPLE_CODE_POINTS)
+                pressedKey!!.getOutputText()
+            else
+                Character.toString(pressedKey!!.code))
 
             KeyboardSwitcher.getInstance().emojiPalettesView.addRecentKey(pressedKey)
         }
@@ -217,30 +230,28 @@ class EmojiSearchActivity : ComponentActivity() {
     }
 
     private fun init() {
-        val contextThemeWrapper = ContextThemeWrapper(this, KeyboardTheme.getKeyboardTheme(this).mStyleId)
-        val keyboardWidth = ResourceUtils.getKeyboardWidth(contextThemeWrapper, Settings.getValues())
-        val layoutSet = KeyboardLayoutSet.Builder(contextThemeWrapper, null)
-            .setSubtype(RichInputMethodSubtype.emojiSubtype)
-            .setKeyboardGeometry(keyboardWidth, EmojiLayoutParams(contextThemeWrapper.resources).emojiKeyboardHeight).build()
+        val keyboardWidth = ResourceUtils.getKeyboardWidth(this, Settings.getValues())
+        val layoutSet = KeyboardLayoutSet.Builder(this, null).setSubtype(RichInputMethodSubtype.emojiSubtype)
+            .setKeyboardGeometry(keyboardWidth, EmojiLayoutParams(resources).emojiKeyboardHeight).build()
 
         // Initialize default versions and popup specs
         layoutSet.getKeyboard(KeyboardId.ELEMENT_EMOJI_CATEGORY2)
 
-        val keyboard = DynamicGridKeyboard(contextThemeWrapper.prefs(), layoutSet.getKeyboard(KeyboardId.ELEMENT_EMOJI_RECENTS),
+        val keyboard = DynamicGridKeyboard(prefs(), layoutSet.getKeyboard(KeyboardId.ELEMENT_EMOJI_RECENTS),
             if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) 1 else 2,
             KeyboardId.ELEMENT_EMOJI_CATEGORY16, keyboardWidth)
-        val builder = KeyboardBuilder(contextThemeWrapper, KeyboardParams())
+        val builder = KeyboardBuilder(this, KeyboardParams())
         builder.load(keyboard.mId)
         keyboardParams = builder.mParams
-        val (width, height) = getEmojiKeyDimensions(keyboardParams!!, contextThemeWrapper)
+        val (width, height) = getEmojiKeyDimensions(keyboardParams!!, this)
         keyWidth = width
         keyHeight = height
-        emojiPageKeyboardView = EmojiPageKeyboardView(contextThemeWrapper, null)
+        emojiPageKeyboardView = EmojiPageKeyboardView(this, null)
         emojiPageKeyboardView!!.setKeyboard(keyboard)
         emojiPageKeyboardView!!.layoutParams =
             ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
         emojiPageKeyboardView!!.background = null
-        Settings.getValues().mColors.setBackground(emojiPageKeyboardView!!, ColorType.MAIN_BACKGROUND)
+        colors.setBackground(emojiPageKeyboardView!!, ColorType.MAIN_BACKGROUND)
         emojiPageKeyboardView!!.setPadding(0, 10, 0, 10)
 
         emojiPageKeyboardView!!.setEmojiViewCallback(object : EmojiViewCallback {
