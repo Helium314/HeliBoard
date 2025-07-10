@@ -96,19 +96,21 @@ import helium314.keyboard.latin.utils.ResourceUtils
 import helium314.keyboard.latin.utils.prefs
 import helium314.keyboard.settings.CloseIcon
 import helium314.keyboard.settings.SearchIcon
+import kotlin.properties.Delegates
 
 /**
  * This activity is displayed in a gap created for it above the keyboard and below the host app, and partly obscures the host app.
  */
 class EmojiSearchActivity : ComponentActivity() {
     private val colors = Settings.getValues().mColors
-    private var startup: Boolean = true
-    private var emojiPageKeyboardView: EmojiPageKeyboardView? = null
-    private var keyboardParams: KeyboardParams? = null
-    private var keyWidth: Float? = null
-    private var keyHeight: Float? = null
+    private var enterAnimationComplete = false
+    private var startup = true
+    private lateinit var emojiPageKeyboardView: EmojiPageKeyboardView
+    private lateinit var keyboardParams: KeyboardParams
+    private var keyWidth by Delegates.notNull<Float>()
+    private var keyHeight by Delegates.notNull<Float>()
     private var pressedKey: Key? = null
-    private var imeClosed: Boolean = false
+    private var imeClosed = false
 
     @OptIn(ExperimentalLayoutApi::class, ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -132,7 +134,7 @@ class EmojiSearchActivity : ComponentActivity() {
                 ) {
                     Column(modifier = Modifier.wrapContentHeight()
                         .background(Color(colors.get(ColorType.MAIN_BACKGROUND))).onGloballyPositioned {
-                            if (startup && imeVisible && isAlphaKeyboard()) {
+                            if (startup && enterAnimationComplete && imeVisible && isAlphaKeyboard()) {
                                 search(searchText)
                                 return@onGloballyPositioned
                             }
@@ -158,7 +160,7 @@ class EmojiSearchActivity : ComponentActivity() {
                                 color = Color(colors.get(ColorType.EMOJI_KEY_TEXT)),
                                 modifier = Modifier.fillMaxWidth().align(Alignment.CenterVertically))
                         }
-                        AndroidView({ emojiPageKeyboardView!! }, modifier = Modifier.wrapContentHeight().fillMaxWidth())
+                        AndroidView({ emojiPageKeyboardView }, modifier = Modifier.wrapContentHeight().fillMaxWidth())
                         val focusRequester = remember { FocusRequester() }
                         var text by remember { mutableStateOf(TextFieldValue(searchText, selection = TextRange(searchText.length))) }
                         val textFieldColors = TextFieldDefaults.colors()
@@ -213,16 +215,20 @@ class EmojiSearchActivity : ComponentActivity() {
         }
     }
 
+    override fun onEnterAnimationComplete() {
+        enterAnimationComplete = true
+    }
+
     override fun onStop() {
         val intent = Intent(this, LatinIME::class.java).setAction(EMOJI_SEARCH_DONE_ACTION)
             .putExtra(IME_CLOSED_KEY, imeClosed)
-        if (pressedKey != null) {
-            intent.putExtra(EMOJI_KEY, if (pressedKey!!.code == KeyCode.MULTIPLE_CODE_POINTS)
-                pressedKey!!.getOutputText()
+        pressedKey?.let {
+            intent.putExtra(EMOJI_KEY, if (it.code == KeyCode.MULTIPLE_CODE_POINTS)
+                it.getOutputText()
             else
-                Character.toString(pressedKey!!.code))
+                Character.toString(it.code))
 
-            KeyboardSwitcher.getInstance().emojiPalettesView.addRecentKey(pressedKey)
+            KeyboardSwitcher.getInstance().emojiPalettesView.addRecentKey(it)
         }
         startService(intent)
         super.onStop()
@@ -242,18 +248,18 @@ class EmojiSearchActivity : ComponentActivity() {
         val builder = KeyboardBuilder(this, KeyboardParams())
         builder.load(keyboard.mId)
         keyboardParams = builder.mParams
-        val (width, height) = getEmojiKeyDimensions(keyboardParams!!, this)
+        val (width, height) = getEmojiKeyDimensions(keyboardParams, this)
         keyWidth = width
         keyHeight = height
         emojiPageKeyboardView = EmojiPageKeyboardView(this, null)
-        emojiPageKeyboardView!!.setKeyboard(keyboard)
-        emojiPageKeyboardView!!.layoutParams =
+        emojiPageKeyboardView.setKeyboard(keyboard)
+        emojiPageKeyboardView.layoutParams =
             ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
-        emojiPageKeyboardView!!.background = null
-        colors.setBackground(emojiPageKeyboardView!!, ColorType.MAIN_BACKGROUND)
-        emojiPageKeyboardView!!.setPadding(0, 10, 0, 10)
+        emojiPageKeyboardView.background = null
+        colors.setBackground(emojiPageKeyboardView, ColorType.MAIN_BACKGROUND)
+        emojiPageKeyboardView.setPadding(0, 10, 0, 10)
 
-        emojiPageKeyboardView!!.setEmojiViewCallback(object : EmojiViewCallback {
+        emojiPageKeyboardView.setEmojiViewCallback(object : EmojiViewCallback {
             override fun onPressKey(key: Key) {
             }
 
@@ -283,7 +289,7 @@ class EmojiSearchActivity : ComponentActivity() {
 
         searchText = text
         startup = false
-        val keyboard = emojiPageKeyboardView!!.keyboard as DynamicGridKeyboard
+        val keyboard = emojiPageKeyboardView.keyboard as DynamicGridKeyboard
         keyboard.removeAllKeys()
         pressedKey = null
         dictionaryFacilitator!!.getSuggestions(text.splitOnWhitespace()).filter { StringUtils.mightBeEmoji(it.word) }.forEach {
@@ -291,14 +297,14 @@ class EmojiSearchActivity : ComponentActivity() {
             val popupSpec = getEmojiPopupSpec(emoji)
             val keyParams = Key.KeyParams(emoji, emoji.getCode(), if (popupSpec != null) EMOJI_HINT_LABEL else null, popupSpec,
                 Key.LABEL_FLAGS_FONT_NORMAL, keyboardParams)
-            keyParams.mAbsoluteWidth = keyWidth!!
-            keyParams.mAbsoluteHeight = keyHeight!!
+            keyParams.mAbsoluteWidth = keyWidth
+            keyParams.mAbsoluteHeight = keyHeight
             val key = keyParams.createKey()
             keyboard.addKeyLast(key)
             if (pressedKey == null && Settings.getValues().mAutoCorrectEnabled)
                 pressedKey = key
         }
-        emojiPageKeyboardView!!.invalidate()
+        emojiPageKeyboardView.invalidate()
     }
 
     private fun cancel() {
