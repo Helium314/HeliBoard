@@ -132,13 +132,16 @@ class EmojiSearchActivity : ComponentActivity() {
                 ) {
                     Column(modifier = Modifier.wrapContentHeight()
                         .background(Color(colors.get(ColorType.MAIN_BACKGROUND))).onGloballyPositioned {
+                            if (startup && imeVisible && isAlphaKeyboard()) {
+                                search(searchText)
+                                return@onGloballyPositioned
+                            }
                             if (!startup && !imeVisible) {
                                 imeClosed = true
                                 cancel()
                                 return@onGloballyPositioned
                             }
-                            if (!startup && (KeyboardSwitcher.getInstance().isShowingEmojiPalettes
-                                    || KeyboardSwitcher.getInstance().isShowingClipboardHistory)) {
+                            if (!startup && !isAlphaKeyboard()) {
                                 cancel()
                                 return@onGloballyPositioned
                             }
@@ -210,10 +213,6 @@ class EmojiSearchActivity : ComponentActivity() {
         }
     }
 
-    override fun onEnterAnimationComplete() {
-        search(searchText)
-    }
-
     override fun onStop() {
         val intent = Intent(this, LatinIME::class.java).setAction(EMOJI_SEARCH_DONE_ACTION)
             .putExtra(IME_CLOSED_KEY, imeClosed)
@@ -268,14 +267,21 @@ class EmojiSearchActivity : ComponentActivity() {
         })
     }
 
-    fun search(text: String) {
-        searchText = text
+    private fun isAlphaKeyboard(): Boolean = !(KeyboardSwitcher.getInstance().isShowingEmojiPalettes
+        || KeyboardSwitcher.getInstance().isShowingClipboardHistory)
+
+    private fun search(text: String) {
         initDictionaryFacilitator(this)
         if (dictionaryFacilitator == null) {
             cancel()
             return
         }
 
+        if (!startup && text == searchText) {
+            return
+        }
+
+        searchText = text
         startup = false
         val keyboard = emojiPageKeyboardView!!.keyboard as DynamicGridKeyboard
         keyboard.removeAllKeys()

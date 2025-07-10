@@ -1871,7 +1871,7 @@ public class LatinIME extends InputMethodService implements
             if (intent.getBooleanExtra(EmojiSearchActivity.IME_CLOSED_KEY, false)) {
                 requestHideSelf(0);
             } else {
-                KeyboardSwitcher.getInstance().setEmojiKeyboard();
+                mHandler.postDelayed(() -> KeyboardSwitcher.getInstance().setEmojiKeyboard(), 100);
                 if (intent.hasExtra(EmojiSearchActivity.EMOJI_KEY)) {
                      onTextInput(intent.getStringExtra(EmojiSearchActivity.EMOJI_KEY));
                 }
