@@ -50,6 +50,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.graphics.lerp
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalContext
@@ -132,8 +133,8 @@ class EmojiSearchActivity : ComponentActivity() {
                     .windowInsetsPadding(WindowInsets.safeDrawing.exclude(WindowInsets(bottom = heightDp))),
                     verticalArrangement = Arrangement.Bottom
                 ) {
-                    Column(modifier = Modifier.wrapContentHeight()
-                        .background(Color(colors.get(ColorType.MAIN_BACKGROUND))).onGloballyPositioned {
+                    Column(modifier = Modifier.wrapContentHeight().background(Color(colors.get(ColorType.MAIN_BACKGROUND)))
+                        .onGloballyPositioned {
                             if (startup && enterAnimationComplete && imeVisible && isAlphaKeyboard()) {
                                 search(searchText)
                                 return@onGloballyPositioned
@@ -187,6 +188,7 @@ class EmojiSearchActivity : ComponentActivity() {
                                 ),
                                 keyboardActions = KeyboardActions(onDone = { finish() }),
                                 singleLine = true,
+                                cursorBrush = SolidColor(textFieldColors.cursorColor)
                             ) {
                                 TextFieldDefaults.DecorationBox(
                                     value = text.text,
