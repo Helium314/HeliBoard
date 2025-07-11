@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: GPL-3.0-only
 package helium314.keyboard.keyboard.emoji
 
 import android.R.string.cancel
@@ -100,7 +101,7 @@ import helium314.keyboard.settings.SearchIcon
 import kotlin.properties.Delegates
 
 /**
- * This activity is displayed in a gap created for it above the keyboard and below the host app, and partly obscures the host app.
+ * This activity is displayed in a gap created for it above the keyboard and below the host app, and disables the host app.
  */
 class EmojiSearchActivity : ComponentActivity() {
     private val colors = Settings.getValues().mColors

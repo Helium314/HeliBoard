@@ -1862,7 +1862,8 @@ public class LatinIME extends InputMethodService implements
     }
 
     public void launchEmojiSearch() {
-        startActivity(new Intent().setClass(this, EmojiSearchActivity.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+        startActivity(new Intent().setClass(this, EmojiSearchActivity.class)
+                          .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_MULTIPLE_TASK));
     }
 
     @Override
