@@ -53,7 +53,6 @@ object KeyCode {
     const val CLIPBOARD_CLEAR_HISTORY =      -36
     //const val CLIPBOARD_CLEAR_FULL_HISTORY = -37
     //const val CLIPBOARD_CLEAR_PRIMARY_CLIP = -38
-    const val SEARCH =                       -39
 
     //const val COMPACT_LAYOUT_TO_LEFT =      -111
     //const val COMPACT_LAYOUT_TO_RIGHT =     -112
@@ -175,6 +174,7 @@ object KeyCode {
     const val ALT_RIGHT =                 -10047
     const val META_LEFT =                 -10048
     const val META_RIGHT =                -10049
+    const val SEARCH =                    -10050
 
 
     // Intents
