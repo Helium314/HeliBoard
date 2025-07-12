@@ -339,6 +339,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
             case "move_cursor" -> KeyboardActionListener.SWIPE_MOVE_CURSOR;
             case "switch_language" -> KeyboardActionListener.SWIPE_SWITCH_LANGUAGE;
             case "toggle_numpad" -> KeyboardActionListener.SWIPE_TOGGLE_NUMPAD;
+            case "hide_keyboard" -> KeyboardActionListener.SWIPE_HIDE_KEYBOARD;
             default -> KeyboardActionListener.SWIPE_NO_ACTION;
         };
     }
