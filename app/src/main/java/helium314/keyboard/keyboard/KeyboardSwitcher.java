@@ -309,7 +309,7 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
             @NonNull final SettingsValues settingsValues,
             @NonNull final KeyboardSwitchState toggleState) {
         final int visibility = isImeSuppressedByHardwareKeyboard(settingsValues, toggleState) ? View.GONE : View.VISIBLE;
-        final int stripVisibility = settingsValues.mToolbarMode == ToolbarMode.HIDDEN ? View.GONE : View.VISIBLE;
+        final int stripVisibility = settingsValues.mToolbarMode == ToolbarMode.HIDDEN || mLatinIME.isEmojiSearch()? View.GONE : View.VISIBLE;
         mStripContainer.setVisibility(stripVisibility);
         PointerTracker.switchTo(mKeyboardView);
         mKeyboardView.setVisibility(visibility);
@@ -630,6 +630,10 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
 
     public boolean isShowingStripContainer() {
         return mStripContainer.isShown();
+    }
+
+    public EmojiPalettesView getEmojiPalettesView() {
+        return mEmojiPalettesView;
     }
 
     public View getVisibleKeyboardView() {
