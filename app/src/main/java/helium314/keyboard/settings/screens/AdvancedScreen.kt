@@ -120,6 +120,7 @@ fun createAdvancedSettings(context: Context) = listOf(
             stringResource(R.string.space_swipe_move_cursor_entry) to "move_cursor",
             stringResource(R.string.switch_language) to "switch_language",
             stringResource(R.string.space_swipe_toggle_numpad_entry) to "toggle_numpad",
+            stringResource(R.string.space_swipe_hide_keyboard_entry) to "hide_keyboard",
             stringResource(R.string.action_none) to "none",
         )
         ListPreference(it, items, Defaults.PREF_SPACE_VERTICAL_SWIPE)

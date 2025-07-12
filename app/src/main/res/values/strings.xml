@@ -64,7 +64,7 @@
     <!-- Option name for including other IMEs in the language key switch list -->
     <string name="language_switch_key_switch_input_method">Switch to other input methods</string>
     <!-- Option name for switching language / subtype only -->
-    <string name="switch_language">Switch Language</string>
+    <string name="switch_language">Switch language</string>
     <!-- Option name for switching language / subtype and input method -->
     <string name="language_switch_key_switch_both">Switch both</string>
     <!-- Option to show language switch key -->
@@ -866,9 +866,11 @@ New dictionary:
     <!-- Option for no action when (currently only used for swiping the spacebar) -->
     <string name="action_none">None</string>
     <!-- Option to move the cursor when swiping the spacebar -->
-    <string name="space_swipe_move_cursor_entry">Move Cursor</string>
+    <string name="space_swipe_move_cursor_entry">Move cursor</string>
     <!-- Option to toggle the numpad when swiping the spacebar -->
-    <string name="space_swipe_toggle_numpad_entry">Toggle Numpad</string>
+    <string name="space_swipe_toggle_numpad_entry">Toggle numpad</string>
+    <!-- Option to hide the keyboard when swiping the spacebar -->
+    <string name="space_swipe_hide_keyboard_entry">Hide keyboard</string>
     <!-- Title of the setting for variable toolbar direction -->
     <string name="var_toolbar_direction">Variable toolbar direction</string>
     <!-- Description of the variable toolbar direction setting -->
