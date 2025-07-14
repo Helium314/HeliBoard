@@ -184,7 +184,7 @@ public class LatinIME extends InputMethodService implements
         private static final int MSG_UPDATE_SHIFT_STATE = 0;
         private static final int MSG_PENDING_IMS_CALLBACK = 1;
         private static final int MSG_UPDATE_SUGGESTION_STRIP = 2;
-        private static final int MSG_SHOW_GESTURE_PREVIEW_AND_SUGGESTION_STRIP = 3;
+        private static final int MSG_SHOW_GESTURE_PREVIEW_AND_SET_SUGGESTIONS = 3;
         private static final int MSG_RESUME_SUGGESTIONS = 4;
         private static final int MSG_REOPEN_DICTIONARIES = 5;
         private static final int MSG_UPDATE_TAIL_BATCH_INPUT_COMPLETED = 6;
@@ -195,7 +195,6 @@ public class LatinIME extends InputMethodService implements
         // Update this when adding new messages
         private static final int MSG_LAST = MSG_SWITCH_LANGUAGE_AUTOMATICALLY;
 
-        private static final int ARG1_NOT_GESTURE_INPUT = 0;
         private static final int ARG1_DISMISS_GESTURE_FLOATING_PREVIEW_TEXT = 1;
         private static final int ARG1_SHOW_GESTURE_FLOATING_PREVIEW_TEXT = 2;
         private static final int ARG2_UNUSED = 0;
@@ -236,14 +235,9 @@ public class LatinIME extends InputMethodService implements
                     latinIme.mKeyboardSwitcher.requestUpdatingShiftState(latinIme.getCurrentAutoCapsState(),
                             latinIme.getCurrentRecapitalizeState());
                     break;
-                case MSG_SHOW_GESTURE_PREVIEW_AND_SUGGESTION_STRIP:
-                    if (msg.arg1 == ARG1_NOT_GESTURE_INPUT) {
-                        final SuggestedWords suggestedWords = (SuggestedWords) msg.obj;
-                        latinIme.showSuggestionStrip(suggestedWords);
-                    } else {
-                        latinIme.showGesturePreviewAndSuggestionStrip((SuggestedWords) msg.obj,
+                case MSG_SHOW_GESTURE_PREVIEW_AND_SET_SUGGESTIONS:
+                    latinIme.showGesturePreviewAndSetSuggestions((SuggestedWords) msg.obj,
                                 msg.arg1 == ARG1_DISMISS_GESTURE_FLOATING_PREVIEW_TEXT);
-                    }
                     break;
                 case MSG_RESUME_SUGGESTIONS:
                     latinIme.mInputLogic.restartSuggestionsOnWordTouchedByCursor(
@@ -299,7 +293,7 @@ public class LatinIME extends InputMethodService implements
             if (latinIme == null) {
                 return;
             }
-            if (!latinIme.mSettings.getCurrent().isSuggestionsEnabledPerUserSettings()) {
+            if (!latinIme.mSettings.getCurrent().needsToLookupSuggestions()) {
                 return;
             }
             removeMessages(MSG_RESUME_SUGGESTIONS);
@@ -378,18 +372,12 @@ public class LatinIME extends InputMethodService implements
 
         public void showGesturePreviewAndSuggestionStrip(final SuggestedWords suggestedWords,
                                                          final boolean dismissGestureFloatingPreviewText) {
-            removeMessages(MSG_SHOW_GESTURE_PREVIEW_AND_SUGGESTION_STRIP);
+            removeMessages(MSG_SHOW_GESTURE_PREVIEW_AND_SET_SUGGESTIONS);
             final int arg1 = dismissGestureFloatingPreviewText
                     ? ARG1_DISMISS_GESTURE_FLOATING_PREVIEW_TEXT
                     : ARG1_SHOW_GESTURE_FLOATING_PREVIEW_TEXT;
-            obtainMessage(MSG_SHOW_GESTURE_PREVIEW_AND_SUGGESTION_STRIP, arg1,
+            obtainMessage(MSG_SHOW_GESTURE_PREVIEW_AND_SET_SUGGESTIONS, arg1,
                     ARG2_UNUSED, suggestedWords).sendToTarget();
-        }
-
-        public void showSuggestionStrip(final SuggestedWords suggestedWords) {
-            removeMessages(MSG_SHOW_GESTURE_PREVIEW_AND_SUGGESTION_STRIP);
-            obtainMessage(MSG_SHOW_GESTURE_PREVIEW_AND_SUGGESTION_STRIP,
-                    ARG1_NOT_GESTURE_INPUT, ARG2_UNUSED, suggestedWords).sendToTarget();
         }
 
         public void showTailBatchInputResult(final SuggestedWords suggestedWords) {
@@ -684,7 +672,7 @@ public class LatinIME extends InputMethodService implements
             resetDictionaryFacilitatorIfNecessary();
         }
         refreshPersonalizationDictionarySession(currentSettingsValues);
-        mInputLogic.mSuggest.clearNextWordSuggestionsCache();
+        mInputLogic.onSettingsChanged(locale);
         mStatsUtilsManager.onLoadSettings(this, currentSettingsValues);
     }
 
@@ -1603,9 +1591,9 @@ public class LatinIME extends InputMethodService implements
     }
 
     // This method must run on the UI Thread.
-    void showGesturePreviewAndSuggestionStrip(@NonNull final SuggestedWords suggestedWords,
+    private void showGesturePreviewAndSetSuggestions(@NonNull final SuggestedWords suggestedWords,
                                               final boolean dismissGestureFloatingPreviewText) {
-        showSuggestionStrip(suggestedWords);
+        setSuggestions(suggestedWords);
         final MainKeyboardView mainKeyboardView = mKeyboardSwitcher.getMainKeyboardView();
         mainKeyboardView.showGestureFloatingPreviewText(suggestedWords,
                 dismissGestureFloatingPreviewText /* dismissDelayed */);
@@ -1647,7 +1635,7 @@ public class LatinIME extends InputMethodService implements
     }
 
     @Override
-    public void showSuggestionStrip(final SuggestedWords suggestedWords) {
+    public void setSuggestions(final SuggestedWords suggestedWords) {
         if (suggestedWords.isEmpty()) {
             // avoids showing clipboard suggestion when starting gesture typing
             // should be fine, as there will be another suggestion in a few ms
@@ -1660,6 +1648,11 @@ public class LatinIME extends InputMethodService implements
         // Cache the auto-correction in accessibility code so we can speak it if the user
         // touches a key that will insert it.
         AccessibilityUtils.Companion.getInstance().setAutoCorrection(suggestedWords);
+    }
+
+    @Override
+    public void showSuggestionStrip() {
+        mSuggestionStripView.setToolbarVisibility(false);
     }
 
     // Called from {@link SuggestionStripView} through the {@link SuggestionStripView#Listener}
