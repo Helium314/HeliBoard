@@ -16,6 +16,7 @@ import helium314.keyboard.latin.utils.InputTypeUtils;
 
 import java.util.Arrays;
 import java.util.Locale;
+import java.util.Objects;
 
 import static helium314.keyboard.latin.common.Constants.Subtype.ExtraValue.KEYBOARD_LAYOUT_SET;
 
@@ -80,6 +81,7 @@ public final class KeyboardId {
     public final boolean mHasShortcutKey;
     public final boolean mIsSplitLayout;
     public final boolean mOneHandedModeEnabled;
+    public final KeyboardLayoutSet.InternalAction mInternalAction;
 
     private final int mHashCode;
 
@@ -99,6 +101,7 @@ public final class KeyboardId {
         mHasShortcutKey = params.mVoiceInputKeyEnabled;
         mIsSplitLayout = params.mIsSplitLayoutEnabled;
         mOneHandedModeEnabled = params.mOneHandedModeEnabled;
+        mInternalAction = params.mInternalAction;
 
         mHashCode = computeHashCode(this);
     }
@@ -121,7 +124,8 @@ public final class KeyboardId {
                 id.navigateNext(),
                 id.navigatePrevious(),
                 id.mSubtype,
-                id.mIsSplitLayout
+                id.mIsSplitLayout,
+                id.mInternalAction
         });
     }
 
@@ -144,7 +148,8 @@ public final class KeyboardId {
                 && other.navigateNext() == navigateNext()
                 && other.navigatePrevious() == navigatePrevious()
                 && other.mSubtype.equals(mSubtype)
-                && other.mIsSplitLayout == mIsSplitLayout;
+                && other.mIsSplitLayout == mIsSplitLayout
+                && Objects.equals(other.mInternalAction, mInternalAction);
     }
 
     private static boolean isAlphabetKeyboard(final int elementId) {

@@ -24,6 +24,7 @@ import androidx.annotation.NonNull;
 import helium314.keyboard.event.Event;
 import helium314.keyboard.event.InputTransaction;
 import helium314.keyboard.keyboard.Keyboard;
+import helium314.keyboard.keyboard.KeyboardLayoutSet;
 import helium314.keyboard.keyboard.KeyboardSwitcher;
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode;
 import helium314.keyboard.latin.Dictionary;
@@ -71,7 +72,6 @@ import java.util.concurrent.TimeUnit;
 public final class InputLogic {
     private static final String TAG = InputLogic.class.getSimpleName();
     private static final char INLINE_EMOJI_SEARCH_MARKER = ':';
-    private static final int INLINE_EMOJI_SEARCH_DONE_ACTION = 1;
 
     // TODO : Remove this member when we can.
     final LatinIME mLatinIME;
@@ -678,10 +678,10 @@ public final class InputLogic {
                 onSettingsKeyPressed();
                 break;
             case KeyCode.ACTION_NEXT:
-                performEditorAction(EditorInfo.IME_ACTION_NEXT, inputTransaction, handler);
+                performEditorAction(EditorInfo.IME_ACTION_NEXT);
                 break;
             case KeyCode.ACTION_PREVIOUS:
-                performEditorAction(EditorInfo.IME_ACTION_PREVIOUS, inputTransaction, handler);
+                performEditorAction(EditorInfo.IME_ACTION_PREVIOUS);
                 break;
             case KeyCode.LANGUAGE_SWITCH:
                 handleLanguageSwitchKey();
@@ -798,6 +798,17 @@ public final class InputLogic {
                 // input logic has no business with IME switching.
             case KeyCode.CAPS_LOCK, KeyCode.EMOJI, KeyCode.TOGGLE_ONE_HANDED_MODE, KeyCode.SWITCH_ONE_HANDED_MODE:
                 break;
+            case KeyCode.INLINE_EMOJI_SEARCH_DONE:
+                if (Settings.getValues().mAutoCorrectEnabled) {
+                    commitCurrentAutoCorrection(Settings.getValues(), LastComposedWord.NOT_A_SEPARATOR, handler);
+                    inputTransaction.setDidAutoCorrect();
+                } else {
+                    commitTyped(Settings.getValues(), LastComposedWord.NOT_A_SEPARATOR);
+                }
+
+                mSuggestionStripViewAccessor.setNeutralSuggestionStrip();
+                setInlineEmojiSearchAction(false);
+                break;
             default:
                 if (KeyCode.INSTANCE.isModifier(keyCode))
                     return; // continuation of previous switch case above, but modifiers are held in a separate place
@@ -833,7 +844,7 @@ public final class InputLogic {
             if (InputTypeUtils.IME_ACTION_CUSTOM_LABEL == imeOptionsActionId) {
                 // Either we have an actionLabel and we should performEditorAction with
                 // actionId regardless of its value.
-                performEditorAction(editorInfo.actionId, inputTransaction, handler);
+                performEditorAction(editorInfo.actionId);
             } else if (EditorInfo.IME_ACTION_NONE != imeOptionsActionId) {
                 // We didn't have an actionLabel, but we had another action to execute.
                 // EditorInfo.IME_ACTION_NONE explicitly means no action. In contrast,
@@ -842,7 +853,7 @@ public final class InputLogic {
                 // code for it - presumably it only handles one. It does not have to be treated
                 // in any specific way: anything that is not IME_ACTION_NONE should be sent to
                 // performEditorAction.
-                performEditorAction(imeOptionsActionId, inputTransaction, handler);
+                performEditorAction(imeOptionsActionId);
             } else {
                 // No action label, and the action from imeOptions is NONE: this is a regular
                 // enter key that should input a carriage return.
@@ -2023,20 +2034,8 @@ public final class InputLogic {
     /**
      * @param actionId the action to perform
      */
-    private void performEditorAction(final int actionId, InputTransaction inputTransaction, LatinIME.UIHandler handler) {
-        if (actionId == INLINE_EMOJI_SEARCH_DONE_ACTION) {
-            if (Settings.getValues().mAutoCorrectEnabled) {
-                commitCurrentAutoCorrection(Settings.getValues(), LastComposedWord.NOT_A_SEPARATOR, handler);
-                inputTransaction.setDidAutoCorrect();
-            } else {
-                commitTyped(Settings.getValues(), LastComposedWord.NOT_A_SEPARATOR);
-            }
-
-            mSuggestionStripViewAccessor.setNeutralSuggestionStrip();
-            setInlineEmojiSearchAction(false);
-        } else {
-            mConnection.performEditorAction(actionId);
-        }
+    private void performEditorAction(final int actionId) {
+        mConnection.performEditorAction(actionId);
     }
 
     /**
@@ -2456,7 +2455,7 @@ public final class InputLogic {
             callback.onGetSuggestedWords(SuggestedWords.getEmptyInstance());
             return;
         }
-        if (searchForEmoji(sequenceNumber, callback)) {
+        if (searchForEmojiInline(sequenceNumber, callback)) {
             return;
         }
         final SettingsValues settingsValues = Settings.getValues();
@@ -2583,15 +2582,19 @@ public final class InputLogic {
     }
 
     private void setInlineEmojiSearchAction(boolean on) {
-        var wasOn = getCurrentInputEditorInfo().actionId == INLINE_EMOJI_SEARCH_DONE_ACTION;
+        KeyboardSwitcher keyboardSwitcher = KeyboardSwitcher.getInstance();
+        var keyboard = keyboardSwitcher.getKeyboard();
+        var internalAction = keyboard != null? keyboard.mId.mInternalAction : null;
+        var wasOn = internalAction != null && internalAction.code() == KeyCode.INLINE_EMOJI_SEARCH_DONE;
         if (on != wasOn) {
-            getCurrentInputEditorInfo().actionLabel = on? "\uD83D\uDC4D" : null;
-            getCurrentInputEditorInfo().actionId = on? INLINE_EMOJI_SEARCH_DONE_ACTION : 0;
-            KeyboardSwitcher.getInstance().reloadKeyboard();
+            keyboardSwitcher.loadKeyboard(mLatinIME.getCurrentInputEditorInfo(), Settings.getValues(), mLatinIME.getCurrentAutoCapsState(),
+                                          mLatinIME.getCurrentRecapitalizeState(), on?
+                                              new KeyboardLayoutSet.InternalAction(KeyCode.INLINE_EMOJI_SEARCH_DONE, "\uD83D\uDC4D")
+                                              : null);
         }
     }
 
-    private boolean searchForEmoji(int sequenceNumber, OnGetSuggestedWordsCallback callback) {
+    private boolean searchForEmojiInline(int sequenceNumber, OnGetSuggestedWordsCallback callback) {
         if (! isInlineEmojiSearch()) {
             return false;
         }
@@ -2625,6 +2628,7 @@ public final class InputLogic {
     }
 
     private void updateEmojiDictionary(Locale locale) {
+        //todo: disable if in full emoji search mode
         if (Settings.getValues().mInlineEmojiSearch && Settings.getValues().needsToLookupSuggestions()) {
             if (mEmojiDictionaryFacilitator == null || ! mEmojiDictionaryFacilitator.isForLocale(locale)) {
                 closeEmojiDictionary();
