@@ -105,7 +105,6 @@ import kotlin.properties.Delegates
  */
 class EmojiSearchActivity : ComponentActivity() {
     private val colors = Settings.getValues().mColors
-    private var enterAnimationComplete = false
     private var startup = true
     private lateinit var emojiPageKeyboardView: EmojiPageKeyboardView
     private lateinit var keyboardParams: KeyboardParams
@@ -136,10 +135,6 @@ class EmojiSearchActivity : ComponentActivity() {
                 ) {
                     Column(modifier = Modifier.wrapContentHeight().background(Color(colors.get(ColorType.MAIN_BACKGROUND)))
                         .onGloballyPositioned {
-                            if (startup && enterAnimationComplete && imeVisible && isAlphaKeyboard()) {
-                                search(searchText)
-                                return@onGloballyPositioned
-                            }
                             if (!startup && !imeVisible) {
                                 imeClosed = true
                                 cancel()
@@ -177,7 +172,8 @@ class EmojiSearchActivity : ComponentActivity() {
                             BasicTextField(
                                 value = text,
                                 modifier = Modifier.fillMaxWidth().heightIn(20.dp, 30.dp).focusRequester(focusRequester),
-                                textStyle = TextStyle(textDirection = TextDirection.Content, color = textFieldColors.unfocusedTextColor),
+                                textStyle = TextStyle(textDirection = TextDirection.Content,
+                                    color = textFieldColors.unfocusedTextColor),
                                 onValueChange = { it: TextFieldValue ->
                                     text = it
                                     search(it.text)
@@ -185,8 +181,7 @@ class EmojiSearchActivity : ComponentActivity() {
                                 enabled = true,
                                 keyboardOptions = KeyboardOptions(
                                     imeAction = ImeAction.Done,
-                                    platformImeOptions = PlatformImeOptions(encodePrivateImeOptions(PrivateImeOptions(heightPx)))
-                                ),
+                                    platformImeOptions = PlatformImeOptions(encodePrivateImeOptions(PrivateImeOptions(heightPx)))),
                                 keyboardActions = KeyboardActions(onDone = { finish() }),
                                 singleLine = true,
                                 cursorBrush = SolidColor(textFieldColors.cursorColor)
@@ -219,7 +214,7 @@ class EmojiSearchActivity : ComponentActivity() {
     }
 
     override fun onEnterAnimationComplete() {
-        enterAnimationComplete = true
+        search(searchText)
     }
 
     override fun onStop() {
