@@ -150,12 +150,13 @@ public class PopupKeysKeyboardView extends KeyboardView implements PopupKeysPane
         parentView.getLocationInWindow(mCoordinates);
         // Ensure the horizontal position of the panel does not extend past the parentView edges.
         final int maxX = parentView.getMeasuredWidth() - container.getMeasuredWidth();
-        final int panelX = Math.max(0, Math.min(maxX, x)) + CoordinateUtils.x(mCoordinates);
+        var finalX = Math.max(0, Math.min(maxX, x));
+        final int panelX = finalX + CoordinateUtils.x(mCoordinates);
         final int panelY = y + CoordinateUtils.y(mCoordinates);
         container.setX(panelX);
         container.setY(panelY);
 
-        mOriginX = x + container.getPaddingLeft();
+        mOriginX = finalX + container.getPaddingLeft();
         mOriginY = y + container.getPaddingTop();
         var center = panelX + getMeasuredWidth() / 2;
         // This is needed for cases where there's also a long text popup above this keyboard
