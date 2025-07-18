@@ -64,6 +64,8 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.PlatformImeOptions
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.text.intl.Locale
+import androidx.compose.ui.text.intl.LocaleList
 import androidx.compose.ui.text.style.TextDirection
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -110,6 +112,7 @@ class EmojiSearchActivity : ComponentActivity() {
     private lateinit var keyboardParams: KeyboardParams
     private var keyWidth by Delegates.notNull<Float>()
     private var keyHeight by Delegates.notNull<Float>()
+    private lateinit var hintLocales: LocaleList
     private var pressedKey: Key? = null
     private var imeClosed = false
 
@@ -181,6 +184,7 @@ class EmojiSearchActivity : ComponentActivity() {
                                 enabled = true,
                                 keyboardOptions = KeyboardOptions(
                                     imeAction = ImeAction.Done,
+                                    hintLocales = hintLocales,
                                     platformImeOptions = PlatformImeOptions(encodePrivateImeOptions(PrivateImeOptions(heightPx)))),
                                 keyboardActions = KeyboardActions(onDone = { finish() }),
                                 singleLine = true,
@@ -233,6 +237,7 @@ class EmojiSearchActivity : ComponentActivity() {
     }
 
     private fun init() {
+        hintLocales = LocaleList(DictionaryInfoUtils.getLocalesWithEmojiDicts(this).map { Locale(it.toLanguageTag()) })
         val keyboardWidth = ResourceUtils.getKeyboardWidth(this, Settings.getValues())
         val layoutSet = KeyboardLayoutSet.Builder(this, null).setSubtype(RichInputMethodSubtype.emojiSubtype)
             .setKeyboardGeometry(keyboardWidth, EmojiLayoutParams(resources).emojiKeyboardHeight).build()
@@ -320,11 +325,6 @@ class EmojiSearchActivity : ComponentActivity() {
         private const val PRIVATE_IME_OPTIONS_PREFIX: String = "helium314.keyboard.keyboard.emoji.search"
         private var dictionaryFacilitator: SingleDictionaryFacilitator? = null
         private var searchText: String = ""
-
-        fun isSupported(context: Context): Boolean {
-            initDictionaryFacilitator(context)
-            return dictionaryFacilitator != null
-        }
 
         fun decodePrivateImeOptions(editorInfo: EditorInfo?): PrivateImeOptions = PrivateImeOptions(
             editorInfo?.privateImeOptions?.takeIf { it.startsWith(PRIVATE_IME_OPTIONS_PREFIX) }

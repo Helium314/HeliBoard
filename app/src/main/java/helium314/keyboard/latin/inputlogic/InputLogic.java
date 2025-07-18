@@ -781,12 +781,12 @@ public final class InputLogic {
                 mLatinIME.onTextInput(TimestampKt.getTimestamp(mLatinIME));
                 break;
             case KeyCode.SEARCH:
-                if (EmojiSearchActivity.Companion.isSupported(mLatinIME)) {
-                    commitTyped(Settings.getValues(), LastComposedWord.NOT_A_SEPARATOR);
-                    mLatinIME.launchEmojiSearch();
-                } else {
+                if (DictionaryInfoUtils.getLocalesWithEmojiDicts(mLatinIME).isEmpty()) {
                     // todo: open dictionary settings?
                     onSettingsKeyPressed();
+                } else {
+                    commitTyped(Settings.getValues(), LastComposedWord.NOT_A_SEPARATOR);
+                    mLatinIME.launchEmojiSearch();
                 }
                 break;
             case KeyCode.SEND_INTENT_ONE, KeyCode.SEND_INTENT_TWO, KeyCode.SEND_INTENT_THREE:
