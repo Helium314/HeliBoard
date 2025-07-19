@@ -6,6 +6,7 @@
 
 package helium314.keyboard.latin.utils;
 
+import androidx.annotation.Nullable;
 import helium314.keyboard.latin.SuggestedWords.SuggestedWordInfo;
 import helium314.keyboard.latin.define.ProductionFlags;
 
@@ -56,7 +57,7 @@ public final class SuggestionResults extends TreeSet<SuggestedWordInfo> {
     }
 
     @Override
-    public boolean addAll(final Collection<? extends SuggestedWordInfo> e) {
+    public boolean addAll(@Nullable final Collection<? extends SuggestedWordInfo> e) {
         if (null == e) return false;
         return super.addAll(e);
     }

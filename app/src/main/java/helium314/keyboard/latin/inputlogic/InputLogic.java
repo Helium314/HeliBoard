@@ -25,6 +25,7 @@ import helium314.keyboard.event.Event;
 import helium314.keyboard.event.InputTransaction;
 import helium314.keyboard.keyboard.Keyboard;
 import helium314.keyboard.keyboard.KeyboardSwitcher;
+import helium314.keyboard.keyboard.emoji.EmojiSearchActivity;
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode;
 import helium314.keyboard.latin.Dictionary;
 import helium314.keyboard.latin.DictionaryFacilitator;
@@ -48,6 +49,7 @@ import helium314.keyboard.latin.settings.SettingsValues;
 import helium314.keyboard.latin.settings.SpacingAndPunctuations;
 import helium314.keyboard.latin.suggestions.SuggestionStripViewAccessor;
 import helium314.keyboard.latin.utils.AsyncResultHolder;
+import helium314.keyboard.latin.utils.DictionaryInfoUtils;
 import helium314.keyboard.latin.utils.InputTypeUtils;
 import helium314.keyboard.latin.utils.IntentUtils;
 import helium314.keyboard.latin.utils.Log;
@@ -778,6 +780,15 @@ public final class InputLogic {
                 break;
             case KeyCode.TIMESTAMP:
                 mLatinIME.onTextInput(TimestampKt.getTimestamp(mLatinIME));
+                break;
+            case KeyCode.SEARCH:
+                if (DictionaryInfoUtils.getLocalesWithEmojiDicts(mLatinIME).isEmpty()) {
+                    // todo: open dictionary settings?
+                    onSettingsKeyPressed();
+                } else {
+                    commitTyped(Settings.getValues(), LastComposedWord.NOT_A_SEPARATOR);
+                    mLatinIME.launchEmojiSearch();
+                }
                 break;
             case KeyCode.SEND_INTENT_ONE, KeyCode.SEND_INTENT_TWO, KeyCode.SEND_INTENT_THREE:
                 IntentUtils.handleSendIntentKey(mLatinIME, event.getMKeyCode());

@@ -60,7 +60,7 @@ public final class KeyboardId {
     public static final int ELEMENT_EMOJI_CATEGORY13 = 23;
     public static final int ELEMENT_EMOJI_CATEGORY14 = 24;
     public static final int ELEMENT_EMOJI_CATEGORY15 = 25;
-    public static final int ELEMENT_EMOJI_CATEGORY16 = 26;
+    public static final int ELEMENT_EMOJI_CATEGORY16 = 26;  // Emoji search
     public static final int ELEMENT_CLIPBOARD = 27;
     public static final int ELEMENT_NUMPAD = 28;
     public static final int ELEMENT_EMOJI_BOTTOM_ROW = 29;
