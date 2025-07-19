@@ -108,11 +108,11 @@ import kotlin.properties.Delegates
 class EmojiSearchActivity : ComponentActivity() {
     private val colors = Settings.getValues().mColors
     private var startup = true
+    private lateinit var hintLocales: LocaleList
     private lateinit var emojiPageKeyboardView: EmojiPageKeyboardView
     private lateinit var keyboardParams: KeyboardParams
     private var keyWidth by Delegates.notNull<Float>()
     private var keyHeight by Delegates.notNull<Float>()
-    private lateinit var hintLocales: LocaleList
     private var pressedKey: Key? = null
     private var imeClosed = false
 
@@ -126,12 +126,8 @@ class EmojiSearchActivity : ComponentActivity() {
             Surface(modifier = Modifier.fillMaxSize(), color = Color(0x80000000)) {
                 val imeVisible = WindowInsets.isImeVisible
                 val localDensity = LocalDensity.current
-                var heightPx by remember {
-                    mutableIntStateOf(0)
-                }
-                var heightDp by remember {
-                    mutableStateOf(0.dp)
-                }
+                var heightPx by remember { mutableIntStateOf(0) }
+                var heightDp by remember { mutableStateOf(0.dp) }
                 Column(modifier = Modifier.fillMaxSize().clickable(onClick = { cancel() })
                     .windowInsetsPadding(WindowInsets.safeDrawing.exclude(WindowInsets(bottom = heightDp))),
                     verticalArrangement = Arrangement.Bottom
@@ -163,21 +159,20 @@ class EmojiSearchActivity : ComponentActivity() {
                         AndroidView({ emojiPageKeyboardView }, modifier = Modifier.wrapContentHeight().fillMaxWidth())
                         val focusRequester = remember { FocusRequester() }
                         var text by remember { mutableStateOf(TextFieldValue(searchText, selection = TextRange(searchText.length))) }
-                        val textFieldColors = TextFieldDefaults.colors()
-                            .copy(unfocusedContainerColor = Color(colors.get(ColorType.FUNCTIONAL_KEY_BACKGROUND)),
-                                unfocusedTextColor = Color(colors.get(ColorType.FUNCTIONAL_KEY_TEXT)),
-                                cursorColor = Color(colors.get(ColorType.FUNCTIONAL_KEY_TEXT)),
-                                unfocusedLeadingIconColor = Color(colors.get(ColorType.FUNCTIONAL_KEY_TEXT)),
-                                unfocusedTrailingIconColor = Color(colors.get(ColorType.FUNCTIONAL_KEY_TEXT)),
-                                unfocusedPlaceholderColor = lerp(Color(colors.get(ColorType.FUNCTIONAL_KEY_BACKGROUND)),
-                                    Color(colors.get(ColorType.FUNCTIONAL_KEY_TEXT)), 0.5f))
+                        val textFieldColors = TextFieldDefaults.colors().copy(
+                            unfocusedContainerColor = Color(colors.get(ColorType.FUNCTIONAL_KEY_BACKGROUND)),
+                            unfocusedTextColor = Color(colors.get(ColorType.FUNCTIONAL_KEY_TEXT)),
+                            cursorColor = Color(colors.get(ColorType.FUNCTIONAL_KEY_TEXT)),
+                            unfocusedLeadingIconColor = Color(colors.get(ColorType.FUNCTIONAL_KEY_TEXT)),
+                            unfocusedTrailingIconColor = Color(colors.get(ColorType.FUNCTIONAL_KEY_TEXT)),
+                            unfocusedPlaceholderColor = lerp(Color(colors.get(ColorType.FUNCTIONAL_KEY_BACKGROUND)),
+                                Color(colors.get(ColorType.FUNCTIONAL_KEY_TEXT)), 0.5f))
                         CompositionLocalProvider(LocalTextSelectionColors provides textFieldColors.textSelectionColors) {
                             BasicTextField(
                                 value = text,
                                 modifier = Modifier.fillMaxWidth().heightIn(20.dp, 30.dp).focusRequester(focusRequester),
-                                textStyle = TextStyle(textDirection = TextDirection.Content,
-                                    color = textFieldColors.unfocusedTextColor),
-                                onValueChange = { it: TextFieldValue ->
+                                textStyle = TextStyle(textDirection = TextDirection.Content, color = textFieldColors.unfocusedTextColor),
+                                onValueChange = {
                                     text = it
                                     search(it.text)
                                 },
@@ -193,6 +188,11 @@ class EmojiSearchActivity : ComponentActivity() {
                                 TextFieldDefaults.DecorationBox(
                                     value = text.text,
                                     colors = textFieldColors,
+
+                                    /**
+                                     * This is the reason for not using [androidx.compose.material3.TextField],
+                                     * which uses [TextFieldDefaults.contentPaddingWithoutLabel]
+                                     */
                                     contentPadding = PaddingValues(2.dp),
                                     visualTransformation = VisualTransformation.None,
                                     innerTextField = it,
