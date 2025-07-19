@@ -1158,7 +1158,9 @@ public final class InputLogic {
      */
     private void handleBackspaceEvent(final Event event, final InputTransaction inputTransaction,
             final String currentKeyboardScript) {
-        mSpaceState = SpaceState.NONE;
+        if (mSpaceState != SpaceState.PHANTOM) {
+            mSpaceState = SpaceState.NONE;
+        }
         mDeleteCount++;
 
         // In many cases after backspace, we need to update the shift state. Normally we need
@@ -1183,7 +1185,9 @@ public final class InputLogic {
                     mConnection.getExpectedSelectionEnd(), true /* clearSuggestionStrip */);
             // When we exit this if-clause, mWordComposer.isComposingWord() will return false.
         }
-        if (mWordComposer.isComposingWord()) {
+        if (mSpaceState == SpaceState.PHANTOM) {
+            mSpaceState = SpaceState.NONE;
+        } else if (mWordComposer.isComposingWord()) {
             if (mWordComposer.isBatchMode()) {
                 final String rejectedSuggestion = mWordComposer.getTypedWord();
                 mWordComposer.reset();
