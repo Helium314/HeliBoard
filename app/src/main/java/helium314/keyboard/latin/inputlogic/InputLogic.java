@@ -1158,6 +1158,7 @@ public final class InputLogic {
      */
     private void handleBackspaceEvent(final Event event, final InputTransaction inputTransaction,
             final String currentKeyboardScript) {
+        mSpaceState = SpaceState.NONE;
         mDeleteCount++;
 
         // In many cases after backspace, we need to update the shift state. Normally we need
@@ -1255,13 +1256,11 @@ public final class InputLogic {
                     // Likewise
                     return;
                 }
-            } else if (mSpaceState == SpaceState.PHANTOM) {
-                mSpaceState = SpaceState.NONE;
+            } else if (SpaceState.PHANTOM == inputTransaction.getMSpaceState()) {
                 restartSuggestionsOnWordTouchedByCursor(inputTransaction.getMSettingsValues(), currentKeyboardScript);
                 return;
             }
 
-            mSpaceState = SpaceState.NONE;
             boolean hasUnlearnedWordBeingDeleted = false;
 
             // No cancelling of commit/double space/swap: we have a regular backspace.
