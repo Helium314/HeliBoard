@@ -395,17 +395,20 @@ class Suggest(private val mDictionaryFacilitator: DictionaryFacilitator) {
             wordComposer: WordComposer, results: SuggestionResults,
             trailingSingleQuotesCount: Int, defaultLocale: Locale
         ): ArrayList<SuggestedWordInfo> {
+            val keyboardShiftMode = KeyboardSwitcher.getInstance().keyboardShiftMode
             val shouldMakeSuggestionsAllUpperCase = wordComposer.isAllUpperCase && !wordComposer.isResumed
-            val isOnlyFirstCharCapitalized = wordComposer.isOrWillBeOnlyFirstCharCapitalized
+                || keyboardShiftMode == WordComposer.CAPS_MODE_MANUAL_SHIFT_LOCKED
+            val shouldMakeSuggestionsOnlyFirstCharCapitalized = wordComposer.isOrWillBeOnlyFirstCharCapitalized
+                || keyboardShiftMode == WordComposer.CAPS_MODE_MANUAL_SHIFTED
             val suggestionsContainer = ArrayList(results)
             val suggestionsCount = suggestionsContainer.size
-            if (isOnlyFirstCharCapitalized || shouldMakeSuggestionsAllUpperCase || 0 != trailingSingleQuotesCount) {
+            if (shouldMakeSuggestionsOnlyFirstCharCapitalized || shouldMakeSuggestionsAllUpperCase || 0 != trailingSingleQuotesCount) {
                 for (i in 0 until suggestionsCount) {
                     val wordInfo = suggestionsContainer[i]
                     val wordLocale = wordInfo.mSourceDict.mLocale
                     val transformedWordInfo = getTransformedSuggestedWordInfo(
                         wordInfo, wordLocale ?: defaultLocale,
-                        shouldMakeSuggestionsAllUpperCase, isOnlyFirstCharCapitalized,
+                        shouldMakeSuggestionsAllUpperCase, shouldMakeSuggestionsOnlyFirstCharCapitalized,
                         trailingSingleQuotesCount
                     )
                     suggestionsContainer[i] = transformedWordInfo
