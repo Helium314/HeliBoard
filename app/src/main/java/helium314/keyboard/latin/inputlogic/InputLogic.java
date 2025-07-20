@@ -1158,9 +1158,6 @@ public final class InputLogic {
      */
     private void handleBackspaceEvent(final Event event, final InputTransaction inputTransaction,
             final String currentKeyboardScript) {
-        if (mSpaceState != SpaceState.PHANTOM) {
-            mSpaceState = SpaceState.NONE;
-        }
         mDeleteCount++;
 
         // In many cases after backspace, we need to update the shift state. Normally we need
@@ -1185,9 +1182,7 @@ public final class InputLogic {
                     mConnection.getExpectedSelectionEnd(), true /* clearSuggestionStrip */);
             // When we exit this if-clause, mWordComposer.isComposingWord() will return false.
         }
-        if (mSpaceState == SpaceState.PHANTOM) {
-            mSpaceState = SpaceState.NONE;
-        } else if (mWordComposer.isComposingWord()) {
+        if (mWordComposer.isComposingWord()) {
             if (mWordComposer.isBatchMode()) {
                 final String rejectedSuggestion = mWordComposer.getTypedWord();
                 mWordComposer.reset();
@@ -1260,8 +1255,13 @@ public final class InputLogic {
                     // Likewise
                     return;
                 }
+            } else if (mSpaceState == SpaceState.PHANTOM) {
+                mSpaceState = SpaceState.NONE;
+                restartSuggestionsOnWordTouchedByCursor(inputTransaction.getMSettingsValues(), currentKeyboardScript);
+                return;
             }
 
+            mSpaceState = SpaceState.NONE;
             boolean hasUnlearnedWordBeingDeleted = false;
 
             // No cancelling of commit/double space/swap: we have a regular backspace.

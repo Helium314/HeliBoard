@@ -688,8 +688,7 @@ class InputLogicTest {
         reset()
         glideTypingInput("hello")
         assertEquals("hello", text)
-        functionalKeyPress(KeyCode.DELETE) // delete phantom space
-        functionalKeyPress(KeyCode.DELETE) // delete word
+        functionalKeyPress(KeyCode.DELETE)
         assertEquals("", text)
 
         // todo: now we want some way to disable delete-all on backspace, either per setting or something else
