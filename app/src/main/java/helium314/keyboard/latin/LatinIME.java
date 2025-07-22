@@ -1877,6 +1877,8 @@ public class LatinIME extends InputMethodService implements
                      onTextInput(intent.getStringExtra(EmojiSearchActivity.EMOJI_KEY));
                 }
             }
+
+            stopSelf(); // Allow the service to be destroyed on next IME switch
             return START_NOT_STICKY;
         }
 
