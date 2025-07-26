@@ -1697,9 +1697,7 @@ public final class InputLogic {
                     && mLatinIME.tryShowClipboardSuggestion())) {
                 mSuggestionStripViewAccessor.setSuggestions(suggestedWords);
             }
-            if (shouldAutoShowSuggestions(settingsValues, suggestedWords)) {
-                mSuggestionStripViewAccessor.showSuggestionStrip();
-            }
+            showSuggestionStripIfInlineEmojiSearch(suggestedWords);
         }
         if (DebugFlags.DEBUG_ENABLED) {
             long runTimeMillis = System.currentTimeMillis() - startTimeMillis;
@@ -1807,12 +1805,8 @@ public final class InputLogic {
             // If there weren't any suggestion spans on this word, suggestions#size() will be 1
             // if shouldIncludeResumedWordInSuggestions is true, 0 otherwise. In this case, we
             // have no useful suggestions, so we will try to compute some for it instead.
-            final AsyncResultHolder<SuggestedWords> holder = new AsyncResultHolder<>("Suggest");
             mInputLogicHandler.getSuggestedWords(() -> getSuggestedWords(Suggest.SESSION_ID_TYPING,
-                                                                         SuggestedWords.NOT_A_SEQUENCE_NUMBER, holder::set));
-            // This line may cause the current thread to wait.
-            final SuggestedWords suggestedWords = holder.get(null, Constants.GET_SUGGESTED_WORDS_TIMEOUT);
-            doShowSuggestionsAndClearAutoCorrectionIndicator(suggestedWords);
+                    SuggestedWords.NOT_A_SEQUENCE_NUMBER, this::doShowSuggestionsAndClearAutoCorrectionIndicator));
         } else {
             // We found suggestion spans in the word. We'll create the SuggestedWords out of
             // them, and make willAutoCorrect false. We make typedWordValid false, because the
@@ -1830,15 +1824,15 @@ public final class InputLogic {
         mIsAutoCorrectionIndicatorOn = false;
         if (suggestedWords != null) {
             mSuggestionStripViewAccessor.setSuggestions(suggestedWords);
-            if (shouldAutoShowSuggestions(Settings.getValues(), suggestedWords)) {
-                mSuggestionStripViewAccessor.showSuggestionStrip();
-            }
+            showSuggestionStripIfInlineEmojiSearch(suggestedWords);
         }
     }
 
-    private boolean shouldAutoShowSuggestions(SettingsValues settingsValues, SuggestedWords suggestedWords) {
-        return ! suggestedWords.isEmpty() && settingsValues.isSuggestionsEnabledPerUserSettings() && ! mWordComposer.isResumed()
-                    && isInlineEmojiSearch();
+    private void showSuggestionStripIfInlineEmojiSearch(SuggestedWords suggestedWords) {
+        if (! suggestedWords.isEmpty() && Settings.getValues().isSuggestionsEnabledPerUserSettings() && ! mWordComposer.isResumed()
+                                        && isInlineEmojiSearch()) {
+            mSuggestionStripViewAccessor.showSuggestionStrip();
+        }
     }
 
     /**
@@ -2567,11 +2561,6 @@ public final class InputLogic {
         return mWordComposer.size();
     }
 
-    public void onSettingsChanged(Locale locale) {
-        mSuggest.clearNextWordSuggestionsCache();
-        updateEmojiDictionary(locale);
-    }
-
     private void updateInlineEmojiSearch() {
         setInlineEmojiSearchAction(isInlineEmojiSearch());
     }
@@ -2627,7 +2616,7 @@ public final class InputLogic {
                     && mWordComposer.getTypedWord().charAt(0) == INLINE_EMOJI_SEARCH_MARKER;
     }
 
-    private void updateEmojiDictionary(Locale locale) {
+    public void updateEmojiDictionary(Locale locale) {
         //todo: disable if in full emoji search mode
         if (Settings.getValues().mInlineEmojiSearch && Settings.getValues().needsToLookupSuggestions()) {
             if (mEmojiDictionaryFacilitator == null || ! mEmojiDictionaryFacilitator.isForLocale(locale)) {
