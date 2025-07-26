@@ -27,6 +27,7 @@ import helium314.keyboard.keyboard.KeyboardActionListener;
 import helium314.keyboard.latin.AudioAndHapticFeedbackManager;
 import helium314.keyboard.latin.InputAttributes;
 import helium314.keyboard.latin.R;
+import helium314.keyboard.latin.common.StringUtils;
 import helium314.keyboard.latin.utils.DeviceProtectedUtils;
 import helium314.keyboard.latin.utils.KtxKt;
 import helium314.keyboard.latin.utils.LayoutType;
@@ -179,6 +180,8 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_PINNED_CLIPS = "pinned_clips";
     public static final String PREF_VERSION_CODE = "version_code";
     public static final String PREF_LIBRARY_CHECKSUM = "lib_checksum";
+    public static final String PREF_SAVE_LOCALE_PER_APP = "save_locale_per_app";
+    private static final String PREF_SAVED_APP_LOCALE_PREFIX = "saved_app_locale_";
 
     private Context mContext;
     private SharedPreferences mPrefs;
@@ -230,7 +233,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
 
     @Override
     public void onSharedPreferenceChanged(final SharedPreferences prefs, final String key) {
-        if (dontReloadOnChanged.contains(key))
+        if (dontReloadOnChanged.contains(key) || key.startsWith(PREF_SAVED_APP_LOCALE_PREFIX))
             return;
         mSettingsValuesLock.lock();
         try {
@@ -538,6 +541,21 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static void writeDefaultLayoutName(@Nullable final String name, final LayoutType type, final SharedPreferences prefs) {
         if (name == null) prefs.edit().remove(PREF_LAYOUT_PREFIX + type.name()).apply();
         else prefs.edit().putString(PREF_LAYOUT_PREFIX + type.name(), name).apply();
+    }
+
+    public void saveLocaleForApp(Locale locale, String packageName) {
+        if (mSettingsValues.mSaveLocalePerApp && ! StringUtils.isEmpty(packageName)) {
+            mPrefs.edit().putString(PREF_SAVED_APP_LOCALE_PREFIX + packageName, locale.toLanguageTag()).apply();
+        }
+    }
+
+    public Locale getLocaleForApp(String packageName) {
+        if (! mSettingsValues.mSaveLocalePerApp || StringUtils.isEmpty(packageName)) {
+            return null;
+        }
+
+        var languageTag = mPrefs.getString(PREF_SAVED_APP_LOCALE_PREFIX + packageName, null);
+        return languageTag != null? Locale.forLanguageTag(languageTag) : null;
     }
 
     @Nullable
