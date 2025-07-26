@@ -195,6 +195,7 @@ public class LatinIME extends InputMethodService implements
         // Update this when adding new messages
         private static final int MSG_LAST = MSG_SWITCH_LANGUAGE_AUTOMATICALLY;
 
+        private static final int ARG1_NOT_GESTURE_INPUT = 0;
         private static final int ARG1_DISMISS_GESTURE_FLOATING_PREVIEW_TEXT = 1;
         private static final int ARG1_SHOW_GESTURE_FLOATING_PREVIEW_TEXT = 2;
         private static final int ARG2_UNUSED = 0;
@@ -236,8 +237,13 @@ public class LatinIME extends InputMethodService implements
                             latinIme.getCurrentRecapitalizeState());
                     break;
                 case MSG_SHOW_GESTURE_PREVIEW_AND_SET_SUGGESTIONS:
-                    latinIme.showGesturePreviewAndSetSuggestions((SuggestedWords) msg.obj,
+                    if (msg.arg1 == ARG1_NOT_GESTURE_INPUT) {
+                        final SuggestedWords suggestedWords = (SuggestedWords) msg.obj;
+                        latinIme.setSuggestedWords(suggestedWords);
+                    } else {
+                        latinIme.showGesturePreviewAndSetSuggestions((SuggestedWords) msg.obj,
                                 msg.arg1 == ARG1_DISMISS_GESTURE_FLOATING_PREVIEW_TEXT);
+                    }
                     break;
                 case MSG_RESUME_SUGGESTIONS:
                     latinIme.mInputLogic.restartSuggestionsOnWordTouchedByCursor(
@@ -370,14 +376,20 @@ public class LatinIME extends InputMethodService implements
             }
         }
 
-        public void showGesturePreviewAndSuggestionStrip(final SuggestedWords suggestedWords,
-                                                         final boolean dismissGestureFloatingPreviewText) {
+        public void showGesturePreviewAndSetSuggestions(final SuggestedWords suggestedWords,
+                                                        final boolean dismissGestureFloatingPreviewText) {
             removeMessages(MSG_SHOW_GESTURE_PREVIEW_AND_SET_SUGGESTIONS);
             final int arg1 = dismissGestureFloatingPreviewText
                     ? ARG1_DISMISS_GESTURE_FLOATING_PREVIEW_TEXT
                     : ARG1_SHOW_GESTURE_FLOATING_PREVIEW_TEXT;
             obtainMessage(MSG_SHOW_GESTURE_PREVIEW_AND_SET_SUGGESTIONS, arg1,
                     ARG2_UNUSED, suggestedWords).sendToTarget();
+        }
+
+        public void setSuggestions(final SuggestedWords suggestedWords) {
+            removeMessages(MSG_SHOW_GESTURE_PREVIEW_AND_SET_SUGGESTIONS);
+            obtainMessage(MSG_SHOW_GESTURE_PREVIEW_AND_SET_SUGGESTIONS,
+                    ARG1_NOT_GESTURE_INPUT, ARG2_UNUSED, suggestedWords).sendToTarget();
         }
 
         public void showTailBatchInputResult(final SuggestedWords suggestedWords) {

@@ -494,7 +494,7 @@ public final class InputLogic {
             final KeyboardSwitcher keyboardSwitcher, final LatinIME.UIHandler handler) {
         mWordBeingCorrectedByCursor = null;
         mInputLogicHandler.onStartBatchInput();
-        handler.showGesturePreviewAndSuggestionStrip(SuggestedWords.getEmptyBatchInstance(), false);
+        handler.showGesturePreviewAndSetSuggestions(SuggestedWords.getEmptyBatchInstance(), false);
         handler.cancelUpdateSuggestionStrip();
         ++mAutoCommitSequenceNumber;
         mConnection.beginBatchEdit();
@@ -572,7 +572,7 @@ public final class InputLogic {
 
     public void onCancelBatchInput(final LatinIME.UIHandler handler) {
         mInputLogicHandler.onCancelBatchInput();
-        handler.showGesturePreviewAndSuggestionStrip(
+        handler.showGesturePreviewAndSetSuggestions(
                 SuggestedWords.getEmptyInstance(), true /* dismissGestureFloatingPreviewText */);
     }
 
@@ -1697,7 +1697,10 @@ public final class InputLogic {
                     && mLatinIME.tryShowClipboardSuggestion())) {
                 mSuggestionStripViewAccessor.setSuggestions(suggestedWords);
             }
-            showSuggestionStripIfInlineEmojiSearch(suggestedWords);
+            if (! suggestedWords.isEmpty() && settingsValues.isSuggestionsEnabledPerUserSettings() && ! mWordComposer.isResumed()
+                                            && isInlineEmojiSearch()) {
+                mSuggestionStripViewAccessor.showSuggestionStrip();
+            }
         }
         if (DebugFlags.DEBUG_ENABLED) {
             long runTimeMillis = System.currentTimeMillis() - startTimeMillis;
@@ -1822,17 +1825,7 @@ public final class InputLogic {
 
     private void doShowSuggestionsAndClearAutoCorrectionIndicator(final SuggestedWords suggestedWords) {
         mIsAutoCorrectionIndicatorOn = false;
-        if (suggestedWords != null) {
-            mSuggestionStripViewAccessor.setSuggestions(suggestedWords);
-            showSuggestionStripIfInlineEmojiSearch(suggestedWords);
-        }
-    }
-
-    private void showSuggestionStripIfInlineEmojiSearch(SuggestedWords suggestedWords) {
-        if (! suggestedWords.isEmpty() && Settings.getValues().isSuggestionsEnabledPerUserSettings() && ! mWordComposer.isResumed()
-                                        && isInlineEmojiSearch()) {
-            mSuggestionStripViewAccessor.showSuggestionStrip();
-        }
+        mLatinIME.mHandler.setSuggestions(suggestedWords);
     }
 
     /**
