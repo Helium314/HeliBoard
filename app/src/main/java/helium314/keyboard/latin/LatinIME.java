@@ -1878,7 +1878,7 @@ public class LatinIME extends InputMethodService implements
                 }
             }
 
-            stopSelf(); // Allow the service to be destroyed on next IME switch
+            stopSelf(startId); // Allow the service to be destroyed when unbound
             return START_NOT_STICKY;
         }
 
