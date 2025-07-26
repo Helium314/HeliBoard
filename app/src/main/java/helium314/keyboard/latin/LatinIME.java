@@ -915,6 +915,10 @@ public class LatinIME extends InputMethodService implements
             return;
         }
         InputMethodSubtype oldSubtype = mRichImm.getCurrentSubtype().getRawSubtype();
+        if (subtype.equals(oldSubtype)) {
+            // onStartInput may be called more than once, resulting in duplicate subtype switches
+            return;
+        }
 
         mSubtypeState.onSubtypeChanged(oldSubtype, subtype);
         StatsUtils.onSubtypeChanged(oldSubtype, subtype);
