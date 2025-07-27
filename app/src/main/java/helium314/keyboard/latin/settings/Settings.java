@@ -233,7 +233,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
 
     @Override
     public void onSharedPreferenceChanged(final SharedPreferences prefs, final String key) {
-        if (dontReloadOnChanged.contains(key) || key.startsWith(PREF_SAVED_APP_LOCALE_PREFIX))
+        if (dontReloadOnChanged.contains(key) || key != null && key.startsWith(PREF_SAVED_APP_LOCALE_PREFIX))
             return;
         mSettingsValuesLock.lock();
         try {
