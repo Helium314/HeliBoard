@@ -265,15 +265,18 @@ class Suggest(private val mDictionaryFacilitator: DictionaryFacilitator) {
         val locale = mDictionaryFacilitator.mainLocale
         val suggestionsContainer = ArrayList(suggestionResults)
         val suggestionsCount = suggestionsContainer.size
-        val isFirstCharCapitalized = wordComposer.wasShiftedNoLock()
-        val isAllUpperCase = wordComposer.isAllUpperCase
-        if (isFirstCharCapitalized || isAllUpperCase) {
+        val keyboardShiftMode = keyboard.mId.keyboardCapsMode
+        val shouldMakeSuggestionsOnlyFirstCharCapitalized = wordComposer.wasShiftedNoLock()
+            || keyboardShiftMode == WordComposer.CAPS_MODE_MANUAL_SHIFTED
+        val shouldMakeSuggestionsAllUpperCase = wordComposer.isAllUpperCase
+            || keyboardShiftMode == WordComposer.CAPS_MODE_MANUAL_SHIFT_LOCKED
+        if (shouldMakeSuggestionsOnlyFirstCharCapitalized || shouldMakeSuggestionsAllUpperCase) {
             for (i in 0 until suggestionsCount) {
                 val wordInfo = suggestionsContainer[i]
                 val wordLocale = wordInfo!!.mSourceDict.mLocale
                 val transformedWordInfo = getTransformedSuggestedWordInfo(
-                    wordInfo, wordLocale ?: locale, isAllUpperCase,
-                    isFirstCharCapitalized, 0
+                    wordInfo, wordLocale ?: locale, shouldMakeSuggestionsAllUpperCase,
+                    shouldMakeSuggestionsOnlyFirstCharCapitalized, 0
                 )
                 suggestionsContainer[i] = transformedWordInfo
             }
