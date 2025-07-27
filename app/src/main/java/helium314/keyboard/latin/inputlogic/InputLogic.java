@@ -1185,6 +1185,9 @@ public final class InputLogic {
         }
         if (mWordComposer.isComposingWord()) {
             if (mWordComposer.isBatchMode()) {
+                if (SpaceState.PHANTOM == inputTransaction.getMSpaceState()) {
+                    return;
+                }
                 final String rejectedSuggestion = mWordComposer.getTypedWord();
                 mWordComposer.reset();
                 mWordComposer.setRejectedBatchModeSuggestion(rejectedSuggestion);
