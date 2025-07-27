@@ -8,7 +8,6 @@ package helium314.keyboard.latin
 import android.text.TextUtils
 import com.android.inputmethod.latin.utils.BinaryDictionaryUtils
 import helium314.keyboard.keyboard.Keyboard
-import helium314.keyboard.keyboard.KeyboardSwitcher
 import helium314.keyboard.latin.SuggestedWords.SuggestedWordInfo
 import helium314.keyboard.latin.common.ComposedData
 import helium314.keyboard.latin.common.Constants
@@ -76,7 +75,7 @@ class Suggest(private val mDictionaryFacilitator: DictionaryFacilitator) {
                 settingsValuesForSuggestion, SESSION_ID_TYPING, inputStyleIfNotPrediction)
         val trailingSingleQuotesCount = StringUtils.getTrailingSingleQuotesCount(typedWordString)
         val suggestionsContainer = getTransformedSuggestedWordInfoList(wordComposer, suggestionResults,
-            trailingSingleQuotesCount, mDictionaryFacilitator.mainLocale)
+            trailingSingleQuotesCount, mDictionaryFacilitator.mainLocale, keyboard)
 
         // store the original SuggestedWordInfo for typed word, as it will be removed
         // we may want to re-add it in case auto-correction happens, so that the original word can at least be selected
@@ -394,9 +393,9 @@ class Suggest(private val mDictionaryFacilitator: DictionaryFacilitator) {
 
         private fun getTransformedSuggestedWordInfoList(
             wordComposer: WordComposer, results: SuggestionResults,
-            trailingSingleQuotesCount: Int, defaultLocale: Locale
+            trailingSingleQuotesCount: Int, defaultLocale: Locale, keyboard: Keyboard
         ): ArrayList<SuggestedWordInfo> {
-            val keyboardShiftMode = KeyboardSwitcher.getInstance().keyboardShiftMode
+            val keyboardShiftMode = keyboard.mId.keyboardCapsMode
             val shouldMakeSuggestionsAllUpperCase = wordComposer.isAllUpperCase && !wordComposer.isResumed
                 || keyboardShiftMode == WordComposer.CAPS_MODE_MANUAL_SHIFT_LOCKED
             val shouldMakeSuggestionsOnlyFirstCharCapitalized = wordComposer.isOrWillBeOnlyFirstCharCapitalized

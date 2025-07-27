@@ -725,7 +725,7 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
         if (keyboard == null) {
             return WordComposer.CAPS_MODE_OFF;
         }
-        return KeyboardId.getKeyboardCapsMode(keyboard.mId.mElementId);
+        return keyboard.mId.getKeyboardCapsMode();
     }
 
     public String getCurrentKeyboardScript() {
