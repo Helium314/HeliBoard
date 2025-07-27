@@ -934,21 +934,6 @@ public class LatinIME extends InputMethodService implements
 
     void onStartInputInternal(final EditorInfo editorInfo, final boolean restarting) {
         super.onStartInput(editorInfo, restarting);
-
-        var localeForApp = mSettings.getLocaleForApp(editorInfo.packageName);
-        final List<Locale> hintLocales = EditorInfoCompatUtils.getHintLocales(editorInfo);
-        var preferredLocales = new ArrayList<Locale>();
-        if (localeForApp != null) {
-            preferredLocales.add(localeForApp);
-        }
-        if (hintLocales != null) {
-            preferredLocales.addAll(hintLocales);
-        }
-        final InputMethodSubtype subtypeForLocales = mSubtypeState.getSubtypeForLocales(mRichImm, preferredLocales);
-        if (subtypeForLocales != null) {
-            // found a better subtype using hint locales that we should switch to.
-            mHandler.postSwitchLanguage(subtypeForLocales);
-        }
     }
 
     void onStartInputViewInternal(final EditorInfo editorInfo, final boolean restarting) {
@@ -1026,6 +1011,21 @@ public class LatinIME extends InputMethodService implements
         // ALERT: settings have not been reloaded and there is a chance they may be stale.
         // In the practice, if it is, we should have gotten onConfigurationChanged so it should
         // be fine, but this is horribly confusing and must be fixed AS SOON AS POSSIBLE.
+
+        var localeForApp = mSettings.getLocaleForApp(editorInfo.packageName);
+        final List<Locale> hintLocales = EditorInfoCompatUtils.getHintLocales(editorInfo);
+        var preferredLocales = new ArrayList<Locale>();
+        if (localeForApp != null) {
+            preferredLocales.add(localeForApp);
+        }
+        if (hintLocales != null) {
+            preferredLocales.addAll(hintLocales);
+        }
+        final InputMethodSubtype subtypeForLocales = mSubtypeState.getSubtypeForLocales(mRichImm, preferredLocales);
+        if (subtypeForLocales != null) {
+            // found a better subtype using hint locales that we should switch to.
+            mHandler.postSwitchLanguage(subtypeForLocales);
+        }
 
         // In some cases the input connection has not been reset yet and we can't access it. In
         // this case we will need to call loadKeyboard() later, when it's accessible, so that we
