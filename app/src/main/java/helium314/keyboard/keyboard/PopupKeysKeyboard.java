@@ -304,7 +304,7 @@ public final class PopupKeysKeyboard extends Keyboard {
                     ? defaultColumns
                     : (spaceForKeys > 0 ? spaceForKeys : defaultColumns); // in last case setParameters will throw an exception
             mParams.setParameters(popupKeys.length, finalNumColumns, keyWidth,
-                    rowHeight, key.getX() + key.getWidth() / 2, keyboard.mId.mWidth,
+                    rowHeight, key.getX() + keyWidth / 2, keyboard.mId.mWidth,
                     key.isPopupKeysFixedColumn(), key.isPopupKeysFixedOrder(), dividerWidth);
         }
 
