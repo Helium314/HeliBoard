@@ -91,6 +91,7 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 import androidx.annotation.NonNull;
@@ -581,7 +582,7 @@ public class LatinIME extends InputMethodService implements
 
         public void onSubtypeChanged(final InputMethodSubtype oldSubtype,
                                      final InputMethodSubtype newSubtype) {
-            if (oldSubtype != mOverriddenByLocale) {
+            if (! Objects.equals(oldSubtype, mOverriddenByLocale)) {
                 // Whenever the subtype is changed, clear tracking
                 // the subtype that is overridden by a HintLocale as
                 // we no longer have a subtype to automatically switch back to.
@@ -914,6 +915,10 @@ public class LatinIME extends InputMethodService implements
             return;
         }
         InputMethodSubtype oldSubtype = mRichImm.getCurrentSubtype().getRawSubtype();
+        if (subtype.equals(oldSubtype)) {
+            // onStartInput may be called more than once, resulting in duplicate subtype switches
+            return;
+        }
 
         mSubtypeState.onSubtypeChanged(oldSubtype, subtype);
         StatsUtils.onSubtypeChanged(oldSubtype, subtype);
