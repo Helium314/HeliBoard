@@ -103,10 +103,10 @@ fun endsWithWordCodepoint(text: String, spacingAndPunctuations: SpacingAndPunctu
     if (text.isEmpty()) return false
     var codePoint = Constants.NOT_A_CODE
     loopOverCodePointsBackwards(text) { cp, _ ->
-        val bool = !spacingAndPunctuations.isWordConnector(cp)
-        if (bool)
+        val isNotWordConnector = !spacingAndPunctuations.isWordConnector(cp)
+        if (isNotWordConnector)
             codePoint = cp
-        bool
+        isNotWordConnector
     }
     return codePoint != Constants.NOT_A_CODE && spacingAndPunctuations.isWordCodePoint(codePoint)
 }
