@@ -96,6 +96,7 @@ import helium314.keyboard.latin.common.StringUtils
 import helium314.keyboard.latin.common.splitOnWhitespace
 import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.utils.DictionaryInfoUtils
+import helium314.keyboard.latin.utils.Log
 import helium314.keyboard.latin.utils.ResourceUtils
 import helium314.keyboard.latin.utils.prefs
 import helium314.keyboard.settings.CloseIcon
@@ -180,7 +181,7 @@ class EmojiSearchActivity : ComponentActivity() {
                                 keyboardOptions = KeyboardOptions(
                                     imeAction = ImeAction.Done,
                                     hintLocales = hintLocales,
-                                    platformImeOptions = PlatformImeOptions(encodePrivateImeOptions(PrivateImeOptions(heightPx)))),
+                                    platformImeOptions = PlatformImeOptions(encodePrivateImeOptions(PrivateImeOptions(heightPx), this@EmojiSearchActivity))),
                                 keyboardActions = KeyboardActions(onDone = { finish() }),
                                 singleLine = true,
                                 cursorBrush = SolidColor(textFieldColors.cursorColor)
@@ -218,7 +219,9 @@ class EmojiSearchActivity : ComponentActivity() {
     }
 
     override fun onEnterAnimationComplete() {
+        Log.d("emoji-search", "onEnterAnimationComplete")
         search(searchText)
+        Log.d("emoji-search", "initial search done")
     }
 
     override fun onStop() {
@@ -237,6 +240,7 @@ class EmojiSearchActivity : ComponentActivity() {
     }
 
     private fun init() {
+        Log.d("emoji-search", "init start")
         hintLocales = LocaleList(DictionaryInfoUtils.getLocalesWithEmojiDicts(this).map { Locale(it.toLanguageTag()) })
         val keyboardWidth = ResourceUtils.getKeyboardWidth(this, Settings.getValues())
         val layoutSet = KeyboardLayoutSet.Builder(this, null).setSubtype(RichInputMethodSubtype.emojiSubtype)
@@ -274,6 +278,7 @@ class EmojiSearchActivity : ComponentActivity() {
             override fun getDescription(emoji: String): String? = if (Settings.getValues().mShowEmojiDescriptions)
                 dictionaryFacilitator?.getWordProperty(getEmojiNeutralVersion(emoji))?.mShortcutTargets[0]?.mWord else null
         })
+        Log.d("emoji-search", "init end")
     }
 
     private fun isAlphaKeyboard(): Boolean = !(KeyboardSwitcher.getInstance().isShowingEmojiPalettes
@@ -328,10 +333,11 @@ class EmojiSearchActivity : ComponentActivity() {
 
         fun decodePrivateImeOptions(editorInfo: EditorInfo?): PrivateImeOptions = PrivateImeOptions(
             editorInfo?.privateImeOptions?.takeIf { it.startsWith(PRIVATE_IME_OPTIONS_PREFIX) }
-                ?.substring(PRIVATE_IME_OPTIONS_PREFIX.length + 1)?.toInt() ?: 0)
+                ?.let { it.substring(PRIVATE_IME_OPTIONS_PREFIX.length + 1, it.indexOf(',')) }?.toInt() ?: 0)
 
-        private fun encodePrivateImeOptions(privateImeOptions: PrivateImeOptions) =
-            "$PRIVATE_IME_OPTIONS_PREFIX,${privateImeOptions.height}"
+        private fun encodePrivateImeOptions(privateImeOptions: PrivateImeOptions, context: Context) =
+            "$PRIVATE_IME_OPTIONS_PREFIX.${privateImeOptions.height},"
+        //todo: add ${context.packageName}.${Constants.ImeOption.NO_LOCALE_PER_APP}
 
         private fun initDictionaryFacilitator(context: Context) {
             val locale = RichInputMethodManager.getInstance().currentSubtype.locale
