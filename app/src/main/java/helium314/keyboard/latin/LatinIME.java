@@ -869,6 +869,10 @@ public class LatinIME extends InputMethodService implements
         mInputView = view;
         mInsetsUpdater = ViewOutlineProviderUtilsKt.setInsetsOutlineProvider(view);
         updateSoftInputWindowLayoutParameters();
+        updateSuggestionStripView(view);
+    }
+
+    public void updateSuggestionStripView(View view) {
         mSuggestionStripView = mSettings.getCurrent().mToolbarMode == ToolbarMode.HIDDEN || isEmojiSearch()?
                         null : view.findViewById(R.id.suggestion_strip_view);
         if (hasSuggestionStripView()) {
@@ -1616,7 +1620,7 @@ public class LatinIME extends InputMethodService implements
                 dismissGestureFloatingPreviewText /* dismissDelayed */);
     }
 
-    private boolean hasSuggestionStripView() {
+    public boolean hasSuggestionStripView() {
         return null != mSuggestionStripView;
     }
 

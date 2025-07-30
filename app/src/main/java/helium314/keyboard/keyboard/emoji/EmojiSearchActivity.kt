@@ -25,7 +25,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
-import androidx.compose.foundation.layout.isImeVisible
 import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.layout.wrapContentHeight
@@ -42,6 +41,7 @@ import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.key
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -50,6 +50,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.graphics.lerp
@@ -108,7 +109,9 @@ import kotlin.properties.Delegates
  */
 class EmojiSearchActivity : ComponentActivity() {
     private val colors = Settings.getValues().mColors
-    private var startup = true
+    private var imeOpened = false
+    private var firstSearchDone = false
+    private var screenHeight by Delegates.notNull<Int>()
     private lateinit var hintLocales: LocaleList
     private lateinit var emojiPageKeyboardView: EmojiPageKeyboardView
     private lateinit var keyboardParams: KeyboardParams
@@ -125,22 +128,25 @@ class EmojiSearchActivity : ComponentActivity() {
         setContent {
             LocalContext.current.setTheme(KeyboardTheme.getKeyboardTheme(this).mStyleId)
             Surface(modifier = Modifier.fillMaxSize(), color = Color(0x80000000)) {
-                val imeVisible = WindowInsets.isImeVisible
-                val localDensity = LocalDensity.current
-                var heightPx by remember { mutableIntStateOf(0) }
                 var heightDp by remember { mutableStateOf(0.dp) }
                 Column(modifier = Modifier.fillMaxSize().clickable(onClick = { cancel() })
                     .windowInsetsPadding(WindowInsets.safeDrawing.exclude(WindowInsets(bottom = heightDp))),
                     verticalArrangement = Arrangement.Bottom
                 ) {
+                    val localDensity = LocalDensity.current
+                    var heightPx by remember { mutableIntStateOf(0) }
                     Column(modifier = Modifier.wrapContentHeight().background(Color(colors.get(ColorType.MAIN_BACKGROUND)))
                         .onGloballyPositioned {
-                            if (!startup && !imeVisible) {
+                            val bottom = it.localToScreen(Offset(0f, it.size.height.toFloat())).y.toInt()
+                            val imeVisible = bottom < screenHeight - 100
+                                || KeyboardSwitcher.getInstance().keyboardSwitchState != KeyboardSwitcher.KeyboardSwitchState.HIDDEN
+                            if (imeVisible && isAlphaKeyboard()) imeOpened = true
+                            if (imeOpened && !imeVisible) {
                                 imeClosed = true
                                 cancel()
                                 return@onGloballyPositioned
                             }
-                            if (!startup && !isAlphaKeyboard()) {
+                            if (imeOpened && !isAlphaKeyboard()) {
                                 cancel()
                                 return@onGloballyPositioned
                             }
@@ -157,7 +163,9 @@ class EmojiSearchActivity : ComponentActivity() {
                                 color = Color(colors.get(ColorType.EMOJI_KEY_TEXT)),
                                 modifier = Modifier.fillMaxWidth().align(Alignment.CenterVertically))
                         }
-                        AndroidView({ emojiPageKeyboardView }, modifier = Modifier.wrapContentHeight().fillMaxWidth())
+                        key(emojiPageKeyboardView) {
+                            AndroidView({ emojiPageKeyboardView }, modifier = Modifier.wrapContentHeight().fillMaxWidth())
+                        }
                         val focusRequester = remember { FocusRequester() }
                         var text by remember { mutableStateOf(TextFieldValue(searchText, selection = TextRange(searchText.length))) }
                         val textFieldColors = TextFieldDefaults.colors().copy(
@@ -181,7 +189,8 @@ class EmojiSearchActivity : ComponentActivity() {
                                 keyboardOptions = KeyboardOptions(
                                     imeAction = ImeAction.Done,
                                     hintLocales = hintLocales,
-                                    platformImeOptions = PlatformImeOptions(encodePrivateImeOptions(PrivateImeOptions(heightPx), this@EmojiSearchActivity))),
+                                    platformImeOptions = PlatformImeOptions(encodePrivateImeOptions(PrivateImeOptions(heightPx),
+                                        this@EmojiSearchActivity))),
                                 keyboardActions = KeyboardActions(onDone = { finish() }),
                                 singleLine = true,
                                 cursorBrush = SolidColor(textFieldColors.cursorColor)
@@ -224,6 +233,14 @@ class EmojiSearchActivity : ComponentActivity() {
         Log.d("emoji-search", "initial search done")
     }
 
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+        init()
+        imeOpened = false
+        firstSearchDone = false
+        search(searchText)
+    }
+
     override fun onStop() {
         val intent = Intent(this, LatinIME::class.java).setAction(EMOJI_SEARCH_DONE_ACTION)
             .putExtra(IME_CLOSED_KEY, imeClosed)
@@ -241,6 +258,8 @@ class EmojiSearchActivity : ComponentActivity() {
 
     private fun init() {
         Log.d("emoji-search", "init start")
+        @Suppress("DEPRECATION")
+        screenHeight = windowManager.defaultDisplay.height
         hintLocales = LocaleList(DictionaryInfoUtils.getLocalesWithEmojiDicts(this).map { Locale(it.toLanguageTag()) })
         val keyboardWidth = ResourceUtils.getKeyboardWidth(this, Settings.getValues())
         val layoutSet = KeyboardLayoutSet.Builder(this, null).setSubtype(RichInputMethodSubtype.emojiSubtype)
@@ -281,8 +300,8 @@ class EmojiSearchActivity : ComponentActivity() {
         Log.d("emoji-search", "init end")
     }
 
-    private fun isAlphaKeyboard(): Boolean = !(KeyboardSwitcher.getInstance().isShowingEmojiPalettes
-        || KeyboardSwitcher.getInstance().isShowingClipboardHistory)
+    private fun isAlphaKeyboard() = KeyboardSwitcher.getInstance().keyboardSwitchState !in
+        setOf(KeyboardSwitcher.KeyboardSwitchState.EMOJI, KeyboardSwitcher.KeyboardSwitchState.CLIPBOARD)
 
     private fun search(text: String) {
         initDictionaryFacilitator(this)
@@ -291,12 +310,16 @@ class EmojiSearchActivity : ComponentActivity() {
             return
         }
 
-        if (!startup && text == searchText) {
+        if (firstSearchDone && text == searchText) {
+            return
+        }
+
+        if (KeyboardSwitcher.getInstance().keyboard == null) {
             return
         }
 
         searchText = text
-        startup = false
+        firstSearchDone = true
         val keyboard = emojiPageKeyboardView.keyboard as DynamicGridKeyboard
         keyboard.removeAllKeys()
         pressedKey = null

@@ -113,6 +113,9 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
             settings.loadSettings(displayContext, settings.getCurrent().mLocale, settings.getCurrent().mInputAttributes);
             if (mKeyboardView != null)
                 mLatinIME.setInputView(onCreateInputView(displayContext, mIsHardwareAcceleratedDrawingEnabled));
+        } else if (mLatinIME.hasSuggestionStripView()
+                    == (Settings.getValues().mToolbarMode == ToolbarMode.HIDDEN || mLatinIME.isEmojiSearch())) {
+            mLatinIME.updateSuggestionStripView(mCurrentInputView);
         }
     }
 
@@ -309,7 +312,7 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
             @NonNull final SettingsValues settingsValues,
             @NonNull final KeyboardSwitchState toggleState) {
         final int visibility = isImeSuppressedByHardwareKeyboard(settingsValues, toggleState) ? View.GONE : View.VISIBLE;
-        final int stripVisibility = settingsValues.mToolbarMode == ToolbarMode.HIDDEN || mLatinIME.isEmojiSearch()? View.GONE : View.VISIBLE;
+        final int stripVisibility = mLatinIME.hasSuggestionStripView()? View.VISIBLE : View.GONE;
         mStripContainer.setVisibility(stripVisibility);
         PointerTracker.switchTo(mKeyboardView);
         mKeyboardView.setVisibility(visibility);

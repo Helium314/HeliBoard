@@ -78,7 +78,7 @@ SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
 
         <activity android:name="helium314.keyboard.keyboard.emoji.EmojiSearchActivity" android:exported="false"
             android:theme="@style/TransparentActivityTheme" android:excludeFromRecents="true" android:noHistory="true"
-            android:windowSoftInputMode="adjustNothing|stateAlwaysVisible"/>
+            android:windowSoftInputMode="adjustNothing|stateAlwaysVisible" android:configChanges="orientation|screenSize"/>
 
         <!-- Broadcast receivers -->
         <receiver android:name="SystemBroadcastReceiver"
