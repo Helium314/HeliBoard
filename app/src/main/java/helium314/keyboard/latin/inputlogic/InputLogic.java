@@ -1238,7 +1238,9 @@ public final class InputLogic {
                 // Note: restartSuggestionsOnWordTouchedByCursor is already called for normal
                 // (non-revert) backspace handling.
                 if (inputTransaction.getMSettingsValues().needsToLookupSuggestions()
-                        && inputTransaction.getMSettingsValues().mSpacingAndPunctuations.mCurrentLanguageHasSpaces) {
+                        && inputTransaction.getMSettingsValues().mSpacingAndPunctuations.mCurrentLanguageHasSpaces
+                        && !mConnection.isCursorFollowedByWordCharacter(
+                                inputTransaction.getMSettingsValues().mSpacingAndPunctuations)) {
                     restartSuggestionsOnWordTouchedByCursor(inputTransaction.getMSettingsValues(), currentKeyboardScript);
                 }
                 return;
@@ -1373,7 +1375,9 @@ public final class InputLogic {
             if (mConnection.hasSlowInputConnection()) {
                 mSuggestionStripViewAccessor.setNeutralSuggestionStrip();
             } else if (inputTransaction.getMSettingsValues().needsToLookupSuggestions()
-                    && inputTransaction.getMSettingsValues().mSpacingAndPunctuations.mCurrentLanguageHasSpaces) {
+                    && inputTransaction.getMSettingsValues().mSpacingAndPunctuations.mCurrentLanguageHasSpaces
+                    && !mConnection.isCursorFollowedByWordCharacter(
+                            inputTransaction.getMSettingsValues().mSpacingAndPunctuations)) {
                 restartSuggestionsOnWordTouchedByCursor(inputTransaction.getMSettingsValues(), currentKeyboardScript);
             }
         }
