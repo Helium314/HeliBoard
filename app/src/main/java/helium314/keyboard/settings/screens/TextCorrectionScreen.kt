@@ -24,6 +24,7 @@ import helium314.keyboard.latin.R
 import helium314.keyboard.latin.permissions.PermissionsUtil
 import helium314.keyboard.latin.settings.Defaults
 import helium314.keyboard.latin.settings.Settings
+import helium314.keyboard.latin.utils.DictionaryInfoUtils.getLocalesWithEmojiDicts
 import helium314.keyboard.latin.utils.JniUtils
 import helium314.keyboard.latin.utils.Log
 import helium314.keyboard.latin.utils.ToolbarMode
@@ -37,6 +38,7 @@ import helium314.keyboard.settings.SettingsDestination
 import helium314.keyboard.settings.SettingsWithoutKey
 import helium314.keyboard.settings.Theme
 import helium314.keyboard.settings.dialogs.ConfirmationDialog
+import helium314.keyboard.settings.dialogs.InfoDialog
 import helium314.keyboard.settings.initPreview
 import helium314.keyboard.settings.preferences.ListPreference
 import helium314.keyboard.settings.preferences.Preference
@@ -245,10 +247,12 @@ fun createCorrectionSettings(context: Context) = listOf(
         }
     },
     Setting(
-        context, Settings.PREF_INLINE_EMOJI_SEARCH, R.string.inline_emoji_search,
-        R.string.inline_emoji_search_summary
-    ) {
-        SwitchPreference(it, Defaults.PREF_INLINE_EMOJI_SEARCH)
+        context, Settings.PREF_INLINE_EMOJI_SEARCH, R.string.inline_emoji_search, R.string.inline_emoji_search_summary) {
+        var showWarningDialog by rememberSaveable { mutableStateOf(false) }
+        SwitchPreference(it, Defaults.PREF_INLINE_EMOJI_SEARCH) { showWarningDialog = it && getLocalesWithEmojiDicts(context).isEmpty() }
+        if (showWarningDialog) {
+            InfoDialog(stringResource(R.string.emoji_dictionary_required), onDismissRequest = { showWarningDialog = false })
+        }
     },
     Setting(context, Settings.PREF_ADD_TO_PERSONAL_DICTIONARY,
         R.string.add_to_personal_dictionary, R.string.add_to_personal_dictionary_summary
