@@ -158,9 +158,9 @@
     <!-- Description for "next word suggestion" option. This displays suggestions even when there is no input, based on the previous word. -->
     <string name="bigram_prediction_summary">Use the previous word in making suggestions</string>
     <!-- Option to enable using punctuation suggestions. -->
-    <string name="suggest_punctuation">Suggest punctuation</string>
+    <string name="suggest_punctuation">Punctuation suggestions</string>
     <!-- Description for "suggest_punctuation" option. -->
-    <string name="suggest_punctuation_summary">When no other suggestions are available</string>
+    <string name="suggest_punctuation_summary">Show punctuation when no other suggestions are available</string>
     <!-- Option to enable the suggestion of clipboard content. -->
     <string name="suggest_clipboard_content">Suggest clipboard content</string>
     <!-- Description for the "suggest clipboard content" option. This makes the primary clipboard content visible in the suggestion strip view. -->
