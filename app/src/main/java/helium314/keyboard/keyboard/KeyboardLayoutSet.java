@@ -70,6 +70,8 @@ public final class KeyboardLayoutSet {
         }
     }
 
+    public record InternalAction(int code, String label) {}
+
     public static final class Params {
         int mMode;
         boolean mDisableTouchPositionCorrectionDataForTest; // remove
@@ -90,6 +92,7 @@ public final class KeyboardLayoutSet {
         // Indicates if the user has enabled the split-layout preference
         // and the required ProductionFlags are enabled.
         boolean mIsSplitLayoutEnabled;
+        InternalAction mInternalAction;
     }
 
     public static void onSystemLocaleChanged() {
@@ -273,6 +276,11 @@ public final class KeyboardLayoutSet {
 
         public Builder setOneHandedModeEnabled(boolean enabled) {
             mParams.mOneHandedModeEnabled = enabled;
+            return this;
+        }
+
+        public Builder setInternalAction(InternalAction internalAction) {
+            mParams.mInternalAction = internalAction;
             return this;
         }
 
