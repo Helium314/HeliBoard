@@ -613,6 +613,12 @@ fun checkVersionUpgrade(context: Context) {
         }
         e.apply()
     }
+    if (oldVersion <= 3201) {
+        prefs.edit {
+            putBoolean(Settings.PREF_SUGGEST_PUNCTUATION,
+                !prefs.getBoolean(Settings.PREF_BIGRAM_PREDICTIONS, Defaults.PREF_BIGRAM_PREDICTIONS))
+        }
+    }
     upgradeToolbarPrefs(prefs)
     LayoutUtilsCustom.onLayoutFileChanged() // just to be sure
     prefs.edit { putInt(Settings.PREF_VERSION_CODE, BuildConfig.VERSION_CODE) }
