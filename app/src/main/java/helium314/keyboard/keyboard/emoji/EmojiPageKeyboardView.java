@@ -307,9 +307,6 @@ public final class EmojiPageKeyboardView extends KeyboardView implements
         final int x = mLastX;
         final int y = mLastY;
         if (popupKeysPanel != null) {
-            final int translatedX = popupKeysPanel.translateX(x);
-            final int translatedY = popupKeysPanel.translateY(y);
-            popupKeysPanel.onDownEvent(translatedX, translatedY, mPointerId, 0 /* nor used for now */);
             // No need of re-allowing parent later as we don't
             // want any scroll to append during this entire input.
             disallowParentInterceptTouchEvent(true);
@@ -415,7 +412,7 @@ public final class EmojiPageKeyboardView extends KeyboardView implements
         final boolean isShowingPopupKeysPanel = isShowingPopupKeysPanel();
         if (isShowingPopupKeysPanel) {
             final long eventTime = e.getEventTime();
-            final int translatedX = mPopupKeysPanel.translateX(x);
+            final int translatedX = mPopupKeysPanel.translateX(x - mPopupKeysKeyboardView.getLeft());
             final int translatedY = mPopupKeysPanel.translateY(y);
             mPopupKeysPanel.onUpEvent(translatedX, translatedY, mPointerId, eventTime);
             dismissPopupKeysPanel();
@@ -460,7 +457,7 @@ public final class EmojiPageKeyboardView extends KeyboardView implements
 
         if (isShowingPopupKeysPanel) {
             final long eventTime = e.getEventTime();
-            final int translatedX = mPopupKeysPanel.translateX(x);
+            final int translatedX = mPopupKeysPanel.translateX(x - mPopupKeysKeyboardView.getLeft());
             final int translatedY = mPopupKeysPanel.translateY(y);
             mPopupKeysPanel.onMoveEvent(translatedX, translatedY, mPointerId, eventTime);
         }
