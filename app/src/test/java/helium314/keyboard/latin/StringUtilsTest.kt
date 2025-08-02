@@ -70,11 +70,12 @@ class StringUtilsTest {
         assert(endsWithWordCodepoint("don'", sp))
         assert(!endsWithWordCodepoint("hello!", sp))
         assert(!endsWithWordCodepoint("when ", sp))
-        assert(endsWithWordCodepoint("3-", sp)) // todo: this seems wrong
-        assert(endsWithWordCodepoint("5'", sp)) // todo: this seems wrong
-        assert(endsWithWordCodepoint("1", sp)) // todo: this seems wrong
+        assert(!endsWithWordCodepoint("3-", sp))
+        assert(!endsWithWordCodepoint("5'", sp))
+        assert(!endsWithWordCodepoint("1", sp))
         assert(endsWithWordCodepoint("a-", sp))
         assert(!endsWithWordCodepoint("--", sp))
+        assert(!endsWithWordCodepoint("\uD83D\uDE42", sp))
     }
 
     @Test fun `get touched text range`() {
