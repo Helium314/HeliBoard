@@ -530,9 +530,9 @@ public class LatinIME extends InputMethodService implements
         // If a matching subtype is found, we temporarily switch to that subtype until
         // we return to a context that does not provide any hints, or until the user
         // explicitly changes the language/subtype in use.
-        public InputMethodSubtype getSubtypeForLocales(final RichInputMethodManager richImm, final Iterable<Locale> locales) {
+        InputMethodSubtype getSubtypeForLocales(final RichInputMethodManager richImm, final List<Locale> locales) {
             final InputMethodSubtype overriddenByLocale = mOverriddenByLocale;
-            if (locales == null) {
+            if (locales.isEmpty()) {
                 if (overriddenByLocale != null) {
                     // no locales provided, so switch back to
                     // whatever subtype was used last time.
@@ -929,6 +929,7 @@ public class LatinIME extends InputMethodService implements
         if (hasSuggestionStripView()) {
             mSuggestionStripView.setRtl(mRichImm.getCurrentSubtype().isRtlSubtype());
         }
+        mSettings.saveLocaleForApp(mRichImm.getCurrentSubtype().getLocale(), getCurrentInputEditorInfo().packageName);
     }
 
     /** alias to onCurrentInputMethodSubtypeChanged with a better name, as it's also used for internal switching */
@@ -938,13 +939,6 @@ public class LatinIME extends InputMethodService implements
 
     void onStartInputInternal(final EditorInfo editorInfo, final boolean restarting) {
         super.onStartInput(editorInfo, restarting);
-
-        final List<Locale> hintLocales = EditorInfoCompatUtils.getHintLocales(editorInfo);
-        final InputMethodSubtype subtypeForLocales = mSubtypeState.getSubtypeForLocales(mRichImm, hintLocales);
-        if (subtypeForLocales != null) {
-            // found a better subtype using hint locales that we should switch to.
-            mHandler.postSwitchLanguage(subtypeForLocales);
-        }
     }
 
     void onStartInputViewInternal(final EditorInfo editorInfo, final boolean restarting) {
@@ -1022,6 +1016,21 @@ public class LatinIME extends InputMethodService implements
         // ALERT: settings have not been reloaded and there is a chance they may be stale.
         // In the practice, if it is, we should have gotten onConfigurationChanged so it should
         // be fine, but this is horribly confusing and must be fixed AS SOON AS POSSIBLE.
+
+        var localeForApp = mSettings.getLocaleForApp(editorInfo.packageName);
+        final List<Locale> hintLocales = EditorInfoCompatUtils.getHintLocales(editorInfo);
+        var preferredLocales = new ArrayList<Locale>();
+        if (localeForApp != null) {
+            preferredLocales.add(localeForApp);
+        }
+        if (hintLocales != null) {
+            preferredLocales.addAll(hintLocales);
+        }
+        final InputMethodSubtype subtypeForLocales = mSubtypeState.getSubtypeForLocales(mRichImm, preferredLocales);
+        if (subtypeForLocales != null) {
+            // found a better subtype using hint locales that we should switch to.
+            mHandler.postSwitchLanguage(subtypeForLocales);
+        }
 
         // In some cases the input connection has not been reset yet and we can't access it. In
         // this case we will need to call loadKeyboard() later, when it's accessible, so that we
