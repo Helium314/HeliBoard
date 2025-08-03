@@ -137,7 +137,7 @@ class InputLogicTest {
 
     // todo: make it work, but it might not be that simple because adding is done in combiner
     //  https://github.com/Helium314/HeliBoard/issues/214
-    @Test fun insertLetterIntoWordHangul() {
+    @Test fun insertLetterIntoWordHangulFails() {
         if (BuildConfig.BUILD_TYPE == "runTests") return
         reset()
         latinIME.switchToSubtype(SubtypeSettings.getResourceSubtypesForLocale("ko".constructLocale()).first())
