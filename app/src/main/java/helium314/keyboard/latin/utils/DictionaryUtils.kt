@@ -96,10 +96,14 @@ fun createDictionaryTextAnnotated(locale: Locale): AnnotatedString {
         val dictLocale = localeString.constructLocale()
         if (LocaleUtils.getMatchLevel(locale, dictLocale) < LocaleUtils.LOCALE_GOOD_MATCH) return@forEachLine
         val rawDictString = "$type: ${dictLocale.getDisplayName(context.resources.configuration.locale())}"
-        val dictString = if (experimental.isEmpty()) rawDictString
-        else context.getString(R.string.available_dictionary_experimental, rawDictString)
-        val dictBaseUrl = Links.DICTIONARY_URL + Links.DICTIONARY_DOWNLOAD_SUFFIX +
-                if (experimental.isEmpty()) Links.DICTIONARY_NORMAL_SUFFIX else Links.DICTIONARY_EXPERIMENTAL_SUFFIX
+        val dictString = if (experimental != "exp") rawDictString
+            else context.getString(R.string.available_dictionary_experimental, rawDictString)
+        val dictLinkSuffix = when (experimental) {
+            "cldr" -> Links.DICTIONARY_EMOJI_CLDR_SUFFIX
+            "exp"  -> Links.DICTIONARY_EXPERIMENTAL_SUFFIX
+            else   -> Links.DICTIONARY_NORMAL_SUFFIX
+        }
+        val dictBaseUrl = Links.DICTIONARY_URL + Links.DICTIONARY_DOWNLOAD_SUFFIX + dictLinkSuffix
         val dictLink = dictBaseUrl + type + "_" + localeString.lowercase() + ".dict"
         knownDicts.add(dictString to dictLink)
     }

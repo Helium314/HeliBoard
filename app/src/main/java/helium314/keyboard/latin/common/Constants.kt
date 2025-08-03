@@ -6,6 +6,7 @@ object Links {
     const val DICTIONARY_DOWNLOAD_SUFFIX = "/src/branch/main/"
     const val DICTIONARY_NORMAL_SUFFIX = "dictionaries/"
     const val DICTIONARY_EXPERIMENTAL_SUFFIX = "dictionaries_experimental/"
+    const val DICTIONARY_EMOJI_CLDR_SUFFIX = "emoji_cldr_signal_dictionaries/"
     const val GITHUB = "https://github.com/Helium314/HeliBoard"
     const val LICENSE = "$GITHUB/blob/main/LICENSE"
     const val LAYOUT_FORMAT_URL = "$GITHUB/blob/main/layouts.md"
