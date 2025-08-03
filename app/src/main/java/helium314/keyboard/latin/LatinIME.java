@@ -1706,9 +1706,9 @@ public class LatinIME extends InputMethodService implements
                 mSuggestionStripView.setToolbarVisibility(false);
             return;
         }
-        final SuggestedWords neutralSuggestions = currentSettings.mBigramPredictionEnabled
-                ? SuggestedWords.getEmptyInstance()
-                : currentSettings.mSpacingAndPunctuations.mSuggestPuncList;
+        final SuggestedWords neutralSuggestions = currentSettings.mSuggestPunctuation
+                ? currentSettings.mSpacingAndPunctuations.mSuggestPuncList
+                : SuggestedWords.getEmptyInstance();
         setSuggestedWords(neutralSuggestions);
         if (hasSuggestionStripView() && currentSettings.mAutoShowToolbar) {
             final int codePointBeforeCursor = mInputLogic.mConnection.getCodePointBeforeCursor();
