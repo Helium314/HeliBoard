@@ -70,7 +70,7 @@
     <!-- Option name for including other IMEs in the language key switch list -->
     <string name="language_switch_key_switch_input_method">Switch to other input methods</string>
     <!-- Option name for switching language / subtype only -->
-    <string name="switch_language">Switch Language</string>
+    <string name="switch_language">Switch language</string>
     <!-- Option name for switching language / subtype and input method -->
     <string name="language_switch_key_switch_both">Switch both</string>
     <!-- Option to show language switch key -->
@@ -163,6 +163,10 @@
     <string name="bigram_prediction">Next-word suggestions</string>
     <!-- Description for "next word suggestion" option. This displays suggestions even when there is no input, based on the previous word. -->
     <string name="bigram_prediction_summary">Use the previous word in making suggestions</string>
+    <!-- Option to enable using punctuation suggestions. -->
+    <string name="suggest_punctuation">Punctuation suggestions</string>
+    <!-- Description for "suggest_punctuation" option. -->
+    <string name="suggest_punctuation_summary">Show punctuation when no other suggestions are available</string>
     <!-- Option to enable the suggestion of clipboard content. -->
     <string name="suggest_clipboard_content">Suggest clipboard content</string>
     <!-- Description for the "suggest clipboard content" option. This makes the primary clipboard content visible in the suggestion strip view. -->
@@ -872,9 +876,11 @@ New dictionary:
     <!-- Option for no action when (currently only used for swiping the spacebar) -->
     <string name="action_none">None</string>
     <!-- Option to move the cursor when swiping the spacebar -->
-    <string name="space_swipe_move_cursor_entry">Move Cursor</string>
+    <string name="space_swipe_move_cursor_entry">Move cursor</string>
     <!-- Option to toggle the numpad when swiping the spacebar -->
-    <string name="space_swipe_toggle_numpad_entry">Toggle Numpad</string>
+    <string name="space_swipe_toggle_numpad_entry">Toggle numpad</string>
+    <!-- Option to hide the keyboard when swiping the spacebar -->
+    <string name="space_swipe_hide_keyboard_entry">Hide keyboard</string>
     <!-- Title of the setting for variable toolbar direction -->
     <string name="var_toolbar_direction">Variable toolbar direction</string>
     <!-- Description of the variable toolbar direction setting -->

@@ -108,6 +108,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_SHIFT_REMOVES_AUTOSPACE = "shift_removes_autospace";
     public static final String PREF_ALWAYS_INCOGNITO_MODE = "always_incognito_mode";
     public static final String PREF_BIGRAM_PREDICTIONS = "next_word_prediction";
+    public static final String PREF_SUGGEST_PUNCTUATION = "suggest_punctuation";
     public static final String PREF_SUGGEST_CLIPBOARD_CONTENT = "suggest_clipboard_content";
     public static final String PREF_GESTURE_INPUT = "gesture_input";
     public static final String PREF_VIBRATION_DURATION_SETTINGS = "vibration_duration_settings";
@@ -340,6 +341,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
             case "move_cursor" -> KeyboardActionListener.SWIPE_MOVE_CURSOR;
             case "switch_language" -> KeyboardActionListener.SWIPE_SWITCH_LANGUAGE;
             case "toggle_numpad" -> KeyboardActionListener.SWIPE_TOGGLE_NUMPAD;
+            case "hide_keyboard" -> KeyboardActionListener.SWIPE_HIDE_KEYBOARD;
             default -> KeyboardActionListener.SWIPE_NO_ACTION;
         };
     }

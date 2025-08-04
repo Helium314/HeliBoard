@@ -94,6 +94,7 @@ public class SettingsValues {
     public final List<String> mPopupKeyLabelSources;
     public final List<Locale> mSecondaryLocales;
     public final boolean mBigramPredictionEnabled;// Use bigrams to predict the next word when there is no input for it yet
+    public final boolean mSuggestPunctuation;
     public final boolean mCenterSuggestionTextToEnter;
     public final boolean mGestureInputEnabled;
     public final boolean mGestureTrailEnabled;
@@ -210,6 +211,7 @@ public class SettingsValues {
         mAutoCorrectShortcuts = prefs.getBoolean(Settings.PREF_AUTOCORRECT_SHORTCUTS, Defaults.PREF_AUTOCORRECT_SHORTCUTS);
         mBackspaceRevertsAutocorrect = prefs.getBoolean(Settings.PREF_BACKSPACE_REVERTS_AUTOCORRECT, Defaults.PREF_BACKSPACE_REVERTS_AUTOCORRECT);
         mBigramPredictionEnabled = prefs.getBoolean(Settings.PREF_BIGRAM_PREDICTIONS, Defaults.PREF_BIGRAM_PREDICTIONS);
+        mSuggestPunctuation = prefs.getBoolean(Settings.PREF_SUGGEST_PUNCTUATION, Defaults.PREF_SUGGEST_PUNCTUATION);
         mSuggestClipboardContent = prefs.getBoolean(Settings.PREF_SUGGEST_CLIPBOARD_CONTENT, Defaults.PREF_SUGGEST_CLIPBOARD_CONTENT);
         mDoubleSpacePeriodTimeout = 1100; // ms
         mHasHardwareKeyboard = Settings.readHasHardwareKeyboard(res.getConfiguration());

@@ -84,6 +84,7 @@ fun TextCorrectionScreen(
         if (suggestionsEnabled || autocorrectEnabled) Settings.PREF_INLINE_EMOJI_SEARCH else null,
         Settings.PREF_KEY_USE_PERSONALIZED_DICTS,
         Settings.PREF_BIGRAM_PREDICTIONS,
+        Settings.PREF_SUGGEST_PUNCTUATION,
         Settings.PREF_SUGGEST_CLIPBOARD_CONTENT,
         Settings.PREF_USE_CONTACTS,
         Settings.PREF_USE_APPS,
@@ -204,6 +205,10 @@ fun createCorrectionSettings(context: Context) = listOf(
         R.string.bigram_prediction, R.string.bigram_prediction_summary
     ) {
         SwitchPreference(it, Defaults.PREF_BIGRAM_PREDICTIONS) { KeyboardSwitcher.getInstance().setThemeNeedsReload() }
+    },
+    Setting(context, Settings.PREF_SUGGEST_PUNCTUATION, R.string.suggest_punctuation, R.string.suggest_punctuation_summary
+    ) {
+        SwitchPreference(it, Defaults.PREF_SUGGEST_PUNCTUATION) { KeyboardSwitcher.getInstance().setThemeNeedsReload() }
     },
     Setting(context, Settings.PREF_CENTER_SUGGESTION_TEXT_TO_ENTER,
         R.string.center_suggestion_text_to_enter, R.string.center_suggestion_text_to_enter_summary
