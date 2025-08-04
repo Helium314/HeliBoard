@@ -747,12 +747,16 @@ New dictionary:
     <string name="get_layouts_message">"You can find and share layouts in the %s."</string>
     <!-- Text to be used in get_colors_message and get_layouts_message -->
     <string name="discussion_section_link">"discussion section"</string>
-    <!-- Settings screen title for about-->
+    <!-- Settings screen title for about -->
     <string name="settings_screen_about">About</string>
-    <!-- version for about screen-->
+    <!-- version for about screen -->
     <string name="version">Version</string>
-    <!-- github repo link for about screen-->
+    <!-- github repo link for about screen -->
     <string name="about_github_link">View on GitHub</string>
+    <!-- link to the wiki for about screen -->
+    <string name="about_wiki_link">Go to Wiki</string>
+    <!-- description for wiki link -->
+    <string name="about_wiki_link_description">The Wiki can be improved by any GitHub user!</string>
     <!-- preference title for saving the log to a file -->
     <string name="save_log">Save log</string>
     <!-- license for about screen-->

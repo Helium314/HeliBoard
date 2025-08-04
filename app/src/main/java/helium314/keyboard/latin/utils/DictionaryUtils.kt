@@ -84,9 +84,20 @@ fun MissingDictionaryDialog(onDismissRequest: () -> Unit, locale: Locale) {
 /** if dictionaries for [locale] or language are available returns links to them */
 @Composable
 fun createDictionaryTextAnnotated(locale: Locale): AnnotatedString {
-    val knownDicts = mutableListOf<Pair<String, String>>()
     val builder = AnnotatedString.Builder()
     val context = LocalContext.current
+    val knownDicts = getKnownDictionariesForLocale(locale, context)
+    if (knownDicts.isEmpty()) return AnnotatedString("")
+    knownDicts.forEach {
+        builder.append("\u2022 ") // bullet point as replacement for <ul>
+        builder.appendLink(it.first , it.second)
+        builder.appendLine()
+    }
+    return builder.toAnnotatedString()
+}
+
+fun getKnownDictionariesForLocale(locale: Locale, context: Context): List<Pair<String, String>> {
+    val knownDicts = mutableListOf<Pair<String, String>>()
     context.assets.open("dictionaries_in_dict_repo.csv").reader().forEachLine {
         if (it.isBlank()) return@forEachLine
         val (type, localeString, experimental) = it.split(",")
@@ -107,13 +118,7 @@ fun createDictionaryTextAnnotated(locale: Locale): AnnotatedString {
         val dictLink = dictBaseUrl + type + "_" + localeString.lowercase() + ".dict"
         knownDicts.add(dictString to dictLink)
     }
-    if (knownDicts.isEmpty()) return AnnotatedString("")
-    knownDicts.forEach {
-        builder.append("\u2022 ") // bullet point as replacement for <ul>
-        builder.appendLink(it.first , it.second)
-        builder.appendLine()
-    }
-    return builder.toAnnotatedString()
+    return knownDicts
 }
 
 fun cleanUnusedMainDicts(context: Context) {
