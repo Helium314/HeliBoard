@@ -799,11 +799,11 @@ public final class InputLogic {
             case KeyCode.CAPS_LOCK, KeyCode.EMOJI, KeyCode.TOGGLE_ONE_HANDED_MODE, KeyCode.SWITCH_ONE_HANDED_MODE:
                 break;
             case KeyCode.INLINE_EMOJI_SEARCH_DONE:
-                if (Settings.getValues().mAutoCorrectEnabled) {
-                    commitCurrentAutoCorrection(Settings.getValues(), LastComposedWord.NOT_A_SEPARATOR, handler);
+                if (inputTransaction.getMSettingsValues().mAutoCorrectEnabled) {
+                    commitCurrentAutoCorrection(inputTransaction.getMSettingsValues(), LastComposedWord.NOT_A_SEPARATOR, handler);
                     inputTransaction.setDidAutoCorrect();
                 } else {
-                    commitTyped(Settings.getValues(), LastComposedWord.NOT_A_SEPARATOR);
+                    commitTyped(inputTransaction.getMSettingsValues(), LastComposedWord.NOT_A_SEPARATOR);
                 }
 
                 mSuggestionStripViewAccessor.setNeutralSuggestionStrip();
@@ -2440,13 +2440,14 @@ public final class InputLogic {
     }
 
     // we used to provide keyboard, settingsValues and keyboardShiftMode, but every time read it from current instance anyway
-    public void getSuggestedWords(final int inputStyle, final int sequenceNumber, final OnGetSuggestedWordsCallback callback) {
+    void getSuggestedWords(final int inputStyle, final int sequenceNumber, final OnGetSuggestedWordsCallback callback) {
         final Keyboard keyboard = KeyboardSwitcher.getInstance().getKeyboard();
         if (keyboard == null) {
             callback.onGetSuggestedWords(SuggestedWords.getEmptyInstance());
             return;
         }
-        if (searchForEmojiInline(sequenceNumber, callback)) {
+        if (isInlineEmojiSearch()) {
+            searchForEmojiInline(sequenceNumber, callback);
             return;
         }
         final SettingsValues settingsValues = Settings.getValues();
@@ -2580,11 +2581,7 @@ public final class InputLogic {
         }
     }
 
-    private boolean searchForEmojiInline(int sequenceNumber, OnGetSuggestedWordsCallback callback) {
-        if (! isInlineEmojiSearch()) {
-            return false;
-        }
-
+    private void searchForEmojiInline(int sequenceNumber, OnGetSuggestedWordsCallback callback) {
         if (mWordComposer.getTypedWord().length() == 1) {
             callback.onGetSuggestedWords(SuggestedWords.getEmptyInstance());
         } else {
@@ -2604,8 +2601,6 @@ public final class InputLogic {
                                          SuggestedWords.INPUT_STYLE_PREDICTION /* avoid dropping the first suggestion */,
                                          sequenceNumber));
         }
-
-        return true;
     }
 
     private boolean isInlineEmojiSearch() {
