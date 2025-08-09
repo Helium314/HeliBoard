@@ -915,7 +915,8 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
 
     private boolean oneShotSwipe(final int swipeSetting) {
         return switch (swipeSetting) {
-            case KeyboardActionListener.SWIPE_NO_ACTION, KeyboardActionListener.SWIPE_TOGGLE_NUMPAD -> true;
+            case KeyboardActionListener.SWIPE_NO_ACTION, KeyboardActionListener.SWIPE_TOGGLE_NUMPAD,
+                 KeyboardActionListener.SWIPE_HIDE_KEYBOARD -> true;
             default -> false;
         };
     }

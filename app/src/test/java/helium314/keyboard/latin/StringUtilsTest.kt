@@ -70,11 +70,12 @@ class StringUtilsTest {
         assert(endsWithWordCodepoint("don'", sp))
         assert(!endsWithWordCodepoint("hello!", sp))
         assert(!endsWithWordCodepoint("when ", sp))
-        assert(endsWithWordCodepoint("3-", sp)) // todo: this seems wrong
-        assert(endsWithWordCodepoint("5'", sp)) // todo: this seems wrong
-        assert(endsWithWordCodepoint("1", sp)) // todo: this seems wrong
+        assert(!endsWithWordCodepoint("3-", sp))
+        assert(!endsWithWordCodepoint("5'", sp))
+        assert(!endsWithWordCodepoint("1", sp))
         assert(endsWithWordCodepoint("a-", sp))
         assert(!endsWithWordCodepoint("--", sp))
+        assert(!endsWithWordCodepoint("\uD83D\uDE42", sp))
     }
 
     @Test fun `get touched text range`() {
@@ -129,18 +130,22 @@ class StringUtilsTest {
         assertEquals("\uD83C\uDFFC", getFullEmojiAtEnd(" \uD83C\uDFFC"))
         assertEquals("1\uFE0F⃣", getFullEmojiAtEnd("1\uFE0F⃣")) // 1️⃣
         assertEquals("©\uFE0F", getFullEmojiAtEnd("©\uFE0F")) // ©️
+    }
+
+    @Test fun detectEmojisAtEndFail() {
+        if (BuildConfig.BUILD_TYPE == "runTests") return
         // fails, but unlikely enough that we leave it unfixed
-        //assertEquals("\uD83C\uDFFC", getFullEmojiAtEnd("\uD83C\uDF84\uD83C\uDFFC"))
-        // below also fail, because ZWJ handling is not suitable for some unusual cases
-        //assertEquals("", getFullEmojiAtEnd("\u200D"))
-        //assertEquals("", getFullEmojiAtEnd("a\u200D"))
-        //assertEquals("\uD83D\uDE22", getFullEmojiAtEnd(" \u200D\uD83D\uDE22"))
+        assertEquals("\uD83C\uDFFC", getFullEmojiAtEnd("\uD83C\uDF84\uD83C\uDFFC")) // 🎄🏼
+        // below also fail, because current ZWJ handling is not suitable for some unusual cases
+        assertEquals("", getFullEmojiAtEnd("\u200D"))
+        assertEquals("", getFullEmojiAtEnd("a\u200D"))
+        assertEquals("\uD83D\uDE22", getFullEmojiAtEnd(" \u200D\uD83D\uDE22"))
     }
 
     // todo: add tests for emoji detection?
     //  could help towards fully fixing https://github.com/Helium314/HeliBoard/issues/22
     //  though this might be tricky, as some emojis will show as one on new Android versions, and
-    //  as two on older versions
+    //  as two on older versions (also may differ by app)
 
     private fun checkTextRange(before: String, after: String, sp: SpacingAndPunctuations, script: String, wordStart: Int, WordEnd: Int) {
         val got = getTouchedWordRange(before, after, script, sp)
