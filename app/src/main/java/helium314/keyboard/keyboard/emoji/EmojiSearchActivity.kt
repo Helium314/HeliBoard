@@ -139,8 +139,8 @@ class EmojiSearchActivity : ComponentActivity() {
                         .onGloballyPositioned {
                             val bottom = it.localToScreen(Offset(0f, it.size.height.toFloat())).y.toInt()
                             val imeVisible = bottom < screenHeight - 100
-                                || KeyboardSwitcher.getInstance().keyboardSwitchState != KeyboardSwitcher.KeyboardSwitchState.HIDDEN
-                            if (imeVisible && isAlphaKeyboard()) imeOpened = true
+                            Log.d("emoji-search", "imeVisible: $imeVisible, imeOpened: $imeOpened, bottom: $bottom, " +
+                                "keyboardState: ${KeyboardSwitcher.getInstance().keyboardSwitchState}")
                             if (imeOpened && !imeVisible) {
                                 imeClosed = true
                                 cancel()
@@ -149,6 +149,9 @@ class EmojiSearchActivity : ComponentActivity() {
                             if (imeOpened && !isAlphaKeyboard()) {
                                 cancel()
                                 return@onGloballyPositioned
+                            }
+                            if (imeVisible && isAlphaKeyboard()) {
+                                imeOpened = true
                             }
                             heightPx = it.size.height
                             heightDp = with(localDensity) { it.size.height.toDp() }
@@ -315,6 +318,7 @@ class EmojiSearchActivity : ComponentActivity() {
         }
 
         if (KeyboardSwitcher.getInstance().keyboard == null) {
+            /** Avoid crash in [SingleDictionaryFacilitator.getSuggestions] */
             return
         }
 
