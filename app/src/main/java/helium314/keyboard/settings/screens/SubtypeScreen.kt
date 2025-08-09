@@ -487,7 +487,7 @@ private fun MainLayoutRow(
             val discussionSectionText = stringResource(R.string.get_layouts_message)
             val annotated = buildAnnotatedString {
                 append(layoutString.substringBefore("%s"))
-                appendLink(linkText, Links.LAYOUT_FORMAT_URL)
+                appendLink(linkText, Links.LAYOUT_WIKI_URL)
                 append(layoutString.substringAfter("%s"))
                 appendLine()
                 append(discussionSectionText.substringBefore("%s"))

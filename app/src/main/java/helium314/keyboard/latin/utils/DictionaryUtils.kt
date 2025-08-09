@@ -84,9 +84,20 @@ fun MissingDictionaryDialog(onDismissRequest: () -> Unit, locale: Locale) {
 /** if dictionaries for [locale] or language are available returns links to them */
 @Composable
 fun createDictionaryTextAnnotated(locale: Locale): AnnotatedString {
-    val knownDicts = mutableListOf<Pair<String, String>>()
     val builder = AnnotatedString.Builder()
     val context = LocalContext.current
+    val knownDicts = getKnownDictionariesForLocale(locale, context)
+    if (knownDicts.isEmpty()) return AnnotatedString("")
+    knownDicts.forEach {
+        builder.append("\u2022 ") // bullet point as replacement for <ul>
+        builder.appendLink(it.first , it.second)
+        builder.appendLine()
+    }
+    return builder.toAnnotatedString()
+}
+
+fun getKnownDictionariesForLocale(locale: Locale, context: Context): List<Pair<String, String>> {
+    val knownDicts = mutableListOf<Pair<String, String>>()
     context.assets.open("dictionaries_in_dict_repo.csv").reader().forEachLine {
         if (it.isBlank()) return@forEachLine
         val (type, localeString, experimental) = it.split(",")
@@ -96,20 +107,18 @@ fun createDictionaryTextAnnotated(locale: Locale): AnnotatedString {
         val dictLocale = localeString.constructLocale()
         if (LocaleUtils.getMatchLevel(locale, dictLocale) < LocaleUtils.LOCALE_GOOD_MATCH) return@forEachLine
         val rawDictString = "$type: ${dictLocale.getDisplayName(context.resources.configuration.locale())}"
-        val dictString = if (experimental.isEmpty()) rawDictString
-        else context.getString(R.string.available_dictionary_experimental, rawDictString)
-        val dictBaseUrl = Links.DICTIONARY_URL + Links.DICTIONARY_DOWNLOAD_SUFFIX +
-                if (experimental.isEmpty()) Links.DICTIONARY_NORMAL_SUFFIX else Links.DICTIONARY_EXPERIMENTAL_SUFFIX
+        val dictString = if (experimental != "exp") rawDictString
+            else context.getString(R.string.available_dictionary_experimental, rawDictString)
+        val dictLinkSuffix = when (experimental) {
+            "cldr" -> Links.DICTIONARY_EMOJI_CLDR_SUFFIX
+            "exp"  -> Links.DICTIONARY_EXPERIMENTAL_SUFFIX
+            else   -> Links.DICTIONARY_NORMAL_SUFFIX
+        }
+        val dictBaseUrl = Links.DICTIONARY_URL + Links.DICTIONARY_DOWNLOAD_SUFFIX + dictLinkSuffix
         val dictLink = dictBaseUrl + type + "_" + localeString.lowercase() + ".dict"
         knownDicts.add(dictString to dictLink)
     }
-    if (knownDicts.isEmpty()) return AnnotatedString("")
-    knownDicts.forEach {
-        builder.append("\u2022 ") // bullet point as replacement for <ul>
-        builder.appendLink(it.first , it.second)
-        builder.appendLine()
-    }
-    return builder.toAnnotatedString()
+    return knownDicts
 }
 
 fun cleanUnusedMainDicts(context: Context) {

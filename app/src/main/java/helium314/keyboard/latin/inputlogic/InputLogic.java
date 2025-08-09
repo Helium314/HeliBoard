@@ -668,9 +668,7 @@ public final class InputLogic {
                     break; // recapitalization and follow-up code should only trigger for alphabet shift, see #1256
                 performRecapitalization(inputTransaction.getMSettingsValues());
                 inputTransaction.requireShiftUpdate(InputTransaction.SHIFT_UPDATE_NOW);
-                if (mSuggestedWords.isPrediction()) {
-                    inputTransaction.setRequiresUpdateSuggestions();
-                }
+                inputTransaction.setRequiresUpdateSuggestions();
                 if (mSpaceState == SpaceState.PHANTOM && inputTransaction.getMSettingsValues().mShiftRemovesAutospace)
                     mSpaceState = SpaceState.NONE;
                 break;
@@ -796,7 +794,13 @@ public final class InputLogic {
                 // {@link KeyboardSwitcher#onEvent(Event)}, or {@link #onPressKey(int,int,boolean)} and {@link #onReleaseKey(int,boolean)}.
                 // We need to switch to the shortcut IME. This is handled by LatinIME since the
                 // input logic has no business with IME switching.
-            case KeyCode.CAPS_LOCK, KeyCode.EMOJI, KeyCode.TOGGLE_ONE_HANDED_MODE, KeyCode.SWITCH_ONE_HANDED_MODE:
+            case KeyCode.EMOJI, KeyCode.TOGGLE_ONE_HANDED_MODE, KeyCode.SWITCH_ONE_HANDED_MODE:
+                break;
+            case KeyCode.CAPS_LOCK:
+                if (KeyboardSwitcher.getInstance().getKeyboard() == null
+                            || KeyboardSwitcher.getInstance().getKeyboard().mId.isAlphabetKeyboard()) {
+                    inputTransaction.setRequiresUpdateSuggestions();
+                }
                 break;
             case KeyCode.INLINE_EMOJI_SEARCH_DONE:
                 if (inputTransaction.getMSettingsValues().mAutoCorrectEnabled) {
