@@ -6,6 +6,10 @@ import android.media.AudioManager
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -15,6 +19,7 @@ import helium314.keyboard.latin.AudioAndHapticFeedbackManager
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.settings.Defaults
 import helium314.keyboard.latin.settings.Settings
+import helium314.keyboard.latin.utils.DictionaryInfoUtils.getLocalesWithEmojiDicts
 import helium314.keyboard.latin.utils.Log
 import helium314.keyboard.latin.utils.SubtypeSettings
 import helium314.keyboard.latin.utils.getActivity
@@ -28,6 +33,7 @@ import helium314.keyboard.settings.SettingsActivity
 import helium314.keyboard.settings.preferences.SliderPreference
 import helium314.keyboard.settings.preferences.SwitchPreference
 import helium314.keyboard.settings.Theme
+import helium314.keyboard.settings.dialogs.InfoDialog
 import helium314.keyboard.settings.initPreview
 import helium314.keyboard.settings.previewDark
 
@@ -112,12 +118,14 @@ fun createPreferencesSettings(context: Context) = listOf(
     Setting(context, Settings.PREF_SOUND_ON, R.string.sound_on_keypress) {
         SwitchPreference(it, Defaults.PREF_SOUND_ON)
     },
-    Setting(
-        context, Settings.PREF_SHOW_EMOJI_DESCRIPTIONS, R.string.show_emoji_descriptions,
-        R.string.show_emoji_descriptions_summary
-    ) {
+    Setting(context, Settings.PREF_SHOW_EMOJI_DESCRIPTIONS, R.string.show_emoji_descriptions) {
+        var showWarningDialog by rememberSaveable { mutableStateOf(false) }
         SwitchPreference(it, Defaults.PREF_SHOW_EMOJI_DESCRIPTIONS) {
+            showWarningDialog = it && getLocalesWithEmojiDicts(context).isEmpty()
             KeyboardSwitcher.getInstance().reloadKeyboard()
+        }
+        if (showWarningDialog) {
+            InfoDialog(stringResource(R.string.emoji_dictionary_required), onDismissRequest = { showWarningDialog = false })
         }
     },
     Setting(context, Settings.PREF_ENABLE_CLIPBOARD_HISTORY,

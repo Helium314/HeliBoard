@@ -29,8 +29,6 @@
     <string name="emoji_dictionary_required">An emoji dictionary is required for this feature to work</string>
     <!-- Option to show emoji descriptions on long press -->
     <string name="show_emoji_descriptions">Show emoji description on long press</string>
-    <!-- Description for option to show emoji descriptions on long press -->
-    <string name="show_emoji_descriptions_summary">Requires an emoji dictionary</string>
     <!-- Option to control whether or not to show a popup with a larger font on each key press. -->
     <string name="popup_on_keypress">Popup on keypress</string>
     <!-- Settings screen title for preferences-->
