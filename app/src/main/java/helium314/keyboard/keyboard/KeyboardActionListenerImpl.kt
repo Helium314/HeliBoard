@@ -3,11 +3,14 @@ package helium314.keyboard.keyboard
 import android.text.InputType
 import android.util.SparseArray
 import android.view.KeyEvent
+import android.view.KeyCharacterMap
 import android.view.inputmethod.InputMethodSubtype
 import helium314.keyboard.event.Event
 import helium314.keyboard.event.HangulEventDecoder
 import helium314.keyboard.event.HardwareEventDecoder
 import helium314.keyboard.event.HardwareKeyboardEventDecoder
+import android.os.SystemClock
+import android.text.InputType
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode
 import helium314.keyboard.latin.EmojiAltPhysicalKeyDetector
 import helium314.keyboard.latin.LatinIME
@@ -54,6 +57,7 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
             KeyCode.META -> KeyEvent.META_META_ON
             KeyCode.META_LEFT -> KeyEvent.META_META_LEFT_ON
             KeyCode.META_RIGHT -> KeyEvent.META_META_RIGHT_ON
+            KeyCode.SHIFT -> KeyEvent.META_SHIFT_ON
             else -> return
         }
         metaState = if (remove) metaState and metaCode.inv()
@@ -253,8 +257,46 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
         return true
     }
 
+    //TODO: Should this be in inputLogic instead?
+    private fun sendShiftedMovement(keyCode: Int) {
+        val now = SystemClock.uptimeMillis()
+        // Send SHIFT down
+        inputLogic.mConnection.sendKeyEvent(
+            KeyEvent(
+                now,
+                now,
+                KeyEvent.ACTION_DOWN,
+                KeyEvent.KEYCODE_SHIFT_LEFT,
+                0,
+                0,
+                KeyCharacterMap.VIRTUAL_KEYBOARD,
+                0,
+                KeyEvent.FLAG_SOFT_KEYBOARD or KeyEvent.FLAG_KEEP_TOUCH_MODE
+            )
+        )
+        // Send Arrow down + up
+        inputLogic.sendDownUpKeyEvent(keyCode)
+        // Send SHIFT up
+        inputLogic.mConnection.sendKeyEvent(
+            KeyEvent(
+                now,
+                now,
+                KeyEvent.ACTION_UP,
+                KeyEvent.KEYCODE_SHIFT_LEFT,
+                0,
+                0,
+                KeyCharacterMap.VIRTUAL_KEYBOARD,
+                0,
+                KeyEvent.FLAG_SOFT_KEYBOARD or KeyEvent.FLAG_KEEP_TOUCH_MODE
+            )
+        )
+    }
+
     private fun onMoveCursorHorizontally(rawSteps: Int): Boolean {
         if (rawSteps == 0) return false
+
+        val isShiftPressed = metaState and KeyEvent.META_SHIFT_ON != 0
+
         // for RTL languages we want to invert pointer movement
         val steps = if (RichInputMethodManager.getInstance().currentSubtype.isRtlSubtype) -rawSteps else rawSteps
         val moveSteps: Int
@@ -264,9 +306,17 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
             if (moveSteps == 0) {
                 // some apps don't return any text via input connection, and the cursor can't be moved
                 // we fall back to virtually pressing the left/right key one or more times instead
+                inputLogic.mConnection.beginBatchEdit()
                 repeat(-steps) {
-                    onCodeInput(KeyCode.ARROW_LEFT, Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE, false)
+//                    onCodeInput(KeyCode.ARROW_LEFT, Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE, false)
+                    if (isShiftPressed) {
+                        sendShiftedMovement(KeyEvent.KEYCODE_DPAD_LEFT)
+//                        inputLogic.sendDownUpKeyEventWithMetaState(KeyEvent.KEYCODE_DPAD_LEFT, metaState) // why does this not work!
+                    } else {
+                        inputLogic.sendDownUpKeyEvent(KeyEvent.KEYCODE_DPAD_LEFT)
+                    }
                 }
+                inputLogic.mConnection.endBatchEdit()
                 return true
             }
         } else {
@@ -275,13 +325,36 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
             if (moveSteps == 0) {
                 // some apps don't return any text via input connection, and the cursor can't be moved
                 // we fall back to virtually pressing the left/right key one or more times instead
+                inputLogic.mConnection.beginBatchEdit()
                 repeat(steps) {
-                    onCodeInput(KeyCode.ARROW_RIGHT, Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE, false)
+                    //onCodeInput(KeyCode.ARROW_RIGHT, Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE, false)
+                    if (isShiftPressed) {
+                        sendShiftedMovement(KeyEvent.KEYCODE_DPAD_RIGHT)
+                        //inputLogic.sendDownUpKeyEventWithMetaState(KeyEvent.KEYCODE_DPAD_RIGHT, metaState)
+                    } else {
+                        inputLogic.sendDownUpKeyEvent(KeyEvent.KEYCODE_DPAD_RIGHT)
+                    }
                 }
+                inputLogic.mConnection.endBatchEdit()
                 return true
             }
         }
 
+        //NOTE: Delete swipe moves the selStart back before end, should I change to move start instead to be aligned?
+        //TODO: when holding to set/unset capslock it will act like shift is held. isn't calling releaseKey() thus adjustMetaState(shift, true)
+        //TODO: gets broken by the manual fallback movement over emoji and when swiping to the end/start because move_steps=0.
+        //TODO: when selEND is left and selStart is at end of text, then move selEND right it deselects and other way too.
+        //      Maybe get text after cursor is reading from start.
+        //TODO: reenable recapitalisation after shift is released so it can be used when swipe selecting.
+        //DONE: stop recapitalisation from happening every time.
+        //DONE: recapitalisation will be broken when performing on a backwards selection. !DONE
+        //DONE: when end is before start, backspace does not work.
+        //DONE: moving after selection always happens from right, should be from left when swiping back, right when swiping forward.
+
+        val anchor = connection.expectedSelectionStart
+        val newPosition = connection.expectedSelectionEnd + moveSteps
+
+        inputLogic.stopRecapitalization(); // Gets re-enabled elsewhere after selecting manually.
         // the shortcut below causes issues due to horrible handling of text fields by Firefox and forks
         // issues:
         //  * setSelection "will cause the editor to call onUpdateSelection", see: https://developer.android.com/reference/android/view/inputmethod/InputConnection#setSelection(int,%20int)
@@ -294,14 +367,22 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
         if (variation != 0 && inputLogic.moveCursorByAndReturnIfInsideComposingWord(moveSteps)) {
             // no need to finish input and restart suggestions if we're still in the word
             // this is a noticeable performance improvement when moving through long words
-            val newPosition = connection.expectedSelectionStart + moveSteps
-            connection.setSelection(newPosition, newPosition)
+            if(isShiftPressed) {
+                connection.setSelection(anchor, newPosition)
+            } else {
+                connection.setSelection(newPosition, newPosition)
+            }
             return true
         }
 
         inputLogic.finishInput()
-        val newPosition = connection.expectedSelectionStart + moveSteps
-        connection.setSelection(newPosition, newPosition)
+
+        if(isShiftPressed) {
+            connection.setSelection(anchor, newPosition)
+        } else {
+            connection.setSelection(newPosition, newPosition)
+        }
+
         inputLogic.restartSuggestionsOnWordTouchedByCursor(settings.current, keyboardSwitcher.currentKeyboardScript)
         return true
     }
