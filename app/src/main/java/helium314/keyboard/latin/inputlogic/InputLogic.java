@@ -974,7 +974,7 @@ public final class InputLogic {
             // and not for a correction
             // keep composing and don't unlearn word in this case
             resetEntireInputState(mConnection.getExpectedSelectionStart(), mConnection.getExpectedSelectionEnd(), false);
-            isComposingWord = true;
+            isComposingWord = false;
         } else if (mWordComposer.isCursorFrontOrMiddleOfComposingWord()) {
             // If we are in the middle of a recorrection, we need to commit the recorrection
             // first so that we can insert the character at the current cursor position.
@@ -1002,7 +1002,8 @@ public final class InputLogic {
         // each time. We are already doing this for getTextBeforeCursor().
                 (!settingsValues.mSpacingAndPunctuations.mCurrentLanguageHasSpaces
                         || !mConnection.isCursorTouchingWord(settingsValues.mSpacingAndPunctuations,
-                                !mConnection.hasSlowInputConnection() /* checkTextAfter */))) {
+                                !mConnection.hasSlowInputConnection() /* checkTextAfter */)
+                        || settingsValues.mSpacingAndPunctuations.isWordSeparator(mConnection.getCodePointBeforeCursor()))) {
             // Reset entirely the composing state anyway, then start composing a new word unless
             // the character is a word connector. The idea here is, word connectors are not
             // separators and they should be treated as normal characters, except in the first
