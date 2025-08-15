@@ -974,6 +974,7 @@ public final class InputLogic {
             // and not for a correction
             // keep composing and don't unlearn word in this case
             resetEntireInputState(mConnection.getExpectedSelectionStart(), mConnection.getExpectedSelectionEnd(), false);
+            isComposingWord = true;
         } else if (mWordComposer.isCursorFrontOrMiddleOfComposingWord()) {
             // If we are in the middle of a recorrection, we need to commit the recorrection
             // first so that we can insert the character at the current cursor position.
