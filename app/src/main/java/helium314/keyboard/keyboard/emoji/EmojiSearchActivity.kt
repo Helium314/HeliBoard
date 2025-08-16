@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
+import android.os.Handler
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import androidx.activity.ComponentActivity
@@ -118,6 +119,7 @@ class EmojiSearchActivity : ComponentActivity() {
     private var keyWidth by Delegates.notNull<Float>()
     private var keyHeight by Delegates.notNull<Float>()
     private var pressedKey: Key? = null
+    private var imeVisible = false
     private var imeClosed = false
 
     @OptIn(ExperimentalLayoutApi::class, ExperimentalMaterial3Api::class)
@@ -138,13 +140,17 @@ class EmojiSearchActivity : ComponentActivity() {
                     Column(modifier = Modifier.wrapContentHeight().background(Color(colors.get(ColorType.MAIN_BACKGROUND)))
                         .clickable(onClick = { }).onGloballyPositioned {
                             val bottom = it.localToScreen(Offset(0f, it.size.height.toFloat())).y.toInt()
-                            val imeVisible = bottom < screenHeight - 100
+                            imeVisible = bottom < screenHeight - 100
                             Log.d("emoji-search", "imeVisible: $imeVisible, imeOpened: $imeOpened, bottom: $bottom, " +
                                 "keyboardState: ${KeyboardSwitcher.getInstance().keyboardSwitchState}")
                             if (imeOpened && !imeVisible) {
-                                imeClosed = true
-                                cancel()
-                                return@onGloballyPositioned
+                                Handler(this@EmojiSearchActivity.mainLooper).postDelayed({
+                                    if (!imeVisible) {
+                                        Log.d("emoji-search", "IME closed")
+                                        imeClosed = true
+                                        cancel()
+                                    }
+                                }, 200)
                             }
                             if (imeOpened && !isAlphaKeyboard()) {
                                 cancel()
