@@ -159,7 +159,6 @@
 \n
 \nAttenzione: il caricamento di codice esterno può essere un rischio per la sicurezza. Utilizzare solo librerie di provenienza affidabile.</string>
     <string name="load_gesture_library_button_delete">Elimina libreria</string>
-    <string name="popup_keys_language" tools:keep="@string/popup_keys_language">@string/subtype_locale</string>
     <string name="right" tools:keep="@string/right">Cursore a destra</string>
     <string name="localized_number_row_summary">Mostra i numeri in uso nella lingua attiva anziché quelli latini</string>
     <string name="checksum_mismatch_message">File di libreria sconosciuto. Verifica di averlo ottenuto da una fonte affidabile e che sia per \'%s\'.</string>
@@ -304,7 +303,6 @@
     <string name="space_swipe_move_cursor_entry">Sposta il cursore</string>
     <string name="subtype_probhat_bn_BD">%s (Probhat)</string>
     <string name="prefs_long_press_symbol_for_numpad">Pressione lunga sul tasto simboli per aprire il tastierino numerico</string>
-    <string name="cut" tools:keep="@string/cut">Taglia</string>
     <string name="var_toolbar_direction_summary">Inverte la direzione quando la tastiera è di tipo destra-sinistra</string>
     <string name="var_toolbar_direction">Direzione della barra degli strumenti</string>
     <string name="select_color_accent">Colore di risalto</string>
@@ -430,11 +428,19 @@
     <string name="timestamp_format_title">Formato per il tasto data/ora</string>
     <string name="subtype_dag">Dagbani</string>
     <string name="subtype_st">Sesotho</string>
-    <string name="prefs_emoji_key_fit">Scala la dimensione dei tasti con la dimensione dei caratteri</string>
+    <string name="prefs_emoji_key_fit">Ridimensiona il tasto emoji in base alla dimensione dei caratteri</string>
     <string name="subtype_with_layout_generic">%1$s (%2$s)</string>
     <string name="backup_restored">Backup ripristinato</string>
     <string name="use_apps_dict">Suggerisci nomi delle app installate</string>
     <string name="use_apps_dict_summary">Aggiunge i nomi delle app installate alla lista di suggerimenti e correzioni</string>
     <string name="prefs_emoji_skin_tone">Tonalità di pelle predefinita per le emoji</string>
     <string name="prefs_emoji_skin_tone_neutral">Neutro (giallo)</string>
+    <string name="toolbar_mode_expandable">Tasti funzione e suggerimenti</string>
+    <string name="toolbar_mode_toolbar_keys">Solo tasti funzione</string>
+    <string name="toolbar_mode_hidden">Nascosta</string>
+    <string name="toolbar_hiding_global">Nascondi anche le barre degli appunti e delle emoji</string>
+    <string name="landscape">Orizzontale</string>
+    <string name="popup_order_and_hint_source">Ordine dei caratteri popup e fonti dei suggerimenti</string>
+    <string name="toolbar_mode_suggestion_strip">Solo suggerimenti</string>
+    <string name="toolbar_mode">Modalità</string>
 </resources>

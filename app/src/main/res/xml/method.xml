@@ -79,6 +79,7 @@
     kn_IN: Kannada (India)/kannada
     kn_IN: Kannada Extended (India)/kannada
     ky: Kyrgyz/russian
+    la: Latin
     lg: Luganda/luganda # This is a preliminary keyboard layout.
     ln: Lingala/lingala # This is a preliminary keyboard layout.
     lo_LA: Lao (Laos)/lao
@@ -763,7 +764,7 @@
         android:imeSubtypeLocale="ko"
         android:languageTag="ko"
         android:imeSubtypeMode="keyboard"
-        android:imeSubtypeExtraValue="KeyboardLayoutSet=MAIN:korean,SupportTouchPositionCorrection,EmojiCapable"
+        android:imeSubtypeExtraValue="KeyboardLayoutSet=MAIN:korean,CombiningRules=hangul,SupportTouchPositionCorrection,EmojiCapable"
         android:isAsciiCapable="false"
     />
 	<subtype android:icon="@drawable/ic_ime_switcher"
@@ -772,7 +773,7 @@
         android:imeSubtypeLocale="ko"
         android:languageTag="ko"
         android:imeSubtypeMode="keyboard"
-        android:imeSubtypeExtraValue="KeyboardLayoutSet=MAIN:korean_phonetic,SupportTouchPositionCorrection,EmojiCapable"
+        android:imeSubtypeExtraValue="KeyboardLayoutSet=MAIN:korean_phonetic,CombiningRules=hangul,SupportTouchPositionCorrection,EmojiCapable"
         android:isAsciiCapable="false"
     />
     <subtype android:icon="@drawable/ic_ime_switcher"
@@ -781,7 +782,7 @@
         android:imeSubtypeLocale="ko"
         android:languageTag="ko"
         android:imeSubtypeMode="keyboard"
-        android:imeSubtypeExtraValue="KeyboardLayoutSet=MAIN:korean_sebeolsik_390,SupportTouchPositionCorrection,EmojiCapable"
+        android:imeSubtypeExtraValue="KeyboardLayoutSet=MAIN:korean_sebeolsik_390,CombiningRules=hangul,SupportTouchPositionCorrection,EmojiCapable"
         android:isAsciiCapable="false"
     />
     <subtype android:icon="@drawable/ic_ime_switcher"
@@ -790,7 +791,7 @@
         android:imeSubtypeLocale="ko"
         android:languageTag="ko"
         android:imeSubtypeMode="keyboard"
-        android:imeSubtypeExtraValue="KeyboardLayoutSet=MAIN:korean_sebeolsik_final,SupportTouchPositionCorrection,EmojiCapable"
+        android:imeSubtypeExtraValue="KeyboardLayoutSet=MAIN:korean_sebeolsik_final,CombiningRules=hangul,SupportTouchPositionCorrection,EmojiCapable"
         android:isAsciiCapable="false"
     />
     <subtype android:icon="@drawable/ic_ime_switcher"
@@ -827,6 +828,15 @@
         android:languageTag="lb"
         android:imeSubtypeMode="keyboard"
         android:imeSubtypeExtraValue="KeyboardLayoutSet=MAIN:qwertz,AsciiCapable,EmojiCapable"
+    />
+    <subtype android:icon="@drawable/ic_ime_switcher"
+        android:label="@string/subtype_generic"
+        android:subtypeId="0x37885a0c"
+        android:imeSubtypeLocale="la"
+        android:languageTag="la"
+        android:imeSubtypeMode="keyboard"
+        android:imeSubtypeExtraValue="AsciiCapable,SupportTouchPositionCorrection,EmojiCapable"
+        android:isAsciiCapable="true"
     />
     <subtype android:icon="@drawable/ic_ime_switcher"
         android:label="@string/subtype_generic"
@@ -1043,7 +1053,7 @@
         android:imeSubtypeMode="keyboard"
         android:imeSubtypeExtraValue="KeyboardLayoutSet=MAIN:russian_extended,SupportTouchPositionCorrection,EmojiCapable"
         android:isAsciiCapable="false"
-        
+
     />
     <subtype android:icon="@drawable/ic_ime_switcher"
         android:label="@string/subtype_generic_student"

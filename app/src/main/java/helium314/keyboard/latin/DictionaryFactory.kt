@@ -24,24 +24,25 @@ object DictionaryFactory {
     // todo:
     //  expose the weight so users can adjust dictionary "importance" (useful for addons like emoji dict)
     //  allow users to block certain dictionaries (not sure how this should work exactly)
-    fun createMainDictionaryCollection(context: Context, locale: Locale): DictionaryCollection {
+    fun createMainDictionaryCollection(context: Context, locale: Locale, useEmojiDict: Boolean): DictionaryCollection {
         val dictList = LinkedList<Dictionary>()
-        val (extracted, nonExtracted) = getAvailableDictsForLocale(locale, context)
+        val (extracted, nonExtracted) = getAvailableDictsForLocale(locale, context, useEmojiDict)
         extracted.sortedBy { !it.name.endsWith(DictionaryInfoUtils.USER_DICTIONARY_SUFFIX) }.forEach {
             // we sort to have user dicts first, so they have priority over internal dicts of the same type
-            checkAndAddDictionaryToListNewType(it, dictList, locale)
+            checkAndAddDictionaryToListIfNewType(it, dictList, locale)
         }
         nonExtracted.forEach { filename ->
             val type = filename.substringBefore("_")
             if (dictList.any { it.mDictType == type }) return@forEach
             val extractedFile = DictionaryInfoUtils.extractAssetsDictionary(filename, locale, context) ?: return@forEach
-            checkAndAddDictionaryToListNewType(extractedFile, dictList, locale)
+            checkAndAddDictionaryToListIfNewType(extractedFile, dictList, locale)
         }
         return DictionaryCollection(Dictionary.TYPE_MAIN, locale, dictList, FloatArray(dictList.size) { 1f })
     }
 
-    fun getAvailableDictsForLocale(locale: Locale, context: Context): Pair<Array<out File>, List<String>> {
-        val cachedDicts = DictionaryInfoUtils.getCachedDictsForLocale(locale, context)
+    fun getAvailableDictsForLocale(locale: Locale, context: Context, useEmojiDict: Boolean): Pair<Array<out File>, List<String>> {
+        var cachedDicts = DictionaryInfoUtils.getCachedDictsForLocale(locale, context)
+        if (!useEmojiDict) cachedDicts = cachedDicts.filter { it.name.substringBefore("_") != Dictionary.TYPE_EMOJI }.toTypedArray()
 
         val nonExtractedDicts = mutableListOf<String>()
         DictionaryInfoUtils.getAssetsDictionaryList(context)
@@ -63,11 +64,27 @@ object DictionaryFactory {
      * if [file] cannot be loaded it is deleted
      * if the dictionary type already exists in [dicts], the [file] is skipped
      */
-    private fun checkAndAddDictionaryToListNewType(file: File, dicts: MutableList<Dictionary>, locale: Locale) {
-        if (!file.isFile) return
-        val header = DictionaryInfoUtils.getDictionaryFileHeaderOrNull(file) ?: return killDictionary(file)
+    private fun checkAndAddDictionaryToListIfNewType(file: File, dicts: MutableList<Dictionary>, locale: Locale) {
+        val dictionary = getDictionary(file, locale) ?: return
+        if (dicts.any { it.mDictType == dictionary.mDictType }) {
+            dictionary.close()
+            return
+        }
+        dicts.add(dictionary)
+    }
+
+    @JvmStatic
+    fun getDictionary(
+        file: File,
+        locale: Locale
+    ): Dictionary? {
+        if (!file.isFile) return null
+        val header = DictionaryInfoUtils.getDictionaryFileHeaderOrNull(file)
+        if (header == null) {
+            killDictionary(file)
+            return null
+        }
         val dictType = header.mIdString.split(":").first()
-        if (dicts.any { it.mDictType == dictType }) return
         val readOnlyBinaryDictionary = ReadOnlyBinaryDictionary(
             file.absolutePath, 0, file.length(), false, locale, dictType
         )
@@ -75,14 +92,13 @@ object DictionaryFactory {
         if (readOnlyBinaryDictionary.isValidDictionary) {
             if (locale.language == "ko") {
                 // Use KoreanDictionary for Korean locale
-                dicts.add(KoreanDictionary(readOnlyBinaryDictionary))
-            } else {
-                dicts.add(readOnlyBinaryDictionary)
+                return KoreanDictionary(readOnlyBinaryDictionary)
             }
-        } else {
-            readOnlyBinaryDictionary.close()
-            killDictionary(file)
+            return readOnlyBinaryDictionary
         }
+        readOnlyBinaryDictionary.close()
+        killDictionary(file)
+        return null
     }
 
     private fun killDictionary(file: File) {

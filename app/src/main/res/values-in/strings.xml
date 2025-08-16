@@ -169,7 +169,6 @@
     <string name="localized_number_row_summary">Utamakan angka yang telah dilokalisasi dibandingkan angka latin</string>
     <string name="popup_order">Pilih urutan kunci layar sembulan</string>
     <string name="popup_keys_number" tools:keep="@string/popup_keys_number">Jumlah baris</string>
-    <string name="popup_keys_language" tools:keep="@string/popup_keys_language">Bahasa</string>
     <string name="popup_keys_language_priority" tools:keep="@string/popup_keys_language_priority">Bahasa (prioritas)</string>
     <string name="popup_keys_layout" tools:keep="@string/popup_keys_layout">Tata letak</string>
     <string name="popup_keys_symbols" tools:keep="@string/popup_keys_symbols">Simbol</string>
@@ -304,7 +303,6 @@
     <string name="subtype_xdq">Kaitag</string>
     <string name="close_history" tools:keep="@string/close_history">Tutup riwayat papan klip</string>
     <string name="emoji" tools:keep="@string/emoji">Emoji</string>
-    <string name="cut" tools:keep="@string/cut">Potong</string>
     <string name="subtype_probhat_bn_BD">%s (Probhat)</string>
     <string name="subtype_mns">Mansi</string>
     <string name="more_colors">Tampilkan lebih banyak warna</string>

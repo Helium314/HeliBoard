@@ -7,6 +7,7 @@ import helium314.keyboard.keyboard.Keyboard
 import helium314.keyboard.keyboard.KeyboardSwitcher
 import helium314.keyboard.latin.DictionaryFacilitator.DictionaryInitializationListener
 import helium314.keyboard.latin.common.ComposedData
+import helium314.keyboard.latin.makedict.WordProperty
 import helium314.keyboard.latin.settings.SettingsValuesForSuggestion
 import helium314.keyboard.latin.utils.SuggestionResults
 import java.util.Locale
@@ -46,6 +47,8 @@ class SingleDictionaryFacilitator(private val dict: Dictionary) : DictionaryFaci
 
         return suggestionResults
     }
+
+    fun getWordProperty(word: String): WordProperty? = dict.getWordProperty(word, false)
 
     // ------------ dummy functionality ----------------
 

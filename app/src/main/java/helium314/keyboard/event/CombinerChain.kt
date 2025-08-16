@@ -29,30 +29,18 @@ import java.util.*
  * cursor: we'll start after this.
  * @param initialText The text that has already been combined so far.
  */
-class CombinerChain(initialText: String) {
+class CombinerChain(initialText: String, combiningSpec: String) {
     // The already combined text, as described above
     private val mCombinedText = StringBuilder(initialText)
     // The feedback on the composing state, as described above
     private val mStateFeedback = SpannableStringBuilder()
     private val mCombiners = ArrayList<Combiner>()
-    // Hangul combiner affects other scripts, e.g. period is seen as port of a word for latin,
-    // so we need to remove the combiner when not writing in hangul script.
-    // Maybe it would be better to always have the Hangul combiner, but make sure it doesn't affect
-    // events for other scripts, but how?
-    // todo: this really should be done properly, hangul combiner should do nothing when it's not needed
-    var isHangul = false
-        set(value) {
-            if (field == value) return
-            field = value
-            if (!value)
-                mCombiners.removeAll { it is HangulCombiner }
-            else if (mCombiners.none { it is HangulCombiner })
-                mCombiners.add(HangulCombiner())
-        }
 
     init {
         // The dead key combiner is always active, and always first
         mCombiners.add(DeadKeyCombiner())
+        if (combiningSpec == "hangul")
+            mCombiners.add(HangulCombiner())
     }
 
     fun reset() {

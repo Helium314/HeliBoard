@@ -18,6 +18,7 @@ import android.text.TextUtils;
 import android.text.style.CharacterStyle;
 
 import helium314.keyboard.keyboard.KeyboardSwitcher;
+import helium314.keyboard.latin.define.DebugFlags;
 import helium314.keyboard.latin.settings.Settings;
 import helium314.keyboard.latin.utils.Log;
 import android.view.KeyEvent;
@@ -40,8 +41,6 @@ import helium314.keyboard.latin.settings.SpacingAndPunctuations;
 import helium314.keyboard.latin.utils.CapsModeUtils;
 import helium314.keyboard.latin.utils.DebugLogUtils;
 import helium314.keyboard.latin.utils.NgramContextUtils;
-import helium314.keyboard.latin.utils.ScriptUtils;
-import helium314.keyboard.latin.utils.SpannableStringUtils;
 import helium314.keyboard.latin.utils.StatsUtils;
 import helium314.keyboard.latin.utils.TextRange;
 
@@ -321,6 +320,8 @@ public final class RichInputConnection implements PrivateCommandPerformer {
     public void commitText(final CharSequence text, final int newCursorPosition) {
         if (DEBUG_BATCH_NESTING) checkBatchEdit();
         if (DEBUG_PREVIOUS_TEXT) checkConsistencyForDebug();
+        if (DebugFlags.DEBUG_ENABLED)
+            Log.d(TAG, "committing "+text.length()+" characters");
         mCommittedTextBeforeComposingText.append(text);
         // TODO: the following is exceedingly error-prone. Right now when the cursor is in the
         //  middle of the composing word mComposingText only holds the part of the composing text
@@ -441,7 +442,7 @@ public final class RichInputConnection implements PrivateCommandPerformer {
         // test for this explicitly)
         if (INVALID_CURSOR_POSITION != mExpectedSelStart
                 && (cachedLength >= n || cachedLength >= mExpectedSelStart)) {
-            final StringBuilder s = new StringBuilder(mCommittedTextBeforeComposingText);
+            final StringBuilder s = new StringBuilder(mCommittedTextBeforeComposingText.toString());
             // We call #toString() here to create a temporary object.
             // In some situations, this method is called on a worker thread, and it's possible
             // the main thread touches the contents of mComposingText while this worker thread
@@ -559,6 +560,8 @@ public final class RichInputConnection implements PrivateCommandPerformer {
         // TODO: the following is incorrect if the cursor is not immediately after the composition.
         //  Right now we never come here in this case because we reset the composing state before we
         //  come here in this case, but we need to fix this.
+        if (DebugFlags.DEBUG_ENABLED)
+            Log.d(TAG, "deleting "+beforeLength+" characters before cursor");
         final int remainingChars = mComposingText.length() - beforeLength;
         if (remainingChars >= 0) {
             mComposingText.setLength(remainingChars);
@@ -593,6 +596,8 @@ public final class RichInputConnection implements PrivateCommandPerformer {
 
     public void sendKeyEvent(final KeyEvent keyEvent) {
         if (DEBUG_BATCH_NESTING) checkBatchEdit();
+        if (DebugFlags.DEBUG_ENABLED) // no details, might be too sensitive
+            Log.d(TAG, "key event with action "+keyEvent.getAction()+", is control: "+Character.isISOControl(keyEvent.getUnicodeChar()));
         if (keyEvent.getAction() == KeyEvent.ACTION_DOWN) {
             if (DEBUG_PREVIOUS_TEXT) checkConsistencyForDebug();
             // This method is only called for enter or backspace when speaking to old applications
@@ -684,6 +689,8 @@ public final class RichInputConnection implements PrivateCommandPerformer {
         // TODO: support values of newCursorPosition != 1. At this time, this is never called with
         //  newCursorPosition != 1.
         if (isConnected()) {
+            if (DebugFlags.DEBUG_ENABLED)
+                Log.d(TAG, "setting composing text of length "+text.length()); // don't log actual text
             mIC.setComposingText(text, newCursorPosition);
             if (!Settings.getValues().mInputAttributes.mShouldShowSuggestions && text.length() > 0) {
                 // We have a field that disables suggestions, but still committed text is set.
@@ -715,11 +722,19 @@ public final class RichInputConnection implements PrivateCommandPerformer {
     public boolean setSelection(final int start, final int end) {
         if (DEBUG_BATCH_NESTING) checkBatchEdit();
         if (DEBUG_PREVIOUS_TEXT) checkConsistencyForDebug();
+        if (DebugFlags.DEBUG_ENABLED)
+            Log.d(TAG, "setting selection from "+start+" to "+end);
+
         if (start < 0 || end < 0) {
             return false;
         }
-        mExpectedSelStart = start;
-        mExpectedSelEnd = end;
+        if (start > end) {
+            mExpectedSelStart = end;
+            mExpectedSelEnd = start;
+        } else {
+            mExpectedSelStart = start;
+            mExpectedSelEnd = end;
+        }
         if (isConnected()) {
             final boolean isIcValid = mIC.setSelection(start, end);
             if (!isIcValid) {
@@ -785,6 +800,8 @@ public final class RichInputConnection implements PrivateCommandPerformer {
         if (DEBUG_BATCH_NESTING) checkBatchEdit();
         if (DEBUG_PREVIOUS_TEXT) checkConsistencyForDebug();
         CharSequence text = completionInfo.getText();
+        if (DebugFlags.DEBUG_ENABLED)
+            Log.d(TAG, "committing completion of length "+text.length()); // don't log actual text
         // text should never be null, but just in case, it's better to insert nothing than to crash
         if (null == text) text = "";
         mCommittedTextBeforeComposingText.append(text);
@@ -825,15 +842,6 @@ public final class RichInputConnection implements PrivateCommandPerformer {
         return NgramContextUtils.getNgramContextFromNthPreviousWord(prev, spacingAndPunctuations, n);
     }
 
-    private static boolean isPartOfCompositionForScript(final int codePoint,
-            final SpacingAndPunctuations spacingAndPunctuations, final String script) {
-        // We always consider word connectors part of compositions.
-        return spacingAndPunctuations.isWordConnector(codePoint)
-                // Otherwise, it's part of composition if it's part of script and not a separator.
-                || (!spacingAndPunctuations.isWordSeparator(codePoint)
-                        && ScriptUtils.isLetterPartOfScript(codePoint, script));
-    }
-
     /**
      * Returns the text surrounding the cursor.
      *
@@ -860,90 +868,7 @@ public final class RichInputConnection implements PrivateCommandPerformer {
         if (before == null || after == null) {
             return null;
         }
-
-        // Going backward, find the first breaking point (separator)
-        int startIndexInBefore = before.length();
-        int endIndexInAfter = -1;
-        while (startIndexInBefore > 0) {
-            final int codePoint = Character.codePointBefore(before, startIndexInBefore);
-            if (!isPartOfCompositionForScript(codePoint, spacingAndPunctuations, script)) {
-                if (Character.isWhitespace(codePoint) || !spacingAndPunctuations.mCurrentLanguageHasSpaces)
-                    break;
-                // continue to the next whitespace and see whether this contains a sometimesWordConnector
-                for (int i = startIndexInBefore - 1; i >= 0; i--) {
-                    final char c = before.charAt(i);
-                    if (spacingAndPunctuations.isSometimesWordConnector(c)) {
-                        // if yes -> whitespace is the index
-                        startIndexInBefore = Math.max(StringUtils.charIndexOfLastWhitespace(before), 0);
-                        final int firstSpaceAfter = StringUtils.charIndexOfFirstWhitespace(after);
-                        endIndexInAfter = firstSpaceAfter == -1 ? after.length() : firstSpaceAfter -1;
-                        break;
-                    } else if (Character.isWhitespace(c)) {
-                        // if no, just break normally
-                        break;
-                    }
-                }
-                break;
-            }
-            --startIndexInBefore;
-            if (Character.isSupplementaryCodePoint(codePoint)) {
-                --startIndexInBefore;
-            }
-        }
-
-        // Find last word separator after the cursor
-        if (endIndexInAfter == -1) {
-            while (++endIndexInAfter < after.length()) {
-                final int codePoint = Character.codePointAt(after, endIndexInAfter);
-                if (!isPartOfCompositionForScript(codePoint, spacingAndPunctuations, script)) {
-                    if (Character.isWhitespace(codePoint) || !spacingAndPunctuations.mCurrentLanguageHasSpaces)
-                        break;
-                    // continue to the next whitespace and see whether this contains a sometimesWordConnector
-                    for (int i = endIndexInAfter; i < after.length(); i++) {
-                        final char c = after.charAt(i);
-                        if (spacingAndPunctuations.isSometimesWordConnector(c)) {
-                            // if yes -> whitespace is next to the index
-                            startIndexInBefore = Math.max(StringUtils.charIndexOfLastWhitespace(before), 0);
-                            final int firstSpaceAfter = StringUtils.charIndexOfFirstWhitespace(after);
-                            endIndexInAfter = firstSpaceAfter == -1 ? after.length() : firstSpaceAfter - 1;
-                            break;
-                        } else if (Character.isWhitespace(c)) {
-                            // if no, just break normally
-                            break;
-                        }
-                    }
-                    break;
-                }
-                if (Character.isSupplementaryCodePoint(codePoint)) {
-                    ++endIndexInAfter;
-                }
-            }
-        }
-
-        // strip stuff before "//" (i.e. ignore http and other protocols)
-        final String beforeConsideringStart = before.subSequence(startIndexInBefore, before.length()).toString();
-        final int protocolEnd = beforeConsideringStart.lastIndexOf("//");
-        if (protocolEnd != -1)
-            startIndexInBefore += protocolEnd + 1;
-
-        // we don't want the end characters to be word separators
-        while (endIndexInAfter > 0 && spacingAndPunctuations.isWordSeparator(after.charAt(endIndexInAfter - 1))) {
-            --endIndexInAfter;
-        }
-        while (startIndexInBefore < before.length() && spacingAndPunctuations.isWordSeparator(before.charAt(startIndexInBefore))) {
-            ++startIndexInBefore;
-        }
-
-        final boolean hasUrlSpans =
-                SpannableStringUtils.hasUrlSpans(before, startIndexInBefore, before.length())
-                || SpannableStringUtils.hasUrlSpans(after, 0, endIndexInAfter);
-        // We don't use TextUtils#concat because it copies all spans without respect to their
-        // nature. If the text includes a PARAGRAPH span and it has been split, then
-        // TextUtils#concat will crash when it tries to concat both sides of it.
-        return new TextRange(
-                SpannableStringUtils.concatWithNonParagraphSuggestionSpansOnly(before, after),
-                        startIndexInBefore, before.length() + endIndexInAfter, before.length(),
-                        hasUrlSpans);
+        return StringUtilsKt.getTouchedWordRange(before, after, script, spacingAndPunctuations);
     }
 
     public boolean isCursorTouchingWord(final SpacingAndPunctuations spacingAndPunctuations,
@@ -956,19 +881,7 @@ public final class RichInputConnection implements PrivateCommandPerformer {
             // a composing region should always count as a word
             return true;
         }
-        final String textBeforeCursor = mCommittedTextBeforeComposingText.toString();
-        int indexOfCodePointInJavaChars = textBeforeCursor.length();
-        int consideredCodePoint = 0 == indexOfCodePointInJavaChars ? Constants.NOT_A_CODE
-                : textBeforeCursor.codePointBefore(indexOfCodePointInJavaChars);
-        // Search for the first non word-connector char
-        if (spacingAndPunctuations.isWordConnector(consideredCodePoint)) {
-            indexOfCodePointInJavaChars -= Character.charCount(consideredCodePoint);
-            consideredCodePoint = 0 == indexOfCodePointInJavaChars ? Constants.NOT_A_CODE
-                    : textBeforeCursor.codePointBefore(indexOfCodePointInJavaChars);
-        }
-        return !(Constants.NOT_A_CODE == consideredCodePoint
-                || spacingAndPunctuations.isWordSeparator(consideredCodePoint)
-                || spacingAndPunctuations.isWordConnector(consideredCodePoint));
+        return StringUtilsKt.endsWithWordCodepoint(mCommittedTextBeforeComposingText.toString(), spacingAndPunctuations);
     }
 
     public boolean isCursorFollowedByWordCharacter(

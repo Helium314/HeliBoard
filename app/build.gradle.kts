@@ -12,13 +12,13 @@ android {
         applicationId = "helium314.keyboard"
         minSdk = 21
         targetSdk = 35
-        versionCode = 3101
-        versionName = "3.1"
+        versionCode = 3201
+        versionName = "3.2"
         ndk {
             abiFilters.clear()
             abiFilters.addAll(listOf("armeabi-v7a", "arm64-v8a", "x86", "x86_64"))
         }
-        proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
+        proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
     }
 
     buildTypes {

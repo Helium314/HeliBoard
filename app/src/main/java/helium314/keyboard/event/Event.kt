@@ -139,6 +139,16 @@ class Event private constructor(
                     null, if (isKeyRepeat) FLAG_REPEAT else FLAG_NONE, null)
         }
 
+        // A helper method to split the code point and the key code.
+        // todo: Ultimately, they should not be squashed into the same variable, and this method should be removed.
+        @JvmStatic
+        fun createSoftwareKeypressEvent(keyCodeOrCodePoint: Int, metaState: Int, keyX: Int, keyY: Int, isKeyRepeat: Boolean) =
+            if (keyCodeOrCodePoint <= 0) {
+                createSoftwareKeypressEvent(NOT_A_CODE_POINT, keyCodeOrCodePoint, metaState, keyX, keyY, isKeyRepeat)
+            } else {
+                createSoftwareKeypressEvent(keyCodeOrCodePoint, NOT_A_KEY_CODE, metaState, keyX, keyY, isKeyRepeat)
+            }
+
         fun createHardwareKeypressEvent(codePoint: Int, keyCode: Int, metaState: Int, next: Event?, isKeyRepeat: Boolean): Event {
             return Event(EVENT_TYPE_INPUT_KEYPRESS, null, codePoint, keyCode, metaState,
                     Constants.EXTERNAL_KEYBOARD_COORDINATE, Constants.EXTERNAL_KEYBOARD_COORDINATE,
@@ -256,10 +266,8 @@ class Event private constructor(
                     source.mX, source.mY, source.mSuggestedWordInfo, source.mFlags or FLAG_COMBINING, source.mNextEvent)
         }
 
-        fun createNotHandledEvent(): Event {
-            return Event(EVENT_TYPE_NOT_HANDLED, null, NOT_A_CODE_POINT, NOT_A_KEY_CODE, 0,
+        val notHandledEvent = Event(EVENT_TYPE_NOT_HANDLED, null, NOT_A_CODE_POINT, NOT_A_KEY_CODE, 0,
                     Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE, null, FLAG_NONE, null)
-        }
     }
 
     // This method is private - to create a new event, use one of the create* utility methods.

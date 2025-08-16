@@ -202,7 +202,6 @@
     <string name="load_gesture_library_summary">Tarjoa natiivi kirjasto ottaaksesi elekirjoittamisen käyttöön</string>
     <string name="popup_keys_layout" tools:keep="@string/popup_keys_layout">Asettelu</string>
     <string name="popup_keys_symbols" tools:keep="@string/popup_keys_symbols">Symbolit</string>
-    <string name="popup_keys_language" tools:keep="@string/popup_keys_language">Kieli</string>
     <string name="dictionary_load_error">Virhe ladatessa sanakirjatiedostoa</string>
     <string name="clipboard" tools:keep="@string/clipboard">Leikepöytä</string>
     <string name="voice" tools:keep="@string/voice">Äänisyöte</string>

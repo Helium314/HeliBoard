@@ -1,16 +1,24 @@
 package helium314.keyboard.keyboard
 
 import android.text.InputType
+import android.util.SparseArray
 import android.view.KeyEvent
 import android.view.inputmethod.InputMethodSubtype
+import helium314.keyboard.event.Event
+import helium314.keyboard.event.HangulEventDecoder
+import helium314.keyboard.event.HardwareEventDecoder
+import helium314.keyboard.event.HardwareKeyboardEventDecoder
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode
+import helium314.keyboard.latin.EmojiAltPhysicalKeyDetector
 import helium314.keyboard.latin.LatinIME
 import helium314.keyboard.latin.RichInputMethodManager
 import helium314.keyboard.latin.common.Constants
 import helium314.keyboard.latin.common.InputPointers
 import helium314.keyboard.latin.common.StringUtils
+import helium314.keyboard.latin.common.combiningRange
 import helium314.keyboard.latin.common.loopOverCodePoints
 import helium314.keyboard.latin.common.loopOverCodePointsBackwards
+import helium314.keyboard.latin.define.ProductionFlags
 import helium314.keyboard.latin.inputlogic.InputLogic
 import helium314.keyboard.latin.settings.Settings
 import kotlin.math.abs
@@ -19,6 +27,11 @@ import kotlin.math.min
 class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inputLogic: InputLogic) : KeyboardActionListener {
 
     private val connection = inputLogic.mConnection
+    private val emojiAltPhysicalKeyDetector by lazy { EmojiAltPhysicalKeyDetector(latinIME.resources) }
+
+    // We expect to have only one decoder in almost all cases, hence the default capacity of 1.
+    // If it turns out we need several, it will get grown seamlessly.
+    private val hardwareEventDecoders: SparseArray<HardwareEventDecoder> = SparseArray(1)
 
     private val keyboardSwitcher = KeyboardSwitcher.getInstance()
     private val settings = Settings.getInstance()
@@ -58,9 +71,62 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
         keyboardSwitcher.onReleaseKey(primaryCode, withSliding, latinIME.currentAutoCapsState, latinIME.currentRecapitalizeState)
     }
 
+    override fun onKeyUp(keyCode: Int, keyEvent: KeyEvent): Boolean {
+        emojiAltPhysicalKeyDetector.onKeyUp(keyEvent)
+        if (!ProductionFlags.IS_HARDWARE_KEYBOARD_SUPPORTED)
+            return false
+
+        val keyIdentifier = keyEvent.deviceId.toLong() shl 32 + keyEvent.keyCode
+        return inputLogic.mCurrentlyPressedHardwareKeys.remove(keyIdentifier)
+    }
+
+    override fun onKeyDown(keyCode: Int, keyEvent: KeyEvent): Boolean {
+        emojiAltPhysicalKeyDetector.onKeyDown(keyEvent)
+        if (!ProductionFlags.IS_HARDWARE_KEYBOARD_SUPPORTED)
+            return false
+
+        val event: Event
+        if (settings.current.mLocale.language == "ko") { // todo: this does not appear to be the right place
+            val subtype = keyboardSwitcher.keyboard?.mId?.mSubtype ?: RichInputMethodManager.getInstance().currentSubtype
+            event = HangulEventDecoder.decodeHardwareKeyEvent(subtype, keyEvent) {
+                getHardwareKeyEventDecoder(keyEvent.deviceId).decodeHardwareKey(keyEvent)
+            }
+        } else {
+            event = getHardwareKeyEventDecoder(keyEvent.deviceId).decodeHardwareKey(keyEvent)
+        }
+
+        if (event.isHandled) {
+            inputLogic.onCodeInput(
+                settings.current, event,
+                keyboardSwitcher.getKeyboardShiftMode(), // TODO: this is not necessarily correct for a hardware keyboard right now
+                keyboardSwitcher.getCurrentKeyboardScript(),
+                latinIME.mHandler
+            )
+            return true
+        }
+        return false
+    }
+
     override fun onCodeInput(primaryCode: Int, x: Int, y: Int, isKeyRepeat: Boolean) {
+        when (primaryCode) {
+            KeyCode.TOGGLE_AUTOCORRECT -> return Settings.getInstance().toggleAutoCorrect()
+            KeyCode.TOGGLE_INCOGNITO_MODE -> return Settings.getInstance().toggleAlwaysIncognitoMode()
+        }
         val mkv = keyboardSwitcher.mainKeyboardView
-        latinIME.onCodeInput(primaryCode, metaState, mkv.getKeyX(x), mkv.getKeyY(y), isKeyRepeat)
+
+        // checking if the character is a combining accent
+        val event = if (primaryCode in combiningRange) { // todo: should this be done later, maybe in inputLogic?
+            Event.createSoftwareDeadEvent(primaryCode, 0, metaState, mkv.getKeyX(x), mkv.getKeyY(y), null)
+        } else {
+            // todo:
+            //  setting meta shift should only be done for arrow and similar cursor movement keys
+            //  should only be enabled once it works more reliably (currently depends on app for some reason)
+//            if (mkv.keyboard?.mId?.isAlphabetShiftedManually == true)
+//                Event.createSoftwareKeypressEvent(primaryCode, metaState or KeyEvent.META_SHIFT_ON, mkv.getKeyX(x), mkv.getKeyY(y), isKeyRepeat)
+//            else Event.createSoftwareKeypressEvent(primaryCode, metaState, mkv.getKeyX(x), mkv.getKeyY(y), isKeyRepeat)
+            Event.createSoftwareKeypressEvent(primaryCode, metaState, mkv.getKeyX(x), mkv.getKeyY(y), isKeyRepeat)
+        }
+        latinIME.onEvent(event)
     }
 
     override fun onTextInput(text: String?) = latinIME.onTextInput(text)
@@ -97,6 +163,10 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
         KeyboardActionListener.SWIPE_MOVE_CURSOR -> onMoveCursorVertically(steps)
         KeyboardActionListener.SWIPE_SWITCH_LANGUAGE -> onLanguageSlide(steps)
         KeyboardActionListener.SWIPE_TOGGLE_NUMPAD -> toggleNumpad(false, false)
+        KeyboardActionListener.SWIPE_HIDE_KEYBOARD -> {
+            latinIME.requestHideSelf(0)
+            true
+        }
         else -> false
     }
 
@@ -256,5 +326,14 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
             actualSteps <= steps
         }
         return -min(-actualSteps, text.length)
+    }
+
+    private fun getHardwareKeyEventDecoder(deviceId: Int): HardwareEventDecoder {
+        hardwareEventDecoders.get(deviceId)?.let { return it }
+
+        // TODO: create the decoder according to the specification
+        val newDecoder = HardwareKeyboardEventDecoder(deviceId)
+        hardwareEventDecoders.put(deviceId, newDecoder)
+        return newDecoder
     }
 }

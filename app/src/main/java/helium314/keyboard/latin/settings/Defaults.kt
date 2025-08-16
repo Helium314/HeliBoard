@@ -18,11 +18,7 @@ import helium314.keyboard.latin.utils.defaultToolbarPref
 
 object Defaults {
     fun initDynamicDefaults(context: Context) {
-        PREF_GESTURE_DYNAMIC_PREVIEW_FOLLOW_SYSTEM = android.provider.Settings.System.getFloat(
-            context.contentResolver,
-            android.provider.Settings.Global.TRANSITION_ANIMATION_SCALE,
-            1.0f
-        ) != 0.0f
+        PREF_GESTURE_DYNAMIC_PREVIEW_FOLLOW_SYSTEM = getTransitionAnimationScale(context) != 0.0f
         val dm = context.resources.displayMetrics
         val px600 = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 600f, dm)
         PREF_POPUP_ON = dm.widthPixels >= px600 || dm.heightPixels >= px600
@@ -44,6 +40,7 @@ object Defaults {
         LayoutType.CLIPBOARD_BOTTOM -> "clip_bottom_row"
     }
 
+    private const val DEFAULT_SIZE_SCALE = 1.0f // 100%
     const val PREF_THEME_STYLE = KeyboardTheme.STYLE_MATERIAL
     const val PREF_ICON_STYLE = KeyboardTheme.STYLE_MATERIAL
     const val PREF_THEME_COLORS = KeyboardTheme.THEME_LIGHT
@@ -57,6 +54,8 @@ object Defaults {
     const val PREF_VIBRATE_ON = false
     const val PREF_VIBRATE_IN_DND_MODE = false
     const val PREF_SOUND_ON = false
+    const val PREF_SUGGEST_EMOJIS = true
+    const val PREF_SHOW_EMOJI_DESCRIPTIONS = true
     @JvmField
     var PREF_POPUP_ON = true
     const val PREF_AUTO_CORRECTION = true
@@ -80,15 +79,16 @@ object Defaults {
             "hu${Separators.SET}${ExtraValue.KEYBOARD_LAYOUT_SET}=MAIN:qwerty"
     const val PREF_ENABLE_SPLIT_KEYBOARD = false
     const val PREF_ENABLE_SPLIT_KEYBOARD_LANDSCAPE = false
-    const val PREF_SPLIT_SPACER_SCALE = SettingsValues.DEFAULT_SIZE_SCALE
-    const val PREF_SPLIT_SPACER_SCALE_LANDSCAPE = SettingsValues.DEFAULT_SIZE_SCALE
-    const val PREF_KEYBOARD_HEIGHT_SCALE =  SettingsValues.DEFAULT_SIZE_SCALE
-    const val PREF_BOTTOM_PADDING_SCALE = SettingsValues.DEFAULT_SIZE_SCALE
-    const val PREF_BOTTOM_PADDING_SCALE_LANDSCAPE = 0f
-    const val PREF_SIDE_PADDING_SCALE = 0f
-    const val PREF_SIDE_PADDING_SCALE_LANDSCAPE = 0f
-    const val PREF_FONT_SCALE = SettingsValues.DEFAULT_SIZE_SCALE
-    const val PREF_EMOJI_FONT_SCALE = SettingsValues.DEFAULT_SIZE_SCALE
+    @JvmField
+    val PREF_SPLIT_SPACER_SCALE = Array(2) { DEFAULT_SIZE_SCALE }
+    @JvmField
+    val PREF_KEYBOARD_HEIGHT_SCALE = Array(2) { DEFAULT_SIZE_SCALE }
+    @JvmField
+    val PREF_BOTTOM_PADDING_SCALE = arrayOf(DEFAULT_SIZE_SCALE, 0f)
+    @JvmField
+    val PREF_SIDE_PADDING_SCALE = Array(4) { 0f }
+    const val PREF_FONT_SCALE = DEFAULT_SIZE_SCALE
+    const val PREF_EMOJI_FONT_SCALE = DEFAULT_SIZE_SCALE
     const val PREF_EMOJI_KEY_FIT = true
     const val PREF_EMOJI_SKIN_TONE = ""
     const val PREF_SPACE_HORIZONTAL_SWIPE = "move_cursor"
@@ -101,6 +101,7 @@ object Defaults {
     const val PREF_SHIFT_REMOVES_AUTOSPACE = false
     const val PREF_ALWAYS_INCOGNITO_MODE = false
     const val PREF_BIGRAM_PREDICTIONS = true
+    const val PREF_SUGGEST_PUNCTUATION = false
     const val PREF_SUGGEST_CLIPBOARD_CONTENT = true
     const val PREF_GESTURE_INPUT = true
     const val PREF_VIBRATION_DURATION_SETTINGS = -1

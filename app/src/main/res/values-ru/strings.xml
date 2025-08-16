@@ -211,7 +211,6 @@
     <string name="theme_name_forest" tools:keep="@string/theme_name_forest">Лес</string>
     <string name="load_gesture_library_message">Вам понадобится библиотека для \'%s\'. Несовместимые библиотеки могут привести к сбою при использовании набора текста с помощью жестов. \n\nВнимание: загрузка внешнего кода может представлять угрозу безопасности. Используйте библиотеку только из источника, которому вы доверяете.</string>
     <string name="load_gesture_library_button_delete">Удалить</string>
-    <string name="popup_keys_language" tools:keep="@string/popup_keys_language">@string/subtype_locale</string>
     <string name="localized_number_row_summary">Предпочитать локализованные латинские цифры</string>
     <string name="checksum_mismatch_message">Неизвестный файл библиотеки. Вы уверены, что получили его из надёжного источника и оно предназначено для \'%s\'?</string>
     <string name="theme_name_blue_gray" tools:keep="@string/theme_name_blue_gray">Серо-голубой</string>
@@ -302,7 +301,6 @@
     <string name="space_swipe_move_cursor_entry">Перемещение курсора</string>
     <string name="prefs_long_press_symbol_for_numpad">Долгое нажатие клавиши символов для цифровой клавиатуры</string>
     <string name="subtype_generic_student">%s (Студенческая)</string>
-    <string name="cut" tools:keep="@string/cut">Вырезать</string>
     <string name="language_switch_key_behavior">Действие клавиши смены языка</string>
     <string name="emoji" tools:keep="@string/emoji">Эмодзи</string>
     <string name="pinned_toolbar_keys">Выбрать закреплённые клавиши панели инструментов</string>
@@ -429,4 +427,12 @@
     <string name="prefs_emoji_skin_tone">Тон кожи эмодзи по умолчанию</string>
     <string name="prefs_emoji_skin_tone_neutral">Нейтральный</string>
     <string name="subtype_with_layout_generic">%1$s (%2$s)</string>
+    <string name="toolbar_mode_expandable">Клавиши и предложения в панели инструментов</string>
+    <string name="toolbar_mode">Режим панели инструментов</string>
+    <string name="toolbar_mode_toolbar_keys">Только клавиши в панели инструментов</string>
+    <string name="toolbar_mode_suggestion_strip">Только предложения</string>
+    <string name="toolbar_mode_hidden">Скрыто</string>
+    <string name="toolbar_hiding_global">Скрыть панели инструментов буфера обмена и эмодзи</string>
+    <string name="popup_order_and_hint_source">Порядок всплывающих клавиш и источник подсказок</string>
+    <string name="landscape">Ландшафт</string>
 </resources>

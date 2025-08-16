@@ -45,7 +45,7 @@ class LocaleKeyboardInfos(dataStream: InputStream?, locale: Locale) {
         "mns" -> Key.LABEL_FLAGS_FOLLOW_KEY_LETTER_RATIO
         else -> 0
     }
-    val tlds = getLocaleTlds(locale)
+    val tlds = mutableListOf(Key.POPUP_KEYS_HAS_LABELS)
 
     init {
         readStream(dataStream, false, true)
@@ -84,7 +84,7 @@ class LocaleKeyboardInfos(dataStream: InputStream?, locale: Locale) {
                     READER_MODE_EXTRA_KEYS -> if (!onlyPopupKeys) addExtraKey(line.split(colonSpaceRegex, 2))
                     READER_MODE_LABELS -> if (!onlyPopupKeys) addLabel(line.split(colonSpaceRegex, 2))
                     READER_MODE_NUMBER_ROW -> localizedNumberKeys = line.splitOnWhitespace()
-                    READER_MODE_TLD -> SpacedTokens(line).forEach { tlds.add(".$it") }
+                    READER_MODE_TLD -> tlds.addAll(SpacedTokens(line).map { ".$it" })
                 }
             }
         }
@@ -156,6 +156,16 @@ class LocaleKeyboardInfos(dataStream: InputStream?, locale: Locale) {
         }
     }
 
+    fun addLocaleTlds(locale: Locale) {
+        tlds.add(0, comTld)
+        val ccLower = locale.country.lowercase()
+        if (ccLower.isNotEmpty() && locale.language != SubtypeLocaleUtils.NO_LANGUAGE) {
+            specialCountryTlds[ccLower]?.let { tlds.addAll(SpacedTokens(it)) } ?: tlds.add(".$ccLower")
+        }
+        if ((locale.language != "en" && euroLocales.matches(locale.language)) || euroCountries.matches(locale.country))
+            tlds.add(".eu")
+        tlds.addAll(SpacedTokens(otherDefaultTlds))
+    }
 }
 
 private fun addFixedColumnOrder(popupKeys: MutableCollection<String>) {
@@ -205,6 +215,7 @@ private fun createLocaleKeyTexts(context: Context, params: KeyboardParams, popup
         POPUP_KEYS_MORE -> lkt.addFile(context.assets.open("$LOCALE_TEXTS_FOLDER/more_popups_more.txt"), false)
         POPUP_KEYS_ALL -> lkt.addFile(context.assets.open("$LOCALE_TEXTS_FOLDER/more_popups_all.txt"), false)
     }
+    lkt.addLocaleTlds(params.mId.locale)
     return lkt
 }
 
@@ -214,33 +225,11 @@ private fun getStreamForLocale(locale: Locale, context: Context) =
         else context.assets.open("$LOCALE_TEXTS_FOLDER/${locale.toLanguageTag()}.txt")
     } catch (_: Exception) {
         try {
-            context.assets.open("$LOCALE_TEXTS_FOLDER/${locale.language}.txt")
+            context.assets.open("$LOCALE_TEXTS_FOLDER/${if (locale.language == "he") "iw" else locale.language}.txt")
         } catch (_: Exception) {
             null
         }
     }
-
-private fun getLocaleTlds(locale: Locale): LinkedHashSet<String> {
-    val tlds = getDefaultTlds(locale)
-    val ccLower = locale.country.lowercase()
-    if (ccLower.isEmpty() || locale.language == SubtypeLocaleUtils.NO_LANGUAGE)
-        return tlds
-    specialCountryTlds.forEach {
-        if (ccLower != it.first) return@forEach
-        tlds.addAll(SpacedTokens(it.second))
-        return@getLocaleTlds tlds
-    }
-    tlds.add(".$ccLower")
-    return tlds
-}
-
-private fun getDefaultTlds(locale: Locale): LinkedHashSet<String> {
-    val tlds = linkedSetOf<String>()
-    tlds.addAll(SpacedTokens(defaultTlds))
-    if ((locale.language != "en" && euroLocales.matches(locale.language)) || euroCountries.matches(locale.country))
-        tlds.add(".eu")
-    return tlds
-}
 
 fun clearCache() = localeKeyboardInfosCache.clear()
 
@@ -341,7 +330,7 @@ const val POPUP_KEYS_NORMAL = "normal"
 private const val LOCALE_TEXTS_FOLDER = "locale_key_texts"
 
 // either tld is not simply lowercase ISO 3166-1 code, or there are multiple according to some list
-private val specialCountryTlds = listOf(
+private val specialCountryTlds = hashMapOf<String, String>(
     "bd" to ".bd .com.bd",
     "bq" to ".bq .an .nl",
     "bl" to ".bl .gp .fr",
@@ -351,4 +340,5 @@ private val specialCountryTlds = listOf(
     "mf" to ".mf .gp .fr",
     "tl" to ".tl .tp",
 )
-private const val defaultTlds = ".com .gov .edu .org .net"
+private const val comTld = ".com"
+private const val otherDefaultTlds = ".gov .edu .org .net"

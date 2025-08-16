@@ -18,11 +18,13 @@ import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode
 import helium314.keyboard.latin.ShadowFacilitator2.Companion.lastAddedWord
 import helium314.keyboard.latin.SuggestedWords.SuggestedWordInfo
 import helium314.keyboard.latin.common.Constants
+import helium314.keyboard.latin.common.LocaleUtils.constructLocale
 import helium314.keyboard.latin.common.StringUtils
 import helium314.keyboard.latin.inputlogic.InputLogic
 import helium314.keyboard.latin.inputlogic.SpaceState
 import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.utils.ScriptUtils
+import helium314.keyboard.latin.utils.SubtypeSettings
 import helium314.keyboard.latin.utils.getTimestamp
 import helium314.keyboard.latin.utils.prefs
 import org.junit.runner.RunWith
@@ -95,10 +97,7 @@ class InputLogicTest {
         setCursorPosition(8) // after o in you
         functionalKeyPress(KeyCode.DELETE)
         assertEquals("hello yu there", text)
-        // todo: do we really want an empty composing text in this case?
-        //  setting whole word composing will delete text behind cursor
-        //  setting part before cursor as composing may be bad if user just wants to adjust a letter and result is some autocorrect
-        assertEquals("", composingText)
+        assertEquals("yu", composingText)
     }
 
     @Test fun insertLetterIntoWord() {
@@ -138,10 +137,10 @@ class InputLogicTest {
 
     // todo: make it work, but it might not be that simple because adding is done in combiner
     //  https://github.com/Helium314/HeliBoard/issues/214
-    @Test fun insertLetterIntoWordHangul() {
+    @Test fun insertLetterIntoWordHangulFails() {
         if (BuildConfig.BUILD_TYPE == "runTests") return
         reset()
-        currentScript = ScriptUtils.SCRIPT_HANGUL
+        latinIME.switchToSubtype(SubtypeSettings.getResourceSubtypesForLocale("ko".constructLocale()).first())
         chainInput("ㅛㅎㄹㅎㅕㅛ")
         setCursorPosition(3)
         input('ㄲ') // fails, as expected from the hangul issue when processing the event in onCodeInput
@@ -155,7 +154,7 @@ class InputLogicTest {
     // see issue 1447
     @Test fun separatorAfterHangul() {
         reset()
-        currentScript = ScriptUtils.SCRIPT_HANGUL
+        latinIME.switchToSubtype(SubtypeSettings.getResourceSubtypesForLocale("ko".constructLocale()).first())
         chainInput("ㅛ.")
         assertEquals("ㅛ.", text)
     }
@@ -163,7 +162,7 @@ class InputLogicTest {
     // see issue 1551 (debug only)
     @Test fun deleteHangul() {
         reset()
-        currentScript = ScriptUtils.SCRIPT_HANGUL
+        latinIME.switchToSubtype(SubtypeSettings.getResourceSubtypesForLocale("ko".constructLocale()).first())
         setText("ㅛㅛ ")
         functionalKeyPress(KeyCode.DELETE)
         functionalKeyPress(KeyCode.DELETE)
@@ -654,6 +653,14 @@ class InputLogicTest {
         functionalKeyPress(KeyCode.DELETE)
         functionalKeyPress(KeyCode.DELETE)
         assertEquals("", text)
+    }
+
+    // emoRegex update to unicode 16.0 was required, https://github.com/Helium314/HeliBoard/issues/1760
+    @Test fun `emojis deleted one by one`() {
+        reset()
+        chainInput("\uD83E\uDEC6\uD83E\uDEC6\uD83E\uDEC6")
+        functionalKeyPress(KeyCode.DELETE)
+        assertEquals("\uD83E\uDEC6\uD83E\uDEC6", text)
     }
 
     @Test fun `revert autocorrect on delete`() {

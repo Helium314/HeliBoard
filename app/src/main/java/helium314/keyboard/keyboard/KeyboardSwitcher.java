@@ -138,7 +138,7 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
         return false;
     }
 
-    public void loadKeyboard(final EditorInfo editorInfo, final SettingsValues settingsValues,
+    private void loadKeyboard(final EditorInfo editorInfo, final SettingsValues settingsValues,
             final int currentAutoCapsState, final int currentRecapitalizeState) {
         final KeyboardLayoutSet.Builder builder = new KeyboardLayoutSet.Builder(
                 mThemeContext, editorInfo);
@@ -482,7 +482,11 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
     // Implements {@link KeyboardState.SwitchActions}.
     @Override
     public void setOneHandedModeEnabled(boolean enabled) {
-        if (mKeyboardViewWrapper.getOneHandedModeEnabled() == enabled) {
+        setOneHandedModeEnabled(enabled, false);
+    }
+
+    public void setOneHandedModeEnabled(boolean enabled, boolean force) {
+        if (!force && mKeyboardViewWrapper.getOneHandedModeEnabled() == enabled) {
             return;
         }
         final Settings settings = Settings.getInstance();
@@ -515,6 +519,7 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
                 !settings.getCurrent().mIsSplitKeyboardEnabled,
                 mCurrentOrientation == Configuration.ORIENTATION_LANDSCAPE
         );
+        setOneHandedModeEnabled(settings.getCurrent().mOneHandedModeEnabled, true);
         reloadKeyboard();
     }
 
@@ -522,6 +527,10 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
         if (mCurrentInputView == null)
             return;
         mEmojiPalettesView.clearKeyboardCache();
+        reloadMainKeyboard();
+    }
+
+    public void reloadMainKeyboard() {
         loadKeyboard(mLatinIME.getCurrentInputEditorInfo(), Settings.getValues(),
                 mLatinIME.getCurrentAutoCapsState(), mLatinIME.getCurrentRecapitalizeState());
     }
@@ -592,7 +601,10 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
         if (mKeyboardView == null || !mKeyboardView.isShown()) {
             return false;
         }
-        int activeKeyboardId = mKeyboardView.getKeyboard().mId.mElementId;
+        final Keyboard keyboard = mKeyboardView.getKeyboard();
+        if (keyboard == null) // may happen when using hardware keyboard
+            return false;
+        int activeKeyboardId = keyboard.mId.mElementId;
         for (int keyboardId : keyboardIds) {
             if (activeKeyboardId == keyboardId) {
                 return true;
@@ -713,17 +725,7 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
         if (keyboard == null) {
             return WordComposer.CAPS_MODE_OFF;
         }
-        switch (keyboard.mId.mElementId) {
-        case KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCKED:
-        case KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCK_SHIFTED:
-            return WordComposer.CAPS_MODE_MANUAL_SHIFT_LOCKED;
-        case KeyboardId.ELEMENT_ALPHABET_MANUAL_SHIFTED:
-            return WordComposer.CAPS_MODE_MANUAL_SHIFTED;
-        case KeyboardId.ELEMENT_ALPHABET_AUTOMATIC_SHIFTED:
-            return WordComposer.CAPS_MODE_AUTO_SHIFTED;
-        default:
-            return WordComposer.CAPS_MODE_OFF;
-        }
+        return keyboard.mId.getKeyboardCapsMode();
     }
 
     public String getCurrentKeyboardScript() {

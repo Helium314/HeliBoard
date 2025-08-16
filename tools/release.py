@@ -78,8 +78,13 @@ def update_dict_list():
             locale = sp[0]
             for s in sp[1:]:
                 locale = locale + "_" + s.upper()
-        exp = "exp" if split[3].strip() == "yes" else ""
-        dicts.append(f"{dict_type},{locale},{exp}\n")
+        if split[3].strip() == "yes":
+            extra = "exp"
+        elif "UNICODE LICENSE V3 (CLDR)" in split[7]:
+            extra = "cldr"
+        else:
+            extra = ""
+        dicts.append(f"{dict_type},{locale},{extra}\n")
     target_file = "app/src/main/assets/dictionaries_in_dict_repo.csv"
     with open(target_file, 'w') as f:
         f.writelines(dicts)

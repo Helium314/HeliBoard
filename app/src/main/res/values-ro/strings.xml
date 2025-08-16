@@ -162,7 +162,6 @@
     <string name="more_keys_strip_description">Mai multe taste</string>
     <string name="language_and_layouts_title">Limbi și aspecte</string>
     <string name="popup_keys_number" tools:keep="@string/popup_keys_number">Rând de numere</string>
-    <string name="popup_keys_language" tools:keep="@string/popup_keys_language">@string/subtype_locale</string>
     <string name="popup_keys_language_priority" tools:keep="@string/popup_keys_language_priority">Limbă (prioritate)</string>
     <string name="popup_keys_layout" tools:keep="@string/popup_keys_layout">Aspect</string>
     <string name="popup_keys_symbols" tools:keep="@string/popup_keys_symbols">Simboluri</string>

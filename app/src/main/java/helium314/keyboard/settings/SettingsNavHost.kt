@@ -1,8 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0-only
 package helium314.keyboard.settings
 
-import android.provider.Settings
-import android.provider.Settings.Global
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideOutHorizontally
@@ -17,6 +15,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import helium314.keyboard.latin.common.LocaleUtils.constructLocale
 import helium314.keyboard.latin.settings.SettingsSubtype.Companion.toSettingsSubtype
+import helium314.keyboard.latin.settings.getTransitionAnimationScale
 import helium314.keyboard.settings.screens.AboutScreen
 import helium314.keyboard.settings.screens.AdvancedSettingsScreen
 import helium314.keyboard.settings.screens.AppearanceScreen
@@ -50,7 +49,7 @@ fun SettingsNavHost(
     val target = SettingsDestination.navTarget.collectAsState()
 
     // duration does not change when system setting changes, but that's rare enough to not care
-    val duration = (250 * Settings.System.getFloat(LocalContext.current.contentResolver, Global.TRANSITION_ANIMATION_SCALE, 1f)).toInt()
+    val duration = (250 * getTransitionAnimationScale(LocalContext.current)).toInt()
     val animation = tween<IntOffset>(durationMillis = duration)
 
     fun goBack() {

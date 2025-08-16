@@ -73,7 +73,7 @@ If the layout has exactly 2 keys in the bottom row, these keys will replace comm
     * `0.1` for phones
     * `0.09` for tablets
   * If the sum of widths in a row is greater than 1, keys are rescaled to fit on the screen
-* `labelFlags`: allows specific effects, see [here](app/src/main/res/values/attrs.xml#L251-L287) in the section _keyLabelFlags_ for names and numeric values
+* `labelFlags`: allows specific effects, see [here](app/src/main/res/values/attrs.xml#L250-L282) in the section _keyLabelFlags_ for names and numeric values
   * Since json does not support hexadecimal-values, you have to use the decimal values in the comments in the same line.
   * In case you want to apply multiple flags, you will need to combine them using [bitwise OR](https://en.wikipedia.org/wiki/Bitwise_operation#OR). In most cases this means you can just add the individual values, only exceptions are `fontDefault`, `followKeyLabelRatio`, `followKeyHintLabelRatio`, and `autoScale`.
 
@@ -106,6 +106,12 @@ Usually the label is what is displayed on the key. However, there are some speci
 You can also specify special key codes like `a|!code/key_action_previous` or `abc|!code/-10043`, but it's cleaner to use a json layout and specify the code explicitly. Note that when specifying a code in the label, and a code in a json layout, the code in the label will be ignored.
 * It's also possible to specify an icon, like `!icon/previous_key|!code/key_action_previous`.
   * You can find available icon names in [KeyboardIconsSet](/app/src/main/java/helium314/keyboard/keyboard/internal/KeyboardIconsSet.kt). You can also use toolbar key icons using the uppercase name of the [toolbar key](/app/src/main/java/helium314/keyboard/latin/utils/ToolbarUtils.kt#L109), e.g. `!icon/redo`
+* There are some further special labels to be used in popup keys (i.e. one of the popup keys should have the label)
+  * `!noPanelAutoPopupKey!`: no popups are shown, a long press will result in the first normal popup of the key being selected
+  * `!needsDividers!`: dividers are shown between popup keys
+  * `!hasLabels!`: reduces text size in popup keys for nicer display of labels instead of letters
+  * `!autoColumnOrder!`: use with a number, e.g. _!autoColumnOrder!4_ will result in 4 popup columns
+  * `!fixedColumnOrder!`: use with a number, e.g. _!fixedColumnOrder!4_ will result in 4 popup columns. Keys will not be re-ordered if the result is a single line.
 
 ## Adding new layouts / languages
 * You need a layout file in one of the formats above, and add it to [layouts](app/src/main/assets/layouts)

@@ -22,7 +22,6 @@ import android.view.inputmethod.EditorInfo;
 import androidx.annotation.NonNull;
 
 import helium314.keyboard.event.Event;
-import helium314.keyboard.event.HangulEventDecoder;
 import helium314.keyboard.event.InputTransaction;
 import helium314.keyboard.keyboard.Keyboard;
 import helium314.keyboard.keyboard.KeyboardSwitcher;
@@ -44,11 +43,13 @@ import helium314.keyboard.latin.common.StringUtils;
 import helium314.keyboard.latin.common.StringUtilsKt;
 import helium314.keyboard.latin.common.SuggestionSpanUtilsKt;
 import helium314.keyboard.latin.define.DebugFlags;
+import helium314.keyboard.latin.settings.Settings;
 import helium314.keyboard.latin.settings.SettingsValues;
 import helium314.keyboard.latin.settings.SpacingAndPunctuations;
 import helium314.keyboard.latin.suggestions.SuggestionStripViewAccessor;
 import helium314.keyboard.latin.utils.AsyncResultHolder;
 import helium314.keyboard.latin.utils.InputTypeUtils;
+import helium314.keyboard.latin.utils.IntentUtils;
 import helium314.keyboard.latin.utils.Log;
 import helium314.keyboard.latin.utils.RecapitalizeStatus;
 import helium314.keyboard.latin.utils.ScriptUtils;
@@ -71,7 +72,7 @@ public final class InputLogic {
     final LatinIME mLatinIME;
     private final SuggestionStripViewAccessor mSuggestionStripViewAccessor;
 
-    @NonNull private InputLogicHandler mInputLogicHandler;
+    @NonNull private final InputLogicHandler mInputLogicHandler;
 
     // TODO : make all these fields private as soon as possible.
     // Current space state of the input method. This can be any of the above constants.
@@ -94,6 +95,7 @@ public final class InputLogic {
 
     private int mDeleteCount;
     private long mLastKeyTime;
+    // todo: this is not used, so either remove it or do something with it
     public final TreeSet<Long> mCurrentlyPressedHardwareKeys = new TreeSet<>();
 
     // Keeps track of most recently inserted text (multi-character key) for reverting
@@ -124,7 +126,7 @@ public final class InputLogic {
         mSuggestionStripViewAccessor = suggestionStripViewAccessor;
         mWordComposer = new WordComposer();
         mConnection = new RichInputConnection(latinIME);
-        mInputLogicHandler = InputLogicHandler.NULL_HANDLER;
+        mInputLogicHandler = new InputLogicHandler(mLatinIME.mHandler, this);
         mSuggest = new Suggest(dictionaryFacilitator);
         mDictionaryFacilitator = dictionaryFacilitator;
     }
@@ -134,7 +136,7 @@ public final class InputLogic {
      * <p>
      * Call this when input starts or restarts in some editor (typically, in onStartInputView).
      *
-     * @param combiningSpec the combining spec string for this subtype
+     * @param combiningSpec the combining spec string for this subtype (from extra value)
      * @param settingsValues the current settings values
      */
     public void startInput(final String combiningSpec, final SettingsValues settingsValues) {
@@ -158,11 +160,7 @@ public final class InputLogic {
         // editorInfo.initialSelStart is not the actual cursor position, so we try using some heuristics to find the correct position.
         mConnection.tryFixIncorrectCursorPosition();
         cancelDoubleSpacePeriodCountdown();
-        if (InputLogicHandler.NULL_HANDLER == mInputLogicHandler) {
-            mInputLogicHandler = new InputLogicHandler(mLatinIME, this);
-        } else {
-            mInputLogicHandler.reset();
-        }
+        mInputLogicHandler.reset();
         mConnection.requestCursorUpdates(true, true);
     }
 
@@ -203,17 +201,6 @@ public final class InputLogic {
         }
         resetComposingState(true);
         mInputLogicHandler.reset();
-    }
-
-    // Normally this class just gets out of scope after the process ends, but in unit tests, we
-    // create several instances of LatinIME in the same process, which results in several
-    // instances of InputLogic. This cleans up the associated handler so that tests don't leak
-    // handlers.
-    public void recycle() {
-        final InputLogicHandler inputLogicHandler = mInputLogicHandler;
-        mInputLogicHandler = InputLogicHandler.NULL_HANDLER;
-        inputLogicHandler.destroy();
-        mDictionaryFacilitator.closeDictionaries();
     }
 
     /**
@@ -419,7 +406,11 @@ public final class InputLogic {
         // Stop the last recapitalization, if started.
         mRecapitalizeStatus.stop();
         mWordBeingCorrectedByCursor = null;
-        return true;
+
+        // we do not return true if
+        final boolean oneSidedSelectionMove = hasOrHadSelection
+            && ((oldSelEnd == newSelEnd && oldSelStart != newSelStart) || (oldSelEnd != newSelEnd && oldSelStart == newSelStart));
+        return !oneSidedSelectionMove;
     }
 
     public boolean moveCursorByAndReturnIfInsideComposingWord(int distance) {
@@ -444,35 +435,7 @@ public final class InputLogic {
             final String currentKeyboardScript, final LatinIME.UIHandler handler) {
         mWordBeingCorrectedByCursor = null;
         mJustRevertedACommit = false;
-        final Event processedEvent;
-        if (currentKeyboardScript.equals(ScriptUtils.SCRIPT_HANGUL)) {
-            // only use the Hangul chain if codepoint may actually be Hangul
-            // todo: this whole hangul-related logic should probably be somewhere else
-            // need to use hangul combiner for functional keys (codePoint -1), because otherwise the current word
-            // seems to get deleted / replaced by space during mConnection.endBatchEdit()
-            if (event.getMCodePoint() >= 0x1100 || event.getMCodePoint() == -1) {
-                mWordComposer.setHangul(true);
-                final Event hangulDecodedEvent = HangulEventDecoder.decodeSoftwareKeyEvent(event);
-                // todo: here hangul combiner does already consume the event, and appends typed codepoint
-                //  to the current word instead of considering the cursor position
-                //  position is actually not visible to the combiner, how to fix?
-                processedEvent = mWordComposer.processEvent(hangulDecodedEvent);
-                if (event.getMKeyCode() == KeyCode.DELETE)
-                    mWordComposer.resetInvalidCursorPosition();
-            } else {
-                mWordComposer.setHangul(false);
-                final boolean wasComposingWord = mWordComposer.isComposingWord();
-                processedEvent = mWordComposer.processEvent(event);
-                // workaround for space and some other separators deleting / replacing the word
-                if (wasComposingWord && !mWordComposer.isComposingWord()) {
-                    mWordComposer.resetInvalidCursorPosition();
-                    mConnection.finishComposingText();
-                }
-            }
-        } else {
-            mWordComposer.setHangul(false);
-            processedEvent = mWordComposer.processEvent(event);
-        }
+        final Event processedEvent = mWordComposer.processEvent(event);
         final InputTransaction inputTransaction = new InputTransaction(settingsValues,
                 processedEvent, SystemClock.uptimeMillis(), mSpaceState,
                 getActualCapsMode(settingsValues, keyboardShiftMode));
@@ -691,7 +654,8 @@ public final class InputLogic {
      */
     private void handleFunctionalEvent(final Event event, final InputTransaction inputTransaction,
             final String currentKeyboardScript, final LatinIME.UIHandler handler) {
-        switch (event.getMKeyCode()) {
+        final int keyCode = event.getMKeyCode();
+        switch (keyCode) {
             case KeyCode.DELETE:
                 handleBackspaceEvent(event, inputTransaction, currentKeyboardScript);
                 // Backspace is a functional key, but it affects the contents of the editor.
@@ -702,9 +666,7 @@ public final class InputLogic {
                     break; // recapitalization and follow-up code should only trigger for alphabet shift, see #1256
                 performRecapitalization(inputTransaction.getMSettingsValues());
                 inputTransaction.requireShiftUpdate(InputTransaction.SHIFT_UPDATE_NOW);
-                if (mSuggestedWords.isPrediction()) {
-                    inputTransaction.setRequiresUpdateSuggestions();
-                }
+                inputTransaction.setRequiresUpdateSuggestions();
                 if (mSpaceState == SpaceState.PHANTOM && inputTransaction.getMSettingsValues().mShiftRemovesAutospace)
                     mSpaceState = SpaceState.NONE;
                 break;
@@ -734,7 +696,7 @@ public final class InputLogic {
             case KeyCode.SHIFT_ENTER:
                 // todo: try using sendDownUpKeyEventWithMetaState() and remove the key code maybe
                 final Event tmpEvent = Event.createSoftwareKeypressEvent(Constants.CODE_ENTER,
-                        event.getMKeyCode(), 0, event.getMX(), event.getMY(), event.isKeyRepeat());
+                        keyCode, 0, event.getMX(), event.getMY(), event.isKeyRepeat());
                 handleNonSpecialCharacterEvent(tmpEvent, inputTransaction, handler);
                 // Shift + Enter is treated as a functional key but it results in adding a new
                 // line, so that does affect the contents of the editor.
@@ -765,37 +727,43 @@ public final class InputLogic {
                 if (mConnection.hasSelection()) {
                     mConnection.copyText(true);
                     // fake delete keypress to remove the text
-                    final Event backspaceEvent = LatinIME.createSoftwareKeypressEvent(KeyCode.DELETE, 0,
+                    final Event backspaceEvent = Event.createSoftwareKeypressEvent(KeyCode.DELETE, 0,
                             event.getMX(), event.getMY(), event.isKeyRepeat());
                     handleBackspaceEvent(backspaceEvent, inputTransaction, currentKeyboardScript);
                     inputTransaction.setDidAffectContents();
                 }
                 break;
             case KeyCode.WORD_LEFT:
-                sendDownUpKeyEventWithMetaState(ScriptUtils.isScriptRtl(currentKeyboardScript)?
-                                     KeyEvent.KEYCODE_DPAD_RIGHT : KeyEvent.KEYCODE_DPAD_LEFT, KeyEvent.META_CTRL_ON);
+                sendDownUpKeyEventWithMetaState(
+                    ScriptUtils.isScriptRtl(currentKeyboardScript) ? KeyEvent.KEYCODE_DPAD_RIGHT : KeyEvent.KEYCODE_DPAD_LEFT,
+                    KeyEvent.META_CTRL_ON | event.getMMetaState());
                 break;
             case KeyCode.WORD_RIGHT:
-                sendDownUpKeyEventWithMetaState(ScriptUtils.isScriptRtl(currentKeyboardScript)?
-                                     KeyEvent.KEYCODE_DPAD_LEFT : KeyEvent.KEYCODE_DPAD_RIGHT, KeyEvent.META_CTRL_ON);
+                sendDownUpKeyEventWithMetaState(
+                    ScriptUtils.isScriptRtl(currentKeyboardScript) ? KeyEvent.KEYCODE_DPAD_LEFT : KeyEvent.KEYCODE_DPAD_RIGHT,
+                    KeyEvent.META_CTRL_ON | event.getMMetaState());
                 break;
             case KeyCode.MOVE_START_OF_PAGE:
-                final int selectionEnd = mConnection.getExpectedSelectionEnd();
-                sendDownUpKeyEventWithMetaState(KeyEvent.KEYCODE_MOVE_HOME, KeyEvent.META_CTRL_ON);
-                if (mConnection.getExpectedSelectionStart() > 0 && mConnection.getExpectedSelectionEnd() == selectionEnd) {
-                    // unchanged, and we're not at the top -> try a different method (necessary for compose fields)
-                    mConnection.setSelection(0, 0);
+                final int selectionEnd1 = mConnection.getExpectedSelectionEnd();
+                final int selectionStart1 = mConnection.getExpectedSelectionStart();
+                sendDownUpKeyEventWithMetaState(KeyEvent.KEYCODE_MOVE_HOME, KeyEvent.META_CTRL_ON | event.getMMetaState());
+                if (mConnection.getExpectedSelectionStart() == selectionStart1 && mConnection.getExpectedSelectionEnd() == selectionEnd1) {
+                    // unchanged -> try a different method (necessary for compose fields)
+                    final int newEnd = (event.getMMetaState() & KeyEvent.META_SHIFT_MASK) != 0 ? selectionEnd1 : 0;
+                    mConnection.setSelection(0, newEnd);
                 }
                 break;
             case KeyCode.MOVE_END_OF_PAGE:
-                final int selectionStart = mConnection.getExpectedSelectionEnd();
-                sendDownUpKeyEventWithMetaState(KeyEvent.KEYCODE_MOVE_END, KeyEvent.META_CTRL_ON);
-                if (mConnection.getExpectedSelectionStart() == selectionStart) {
+                final int selectionStart2 = mConnection.getExpectedSelectionStart();
+                final int selectionEnd2 = mConnection.getExpectedSelectionEnd();
+                sendDownUpKeyEventWithMetaState(KeyEvent.KEYCODE_MOVE_END, KeyEvent.META_CTRL_ON | event.getMMetaState());
+                if (mConnection.getExpectedSelectionStart() == selectionStart2 && mConnection.getExpectedSelectionEnd() == selectionEnd2) {
                     // unchanged, try fallback e.g. for compose fields that don't care about ctrl + end
                     // we just move to a very large index, and hope the field is prepared to deal with this
                     // getting the actual length of the text for setting the correct position can be tricky for some apps...
                     try {
-                        mConnection.setSelection(Integer.MAX_VALUE, Integer.MAX_VALUE);
+                        final int newStart = (event.getMMetaState() & KeyEvent.META_SHIFT_MASK) != 0 ? selectionStart2 : Integer.MAX_VALUE;
+                        mConnection.setSelection(newStart, Integer.MAX_VALUE);
                     } catch (Exception e) {
                         // better catch potential errors and just do nothing in this case
                         Log.i(TAG, "error when trying to move cursor to last position: " + e);
@@ -814,31 +782,39 @@ public final class InputLogic {
             case KeyCode.TIMESTAMP:
                 mLatinIME.onTextInput(TimestampKt.getTimestamp(mLatinIME));
                 break;
+            case KeyCode.SEND_INTENT_ONE, KeyCode.SEND_INTENT_TWO, KeyCode.SEND_INTENT_THREE:
+                IntentUtils.handleSendIntentKey(mLatinIME, event.getMKeyCode());
+            case KeyCode.IME_HIDE_UI:
+                mLatinIME.requestHideSelf(0);
+                break;
             case KeyCode.VOICE_INPUT:
                 // switching to shortcut IME, shift state, keyboard,... is handled by LatinIME,
                 // {@link KeyboardSwitcher#onEvent(Event)}, or {@link #onPressKey(int,int,boolean)} and {@link #onReleaseKey(int,boolean)}.
                 // We need to switch to the shortcut IME. This is handled by LatinIME since the
                 // input logic has no business with IME switching.
-            case KeyCode.CAPS_LOCK, KeyCode.EMOJI, KeyCode.TOGGLE_ONE_HANDED_MODE, KeyCode.SWITCH_ONE_HANDED_MODE:
+            case KeyCode.EMOJI, KeyCode.TOGGLE_ONE_HANDED_MODE, KeyCode.SWITCH_ONE_HANDED_MODE:
+                break;
+            case KeyCode.CAPS_LOCK:
+                if (KeyboardSwitcher.getInstance().getKeyboard() == null
+                            || KeyboardSwitcher.getInstance().getKeyboard().mId.isAlphabetKeyboard()) {
+                    inputTransaction.setRequiresUpdateSuggestions();
+                }
                 break;
             default:
-                if (KeyCode.INSTANCE.isModifier(event.getMKeyCode()))
-                    return; // continuation of previous switch case, but modifiers are in a separate place
-                if (event.getMMetaState() != 0) {
-                    // need to convert codepoint to KeyEvent.KEYCODE_<xxx>
-                    final int codeToConvert = event.getMKeyCode() < 0 ? event.getMKeyCode() : event.getMCodePoint();
-                    int keyEventCode = KeyCode.INSTANCE.toKeyEventCode(codeToConvert);
-                    if (keyEventCode != KeyEvent.KEYCODE_UNKNOWN)
-                        sendDownUpKeyEventWithMetaState(keyEventCode, event.getMMetaState());
-                    return; // never crash if user inputs sth we don't have a KeyEvent.KEYCODE for
-                } else if (event.getMKeyCode() < 0) {
-                    int keyEventCode = KeyCode.INSTANCE.toKeyEventCode(event.getMKeyCode());
-                    if (keyEventCode != KeyEvent.KEYCODE_UNKNOWN) {
-                        sendDownUpKeyEvent(keyEventCode);
-                        return;
-                    }
+                if (KeyCode.INSTANCE.isModifier(keyCode))
+                    return; // continuation of previous switch case above, but modifiers are held in a separate place
+                final int keyEventCode = keyCode > 0
+                    ? keyCode
+                    : event.getMCodePoint() >= 0 ? KeyCode.codePointToKeyEventCode(event.getMCodePoint())
+                    : KeyCode.keyCodeToKeyEventCode(keyCode);
+                if (keyEventCode != KeyEvent.KEYCODE_UNKNOWN) {
+                    sendDownUpKeyEventWithMetaState(keyEventCode, event.getMMetaState());
+                    return;
                 }
-                throw new RuntimeException("Unknown key code : " + event.getMKeyCode());
+                // unknown event
+                Log.e(TAG, "unknown event, key code: "+keyCode+", meta: "+event.getMMetaState());
+                if (DebugFlags.DEBUG_ENABLED)
+                    throw new RuntimeException("Unknown event");
         }
     }
 
@@ -1249,9 +1225,7 @@ public final class InputLogic {
                 // Note: restartSuggestionsOnWordTouchedByCursor is already called for normal
                 // (non-revert) backspace handling.
                 if (inputTransaction.getMSettingsValues().isSuggestionsEnabledPerUserSettings()
-                        && inputTransaction.getMSettingsValues().mSpacingAndPunctuations.mCurrentLanguageHasSpaces
-                        && !mConnection.isCursorFollowedByWordCharacter(
-                                inputTransaction.getMSettingsValues().mSpacingAndPunctuations)) {
+                        && inputTransaction.getMSettingsValues().mSpacingAndPunctuations.mCurrentLanguageHasSpaces) {
                     restartSuggestionsOnWordTouchedByCursor(inputTransaction.getMSettingsValues(), currentKeyboardScript);
                 }
                 return;
@@ -1356,7 +1330,7 @@ public final class InputLogic {
                         // TODO: Add a new StatsUtils method onBackspaceWhenNoText()
                         return;
                     }
-                    final int lengthToDelete = codePointBeforeCursor > 0xFE00
+                    final int lengthToDelete = codePointBeforeCursor > 0xFE00 || StringUtils.mightBeEmoji(codePointBeforeCursor)
                             ? mConnection.getCharCountToDeleteBeforeCursor() : 1;
                     mConnection.deleteTextBeforeCursor(lengthToDelete);
                     int totalDeletedLength = lengthToDelete;
@@ -1369,7 +1343,7 @@ public final class InputLogic {
                         final int codePointBeforeCursorToDeleteAgain =
                                 mConnection.getCodePointBeforeCursor();
                         if (codePointBeforeCursorToDeleteAgain != Constants.NOT_A_CODE) {
-                            final int lengthToDeleteAgain = codePointBeforeCursor > 0xFE00
+                            final int lengthToDeleteAgain = codePointBeforeCursor > 0xFE00 || StringUtils.mightBeEmoji(codePointBeforeCursor)
                                     ? mConnection.getCharCountToDeleteBeforeCursor() : 1;
                             mConnection.deleteTextBeforeCursor(lengthToDeleteAgain);
                             totalDeletedLength += lengthToDeleteAgain;
@@ -1386,9 +1360,7 @@ public final class InputLogic {
             if (mConnection.hasSlowInputConnection()) {
                 mSuggestionStripViewAccessor.setNeutralSuggestionStrip();
             } else if (inputTransaction.getMSettingsValues().isSuggestionsEnabledPerUserSettings()
-                    && inputTransaction.getMSettingsValues().mSpacingAndPunctuations.mCurrentLanguageHasSpaces
-                    && !mConnection.isCursorFollowedByWordCharacter(
-                            inputTransaction.getMSettingsValues().mSpacingAndPunctuations)) {
+                    && inputTransaction.getMSettingsValues().mSpacingAndPunctuations.mCurrentLanguageHasSpaces) {
                 restartSuggestionsOnWordTouchedByCursor(inputTransaction.getMSettingsValues(), currentKeyboardScript);
             }
         }
@@ -1685,26 +1657,24 @@ public final class InputLogic {
         }
 
         final AsyncResultHolder<SuggestedWords> holder = new AsyncResultHolder<>("Suggest");
-        mInputLogicHandler.getSuggestedWords(inputStyle, SuggestedWords.NOT_A_SEQUENCE_NUMBER,
-                suggestedWords -> {
-                    final String typedWordString = mWordComposer.getTypedWord();
-                    final SuggestedWordInfo typedWordInfo = new SuggestedWordInfo(
-                            typedWordString, "" /* prevWordsContext */,
-                            SuggestedWordInfo.MAX_SCORE,
-                            SuggestedWordInfo.KIND_TYPED, Dictionary.DICTIONARY_USER_TYPED,
-                            SuggestedWordInfo.NOT_AN_INDEX /* indexOfTouchPointOfSecondWord */,
-                            SuggestedWordInfo.NOT_A_CONFIDENCE);
-                    // Show new suggestions if we have at least one. Otherwise keep the old
-                    // suggestions with the new typed word. Exception: if the length of the
-                    // typed word is <= 1 (after a deletion typically) we clear old suggestions.
-                    if (suggestedWords.size() > 1 || typedWordString.length() <= 1) {
-                        holder.set(suggestedWords);
-                    } else {
-                        holder.set(retrieveOlderSuggestions(typedWordInfo, mSuggestedWords));
-                    }
+        mInputLogicHandler.getSuggestedWords(() -> getSuggestedWords(
+            inputStyle, SuggestedWords.NOT_A_SEQUENCE_NUMBER,
+            suggestedWords -> {
+                final String typedWordString = mWordComposer.getTypedWord();
+                final SuggestedWordInfo typedWordInfo = new SuggestedWordInfo(
+                    typedWordString, "", SuggestedWordInfo.MAX_SCORE, SuggestedWordInfo.KIND_TYPED,
+                    Dictionary.DICTIONARY_USER_TYPED, SuggestedWordInfo.NOT_AN_INDEX, SuggestedWordInfo.NOT_A_CONFIDENCE
+                );
+                // Show new suggestions if we have at least one. Otherwise keep the old
+                // suggestions with the new typed word. Exception: if the length of the
+                // typed word is <= 1 (after a deletion typically) we clear old suggestions.
+                if (suggestedWords.size() > 1 || typedWordString.length() <= 1) {
+                    holder.set(suggestedWords);
+                } else {
+                    holder.set(retrieveOlderSuggestions(typedWordInfo, mSuggestedWords));
                 }
-        );
-
+            }
+        ));
         // This line may cause the current thread to wait.
         final SuggestedWords suggestedWords = holder.get(null,
                 Constants.GET_SUGGESTED_WORDS_TIMEOUT);
@@ -1814,8 +1784,8 @@ public final class InputLogic {
             // If there weren't any suggestion spans on this word, suggestions#size() will be 1
             // if shouldIncludeResumedWordInSuggestions is true, 0 otherwise. In this case, we
             // have no useful suggestions, so we will try to compute some for it instead.
-            mInputLogicHandler.getSuggestedWords(Suggest.SESSION_ID_TYPING,
-                    SuggestedWords.NOT_A_SEQUENCE_NUMBER, this::doShowSuggestionsAndClearAutoCorrectionIndicator);
+            mInputLogicHandler.getSuggestedWords(() -> getSuggestedWords(SuggestedWords.INPUT_STYLE_TYPING,
+                SuggestedWords.NOT_A_SEQUENCE_NUMBER, this::doShowSuggestionsAndClearAutoCorrectionIndicator));
         } else {
             // We found suggestion spans in the word. We'll create the SuggestedWords out of
             // them, and make willAutoCorrect false. We make typedWordValid false, because the
@@ -2439,12 +2409,17 @@ public final class InputLogic {
         return true;
     }
 
-    public void getSuggestedWords(final SettingsValues settingsValues,
-            final Keyboard keyboard, final int keyboardShiftMode, final int inputStyle,
-            final int sequenceNumber, final OnGetSuggestedWordsCallback callback) {
+    // we used to provide keyboard, settingsValues and keyboardShiftMode, but every time read it from current instance anyway
+    public void getSuggestedWords(final int inputStyle, final int sequenceNumber, final OnGetSuggestedWordsCallback callback) {
+        final Keyboard keyboard = KeyboardSwitcher.getInstance().getKeyboard();
+        if (keyboard == null) {
+            callback.onGetSuggestedWords(SuggestedWords.getEmptyInstance());
+            return;
+        }
+        final SettingsValues settingsValues = Settings.getValues();
         mWordComposer.adviseCapitalizedModeBeforeFetchingSuggestions(
-                getActualCapsMode(settingsValues, keyboardShiftMode));
-        mSuggest.getSuggestedWords(mWordComposer,
+                getActualCapsMode(settingsValues, KeyboardSwitcher.getInstance().getKeyboardShiftMode()));
+        final SuggestedWords suggestedWords = mSuggest.getSuggestedWords(mWordComposer,
                 getNgramContextFromNthPreviousWordForSuggestion(
                         settingsValues.mSpacingAndPunctuations,
                         // Get the word on which we should search the bigrams. If we are composing
@@ -2454,7 +2429,8 @@ public final class InputLogic {
                 keyboard,
                 settingsValues.mSettingsValuesForSuggestion,
                 settingsValues.mAutoCorrectEnabled,
-                inputStyle, sequenceNumber, callback);
+                inputStyle, sequenceNumber);
+        callback.onGetSuggestedWords(suggestedWords);
     }
 
     /**

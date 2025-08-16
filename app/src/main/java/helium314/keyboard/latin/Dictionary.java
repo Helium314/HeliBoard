@@ -11,6 +11,7 @@ import java.util.Locale;
 
 import helium314.keyboard.latin.SuggestedWords.SuggestedWordInfo;
 import helium314.keyboard.latin.common.ComposedData;
+import helium314.keyboard.latin.makedict.WordProperty;
 import helium314.keyboard.latin.settings.SettingsValuesForSuggestion;
 
 /**
@@ -51,6 +52,7 @@ public abstract class Dictionary {
     public static final String TYPE_USER = "user";
     // User history dictionary internal to LatinIME.
     public static final String TYPE_USER_HISTORY = "history";
+    public static final String TYPE_EMOJI = "emoji";
     public final String mDictType;
     // The locale for this dictionary. May be null if unknown (phony dictionary for example).
     public final Locale mLocale;
@@ -175,6 +177,10 @@ public abstract class Dictionary {
                  TYPE_USER_HISTORY -> true;
             default -> false;
         };
+    }
+
+    public WordProperty getWordProperty(final String word, final boolean isBeginningOfSentence) {
+        return null;
     }
 
     /**

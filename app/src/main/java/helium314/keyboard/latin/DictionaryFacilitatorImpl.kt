@@ -229,6 +229,7 @@ class DictionaryFacilitatorImpl : DictionaryFacilitator {
         mLatchForWaitingLoadingMainDictionaries = latchForWaitingLoadingMainDictionary
         scope.launch {
             try {
+                val useEmojiDict = Settings.getValues().mSuggestEmojis
                 val dictGroupsWithNewMainDict = locales.mapNotNull {
                     val dictionaryGroup = findDictionaryGroupWithLocale(dictionaryGroups, it)
                     if (dictionaryGroup == null) {
@@ -236,7 +237,7 @@ class DictionaryFacilitatorImpl : DictionaryFacilitator {
                         return@mapNotNull null // This should never happen
                     }
                     if (dictionaryGroup.getDict(Dictionary.TYPE_MAIN)?.isInitialized == true) null
-                    else dictionaryGroup to DictionaryFactory.createMainDictionaryCollection(context, it)
+                    else dictionaryGroup to DictionaryFactory.createMainDictionaryCollection(context, it, useEmojiDict)
                 }
                 synchronized(this) {
                     dictGroupsWithNewMainDict.forEach { (dictGroup, mainDict) ->
@@ -381,6 +382,7 @@ class DictionaryFacilitatorImpl : DictionaryFacilitator {
     }
 
     private fun addToPersonalDictionaryIfInvalidButInHistory(word: String) {
+        if (word.length <= 1) return
         val dictionaryGroup = clearlyPreferredDictionaryGroup ?: return
         val userDict = dictionaryGroup.getSubDict(Dictionary.TYPE_USER) ?: return
         val userHistoryDict = dictionaryGroup.getSubDict(Dictionary.TYPE_USER_HISTORY) ?: return
@@ -396,7 +398,10 @@ class DictionaryFacilitatorImpl : DictionaryFacilitator {
         // This is not too bad, but it delays adding in case a user wants to fill a dictionary using this functionality
         if (userHistoryDict.getFrequency(word) > 120) {
             scope.launch {
-                UserDictionary.Words.addWord(userDict.mContext, word, 250, null, dictionaryGroup.locale)
+                // adding can throw IllegalArgumentException: Unknown URL content://user_dictionary/words
+                // https://stackoverflow.com/q/41474623 https://github.com/AnySoftKeyboard/AnySoftKeyboard/issues/490
+                // apparently some devices don't have a dictionary? or it's just sporadic hiccups?
+                runCatching { UserDictionary.Words.addWord(userDict.mContext, word, 250, null, dictionaryGroup.locale) }
             }
         }
     }
@@ -528,7 +533,7 @@ class DictionaryFacilitatorImpl : DictionaryFacilitator {
                 )
                     continue
 
-                if (word.length == 1 && info.mSourceDict.mDictType == "emoji" && !StringUtils.mightBeEmoji(word[0].code))
+                if (word.length == 1 && info.mSourceDict.mDictType == Dictionary.TYPE_EMOJI && !StringUtils.mightBeEmoji(word[0].code))
                     continue
 
                 suggestions.add(info)
@@ -730,7 +735,7 @@ private class DictionaryGroup(
     else {
         val file = File(context.filesDir.absolutePath + File.separator + "blacklists" + File.separator + locale.toLanguageTag() + ".txt")
         if (file.isDirectory) file.delete() // this apparently was an issue in some versions
-        if (file.parentFile?.mkdirs() == true) file
+        if (file.parentFile?.exists() == true || file.parentFile?.mkdirs() == true) file
         else null
     }
 

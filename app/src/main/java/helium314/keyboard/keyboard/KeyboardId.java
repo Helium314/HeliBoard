@@ -12,6 +12,7 @@ import android.view.inputmethod.EditorInfo;
 
 import helium314.keyboard.compat.EditorInfoCompatUtils;
 import helium314.keyboard.latin.RichInputMethodSubtype;
+import helium314.keyboard.latin.WordComposer;
 import helium314.keyboard.latin.utils.InputTypeUtils;
 
 import java.util.Arrays;
@@ -184,6 +185,11 @@ public final class KeyboardId {
                 || mElementId == ELEMENT_ALPHABET_AUTOMATIC_SHIFTED || mElementId == ELEMENT_ALPHABET_MANUAL_SHIFTED;
     }
 
+    public boolean isAlphabetShiftedManually() {
+        return mElementId == ELEMENT_ALPHABET_SHIFT_LOCKED || mElementId == ELEMENT_ALPHABET_SHIFT_LOCK_SHIFTED
+            || mElementId == ELEMENT_ALPHABET_MANUAL_SHIFTED;
+    }
+
     public boolean isNumberLayout() {
         return mElementId == ELEMENT_NUMBER || mElementId == ELEMENT_NUMPAD
                 || mElementId == ELEMENT_PHONE || mElementId == ELEMENT_PHONE_SYMBOLS;
@@ -299,5 +305,15 @@ public final class KeyboardId {
     public static String actionName(final int actionId) {
         return (actionId == InputTypeUtils.IME_ACTION_CUSTOM_LABEL) ? "actionCustomLabel"
                 : EditorInfoCompatUtils.imeActionName(actionId);
+    }
+
+    public int getKeyboardCapsMode() {
+        return switch (mElementId) {
+            case KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCKED, KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCK_SHIFTED ->
+                WordComposer.CAPS_MODE_MANUAL_SHIFT_LOCKED;
+            case KeyboardId.ELEMENT_ALPHABET_MANUAL_SHIFTED -> WordComposer.CAPS_MODE_MANUAL_SHIFTED;
+            case KeyboardId.ELEMENT_ALPHABET_AUTOMATIC_SHIFTED -> WordComposer.CAPS_MODE_AUTO_SHIFTED;
+            default -> WordComposer.CAPS_MODE_OFF;
+        };
     }
 }

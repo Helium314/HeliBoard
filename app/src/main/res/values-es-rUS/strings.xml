@@ -193,7 +193,6 @@
     <string name="hint_source">Seleccionar fuente de pistas</string>
     <string name="popup_order">Seleccionar el orden de las teclas emergentes</string>
     <string name="popup_keys_number" tools:keep="@string/popup_keys_number">Fila de números</string>
-    <string name="popup_keys_language" tools:keep="@string/popup_keys_language">Idioma</string>
     <string name="popup_keys_language_priority" tools:keep="@string/popup_keys_language_priority">Lengua (prioridad)</string>
     <string name="popup_keys_layout" tools:keep="@string/popup_keys_layout">Diseño</string>
     <string name="popup_keys_symbols" tools:keep="@string/popup_keys_symbols">Símbolos</string>
@@ -206,7 +205,6 @@
     <string name="gnu_gpl">Licencia Pública General GNU v3.0</string>
     <string name="dialog_close">Cerrar</string>
     <string name="hidden_features_title">Descripción de los elementos ocultos</string>
-    <string name="cut" tools:keep="@string/cut">Cortar</string>
     <string name="clear_clipboard" tools:keep="@string/clear_clipboard">Limpiar portapapeles</string>
     <string name="voice" tools:keep="@string/voice">Entrada de voz</string>
     <string name="select_word" tools:keep="@string/select_word">Seleccionar palabra</string>

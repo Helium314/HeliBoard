@@ -10,8 +10,6 @@ import androidx.annotation.NonNull;
 
 import helium314.keyboard.event.CombinerChain;
 import helium314.keyboard.event.Event;
-import helium314.keyboard.keyboard.Keyboard;
-import helium314.keyboard.keyboard.KeyboardSwitcher;
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode;
 import helium314.keyboard.latin.SuggestedWords.SuggestedWordInfo;
 import helium314.keyboard.latin.common.ComposedData;
@@ -73,7 +71,7 @@ public final class WordComposer {
     private boolean mIsOnlyFirstCharCapitalized;
 
     public WordComposer() {
-        mCombinerChain = new CombinerChain("");
+        mCombinerChain = new CombinerChain("", "");
         mEvents = new ArrayList<>();
         mAutoCorrection = null;
         mIsResumed = false;
@@ -81,11 +79,6 @@ public final class WordComposer {
         mCursorPositionWithinWord = 0;
         mRejectedBatchModeSuggestion = null;
         refreshTypedWordCache();
-        final Keyboard keyboard = KeyboardSwitcher.getInstance().getKeyboard();
-        if (keyboard != null)
-            // initializing with the right state is important for the spell checker,
-            // which creates a new WordComposer when receiving suggestions
-            mCombinerChain.setHangul(keyboard.mId.mSubtype.getLocale().getLanguage().equals("ko"));
     }
 
     public ComposedData getComposedDataSnapshot() {
@@ -99,13 +92,10 @@ public final class WordComposer {
     public void restartCombining(final String combiningSpec) {
         final String nonNullCombiningSpec = null == combiningSpec ? "" : combiningSpec;
         if (!nonNullCombiningSpec.equals(mCombiningSpec)) {
-            mCombinerChain = new CombinerChain(mCombinerChain.getComposingWordWithCombiningFeedback().toString());
+            mCombinerChain = new CombinerChain(mCombinerChain.getComposingWordWithCombiningFeedback().toString(), nonNullCombiningSpec);
             mCombiningSpec = nonNullCombiningSpec;
         }
     }
-
-    /** Forwards the state to CombinerChain, which disables or enables the Hangul combiner */
-    public void setHangul(final boolean enabled) { mCombinerChain.setHangul(enabled); }
 
     /**
      * Clear out the keys registered so far.
@@ -216,11 +206,6 @@ public final class WordComposer {
     public void setCursorPositionWithinWord(final int posWithinWord) {
         mCursorPositionWithinWord = posWithinWord;
         // TODO: compute where that puts us inside the events
-    }
-
-    public void resetInvalidCursorPosition() {
-        if (mCursorPositionWithinWord > mCodePointSize)
-            mCursorPositionWithinWord = 0;
     }
 
     public boolean isCursorFrontOrMiddleOfComposingWord() {

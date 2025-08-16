@@ -210,7 +210,6 @@
     <string name="prefs_always_show_suggestions">Завжди показувати пропозиції</string>
     <string name="more_autocorrect_summary">Автокорекція, навіть якщо це явно не запрошено у полі введення</string>
     <string name="show_popup_keys_more">Додати розповсюджені варіанти</string>
-    <string name="popup_keys_language" tools:keep="@string/popup_keys_language">Мова</string>
     <string name="popup_keys_number" tools:keep="@string/popup_keys_number">Ряд з цифрами</string>
     <string name="popup_keys_language_priority" tools:keep="@string/popup_keys_language_priority">Мова (пріоритет)</string>
     <string name="toolbar_keys">Вибір клавіш панелі інструментів</string>

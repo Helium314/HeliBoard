@@ -186,7 +186,6 @@
     <string name="load_gesture_library_message">Du benötigst die Bibliothek für „%s“. Inkompatible Bibliotheken können zu Abstürzen beim Gesten-Tippen führen. \n \nWarnung: Das Laden von externem Code kann ein Sicherheitsrisiko darstellen. Verwende nur Bibliotheken aus Quellen, denen du vertraust.</string>
     <string name="add_dictionary">Wörterbuch zum Hinzufügen auswählen. Wörterbücher im .dict-Format können %s heruntergeladen werden.</string>
     <string name="load_gesture_library_button_delete">Bibliothek löschen</string>
-    <string name="popup_keys_language" tools:keep="@string/popup_keys_language">Sprache</string>
     <string name="right" tools:keep="@string/right">Rechts</string>
     <string name="dictionary_load_error">Fehler beim Laden der Wörterbuchdatei</string>
     <string name="localized_number_row_summary">Lokalisierte Zahlen gegenüber lateinischen bevorzugen</string>
@@ -296,7 +295,6 @@
     <string name="space_swipe_move_cursor_entry">Cursor bewegen</string>
     <string name="show_horizontal_space_swipe">Horizontale Wischgeste der Leertaste</string>
     <string name="prefs_long_press_symbol_for_numpad">Symbole-Taste für Ziffernblock gedrückt halten</string>
-    <string name="cut" tools:keep="@string/cut">Ausschneiden</string>
     <string name="var_toolbar_direction">Variable Symbolleisten-Richtung</string>
     <string name="var_toolbar_direction_summary">Richtung umkehren, wenn die Tastatur einer Rechts-nach-Links-Sprache ausgewählt ist</string>
     <string name="subtype_generic_student">%s (Student)</string>
@@ -428,4 +426,13 @@
     <string name="use_apps_dict_summary">Namen der installierten Apps für Vorschläge und Korrekturen verwenden</string>
     <string name="prefs_emoji_skin_tone">Standard-Emoji-Hautton</string>
     <string name="prefs_emoji_skin_tone_neutral">Neutral</string>
+    <string name="toolbar_mode_expandable">Symbolleiste Tasten und Vorschläge</string>
+    <string name="toolbar_mode_toolbar_keys">Symbolleiste nur Tasten</string>
+    <string name="popup_order_and_hint_source">Popup Tasten Reihenfolge und Vorschlag Quelle</string>
+    <string name="toolbar_mode_hidden">Versteckt</string>
+    <string name="toolbar_hiding_global">Auch Zwischenablage und Emoji Symbolleisten verstecken</string>
+    <string name="subtype_with_layout_generic">%1$s (%2$s)</string>
+    <string name="landscape">Querformat</string>
+    <string name="toolbar_mode_suggestion_strip">Nur Vorschläge</string>
+    <string name="toolbar_mode">Symbolleiste Modus</string>
 </resources>

@@ -23,6 +23,7 @@ import helium314.keyboard.latin.utils.AutoCorrectionUtils
 import helium314.keyboard.latin.utils.Log
 import helium314.keyboard.latin.utils.SuggestionResults
 import java.util.Locale
+import kotlin.math.min
 
 /**
  * This class loads a dictionary and provides a list of suggestions for a given sequence of
@@ -45,19 +46,20 @@ class Suggest(private val mDictionaryFacilitator: DictionaryFacilitator) {
         mAutoCorrectionThreshold = threshold
     }
 
+    // todo: remove when InputLogic is ready
     interface OnGetSuggestedWordsCallback {
         fun onGetSuggestedWords(suggestedWords: SuggestedWords?)
     }
 
     fun getSuggestedWords(wordComposer: WordComposer, ngramContext: NgramContext, keyboard: Keyboard,
                           settingsValuesForSuggestion: SettingsValuesForSuggestion, isCorrectionEnabled: Boolean,
-                          inputStyle: Int, sequenceNumber: Int, callback: OnGetSuggestedWordsCallback) {
-        if (wordComposer.isBatchMode) {
+                          inputStyle: Int, sequenceNumber: Int): SuggestedWords {
+        return if (wordComposer.isBatchMode) {
             getSuggestedWordsForBatchInput(wordComposer, ngramContext, keyboard, settingsValuesForSuggestion,
-                inputStyle, sequenceNumber, callback)
+                inputStyle, sequenceNumber)
         } else {
             getSuggestedWordsForNonBatchInput(wordComposer, ngramContext, keyboard, settingsValuesForSuggestion,
-                inputStyle, isCorrectionEnabled, sequenceNumber, callback)
+                inputStyle, isCorrectionEnabled, sequenceNumber)
         }
     }
 
@@ -65,7 +67,7 @@ class Suggest(private val mDictionaryFacilitator: DictionaryFacilitator) {
     // and calls the callback function with the suggestions.
     private fun getSuggestedWordsForNonBatchInput(wordComposer: WordComposer, ngramContext: NgramContext, keyboard: Keyboard,
                       settingsValuesForSuggestion: SettingsValuesForSuggestion, inputStyleIfNotPrediction: Int,
-                      isCorrectionEnabled: Boolean, sequenceNumber: Int, callback: OnGetSuggestedWordsCallback) {
+                      isCorrectionEnabled: Boolean, sequenceNumber: Int): SuggestedWords {
         val typedWordString = wordComposer.typedWord
         val resultsArePredictions = !wordComposer.isComposingWord
         val suggestionResults = if (typedWordString.isEmpty())
@@ -74,22 +76,25 @@ class Suggest(private val mDictionaryFacilitator: DictionaryFacilitator) {
                 settingsValuesForSuggestion, SESSION_ID_TYPING, inputStyleIfNotPrediction)
         val trailingSingleQuotesCount = StringUtils.getTrailingSingleQuotesCount(typedWordString)
         val suggestionsContainer = getTransformedSuggestedWordInfoList(wordComposer, suggestionResults,
-            trailingSingleQuotesCount, mDictionaryFacilitator.mainLocale)
+            trailingSingleQuotesCount, mDictionaryFacilitator.mainLocale, keyboard)
+        val keyboardShiftMode = keyboard.mId.keyboardCapsMode
+        val capitalizedTypedWord = capitalize(typedWordString, keyboardShiftMode == WordComposer.CAPS_MODE_MANUAL_SHIFT_LOCKED,
+            keyboardShiftMode == WordComposer.CAPS_MODE_MANUAL_SHIFTED, mDictionaryFacilitator.mainLocale)
 
         // store the original SuggestedWordInfo for typed word, as it will be removed
         // we may want to re-add it in case auto-correction happens, so that the original word can at least be selected
-        val typedWordFirstOccurrenceWordInfo = suggestionsContainer.firstOrNull { it.mWord == typedWordString }
-        val firstOccurrenceOfTypedWordInSuggestions = SuggestedWordInfo.removeDupsAndTypedWord(typedWordString, suggestionsContainer)
+        val typedWordFirstOccurrenceWordInfo = suggestionsContainer.firstOrNull { it.mWord == capitalizedTypedWord }
+        val firstOccurrenceOfTypedWordInSuggestions = SuggestedWordInfo.removeDupsAndTypedWord(capitalizedTypedWord, suggestionsContainer)
 
         val (allowsToBeAutoCorrected, hasAutoCorrection) = shouldBeAutoCorrected(
             trailingSingleQuotesCount,
-            typedWordString,
+            capitalizedTypedWord,
             suggestionsContainer.firstOrNull(),
             {
                 val first = suggestionsContainer.firstOrNull() ?: suggestionResults.first()
                 val suggestions = getNextWordSuggestions(ngramContext, keyboard, inputStyleIfNotPrediction, settingsValuesForSuggestion)
                 val suggestionForFirstInContainer = suggestions.firstOrNull { it.mWord == first.word }
-                val suggestionForTypedWord = suggestions.firstOrNull { it.mWord == typedWordString }
+                val suggestionForTypedWord = suggestions.firstOrNull { it.mWord == capitalizedTypedWord }
                 suggestionForFirstInContainer to suggestionForTypedWord
             },
             isCorrectionEnabled,
@@ -98,14 +103,14 @@ class Suggest(private val mDictionaryFacilitator: DictionaryFacilitator) {
             firstOccurrenceOfTypedWordInSuggestions,
             typedWordFirstOccurrenceWordInfo
         )
-        val typedWordInfo = SuggestedWordInfo(typedWordString, "", SuggestedWordInfo.MAX_SCORE,
+         val typedWordInfo = SuggestedWordInfo(capitalizedTypedWord, "", SuggestedWordInfo.MAX_SCORE,
             SuggestedWordInfo.KIND_TYPED, typedWordFirstOccurrenceWordInfo?.mSourceDict ?: Dictionary.DICTIONARY_USER_TYPED,
             SuggestedWordInfo.NOT_AN_INDEX , SuggestedWordInfo.NOT_A_CONFIDENCE)
-        if (!TextUtils.isEmpty(typedWordString)) {
+        if (!TextUtils.isEmpty(capitalizedTypedWord)) {
             suggestionsContainer.add(0, typedWordInfo)
         }
         val suggestionsList = if (SuggestionStripView.DEBUG_SUGGESTIONS && suggestionsContainer.isNotEmpty())
-                getSuggestionsInfoListWithDebugInfo(typedWordString, suggestionsContainer)
+                getSuggestionsInfoListWithDebugInfo(capitalizedTypedWord, suggestionsContainer)
             else suggestionsContainer
 
         val inputStyle = if (resultsArePredictions) {
@@ -118,21 +123,22 @@ class Suggest(private val mDictionaryFacilitator: DictionaryFacilitator) {
         // If there is an incoming autocorrection, make sure typed word is shown, so user is able to override it.
         // Otherwise, if the relevant setting is enabled, show the typed word in the middle.
         val indexOfTypedWord = if (hasAutoCorrection) 2 else 1
-        if ((hasAutoCorrection || Settings.getValues().mCenterSuggestionTextToEnter)
-            && suggestionsList.size >= indexOfTypedWord && !TextUtils.isEmpty(typedWordString)) {
+        if ((hasAutoCorrection || (Settings.getValues().mCenterSuggestionTextToEnter && !wordComposer.isResumed)
+                || capitalizedTypedWord != wordComposer.typedWord)
+            && suggestionsList.size >= indexOfTypedWord && !TextUtils.isEmpty(capitalizedTypedWord)) {
             if (typedWordFirstOccurrenceWordInfo != null) {
-                if (SuggestionStripView.DEBUG_SUGGESTIONS) addDebugInfo(typedWordFirstOccurrenceWordInfo, typedWordString)
+                if (SuggestionStripView.DEBUG_SUGGESTIONS) addDebugInfo(typedWordFirstOccurrenceWordInfo, capitalizedTypedWord)
                 suggestionsList.add(indexOfTypedWord, typedWordFirstOccurrenceWordInfo)
             } else {
                 suggestionsList.add(indexOfTypedWord,
-                    SuggestedWordInfo(typedWordString, "", 0, SuggestedWordInfo.KIND_TYPED,
+                    SuggestedWordInfo(capitalizedTypedWord, "", 0, SuggestedWordInfo.KIND_TYPED,
                         Dictionary.DICTIONARY_USER_TYPED, SuggestedWordInfo.NOT_AN_INDEX, SuggestedWordInfo.NOT_A_CONFIDENCE)
                 )
             }
         }
         val isTypedWordValid = firstOccurrenceOfTypedWordInSuggestions > -1 || (!resultsArePredictions && !allowsToBeAutoCorrected)
-        callback.onGetSuggestedWords(SuggestedWords(suggestionsList, suggestionResults.mRawSuggestions,
-            typedWordInfo, isTypedWordValid, hasAutoCorrection, false, inputStyle, sequenceNumber))
+        return SuggestedWords(suggestionsList, suggestionResults.mRawSuggestions,
+            typedWordInfo, isTypedWordValid, hasAutoCorrection, false, inputStyle, sequenceNumber)
     }
 
     // returns [allowsToBeAutoCorrected, hasAutoCorrection]
@@ -252,9 +258,8 @@ class Suggest(private val mDictionaryFacilitator: DictionaryFacilitator) {
         wordComposer: WordComposer,
         ngramContext: NgramContext, keyboard: Keyboard,
         settingsValuesForSuggestion: SettingsValuesForSuggestion,
-        inputStyle: Int, sequenceNumber: Int,
-        callback: OnGetSuggestedWordsCallback
-    ) {
+        inputStyle: Int, sequenceNumber: Int
+    ): SuggestedWords {
         val suggestionResults = mDictionaryFacilitator.getSuggestionResults(
             wordComposer.composedDataSnapshot, ngramContext, keyboard,
             settingsValuesForSuggestion, SESSION_ID_GESTURE, inputStyle
@@ -265,15 +270,18 @@ class Suggest(private val mDictionaryFacilitator: DictionaryFacilitator) {
         val locale = mDictionaryFacilitator.mainLocale
         val suggestionsContainer = ArrayList(suggestionResults)
         val suggestionsCount = suggestionsContainer.size
-        val isFirstCharCapitalized = wordComposer.wasShiftedNoLock()
-        val isAllUpperCase = wordComposer.isAllUpperCase
-        if (isFirstCharCapitalized || isAllUpperCase) {
+        val keyboardShiftMode = keyboard.mId.keyboardCapsMode
+        val shouldMakeSuggestionsOnlyFirstCharCapitalized = wordComposer.wasShiftedNoLock()
+            || keyboardShiftMode == WordComposer.CAPS_MODE_MANUAL_SHIFTED
+        val shouldMakeSuggestionsAllUpperCase = wordComposer.isAllUpperCase
+            || keyboardShiftMode == WordComposer.CAPS_MODE_MANUAL_SHIFT_LOCKED
+        if (shouldMakeSuggestionsOnlyFirstCharCapitalized || shouldMakeSuggestionsAllUpperCase) {
             for (i in 0 until suggestionsCount) {
                 val wordInfo = suggestionsContainer[i]
                 val wordLocale = wordInfo!!.mSourceDict.mLocale
                 val transformedWordInfo = getTransformedSuggestedWordInfo(
-                    wordInfo, wordLocale ?: locale, isAllUpperCase,
-                    isFirstCharCapitalized, 0
+                    wordInfo, wordLocale ?: locale, shouldMakeSuggestionsAllUpperCase,
+                    shouldMakeSuggestionsOnlyFirstCharCapitalized, 0
                 )
                 suggestionsContainer[i] = transformedWordInfo
             }
@@ -299,6 +307,15 @@ class Suggest(private val mDictionaryFacilitator: DictionaryFacilitator) {
             }
         }
 
+        val capitalizedTypedWord = capitalize(wordComposer.typedWord, keyboardShiftMode == WordComposer.CAPS_MODE_MANUAL_SHIFT_LOCKED,
+            keyboardShiftMode == WordComposer.CAPS_MODE_MANUAL_SHIFTED, locale)
+        if (capitalizedTypedWord != wordComposer.typedWord && suggestionsContainer.drop(1).none { it.mWord == capitalizedTypedWord }) {
+            suggestionsContainer.add(min(1, suggestionsContainer.size),
+                SuggestedWordInfo(capitalizedTypedWord, "", 0, SuggestedWordInfo.KIND_TYPED,
+                    Dictionary.DICTIONARY_USER_TYPED, SuggestedWordInfo.NOT_AN_INDEX, SuggestedWordInfo.NOT_A_CONFIDENCE)
+            )
+        }
+
         // In the batch input mode, the most relevant suggested word should act as a "typed word"
         // (typedWordValid=true), not as an "auto correct word" (willAutoCorrect=false).
         // Note that because this method is never used to get predictions, there is no need to
@@ -312,10 +329,8 @@ class Suggest(private val mDictionaryFacilitator: DictionaryFacilitator) {
         } else {
             suggestionsContainer
         }
-        callback.onGetSuggestedWords(
-            SuggestedWords(suggestionsList, suggestionResults.mRawSuggestions, pseudoTypedWordInfo, true,
-                false, false, inputStyle, sequenceNumber)
-        )
+        return SuggestedWords(suggestionsList, suggestionResults.mRawSuggestions, pseudoTypedWordInfo, true,
+            false, false, inputStyle, sequenceNumber)
     }
 
     /** reduces score of the first suggestion if next one is close and has more than a single letter  */
@@ -395,19 +410,22 @@ class Suggest(private val mDictionaryFacilitator: DictionaryFacilitator) {
 
         private fun getTransformedSuggestedWordInfoList(
             wordComposer: WordComposer, results: SuggestionResults,
-            trailingSingleQuotesCount: Int, defaultLocale: Locale
+            trailingSingleQuotesCount: Int, defaultLocale: Locale, keyboard: Keyboard
         ): ArrayList<SuggestedWordInfo> {
+            val keyboardShiftMode = keyboard.mId.keyboardCapsMode
             val shouldMakeSuggestionsAllUpperCase = wordComposer.isAllUpperCase && !wordComposer.isResumed
-            val isOnlyFirstCharCapitalized = wordComposer.isOrWillBeOnlyFirstCharCapitalized
+                || keyboardShiftMode == WordComposer.CAPS_MODE_MANUAL_SHIFT_LOCKED
+            val shouldMakeSuggestionsOnlyFirstCharCapitalized = wordComposer.isOrWillBeOnlyFirstCharCapitalized
+                || keyboardShiftMode == WordComposer.CAPS_MODE_MANUAL_SHIFTED
             val suggestionsContainer = ArrayList(results)
             val suggestionsCount = suggestionsContainer.size
-            if (isOnlyFirstCharCapitalized || shouldMakeSuggestionsAllUpperCase || 0 != trailingSingleQuotesCount) {
+            if (shouldMakeSuggestionsOnlyFirstCharCapitalized || shouldMakeSuggestionsAllUpperCase || 0 != trailingSingleQuotesCount) {
                 for (i in 0 until suggestionsCount) {
                     val wordInfo = suggestionsContainer[i]
                     val wordLocale = wordInfo.mSourceDict.mLocale
                     val transformedWordInfo = getTransformedSuggestedWordInfo(
                         wordInfo, wordLocale ?: defaultLocale,
-                        shouldMakeSuggestionsAllUpperCase, isOnlyFirstCharCapitalized,
+                        shouldMakeSuggestionsAllUpperCase, shouldMakeSuggestionsOnlyFirstCharCapitalized,
                         trailingSingleQuotesCount
                     )
                     suggestionsContainer[i] = transformedWordInfo
@@ -469,31 +487,33 @@ class Suggest(private val mDictionaryFacilitator: DictionaryFacilitator) {
         }
 
         private fun getTransformedSuggestedWordInfo(
-            wordInfo: SuggestedWordInfo?, locale: Locale?, isAllUpperCase: Boolean,
+            wordInfo: SuggestedWordInfo, locale: Locale, isAllUpperCase: Boolean,
             isOnlyFirstCharCapitalized: Boolean, trailingSingleQuotesCount: Int
         ): SuggestedWordInfo {
-            val sb = StringBuilder(wordInfo!!.mWord.length)
-            if (isAllUpperCase) {
-                sb.append(wordInfo.mWord.uppercase(locale!!))
-            } else if (isOnlyFirstCharCapitalized) {
-                sb.append(StringUtils.capitalizeFirstCodePoint(wordInfo.mWord, locale!!))
-            } else {
-                sb.append(wordInfo.mWord)
-            }
+            var capitalizedWord = capitalize(wordInfo.mWord, isAllUpperCase, isOnlyFirstCharCapitalized, locale)
             // Appending quotes is here to help people quote words. However, it's not helpful
             // when they type words with quotes toward the end like "it's" or "didn't", where
             // it's more likely the user missed the last character (or didn't type it yet).
             val quotesToAppend = (trailingSingleQuotesCount
                     - if (-1 == wordInfo.mWord.indexOf(Constants.CODE_SINGLE_QUOTE.toChar())) 0 else 1)
             for (i in quotesToAppend - 1 downTo 0) {
-                sb.appendCodePoint(Constants.CODE_SINGLE_QUOTE)
+                capitalizedWord = capitalizedWord + Constants.CODE_SINGLE_QUOTE
             }
             return SuggestedWordInfo(
-                sb.toString(), wordInfo.mPrevWordsContext,
+                capitalizedWord, wordInfo.mPrevWordsContext,
                 wordInfo.mScore, wordInfo.mKindAndFlags,
                 wordInfo.mSourceDict, wordInfo.mIndexOfTouchPointOfSecondWord,
                 wordInfo.mAutoCommitFirstWordConfidence
             )
         }
+
+        private fun capitalize(word: String, isAllUpperCase: Boolean, isOnlyFirstCharCapitalized: Boolean, locale: Locale) =
+            if (isAllUpperCase) {
+                word.uppercase(locale)
+            } else if (isOnlyFirstCharCapitalized) {
+                StringUtils.capitalizeFirstCodePoint(word, locale)
+            } else {
+                word
+            }
     }
 }

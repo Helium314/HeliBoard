@@ -17,6 +17,14 @@
     <string name="vibrate_in_dnd_mode">Vibrate in do not disturb mode</string>
     <!-- Option to play back sound on keypress in soft keyboard -->
     <string name="sound_on_keypress">Sound on keypress</string>
+    <!-- Option to suggest emojis -->
+    <string name="suggest_emojis">Suggest emojis</string>
+    <!-- Description for option to suggest emojis -->
+    <string name="suggest_emojis_summary">Use emoji dictionary in normal suggestions</string>
+    <!-- Option to show emoji descriptions on long press -->
+    <string name="show_emoji_descriptions">Show emoji description on long press</string>
+    <!-- Description for option to show emoji descriptions on long press -->
+    <string name="show_emoji_descriptions_summary">Requires an emoji dictionary</string>
     <!-- Option to control whether or not to show a popup with a larger font on each key press. -->
     <string name="popup_on_keypress">Popup on keypress</string>
     <!-- Settings screen title for preferences-->
@@ -51,12 +59,12 @@
     <string name="enable_split_keyboard_landscape">Enable split keyboard (landscape)</string>
     <!--  Option for setting distance for split keyboard in portrait mode -->
     <string name="split_spacer_scale">Split distance</string>
-    <!--  Option for setting distance for split keyboard in landscape mode -->
+    <!--  Option for setting distance for split keyboard in landscape mode, todo: remove after merge -->
     <string name="split_spacer_scale_landscape">Split distance (landscape)</string>
     <!-- Option name for including other IMEs in the language key switch list -->
     <string name="language_switch_key_switch_input_method">Switch to other input methods</string>
     <!-- Option name for switching language / subtype only -->
-    <string name="switch_language">Switch Language</string>
+    <string name="switch_language">Switch language</string>
     <!-- Option name for switching language / subtype and input method -->
     <string name="language_switch_key_switch_both">Switch both</string>
     <!-- Option to show language switch key -->
@@ -149,6 +157,10 @@
     <string name="bigram_prediction">Next-word suggestions</string>
     <!-- Description for "next word suggestion" option. This displays suggestions even when there is no input, based on the previous word. -->
     <string name="bigram_prediction_summary">Use the previous word in making suggestions</string>
+    <!-- Option to enable using punctuation suggestions. -->
+    <string name="suggest_punctuation">Punctuation suggestions</string>
+    <!-- Description for "suggest_punctuation" option. -->
+    <string name="suggest_punctuation_summary">Show punctuation when no other suggestions are available</string>
     <!-- Option to enable the suggestion of clipboard content. -->
     <string name="suggest_clipboard_content">Suggest clipboard content</string>
     <!-- Description for the "suggest clipboard content" option. This makes the primary clipboard content visible in the suggestion strip view. -->
@@ -270,6 +282,8 @@
     <string name="show_hints">Show key hints</string>
     <!-- Description of the settings to show hints -->
     <string name="show_hints_summary">Show long-press hints</string>
+    <!-- Preferences item to set popup key order and select hints source -->
+    <string name="popup_order_and_hint_source">Popup key order and hints source</string>
     <!-- Title of the setting to select key hints source -->
     <string name="hint_source">Select hint source</string>
     <!-- Title of the setting to set popup key order -->
@@ -355,12 +369,12 @@
     <string name="prefs_keyboard_height_scale">Keyboard height scale</string>
     <!-- Title of the setting for setting bottom padding height -->
     <string name="prefs_bottom_padding_scale">Bottom padding scale</string>
-    <!-- Title of the setting for setting bottom padding height in landscape mode -->
+    <!-- Title of the setting for setting bottom padding height in landscape mode, todo: remove after merge -->
     <string name="prefs_bottom_padding_scale_landscape">Bottom padding scale (landscape)</string>
     <!-- Title of the setting for adjusting font size on the keyboard -->
     <!-- Title of the setting for setting side padding -->
     <string name="prefs_side_padding_scale">Side padding scale</string>
-    <!-- Title of the setting for setting side padding in landscape mode -->
+    <!-- Title of the setting for setting side padding in landscape mode, todo: remove after merge -->
     <string name="prefs_side_padding_scale_landscape">Side padding scale (landscape)</string>
     <string name="prefs_font_scale">Keyboard font scale</string>
     <!-- Title of the setting for adjusting font size in emoji view -->
@@ -392,7 +406,7 @@
     <string name="subtype_mns">Mansi</string>
     <!-- Description for Kaitag (https://en.wikipedia.org/wiki/Kaitag_language) keyboard subtype -->
     <string name="subtype_xdq">Kaitag</string>
-    <!-- Description for Dagbani (https://en.wikipedia.org/wiki/Dagbani_language) keyboard subtype --> 
+    <!-- Description for Dagbani (https://en.wikipedia.org/wiki/Dagbani_language) keyboard subtype -->
     <string name="subtype_dag">Dagbani</string>
     <!-- Description for Sesotho (https://en.wikipedia.org/wiki/Sesotho_language) keyboard subtype -->
     <string name="subtype_st">Sesotho</string>
@@ -733,12 +747,16 @@ New dictionary:
     <string name="get_layouts_message">"You can find and share layouts in the %s."</string>
     <!-- Text to be used in get_colors_message and get_layouts_message -->
     <string name="discussion_section_link">"discussion section"</string>
-    <!-- Settings screen title for about-->
+    <!-- Settings screen title for about -->
     <string name="settings_screen_about">About</string>
-    <!-- version for about screen-->
+    <!-- version for about screen -->
     <string name="version">Version</string>
-    <!-- github repo link for about screen-->
+    <!-- github repo link for about screen -->
     <string name="about_github_link">View on GitHub</string>
+    <!-- link to the wiki for about screen -->
+    <string name="about_wiki_link">Go to Wiki</string>
+    <!-- description for wiki link -->
+    <string name="about_wiki_link_description">The Wiki can be improved by any GitHub user!</string>
     <!-- preference title for saving the log to a file -->
     <string name="save_log">Save log</string>
     <!-- license for about screen-->
@@ -856,9 +874,11 @@ New dictionary:
     <!-- Option for no action when (currently only used for swiping the spacebar) -->
     <string name="action_none">None</string>
     <!-- Option to move the cursor when swiping the spacebar -->
-    <string name="space_swipe_move_cursor_entry">Move Cursor</string>
+    <string name="space_swipe_move_cursor_entry">Move cursor</string>
     <!-- Option to toggle the numpad when swiping the spacebar -->
-    <string name="space_swipe_toggle_numpad_entry">Toggle Numpad</string>
+    <string name="space_swipe_toggle_numpad_entry">Toggle numpad</string>
+    <!-- Option to hide the keyboard when swiping the spacebar -->
+    <string name="space_swipe_hide_keyboard_entry">Hide keyboard</string>
     <!-- Title of the setting for variable toolbar direction -->
     <string name="var_toolbar_direction">Variable toolbar direction</string>
     <!-- Description of the variable toolbar direction setting -->
@@ -893,6 +913,8 @@ New dictionary:
     <string name="name_invalid">Invalid name</string>
     <!-- Description indicating a subtype in Locales & Layouts has customizations -->
     <string name="custom_subtype">Custom subtype</string>
+    <!-- Name for landscape orientation, used in various settings -->
+    <string name="landscape">Landscape</string>
     <!-- Title for screen to provide gesture data for library development todo: nicer name? -->
     <string name="gesture_data_screen">Gesture data</string>
     <!-- Descriptive text about the gesture data screen
