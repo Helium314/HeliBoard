@@ -138,7 +138,7 @@ class EmojiSearchActivity : ComponentActivity() {
                     val localDensity = LocalDensity.current
                     var heightPx by remember { mutableIntStateOf(0) }
                     Column(modifier = Modifier.wrapContentHeight().background(Color(colors.get(ColorType.MAIN_BACKGROUND)))
-                        .clickable(onClick = { }).onGloballyPositioned {
+                        .clickable(false) {}.onGloballyPositioned {
                             val bottom = it.localToScreen(Offset(0f, it.size.height.toFloat())).y.toInt()
                             imeVisible = bottom < screenHeight - 100
                             Log.d("emoji-search", "imeVisible: $imeVisible, imeOpened: $imeOpened, bottom: $bottom, " +
