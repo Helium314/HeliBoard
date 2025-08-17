@@ -1003,7 +1003,7 @@ public final class InputLogic {
                 (!settingsValues.mSpacingAndPunctuations.mCurrentLanguageHasSpaces
                         || !mConnection.isCursorTouchingWord(settingsValues.mSpacingAndPunctuations,
                                 !mConnection.hasSlowInputConnection() /* checkTextAfter */)
-                        || settingsValues.mSpacingAndPunctuations.isWordSeparator(mConnection.getCodePointBeforeCursor()))) {
+                        || isCodePointBeforeCursorAWordSeparatorOrNone(settingsValues))) {
             // Reset entirely the composing state anyway, then start composing a new word unless
             // the character is a word connector. The idea here is, word connectors are not
             // separators and they should be treated as normal characters, except in the first
@@ -1038,6 +1038,12 @@ public final class InputLogic {
             }
         }
         inputTransaction.setRequiresUpdateSuggestions();
+    }
+
+    private boolean isCodePointBeforeCursorAWordSeparatorOrNone(SettingsValues settingsValues) {
+        var codePointBeforeCursor = mConnection.getCodePointBeforeCursor();
+        return codePointBeforeCursor == Constants.NOT_A_CODE
+                || settingsValues.mSpacingAndPunctuations.isWordSeparator(codePointBeforeCursor);
     }
 
     /**
