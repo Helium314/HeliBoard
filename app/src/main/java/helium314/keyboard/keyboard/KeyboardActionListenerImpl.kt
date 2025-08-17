@@ -9,6 +9,7 @@ import helium314.keyboard.event.HangulEventDecoder
 import helium314.keyboard.event.HardwareEventDecoder
 import helium314.keyboard.event.HardwareKeyboardEventDecoder
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode
+import helium314.keyboard.latin.AudioAndHapticFeedbackManager
 import helium314.keyboard.latin.EmojiAltPhysicalKeyDetector
 import helium314.keyboard.latin.LatinIME
 import helium314.keyboard.latin.RichInputMethodManager
@@ -186,6 +187,7 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
         val actualSteps = actualSteps(steps)
         val start = connection.expectedSelectionStart + actualSteps
         if (start > end) return
+        AudioAndHapticFeedbackManager.getInstance().performHapticAndAudioFeedback(KeyCode.NOT_SPECIFIED, keyboardSwitcher.visibleKeyboardView)
         connection.setSelection(start, end)
     }
 
@@ -248,6 +250,7 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
 
     private fun onMoveCursorVertically(steps: Int): Boolean {
         if (steps == 0) return false
+        AudioAndHapticFeedbackManager.getInstance().performHapticAndAudioFeedback(KeyCode.NOT_SPECIFIED, keyboardSwitcher.visibleKeyboardView)
         val code = if (steps < 0) KeyCode.ARROW_UP else KeyCode.ARROW_DOWN
         onCodeInput(code, Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE, false)
         return true
@@ -255,6 +258,8 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
 
     private fun onMoveCursorHorizontally(rawSteps: Int): Boolean {
         if (rawSteps == 0) return false
+        AudioAndHapticFeedbackManager.getInstance()
+            .performHapticAndAudioFeedback(KeyCode.NOT_SPECIFIED, keyboardSwitcher.visibleKeyboardView)
         // for RTL languages we want to invert pointer movement
         val steps = if (RichInputMethodManager.getInstance().currentSubtype.isRtlSubtype) -rawSteps else rawSteps
         val moveSteps: Int
