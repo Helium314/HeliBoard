@@ -1,0 +1,20 @@
+* Új ikon @FabianOvrWrt-től, @the-eclectic-dyslexic közreműködésével (#517, #592)
+* Jobban testreszabható szóköz-érintőpad és nyelvváltás @arcarum-tól (#486)
+* % hozzáadása a shift-szimbólumok elrendezéséhez (#568, #428)
+* Javított viselkedés, ha a nyelvváltó billentyű a nyelv és a billentyűzet együttes váltására van beállítva
+* Meglévő szótárakra mutató hivatkozások megjelenítése szótár hozzáadásakor
+* Kaitag elrendezés hozzáadása @alkaitagi-tól (#519)
+* Probhat elrendezés hozzáadása @fahimscirex-től (#489)
+* Megfordítható eszköztár-sorrend RTL nyelvekhez @codokie-tól (#557, #574)
+* Speciális elrendezések (számbillentyűzet, telefon, ...) testreszabásának engedélyezése
+  * Még kísérleti, mivel az alapelrendezések változhatnak
+* A spellchecker.xml frissítve, hogy tartalmazza azokat a nyelvi beállításokat, ahol a szótárak elérhetők, de nem részei az alkalmazásnak
+* Fordítások frissítése (köszönet minden fordítónak!)
+* NDK frissítése @Syphyr-től (#560)
+* Beágyazott automatikus kitöltési kód frissítése @arcarum-tól (#595)
+* Hiba javítása az eszköztárbillentyű-párbeszédablakban (#505)
+* Hiba javítása a török elrendezésben (#508)
+* Helytelen kapcsolóállapotok javítása a színek testreszabása képernyőn történő forgatáskor (#563)
+* Probléma javítása a legutóbbi emodzsik be nem töltésével (#527)
+* Probléma javítása a számok meg nem jelenésével bizonyos mezőkben (#585)
+* Néhány kisebb javítás

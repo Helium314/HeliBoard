@@ -396,4 +396,8 @@
     <string name="prefs_side_padding_scale_landscape">Шкала бічного відступу (альбомна)</string>
     <string name="number_row_hints">Показувати підказки в рядку з цифрами</string>
     <string name="prefs_language_swipe_distance">Відстань проведення для перемикання мови</string>
+    <string name="show_emoji_descriptions_summary">Потрібен словник емодзі</string>
+    <string name="suggest_emojis">Запропонувати емодзі</string>
+    <string name="suggest_emojis_summary">Використовуйте словник емодзі у звичайних реченнях</string>
+    <string name="show_emoji_descriptions">Показати опис емодзі при тривалому натисканні</string>
 </resources>

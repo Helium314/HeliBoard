@@ -112,7 +112,7 @@
     <string name="show_emoji_key">表情符号键</string>
     <string name="enable_clipboard_history_summary">如果禁用，剪贴板键将粘贴剪贴板内容（如果有的话）</string>
     <string name="autospace_after_punctuation">标点后面自动插入空格</string>
-    <string name="autospace_after_punctuation_summary">单词输入时自动在标点符号后插入空格</string>
+    <string name="autospace_after_punctuation_summary">输入新单词时自动在标点后插入空格</string>
     <string name="spell_checker_service_name">拼写检查</string>
     <string name="android_spell_checker_settings">拼写检查设置</string>
     <string name="subtype_akkhor_bn_BD">%s (Akkhor)</string>
@@ -192,7 +192,7 @@
     <string name="hint_source">选择提示源</string>
     <string name="no_dictionary_dont_show_again_button">不再显示</string>
     <string name="center_suggestion_text_to_enter">始终使用中间建议</string>
-    <string name="center_suggestion_text_to_enter_summary">按空格或标点符号时，将输入中间的建议</string>
+    <string name="center_suggestion_text_to_enter_summary">按空格键或标点时，将输入中间的建议</string>
     <string name="backup_error">备份错误：%s</string>
     <string name="button_backup">备份</string>
     <string name="load_gesture_library_button_delete">删除库</string>
@@ -438,4 +438,13 @@
     <string name="toolbar_hiding_global">同时隐藏剪贴板和表情符号工具栏</string>
     <string name="popup_order_and_hint_source">弹出键顺序和提示源</string>
     <string name="landscape">横屏</string>
+    <string name="show_emoji_descriptions_summary">需要表情符号词典</string>
+    <string name="show_emoji_descriptions">长按时显示表情符号描述</string>
+    <string name="suggest_emojis">建议表情符号</string>
+    <string name="suggest_emojis_summary">在常规建议中使用表情符号词典</string>
+    <string name="suggest_punctuation">标点建议</string>
+    <string name="suggest_punctuation_summary">无其他建议时显示标点</string>
+    <string name="space_swipe_hide_keyboard_entry">隐藏键盘</string>
+    <string name="about_wiki_link_description">任何 GitHub 用户都可以改进 Wiki！</string>
+    <string name="about_wiki_link">前往 Wiki</string>
 </resources>
