@@ -1,0 +1,2 @@
+* Vizuális beállítások hozzáadása a kézmozdulat-gépeléshez @devycarol-tól (#944)
+* Néhány ikon frissítése @BlackyHawky-tól (#977)

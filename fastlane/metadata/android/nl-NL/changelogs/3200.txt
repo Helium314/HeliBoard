@@ -1,0 +1,10 @@
+* Werkbalkmodi toevoegen (maakt het verbergen van de werkbalk mogelijk)
+* Voeg enkele ontbrekende emoji-varianten toe
+* Verbetering van het subtypescherm en het woordenboekdialoogvenster
+* Kleuren corrigeren bij het forceren van de donkere modus
+* Verplaats de meeste instellingen voor de portret- / landschapsschaal naar een dialoogvenster
+* vertalingen verwijderen van strings die als niet-vertaalbaar zijn gemarkeerd
+* fix pijlrichting op het volgende scherm voor RTL-talen
+* fix correct laden van Hebreeuwse landinstelling op Android 15
+* hebben op zijn minst een basistoetsenbord als de bibliotheek helemaal niet werkt
+* kleine bugfixes

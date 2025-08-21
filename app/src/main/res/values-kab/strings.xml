@@ -57,7 +57,7 @@
     <string name="main_dictionary">Amawal agejdan</string>
     <string name="prefs_show_suggestions">Ssken-d isumar n useɣti</string>
     <string name="day_or_night_night">Iḍ</string>
-    <string name="no_dictionary_dont_show_again_button">Ur ttεawad ara ad d-tsekneḍ</string>
+    <string name="no_dictionary_dont_show_again_button">Ur t-id-skanay ara tikkelt nniḍen</string>
     <string name="settings_screen_correction">Aseɣti n uḍris</string>
     <string name="settings_category_correction">Iseɣtiyen</string>
     <string name="show_language_switch_key">Taqeffalt n ubeddel n tutlayin</string>
@@ -111,4 +111,9 @@
     <string name="theme_name_dark" tools:keep="@string/theme_name_dark">Ubrik</string>
     <string name="subtype_xdq">Kaitag</string>
     <string name="dictionary_category_title">Imawalen nniḍen</string>
+    <string name="emoji" tools:keep="@string/emoji">Imujit</string>
+    <string name="subtype_emoji">Imujit</string>
+    <string name="user_dict_settings_add_weight_value">Taẓayt:</string>
+    <string name="layout_phone" tools:keep="@string/layout_phone">Tiliɣri</string>
+    <string name="settings_category_additional_keys">Tiqeffalin nniḍen</string>
 </resources>

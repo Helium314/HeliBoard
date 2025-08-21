@@ -1,0 +1,7 @@
+- Szerb cirill elrendezés frissítése @markokocic-tól (#704, #705)
+- Észt elrendezés frissítése @tenextractor-tól (#693)
+- Duplikált bejegyzések javítása a vágólapelőzményekben @codokie-tól (#616, #680)
+- Csak szöveges bejegyzések hozzáadása a vágólapelőzményekhez @codokie-tól (#711)
+- Jobb képek a metaadatokban @RHJihan-tól (#713)
+- Ikonok színének megfelelő beállítása az eszköztár-választó párbeszédablakban @codokie-tól (#715, #716)
+- Egyéb javítások (#684, #723 és még több)

@@ -3,7 +3,7 @@
     Copyright (C) 2008 The Android Open Source Project
     modified
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
---><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+--><resources xmlns:tools="http://schemas.android.com/tools">
     <string name="use_contacts_dict">"Meklēt kontaktp. vārdus"</string>
     <string name="vibrate_on_keypress">"Vibrēt, nospiežot taustiņu"</string>
     <string name="sound_on_keypress">"Skaņa, nospiežot taustiņu"</string>
@@ -84,11 +84,11 @@
     <string name="last_update">"Pēdējo reizi atjaunināts"</string>
     <string name="settings">"Iestatījumi"</string>
     <string name="delete">"Dzēst"</string>
-    <string name="version_text">"Versija %1$s"</string>
+    <string name="version_text">Versija %s</string>
     <string name="user_dict_settings_add_dialog_title">"Pievienot vārdnīcai"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"Saīsne:"</string>
     <string name="user_dict_settings_add_locale_option_name">"Valoda:"</string>
-    <string name="user_dict_settings_add_word_hint">"Ierakstiet vārdu."</string>
+    <string name="user_dict_settings_add_word_hint">Ievadiet vārdu</string>
     <string name="user_dict_settings_add_shortcut_hint">"Izvēles saīsne"</string>
     <string name="user_dict_settings_edit_dialog_title">"Vārda rediģēšana"</string>
     <string name="user_dict_settings_all_languages">"Visās valodās"</string>
@@ -117,4 +117,6 @@
     <string name="settings_category_correction">Labojumi</string>
     <string name="settings_category_space">Atstarpe</string>
     <string name="vibrate_in_dnd_mode">Vibrēt \"Netraucēt\" režīmā</string>
+    <string name="settings_category_experimental">Eksperimentāls</string>
+    <string name="popup_keys_symbols" tools:keep="@string/popup_keys_symbols">Simboli</string>
 </resources>

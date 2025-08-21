@@ -392,7 +392,7 @@
     <string name="gesture_floating_preview_dynamic_summary">Przesuń podgląd podczas gestu</string>
     <string name="gesture_trail_fadeout_duration">Czas trwania śladu gestu</string>
     <string name="gesture_floating_preview_static">Pływający podgląd</string>
-    <string name="icon_style">Styl ikony</string>
+    <string name="icon_style">Styl ikon</string>
     <string name="layout_number_row" tools:keep="@string/layout_number_row">Rząd numeryczny</string>
     <string name="prefs_space_bar_text">Własny tekst na klawiszu spacji</string>
     <string name="layout_emoji_bottom_row" tools:keep="@string/layout_emoji_bottom_row">Dolny rząd w widoku emotikonów</string>
@@ -479,4 +479,13 @@
     <string name="toolbar_hiding_global">Ukryj także paski schowka i emotikonów</string>
     <string name="landscape">Poziomo</string>
     <string name="popup_order_and_hint_source">Kolejność wyskakujących okienek i źródło wskazówek</string>
+    <string name="show_emoji_descriptions_summary">Wymaga słownika emoji</string>
+    <string name="show_emoji_descriptions">Pokaż opis emoji po długim naciśnięciu</string>
+    <string name="suggest_emojis_summary">Używaj słownika emotikonów w normalnych sugestiach</string>
+    <string name="suggest_emojis">Sugeruj emotikony</string>
+    <string name="suggest_punctuation">Sugestie interpunkcji</string>
+    <string name="suggest_punctuation_summary">Pokaż znaki interpunkcyjne, gdy nie ma innych sugestii</string>
+    <string name="space_swipe_hide_keyboard_entry">Ukryj klawiaturę</string>
+    <string name="about_wiki_link">Przejdź do Wiki</string>
+    <string name="about_wiki_link_description">Każdy użytkownik GitHuba może ulepszać Wiki!</string>
 </resources>

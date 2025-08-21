@@ -14,7 +14,7 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 
 @RunWith(RobolectricTestRunner::class)
-class LinkTest {
+class XLinkTest { // Without the X, SubtypeTests fail with ClassCastException. WTF?
     @Test fun knownDictionaries() {
         if (BuildConfig.BUILD_TYPE == "runTests") return // don't spam requests to Codeberg on every PR update
         val context = ApplicationProvider.getApplicationContext<App>()

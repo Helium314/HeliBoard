@@ -18,6 +18,7 @@ import helium314.keyboard.latin.common.ComposedData
 import helium314.keyboard.latin.common.Constants
 import helium314.keyboard.latin.common.StringUtils
 import helium314.keyboard.latin.common.decapitalize
+import helium314.keyboard.latin.common.mightBeEmoji
 import helium314.keyboard.latin.common.splitOnWhitespace
 import helium314.keyboard.latin.permissions.PermissionsUtil
 import helium314.keyboard.latin.personalization.UserHistoryDictionary
@@ -528,7 +529,7 @@ class DictionaryFacilitatorImpl : DictionaryFacilitator {
                     //  assume this is unlikely to happen, and take care about common shortcuts that are not actual words (emoji, symbols)
                     && word.length > 2 // should exclude most symbol shortcuts
                     && info.mSourceDict.mDictType == dictType // dictType is always main, but info.mSourceDict.mDictType contains the actual dict (main dict is a dictionary group)
-                    && !StringUtils.mightBeEmoji(word) // simplified check for performance reasons
+                    && !mightBeEmoji(word) // simplified check for performance reasons
                     && !dictionary.isInDictionary(word)
                 )
                     continue
