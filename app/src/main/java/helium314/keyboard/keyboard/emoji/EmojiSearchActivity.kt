@@ -94,7 +94,7 @@ import helium314.keyboard.latin.RichInputMethodManager
 import helium314.keyboard.latin.RichInputMethodSubtype
 import helium314.keyboard.latin.SingleDictionaryFacilitator
 import helium314.keyboard.latin.common.ColorType
-import helium314.keyboard.latin.common.StringUtils
+import helium314.keyboard.latin.common.mightBeEmoji
 import helium314.keyboard.latin.common.splitOnWhitespace
 import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.utils.DictionaryInfoUtils
@@ -122,6 +122,14 @@ class EmojiSearchActivity : ComponentActivity() {
     private var imeVisible = false
     private var imeClosed = false
 
+    private val closer = Runnable {
+        if (!imeVisible) {
+            Log.d("emoji-search", "IME closed")
+            imeClosed = true
+            cancel()
+        }
+    }
+
     @OptIn(ExperimentalLayoutApi::class, ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -144,13 +152,7 @@ class EmojiSearchActivity : ComponentActivity() {
                             Log.d("emoji-search", "imeVisible: $imeVisible, imeOpened: $imeOpened, bottom: $bottom, " +
                                 "keyboardState: ${KeyboardSwitcher.getInstance().keyboardSwitchState}")
                             if (imeOpened && !imeVisible) {
-                                Handler(this@EmojiSearchActivity.mainLooper).postDelayed({
-                                    if (!imeVisible) {
-                                        Log.d("emoji-search", "IME closed")
-                                        imeClosed = true
-                                        cancel()
-                                    }
-                                }, 200)
+                                Handler(this@EmojiSearchActivity.mainLooper).postDelayed(closer, 200)
                             }
                             if (imeOpened && !isAlphaKeyboard()) {
                                 cancel()
@@ -158,6 +160,7 @@ class EmojiSearchActivity : ComponentActivity() {
                             }
                             if (imeVisible && isAlphaKeyboard()) {
                                 imeOpened = true
+                                Handler(this@EmojiSearchActivity.mainLooper).removeCallbacks(closer)
                             }
                             heightPx = it.size.height
                             heightDp = with(localDensity) { it.size.height.toDp() }
@@ -333,7 +336,7 @@ class EmojiSearchActivity : ComponentActivity() {
         val keyboard = emojiPageKeyboardView.keyboard as DynamicGridKeyboard
         keyboard.removeAllKeys()
         pressedKey = null
-        dictionaryFacilitator!!.getSuggestions(text.splitOnWhitespace()).filter { StringUtils.mightBeEmoji(it.word) }.forEach {
+        dictionaryFacilitator!!.getSuggestions(text.splitOnWhitespace()).filter { mightBeEmoji(it.word) }.forEach {
             val emoji = getEmojiDefaultVersion(it.word)
             val popupSpec = getEmojiPopupSpec(emoji)
             val keyParams = Key.KeyParams(emoji, emoji.getCode(), if (popupSpec != null) EMOJI_HINT_LABEL else null, popupSpec,
