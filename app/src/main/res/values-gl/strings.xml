@@ -430,4 +430,22 @@
     <string name="subtype_st">Sesotho</string>
     <string name="prefs_emoji_key_fit">Escalar tamaño da tecla emoji ao tamaño da letra</string>
     <string name="backspace_reverts_autocorrect">Retroceso reverte a autocorrección</string>
+    <string name="popup_order_and_hint_source">Orde das teclas emerxentes e orixe das suxestións</string>
+    <string name="subtype_with_layout_generic">%1$s (%2$s)</string>
+    <string name="landscape">Paisaxe</string>
+    <string name="backup_restored">Restableceuse a copia</string>
+    <string name="use_apps_dict">Buscar nomes de apps</string>
+    <string name="use_apps_dict_summary">Usar nomes das apps instaladas para suxestións e correccións</string>
+    <string name="toolbar_mode">Modo da barra de ferramentas</string>
+    <string name="toolbar_mode_expandable">Teclas da barra de ferramentas e suxestións</string>
+    <string name="toolbar_mode_toolbar_keys">Só teclas da barra de ferramentas</string>
+    <string name="toolbar_mode_suggestion_strip">Só suxestións</string>
+    <string name="toolbar_mode_hidden">Oculta</string>
+    <string name="prefs_emoji_skin_tone">Tono de pel por defecto para emojis</string>
+    <string name="prefs_emoji_skin_tone_neutral">Neutro</string>
+    <string name="show_emoji_descriptions_summary">Require un dicionario de emoji</string>
+    <string name="show_emoji_descriptions">Mostrar descrición do emoji con pulsación longa</string>
+    <string name="toolbar_hiding_global">Ocultar tamén as barras de ferramentas de emoji e portapapeis</string>
+    <string name="suggest_emojis">Suxerir emojis</string>
+    <string name="suggest_emojis_summary">Usar dicionario de emoji nas suxestións normais</string>
 </resources>

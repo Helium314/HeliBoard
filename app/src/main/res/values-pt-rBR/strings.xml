@@ -286,7 +286,7 @@
     <string name="select_color_gesture">Entrada de gesto</string>
     <string name="settings_screen_about">Sobre</string>
     <string name="about_github_link">Veja no GitHub</string>
-    <string name="save_log">Salvar log</string>
+    <string name="save_log">Salvar registros</string>
     <string name="license">Licença de código aberto</string>
     <string name="dialog_close">Fechar</string>
     <string name="text_tap_languages">Toque no idioma para abrir configurações</string>
@@ -444,4 +444,13 @@
     <string name="toolbar_mode_hidden">Oculta</string>
     <string name="landscape">Paisagem</string>
     <string name="popup_order_and_hint_source">Ordem das teclas de pop-up e fonte de dicas</string>
+    <string name="show_emoji_descriptions">Mostrar descrição do emoji ao pressionar</string>
+    <string name="show_emoji_descriptions_summary">Requer um dicionário de emoji</string>
+    <string name="suggest_emojis">Sugerir emojis</string>
+    <string name="suggest_emojis_summary">Usar dicionário de emojis em sugestões normais</string>
+    <string name="space_swipe_hide_keyboard_entry">Ocultar teclado</string>
+    <string name="suggest_punctuation">Sugestões de pontuação</string>
+    <string name="suggest_punctuation_summary">Mostrar pontuação quando não há outras sugestões</string>
+    <string name="about_wiki_link">Ir para a Wiki</string>
+    <string name="about_wiki_link_description">A wiki pode ser melhorada por qualquer usuário do GitHub!</string>
 </resources>

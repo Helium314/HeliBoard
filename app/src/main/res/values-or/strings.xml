@@ -3,8 +3,7 @@
     Copyright (C) The Android Open Source Project
     modified
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
--->
-<resources>
+--><resources>
     <string name="settings_category_miscellaneous">ଵିଵିଧ</string>
     <string name="subtype_locale">ଭାଷା</string>
     <string name="user_dict_settings_add_dialog_title">ଅଭିଧାନରେ ଯୋଡ଼ନ୍ତୁ</string>
@@ -25,4 +24,8 @@
     <string name="bigram_prediction_summary">"ପ୍ରସ୍ତାବ ପ୍ରସ୍ତୁତ କରିବାରେ ପୂର୍ବବର୍ତ୍ତୀ ଶବ୍ଦ ବ୍ୟବହାର କରନ୍ତୁ"</string>
     <string name="undo">"ପୂର୍ବ ପରି କରନ୍ତୁ"</string>
     <string name="redo">"ପୁଣି କରନ୍ତୁ"</string>
+    <string name="ime_settings">ହେଲିବୋର୍ଡ ସେଟିଂସ୍</string>
+    <string name="android_spell_checker_settings">ହେଲିବୋର୍ଡ ବନାନ ଯାଞ୍ଚକାରୀ ସେଟିଂସ୍</string>
+    <string name="spell_checker_service_name">ହେଲିବୋର୍ଡ ବନାନ ଯାଞ୍ଚକାରୀ</string>
+    <string name="suggest_emojis">ଇମୋଜ୍ଜି ସଙ୍କେତ କରିବା</string>
 </resources>
