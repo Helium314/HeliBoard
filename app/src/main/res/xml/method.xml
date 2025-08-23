@@ -119,6 +119,7 @@
     th: Thai/thai
     tl: Tagalog/qwerty+
     tr: Turkish/turkish
+    tr: Turkish/turkish_f
     ur_PK: Urdu Pakistan
     uk: Ukrainian/ukrainian
     uk: Ukrainian (Extended)/ukrainian_extended
@@ -1205,6 +1206,15 @@
         android:languageTag="tr"
         android:imeSubtypeMode="keyboard"
         android:imeSubtypeExtraValue="KeyboardLayoutSet=MAIN:turkish,AsciiCapable,SupportTouchPositionCorrection,EmojiCapable"
+        android:isAsciiCapable="true"
+    />
+	<subtype android:icon="@drawable/ic_ime_switcher"
+        android:label="@string/subtype_tr_f"
+        android:subtypeId="0x9b4f2a1c"
+        android:imeSubtypeLocale="tr"
+        android:languageTag="tr"
+        android:imeSubtypeMode="keyboard"
+        android:imeSubtypeExtraValue="KeyboardLayoutSet=MAIN:turkish_f,AsciiCapable,SupportTouchPositionCorrection,EmojiCapable"
         android:isAsciiCapable="true"
     />
     <subtype android:icon="@drawable/ic_ime_switcher"
