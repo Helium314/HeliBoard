@@ -149,8 +149,8 @@ class EmojiSearchActivity : ComponentActivity() {
                         .clickable(false) {}.onGloballyPositioned {
                             val bottom = it.localToScreen(Offset(0f, it.size.height.toFloat())).y.toInt()
                             imeVisible = bottom < screenHeight - 100
-                            Log.d("emoji-search", "imeVisible: $imeVisible, imeOpened: $imeOpened, bottom: $bottom, " +
-                                "keyboardState: ${KeyboardSwitcher.getInstance().keyboardSwitchState}")
+                            Log.d("emoji-search", "imeVisible: $imeVisible, firstSearchDone: $firstSearchDone, imeOpened: $imeOpened, " +
+                                "bottom: $bottom, keyboardState: ${KeyboardSwitcher.getInstance().keyboardSwitchState}")
                             if (imeOpened && !imeVisible) {
                                 Handler(this@EmojiSearchActivity.mainLooper).postDelayed(closer, 200)
                             }
@@ -158,7 +158,8 @@ class EmojiSearchActivity : ComponentActivity() {
                                 cancel()
                                 return@onGloballyPositioned
                             }
-                            if (imeVisible && isAlphaKeyboard()) {
+                            if (imeVisible && firstSearchDone && isAlphaKeyboard()) {
+                                Log.d("emoji-search", "IME opened in onGloballyPositioned")
                                 imeOpened = true
                                 Handler(this@EmojiSearchActivity.mainLooper).removeCallbacks(closer)
                             }
@@ -248,6 +249,7 @@ class EmojiSearchActivity : ComponentActivity() {
     override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
         init()
+        imeVisible = false
         imeOpened = false
         firstSearchDone = false
         search(searchText)
@@ -272,6 +274,7 @@ class EmojiSearchActivity : ComponentActivity() {
         Log.d("emoji-search", "init start")
         @Suppress("DEPRECATION")
         screenHeight = windowManager.defaultDisplay.height
+        Log.d("emoji-search", "screenHeight: $screenHeight")
         hintLocales = LocaleList(DictionaryInfoUtils.getLocalesWithEmojiDicts(this).map { Locale(it.toLanguageTag()) })
         val keyboardWidth = ResourceUtils.getKeyboardWidth(this, Settings.getValues())
         val layoutSet = KeyboardLayoutSet.Builder(this, null).setSubtype(RichInputMethodSubtype.emojiSubtype)
@@ -331,8 +334,6 @@ class EmojiSearchActivity : ComponentActivity() {
             return
         }
 
-        searchText = text
-        firstSearchDone = true
         val keyboard = emojiPageKeyboardView.keyboard as DynamicGridKeyboard
         keyboard.removeAllKeys()
         pressedKey = null
@@ -349,6 +350,13 @@ class EmojiSearchActivity : ComponentActivity() {
                 pressedKey = key
         }
         emojiPageKeyboardView.invalidate()
+
+        searchText = text
+        firstSearchDone = true
+        if (imeVisible && !imeOpened) {
+            Log.d("emoji-search", "IME opened in search")
+            imeOpened = true
+        }
     }
 
     private fun cancel() {
