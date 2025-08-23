@@ -1,0 +1,56 @@
+[
+  [
+    { "$": "shift_state_selector",
+      "shifted": { "label": "?" },
+      "default": { "$": "variation_selector",
+        "uri": { "label": "/" },
+        "email": { "label": "@" },
+        "default": { "label": "'", "popup": { "relevant": [
+          { "label": "!" },
+          { "label": "\"" }
+        ] } }
+      }
+    },
+    { "$": "shift_state_selector",
+      "shifted": { "label": "<" },
+      "default": { "label": "," }
+    },
+    { "$": "shift_state_selector",
+      "shifted": { "label": ">" },
+      "default": { "label": "." }
+    },
+    { "label": "h" },
+    { "label": "x" },
+    { "label": "w" },
+    { "label": "l" },
+    { "label": "t" },
+    { "label": "c" },
+    { "label": "p" }
+  ],
+  [
+    { "label": "i" },
+    { "label": "e" },
+    { "label": "a" },
+    { "label": "o" },
+    { "label": "u" },
+    { "label": "m" },
+    { "label": "d" },
+    { "label": "s" },
+    { "label": "r" },
+    { "label": "n" }
+  ],
+  [
+    { "label": "ç" },
+    { "label": "j" },
+    { "label": "b" },
+    { "label": "k" },
+    { "label": "q" },
+    { "label": "v" },
+    { "label": "g" },
+	{ "label": "f" }
+  ],
+  [
+    { "label": "y" },
+    { "label": "z" }
+  ]
+]
