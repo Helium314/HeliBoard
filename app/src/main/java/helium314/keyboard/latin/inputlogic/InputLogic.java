@@ -814,11 +814,11 @@ public final class InputLogic {
                     deleteTextReplacedByEmoji();
                     commitCurrentAutoCorrection(inputTransaction.getMSettingsValues(), LastComposedWord.NOT_A_SEPARATOR, handler);
                     inputTransaction.setDidAutoCorrect();
+                    mSuggestionStripViewAccessor.setNeutralSuggestionStrip();
                 } else {
-                    commitTyped(inputTransaction.getMSettingsValues(), LastComposedWord.NOT_A_SEPARATOR);
+                    inputTransaction.setRequiresUpdateSuggestions();
                 }
 
-                mSuggestionStripViewAccessor.setNeutralSuggestionStrip();
                 break;
             default:
                 if (KeyCode.INSTANCE.isModifier(keyCode))
@@ -2111,7 +2111,6 @@ public final class InputLogic {
      */
     private void resetComposingState(final boolean alsoResetLastComposedWord) {
         mWordComposer.reset();
-        updateInlineEmojiSearch();
         if (alsoResetLastComposedWord) {
             mLastComposedWord = LastComposedWord.NOT_A_COMPOSED_WORD;
         }
