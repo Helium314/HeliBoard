@@ -1670,7 +1670,9 @@ public class LatinIME extends InputMethodService implements
 
     @Override
     public void showSuggestionStrip() {
-        mSuggestionStripView.setToolbarVisibility(false);
+        if (hasSuggestionStripView()) {
+            mSuggestionStripView.setToolbarVisibility(false);
+        }
     }
 
     // Called from {@link SuggestionStripView} through the {@link SuggestionStripView#Listener}
