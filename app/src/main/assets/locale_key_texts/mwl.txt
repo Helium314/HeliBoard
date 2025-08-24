@@ -1,0 +1,7 @@
+[popup_keys]
+a á ª
+e é 
+i í
+o ó º
+u ú ũ
+c ç
