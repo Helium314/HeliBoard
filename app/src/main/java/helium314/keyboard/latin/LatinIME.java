@@ -1408,7 +1408,7 @@ public class LatinIME extends InputMethodService implements
         // Without this function the inline autofill suggestions will not be visible
         mHandler.cancelResumeSuggestions();
 
-        mSuggestionStripView.setExternalSuggestionView(inlineSuggestionView);
+        mSuggestionStripView.setExternalSuggestionView(inlineSuggestionView, true);
 
         return true;
     }
@@ -1686,7 +1686,7 @@ public class LatinIME extends InputMethodService implements
     public boolean tryShowClipboardSuggestion() {
         final View clipboardView = mClipboardHistoryManager.getClipboardSuggestionView(getCurrentInputEditorInfo(), mSuggestionStripView);
         if (clipboardView != null && hasSuggestionStripView()) {
-            mSuggestionStripView.setExternalSuggestionView(clipboardView);
+            mSuggestionStripView.setExternalSuggestionView(clipboardView, false);
             return true;
         }
         return false;
@@ -1723,6 +1723,12 @@ public class LatinIME extends InputMethodService implements
     @Override
     public void removeSuggestion(final String word) {
         mDictionaryFacilitator.removeWord(word);
+    }
+
+    @Override
+    public void removeExternalSuggestions() {
+        setNeutralSuggestionStrip();
+        mHandler.postResumeSuggestions(false);
     }
 
     private void loadKeyboard() {
