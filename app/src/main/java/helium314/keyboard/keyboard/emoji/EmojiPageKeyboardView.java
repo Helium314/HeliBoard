@@ -307,6 +307,9 @@ public final class EmojiPageKeyboardView extends KeyboardView implements
         final int x = mLastX;
         final int y = mLastY;
         if (popupKeysPanel != null) {
+            final int translatedX = popupKeysPanel.translateX(x - mPopupKeysKeyboardView.getLeft());
+            final int translatedY = popupKeysPanel.translateY(y);
+            popupKeysPanel.onDownEvent(translatedX, translatedY, mPointerId, 0 /* nor used for now */);
             // No need of re-allowing parent later as we don't
             // want any scroll to append during this entire input.
             disallowParentInterceptTouchEvent(true);
