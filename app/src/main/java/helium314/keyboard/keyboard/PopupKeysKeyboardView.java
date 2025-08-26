@@ -149,18 +149,22 @@ public class PopupKeysKeyboardView extends KeyboardView implements PopupKeysPane
 
         parentView.getLocationInWindow(mCoordinates);
         // Ensure the horizontal position of the panel does not extend past the parentView edges.
-        final int maxX = parentView.getMeasuredWidth() - container.getMeasuredWidth();
-        var finalX = Math.max(0, Math.min(maxX, x));
-        final int panelX = finalX + CoordinateUtils.x(mCoordinates);
+        final int containerMaxX = parentView.getMeasuredWidth() - container.getMeasuredWidth();
+        var containerFinalX = Math.max(0, Math.min(containerMaxX, x));
+        final int panelX = containerFinalX + CoordinateUtils.x(mCoordinates);
         final int panelY = y + CoordinateUtils.y(mCoordinates);
         container.setX(panelX);
         container.setY(panelY);
 
-        mOriginX = finalX + container.getPaddingLeft();
-        mOriginY = y + container.getPaddingTop();
-        var center = panelX + getMeasuredWidth() / 2;
         // This is needed for cases where there's also a long text popup above this keyboard
+        final int panelMaxX = parentView.getMeasuredWidth() - getMeasuredWidth();
+        var panelFinalX = Math.max(0, Math.min(panelMaxX, x));
+        setTranslationX(panelFinalX - containerFinalX);
+        var center = panelFinalX + getMeasuredWidth() / 2;
         controller.setLayoutGravity(center < pointX? Gravity.RIGHT : center > pointX? Gravity.LEFT : Gravity.CENTER_HORIZONTAL);
+
+        mOriginX = containerFinalX + container.getPaddingLeft() + panelFinalX - containerFinalX;
+        mOriginY = y + container.getPaddingTop();
         controller.onShowPopupKeysPanel(this);
         final PopupKeysKeyboardAccessibilityDelegate accessibilityDelegate = mAccessibilityDelegate;
         if (accessibilityDelegate != null

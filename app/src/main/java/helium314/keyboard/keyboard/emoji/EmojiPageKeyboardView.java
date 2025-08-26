@@ -211,13 +211,10 @@ public final class EmojiPageKeyboardView extends KeyboardView implements
 
     @Override
     public void setLayoutGravity(int layoutGravity) {
-        var layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
-                                                   ViewGroup.LayoutParams.WRAP_CONTENT);
-        layoutParams.gravity = mDescriptionView.getMeasuredWidth() > mPopupKeysKeyboardView.getMeasuredWidth()?
-                                layoutGravity : Gravity.CENTER_HORIZONTAL;
+        var layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        layoutParams.gravity = layoutGravity;
         mPopupKeysKeyboardContainer.setLayoutParams(layoutParams);
         mDescriptionView.setLayoutParams(layoutParams);
-        mPopupKeysKeyboardView.setLayoutParams(layoutParams);
     }
 
     @Override
