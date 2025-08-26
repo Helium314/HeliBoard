@@ -494,18 +494,6 @@ public final class StringUtils {
         return false;
     }
 
-    public static boolean mightBeEmoji(final CharSequence s) {
-        int offset = 0;
-        final int length = s.length();
-        while (offset < length) {
-            int c = Character.codePointAt(s, offset);
-            if (mightBeEmoji(c))
-                return true;
-            offset += Character.charCount(c);
-        }
-        return false;
-    }
-
     // unicode blocks that contain emojis
     // very fast check, but there are very few blocks that exclusively contain emojis,
     public static boolean mightBeEmoji(final int c) {

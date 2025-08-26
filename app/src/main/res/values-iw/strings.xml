@@ -84,7 +84,7 @@
     <string name="last_update">"עודכן לאחרונה"</string>
     <string name="settings">"הגדרות"</string>
     <string name="delete">"מחק"</string>
-    <string name="version_text">"גרסה %1$s"</string>
+    <string name="version_text">גרסה %s</string>
     <string name="user_dict_settings_add_dialog_title">הוספה למילון</string>
     <string name="user_dict_settings_add_shortcut_option_name">"קיצור דרך:"</string>
     <string name="user_dict_settings_add_locale_option_name">"שפה:"</string>
@@ -298,7 +298,7 @@
     <string name="select_user_colors_summary">בחירת צבעים למלל ולרקעים</string>
     <string name="select_color_background">רקע המקלדת</string>
     <string name="style_name_Rounded" tools:keep="@string/style_name_Rounded">מעוגל</string>
-    <string name="save_log">שמירת לוג</string>
+    <string name="save_log">שמירת יומן הרישום (לוג)</string>
     <string name="down" tools:keep="@string/down">מטה</string>
     <string name="button_select_language">בחירת השפה</string>
     <string name="delete_layout">באמת למחוק את הפריסה המותאמת %s?</string>
@@ -443,4 +443,13 @@
     <string name="toolbar_mode">מצב סרגל הכלים</string>
     <string name="toolbar_mode_expandable">פקדי סרגל הכלים והצעות</string>
     <string name="toolbar_mode_toolbar_keys">פקדי סרגל הכלים בלבד</string>
+    <string name="show_emoji_descriptions">הצגת תיאור אמוג\'י בלחיצה ממושכת</string>
+    <string name="show_emoji_descriptions_summary">נדרש מילון אמוג\'י</string>
+    <string name="suggest_emojis">הצעת אמוג\'ים</string>
+    <string name="suggest_emojis_summary">שימוש במילון האמוג\'ים בהצעות רגילות</string>
+    <string name="space_swipe_hide_keyboard_entry">הסתרת המקלדת</string>
+    <string name="suggest_punctuation">הצעות פיסוק</string>
+    <string name="suggest_punctuation_summary">הצגת פיסוק כאשר אין הצעות זמינות אחרות</string>
+    <string name="about_wiki_link">מעבר ל-Wiki</string>
+    <string name="about_wiki_link_description">ה-Wiki יכול להיות משופר ע\"י כל משתמש GitHub!</string>
 </resources>

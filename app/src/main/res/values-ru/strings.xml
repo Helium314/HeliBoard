@@ -170,7 +170,7 @@
     <string name="version">Версия</string>
     <string name="about_github_link">Посмотреть на GitHub</string>
     <string name="license">Лицензия с открытым исходным кодом</string>
-    <string name="gnu_gpl">GNU General Public License v3.0</string>
+    <string name="gnu_gpl">Стандартная общественная лицензия GNU v3.0</string>
     <string name="dialog_close">Закрыть</string>
     <string name="use_system_language_to_select_input_method_subtypes">Использовать языки системы</string>
     <string name="text_tap_languages">Нажмите на язык для настроек</string>
@@ -435,4 +435,13 @@
     <string name="toolbar_hiding_global">Скрыть панели инструментов буфера обмена и эмодзи</string>
     <string name="popup_order_and_hint_source">Порядок всплывающих клавиш и источник подсказок</string>
     <string name="landscape">Ландшафт</string>
+    <string name="show_emoji_descriptions">Показывать описание эмодзи при долгом нажатии</string>
+    <string name="show_emoji_descriptions_summary">Требуется словарь эмодзи</string>
+    <string name="suggest_emojis">Предложить эмодзи</string>
+    <string name="suggest_emojis_summary">Использовать словарь эмодзи в обычных предложениях</string>
+    <string name="suggest_punctuation">Предложения по пунктуации</string>
+    <string name="suggest_punctuation_summary">Показывать пунктуацию, когда другие предложения недоступны</string>
+    <string name="space_swipe_hide_keyboard_entry">Скрыть клавиатуру</string>
+    <string name="about_wiki_link">Перейти на Wiki</string>
+    <string name="about_wiki_link_description">Любой пользователь GitHub может улучшить Wiki!</string>
 </resources>

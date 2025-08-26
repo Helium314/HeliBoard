@@ -96,19 +96,19 @@ fun getFullEmojiAtEnd(text: CharSequence): String {
 }
 
 /**
- *  Returns whether the [text] does not end with word separator, ignoring all word connectors.
+ *  Returns whether the [text] ends with word codepoint, ignoring all word connectors.
  *  If the [text] is empty (after ignoring word connectors), the method returns false.
  */
-// todo: this returns true on numbers, why isn't Character.isLetter(code) used?
 fun endsWithWordCodepoint(text: String, spacingAndPunctuations: SpacingAndPunctuations): Boolean {
     if (text.isEmpty()) return false
-    var codePoint = 0 // initial value irrelevant since length is always > 0
+    var codePoint = Constants.NOT_A_CODE
     loopOverCodePointsBackwards(text) { cp, _ ->
-        codePoint = cp
-        !spacingAndPunctuations.isWordConnector(cp)
+        val isNotWordConnector = !spacingAndPunctuations.isWordConnector(cp)
+        if (isNotWordConnector)
+            codePoint = cp
+        isNotWordConnector
     }
-    // codePoint might still be a wordConnector (if text consists of wordConnectors)
-    return !spacingAndPunctuations.isWordConnector(codePoint) && !spacingAndPunctuations.isWordSeparator(codePoint)
+    return codePoint != Constants.NOT_A_CODE && spacingAndPunctuations.isWordCodePoint(codePoint)
 }
 
 // todo: simplify... maybe compare with original code?
@@ -241,8 +241,18 @@ fun containsValueWhenSplit(string: String?, value: String, split: String): Boole
     return string.split(split).contains(value)
 }
 
+/** returns whether the text contains a codepoint that might be an emoji */
+fun mightBeEmoji(text: CharSequence): Boolean {
+    loopOverCodePoints(text) { cp, _ ->
+        if (mightBeEmoji(cp)) return true
+        false
+    }
+    return false
+}
+
 fun isEmoji(c: Int): Boolean = mightBeEmoji(c) && isEmoji(newSingleCodePointString(c))
 
+/** returns whether the text is a single emoji */
 fun isEmoji(text: CharSequence): Boolean = mightBeEmoji(text) && text.matches(emoRegex)
 
 fun String.splitOnWhitespace() = SpacedTokens(this).toList()

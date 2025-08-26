@@ -12,7 +12,7 @@
     <string name="settings_screen_gesture">"Joonistusega sisestamine"</string>
     <string name="settings_screen_correction">"Teksti korrigeerimine"</string>
     <string name="settings_screen_advanced">Täiendavad seadistused</string>
-    <string name="settings_screen_theme">"Teema"</string>
+    <string name="settings_screen_theme">Kujundus</string>
     <string name="enable_split_keyboard">Kasuta kaheks jaotatud klahvistikku</string>
     <string name="language_switch_key_switch_input_method">"Vaheta sisestusmeetodit"</string>
     <string name="show_language_switch_key">"Keelevahetuse nupp"</string>
@@ -82,7 +82,7 @@
     <string name="dictionary_category_title">"Pistiksõnastikud"</string>
     <string name="dictionary_available">"Sõnastik on saadaval"</string>
     <string name="last_update">"Viimati värskendatud"</string>
-    <string name="settings">"Seaded"</string>
+    <string name="settings">Seadistused</string>
     <string name="delete">"Kustuta"</string>
     <string name="version_text">Versioon %s</string>
     <string name="user_dict_settings_add_dialog_title">"Sõnaraamatusse lisamine"</string>
@@ -165,7 +165,7 @@
     <string name="backup_error">Varunduse viga: %s</string>
     <string name="button_backup">Tee varukoopia</string>
     <string name="secondary_locale">Kirjutamine mitmes keeles</string>
-    <string name="switch_language">Vaheta ainult keelt</string>
+    <string name="switch_language">Vaheta keelt</string>
     <string name="backup_restore_message">Salvesta varukoopia faili ja taasta sealt. Hoiatus: taastamisel varasemad andmed kirjutatakse üle</string>
     <string name="restore_error">Viga varukoopiast taastamisel: %s</string>
     <string name="button_restore">Taasta</string>
@@ -472,4 +472,13 @@
     <string name="toolbar_hiding_global">Peida ka lõikelaud ja emojide rida</string>
     <string name="popup_order_and_hint_source">Klahvide järjestus hüpikaknas ja vihjete allikas</string>
     <string name="landscape">Rõhtvaade</string>
+    <string name="show_emoji_descriptions_summary">Selleks on vajalik emojide sõnastiku olemasolu</string>
+    <string name="show_emoji_descriptions">Näita emojide kirjeldusi pika vajutusega</string>
+    <string name="suggest_emojis">Soovita emojisid</string>
+    <string name="suggest_emojis_summary">Kasuta tavaliste soovituste jaoks emojide sõnastikku</string>
+    <string name="space_swipe_hide_keyboard_entry">Peida klahvistik</string>
+    <string name="suggest_punctuation">Kirjavahemärkide soovitused</string>
+    <string name="suggest_punctuation_summary">Kui muid soovitusi ei leidu, siis näita kirjavahemärkide soovitusi</string>
+    <string name="about_wiki_link_description">Iga GitHubi kasutaja võib viki importida!</string>
+    <string name="about_wiki_link">Ava viki leht</string>
 </resources>

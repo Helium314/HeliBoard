@@ -184,7 +184,7 @@ private fun adjustAutoColumnOrder(popupKeys: MutableCollection<String>) {
         return
     val temp = popupKeys.toList()
     popupKeys.clear()
-    popupKeys.add("${Key.POPUP_KEYS_AUTO_COLUMN_ORDER}${((temp.size + 1) / 2).coerceAtMost(10)}")
+    popupKeys.add("${Key.POPUP_KEYS_AUTO_COLUMN_ORDER}${((temp.size + 1) / 2).coerceAtMost(9)}")
     popupKeys.addAll(temp)
 }
 
