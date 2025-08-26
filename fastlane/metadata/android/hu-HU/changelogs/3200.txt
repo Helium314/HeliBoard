@@ -1,0 +1,10 @@
+* Eszköztármódok hozzáadása (lehetővé teszi az eszköztár elrejtését)
+* Néhány hiányzó emodzsiváltozat hozzáadása
+* Altípusképernyő és -szótár párbeszédablak javítása
+* Színek javítása sötét mód kényszerítésekor
+* A legtöbb álló / fekvő méretezési beállítás áthelyezése egy párbeszédablakba
+* Nem fordíthatóként megjelölt karakterláncok fordításainak eltávolítása
+* Következő képernyő nyílirányának javítása RTL nyelveknél
+* Héber nyelvi beállítás megfelelő betöltésének javítása Android 15-ön
+* Legalább egy alap billentyűzet biztosítása, ha a könyvtár egyáltalán nem működik
+* Kisebb hibajavítások

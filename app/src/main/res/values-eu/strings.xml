@@ -406,7 +406,7 @@
     <string name="layout_number_row_basic" tools:keep="@string/layout_number_row_basic">Zenbakien errenkada (oinarrizkoa)</string>
     <string name="subtype_baishakhi_bn_IN">%s (Baishakhi)</string>
     <string name="get_colors_message">%s-n koloreak aurki eta parteka ditzakezu.</string>
-    <string name="prefs_key_emoji_max_sdk">Override Emoji bertsioa</string>
+    <string name="prefs_key_emoji_max_sdk">Ez jaramonik egin Emoji bertsioari</string>
     <string name="prefs_emoji_skin_tone">Emojien azalaren tonu lehenetsia</string>
     <string name="subtype_generic_phonetic">%s (Phonetic)</string>
     <string name="after_numpad_and_space">Sartu edo zuriunea sakatuta, numpad-eko beste teklen ondoren</string>
@@ -432,4 +432,19 @@
     <string name="get_layouts_message">% s-n diseinuak aurki eta parteka ditzakezu.</string>
     <string name="discussion_section_link">eztabaiden atala</string>
     <string name="name_invalid">Izen baliogabea</string>
+    <string name="show_emoji_descriptions">Erakutsi emojiaren deskribapena luze sakatzean</string>
+    <string name="show_emoji_descriptions_summary">Emoji hiztegia eskatzen du</string>
+    <string name="suggest_emojis_summary">Erabili emoji hiztegia iradokizun normaletan</string>
+    <string name="suggest_emojis">Iradokitako emojiak</string>
+    <string name="toolbar_hiding_global">Ezkutatu arbela eta emojien tresna-barrak ere</string>
+    <string name="toolbar_mode_toolbar_keys">Tresna-barrako gakoak bakarrik</string>
+    <string name="toolbar_mode_expandable">Tresna-barrako gakoak eta iradokizunak</string>
+    <string name="toolbar_mode_hidden">Ezkutuan</string>
+    <string name="toolbar_mode_suggestion_strip">Iradokizunak bakarrik</string>
+    <string name="subtype_with_layout_generic">%1$s (%2$s)</string>
+    <string name="landscape">Horizontala</string>
+    <string name="label_zwj_key" tools:keep="@string/label_zwj_key">Zero zabalerako karakterea</string>
+    <string name="customize_toolbar_key_code_reset_message">Benetan garbitu nahi duzu pertsonalizatutako tekla kodeak?</string>
+    <string name="prefs_language_swipe_distance">Aldatu hizkuntza lerratzeko distantzia</string>
+    <string name="toolbar_mode">Tresna-barra modua</string>
 </resources>

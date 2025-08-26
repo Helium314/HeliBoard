@@ -84,7 +84,7 @@
     <string name="last_update">"Zuletzt aktualisiert"</string>
     <string name="settings">"Einstellungen"</string>
     <string name="delete">"Löschen"</string>
-    <string name="version_text">Version %1$s</string>
+    <string name="version_text">Version %s</string>
     <string name="user_dict_settings_add_dialog_title">"Zum Wörterbuch hinzufügen"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"Tastaturkürzel:"</string>
     <string name="user_dict_settings_add_locale_option_name">"Sprache:"</string>
@@ -435,4 +435,13 @@
     <string name="landscape">Querformat</string>
     <string name="toolbar_mode_suggestion_strip">Nur Vorschläge</string>
     <string name="toolbar_mode">Symbolleiste Modus</string>
+    <string name="show_emoji_descriptions_summary">Benötigt ein Emoji-Wörterbuch</string>
+    <string name="show_emoji_descriptions">Zeige Emoji-Beschreibung bei langem gedrückt halten</string>
+    <string name="suggest_emojis">Emojis vorschlagen</string>
+    <string name="suggest_emojis_summary">Emoji Wörterbuch in normalen Vorschlägen verwenden</string>
+    <string name="space_swipe_hide_keyboard_entry">Tastatur verstecken</string>
+    <string name="suggest_punctuation">Satzzeichen Vorschläge</string>
+    <string name="suggest_punctuation_summary">Zeige Satzzeichen wenn keine anderen Vorschläge verfügbar sind</string>
+    <string name="about_wiki_link_description">Das Wiki kann von jedem Github Nutzer verbessert werden!</string>
+    <string name="about_wiki_link">Zum Wiki gehen</string>
 </resources>

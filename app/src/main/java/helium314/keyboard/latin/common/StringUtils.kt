@@ -241,8 +241,18 @@ fun containsValueWhenSplit(string: String?, value: String, split: String): Boole
     return string.split(split).contains(value)
 }
 
+/** returns whether the text contains a codepoint that might be an emoji */
+fun mightBeEmoji(text: CharSequence): Boolean {
+    loopOverCodePoints(text) { cp, _ ->
+        if (mightBeEmoji(cp)) return true
+        false
+    }
+    return false
+}
+
 fun isEmoji(c: Int): Boolean = mightBeEmoji(c) && isEmoji(newSingleCodePointString(c))
 
+/** returns whether the text is a single emoji */
 fun isEmoji(text: CharSequence): Boolean = mightBeEmoji(text) && text.matches(emoRegex)
 
 fun String.splitOnWhitespace() = SpacedTokens(this).toList()

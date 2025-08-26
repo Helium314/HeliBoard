@@ -363,7 +363,40 @@
     <string name="layout_emoji_bottom_row" tools:keep="@string/layout_emoji_bottom_row">Emoji alt satırı</string>
     <string name="layout_clip_bottom_row" tools:keep="@string/layout_clip_bottom_row">Pano alt satırı</string>
     <string name="label_enter_key" tools:keep="@string/label_enter_key">Giriș</string>
-    <string name="label_tab_key" tools:keep="@string/label_tab_key">Tab</string>
+    <string name="label_tab_key" tools:keep="@string/label_tab_key">Sekme</string>
     <string name="label_delete_key" tools:keep="@string/label_delete_key">Sil</string>
     <string name="settings_category_space">Boşluk</string>
+    <string name="name_invalid">Geçersiz ad</string>
+    <string name="layout_number_row_basic" tools:keep="@string/layout_number_row_basic">Sayı satırı (temel)</string>
+    <string name="prefs_emoji_font_scale">Emoji görüntüleme boyutu</string>
+    <string name="label_toolbar_key" tools:keep="@string/label_toolbar_key">Araç çubuğunu göster/gizle</string>
+    <string name="vibrate_in_dnd_mode">Rahatsız etme kipinde titret</string>
+    <string name="prefs_emoji_key_fit">Emoji boyutunu yazı tipi boyutuna göre ölçeklendir</string>
+    <string name="settings_screen_secondary_layouts">İkincil düzenler</string>
+    <string name="label_shift_key_locked" tools:keep="@string/label_shift_key_locked">Caps lock</string>
+    <string name="autospace_before_gesture_typing">Bir sözcük yazmadan önce otomatik boşluk ekle</string>
+    <string name="label_shift_key" tools:keep="@string/label_shift_key">Shift</string>
+    <string name="use_apps_dict">Uygulama adlarında ara</string>
+    <string name="use_apps_dict_summary">Öneriler ve düzeltmeler için yüklü uygulamaların adlarını kullan</string>
+    <string name="toolbar_mode">Araç çubuğu kipi</string>
+    <string name="number_row_hints">Sayı satırında ipuçlarını göster</string>
+    <string name="split" tools:keep="@string/split">Bölünmüş klavye</string>
+    <string name="prefs_emoji_skin_tone">Varsayılan emoji cilt tonu</string>
+    <string name="prefs_emoji_skin_tone_neutral">Doğal</string>
+    <string name="label_space_key_for_number_layout" tools:keep="@string/label_space_key_for_number_layout">Boşluk (sayı düzeni)</string>
+    <string name="auto_correct_shortcuts_summary">Etkin kısayolları otomatik düzeltme ile genişlet</string>
+    <string name="shift_removes_autospace">Shift basarken otomatik boşluk ekleme</string>
+    <string name="toolbar_mode_toolbar_keys">Yalnızca araç çubuğu tuşları</string>
+    <string name="toolbar_mode_suggestion_strip">Yalnızca öneriler</string>
+    <string name="toolbar_mode_hidden">Gizli</string>
+    <string name="toolbar_hiding_global">Pano ve emoji araç çubuklarını da gizle</string>
+    <string name="prefs_font_scale">Klavye yazı tipi boyutu</string>
+    <string name="custom_font">Dosyadan özel yazı tipi seç</string>
+    <string name="prefs_key_emoji_max_sdk">Emoji sürümünü geçersiz kıl</string>
+    <string name="timestamp_format_title">Zaman damgası anahtarı için biçim</string>
+    <string name="autospace_after_gesture_typing">Bir sözcük yazma hareketinden sonra otomatik boşluk ekle</string>
+    <string name="show_emoji_descriptions">Uzun basmada emoji açıklamasını göster</string>
+    <string name="show_emoji_descriptions_summary">Bir emoji sözlüğü gerektirir</string>
+    <string name="autospace_after_suggestion">Bir öneri seçildikten sonra otomatik boşluk ekle</string>
+    <string name="subtype_with_layout_generic">%1$s (%2$s)</string>
 </resources>

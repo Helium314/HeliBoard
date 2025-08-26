@@ -1,10 +1,9 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!--
     Copyright (C) 2008 The Android Open Source Project
     modified
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
--->
-<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+--><resources xmlns:tools="http://schemas.android.com/tools">
     <string name="use_contacts_dict">"Tra cứu tên liên hệ"</string>
     <string name="vibrate_on_keypress">"Rung khi nhấn phím"</string>
     <string name="sound_on_keypress">"Phát âm thanh khi nhấn phím"</string>
@@ -106,6 +105,134 @@
     <string name="label_done_key">"Xong"</string>
     <string name="label_send_key">"Gửi"</string>
     <string name="label_search_key">"Tìm kiếm"</string>
-    <string name="label_pause_key">"Tdừng"</string>
+    <string name="label_pause_key">Dừng</string>
     <string name="label_wait_key">"Đợi"</string>
+    <string name="toast_msg_clipboard_copy">Nội dung đã sao chép</string>
+    <string name="version">Phiên bản</string>
+    <string name="about_github_link">Xem trên GitHub</string>
+    <string name="theme_name_sand" tools:keep="@string/theme_name_sand">Cát</string>
+    <string name="day_night_mode">Tự động chọn ngày/đêm</string>
+    <string name="spell_checker_service_name">Kiểm tra lỗi chính tả</string>
+    <string name="prefs_always_show_suggestions">Luôn hiển thị gợi ý</string>
+    <string name="dictionary_link_text">ở đây</string>
+    <string name="ime_settings">Cài đặt</string>
+    <string name="android_spell_checker_settings">Cài đặt trình kiểm tra lỗi chính tả</string>
+    <string name="select_word" tools:keep="@string/select_word">Chọn từ</string>
+    <string name="one_handed" tools:keep="@string/one_handed">Chế độ một tay</string>
+    <string name="auto_hide_toolbar">Tự động ẩn thanh công cụ</string>
+    <string name="switch_language">Chuyển đổi ngôn ngữ</string>
+    <string name="vibrate_in_dnd_mode">Rung trong chế độ không làm phiền</string>
+    <string name="settings_category_suggestions">Gợi ý</string>
+    <string name="delete_confirmation">Bạn có chắc muốn xoá %s?</string>
+    <string name="more_colors">Hiển thị màu khác</string>
+    <string name="all_colors">Hiển thị tất cả màu sắc</string>
+    <string name="left" tools:keep="@string/left">Trái</string>
+    <string name="hidden_features_title">Mô tả tính năng ẩn</string>
+    <string name="label_bin" tools:keep="@string/label_bin">Thùng rác</string>
+    <string name="prefs_emoji_skin_tone_neutral">Màu trung tính</string>
+    <string name="disable_personalized_dicts_message">Cảnh báo: Vô hiệu hoá mục này sẽ xoá dữ liệu đã lưu</string>
+    <string name="settings_category_experimental">Thử nghiệm</string>
+    <string name="suggest_clipboard_content">Gợi ý nội dung đã sao chép</string>
+    <string name="backup_restore_title">Lưu trữ và khôi phục</string>
+    <string name="button_restore">Khôi phục</string>
+    <string name="secondary_locale">Nhập đa ngôn ngữ</string>
+    <string name="url_detection_title">Phát hiện ra đường dẫn URL</string>
+    <string name="popup_keys_language_priority" tools:keep="@string/popup_keys_language_priority">Ngôn ngữ (ưu tiên)</string>
+    <string name="popup_keys_symbols" tools:keep="@string/popup_keys_symbols">Ký hiệu</string>
+    <string name="right" tools:keep="@string/right">Phải</string>
+    <string name="up" tools:keep="@string/up">Trên</string>
+    <string name="down" tools:keep="@string/down">Dưới</string>
+    <string name="customize_background_image">Đặt làm hình nền</string>
+    <string name="day_or_night_night">Đêm</string>
+    <string name="button_select_language">Chọn ngôn ngữ</string>
+    <string name="user_dict_settings_add_weight_value">Độ nặng:</string>
+    <string name="theme_colors_night">Màu (chế độ đêm)</string>
+    <string name="theme_name_light" tools:keep="@string/theme_name_light">Màu sáng</string>
+    <string name="theme_name_blue_gray" tools:keep="@string/theme_name_blue_gray">Xanh xám</string>
+    <string name="theme_name_brown" tools:keep="@string/theme_name_brown">Nâu</string>
+    <string name="theme_name_chocolate" tools:keep="@string/theme_name_chocolate">Sô cô la</string>
+    <string name="auto_user_color">Tự động chọn màu</string>
+    <string name="select_user_colors_summary">Chọn màu cho chữ và nền</string>
+    <string name="get_layouts_message">Bạn có thể tìm và chia sẻ bố cục tại %s.</string>
+    <string name="settings_screen_about">Giới thiệu</string>
+    <string name="license">Bản quyền về mã nguồn mở</string>
+    <string name="dialog_close">Đóng</string>
+    <string name="text_tap_languages">Nhấn vào mục ngôn ngữ để mở cài đặt</string>
+    <string name="settings_screen_toolbar">Thanh công cụ</string>
+    <string name="label_delete_key" tools:keep="@string/label_delete_key">Xoá</string>
+    <string name="label_shift_key_locked" tools:keep="@string/label_shift_key_locked">In hoa</string>
+    <string name="label_stop_onehanded_mode_key" tools:keep="@string/label_stop_onehanded_mode_key">Tắt chế độ 1 tay</string>
+    <string name="label_switch_onehanded_key" tools:keep="@string/label_switch_onehanded_key">Đổi sang chế độ 1 tay</string>
+    <string name="label_toolbar_key" tools:keep="@string/label_toolbar_key">Hiển thị / Ẩn thanh công cụ</string>
+    <string name="auto_show_toolbar">Tự động hiển thị thanh công cụ</string>
+    <string name="auto_hide_toolbar_summary">Ẩn thanh công cụ khi có gợi ý</string>
+    <string name="name_invalid">Tên không hợp lệ</string>
+    <string name="prefs_always_show_suggestions_summary">Bỏ qua yêu cầu của các ứng dụng khác để không hiển thị gợi ý (có thể gây hại)</string>
+    <string name="more_autocorrect">Các trình sửa lỗi khác</string>
+    <string name="suggest_clipboard_content_summary">Hiển thị nội dung đã sao chép trong phần gợi ý</string>
+    <string name="day_or_night_day">Ngày</string>
+    <string name="button_backup">Lưu trữ</string>
+    <string name="theme_colors">Màu sắc</string>
+    <string name="theme_name_pink" tools:keep="@string/theme_name_pink">Hồng</string>
+    <string name="main_colors">Chỉ hiển thị màu chính</string>
+    <string name="get_colors_message">Bạn có thể tìm và chia sẻ màu sắc tại %s.</string>
+    <string name="label_resize_onehanded_key" tools:keep="@string/label_resize_onehanded_key">Thay đổi kích thước chế độ 1 tay</string>
+    <string name="add_new_dictionary_title">Thêm từ điển từ file</string>
+    <string name="theme_name_darker" tools:keep="@string/theme_name_darker">Màu tối hơn</string>
+    <string name="number_row_summary">Luôn hiển thị số hàng</string>
+    <string name="center_suggestion_text_to_enter">Luôn hiển thị chữ được gợi ý ở giữa</string>
+    <string name="layout_symbols_arabic" tools:keep="@string/layout_symbols_arabic">Ký hiệu (tiếng Ả Rập)</string>
+    <string name="layout_symbols_shifted" tools:keep="@string/layout_symbols_shifted">Ký hiệu khác</string>
+    <string name="layout_number_row_basic" tools:keep="@string/layout_number_row_basic">Số hàng (cơ bản)</string>
+    <string name="abbreviation_unit_minutes">nhỏ nhất %s</string>
+    <string name="dictionary_settings_category">Từ điển</string>
+    <string name="prefs_force_incognito_mode_summary">Tắt trình học từ mới</string>
+    <string name="layout_number_row" tools:keep="@string/layout_number_row">Số hàng</string>
+    <string name="custom_font">Cài đặt phông chữ tuỳ chỉnh từ tập tin</string>
+    <string name="add_dictionary">Chọn từ điển để thêm. File từ điển có dạng .dict có thể tải %s.</string>
+    <string name="theme_name_dark" tools:keep="@string/theme_name_dark">Màu tối</string>
+    <string name="prefs_font_scale">Tỉ lệ phông chữ của bàn phím</string>
+    <string name="language_and_layouts_title">Ngôn ngữ và bố cục</string>
+    <string name="number_row">Số hàng</string>
+    <string name="layout_in_use">Cảnh báo: Bố cục này đang được sử dụng</string>
+    <string name="show_emoji_descriptions">Hiển thị mô tả biểu tượng cảm xúc khi nhấn giữ</string>
+    <string name="settings_no_limit">Không giới hạn</string>
+    <string name="suggest_emojis">Gợi ý biểu tượng cảm xúc</string>
+    <string name="settings_category_additional_keys">Phím bổ sung</string>
+    <string name="settings_category_correction">Trình sửa lỗi</string>
+    <string name="settings_category_space">Khoảng cách</string>
+    <string name="add_to_personal_dictionary">Thêm từ vào từ điển cá nhân</string>
+    <string name="gesture_floating_preview_static">Xem trước hiệu ứng nổi</string>
+    <string name="gesture_fast_typing_cooldown">Thời gian hồi lại khi gõ phím nhanh</string>
+    <string name="backup_error">Lỗi lưu trữ: %s</string>
+    <string name="restore_error">Lỗi khi khôi phục lại từ dữ liệu đã lưu: %s</string>
+    <string name="autospace_after_punctuation_summary">Tự động thêm khoảng trống sau dấu câu khi gõ một từ mới</string>
+    <string name="autospace_after_punctuation">Tự động thêm khoảng trống sau khi gõ dấu câu</string>
+    <string name="autospace_after_suggestion">Tự động thêm khoảng trống khi chọn một gợi ý</string>
+    <string name="autospace_after_gesture_typing">Tự động thêm khoảng trống sau khi gõ một từ</string>
+    <string name="autospace_before_gesture_typing">Tự động thêm khoảng trống trước khi gõ một từ</string>
+    <string name="more_keys_strip_description">Các phím khác</string>
+    <string name="button_title_add_custom_layout">Thêm bố cục tuỳ chỉnh</string>
+    <string name="layout_error">Lỗi bố cục: %s</string>
+    <string name="layout_symbols" tools:keep="@string/layout_symbols">Ký hiệu</string>
+    <string name="layout_phone" tools:keep="@string/layout_phone">Điện thoại</string>
+    <string name="layout_phone_symbols" tools:keep="@string/layout_phone_symbols">Ký hiệu trên điện thoại</string>
+    <string name="layout_number" tools:keep="@string/layout_number">Chữ số</string>
+    <string name="no_dictionary_dont_show_again_button">Đừng hiển thị lại</string>
+    <string name="dictionary_file_error">Lỗi: File đã chọn không phải là file từ điển</string>
+    <string name="dictionary_file_wrong_locale_ok">Vẫn muốn sử dụng</string>
+    <string name="user_dict_word_already_present">Từ này đã có ở từ điển người dùng %s. Xin hãy nhập từ khác.</string>
+    <string name="user_dict_add_word_button">Thêm một từ</string>
+    <string name="theme_name_black" tools:keep="@string/theme_name_black">Đen</string>
+    <string name="theme_name_cloudy" tools:keep="@string/theme_name_cloudy">Mây</string>
+    <string name="theme_name_forest" tools:keep="@string/theme_name_forest">Rừng</string>
+    <string name="theme_name_indigo" tools:keep="@string/theme_name_indigo">Màu chàm</string>
+    <string name="theme_name_ocean" tools:keep="@string/theme_name_ocean">Xanh đại dương</string>
+    <string name="select_color_background">Hình nền bàn phím</string>
+    <string name="no_dictionary_message">"Nếu không có từ điển, bạn sẽ chỉ thấy gợi ý cho chữ mà bạn đã nhập trước đó.&lt;br&gt;\n        Bạn có thể tải từ điển %1$s, hoặc kiểm tra từ điển \"%2$s\" được tải trực tiếp %3$s."</string>
+    <string name="add_to_personal_dictionary_summary">Sử dụng từ điển cá nhân trên thiết bị để lưu trữ từ</string>
+    <string name="backup_restored">Khôi phục dữ liệu đã lưu trữ thành công</string>
+    <string name="prefs_space_bar_text">Tuỳ chỉnh chữ cho phím khoảng cách</string>
+    <string name="suggest_emojis_summary">Sử dụng từ điển biểu tượng cảm xúc trong chế độ gợi ý thường</string>
+    <string name="center_suggestion_text_to_enter_summary">Khi nhấn giữ phím khoảng cách hoặc dấu câu, gợi ý ở giữa sẽ được nhập vào</string>
 </resources>

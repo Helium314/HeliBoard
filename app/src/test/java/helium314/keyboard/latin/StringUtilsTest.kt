@@ -4,10 +4,14 @@ package helium314.keyboard.latin
 import androidx.test.core.app.ApplicationProvider
 import helium314.keyboard.ShadowInputMethodManager2
 import helium314.keyboard.latin.common.StringUtils
+import helium314.keyboard.latin.common.codePointAt
+import helium314.keyboard.latin.common.codePointBefore
 import helium314.keyboard.latin.common.endsWithWordCodepoint
 import helium314.keyboard.latin.common.getFullEmojiAtEnd
 import helium314.keyboard.latin.common.getTouchedWordRange
+import helium314.keyboard.latin.common.isEmoji
 import helium314.keyboard.latin.common.nonWordCodePointAndNoSpaceBeforeCursor
+import helium314.keyboard.latin.common.splitOnWhitespace
 import helium314.keyboard.latin.settings.SpacingAndPunctuations
 import helium314.keyboard.latin.utils.ScriptUtils
 import helium314.keyboard.latin.utils.TextRange
@@ -140,6 +144,34 @@ class StringUtilsTest {
         assertEquals("", getFullEmojiAtEnd("\u200D"))
         assertEquals("", getFullEmojiAtEnd("a\u200D"))
         assertEquals("\uD83D\uDE22", getFullEmojiAtEnd(" \u200D\uD83D\uDE22"))
+    }
+
+    @Test fun isEmojiDetectsSingleEmojis() {
+        assert(isEmoji("🎄"))
+        assert(!isEmoji("🎄🎄"))
+        assert(!isEmoji("🎄🏼"))
+        assert(isEmoji("🏼")) // actually this is not a standalone emoji...
+        assert(!isEmoji("a🎄"))
+        assert(isEmoji("🖐️"))
+        assert(isEmoji("🖐🏾"))
+        assert(!isEmoji("🖐🏾🏼"))
+    }
+
+    @Test fun isEmojiDetectsAllAvailableEmojis() {
+        val ctx = ApplicationProvider.getApplicationContext<App>()
+        val allEmojis = ctx.assets.list("emoji")!!.flatMap {
+            if (it == "minApi.txt" || it == "EMOTICONS.txt") return@flatMap emptyList()
+            ctx.assets.open("emoji/$it").reader().readLines()
+        }.flatMap { it.splitOnWhitespace() }
+
+        val brokenDetectionAtStart = listOf("〰️", "〽️", "©️", "®️", "#️⃣", "*️⃣", "0️⃣", "1️⃣", "2️⃣", "3️⃣", "4️⃣", "5️⃣", "6️⃣", "7️⃣", "8️⃣", "9️⃣", "㊗️", "㊙️")
+        allEmojis.forEach {
+            if (it == "🀄" || it == "🃏") return@forEach // todo: should be fixed, ideally in the regex
+            assert(isEmoji(it))
+            assert(StringUtils.mightBeEmoji(it.codePointBefore(it.length)))
+            if (it !in brokenDetectionAtStart)
+                assert(StringUtils.mightBeEmoji(it.codePointAt(0)))
+        }
     }
 
     // todo: add tests for emoji detection?
