@@ -486,7 +486,8 @@ class Suggest(private val mDictionaryFacilitator: DictionaryFacilitator) {
                     || -1 == info.mWord.indexOf(Constants.CODE_SPACE.toChar()))
         }
 
-        private fun getTransformedSuggestedWordInfo(
+        // public for testing
+        fun getTransformedSuggestedWordInfo(
             wordInfo: SuggestedWordInfo, locale: Locale, isAllUpperCase: Boolean,
             isOnlyFirstCharCapitalized: Boolean, trailingSingleQuotesCount: Int
         ): SuggestedWordInfo {
@@ -497,7 +498,7 @@ class Suggest(private val mDictionaryFacilitator: DictionaryFacilitator) {
             val quotesToAppend = (trailingSingleQuotesCount
                     - if (-1 == wordInfo.mWord.indexOf(Constants.CODE_SINGLE_QUOTE.toChar())) 0 else 1)
             for (i in quotesToAppend - 1 downTo 0) {
-                capitalizedWord = capitalizedWord + Constants.CODE_SINGLE_QUOTE
+                capitalizedWord = "$capitalizedWord'"
             }
             return SuggestedWordInfo(
                 capitalizedWord, wordInfo.mPrevWordsContext,
