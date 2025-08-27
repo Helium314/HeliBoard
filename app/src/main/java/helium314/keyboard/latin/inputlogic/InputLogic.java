@@ -994,7 +994,7 @@ public final class InputLogic {
         // We never go into composing state if suggestions are not requested.
                 && settingsValues.needsToLookupSuggestions() &&
         // In languages with spaces, we only start composing a word when we are not already
-        // touching a word. In languages without spaces, the above conditions are sufficient.
+        // in the middle or at the end of a word. In languages without spaces, the above conditions are sufficient.
         // NOTE: If the InputConnection is slow, we skip the text-after-cursor check since it
         // can incur a very expensive getTextAfterCursor() lookup, potentially making the
         // keyboard UI slow and non-responsive.
@@ -1003,7 +1003,7 @@ public final class InputLogic {
                 (!settingsValues.mSpacingAndPunctuations.mCurrentLanguageHasSpaces
                         || !mConnection.isCursorTouchingWord(settingsValues.mSpacingAndPunctuations,
                                 !mConnection.hasSlowInputConnection() /* checkTextAfter */)
-                        || isCodePointBeforeCursorAWordSeparatorOrNone(settingsValues))) {
+                        || isCursorAtStartOrAfterSeparator(settingsValues))) {
             // Reset entirely the composing state anyway, then start composing a new word unless
             // the character is a word connector. The idea here is, word connectors are not
             // separators and they should be treated as normal characters, except in the first
@@ -1040,7 +1040,7 @@ public final class InputLogic {
         inputTransaction.setRequiresUpdateSuggestions();
     }
 
-    private boolean isCodePointBeforeCursorAWordSeparatorOrNone(SettingsValues settingsValues) {
+    private boolean isCursorAtStartOrAfterSeparator(SettingsValues settingsValues) {
         var codePointBeforeCursor = mConnection.getCodePointBeforeCursor();
         return codePointBeforeCursor == Constants.NOT_A_CODE
                 || settingsValues.mSpacingAndPunctuations.isWordSeparator(codePointBeforeCursor);
