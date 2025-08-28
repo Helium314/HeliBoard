@@ -43,6 +43,7 @@ import android.view.inputmethod.InputMethodSubtype;
 import helium314.keyboard.accessibility.AccessibilityUtils;
 import helium314.keyboard.compat.ConfigurationCompatKt;
 import helium314.keyboard.compat.EditorInfoCompatUtils;
+import helium314.keyboard.compat.IsLockedCompatKt;
 import helium314.keyboard.keyboard.KeyboardActionListener;
 import helium314.keyboard.keyboard.KeyboardActionListenerImpl;
 import helium314.keyboard.keyboard.internal.KeyboardIconsSet;
@@ -1684,6 +1685,10 @@ public class LatinIME extends InputMethodService implements
      *  returns whether a clipboard suggestion has been set.
      */
     public boolean tryShowClipboardSuggestion() {
+        if (IsLockedCompatKt.isDeviceLocked(this)) {
+            return false;
+        }
+
         final View clipboardView = mClipboardHistoryManager.getClipboardSuggestionView(getCurrentInputEditorInfo(), mSuggestionStripView);
         if (clipboardView != null && hasSuggestionStripView()) {
             mSuggestionStripView.setExternalSuggestionView(clipboardView);
