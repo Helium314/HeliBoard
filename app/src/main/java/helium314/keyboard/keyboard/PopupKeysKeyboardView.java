@@ -158,17 +158,16 @@ public class PopupKeysKeyboardView extends KeyboardView implements PopupKeysPane
         var layoutGravity = center < pointX - getKeyboard().mMostCommonKeyWidth / 2?
                         Gravity.RIGHT : center > pointX + getKeyboard().mMostCommonKeyWidth / 2? Gravity.LEFT : Gravity.CENTER_HORIZONTAL;
 
-        // Ensure the horizontal position of the panel does not extend past the parentView edges.
-        int containerFinalX;
+        int containerAdjustedX = x;
         if (getMeasuredWidth() < container.getMeasuredWidth()) {
-            containerFinalX = layoutGravity == Gravity.LEFT? panelFinalX : layoutGravity == Gravity.RIGHT
-                ? Math.max(0, panelFinalX + getMeasuredWidth() - container.getMeasuredWidth())
-                : Math.max(0, panelFinalX + getMeasuredWidth() / 2 - container.getMeasuredWidth() / 2);
-        } else {
-            final int containerMaxX = parentView.getMeasuredWidth() - container.getMeasuredWidth();
-            containerFinalX = Math.max(0, Math.min(containerMaxX, x));
+            containerAdjustedX = layoutGravity == Gravity.LEFT? panelFinalX : layoutGravity == Gravity.RIGHT
+                ? panelFinalX + getMeasuredWidth() - container.getMeasuredWidth()
+                : panelFinalX + (getMeasuredWidth() - container.getMeasuredWidth()) / 2;
         }
 
+        // Ensure the horizontal position of the panel does not extend past the parentView edges.
+        int containerMaxX = parentView.getMeasuredWidth() - container.getMeasuredWidth();
+        int containerFinalX = Math.max(0, Math.min(containerMaxX, containerAdjustedX));
         int containerX = containerFinalX + CoordinateUtils.x(mCoordinates);
         container.setX(containerX);
         setTranslationX(panelFinalX - containerFinalX);
