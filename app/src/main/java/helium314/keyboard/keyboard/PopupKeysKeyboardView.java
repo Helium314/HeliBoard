@@ -148,20 +148,31 @@ public class PopupKeysKeyboardView extends KeyboardView implements PopupKeysPane
                 + getPaddingBottom();
 
         parentView.getLocationInWindow(mCoordinates);
-        // Ensure the horizontal position of the panel does not extend past the parentView edges.
-        final int containerMaxX = parentView.getMeasuredWidth() - container.getMeasuredWidth();
-        var containerFinalX = Math.max(0, Math.min(containerMaxX, x));
-        final int panelX = containerFinalX + CoordinateUtils.x(mCoordinates);
-        final int panelY = y + CoordinateUtils.y(mCoordinates);
-        container.setX(panelX);
-        container.setY(panelY);
+        final int containerY = y + CoordinateUtils.y(mCoordinates);
+        container.setY(containerY);
 
-        // This is needed for cases where there's also a long text popup above this keyboard
+        // This is needed for cases where there's also a text popup above this keyboard
         final int panelMaxX = parentView.getMeasuredWidth() - getMeasuredWidth();
         var panelFinalX = Math.max(0, Math.min(panelMaxX, x));
-        setTranslationX(panelFinalX - containerFinalX);
         var center = panelFinalX + getMeasuredWidth() / 2;
-        controller.setLayoutGravity(center < pointX? Gravity.RIGHT : center > pointX? Gravity.LEFT : Gravity.CENTER_HORIZONTAL);
+        var layoutGravity = center < pointX - getKeyboard().mMostCommonKeyWidth / 2?
+                        Gravity.RIGHT : center > pointX + getKeyboard().mMostCommonKeyWidth / 2? Gravity.LEFT : Gravity.CENTER_HORIZONTAL;
+
+        // Ensure the horizontal position of the panel does not extend past the parentView edges.
+        int containerFinalX;
+        if (getMeasuredWidth() < container.getMeasuredWidth()) {
+            containerFinalX = layoutGravity == Gravity.LEFT? panelFinalX : layoutGravity == Gravity.RIGHT
+                ? Math.max(0, panelFinalX + getMeasuredWidth() - container.getMeasuredWidth())
+                : Math.max(0, panelFinalX + getMeasuredWidth() / 2 - container.getMeasuredWidth() / 2);
+        } else {
+            final int containerMaxX = parentView.getMeasuredWidth() - container.getMeasuredWidth();
+            containerFinalX = Math.max(0, Math.min(containerMaxX, x));
+        }
+
+        int containerX = containerFinalX + CoordinateUtils.x(mCoordinates);
+        container.setX(containerX);
+        setTranslationX(panelFinalX - containerFinalX);
+        controller.setLayoutGravity(layoutGravity);
 
         mOriginX = containerFinalX + container.getPaddingLeft() + panelFinalX - containerFinalX;
         mOriginY = y + container.getPaddingTop();
