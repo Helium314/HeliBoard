@@ -313,6 +313,15 @@
         android:isAsciiCapable="false"
     />
     <subtype android:icon="@drawable/ic_ime_switcher"
+        android:label="@string/subtype_khipro_bn"
+        android:subtypeId="0xa2144c0e"
+        android:imeSubtypeLocale="bn_BD"
+        android:languageTag="bn-BD"
+        android:imeSubtypeMode="keyboard"
+        android:imeSubtypeExtraValue="KeyboardLayoutSet=MAIN:en_khipro|FUNCTIONAL:functional_keys_khipro|SYMBOLS:symbols|MORE_SYMBOLS:symbols_shifted,CombiningRules=bn_khipro,EmojiCapable"
+        android:isAsciiCapable="true"
+    />
+    <subtype android:icon="@drawable/ic_ime_switcher"
         android:label="@string/subtype_generic"
         android:subtypeId="0xd2e520d5"
         android:imeSubtypeLocale="ca"

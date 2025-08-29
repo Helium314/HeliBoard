@@ -1,0 +1,34 @@
+[
+  [
+    { "label": "q" },
+    { "label": "w" },
+    { "label": "e" },
+    { "label": "r" },
+    { "label": "t" },
+    { "label": "y" },
+    { "label": "u" },
+    { "label": "i" },
+    { "label": "o" },
+    { "label": "p" }
+  ],
+  [
+    { "label": "a" },
+    { "label": "s" },
+    { "label": "d" },
+    { "label": "f" },
+    { "label": "g" },
+    { "label": "h" },
+    { "label": "j" },
+    { "label": "k" },
+    { "label": "l" }
+  ],
+  [
+    { "label": "z" },
+    { "label": "x" },
+    { "label": "c" },
+    { "label": "v" },
+    { "label": "b", "popup": { "relevant": [{ "label": "/" }] } },
+    { "label": "n" },
+    { "label": "m" }
+  ]
+]
