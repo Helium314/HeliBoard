@@ -40,9 +40,9 @@ class BnKhiproCombiner : Combiner {
             "fw" to "ো", "w" to "ও",
             "fou" to "ৌ", "ou" to "ঔ",
             "fae" to "্যা", "ae" to "অ্যা",
-            "wa" to "ওয়া", "fwa" to "োয়া",
-            "wae" to "ওয়্যা",
-            "we" to "ওয়ে", "fwe" to "োয়ে",
+            "wa" to "ওয়া", "fwa" to "োয়া",
+            "wae" to "ওয়্যা",
+            "we" to "ওয়ে", "fwe" to "োয়ে",
             "ngo" to "ঙ", "nga" to "ঙা", "ngi" to "ঙি", "ngii" to "ঙী", "ngu" to "ঙু",
             "nguff" to "ঙ", "nguu" to "ঙূ", "nguuff" to "ঙ", "ngq" to "ঙৃ", "nge" to "ঙে",
             "ngoi" to "ঙৈ", "ngw" to "ঙো", "ngou" to "ঙৌ", "ngae" to "ঙ্যা"
@@ -55,7 +55,7 @@ class BnKhiproCombiner : Combiner {
             "t" to "ত", "th" to "থ", "d" to "দ", "dh" to "ধ", "n" to "ন",
             "p" to "প", "ph" to "ফ", "b" to "ব", "v" to "ভ", "m" to "ম",
             "z" to "য", "l" to "ল", "sh" to "শ", "sf" to "ষ", "s" to "স", "h" to "হ",
-            "y" to "য়", "rf" to "ড়", "rff" to "ঢ়",
+            "y" to "য়", "rf" to "ড়", "rff" to "ঢ়",
             ",," to "়"
         )
 
@@ -73,7 +73,7 @@ class BnKhiproCombiner : Combiner {
             "jj" to "জ্জ", "jjb" to "জ্জ্ব", "jjh" to "জ্ঝ", "jnff" to "জ্ঞ", "gg" to "জ্ঞ", "jb" to "জ্ব", "jz" to "জ্য", "jr" to "জ্র",
             "nc" to "ঞ্চ", "nffc" to "ঞ্চ", "nj" to "ঞ্জ", "nffj" to "ঞ্জ", "njh" to "ঞ্ঝ", "nffjh" to "ঞ্ঝ", "nch" to "ঞ্ছ", "nffch" to "ঞ্ছ",
             "ttf" to "ট্ট", "tftf" to "ট্ট", "tfb" to "ট্ব", "tfm" to "ট্ম", "tfz" to "ট্য", "tfr" to "ট্র",
-            "ddf" to "ড্ড", "dfdf" to "ড্ড", "dfb" to "ড্ব", "dfz" to "ড্য", "dfr" to "ড্র", "rfg" to "ড়্‌গ",
+            "ddf" to "ড্ড", "dfdf" to "ড্ড", "dfb" to "ড্ব", "dfz" to "ড্য", "dfr" to "ড্র", "rfg" to "ড়্‌গ",
             "dffz" to "ঢ্য", "dfhz" to "ঢ্য", "dffr" to "ঢ্র", "dfhr" to "ঢ্র",
             "nftf" to "ণ্ট", "nftff" to "ণ্ঠ", "nftfh" to "ণ্ঠ", "nftffz" to "ণ্ঠ্য", "nftfhz" to "ণ্ঠ্য", "nfdf" to "ণ্ড", "nfdfz" to "ণ্ড্য", "nfdfr" to "ণ্ড্র", "nfdff" to "ণ্ঢ", "nfdfh" to "ণ্ঢ", "nfnf" to "ণ্ণ", "nfn" to "ণ্ণ", "nfb" to "ণ্ব", "nfm" to "ণ্ম", "nfz" to "ণ্য",
             "tt" to "ত্ত", "ttb" to "ত্ত্ব", "ttz" to "ত্ত্য", "tth" to "ত্থ", "tn" to "ত্ন", "tb" to "ত্ব", "tm" to "ত্ম", "tmz" to "ত্ম্য", "tz" to "ত্য", "tr" to "ত্র", "trz" to "ত্র্য",
@@ -98,14 +98,14 @@ class BnKhiproCombiner : Combiner {
             "ksh" to "কশ", "nsh" to "নশ", "psh" to "পশ", "ld" to "লদ", "gd" to "গদ", "ngkk" to "ঙ্কক", "ngks" to "ঙ্কস", "cn" to "চন", "cnf" to "চণ", "jn" to "জন", "jnf" to "জণ", "tft" to "টত", "dfd" to "ডদ",
             "nft" to "ণত", "nfd" to "ণদ", "lt" to "লত", "sft" to "ষত", "nfth" to "ণথ", "nfdh" to "ণধ", "sfth" to "ষথ",
             "ktff" to "কঠ", "ktfh" to "কঠ", "ptff" to "পঠ", "ptfh" to "পঠ", "ltff" to "লঠ", "ltfh" to "লঠ", "stff" to "সঠ", "stfh" to "সঠ", "dfdff" to "ডঢ", "dfdfh" to "ডঢ", "ndff" to "নঢ", "ndfh" to "নঢ",
-            "ktfrf" to "ক্টড়", "ktfrff" to "ক্টঢ়", "kth" to "কথ", "ktrf" to "ক্তড়", "ktrff" to "ক্তঢ়", "krf" to "কড়", "krff" to "কঢ়", "khrf" to "খড়", "khrff" to "খঢ়", "gggh" to "জ্ঞঘ", "gdff" to "গঢ", "gdfh" to "গঢ", "gdhrf" to "গ্ধড়",
-            "gdhrff" to "গ্ধঢ়", "grf" to "গড়", "grff" to "গঢ়", "ghrf" to "ঘড়", "ghrff" to "ঘঢ়", "ngkth" to "ঙ্কথ", "ngkrf" to "ঙ্কড়", "ngkrff" to "ঙ্কঢ়", "ngghrf" to "ঙ্ঘড়", "ngghrff" to "ঙ্ঘঢ়", "cchrf" to "চ্ছড়", "cchrff" to "চ্ছঢ়",
-            "tfrf" to "টড়", "tfrff" to "টঢ়", "dfrf" to "ডড়", "dfrff" to "ডঢ়", "rfgh" to "ড়ঘ", "dffrf" to "ঢড়", "dfhrf" to "ঢড়", "dffrff" to "ঢঢ়", "dfhrff" to "ঢঢ়", "nfdfrf" to "ণ্ডড়", "nfdfrff" to "ণ্ডঢ়", "trf" to "তড়", "trff" to "তঢ়", "thrf" to "থড়", "thrff" to "থঢ়",
-            "dvrf" to "দ্ভড়", "dvrff" to "দ্ভঢ়", "drf" to "দড়", "drff" to "দঢ়", "dhrf" to "ধড়", "dhrff" to "ধঢ়", "ntfrf" to "ন্টড়", "ntfrff" to "ন্টঢ়", "ndfrf" to "ন্ডড়", "ndfrff" to "ন্ডঢ়", "ntrf" to "ন্তড়", "ntrff" to "ন্তঢ়", "nthrf" to "ন্থড়",
-            "nthrff" to "ন্থঢ়", "ndrf" to "ন্দড়", "ndrff" to "ন্দঢ়", "ndhrf" to "ন্ধড়", "ndhrff" to "ন্ধঢ়", "pth" to "পথ", "pph" to "পফ", "prf" to "পড়", "prff" to "পঢ়", "phrf" to "ফড়", "phrff" to "ফঢ়", "bjh" to "বঝ", "brf" to "বড়", "brff" to "বঢ়",
-            "vrf" to "ভড়", "vrff" to "ভঢ়", "mprf" to "ম্পড়", "mprff" to "ম্পঢ়", "mbrf" to "ম্বড়", "mbrff" to "ম্বঢ়", "mvrf" to "ম্ভড়", "mvrff" to "ম্ভঢ়", "mrf" to "মড়", "mrff" to "মঢ়", "lkh" to "লখ", "lgh" to "লঘ", "shrf" to "শড়", "shrff" to "শঢ়", "sfkh" to "ষখ",
-            "sfkrf" to "ষ্কড়", "sfkrff" to "ষ্কঢ়", "sftfrf" to "ষ্টড়", "sftfrff" to "ষ্টঢ়", "sfprf" to "ষ্পড়", "sfprff" to "ষ্পঢ়", "skrf" to "স্কড়", "skrff" to "স্কঢ়", "stfrf" to "স্টড়", "stfrff" to "স্টঢ়", "strf" to "স্তড়", "strff" to "স্তঢ়", "sprf" to "স্পড়", "sprff" to "স্পঢ়",
-            "srf" to "সড়", "srff" to "সঢ়", "hrf" to "হড়", "hrff" to "হঢ়", "ldh" to "লধ", "ngksh" to "ঙ্কশ", "tfth" to "টথ", "dfdh" to "ডধ", "lth" to "লথ",
+            "ktfrf" to "ক্টড়", "ktfrff" to "ক্টঢ়", "kth" to "কথ", "ktrf" to "ক্তড়", "ktrff" to "ক্তঢ়", "krf" to "কড়", "krff" to "কঢ়", "khrf" to "খড়", "khrff" to "খঢ়", "gggh" to "জ্ঞঘ", "gdff" to "গঢ", "gdfh" to "গঢ", "gdhrf" to "গ্ধড়",
+            "gdhrff" to "গ্ধঢ়", "grf" to "গড়", "grff" to "গঢ়", "ghrf" to "ঘড়", "ghrff" to "ঘঢ়", "ngkth" to "ঙ্কথ", "ngkrf" to "ঙ্কড়", "ngkrff" to "ঙ্কঢ়", "ngghrf" to "ঙ্ঘড়", "ngghrff" to "ঙ্ঘঢ়", "cchrf" to "চ্ছড়", "cchrff" to "চ্ছঢ়",
+            "tfrf" to "টড়", "tfrff" to "টঢ়", "dfrf" to "ডড়", "dfrff" to "ডঢ়", "rfgh" to "ড়ঘ", "dffrf" to "ঢড়", "dfhrf" to "ঢড়", "dffrff" to "ঢঢ়", "dfhrff" to "ঢঢ়", "nfdfrf" to "ণ্ডড়", "nfdfrff" to "ণ্ডঢ়", "trf" to "তড়", "trff" to "তঢ়", "thrf" to "থড়", "thrff" to "থঢ়",
+            "dvrf" to "দ্ভড়", "dvrff" to "দ্ভঢ়", "drf" to "দড়", "drff" to "দঢ়", "dhrf" to "ধড়", "dhrff" to "ধঢ়", "ntfrf" to "ন্টড়", "ntfrff" to "ন্টঢ়", "ndfrf" to "ন্ডড়", "ndfrff" to "ন্ডঢ়", "ntrf" to "ন্তড়", "ntrff" to "ন্তঢ়", "nthrf" to "ন্থড়",
+            "nthrff" to "ন্থঢ়", "ndrf" to "ন্দড়", "ndrff" to "ন্দঢ়", "ndhrf" to "ন্ধড়", "ndhrff" to "ন্ধঢ়", "pth" to "পথ", "pph" to "পফ", "prf" to "পড়", "prff" to "পঢ়", "phrf" to "ফড়", "phrff" to "ফঢ়", "bjh" to "বঝ", "brf" to "বড়", "brff" to "বঢ়",
+            "vrf" to "ভড়", "vrff" to "ভঢ়", "mprf" to "ম্পড়", "mprff" to "ম্পঢ়", "mbrf" to "ম্বড়", "mbrff" to "ম্বঢ়", "mvrf" to "ম্ভড়", "mvrff" to "ম্ভঢ়", "mrf" to "মড়", "mrff" to "মঢ়", "lkh" to "লখ", "lgh" to "লঘ", "shrf" to "শড়", "shrff" to "শঢ়", "sfkh" to "ষখ",
+            "sfkrf" to "ষ্কড়", "sfkrff" to "ষ্কঢ়", "sftfrf" to "ষ্টড়", "sftfrff" to "ষ্টঢ়", "sfprf" to "ষ্পড়", "sfprff" to "ষ্পঢ়", "skrf" to "স্কড়", "skrff" to "স্কঢ়", "stfrf" to "স্টড়", "stfrff" to "স্টঢ়", "strf" to "স্তড়", "strff" to "স্তঢ়", "sprf" to "স্পড়", "sprff" to "স্পঢ়",
+            "srf" to "সড়", "srff" to "সঢ়", "hrf" to "হড়", "hrff" to "হঢ়", "ldh" to "লধ", "ngksh" to "ঙ্কশ", "tfth" to "টথ", "dfdh" to "ডধ", "lth" to "লথ",
         )
 
         private val REPH = mapOf(
@@ -132,9 +132,9 @@ class BnKhiproCombiner : Combiner {
             "ou" to "ৌ", "ouf" to "উ",
             "ae" to "্যা", "aef" to "অ্যা",
             "uff" to "‌ু", "uuff" to "‌ূ", "qff" to "‌ৃ",
-            "we" to "োয়ে", "wef" to "ওয়ে",
-            "waf" to "ওয়া", "wa" to "োয়া",
-            "wae" to "ওয়্যা"
+            "we" to "োয়ে", "wef" to "ওয়ে",
+            "waf" to "ওয়া", "wa" to "োয়া",
+            "wae" to "ওয়্যা"
         )
 
         private val DIACRITIC = mapOf(
