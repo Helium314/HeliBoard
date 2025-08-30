@@ -1,6 +1,6 @@
 [
   [
-    { "label": ";", "width": 0.15 },
+    { "label": ";", "width": 0.15, "popup": { "relevant": [{ "label": "/" }] } },
     { "type": "placeholder" },
     { "label": "delete", "width": 0.15 }
   ],
