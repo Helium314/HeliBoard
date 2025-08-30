@@ -401,11 +401,7 @@ public final class InputLogic {
         // Stop the last recapitalization, if started.
         mRecapitalizeStatus.stop();
         mWordBeingCorrectedByCursor = null;
-
-        // we do not return true if
-        final boolean oneSidedSelectionMove = hasOrHadSelection
-            && ((oldSelEnd == newSelEnd && oldSelStart != newSelStart) || (oldSelEnd != newSelEnd && oldSelStart == newSelStart));
-        return !oneSidedSelectionMove;
+        return true;
     }
 
     public boolean moveCursorByAndReturnIfInsideComposingWord(int distance) {
