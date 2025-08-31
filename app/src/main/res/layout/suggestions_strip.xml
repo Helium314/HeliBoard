@@ -60,6 +60,7 @@
             android:orientation="horizontal"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:minWidth="0dp"
             style="?attr/suggestionWordStyle">
         </LinearLayout>
     </LinearLayout>
