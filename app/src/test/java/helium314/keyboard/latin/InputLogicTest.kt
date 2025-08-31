@@ -25,7 +25,7 @@ import helium314.keyboard.latin.inputlogic.SpaceState
 import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.utils.ScriptUtils
 import helium314.keyboard.latin.utils.SubtypeSettings
-import helium314.keyboard.latin.utils.getTimestamp
+import helium314.keyboard.latin.utils.getTimestampFormatter
 import helium314.keyboard.latin.utils.prefs
 import org.junit.runner.RunWith
 import org.mockito.Mockito
@@ -696,7 +696,8 @@ class InputLogicTest {
         reset()
         chainInput("hello")
         functionalKeyPress(KeyCode.TIMESTAMP)
-        assertEquals("hello" + getTimestamp(latinIME), text)
+        assertEquals(Calendar.getInstance().time.time.toDouble(),
+            getTimestampFormatter(latinIME).parse(text.substring(5))!!.time.toDouble(), 1000.0)
     }
 
     // ------- helper functions ---------
