@@ -174,7 +174,7 @@ public class PopupKeysKeyboardView extends KeyboardView implements PopupKeysPane
         controller.setLayoutGravity(layoutGravity);
 
         mOriginX = panelFinalX;
-        mOriginY = y + container.getPaddingTop();
+        mOriginY = y + container.getPaddingTop() + (int) getY();
         controller.onShowPopupKeysPanel(this);
         final PopupKeysKeyboardAccessibilityDelegate accessibilityDelegate = mAccessibilityDelegate;
         if (accessibilityDelegate != null
