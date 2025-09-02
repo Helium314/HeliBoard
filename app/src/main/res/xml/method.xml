@@ -100,6 +100,7 @@
     pms: Piedmontese/qwerty
     pt_BR: Portuguese (Brazil)/qwerty
     pt_PT: Portuguese (Portugal)/qwerty
+    pt_PT: Portuguese (HCESAR)/hcesar	
     ro: Romanian/qwerty
     ru: Russian/russian
     ru: Russian (Extended)/russian_extended
@@ -1027,6 +1028,15 @@
         android:imeSubtypeExtraValue="AsciiCapable,EmojiCapable"
         android:isAsciiCapable="true"
     />
+	   <subtype android:icon="@drawable/ic_ime_switcher"  
+        android:label="@string/subtype_hc" 
+        android:subtypeId="0x1a2b3c42"
+        android:imeSubtypeLocale="pt_PT"
+        android:languageTag="pt-PT"
+        android:imeSubtypeMode="keyboard"
+        android:imeSubtypeExtraValue="KeyboardLayoutSet=MAIN:hcesar,AsciiCapable,EmojiCapable"
+        android:isAsciiCapable="true"
+    />	
     <subtype android:icon="@drawable/ic_ime_switcher"
         android:label="@string/subtype_generic"
         android:subtypeId="0x8d185978"
