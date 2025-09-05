@@ -399,6 +399,8 @@
          (US) should be an abbreviation of United States. -->
     <string name="subtype_es_US">Spanish (US)</string>
     <!-- Description for Serbian (Latin) keyboard subtype -->
+    <!-- Description for Portuguese (Nativo) keyboard subtype -->
+    <string name="subtype_pt_NT">Portuguese (Nativo)</string>
     <string name="subtype_sr_Latn">Serbian (Latin)</string>
     <!-- Description for Hinglish (https://en.wikipedia.org/wiki/Hinglish) keyboard subtype -->
     <string name="subtype_hi_Latn">Hinglish</string>
