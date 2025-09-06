@@ -26,6 +26,7 @@ import org.robolectric.shadows.ShadowLog
 import java.util.*
 import kotlin.test.BeforeTest
 import kotlin.test.Test
+import kotlin.test.assertEquals
 
 @Suppress("NonAsciiCharacters")
 @RunWith(RobolectricTestRunner::class)
@@ -266,6 +267,12 @@ class SuggestTest {
             thresholdAggressive
         )
         assert(!result.last()) // should not be corrected
+    }
+
+    @Test fun `quotes are added to suggestions when needed`() {
+        val result = Suggest.Companion.getTransformedSuggestedWordInfo(suggestion("word", 1, Locale.ENGLISH, true),
+            Locale.ENGLISH, false, false, 1)
+        assertEquals("word'", result.mWord)
     }
 
     private fun shouldBeAutoCorrected(word: String, // typed word
