@@ -447,4 +447,9 @@
     <string name="customize_toolbar_key_code_reset_message">Benetan garbitu nahi duzu pertsonalizatutako tekla kodeak?</string>
     <string name="prefs_language_swipe_distance">Aldatu hizkuntza lerratzeko distantzia</string>
     <string name="toolbar_mode">Tresna-barra modua</string>
+    <string name="space_swipe_hide_keyboard_entry">Ezkutatu teklatua</string>
+    <string name="suggest_punctuation">Puntuazio iradokizunak</string>
+    <string name="suggest_punctuation_summary">Erakutsi puntuazioa beste iradokizunik ez dagoenean</string>
+    <string name="about_wiki_link">Joan Wikira</string>
+    <string name="about_wiki_link_description">Edozein erabiltzailek hobetu dezake Wikia!</string>
 </resources>

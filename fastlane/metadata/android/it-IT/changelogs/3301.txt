@@ -1,0 +1,11 @@
+- Suggerimenti con iniziale maiuscola con ⇧
+- Codici per broadcasting intent
+- Descrizione delle emoji opzionale
+- Miglioramento input con tastiere fisiche
+- Nuovo gesto 'nascondi tastiera'
+- Aggiunta dei sottotipi latini
+- Disattivazione opzionale dei suggerimenti emoji all'aggiunta di un dizionario emoji
+- Emoji corrette nel layout diviso
+- Rimozione delle emoji 'ausiliarie' (non valide singolarmente)
+- Funzionamento blacklist corretto
+- Comportamento di ⌫ con alcune emoji corretto

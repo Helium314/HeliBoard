@@ -1,0 +1,11 @@
+- psaní velkých písmen po stisknutí Shiftu
+- klávesové zkratky pro broadcast intentů
+- volitelný popis emodži (vyžaduje slovník)
+- vylepšené chování hardwarové klávesnice
+- možnost skrýt klávesnici potažením
+- přidána latinka
+- možnost vypnout návrhy emodži
+- oprava chybějících emodži v rozdělené klávesnici
+- odstranění emodži, které se nemají používat samostatně
+- oprava problémů s blacklistem
+- oprava mazání u některých emodži
