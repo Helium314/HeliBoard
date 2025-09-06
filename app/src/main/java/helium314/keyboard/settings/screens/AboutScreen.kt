@@ -6,6 +6,8 @@ import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.text.method.LinkMovementMethod
+import android.text.Html
+import android.text.Spanned
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
@@ -116,7 +118,13 @@ fun createAboutSettings(context: Context) = listOf(
                 val link = ("<a href=\"https://developer.android.com/reference/android/content/Context#createDeviceProtectedStorageContext()\">"
                         + ctx.getString(R.string.hidden_features_text) + "</a>")
                 val message = ctx.getString(R.string.hidden_features_message, link)
-                val dialogMessage = SpannableStringUtils.fromHtml(message)
+val htmlString = message 
+val dialogMessage: Spanned = if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+    Html.fromHtml(htmlString, Html.FROM_HTML_MODE_LEGACY)
+} else {
+    @Suppress("DEPRECATION")
+    Html.fromHtml(htmlString)
+}
                 val builder = AlertDialog.Builder(ctx)
                     .setIcon(R.drawable.ic_settings_about_hidden_features)
                     .setTitle(R.string.hidden_features_title)
@@ -124,6 +132,11 @@ fun createAboutSettings(context: Context) = listOf(
                     .setPositiveButton(R.string.dialog_close, null)
                     .create()
                 builder.show()
+                val messageView = builder.findViewById<TextView>(android.R.id.message)
+                if (messageView != null) {
+                    messageView.movementMethod = LinkMovementMethod.getInstance() 
+                    messageView.setTextColor(android.graphics.Color.BLACK)    
+                }							
                 (builder.findViewById<View>(android.R.id.message) as TextView).movementMethod = LinkMovementMethod.getInstance()
             },
             icon = R.drawable.ic_settings_about_hidden_features
