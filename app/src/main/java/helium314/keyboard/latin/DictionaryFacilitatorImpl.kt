@@ -497,9 +497,10 @@ class DictionaryFacilitatorImpl : DictionaryFacilitator {
             suggestionResults.mRawSuggestions?.addAll(it)
         }
 
-        // Ensure at least two non-emoji results
+        // Ensure at least two non-emoji, non-typed word results
         if (suggestionResults.size > 2) {
-            val nonEmojiCount = suggestionResults.drop(1).filter { it.word != composedData.mTypedWord && !mightBeEmoji(it.word) }.size
+            val lowercaseTypedWord = composedData.mTypedWord.lowercase()
+            val nonEmojiCount = suggestionResults.filter { it.word != lowercaseTypedWord && !mightBeEmoji(it.word) }.size
             if (nonEmojiCount < 2) {
                 val allResults = SuggestionResults(Int.MAX_VALUE, ngramContext.isBeginningOfSentenceContext, false)
                 suggestionsArray.forEach {
@@ -510,7 +511,7 @@ class DictionaryFacilitatorImpl : DictionaryFacilitator {
                     val lastEmoji = suggestionResults.last { mightBeEmoji(it.word) }
                     suggestionResults.remove(lastEmoji)
                     val firstNonEmoji = allResults.first {
-                        !suggestionResults.contains(it) && it.word != composedData.mTypedWord && !mightBeEmoji(it.word)
+                        !suggestionResults.contains(it) && it.word != lowercaseTypedWord && !mightBeEmoji(it.word)
                     }
                     suggestionResults.add(firstNonEmoji)
                 }
