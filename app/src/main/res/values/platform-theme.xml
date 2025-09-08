@@ -20,6 +20,7 @@
         <item name="android:colorAccent">@color/accent</item>
         <item name="android:background">@color/action_bar_color</item>
         <item name="android:textColor">@color/foreground</item>
+        <item name="android:textColorPrimary">@color/foreground</item>
         <item name="android:textColorAlertDialogListItem">@color/foreground</item>
         <item name="android:colorForeground">@color/foreground</item>
     </style>
