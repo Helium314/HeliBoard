@@ -217,7 +217,7 @@ public final class WordComposer {
     }
 
     public boolean isCursorInFrontOfComposingWord() {
-        return mCursorPositionWithinWord == 0;
+        return isComposingWord() && mCursorPositionWithinWord == 0;
     }
 
     /**
