@@ -398,8 +398,6 @@
     <!-- Description for Spanish (US) keyboard subtype
          (US) should be an abbreviation of United States. -->
     <string name="subtype_es_US">Spanish (US)</string>
-    <!-- Description for Portuguese (HCESAR) keyboard subtype -->
-    <string name="subtype_hc">Portuguese (HCESAR)</string>
     <!-- Description for Serbian (Latin) keyboard subtype -->
     <string name="subtype_sr_Latn">Serbian (Latin)</string>
     <!-- Description for Hinglish (https://en.wikipedia.org/wiki/Hinglish) keyboard subtype -->
