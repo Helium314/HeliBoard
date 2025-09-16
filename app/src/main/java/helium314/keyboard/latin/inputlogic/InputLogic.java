@@ -6,6 +6,9 @@
 
 package helium314.keyboard.latin.inputlogic;
 
+import static java.lang.Math.abs;
+import static java.lang.Math.max;
+
 import android.graphics.Color;
 import android.os.SystemClock;
 import android.text.InputType;
@@ -1278,10 +1281,10 @@ public final class InputLogic {
                             Constants.EVENT_BACKSPACE);
                     hasUnlearnedWordBeingDeleted = true;
                 }
-                final int numCharsDeleted = mConnection.getExpectedSelectionEnd()
-                        - mConnection.getExpectedSelectionStart();
-                mConnection.setSelection(mConnection.getExpectedSelectionEnd(),
-                        mConnection.getExpectedSelectionEnd());
+                final int numCharsDeleted = abs(mConnection.getExpectedSelectionEnd()
+                        - mConnection.getExpectedSelectionStart());
+                final int visibleEnd = max(mConnection.getExpectedSelectionStart(), mConnection.getExpectedSelectionEnd());
+                mConnection.setSelection(visibleEnd, visibleEnd);
                 mConnection.deleteTextBeforeCursor(numCharsDeleted);
                 StatsUtils.onBackspaceSelectedText(numCharsDeleted);
             } else {
@@ -1565,7 +1568,7 @@ public final class InputLogic {
         }
         final int selectionStart = mConnection.getExpectedSelectionStart();
         final int selectionEnd = mConnection.getExpectedSelectionEnd();
-        final int numCharsSelected = selectionEnd - selectionStart;
+        final int numCharsSelected = abs(selectionEnd - selectionStart);
         if (numCharsSelected > Constants.MAX_CHARACTERS_FOR_RECAPITALIZATION) {
             // We bail out if we have too many characters for performance reasons. We don't want
             // to suck possibly multiple-megabyte data.
@@ -1585,11 +1588,11 @@ public final class InputLogic {
         }
         mConnection.finishComposingText();
         mRecapitalizeStatus.rotate();
-        mConnection.setSelection(selectionEnd, selectionEnd);
+        final int visibleEnd = max(selectionStart, selectionEnd);
+        mConnection.setSelection(visibleEnd, visibleEnd);
         mConnection.deleteTextBeforeCursor(numCharsSelected);
         mConnection.commitText(mRecapitalizeStatus.getRecapitalizedString(), 0);
-        mConnection.setSelection(mRecapitalizeStatus.getNewCursorStart(),
-                mRecapitalizeStatus.getNewCursorEnd());
+        mConnection.setSelection(selectionStart, selectionEnd);
     }
 
     private void performAdditionToUserHistoryDictionary(final SettingsValues settingsValues,
@@ -1948,6 +1951,10 @@ public final class InputLogic {
             return RecapitalizeStatus.NOT_A_RECAPITALIZE_MODE;
         }
         return mRecapitalizeStatus.getCurrentMode();
+    }
+
+    public void stopRecapitalization() {
+        mRecapitalizeStatus.disable();
     }
 
     /**
