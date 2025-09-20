@@ -12,6 +12,7 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
 
 import androidx.core.view.ViewKt;
 
@@ -21,6 +22,7 @@ import helium314.keyboard.latin.common.ColorType;
 import helium314.keyboard.latin.settings.Settings;
 import helium314.keyboard.latin.suggestions.PopupSuggestionsView;
 import helium314.keyboard.latin.suggestions.SuggestionStripView;
+import helium314.keyboard.latin.utils.TranslatorUtils;
 import kotlin.Unit;
 
 
@@ -46,6 +48,34 @@ public final class InputView extends FrameLayout {
         mMoreSuggestionsViewCanceler = new MoreSuggestionsViewCanceler(
                 mMainKeyboardView, suggestionStripView);
         ViewKt.doOnNextLayout(this, this::onNextLayout);
+
+        // Initialisation des boutons de traduction
+        ImageButton btnTranslateUsUk = findViewById(R.id.btn_translate_us_uk);
+        ImageButton btnTranslateFr = findViewById(R.id.btn_translate_fr);
+        ImageButton btnTranslateSp = findViewById(R.id.btn_translate_sp);
+        ImageButton btnTranslateDe = findViewById(R.id.btn_translate_de);
+        ImageButton btnTranslateCn = findViewById(R.id.btn_translate_cn);
+        ImageButton btnTranslateIn = findViewById(R.id.btn_translate_in);
+        ImageButton btnTranslateAr = findViewById(R.id.btn_translate_ar);
+        ImageButton btnTranslateJp = findViewById(R.id.btn_translate_jp);
+
+        View.OnClickListener translateListener = v -> {
+            // Exemple : mettre le texte en majuscule
+            Context context = getContext();
+            if (context instanceof LatinIME) {
+                String currentText = LatinIME.getInputText((LatinIME) context);
+                String upperText = TranslatorUtils.toUpperCase(currentText);
+                LatinIME.replaceInputText((LatinIME) context, upperText);
+            }
+        };
+        btnTranslateUsUk.setOnClickListener(translateListener);
+        btnTranslateFr.setOnClickListener(translateListener);
+        btnTranslateSp.setOnClickListener(translateListener);
+        btnTranslateDe.setOnClickListener(translateListener);
+        btnTranslateCn.setOnClickListener(translateListener);
+        btnTranslateIn.setOnClickListener(translateListener);
+        btnTranslateAr.setOnClickListener(translateListener);
+        btnTranslateJp.setOnClickListener(translateListener);
     }
 
     public void setKeyboardTopPadding(final int keyboardTopPadding) {

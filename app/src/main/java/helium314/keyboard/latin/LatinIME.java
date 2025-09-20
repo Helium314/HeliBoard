@@ -1753,6 +1753,42 @@ public class LatinIME extends InputMethodService implements
         mDictionaryFacilitator.removeWord(word);
     }
 
+    /**
+     * Récupère le texte actuellement sélectionné ou tout le texte du champ de saisie actif.
+     */
+    public static String getInputText(InputMethodService ime) {
+        if (ime == null || ime.getCurrentInputConnection() == null) return "";
+        CharSequence selected = ime.getCurrentInputConnection().getSelectedText(0);
+        if (selected != null && selected.length() > 0) {
+            return selected.toString();
+        }
+        CharSequence before = ime.getCurrentInputConnection().getTextBeforeCursor(1000, 0);
+        CharSequence after = ime.getCurrentInputConnection().getTextAfterCursor(1000, 0);
+        StringBuilder sb = new StringBuilder();
+        if (before != null) sb.append(before);
+        if (after != null) sb.append(after);
+        return sb.toString();
+    }
+
+    /**
+     * Remplace le texte actuellement sélectionné ou tout le texte par le texte donné.
+     */
+    public static void replaceInputText(InputMethodService ime, String newText) {
+        if (ime == null || ime.getCurrentInputConnection() == null) return;
+        CharSequence selected = ime.getCurrentInputConnection().getSelectedText(0);
+        if (selected != null && selected.length() > 0) {
+            ime.getCurrentInputConnection().commitText(newText, 1);
+        } else {
+            // Efface tout le texte avant et après le curseur, puis insère le nouveau texte
+            CharSequence before = ime.getCurrentInputConnection().getTextBeforeCursor(1000, 0);
+            CharSequence after = ime.getCurrentInputConnection().getTextAfterCursor(1000, 0);
+            int beforeLen = before != null ? before.length() : 0;
+            int afterLen = after != null ? after.length() : 0;
+            ime.getCurrentInputConnection().deleteSurroundingText(beforeLen, afterLen);
+            ime.getCurrentInputConnection().commitText(newText, 1);
+        }
+    }
+
     private void loadKeyboard() {
         // Since we are switching languages, the most urgent thing is to let the keyboard graphics
         // update. LoadKeyboard does that, but we need to wait for buffer flip for it to be on

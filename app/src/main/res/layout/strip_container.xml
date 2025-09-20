@@ -35,6 +35,63 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="end" >
+            <!-- Boutons de traduction (drapeaux) -->
+            <ImageButton
+                android:id="@+id/btn_translate_us_uk"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/ic_flag_us_uk"
+                android:contentDescription="@string/translate_us_uk"
+                android:background="@android:color/transparent" />
+            <ImageButton
+                android:id="@+id/btn_translate_fr"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/ic_flag_fr"
+                android:contentDescription="@string/translate_fr"
+                android:background="@android:color/transparent" />
+            <ImageButton
+                android:id="@+id/btn_translate_sp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/ic_flag_sp"
+                android:contentDescription="@string/translate_sp"
+                android:background="@android:color/transparent" />
+            <ImageButton
+                android:id="@+id/btn_translate_de"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/ic_flag_de"
+                android:contentDescription="@string/translate_de"
+                android:background="@android:color/transparent" />
+            <ImageButton
+                android:id="@+id/btn_translate_cn"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/ic_flag_cn"
+                android:contentDescription="@string/translate_cn"
+                android:background="@android:color/transparent" />
+            <ImageButton
+                android:id="@+id/btn_translate_in"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/ic_flag_in"
+                android:contentDescription="@string/translate_in"
+                android:background="@android:color/transparent" />
+            <ImageButton
+                android:id="@+id/btn_translate_ar"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/ic_flag_ar"
+                android:contentDescription="@string/translate_ar"
+                android:background="@android:color/transparent" />
+            <ImageButton
+                android:id="@+id/btn_translate_jp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/ic_flag_jp"
+                android:contentDescription="@string/translate_jp"
+                android:background="@android:color/transparent" />
             <!-- empty view to move buttons to the right -->
             <View
                 android:layout_width="0dp"

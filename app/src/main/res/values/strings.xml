@@ -878,10 +878,7 @@ New dictionary:
 \n\t• clipboard &amp;#65515; paste &lt;br&gt;
 \n\t• move left/right &amp;#65515; word left/right &lt;br&gt;
 \n\t• move up/down &amp;#65515; page up/down &lt;br&gt;
-\n\t• word left/right &amp;#65515; line start/end &lt;br&gt;
-\n\t• page up/down &amp;#65515; page start/end &lt;br&gt;
-\n\t• copy &amp;#65515; cut &lt;br&gt;
-\n\t• select word &amp;#8596; select all &lt;br&gt;
+\n\t• word left/right &amp;#8596; select all &lt;br&gt;
 \n\t• undo &amp;#8596; redo &lt;br&gt; &lt;br&gt;
 \n► Long-pressing keys in the suggestion strip toolbar pins them to the suggestion strip. &lt;br&gt; &lt;br&gt;
 \n► Long-press the Comma-key to access Clipboard View, Emoji View, One-handed Mode, Settings, or Switch Language: &lt;br&gt;
@@ -1003,4 +1000,13 @@ New dictionary:
     <string name="name_invalid">Invalid name</string>
     <!-- Description indicating a subtype in Locales & Layouts has customizations -->
     <string name="custom_subtype">Custom subtype</string>
+    <!-- Traduction header flags -->
+    <string name="translate_us_uk">Traduire en anglais</string>
+    <string name="translate_fr">Traduire en français</string>
+    <string name="translate_sp">Traduire en espagnol</string>
+    <string name="translate_de">Traduire en allemand</string>
+    <string name="translate_cn">Traduire en chinois</string>
+    <string name="translate_in">Traduire en hindi</string>
+    <string name="translate_ar">Traduire en arabe</string>
+    <string name="translate_jp">Traduire en japonais</string>
 </resources>
