@@ -1,12 +1,25 @@
-<vector xmlns:android="http://schemas.android.com/apk/res/android" android:width="24dp" android:height="24dp" android:viewportWidth="24" android:viewportHeight="24">
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp" android:height="24dp"
+    android:viewportWidth="24" android:viewportHeight="24">
+
     <!-- Fond bleu -->
-    <path android:fillColor="#00247D" android:pathData="M2,2h20v20h-20z"/>
+    <path android:fillColor="#00247D" android:pathData="M0,0h24v24h-24z"/>
+
     <!-- Croix blanche horizontale -->
-    <path android:fillColor="#FFFFFF" android:pathData="M2,10h20v4h-20z"/>
+    <path android:fillColor="#FFFFFF" android:pathData="M0,10h24v4h-24z"/>
     <!-- Croix blanche verticale -->
-    <path android:fillColor="#FFFFFF" android:pathData="M10,2h4v20h-4z"/>
+    <path android:fillColor="#FFFFFF" android:pathData="M10,0h4v24h-4z"/>
+
     <!-- Croix rouge horizontale -->
-    <path android:fillColor="#CF142B" android:pathData="M2,11h20v2h-20z"/>
+    <path android:fillColor="#CF142B" android:pathData="M0,11h24v2h-24z"/>
     <!-- Croix rouge verticale -->
-    <path android:fillColor="#CF142B" android:pathData="M11,2h2v20h-2z"/>
+    <path android:fillColor="#CF142B" android:pathData="M11,0h2v24h-2z"/>
+
+    <!-- Diagonales blanches -->
+    <path android:fillColor="#FFFFFF" android:pathData="M0,0l24,24h-4l-20,-20z"/>
+    <path android:fillColor="#FFFFFF" android:pathData="M24,0l-24,24h4l20,-20z"/>
+
+    <!-- Diagonales rouges -->
+    <path android:fillColor="#CF142B" android:pathData="M0,0l24,24h-2l-22,-22z"/>
+    <path android:fillColor="#CF142B" android:pathData="M24,0l-24,24h2l22,-22z"/>
 </vector>
