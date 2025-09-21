@@ -1009,4 +1009,6 @@ New dictionary:
     <string name="translate_in">Traduire en hindi</string>
     <string name="translate_ar">Traduire en arabe</string>
     <string name="translate_jp">Traduire en japonais</string>
+    <string name="flag_fr">Français</string>
+    <string name="flag_en">Anglais</string>
 </resources>

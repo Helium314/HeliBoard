@@ -63,8 +63,10 @@ import helium314.keyboard.latin.utils.KtxKt;
 import helium314.keyboard.latin.utils.Log;
 import helium314.keyboard.latin.utils.ToolbarKey;
 import helium314.keyboard.latin.utils.ToolbarUtilsKt;
+import helium314.keyboard.latin.utils.TranslatorUtils;
 
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import androidx.annotation.NonNull;
@@ -100,7 +102,6 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
 
     private final ArrayList<TextView> mWordViews = new ArrayList<>();
     private final ArrayList<TextView> mDebugInfoViews = new ArrayList<>();
-    private final ArrayList<View> mDividerViews = new ArrayList<>();
 
     Listener mListener;
     private SuggestedWords mSuggestedWords = SuggestedWords.getEmptyInstance();
@@ -156,8 +157,28 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         mPinnedKeys = findViewById(R.id.pinned_keys);
         mToolbar = findViewById(R.id.toolbar);
         mToolbarContainer = findViewById(R.id.toolbar_container);
+        // Ajout récupération des boutons de drapeaux
+        ImageButton mFlagFrButton = findViewById(R.id.flag_fr);
+        ImageButton mFlagEnButton = findViewById(R.id.flag_en);
+        if (mFlagFrButton != null) {
+            mFlagFrButton.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    handleFlagClick();
+                }
+            });
+        }
+        if (mFlagEnButton != null) {
+            mFlagEnButton.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    handleFlagClick();
+                }
+            });
+        }
 
         final Typeface customTypeface = Settings.getInstance().getCustomTypeface();
+        ArrayList<View> mDividerViews = new ArrayList<>();
         for (int pos = 0; pos < SuggestedWords.MAX_SUGGESTIONS; pos++) {
             final TextView word = new TextView(context, null, R.attr.suggestionWordStyle);
             word.setContentDescription(getResources().getString(R.string.spoken_empty_suggestion));
@@ -184,6 +205,17 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         final Resources res = context.getResources();
         mMoreSuggestionsModalTolerance = res.getDimensionPixelOffset(
                 R.dimen.config_more_suggestions_modal_tolerance);
+        GestureDetector.OnGestureListener mMoreSuggestionsSlidingListener = new GestureDetector.SimpleOnGestureListener() {
+            @Override
+            public boolean onScroll(@Nullable MotionEvent down, @NonNull MotionEvent me, float deltaX, float deltaY) {
+                if (down == null) return false;
+                final float dy = me.getY() - down.getY();
+                if (mToolbarContainer.getVisibility() != VISIBLE && deltaY > 0 && dy < 0) {
+                    return showMoreSuggestions();
+                }
+                return false;
+            }
+        };
         mMoreSuggestionsSlidingDetector = new GestureDetector(context, mMoreSuggestionsSlidingListener);
 
         final KeyboardIconsSet iconsSet = KeyboardIconsSet.Companion.getInstance();
@@ -216,8 +248,8 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         colors.setColor(mToolbarExpandKey, ColorType.TOOL_BAR_EXPAND_KEY);
         mToolbarExpandKey.setBackground(new ShapeDrawable(new OvalShape())); // ShapeDrawable color is black, need src_atop filter
         mToolbarExpandKey.getBackground().setColorFilter(colors.get(ColorType.TOOL_BAR_EXPAND_KEY_BACKGROUND), PorterDuff.Mode.SRC_ATOP);
-        mToolbarExpandKey.getLayoutParams().height *= 0.82; // shrink the whole key a little (drawable not affected)
-        mToolbarExpandKey.getLayoutParams().width *= 0.82;
+        mToolbarExpandKey.getLayoutParams().height *= (int) 0.82; // shrink the whole key a little (drawable not affected)
+        mToolbarExpandKey.getLayoutParams().width *= (int) 0.82;
 
         for (final ToolbarKey pinnedKey : ToolbarUtilsKt.getPinnedToolbarKeys(prefs)) {
             final ImageButton button = createToolbarKey(context, iconsSet, pinnedKey);
@@ -396,7 +428,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
                 ToolbarUtilsKt.addPinnedKey(KtxKt.prefs(getContext()), tag);
             } else {
                 ToolbarUtilsKt.removePinnedKey(KtxKt.prefs(getContext()), tag);
-                mToolbar.findViewWithTag(tag).setBackground(mDefaultBackground.getConstantState().newDrawable(getResources()));
+                mToolbar.findViewWithTag(tag).setBackground(Objects.requireNonNull(mDefaultBackground.getConstantState()).newDrawable(getResources()));
                 mPinnedKeys.removeView(pinnedKeyView);
             }
         }
@@ -537,18 +569,6 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
     private boolean mNeedsToTransformTouchEventToHoverEvent;
     private boolean mIsDispatchingHoverEventToMoreSuggestions;
     private final GestureDetector mMoreSuggestionsSlidingDetector;
-    private final GestureDetector.OnGestureListener mMoreSuggestionsSlidingListener =
-            new GestureDetector.SimpleOnGestureListener() {
-        @Override
-        public boolean onScroll(@Nullable MotionEvent down, @NonNull MotionEvent me, float deltaX, float deltaY) {
-            if (down == null) return false;
-            final float dy = me.getY() - down.getY();
-            if (mToolbarContainer.getVisibility() != VISIBLE && deltaY > 0 && dy < 0) {
-                return showMoreSuggestions();
-            }
-            return false;
-        }
-    };
 
     @Override
     public boolean onInterceptTouchEvent(final MotionEvent me) {
@@ -731,5 +751,28 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         view.setOnLongClickListener(this);
         colors.setColor(view, ColorType.TOOL_BAR_KEY);
         colors.setBackground(view, ColorType.STRIP_BACKGROUND);
+    }
+
+    // Méthode utilitaire pour transformer le texte en cours et l'insérer
+    private void handleFlagClick() {
+        // Récupérer le mot en cours de saisie (première suggestion si dispo)
+        String word = null;
+        if (mSuggestedWords != null && !mSuggestedWords.isEmpty()) {
+            word = mSuggestedWords.getWord(0);
+        }
+        if (word != null && mListener != null) {
+            String translated = TranslatorUtils.toUpperCase(word);
+            // Utilise le constructeur correct de SuggestedWordInfo
+            SuggestedWordInfo info = new SuggestedWordInfo(
+                translated,
+                null, // prevWordsContext
+                1, // score arbitraire
+                SuggestedWordInfo.KIND_TYPED,
+                null, // sourceDict
+                -1, // indexOfTouchPointOfSecondWord
+                -1  // autoCommitFirstWordConfidence
+            );
+            mListener.pickSuggestionManually(info);
+        }
     }
 }

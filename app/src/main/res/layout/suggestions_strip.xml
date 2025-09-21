@@ -61,5 +61,26 @@
             android:layout_height="match_parent"
             style="?attr/suggestionWordStyle">
         </LinearLayout>
+        <LinearLayout
+            android:id="@+id/translation_flags_container"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical">
+            <ImageButton
+                android:id="@+id/flag_fr"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@android:drawable/ic_menu_info_details"
+                android:contentDescription="@string/flag_fr"
+                android:background="@android:color/transparent"/>
+            <ImageButton
+                android:id="@+id/flag_en"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@android:drawable/ic_menu_info_details"
+                android:contentDescription="@string/flag_en"
+                android:background="@android:color/transparent"/>
+        </LinearLayout>
     </LinearLayout>
 </merge>
