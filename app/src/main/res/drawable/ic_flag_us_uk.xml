@@ -1,4 +1,12 @@
 <vector xmlns:android="http://schemas.android.com/apk/res/android" android:width="24dp" android:height="24dp" android:viewportWidth="24" android:viewportHeight="24">
-    <path android:fillColor="#CCCCCC" android:pathData="M2,2h20v20h-20z"/>
+    <!-- Fond bleu -->
+    <path android:fillColor="#00247D" android:pathData="M2,2h20v20h-20z"/>
+    <!-- Croix blanche horizontale -->
+    <path android:fillColor="#FFFFFF" android:pathData="M2,10h20v4h-20z"/>
+    <!-- Croix blanche verticale -->
+    <path android:fillColor="#FFFFFF" android:pathData="M10,2h4v20h-4z"/>
+    <!-- Croix rouge horizontale -->
+    <path android:fillColor="#CF142B" android:pathData="M2,11h20v2h-20z"/>
+    <!-- Croix rouge verticale -->
+    <path android:fillColor="#CF142B" android:pathData="M11,2h2v20h-2z"/>
 </vector>
-

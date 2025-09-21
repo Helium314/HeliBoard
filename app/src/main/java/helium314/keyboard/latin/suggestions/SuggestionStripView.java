@@ -161,6 +161,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         ImageButton mFlagFrButton = findViewById(R.id.flag_fr);
         ImageButton mFlagEnButton = findViewById(R.id.flag_en);
         if (mFlagFrButton != null) {
+            mFlagFrButton.setImageResource(R.drawable.ic_flag_fr);
             mFlagFrButton.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -169,6 +170,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
             });
         }
         if (mFlagEnButton != null) {
+            mFlagEnButton.setImageResource(R.drawable.ic_flag_us_uk);
             mFlagEnButton.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
