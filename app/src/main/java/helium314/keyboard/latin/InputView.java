@@ -24,6 +24,10 @@ import helium314.keyboard.latin.suggestions.PopupSuggestionsView;
 import helium314.keyboard.latin.suggestions.SuggestionStripView;
 import helium314.keyboard.latin.utils.TranslatorUtils;
 import kotlin.Unit;
+import kotlinx.coroutines.BuildersKt;
+import kotlinx.coroutines.Dispatchers;
+import kotlinx.coroutines.GlobalScope;
+import kotlinx.coroutines.flow.Flow;
 
 
 public final class InputView extends FrameLayout {
@@ -57,21 +61,32 @@ public final class InputView extends FrameLayout {
         ImageButton btnTranslateCn = findViewById(R.id.btn_translate_cn);
         ImageButton btnTranslateJp = findViewById(R.id.btn_translate_jp);
 
-        View.OnClickListener translateListener = v -> {
-            // Exemple : mettre le texte en majuscule
-            Context context = getContext();
-            if (context instanceof LatinIME) {
-                String currentText = LatinIME.getInputText((LatinIME) context);
-                String upperText = TranslatorUtils.toUpperCase(currentText);
-                LatinIME.replaceInputText((LatinIME) context, upperText);
-            }
-        };
-        btnTranslateUsUk.setOnClickListener(translateListener);
-        btnTranslateFr.setOnClickListener(translateListener);
-        btnTranslateSp.setOnClickListener(translateListener);
-        btnTranslateDe.setOnClickListener(translateListener);
-        btnTranslateCn.setOnClickListener(translateListener);
-        btnTranslateJp.setOnClickListener(translateListener);
+        btnTranslateUsUk.setOnClickListener(v -> handleTranslateClick("en"));
+        btnTranslateFr.setOnClickListener(v -> handleTranslateClick("fr"));
+        btnTranslateSp.setOnClickListener(v -> handleTranslateClick("es"));
+        btnTranslateDe.setOnClickListener(v -> handleTranslateClick("de"));
+        btnTranslateCn.setOnClickListener(v -> handleTranslateClick("zh"));
+        btnTranslateJp.setOnClickListener(v -> handleTranslateClick("ja"));
+    }
+
+    private void handleTranslateClick(String language) {
+        Context context = getContext();
+        if (!(context instanceof LatinIME)) return;
+        String currentText = LatinIME.getInputText((LatinIME) context);
+        Flow<String> flow = TranslatorUtils.translateTo(language, currentText);
+        // Lancer la coroutine avec GlobalScope et BuildersKt.launch
+        BuildersKt.launch(
+            GlobalScope.INSTANCE,
+            Dispatchers.getIO(),
+            null,
+            (scope, cont) -> flow.collect(
+                    (value, continuation) -> {
+                        LatinIME.replaceInputText((LatinIME) context, value);
+                        return Unit.INSTANCE;
+                    },
+                cont
+            )
+        );
     }
 
     public void setKeyboardTopPadding(final int keyboardTopPadding) {

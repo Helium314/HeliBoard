@@ -732,6 +732,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         mToolbarExpandKey.setScaleX((visible && !locked ? -1f : 1f) * mRtl);
     }
 
+    // Correction du nom de la méthode (suppression de l'espace)
     private void addKeyToPinnedKeys(final ToolbarKey pinnedKey) {
         final ImageButton original = mToolbar.findViewWithTag(pinnedKey);
         if (original == null) return;
@@ -758,23 +759,38 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
     // Méthode utilitaire pour transformer le texte en cours et l'insérer
     private void handleFlagClick() {
         // Récupérer le mot en cours de saisie (première suggestion si dispo)
-        String word = null;
+        final String word;
         if (mSuggestedWords != null && !mSuggestedWords.isEmpty()) {
             word = mSuggestedWords.getWord(0);
+        } else {
+            word = null;
         }
         if (word != null && mListener != null) {
-            String translated = TranslatorUtils.toUpperCase(word);
-            // Utilise le constructeur correct de SuggestedWordInfo
-            SuggestedWordInfo info = new SuggestedWordInfo(
-                translated,
-                null, // prevWordsContext
-                1, // score arbitraire
-                SuggestedWordInfo.KIND_TYPED,
-                null, // sourceDict
-                -1, // indexOfTouchPointOfSecondWord
-                -1  // autoCommitFirstWordConfidence
+            // Remplacement de toUpperCase par translateTo (asynchrone)
+            kotlinx.coroutines.BuildersKt.launch(
+                kotlinx.coroutines.GlobalScope.INSTANCE,
+                kotlinx.coroutines.Dispatchers.getIO(),
+                kotlinx.coroutines.CoroutineStart.DEFAULT, // Fix: do not pass null
+                (scope, cont) -> helium314.keyboard.latin.utils.TranslatorUtils.translateTo("en", word).collect(
+                    new kotlinx.coroutines.flow.FlowCollector<String>() {
+                        @Override
+                        public Object emit(String value, kotlin.coroutines.Continuation<? super kotlin.Unit> continuation) {
+                            SuggestedWordInfo info = new SuggestedWordInfo(
+                                value,
+                                null, // prevWordsContext
+                                1, // score arbitraire
+                                SuggestedWordInfo.KIND_TYPED,
+                                null, // sourceDict
+                                -1, // indexOfTouchPointOfSecondWord
+                                -1  // autoCommitFirstWordConfidence
+                            );
+                            mListener.pickSuggestionManually(info);
+                            return kotlin.Unit.INSTANCE;
+                        }
+                    },
+                    cont
+                )
             );
-            mListener.pickSuggestionManually(info);
         }
     }
 }

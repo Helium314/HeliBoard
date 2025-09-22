@@ -111,6 +111,8 @@ dependencies {
 
     // kotlin
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.8.1")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.1")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.8.1")
 
     // compose
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.1.5")
@@ -129,4 +131,10 @@ dependencies {
     testImplementation("org.robolectric:robolectric:4.14.1")
     testImplementation("androidx.test:runner:1.6.2")
     testImplementation("androidx.test:core:1.6.1")
+
+    implementation("com.squareup.okhttp3:okhttp:4.12.0")
+    implementation("com.squareup.okhttp3:okhttp-urlconnection:4.12.0")
+    implementation("com.squareup.okhttp3:logging-interceptor:4.12.0")
+    // Pour les extensions Kotlin (toRequestBody, toMediaTypeOrNull)
+    implementation("com.squareup.okhttp3:okhttp:4.12.0")
 }
