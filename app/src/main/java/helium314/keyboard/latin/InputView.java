@@ -55,8 +55,6 @@ public final class InputView extends FrameLayout {
         ImageButton btnTranslateSp = findViewById(R.id.btn_translate_sp);
         ImageButton btnTranslateDe = findViewById(R.id.btn_translate_de);
         ImageButton btnTranslateCn = findViewById(R.id.btn_translate_cn);
-        ImageButton btnTranslateIn = findViewById(R.id.btn_translate_in);
-        ImageButton btnTranslateAr = findViewById(R.id.btn_translate_ar);
         ImageButton btnTranslateJp = findViewById(R.id.btn_translate_jp);
 
         View.OnClickListener translateListener = v -> {
@@ -73,8 +71,6 @@ public final class InputView extends FrameLayout {
         btnTranslateSp.setOnClickListener(translateListener);
         btnTranslateDe.setOnClickListener(translateListener);
         btnTranslateCn.setOnClickListener(translateListener);
-        btnTranslateIn.setOnClickListener(translateListener);
-        btnTranslateAr.setOnClickListener(translateListener);
         btnTranslateJp.setOnClickListener(translateListener);
     }
 

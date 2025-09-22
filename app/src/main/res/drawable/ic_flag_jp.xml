@@ -1,4 +1,26 @@
-<vector xmlns:android="http://schemas.android.com/apk/res/android" android:width="24dp" android:height="24dp" android:viewportWidth="24" android:viewportHeight="24">
-    <path android:fillColor="#CCCCCC" android:pathData="M2,2h20v20h-20z"/>
+<vector android:height="21dp" android:viewportHeight="21"
+    android:viewportWidth="24" android:width="24dp"
+    xmlns:aapt="http://schemas.android.com/aapt" xmlns:android="http://schemas.android.com/apk/res/android">
+    <path android:fillType="evenOdd" android:pathData="M0,0h24v21h-24z"
+        android:strokeColor="#00000000" android:strokeWidth="1">
+        <aapt:attr name="android:fillColor">
+            <gradient android:endX="12" android:endY="21"
+                android:startX="12" android:startY="0" android:type="linear">
+                <item android:color="#FFFFFFFF" android:offset="0"/>
+                <item android:color="#FFF0F0F0" android:offset="1"/>
+            </gradient>
+        </aapt:attr>
+    </path>
+    <!-- Red circle, centered and scaled for 24x21 -->
+    <path android:fillType="evenOdd"
+        android:pathData="M12,10.5m-6,0a6,6 0,1 1,12 0a6,6 0,1 1,-12 0"
+        android:strokeColor="#00000000" android:strokeWidth="1">
+        <aapt:attr name="android:fillColor">
+            <gradient android:endX="12" android:endY="15"
+                android:startX="12" android:startY="6" android:type="linear">
+                <item android:color="#FFD81441" android:offset="0"/>
+                <item android:color="#FFBB0831" android:offset="1"/>
+            </gradient>
+        </aapt:attr>
+    </path>
 </vector>
-

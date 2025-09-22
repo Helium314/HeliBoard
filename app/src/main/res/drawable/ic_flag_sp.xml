@@ -1,4 +1,8 @@
-<vector xmlns:android="http://schemas.android.com/apk/res/android" android:width="24dp" android:height="24dp" android:viewportWidth="24" android:viewportHeight="24">
-    <path android:fillColor="#CCCCCC" android:pathData="M2,2h20v20h-20z"/>
+<vector xmlns:android="http://schemas.android.com/apk/res/android" android:width="24dp" android:height="21dp" android:viewportWidth="24" android:viewportHeight="21">
+    <!-- Fond rouge -->
+    <path android:fillColor="#AA151B" android:pathData="M0,0h24v21h-24z"/>
+    <!-- Bande jaune centrale -->
+    <path android:fillColor="#F1BF00" android:pathData="M0,5.25h24v10.5h-24z"/>
+    <!-- Optionnel: blason simplifié (petit rectangle à gauche) -->
+    <path android:fillColor="#AA151B" android:pathData="M2,8.25h2v4.5h-2z"/>
 </vector>
-
