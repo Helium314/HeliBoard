@@ -1,4 +1,4 @@
-HeliBoard è una tastiera open-source attenta alla privacy, basata su AOSP / OpenBoard.
+SociaKeyboard è una tastiera open-source attenta alla privacy, basata su AOSP / OpenBoard.
 Non ha bisogno dell'accesso alla rete, essendo 100% offline.
 
 Caratteristiche:
@@ -14,7 +14,7 @@ Caratteristiche:
 <li>attiva o disattiva la modalità scura di Android 10+ seguendo l'impostazione di sistema</li>
 <li>colori dinamici per Android 12+</li>
 </ul>
-<li><a href="https://github.com/Helium314/HeliBoard/blob/main/layouts.md">Layout personalizzabili</a> (disponibili se si disabilita <i>usa lingue di sistema</i>)</li>
+<li><a href="https://github.com/Helium314/SociaKeyboard/blob/main/layouts.md">Layout personalizzabili</a> (disponibili se si disabilita <i>usa lingue di sistema</i>)</li>
 <li>digitazione multilingue</li>
 <li>digitazione a scorrimento (<i>solo con libreria closed source</i> ☹️)</li>
 <ul>

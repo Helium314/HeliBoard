@@ -118,8 +118,8 @@
     <string name="incognito">Impor modo incógnito</string>
     <string name="day_night_mode">Modo diurno/noturno automático</string>
     <string name="day_night_mode_summary">Aparência usa as definições do sistema</string>
-    <string name="spell_checker_service_name">Corretor ortográfico de HeliBoard</string>
-    <string name="ime_settings">Definições de HeliBoard</string>
+    <string name="spell_checker_service_name">Corretor ortográfico de SociaKeyboard</string>
+    <string name="ime_settings">Definições de SociaKeyboard</string>
     <string name="settings_category_input">Introdução</string>
     <string name="settings_category_additional_keys">Teclas adicionais</string>
     <string name="settings_category_correction">Correções</string>
@@ -137,7 +137,7 @@
     <string name="subtype_no_language_colemak_dh">Alfabeto (Colemak Mod-DH)</string>
     <string name="subtype_no_language_workman">Alfabeto (Workman)</string>
     <string name="key_borders">Limite das teclas</string>
-    <string name="android_spell_checker_settings">Definições do corretor ortográfico de HeliBoard</string>
+    <string name="android_spell_checker_settings">Definições do corretor ortográfico de SociaKeyboard</string>
     <string name="auto_correction_confidence">Confiança da correção automática</string>
     <string name="enable_clipboard_history_summary">Se desativado, a tecla da área de transferência colará o conteúdo, se houver</string>
     <string name="use_system_language_to_select_input_method_subtypes">Usar linguagens do sistema</string>

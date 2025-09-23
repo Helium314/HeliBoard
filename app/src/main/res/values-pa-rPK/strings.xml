@@ -12,7 +12,7 @@
     <string name="settings_screen_preferences">ترجیحاں</string>
     <string name="settings_screen_advanced">اضافی</string>
     <string name="settings_category_miscellaneous">ہور چوݨاں</string>
-    <string name="ime_settings">‫HeliBoard‬ سیٹنگاں</string>
+    <string name="ime_settings">‫SociaKeyboard‬ سیٹنگاں</string>
     <string name="settings_screen_correction">لکھت نوں ٹھیک کرن</string>
     <string name="settings_category_additional_keys">ہور کنجیاں</string>
     <string name="settings_category_clipboard_history">کاپی پیسٹ تریخ</string>
@@ -61,7 +61,7 @@
     <string name="sound_on_keypress">چوہݨ توں آواز</string>
     <string name="theme_name_black" tools:keep="@string/theme_name_black">کالا</string>
     <string name="theme_name_darker" tools:keep="@string/theme_name_darker">نھیرے توں نھیرا</string>
-    <string name="android_spell_checker_settings">‫HeliBoard لفظ جوڑ دیاں سیٹنگاں‬</string>
+    <string name="android_spell_checker_settings">‫SociaKeyboard لفظ جوڑ دیاں سیٹنگاں‬</string>
     <string name="subtype_es_US">سپینی (امریکی)</string>
     <string name="subtype_en_US">انگریزی (امریکی)</string>
     <string name="button_restore">بحال کرو</string>
@@ -103,6 +103,6 @@
     <string name="popup_on_keypress">کنجی دباوݨ تے پوپ‌اپ کرو</string>
     <string name="enable_split_keyboard">دپھاڑ دا کی‌بورڈ نوں چالو کرو</string>
     <string name="split_spacer_scale">دپھاڑ دا فاصلا</string>
-    <string name="spell_checker_service_name">‫HeliBoard‬ لفظ جوڑن والا</string>
+    <string name="spell_checker_service_name">‫SociaKeyboard‬ لفظ جوڑن والا</string>
     <string name="switch_language">بولی بدلو</string>
 </resources>

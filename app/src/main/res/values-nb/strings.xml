@@ -114,10 +114,10 @@
     <string name="number_row_summary">Alltid vis tallraden</string>
     <string name="day_night_mode">Automatisk dag/nattmodus</string>
     <string name="prefs_long_press_keyboard_to_change_lang_summary">Langtrykke på mellomromstasten for inndatametode-valgmeny</string>
-    <string name="ime_settings">HeliBoard-innstillinger</string>
+    <string name="ime_settings">SociaKeyboard-innstillinger</string>
     <string name="subtype_no_language_colemak_dh">Alfabet (Colemak Mod-DH)</string>
-    <string name="spell_checker_service_name">HeliBoard-stavekontroll</string>
-    <string name="android_spell_checker_settings">Innstillinger for HeliBoard-stavekontroll</string>
+    <string name="spell_checker_service_name">SociaKeyboard-stavekontroll</string>
+    <string name="android_spell_checker_settings">Innstillinger for SociaKeyboard-stavekontroll</string>
     <string name="subtype_no_language_workman">Alfabet (Workman)</string>
     <string name="delete_swipe">Slettingsdragning</string>
     <string name="show_emoji_key">Emoji-tast</string>

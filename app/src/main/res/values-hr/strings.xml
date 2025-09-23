@@ -110,8 +110,8 @@
     <string name="user_dict_settings_all_languages">"Za sve jezike"</string>
     <string name="user_dict_settings_more_languages">"Više jezika…"</string>
     <string name="user_dict_fast_scroll_alphabet">" ABCČĆDDŽĐEFGHIJKLLJMNNJOPRSŠTUVZŽ"</string>
-    <string name="spell_checker_service_name">HeliBoard provjera pravopisa</string>
-    <string name="android_spell_checker_settings">Postavke HeliBoard provjere pravopisa</string>
+    <string name="spell_checker_service_name">SociaKeyboard provjera pravopisa</string>
+    <string name="android_spell_checker_settings">Postavke SociaKeyboard provjere pravopisa</string>
     <string name="subtype_with_layout_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Bangla">%s</xliff:g> (Akkhor)</string>
     <string name="subtype_no_language_colemak_dh">Abeceda (Colemak Mod-DH)</string>
     <string name="settings_category_suggestions">Prijedlozi</string>
@@ -123,7 +123,7 @@
     <string name="show_emoji_key">Tipka za emojije</string>
     <string name="abbreviation_unit_minutes"><xliff:g id="MINUTES">%s</xliff:g> min</string>
     <string name="settings_no_limit">Bez ograničenja</string>
-    <string name="ime_settings">HeliBoard postavke</string>
+    <string name="ime_settings">SociaKeyboard postavke</string>
     <string name="settings_category_input">Unos</string>
     <string name="settings_category_additional_keys">Dodatne tipke</string>
     <string name="enable_clipboard_history">Aktiviraj povijest međuspremnika</string>

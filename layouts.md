@@ -4,7 +4,7 @@ There are two distinct formats:
 * the _simple_ format is a text file with one key label per line, and two consecutive line breaks indicating a switch to the next row, [example](app/src/main/assets/layouts/qwerty.txt)
 * the _json_ format taken from [FlorisBoard](https://github.com/florisboard/florisboard/blob/master/CONTRIBUTING.md#adding-the-layout), but only "normal" keys are supported (i.e. no action keys and similar), [example](app/src/main/assets/layouts/azerty.json)
 
-You can add both directly in the app, see the related [FAQ](https://github.com/Helium314/HeliBoard/wiki/Customization#layouts).
+You can add both directly in the app, see the related [FAQ](https://github.com/Helium314/SociaKeyboard/wiki/Customization#layouts).
 
 ## General notes
 Adding too many keys or too long texts will make the keyboard look awkward or broken, and even crash the app under some specific conditions (popup keys are especially prone for this).
@@ -28,13 +28,13 @@ If the layout has exactly 2 keys in the bottom row, these keys will replace comm
 * You can use character layouts from [FlorisBoard](https://github.com/florisboard/florisboard/blob/master/CONTRIBUTING.md#adding-the-layout)
   * Support is not 100% there yet, notably `kana_selector` and `char_width_selector` do not work.
 * There is no need for specifying a `code`, it will be determined from the label automatically
-  * You can still specify it, but it's only necessary if you want key label and code to be different (please avoid contributing layout with unnecessary codes to HeliBoard)
+  * You can still specify it, but it's only necessary if you want key label and code to be different (please avoid contributing layout with unnecessary codes to SociaKeyboard)
   * Note that not all _special codes_ (negative numbers) from FlorisBoard are supported
-* Key classes: specified with `$`, usually you can omit them in HeliBoard 
+* Key classes: specified with `$`, usually you can omit them in SociaKeyboard 
   * `text_key`: normal key, default
-  * `auto_text_key`: used in FlorisBoard for a key that changes text case when shift is enabled, HeliBoard does that anyway unless disabled with a _labelFlag_
+  * `auto_text_key`: used in FlorisBoard for a key that changes text case when shift is enabled, SociaKeyboard does that anyway unless disabled with a _labelFlag_
   * `multi_text_key`: key with an array of code points, e.g. `{ "$": "multi_text_key", "codePoints": [2509, 2480], "label": "্র" }`
-  * there are also selector classes, which allow to change keys conditionally, see the [dvorak layout](https://github.com/Helium314/HeliBoard/blob/main/app/src/main/assets/layouts/dvorak.json) for an example:
+  * there are also selector classes, which allow to change keys conditionally, see the [dvorak layout](https://github.com/Helium314/SociaKeyboard/blob/main/app/src/main/assets/layouts/dvorak.json) for an example:
     * `case_selector`: keys for `lower` and `upper` (both mandatory), similar to `shift_state_selector`
     * `shift_state_selector`: keys for `unshifted`, `shifted`, `shiftedManual`, `shiftedAutomatic`, `capsLock`, `manualOrLocked`, `default` (all optional)
     * `variation_selector`: keys for input types `datetime`, `time`, `date`, `password`, `normal`, `uri`, `email`, `default` (all optional)
@@ -43,7 +43,7 @@ If the layout has exactly 2 keys in the bottom row, these keys will replace comm
     * `layout_direction_selector`: keys for `ltr` and `rtl` (both mandatory)
 ### Properties
 * A (non-selector) key can have the following properties:
-* `type`: only specific values, HeliBoard mostly uses this to determine background color and type, determined automatically by default
+* `type`: only specific values, SociaKeyboard mostly uses this to determine background color and type, determined automatically by default
   * `normal`: normal key color
   * `function`: functional key color
   * `space`: space bar color

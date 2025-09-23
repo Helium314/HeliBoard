@@ -116,7 +116,7 @@
     <string name="enable_clipboard_history">Ενεργοποίηση ιστορικού προχείρου</string>
     <string name="clipboard_history_retention_time">Χρόνος διατήρησης ιστορικού</string>
     <string name="prefs_long_press_keyboard_to_change_lang_summary">Πατώντας παρατεταμένο το πλήκτρο διαστήματος θα εμφανιστεί το μενού επιλογής μεθόδου εισαγωγής</string>
-    <string name="spell_checker_service_name">Ορθογραφικός Έλεγχος HeliBoard</string>
+    <string name="spell_checker_service_name">Ορθογραφικός Έλεγχος SociaKeyboard</string>
     <string name="delete_swipe">Διαγραφή ολίσθησης</string>
     <string name="delete_swipe_summary">Πραγματοποιήστε μια σάρωση από το πλήκτρο διαγραφής για να επιλέξετε και να αφαιρέσετε μεγαλύτερα τμήματα κειμένου ταυτόχρονα</string>
     <string name="incognito">Αναγκαστική λειτουργία ανώνυμης περιήγησης</string>
@@ -124,7 +124,7 @@
     <string name="settings_category_additional_keys">Πρόσθετα κλειδιά</string>
     <string name="settings_category_correction">Διορθώσεις</string>
     <string name="settings_category_suggestions">Προτάσεις</string>
-    <string name="android_spell_checker_settings">Ρυθμίσεις ορθογραφικού ελέγχου HeliBoard</string>
+    <string name="android_spell_checker_settings">Ρυθμίσεις ορθογραφικού ελέγχου SociaKeyboard</string>
     <string name="settings_category_clipboard_history">Ιστορικό πρόχειρου</string>
     <string name="settings_category_miscellaneous">Διάφορα</string>
     <string name="abbreviation_unit_minutes"><xliff:g id="MINUTES">%s</xliff:g>min.</string>
@@ -141,7 +141,7 @@
     <string name="subtype_no_language_workman">Αλφάβητο (Workman)</string>
     <string name="day_night_mode_summary">Η εμφάνιση θα ακολουθεί τις ρυθμίσεις του συστήματος</string>
     <string name="autospace_after_punctuation">Αυτόματο κενό μετά τη στίξη</string>
-    <string name="ime_settings">Ρυθμίσεις HeliBoard</string>
+    <string name="ime_settings">Ρυθμίσεις SociaKeyboard</string>
     <string name="settings_category_input">Εισαγωγή</string>
     <string name="more_keys_strip_description">Περισσότερα πλήκτρα</string>
     <string name="prefs_force_incognito_mode_summary">Απενεργοποιήστε την εκμάθηση νέων λέξεων</string>

@@ -127,7 +127,7 @@
     <string name="more_keys_strip_description">Tekla gehiago</string>
     <string name="number_row">Zenbakien errenkada</string>
     <string name="prefs_long_press_keyboard_to_change_lang_summary">Zuriune tekla luze sakatzeak sarrera-metodoa hautatzeko menua erakutsiko du</string>
-    <string name="spell_checker_service_name">HeliBoard ortografia zuzentzailea</string>
+    <string name="spell_checker_service_name">SociaKeyboard ortografia zuzentzailea</string>
     <string name="autospace_after_punctuation">Zuriunea puntuazioen ondoren</string>
     <string name="incognito">Behartu ezkutuko modua</string>
     <string name="subtype_with_layout_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Bengalera">%s</xliff:g> (Akkhor hizkuntza)</string>
@@ -135,9 +135,9 @@
     <string name="key_borders">Teklen ertzak</string>
     <string name="day_night_mode">Egun/gau modu automatikoa</string>
     <string name="day_night_mode_summary">Itxurak sistemaren ezarpenei jarraituko die</string>
-    <string name="ime_settings">HeliBoard ezarpenak</string>
+    <string name="ime_settings">SociaKeyboard ezarpenak</string>
     <string name="settings_category_additional_keys">Tekla gehigarriak</string>
-    <string name="android_spell_checker_settings">HeliBoard ortografia zuzentzailearen ezarpenak</string>
+    <string name="android_spell_checker_settings">SociaKeyboard ortografia zuzentzailearen ezarpenak</string>
     <string name="show_emoji_key">Emoji tekla</string>
     <string name="delete_swipe">Desgaitu irristatzea</string>
     <string name="delete_swipe_summary">Ezabatu teklatik hatza irristatu, testuaren zati handiagoak hautatzeko eta ezabatzeko</string>

@@ -114,9 +114,9 @@
     <string name="autospace_after_punctuation_summary">새로운 단어를 입력할 때 마침표가 앞에 있다면 자동으로 띄어쓰기 하기</string>
     <string name="use_system_language_to_select_input_method_subtypes">"시스템 언어 사용"</string>
     <string name="select_input_method">"입력 방법 선택"</string>
-    <string name="spell_checker_service_name">HeliBoard 맞춤법 검사기</string>
-    <string name="android_spell_checker_settings">HeliBoard 맞춤법 검사기 설정</string>
-    <string name="ime_settings">HeliBoard 설정</string>
+    <string name="spell_checker_service_name">SociaKeyboard 맞춤법 검사기</string>
+    <string name="android_spell_checker_settings">SociaKeyboard 맞춤법 검사기 설정</string>
+    <string name="ime_settings">SociaKeyboard 설정</string>
     <string name="prefs_force_incognito_mode_summary">새로운 단어를 배우는 것이 불가능</string>
     <string name="auto_correction_confidence">자동 교정 정확도</string>
     <string name="settings_category_suggestions">추천</string>

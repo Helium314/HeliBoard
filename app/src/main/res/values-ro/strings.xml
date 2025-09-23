@@ -124,7 +124,7 @@
     <string name="label_search_key">Caută</string>
     <string name="label_pause_key">"Pauză"</string>
     <string name="label_wait_key">Așteaptă</string>
-    <string name="ime_settings">Setări HeliBoard</string>
+    <string name="ime_settings">Setări SociaKeyboard</string>
     <string name="settings_category_additional_keys">Chei suplimentare</string>
     <string name="settings_category_correction">Corectări</string>
     <string name="settings_category_suggestions">Sugestii</string>
@@ -142,8 +142,8 @@
     <string name="auto_correction_confidence">Încrederea în corecție automată</string>
     <string name="clipboard_history_retention_time">Timpul de păstrare a istoricului</string>
     <string name="settings_category_input">Introducere</string>
-    <string name="spell_checker_service_name">Verificator ortografic HeliBoard</string>
-    <string name="android_spell_checker_settings">Setări pentru verificarea ortografică HeliBoard</string>
+    <string name="spell_checker_service_name">Verificator ortografic SociaKeyboard</string>
+    <string name="android_spell_checker_settings">Setări pentru verificarea ortografică SociaKeyboard</string>
     <string name="settings_category_clipboard_history">Istoric clipboard</string>
     <string name="enable_clipboard_history">Activează istoricul clipboard-ului</string>
     <string name="disable_personalized_dicts_message">Avertisment: dezactivarea acestei setări va șterge datele învățate</string>

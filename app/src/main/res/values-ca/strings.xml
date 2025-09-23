@@ -117,14 +117,14 @@
     <string name="delete_swipe_summary">Llisqueu damunt de la tecla d\'esborrar per seleccionar i treure grans parts de text d\'un sol cop</string>
     <string name="incognito">Força el mode d\'incògnit</string>
     <string name="abbreviation_unit_minutes"><xliff:g id="MINUTES">%s</xliff:g> min</string>
-    <string name="spell_checker_service_name">Corrector ortogràfic de l\'HeliBoard</string>
-    <string name="android_spell_checker_settings">Configuració del corrector ortogràfic de l\'HeliBoard</string>
+    <string name="spell_checker_service_name">Corrector ortogràfic de l\'SociaKeyboard</string>
+    <string name="android_spell_checker_settings">Configuració del corrector ortogràfic de l\'SociaKeyboard</string>
     <string name="delete_swipe">Esborra amb lliscament</string>
     <string name="show_emoji_key">Tecla d\'accés a emojis</string>
     <string name="prefs_force_incognito_mode_summary">Desactiva l\'aprenentatge de paraules noves</string>
     <string name="number_row">Fila de nombres</string>
     <string name="number_row_summary">Mostra sempre la fila de nombres</string>
-    <string name="ime_settings">Configuració de l\'HeliBoard</string>
+    <string name="ime_settings">Configuració de l\'SociaKeyboard</string>
     <string name="settings_category_input">Entrada</string>
     <string name="settings_category_miscellaneous">Miscel·lània</string>
     <string name="key_borders">Vores del teclat</string>

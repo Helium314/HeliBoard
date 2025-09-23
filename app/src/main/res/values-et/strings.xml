@@ -130,9 +130,9 @@
     <string name="hint_show_keyboard">Eelvaateks klõpsi</string>
     <string name="prefs_long_press_keyboard_to_change_lang">Vaheta sisestusmeetodit tühikuklahviga</string>
     <string name="setup_step3_action">Seadista klahvistikku</string>
-    <string name="spell_checker_service_name">HeliBoardi õigekirjakontroll</string>
-    <string name="ime_settings">HeliBoardi seadistused</string>
-    <string name="android_spell_checker_settings">HeliBoardi õigekirjakontrolli seadistused</string>
+    <string name="spell_checker_service_name">SociaKeyboardi õigekirjakontroll</string>
+    <string name="ime_settings">SociaKeyboardi seadistused</string>
+    <string name="android_spell_checker_settings">SociaKeyboardi õigekirjakontrolli seadistused</string>
     <string name="select_color_background">Klahvistiku taust</string>
     <string name="var_toolbar_direction_summary">Vastupidine suund, kui klahvistiku paremalt-vasakule alamtüüp on valitud</string>
     <string name="prefs_keyboard_height_scale">Klahvistiku kõrguse proportsioonid</string>

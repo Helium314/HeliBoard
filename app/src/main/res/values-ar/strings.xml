@@ -112,7 +112,7 @@
     <string name="user_dict_fast_scroll_alphabet">" أ ب ت ث ج ح خ د ذ ر ز س ش ص ض ط ظ ع غ ف ق ك ل م ن ه و ي"</string>
     <string name="show_emoji_key">مفتاح الرموز التعبيرية</string>
     <string name="settings_no_limit">بلا حدود</string>
-    <string name="ime_settings">إعدادات HeliBoard</string>
+    <string name="ime_settings">إعدادات SociaKeyboard</string>
     <string name="settings_category_input">الإدخال</string>
     <string name="prefs_force_incognito_mode_summary">تعطيل تعلم الكلمات الجديدة</string>
     <string name="more_keys_strip_description">المزيد من المفاتيح</string>
@@ -122,8 +122,8 @@
     <string name="settings_category_suggestions">الاقتراحات</string>
     <string name="settings_category_experimental">تجريبي</string>
     <string name="settings_category_miscellaneous">متنوعة</string>
-    <string name="spell_checker_service_name">المدقق الإملائي لـ HeliBoard</string>
-    <string name="android_spell_checker_settings">إعدادات المدقق الإملائي لـ HeliBoard</string>
+    <string name="spell_checker_service_name">المدقق الإملائي لـ SociaKeyboard</string>
+    <string name="android_spell_checker_settings">إعدادات المدقق الإملائي لـ SociaKeyboard</string>
     <string name="number_row">صف الأرقام</string>
     <string name="number_row_summary">أظهِر صف الأرقام دائما</string>
     <string name="day_night_mode_summary">سيتبع المظهر إعدادات النظام</string>

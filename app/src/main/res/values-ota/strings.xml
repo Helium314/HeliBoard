@@ -19,9 +19,9 @@
     <string name="button_backup">یدكلەمە</string>
     <string name="layout_symbols" tools:keep="@string/layout_symbols">سمبوللر</string>
     <string name="subtype_emoji">اموجی</string>
-    <string name="spell_checker_service_name">‫HeliBoard‬ یازم دنەتلەییجیسی</string>
-    <string name="ime_settings">‫HeliBoard‬ عیارلری</string>
-    <string name="android_spell_checker_settings">‫HeliBoard‬ یازم دنەتلەییجیسی عیارلری</string>
+    <string name="spell_checker_service_name">‫SociaKeyboard‬ یازم دنەتلەییجیسی</string>
+    <string name="ime_settings">‫SociaKeyboard‬ عیارلری</string>
+    <string name="android_spell_checker_settings">‫SociaKeyboard‬ یازم دنەتلەییجیسی عیارلری</string>
     <string name="use_contacts_dict">كیشی آدلرڭی دنەتلە</string>
     <string name="settings_screen_gesture">حركتلە یازمە</string>
     <string name="popup_keys_language" tools:keep="@string/popup_keys_language">دیل</string>

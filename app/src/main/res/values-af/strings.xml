@@ -120,8 +120,8 @@
     <string name="enable_clipboard_history_summary">Indien gedeaktiveerd, sal knipbord sleutel plak as dit inhoud het</string>
     <string name="clipboard_history_retention_time">Geskiedenis behou tyd</string>
     <string name="key_borders">Sleutelgrense</string>
-    <string name="spell_checker_service_name">HeliBoard Spell Checker</string>
-    <string name="android_spell_checker_settings">HeliBoard Spell Checker Settings</string>
+    <string name="spell_checker_service_name">SociaKeyboard Spell Checker</string>
+    <string name="android_spell_checker_settings">SociaKeyboard Spell Checker Settings</string>
     <string name="number_row">Nommers ry</string>
     <string name="number_row_summary">Wys altyd die nommers ry</string>
     <string name="show_hints">Wys sleutel wenke</string>
@@ -140,7 +140,7 @@
     <string name="autospace_after_punctuation_summary">Plaas \'n spasie na \'n leesteken sodra \'n nuwe woord getik word</string>
     <string name="subtype_no_language_workman">Alphabet (Workman)</string>
     <string name="subtype_no_language_colemak_dh">Alphabet (Colemak Mod-DH)</string>
-    <string name="ime_settings">HeliBoard Instellings</string>
+    <string name="ime_settings">SociaKeyboard Instellings</string>
     <string name="settings_category_input">Invoer</string>
     <string name="settings_category_additional_keys">Bykomende Sleutels</string>
     <string name="settings_category_correction">Regstellings</string>

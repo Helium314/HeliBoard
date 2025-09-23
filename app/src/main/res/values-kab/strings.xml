@@ -5,7 +5,7 @@
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
 --><resources xmlns:tools="http://schemas.android.com/tools" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="settings_screen_preferences">Imenyafen</string>
-    <string name="ime_settings">Iɣewwaren n HeliBoard</string>
+    <string name="ime_settings">Iɣewwaren n SociaKeyboard</string>
     <string name="settings_category_miscellaneous">Wiyyaḍ</string>
     <string name="user_dict_settings_add_menu_title">Rnu</string>
     <string name="user_dict_settings_add_locale_option_name">Tutlayt :</string>

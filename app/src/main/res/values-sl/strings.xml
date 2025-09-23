@@ -129,12 +129,12 @@
     <string name="clipboard_history_retention_time">Čas shranjevanja zgodovine</string>
     <string name="enable_clipboard_history_summary">Onemogočite, da boste s tipko odložišča lahko prilepili vsebino</string>
     <string name="more_keys_strip_description">Več tipk</string>
-    <string name="android_spell_checker_settings">Nastavitve pregledovalnika črkovanja HeliBoard</string>
+    <string name="android_spell_checker_settings">Nastavitve pregledovalnika črkovanja SociaKeyboard</string>
     <string name="day_night_mode">Samodejni dnevni/nočni način</string>
     <string name="prefs_keyboard_height_scale">Spremeni višino tipkovnice</string>
     <string name="settings_category_experimental">Poskusne možnosti</string>
-    <string name="spell_checker_service_name">Pregledovalnik črkovanja HeliBoard</string>
-    <string name="ime_settings">Nastavitve HeliBoard</string>
+    <string name="spell_checker_service_name">Pregledovalnik črkovanja SociaKeyboard</string>
+    <string name="ime_settings">Nastavitve SociaKeyboard</string>
     <string name="settings_category_additional_keys">Dodatne tipke</string>
     <string name="settings_category_input">Vnos</string>
     <string name="autospace_after_punctuation">Samodejni presledek za ločilom</string>

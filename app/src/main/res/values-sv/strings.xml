@@ -118,12 +118,12 @@
     <string name="settings_no_limit">Ingen gräns</string>
     <string name="prefs_long_press_keyboard_to_change_lang_summary">Långtryckning på mellanslagstangenten öppnar menyn för val av inmatningsmetod</string>
     <string name="prefs_long_press_keyboard_to_change_lang">Ändra inmatningsmetod med mellanslagstangenten</string>
-    <string name="spell_checker_service_name">HeliBoards stavningskontroll</string>
-    <string name="android_spell_checker_settings">Inställningar för HeliBoards stavningskontroll</string>
+    <string name="spell_checker_service_name">SociaKeyboards stavningskontroll</string>
+    <string name="android_spell_checker_settings">Inställningar för SociaKeyboards stavningskontroll</string>
     <string name="number_row">Sifferrad</string>
     <string name="number_row_summary">Visa alltid sifferraden</string>
     <string name="show_emoji_key">Emoji-tangent</string>
-    <string name="ime_settings">HeliBoard-inställningar</string>
+    <string name="ime_settings">SociaKeyboard-inställningar</string>
     <string name="show_hints_summary">Visa tips för långtryckning</string>
     <string name="settings_category_additional_keys">Ytterligare tangenter</string>
     <string name="settings_category_clipboard_history">Urklippshistorik</string>

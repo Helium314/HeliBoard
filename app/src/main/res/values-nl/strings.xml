@@ -125,8 +125,8 @@
     <string name="more_keys_strip_description">Meer toetsen</string>
     <string name="number_row_summary">Cijferregel altijd weergeven</string>
     <string name="delete_swipe_summary">Veeg vanaf de delete-toets om grotere stukken tekst in één keer te selecteren en verwijderen</string>
-    <string name="spell_checker_service_name">HeliBoard-spellingcontrole</string>
-    <string name="android_spell_checker_settings">HeliBoard-spellingcontrole-instellingen</string>
+    <string name="spell_checker_service_name">SociaKeyboard-spellingcontrole</string>
+    <string name="android_spell_checker_settings">SociaKeyboard-spellingcontrole-instellingen</string>
     <string name="number_row">Cijferregel</string>
     <string name="incognito">Incognito-modus afdwingen</string>
     <string name="show_emoji_key">Emojitoets</string>
@@ -146,7 +146,7 @@
     <string name="subtype_no_language_workman">Alfabet (Workman)</string>
     <string name="key_borders">Toetsranden</string>
     <string name="autospace_after_punctuation_summary">Automatisch spatie invoegen na interpunctie en het typen van een nieuw woord</string>
-    <string name="ime_settings">HeliBoard-instellingen</string>
+    <string name="ime_settings">SociaKeyboard-instellingen</string>
     <string name="settings_category_input">Invoer</string>
     <string name="settings_category_additional_keys">Extra toetsen</string>
     <string name="undo">"Ongedaan maken"</string>

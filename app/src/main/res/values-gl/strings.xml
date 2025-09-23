@@ -288,7 +288,7 @@
     <string name="theme_name_black" tools:keep="@string/theme_name_black">Negro</string>
     <string name="theme_name_indigo" tools:keep="@string/theme_name_indigo">Índigo</string>
     <string name="theme_name_ocean" tools:keep="@string/theme_name_ocean">Océano</string>
-    <string name="ime_settings">Axustes de HeliBoard</string>
+    <string name="ime_settings">Axustes de SociaKeyboard</string>
     <string name="localized_number_row_summary">Preferir números traducidos sobre os latinos</string>
     <string name="replace_dictionary_message">Tes certeza de querer substituír o dicionario engadido \"%1$s\"?
 \n
@@ -302,7 +302,7 @@
     <string name="dictionary_file_wrong_locale">O ficheiro seleccionado é para %1$s, mais agardábase %2$s. Usar igualmente para %2$s?</string>
     <string name="subtype_no_language_workman" tools:keep="@string/subtype_no_language_workman">Alfabeto (Workman)</string>
     <string name="spell_checker_service_name">Revisor de Ortografía</string>
-    <string name="android_spell_checker_settings">Axustes do revisor de Ortografía de HeliBoard</string>
+    <string name="android_spell_checker_settings">Axustes do revisor de Ortografía de SociaKeyboard</string>
     <string name="load_gesture_library_message">Vas precisar a biblioteca para \'%s\': As bibliotecas incompatibles podería estragar a app ao escribir.
 \n
 \nAviso: a carga de código externo é un risco de seguridade. Usa só bibliotecas de fontes de confianza.</string>

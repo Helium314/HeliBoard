@@ -1,4 +1,4 @@
-HeliBoard adalah papan ketik sumber terbuka yang mengutamakan privasi, berdasarkan AOSP OpenBoard.
+SociaKeyboard adalah papan ketik sumber terbuka yang mengutamakan privasi, berdasarkan AOSP OpenBoard.
 
 Tidak menggunakan izin internet, dan karenanya 100% offline.
 
@@ -28,7 +28,7 @@ Fitur:
 
 <ul>
 
-<li>Sesuaikan tata letak keyboard <a href="https:github.comHelium314HeliBoardblobmainlayouts.md">(hanya tersedia saat menonaktifkan <i>gunakan bahasa sistem<i>)<li>
+<li>Sesuaikan tata letak keyboard <a href="https:github.comHelium314SociaKeyboardblobmainlayouts.md">(hanya tersedia saat menonaktifkan <i>gunakan bahasa sistem<i>)<li>
 
 <li>Sesuaikan tata letak khusus, seperti simbol, angka, atau tata letak tombol fungsional<li>
 

@@ -3,7 +3,7 @@
     SPDX-License-Identifier: GPL-3.0-only
 -->
 <resources>
-    <string name="english_ime_name" translatable="false">HeliBoard debug</string>
-    <string name="spell_checker_service_name" translatable="false">HeliBoard debug Spell Checker</string>
-    <string name="ime_settings" translatable="false">HeliBoard debug Settings</string>
+    <string name="english_ime_name" translatable="false">SociaKeyboard debug</string>
+    <string name="spell_checker_service_name" translatable="false">SociaKeyboard debug Spell Checker</string>
+    <string name="ime_settings" translatable="false">SociaKeyboard debug Settings</string>
 </resources>

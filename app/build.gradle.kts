@@ -53,7 +53,7 @@ android {
             signingConfig = signingConfigs.getByName("debug")
             applicationIdSuffix = ".debug"
         }
-        base.archivesBaseName = "HeliBoard_" + defaultConfig.versionName
+        base.archivesBaseName = "SociaKeyboard_" + defaultConfig.versionName
     }
 
     buildFeatures {
@@ -91,7 +91,7 @@ android {
         jvmTarget = JavaVersion.VERSION_17.toString()
     }
 
-    // see https://github.com/Helium314/HeliBoard/issues/477
+    // see https://github.com/Helium314/SociaKeyboard/issues/477
     dependenciesInfo {
         includeInApk = false
         includeInBundle = false

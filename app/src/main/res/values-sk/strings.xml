@@ -117,12 +117,12 @@
     <string name="enable_clipboard_history">Povoliť históriu schránky</string>
     <string name="prefs_force_incognito_mode_summary">Vypnúť učenie nových slov</string>
     <string name="more_keys_strip_description">Viac kláves</string>
-    <string name="spell_checker_service_name">HeliBoard Kontrola Pravopisu</string>
-    <string name="android_spell_checker_settings">Nastavenia kontroly pravopisu HeliBoard</string>
+    <string name="spell_checker_service_name">SociaKeyboard Kontrola Pravopisu</string>
+    <string name="android_spell_checker_settings">Nastavenia kontroly pravopisu SociaKeyboard</string>
     <string name="show_emoji_key">Emoji klávesa</string>
     <string name="incognito">Vynútiť režim inkognito</string>
     <string name="settings_category_input">Vstup</string>
-    <string name="ime_settings">HeliBoard Nastavenia</string>
+    <string name="ime_settings">SociaKeyboard Nastavenia</string>
     <string name="settings_category_additional_keys">Dodatočné klávesy</string>
     <string name="settings_category_correction">Korekcie</string>
     <string name="settings_category_suggestions">Návrhy</string>

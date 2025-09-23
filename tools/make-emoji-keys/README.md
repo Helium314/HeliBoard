@@ -1,6 +1,6 @@
 # make-emoji-keys
 
-This module takes care of generating emoji data bundled with HeliBoard.
+This module takes care of generating emoji data bundled with SociaKeyboard.
 Basically data is generated in three steps:
 1. Unicode emoji table provides code points and grouping plus ordering.
 2. Local file lists every new emojis supported for every android version since 4.4.
@@ -8,7 +8,7 @@ Basically data is generated in three steps:
 
 ### Generate emoji-categories.xml
 
-A gradle task called 'makeEmoji' builds and runs this tool to generate android resource file which. Path to HeliBoard's res directory is automatically set so the file is ready to be bundled at build.
+A gradle task called 'makeEmoji' builds and runs this tool to generate android resource file which. Path to SociaKeyboard's res directory is automatically set so the file is ready to be bundled at build.
 
 ### Update to latest emoji version
 

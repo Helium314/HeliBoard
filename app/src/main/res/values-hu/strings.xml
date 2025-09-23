@@ -118,8 +118,8 @@
     <string name="settings_no_limit">Korlátlan</string>
     <string name="enable_clipboard_history">Vágólap előzményeinek engedélyezése</string>
     <string name="key_borders">Betű határok</string>
-    <string name="ime_settings">HeliBoard Beállítások</string>
-    <string name="android_spell_checker_settings">HeliBoard helyesírás-ellenőrző beállításai</string>
+    <string name="ime_settings">SociaKeyboard Beállítások</string>
+    <string name="android_spell_checker_settings">SociaKeyboard helyesírás-ellenőrző beállításai</string>
     <string name="settings_category_additional_keys">További gombok</string>
     <string name="delete_swipe_summary">A törlés gombról való csúsztatással nagyobb szövegrészleteket jelölhet ki és távolíthat el</string>
     <string name="enable_clipboard_history_summary">Ha le van tiltva, a vágólap billentyű beilleszti a vágólap tartalmát, ha van</string>
@@ -133,7 +133,7 @@
     <string name="prefs_long_press_keyboard_to_change_lang">Beviteli mód megváltoztatása a szóközzel</string>
     <string name="subtype_no_language_workman">Ábécé (Munkás)</string>
     <string name="day_night_mode">Automatikus nappali/éjszakai üzemmód</string>
-    <string name="spell_checker_service_name">HeliBoard helyesírás-ellenőrző</string>
+    <string name="spell_checker_service_name">SociaKeyboard helyesírás-ellenőrző</string>
     <string name="delete_swipe">Csúsztató törlése</string>
     <string name="show_emoji_key">Emoji gomb</string>
     <string name="incognito">Inkognitó mód kényszerítése</string>

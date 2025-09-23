@@ -110,8 +110,8 @@
     <string name="user_dict_settings_all_languages">"Para todos os idiomas"</string>
     <string name="user_dict_settings_more_languages">"Mais idiomas…"</string>
     <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
-    <string name="spell_checker_service_name">Verificação ortográfica HeliBoard</string>
-    <string name="android_spell_checker_settings">Definições de verificação ortográfica HeliBoard</string>
+    <string name="spell_checker_service_name">Verificação ortográfica SociaKeyboard</string>
+    <string name="android_spell_checker_settings">Definições de verificação ortográfica SociaKeyboard</string>
     <string name="number_row">Número de linha</string>
     <string name="number_row_summary">Mostrar sempre n.º de linha</string>
     <string name="subtype_no_language_colemak_dh">Alfabeto (Colemak Mod-DH)</string>
@@ -122,7 +122,7 @@
     <string name="settings_category_experimental">Experimental</string>
     <string name="settings_category_input">Introdução</string>
     <string name="settings_category_miscellaneous">Outras</string>
-    <string name="ime_settings">Definições HeliBoard</string>
+    <string name="ime_settings">Definições SociaKeyboard</string>
     <string name="settings_category_suggestions">Sugestões</string>
     <string name="delete_swipe">Deslize para eliminar</string>
     <string name="more_keys_strip_description">Mais teclas</string>

@@ -217,7 +217,7 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
         // issues:
         //  * setSelection "will cause the editor to call onUpdateSelection", see: https://developer.android.com/reference/android/view/inputmethod/InputConnection#setSelection(int,%20int)
         //     but Firefox is simply not doing this within the same word... WTF?
-        //     https://github.com/Helium314/HeliBoard/issues/1139#issuecomment-2588169384
+        //     https://github.com/Helium314/SociaKeyboard/issues/1139#issuecomment-2588169384
         //  * inputType is NOT if variant InputType.TYPE_TEXT_VARIATION_WEB_EDIT_TEXT (variant appears to always be 0)
         //     so we can't even only do it for browsers (identifying by app name will break for forks)
         // best "solution" is not doing this for InputType variation 0 but this applies to the majority of text fields...

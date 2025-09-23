@@ -1,4 +1,4 @@
-See the contributing readme for more detailed guidelines: https://github.com/Helium314/HeliBoard/blob/main/CONTRIBUTING.md#guidelines
+See the contributing readme for more detailed guidelines: https://github.com/Helium314/SociaKeyboard/blob/main/CONTRIBUTING.md#guidelines
 tl;dr:
 necessary;
 * a single thing only
@@ -13,7 +13,7 @@ A good description and small scope ("single thing") massively help with reviewin
 
 Further
 * When the PR contains "fixes" <issue number>, the related issue will be linked and automatically closed if the PR is merged (also works for other words like "fix", "resolve", "resolves", "closes", ...)
-* If you add a keyboard layout, best read https://github.com/Helium314/HeliBoard/blob/main/layouts.md#adding-new-layouts--languages
+* If you add a keyboard layout, best read https://github.com/Helium314/SociaKeyboard/blob/main/layouts.md#adding-new-layouts--languages
 * Please avoid force-pushing when doing requested changes. This way it's not possible to see which parts have changed since the previous state.
 
 <!-- (please remove the text above before submitting the PR) -->

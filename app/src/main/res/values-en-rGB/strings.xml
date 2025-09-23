@@ -112,8 +112,8 @@
     <string name="user_dict_settings_all_languages">"For all languages"</string>
     <string name="user_dict_settings_more_languages">"More languages…"</string>
     <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
-    <string name="spell_checker_service_name">HeliBoard Spell Checker</string>
-    <string name="android_spell_checker_settings">HeliBoard Spell Checker Settings</string>
+    <string name="spell_checker_service_name">SociaKeyboard Spell Checker</string>
+    <string name="android_spell_checker_settings">SociaKeyboard Spell Checker Settings</string>
     <string name="number_row_summary">Always show number row</string>
     <string name="delete_swipe">Delete swipe</string>
     <string name="prefs_force_incognito_mode_summary">Disable learning of new words</string>
@@ -125,7 +125,7 @@
     <string name="settings_category_experimental">Experimental</string>
     <string name="settings_category_input">Input</string>
     <string name="settings_category_miscellaneous">Miscellaneous</string>
-    <string name="ime_settings">HeliBoard Settings</string>
+    <string name="ime_settings">SociaKeyboard Settings</string>
     <string name="settings_category_suggestions">Suggestions</string>
     <string name="number_row">Number row</string>
     <string name="show_hints">Show key hints</string>

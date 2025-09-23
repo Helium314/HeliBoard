@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="spell_checker_service_name">Ғалатёби Имлоӣ HeliBoard</string>
-    <string name="ime_settings">Танзимоти HeliBoard</string>
-    <string name="android_spell_checker_settings">Танзимоти Ғалатёби Имлоӣ HeliBoard</string>
+    <string name="spell_checker_service_name">Ғалатёби Имлоӣ SociaKeyboard</string>
+    <string name="ime_settings">Танзимоти SociaKeyboard</string>
+    <string name="android_spell_checker_settings">Танзимоти Ғалатёби Имлоӣ SociaKeyboard</string>
     <string name="use_contacts_dict">пайдо кардани иоми мухотабин</string>
     <string name="settings_screen_theme">Тарҳзамина</string>
 </resources>

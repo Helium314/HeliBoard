@@ -123,7 +123,7 @@
     <string name="day_night_mode">Automatisk dag-/nattilstand</string>
     <string name="day_night_mode_summary">Udseende følger systemindstillinger</string>
     <string name="abbreviation_unit_minutes"><xliff:g id="MINUTES">%s</xliff:g> min.</string>
-    <string name="spell_checker_service_name">HeliBoard-stavekontrol</string>
+    <string name="spell_checker_service_name">SociaKeyboard-stavekontrol</string>
     <string name="show_hints">Vis tastehints</string>
     <string name="number_row">Talrække</string>
     <string name="number_row_summary">Vis altid talrækken</string>
@@ -131,12 +131,12 @@
     <string name="show_emoji_key">Emoji-tast</string>
     <string name="prefs_long_press_keyboard_to_change_lang">Skift inputmetode med mellemrumstasten</string>
     <string name="prefs_long_press_keyboard_to_change_lang_summary">Langt tryk på mellemrumstasten åbner menuen til valg af inputmetode</string>
-    <string name="android_spell_checker_settings">Indstillinger for HeliBoard-stavekontrol</string>
+    <string name="android_spell_checker_settings">Indstillinger for SociaKeyboard-stavekontrol</string>
     <string name="autospace_after_punctuation_summary">Indsæt automatisk mellemrum efter skilletegn, når du skriver et nyt ord</string>
     <string name="autospace_after_punctuation">Auto-mellemrum efter skilletegn</string>
     <string name="subtype_with_layout_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Bangla">%s</xliff:g> (Akkhor)</string>
     <string name="subtype_no_language_workman">Alfabet (Workman)</string>
-    <string name="ime_settings">HeliBoard-indstillinger</string>
+    <string name="ime_settings">SociaKeyboard-indstillinger</string>
     <string name="settings_category_input">Input</string>
     <string name="settings_category_additional_keys">Yderligere taster</string>
     <string name="settings_category_miscellaneous">Diverse</string>

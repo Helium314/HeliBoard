@@ -1,4 +1,4 @@
-HeliBoard is een privacybewust open-source toetsenbord, gebaseerd op AOSP / OpenBoard.
+SociaKeyboard is een privacybewust open-source toetsenbord, gebaseerd op AOSP / OpenBoard.
 Het verlangt geen netwerkrechten en is dus 100% offline.
 
 Kenmerken:
@@ -14,7 +14,7 @@ Kenmerken:
     <li>Dag/nacht-instelling van het systeem volgen op Android 10+ (en sommige versies van Android 9)</li>
     <li>Dynamische kleuren volgen voor Android 12+</li>
   </ul>
-  <li>Toetsenbord <a href = "https://github.com/Helium314/HeliBoard/blob/main/layouts.md">layouts</a> aanpassen (alleen beschikbaar bij het uitschakelen van <i> Systeemtalen gebruiken</i>)</li>
+  <li>Toetsenbord <a href = "https://github.com/Helium314/SociaKeyboard/blob/main/layouts.md">layouts</a> aanpassen (alleen beschikbaar bij het uitschakelen van <i> Systeemtalen gebruiken</i>)</li>
   <li>Aanpassing van speciale lay-outs, zoals symbolen, cijfers of functionele toetslay-outs</li>
   <li>Meertalige invoer</li>
   <li>Vegend typen (Glide typing) (<i> alleen m.b.v. gesloten bronbibliotheek </i> ☹️)</li>

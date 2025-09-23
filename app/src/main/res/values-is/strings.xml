@@ -134,8 +134,8 @@
     <string name="style_name_Rounded" tools:keep="@string/style_name_Rounded">Rúnnað</string>
     <string name="subtype_with_layout_xdq" tools:keep="@string/subtype_with_layout_xdq">Kaitag (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="theme_style">Stíll</string>
-    <string name="spell_checker_service_name">Stafsetningarleiðrétting HeliBoard</string>
-    <string name="ime_settings">Stillingar HeliBoard</string>
+    <string name="spell_checker_service_name">Stafsetningarleiðrétting SociaKeyboard</string>
+    <string name="ime_settings">Stillingar SociaKeyboard</string>
     <string name="button_backup">Öryggisafrit</string>
     <string name="load_gesture_library_button_load">Hlaða inn orðasafni</string>
     <string name="load_gesture_library_button_delete">Eyða orðasafni</string>
@@ -145,7 +145,7 @@
     <string name="button_select_language">Veldu tungumál</string>
     <string name="replace_dictionary">Skipta út orðasafni</string>
     <string name="select_word" tools:keep="@string/select_word">Veldu orð</string>
-    <string name="android_spell_checker_settings">Stillingar stafsetningarleiðréttingar HeliBoard</string>
+    <string name="android_spell_checker_settings">Stillingar stafsetningarleiðréttingar SociaKeyboard</string>
     <string name="settings_category_input">Innsláttur</string>
     <string name="settings_category_additional_keys">Viðbótarlyklar</string>
     <string name="settings_category_clipboard_history">Ferilskrá klippispjalds</string>

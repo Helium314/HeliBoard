@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" xmlns:tools="http://schemas.android.com/tools">
-    <string name="ime_settings">Mga Setting ng HeliBoard</string>
+    <string name="ime_settings">Mga Setting ng SociaKeyboard</string>
     <string name="vibrate_on_keypress">Mag-vibrate sa keypress</string>
     <string name="sound_on_keypress">Tunog sa keypress</string>
     <string name="popup_on_keypress">Mag-popup sa keypress</string>
@@ -46,8 +46,8 @@
     <string name="auto_correction_threshold_mode_off">Off</string>
     <string name="auto_correction_threshold_mode_modest">Mababang-loob</string>
     <string name="auto_correction_threshold_mode_aggressive">Agresibo</string>
-    <string name="spell_checker_service_name">Spell Checker ng HeliBoard</string>
-    <string name="android_spell_checker_settings">Mga Setting ng Spell Checker ng Heliboard</string>
+    <string name="spell_checker_service_name">Spell Checker ng SociaKeyboard</string>
+    <string name="android_spell_checker_settings">Mga Setting ng Spell Checker ng Sociakeyboard</string>
     <string name="use_contacts_dict">Hanapin ang mga pangalan ng contact</string>
     <string name="settings_category_suggestions">Mga mungkahi</string>
     <string name="abbreviation_unit_milliseconds"><xliff:g id="MILLISECONDS">%s</xliff:g> ms</string>

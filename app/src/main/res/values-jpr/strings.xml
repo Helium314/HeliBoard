@@ -5,7 +5,7 @@
     <string name="subtype_no_language_qwertz" tools:keep="@string/subtype_no_language_qwertz">חרוףֿ אלפֿבא (QWERTZ)</string>
     <string name="auto_cap">בזרגכרדן כֿודכאר חרוףֿ</string>
     <string name="autocorrect">תצחיח כֿודכאר</string>
-    <string name="ime_settings">מנטׄימאת HeliBoard‬‏</string>
+    <string name="ime_settings">מנטׄימאת SociaKeyboard‬‏</string>
     <string name="use_personalized_dicts">פישנהאדאת שכֿצי שודה</string>
     <string name="settings" tools:keep="@string/settings">מנטׄימאת</string>
     <string name="user_dict_settings_add_shortcut_option_name">מיאנבר:‏</string>

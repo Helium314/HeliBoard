@@ -113,8 +113,8 @@
     <string name="enable_clipboard_history">Habilitar historial del portapapeles</string>
     <string name="clipboard_history_retention_time">Tiempo para mantener el historial</string>
     <string name="abbreviation_unit_minutes"><xliff:g id="MINUTES">%s</xliff:g>min.</string>
-    <string name="spell_checker_service_name">Corrector ortográfico de HeliBoard</string>
-    <string name="android_spell_checker_settings">Ajustes del corrector ortográfico de HeliBoard</string>
+    <string name="spell_checker_service_name">Corrector ortográfico de SociaKeyboard</string>
+    <string name="android_spell_checker_settings">Ajustes del corrector ortográfico de SociaKeyboard</string>
     <string name="prefs_keyboard_height_scale">Escala de altura del teclado</string>
     <string name="show_emoji_key">Tecla de emoji</string>
     <string name="enable_clipboard_history_summary">Si está deshabilitada, la tecla del portapapeles pegará el contenido del portapapeles si lo hay</string>
@@ -141,7 +141,7 @@
     <string name="day_night_mode_summary">Seguir la configuración del sistema</string>
     <string name="subtype_no_language_workman">Alfabeto (Workman)</string>
     <string name="day_night_mode">Modo claro/oscuro automático</string>
-    <string name="ime_settings">Ajustes de HeliBoard</string>
+    <string name="ime_settings">Ajustes de SociaKeyboard</string>
     <string name="settings_category_input">Entrada</string>
     <string name="settings_category_additional_keys">Teclas adicionales</string>
     <string name="settings_category_correction">Correcciones</string>

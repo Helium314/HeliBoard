@@ -4,7 +4,7 @@
     modified
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
 --><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" xmlns:tools="http://schemas.android.com/tools">
-    <string name="ime_settings">Configurações do HeliBoard</string>
+    <string name="ime_settings">Configurações do SociaKeyboard</string>
     <string name="vibrate_on_keypress">Vibrar ao tocar nas teclas</string>
     <string name="sound_on_keypress">Som ao tocar nas teclas</string>
     <string name="settings_screen_gesture">Digitação por gestos</string>
@@ -90,8 +90,8 @@
     <string name="user_dict_settings_more_languages">Mais idiomas…</string>
     <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
     <string name="key_borders">Bordas nas teclas</string>
-    <string name="spell_checker_service_name">Verificador ortográfico do HeliBoard</string>
-    <string name="android_spell_checker_settings">Configurações do verificador ortográfico do HeliBoard</string>
+    <string name="spell_checker_service_name">Verificador ortográfico do SociaKeyboard</string>
+    <string name="android_spell_checker_settings">Configurações do verificador ortográfico do SociaKeyboard</string>
     <string name="use_contacts_dict">Buscar por nomes de contatos</string>
     <string name="popup_on_keypress">Mostrar pop-up ao tocar em teclas</string>
     <string name="settings_screen_preferences">Preferências</string>

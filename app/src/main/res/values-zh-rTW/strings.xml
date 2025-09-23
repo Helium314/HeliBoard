@@ -127,7 +127,7 @@
     <string name="dictionary_settings_category">字典</string>
     <string name="theme_name_violette" tools:keep="@string/theme_name_violette">紫羅蘭</string>
     <string name="settings_screen_appearance">外觀</string>
-    <string name="ime_settings">HeliBoard 設定</string>
+    <string name="ime_settings">SociaKeyboard 設定</string>
     <string name="settings_category_suggestions">建議</string>
     <string name="settings_category_experimental">實驗功能</string>
     <string name="settings_category_miscellaneous">雜項</string>

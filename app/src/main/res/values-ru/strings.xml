@@ -141,10 +141,10 @@
     <string name="show_emoji_key">Клавиша эмодзи</string>
     <string name="settings_category_clipboard_history">История буфера обмена</string>
     <string name="enable_clipboard_history">Включить журнал буфера обмена</string>
-    <string name="spell_checker_service_name">Проверка правописания HeliBoard</string>
+    <string name="spell_checker_service_name">Проверка правописания SociaKeyboard</string>
     <string name="android_spell_checker_settings">Настройки проверки правописания</string>
     <string name="abbreviation_unit_minutes"><xliff:g id="MINUTES">%s</xliff:g> мин.</string>
-    <string name="ime_settings">Настройки HeliBoard</string>
+    <string name="ime_settings">Настройки SociaKeyboard</string>
     <string name="settings_no_limit">Без ограничения</string>
     <string name="clipboard_history_retention_time">Время хранения журнала буфера обмена</string>
     <string name="subtype_with_layout_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Бенгальский">%s</xliff:g> (Акхор)</string>

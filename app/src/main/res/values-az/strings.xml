@@ -111,12 +111,12 @@
     <string name="user_dict_settings_more_languages">"Digər dillər…"</string>
     <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
     <string name="settings_category_clipboard_history">Pano keçmişi</string>
-    <string name="spell_checker_service_name">HeliBoard Yazı Yoxlayıcısı</string>
-    <string name="android_spell_checker_settings">HeliBoard Yazı Yoxlayıcısı Parametrləri</string>
+    <string name="spell_checker_service_name">SociaKeyboard Yazı Yoxlayıcısı</string>
+    <string name="android_spell_checker_settings">SociaKeyboard Yazı Yoxlayıcısı Parametrləri</string>
     <string name="use_system_language_to_select_input_method_subtypes">"Sistem dillərini istifadə edin"</string>
     <string name="select_input_method">"Daxiletmə metodunu seçin"</string>
     <string name="settings_screen_appearance">"Görünüş"</string>
-    <string name="ime_settings">HeliBoard Tənzimləmələri</string>
+    <string name="ime_settings">SociaKeyboard Tənzimləmələri</string>
     <string name="settings_category_input">Giriş</string>
     <string name="settings_category_additional_keys">Əlavə Düymələr</string>
     <string name="undo">"Ləğv edin"</string>

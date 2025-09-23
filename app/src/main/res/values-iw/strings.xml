@@ -123,18 +123,18 @@
     <string name="prefs_keyboard_height_scale">סולם גובה מקלדת</string>
     <string name="key_borders">גבולות מקלדת</string>
     <string name="day_night_mode">מצב יום/לילה אוטומטי</string>
-    <string name="android_spell_checker_settings">הגדרות בודק האיות של HeliBoard</string>
+    <string name="android_spell_checker_settings">הגדרות בודק האיות של SociaKeyboard</string>
     <string name="prefs_long_press_keyboard_to_change_lang">שינוי שיטת ההזנה על-ידי מקש רווח</string>
     <string name="show_emoji_key">מקש אמוג\'י</string>
     <string name="subtype_with_layout_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Bangla">%s</xliff:g> (תווים)</string>
-    <string name="spell_checker_service_name">בודק האיות של HeliBoard</string>
+    <string name="spell_checker_service_name">בודק האיות של SociaKeyboard</string>
     <string name="settings_category_clipboard_history">היסטוריית הלוח</string>
     <string name="autospace_after_punctuation">רווח אוטומטי לאחר סימני פיסוק</string>
     <string name="subtype_no_language_colemak_dh">אלפבית (Colemak Mod-DH)</string>
     <string name="day_night_mode_summary">המראה יעקוב אחר הגדרות המערכת</string>
     <string name="autospace_after_punctuation_summary">הוסף רווח אוטומטי לאחר סימני פיסוק בעת הקלדת מילה חדשה</string>
     <string name="subtype_no_language_workman">אלפבית (עובד)</string>
-    <string name="ime_settings">הגדרות HeliBoard</string>
+    <string name="ime_settings">הגדרות SociaKeyboard</string>
     <string name="settings_category_input">קֶלֶט</string>
     <string name="settings_category_experimental">נסיוני</string>
     <string name="settings_category_miscellaneous">שונות</string>

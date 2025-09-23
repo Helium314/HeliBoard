@@ -115,10 +115,10 @@
     <string name="use_system_language_to_select_input_method_subtypes">"استفاده از زبان‌های سیستم"</string>
     <string name="select_input_method">"انتخاب روش ورودی"</string>
     <string name="settings_category_clipboard_history">تاریخچهٔ تخته‌گیره</string>
-    <string name="spell_checker_service_name">غلط‌یاب املایی HeliBoard</string>
-    <string name="android_spell_checker_settings">تنظیمات غلط‌یاب املایی HeliBoard</string>
+    <string name="spell_checker_service_name">غلط‌یاب املایی SociaKeyboard</string>
+    <string name="android_spell_checker_settings">تنظیمات غلط‌یاب املایی SociaKeyboard</string>
     <string name="show_emoji_key">دکمهٔ شکلک</string>
-    <string name="ime_settings">تنظیمات HeliBoard</string>
+    <string name="ime_settings">تنظیمات SociaKeyboard</string>
     <string name="settings_category_additional_keys">کلیدهای افزوده</string>
     <string name="settings_category_experimental">آزمایشی</string>
     <string name="settings_category_miscellaneous">متفرقه</string>

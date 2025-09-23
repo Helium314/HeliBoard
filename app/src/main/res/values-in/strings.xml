@@ -121,13 +121,13 @@
     <string name="number_row_summary">Selalu tampilkan baris angka</string>
     <string name="abbreviation_unit_minutes"><xliff:g id="MINUTES">%s</xliff:g>mnt</string>
     <string name="subtype_no_language_workman">Alfabet (Workman)</string>
-    <string name="spell_checker_service_name">Pemeriksa Ejaan HeliBoard</string>
-    <string name="android_spell_checker_settings">Pengaturan Pemeriksa Ejaan HeliBoard</string>
+    <string name="spell_checker_service_name">Pemeriksa Ejaan SociaKeyboard</string>
+    <string name="android_spell_checker_settings">Pengaturan Pemeriksa Ejaan SociaKeyboard</string>
     <string name="number_row">Baris angka</string>
     <string name="prefs_long_press_keyboard_to_change_lang">Ubah metode masukan dengan tombol spasi</string>
     <string name="incognito">Paksa mode privat</string>
     <string name="show_emoji_key">Tombol emoji</string>
-    <string name="ime_settings">Pengaturan HeliBoard</string>
+    <string name="ime_settings">Pengaturan SociaKeyboard</string>
     <string name="settings_category_input">Masukan</string>
     <string name="settings_category_additional_keys">Tombol tambahan</string>
     <string name="settings_category_suggestions">Saran</string>

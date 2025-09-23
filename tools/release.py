@@ -18,16 +18,16 @@ def check_git():
 
 # download and update translations
 def update_translations():
-    url = "https://translate.codeberg.org/download/heliboard/?format=zip"
+    url = "https://translate.codeberg.org/download/sociakeyboard/?format=zip"
     zip_file_name = "translations.zip"
     urlretrieve(url, zip_file_name)
-    # extract all in heliboard/heliboard/app/src/main/res and heliboard/heliboard/fastlane/metadata
+    # extract all in sociakeyboard/sociakeyboard/app/src/main/res and sociakeyboard/sociakeyboard/fastlane/metadata
     with zipfile.ZipFile(zip_file_name, "r") as f:
         for file in f.filelist:
-            if not file.filename.startswith("heliboard/heliboard/app/src/main/res")\
-                    and not file.filename.startswith("heliboard/heliboard/fastlane/metadata"):
+            if not file.filename.startswith("sociakeyboard/sociakeyboard/app/src/main/res")\
+                    and not file.filename.startswith("sociakeyboard/sociakeyboard/fastlane/metadata"):
                 continue
-            file.filename = file.filename.replace("heliboard/heliboard/", "")
+            file.filename = file.filename.replace("sociakeyboard/sociakeyboard/", "")
             f.extract(file)
     os.remove(zip_file_name)
 
@@ -57,7 +57,7 @@ def read_dicts_readme() -> list[str]:
 
 
 # generate a list of dictionaries available in the dictionaries repository at (https://codeberg.org/Helium314/aosp-dictionaries
-# for convenient linking when adding dictionaries in HeliBoard.
+# for convenient linking when adding dictionaries in SociaKeyboard.
 def update_dict_list():
     lines = read_dicts_readme()
     mode = 0

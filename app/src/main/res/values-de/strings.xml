@@ -115,12 +115,12 @@
     <string name="settings_category_clipboard_history">Zwischenablage-Verlauf</string>
     <string name="settings_category_correction">Korrekturen</string>
     <string name="settings_category_suggestions">Vorschläge</string>
-    <string name="android_spell_checker_settings">HeliBoard-Rechtschreibprüfungs-Einstellungen</string>
-    <string name="ime_settings">HeliBoard-Einstellungen</string>
+    <string name="android_spell_checker_settings">SociaKeyboard-Rechtschreibprüfungs-Einstellungen</string>
+    <string name="ime_settings">SociaKeyboard-Einstellungen</string>
     <string name="settings_category_experimental">Experimentell</string>
     <string name="settings_no_limit">Keine Begrenzung</string>
     <string name="abbreviation_unit_minutes"><xliff:g id="MINUTES">%s</xliff:g> Min.</string>
-    <string name="spell_checker_service_name">HeliBoard-Rechtschreibprüfung</string>
+    <string name="spell_checker_service_name">SociaKeyboard-Rechtschreibprüfung</string>
     <string name="show_emoji_key">Emoji-Taste</string>
     <string name="settings_category_input">Eingabe</string>
     <string name="settings_category_additional_keys">Zusätzliche Tasten</string>
