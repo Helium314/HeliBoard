@@ -19,43 +19,38 @@ import java.io.IOException
 import java.io.InputStreamReader
 
 object TranslatorUtils {
-    // Exemple : met tout le texte en majuscule
-    @JvmStatic
-    fun toUpperCase(text: String?): String {
-        return text?.uppercase() ?: ""
-    }
-    // Tu pourras ajouter ici d'autres fonctions de traduction par langue
 
     // --- Suggestion API Connector functionality ---
     private val client = OkHttpClient()
     private val baseUrl = "http://77.140.59.144:5000/api/Suggestion"
 
+
+    @JvmStatic
+    private fun parseJson(jsonString: String): String {
+        return try {
+            val jsonObject = Json.parseToJsonElement(jsonString).jsonObject
+            val textValue = jsonObject["Text"]?.jsonPrimitive?.contentOrNull
+            textValue ?: "No text found"
+        } catch (e: Exception) {
+            "Error parsing JSON: ${e.message}"
+        }
+    }
+
     /**
-     * Récupère des suggestions depuis l'API Suggestion
-     * @param url L'URL de la page
-     * @param selection Le texte sélectionné
-     * @param onScreenMemory Mémoire à l'écran
-     * @param fullHtml HTML complet
-     * @param isSummary true pour un résumé, false pour une auto-réponse
-     * @return Flow<String> émettant les suggestions ou erreurs
+     * Traduit le contenu dans la langue spécifiée en utilisant le nouvel endpoint API /translate-to
+     * @param language Langue cible (ex: "fr", "en", "es")
+     * @param content Texte à traduire
+     * @return Flow<String> émettant la traduction ou une erreur
      */
     @JvmStatic
-    fun getSuggestions(
-        url: String?,
-        selection: String,
-        onScreenMemory: String,
-        fullHtml: String,
-        isSummary: Boolean = false
-    ): Flow<String> = flow {
+    fun translateTo(language: String, content: String): Flow<String> = flow {
         val jsonObject = JSONObject().apply {
-            put("url", url)
-            put("selection", selection)
-            put("onScreenMemory", onScreenMemory)
-            put("fullHtml", fullHtml)
+            put("Text", content)
+            put("TargetLanguage", language)
         }
         val json = jsonObject.toString()
         val requestBody = json.toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
-        val targetUrl = if (isSummary) { "$baseUrl/summary" } else { "$baseUrl/auto-reply" }
+        val targetUrl = "$baseUrl/translate-to"
         val request = Request.Builder()
             .url(targetUrl)
             .post(requestBody)
@@ -72,40 +67,11 @@ object TranslatorUtils {
                 if (jsonBuffer.endsWith("}")) {
                     val jsonString = jsonBuffer.toString()
                     jsonBuffer.clear()
-                    val suggestion = parseJson(jsonString)
-                    emit(suggestion)
+                    val translation = parseJson(jsonString)
+                    emit(translation)
                 }
             }
         }
     }.flowOn(Dispatchers.IO)
         .catch { e -> emit("Error: ${e.message}") }
-
-    @JvmStatic
-    private fun parseJson(jsonString: String): String {
-        return try {
-            val jsonObject = Json.parseToJsonElement(jsonString).jsonObject
-            val textValue = jsonObject["Text"]?.jsonPrimitive?.contentOrNull
-            textValue ?: "No text found"
-        } catch (e: Exception) {
-            "Error parsing JSON: ${e.message}"
-        }
-    }
-
-    /**
-     * Traduit le contenu dans la langue spécifiée en utilisant l'API de suggestion
-     * @param language Langue cible (ex: "fr", "en", "es")
-     * @param content Texte à traduire
-     * @return Flow<String> émettant la traduction ou une erreur
-     */
-    @JvmStatic
-    fun translateTo(language: String, content: String): Flow<String> {
-        val prompt = "Translate this text in $language : $content"
-        return getSuggestions(
-            url = "SociaKeyboard/translate",
-            selection = prompt,
-            onScreenMemory = "",
-            fullHtml = "",
-            isSummary = false
-        )
-    }
 }

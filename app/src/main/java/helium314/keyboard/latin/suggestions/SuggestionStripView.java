@@ -162,21 +162,11 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         ImageButton mFlagEnButton = findViewById(R.id.flag_en);
         if (mFlagFrButton != null) {
             mFlagFrButton.setImageResource(R.drawable.ic_flag_fr);
-            mFlagFrButton.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    handleFlagClick();
-                }
-            });
+            mFlagFrButton.setOnClickListener(v -> handleFlagClick());
         }
         if (mFlagEnButton != null) {
             mFlagEnButton.setImageResource(R.drawable.ic_flag_us_uk);
-            mFlagEnButton.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    handleFlagClick();
-                }
-            });
+            mFlagEnButton.setOnClickListener(v -> handleFlagClick());
         }
 
         final Typeface customTypeface = Settings.getInstance().getCustomTypeface();
@@ -756,9 +746,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         colors.setBackground(view, ColorType.STRIP_BACKGROUND);
     }
 
-    // Méthode utilitaire pour transformer le texte en cours et l'insérer
     private void handleFlagClick() {
-        // Récupérer le mot en cours de saisie (première suggestion si dispo)
         final String word;
         if (mSuggestedWords != null && !mSuggestedWords.isEmpty()) {
             word = mSuggestedWords.getWord(0);
@@ -769,25 +757,22 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
             // Remplacement de toUpperCase par translateTo (asynchrone)
             kotlinx.coroutines.BuildersKt.launch(
                 kotlinx.coroutines.GlobalScope.INSTANCE,
-                kotlinx.coroutines.Dispatchers.getIO(),
-                kotlinx.coroutines.CoroutineStart.DEFAULT, // Fix: do not pass null
+                kotlinx.coroutines.Dispatchers.getMain(), // FIX: collect on main thread for UI safety
+                kotlinx.coroutines.CoroutineStart.DEFAULT,
                 (scope, cont) -> helium314.keyboard.latin.utils.TranslatorUtils.translateTo("en", word).collect(
-                    new kotlinx.coroutines.flow.FlowCollector<String>() {
-                        @Override
-                        public Object emit(String value, kotlin.coroutines.Continuation<? super kotlin.Unit> continuation) {
+                        (value, continuation) -> {
                             SuggestedWordInfo info = new SuggestedWordInfo(
                                 value,
-                                null, // prevWordsContext
-                                1, // score arbitraire
+                                null,
+                                1,
                                 SuggestedWordInfo.KIND_TYPED,
-                                null, // sourceDict
-                                -1, // indexOfTouchPointOfSecondWord
-                                -1  // autoCommitFirstWordConfidence
+                                null,
+                                -1,
+                                -1
                             );
                             mListener.pickSuggestionManually(info);
                             return kotlin.Unit.INSTANCE;
-                        }
-                    },
+                        },
                     cont
                 )
             );
