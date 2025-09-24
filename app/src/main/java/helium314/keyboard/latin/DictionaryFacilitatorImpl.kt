@@ -18,6 +18,7 @@ import helium314.keyboard.latin.common.ComposedData
 import helium314.keyboard.latin.common.Constants
 import helium314.keyboard.latin.common.StringUtils
 import helium314.keyboard.latin.common.decapitalize
+import helium314.keyboard.latin.common.isEmoji
 import helium314.keyboard.latin.common.mightBeEmoji
 import helium314.keyboard.latin.common.splitOnWhitespace
 import helium314.keyboard.latin.permissions.PermissionsUtil
@@ -500,7 +501,7 @@ class DictionaryFacilitatorImpl : DictionaryFacilitator {
         // Ensure at least two non-emoji, non-typed word results
         if (suggestionResults.size > 2) {
             val lowercaseTypedWord = composedData.mTypedWord.lowercase()
-            val nonEmojiCount = suggestionResults.filter { it.word != lowercaseTypedWord && !mightBeEmoji(it.word) }.size
+            val nonEmojiCount = suggestionResults.count { it.word != lowercaseTypedWord && !isEmoji(it.word) }
             if (nonEmojiCount < 2) {
                 val allResults = SuggestionResults(Int.MAX_VALUE, ngramContext.isBeginningOfSentenceContext, false)
                 suggestionsArray.forEach {
@@ -508,10 +509,10 @@ class DictionaryFacilitatorImpl : DictionaryFacilitator {
                     allResults.addAll(it)
                 }
                 for (i in 0 until 2 - nonEmojiCount) {
-                    val lastEmoji = suggestionResults.last { mightBeEmoji(it.word) }
+                    val lastEmoji = suggestionResults.last { isEmoji(it.word) }
                     suggestionResults.remove(lastEmoji)
                     val firstNonEmoji = allResults.first {
-                        !suggestionResults.contains(it) && it.word != lowercaseTypedWord && !mightBeEmoji(it.word)
+                        !suggestionResults.contains(it) && it.word != lowercaseTypedWord && !isEmoji(it.word)
                     }
                     suggestionResults.add(firstNonEmoji)
                 }

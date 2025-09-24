@@ -13,7 +13,7 @@ import helium314.keyboard.latin.common.ComposedData
 import helium314.keyboard.latin.common.Constants
 import helium314.keyboard.latin.common.InputPointers
 import helium314.keyboard.latin.common.StringUtils
-import helium314.keyboard.latin.common.mightBeEmoji
+import helium314.keyboard.latin.common.isEmoji
 import helium314.keyboard.latin.define.DebugFlags
 import helium314.keyboard.latin.define.DecoderSpecificConstants.SHOULD_AUTO_CORRECT_USING_NON_WHITE_LISTED_SUGGESTION
 import helium314.keyboard.latin.define.DecoderSpecificConstants.SHOULD_REMOVE_PREVIOUSLY_REJECTED_SUGGESTION
@@ -66,8 +66,11 @@ class Suggest(private val mDictionaryFacilitator: DictionaryFacilitator) {
 
         // Make the first two suggestions non-emoji
         for (i in 1..2) {
-            if (words.size() > 3 && mightBeEmoji(words.getWord(i))) {
-                val firstNonEmojiIndex = words.mSuggestedWordInfoList.drop(3).indexOfFirst { !mightBeEmoji(it.mWord) } + 3
+            if (words.size() > 3 && isEmoji(words.getWord(i))) {
+                val relativeIndex = words.mSuggestedWordInfoList.subList(3, words.mSuggestedWordInfoList.size)
+                    .indexOfFirst { !isEmoji(it.mWord) }
+                if (relativeIndex < 0) break
+                val firstNonEmojiIndex = relativeIndex + 3
                 if (firstNonEmojiIndex > i) {
                     words.mSuggestedWordInfoList.add(i, words.mSuggestedWordInfoList.removeAt(firstNonEmojiIndex))
                 }
