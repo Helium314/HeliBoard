@@ -1713,8 +1713,7 @@ public final class InputLogic {
                     && mLatinIME.tryShowClipboardSuggestion())) {
                 mSuggestionStripViewAccessor.setSuggestions(suggestedWords);
             }
-            if (! suggestedWords.isEmpty() && settingsValues.isSuggestionsEnabledPerUserSettings() && ! mWordComposer.isResumed()
-                                            && isInlineEmojiSearchAction()) {
+            if (! suggestedWords.isEmpty() && settingsValues.isSuggestionsEnabledPerUserSettings() && isInlineEmojiSearchAction()) {
                 mSuggestionStripViewAccessor.showSuggestionStrip();
             }
         }
@@ -2614,14 +2613,13 @@ public final class InputLogic {
             var suggestedWordInfos = new ArrayList<SuggestedWordInfo>(suggestions.size() + 1);
             suggestedWordInfos.add(typedWordInfo);
             for (var suggestion: suggestions) {
-                if (StringUtilsKt.mightBeEmoji(suggestion.mWord)) {
+                if (StringUtilsKt.isEmoji(suggestion.mWord)) {
                     Suggest.addDebugInfo(suggestion, input);
                     suggestedWordInfos.add(suggestion);
                 }
             }
             callback.onGetSuggestedWords(new SuggestedWords(suggestedWordInfos, suggestions.mRawSuggestions, typedWordInfo,
-                                         false /* typedWordValid */,
-                                        Settings.getValues().mAutoCorrectEnabled && ! mWordComposer.isResumed(),
+                                         false /* typedWordValid */, Settings.getValues().mAutoCorrectEnabled,
                                          false /* isObsoleteSuggestions */, SuggestedWords.INPUT_STYLE_TYPING, sequenceNumber));
         }
     }
