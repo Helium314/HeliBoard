@@ -94,7 +94,7 @@ import helium314.keyboard.latin.RichInputMethodManager
 import helium314.keyboard.latin.RichInputMethodSubtype
 import helium314.keyboard.latin.SingleDictionaryFacilitator
 import helium314.keyboard.latin.common.ColorType
-import helium314.keyboard.latin.common.mightBeEmoji
+import helium314.keyboard.latin.common.isEmoji
 import helium314.keyboard.latin.common.splitOnWhitespace
 import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.utils.DictionaryInfoUtils
@@ -337,7 +337,7 @@ class EmojiSearchActivity : ComponentActivity() {
         val keyboard = emojiPageKeyboardView.keyboard as DynamicGridKeyboard
         keyboard.removeAllKeys()
         pressedKey = null
-        dictionaryFacilitator!!.getSuggestions(text.splitOnWhitespace()).filter { mightBeEmoji(it.word) }.forEach {
+        dictionaryFacilitator!!.getSuggestions(text.splitOnWhitespace()).filter { isEmoji(it.word) }.forEach {
             val emoji = getEmojiDefaultVersion(it.word)
             val popupSpec = getEmojiPopupSpec(emoji)
             val keyParams = Key.KeyParams(emoji, emoji.getCode(), if (popupSpec != null) EMOJI_HINT_LABEL else null, popupSpec,
