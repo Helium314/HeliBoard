@@ -66,9 +66,8 @@ class Suggest(private val mDictionaryFacilitator: DictionaryFacilitator) {
 
         // Make the first two suggestions non-emoji
         for (i in 1..2) {
-            if (words.size() > 3 && isEmoji(words.getWord(i))) {
-                val relativeIndex = words.mSuggestedWordInfoList.subList(3, words.mSuggestedWordInfoList.size)
-                    .indexOfFirst { !isEmoji(it.mWord) }
+            if (words.size() > 3 && words.getInfo(i).isEmoji) {
+                val relativeIndex = words.mSuggestedWordInfoList.subList(3, words.mSuggestedWordInfoList.size).indexOfFirst { !it.isEmoji }
                 if (relativeIndex < 0) break
                 val firstNonEmojiIndex = relativeIndex + 3
                 if (firstNonEmojiIndex > i) {
