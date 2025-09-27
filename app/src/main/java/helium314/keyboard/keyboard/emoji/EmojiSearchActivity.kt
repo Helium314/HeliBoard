@@ -337,6 +337,7 @@ class EmojiSearchActivity : ComponentActivity() {
         val keyboard = emojiPageKeyboardView.keyboard as DynamicGridKeyboard
         keyboard.removeAllKeys()
         pressedKey = null
+        //todo: change to suggestion.isEmoji()
         dictionaryFacilitator!!.getSuggestions(text.splitOnWhitespace()).filter { isEmoji(it.word) }.forEach {
             val emoji = getEmojiDefaultVersion(it.word)
             val popupSpec = getEmojiPopupSpec(emoji)
