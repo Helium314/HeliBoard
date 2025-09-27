@@ -2606,22 +2606,29 @@ public final class InputLogic {
         var input = getInlineEmojiSearchString();
         if (StringUtils.isEmpty(input)) {
             callback.onGetSuggestedWords(SuggestedWords.getEmptyInstance());
-        } else {
-            var suggestions = mEmojiDictionaryFacilitator.getSuggestions(StringUtilsKt.splitOnWhitespace(input));
-            var typedWordInfo = new SuggestedWordInfo(input, "", SuggestedWordInfo.MAX_SCORE, SuggestedWordInfo.KIND_TYPED,
-                                     Dictionary.DICTIONARY_USER_TYPED, SuggestedWordInfo.NOT_AN_INDEX, SuggestedWordInfo.NOT_A_CONFIDENCE);
-            var suggestedWordInfos = new ArrayList<SuggestedWordInfo>(suggestions.size() + 1);
-            suggestedWordInfos.add(typedWordInfo);
-            for (var suggestion: suggestions) {
-                if (StringUtilsKt.isEmoji(suggestion.mWord)) {
-                    Suggest.addDebugInfo(suggestion, input);
-                    suggestedWordInfos.add(suggestion);
-                }
-            }
-            callback.onGetSuggestedWords(new SuggestedWords(suggestedWordInfos, suggestions.mRawSuggestions, typedWordInfo,
-                                         false /* typedWordValid */, Settings.getValues().mAutoCorrectEnabled,
-                                         false /* isObsoleteSuggestions */, SuggestedWords.INPUT_STYLE_TYPING, sequenceNumber));
+            return;
         }
+
+        var suggestions = mEmojiDictionaryFacilitator.getSuggestions(StringUtilsKt.splitOnWhitespace(input));
+        if (suggestions.isEmpty()) {
+            callback.onGetSuggestedWords(SuggestedWords.getEmptyInstance());
+            return;
+        }
+
+        var typedWordInfo = new SuggestedWordInfo(input, "", SuggestedWordInfo.MAX_SCORE, SuggestedWordInfo.KIND_TYPED,
+                                 Dictionary.DICTIONARY_USER_TYPED, SuggestedWordInfo.NOT_AN_INDEX, SuggestedWordInfo.NOT_A_CONFIDENCE);
+        var suggestedWordInfos = new ArrayList<SuggestedWordInfo>(suggestions.size() + 1);
+        suggestedWordInfos.add(typedWordInfo);
+        for (var suggestion: suggestions) {
+            //todo: change to suggestion.isEmoji()
+            if (StringUtilsKt.isEmoji(suggestion.mWord)) {
+                Suggest.addDebugInfo(suggestion, input);
+                suggestedWordInfos.add(suggestion);
+            }
+        }
+        callback.onGetSuggestedWords(new SuggestedWords(suggestedWordInfos, suggestions.mRawSuggestions, typedWordInfo,
+                                     false /* typedWordValid */, Settings.getValues().mAutoCorrectEnabled,
+                                     false /* isObsoleteSuggestions */, SuggestedWords.INPUT_STYLE_TYPING, sequenceNumber));
     }
 
     private void deleteTextReplacedByEmoji() {
