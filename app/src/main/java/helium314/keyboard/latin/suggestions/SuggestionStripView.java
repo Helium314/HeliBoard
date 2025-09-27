@@ -754,10 +754,9 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
             word = null;
         }
         if (word != null && mListener != null) {
-            // Remplacement de toUpperCase par translateTo (asynchrone)
             kotlinx.coroutines.BuildersKt.launch(
                 kotlinx.coroutines.GlobalScope.INSTANCE,
-                kotlinx.coroutines.Dispatchers.getMain(), // FIX: collect on main thread for UI safety
+                kotlinx.coroutines.Dispatchers.getMain(),
                 kotlinx.coroutines.CoroutineStart.DEFAULT,
                 (scope, cont) -> helium314.keyboard.latin.utils.TranslatorUtils.translateTo("en", word).collect(
                         (value, continuation) -> {

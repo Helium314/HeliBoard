@@ -1,0 +1,22 @@
+{
+  "copilotManifestVersion": 1,
+  "rules": [
+    {
+      "description": "Respecter les principes SOLID et les bonnes pratiques de software craftmanship dans toutes les modifications de code.",
+      "enforced": true
+    },
+    {
+      "description": "Ne pas écrire de commentaires dans le code généré.",
+      "enforced": true
+    },
+    {
+      "description": "Tout texte inséré dans le code (hors code lui-même) doit être en anglais.",
+      "enforced": true
+    },
+    {
+      "description": "La partie chat avec l'utilisateur doit rester en français.",
+      "enforced": true
+    }
+  ]
+}
+

@@ -74,7 +74,6 @@ public final class InputView extends FrameLayout {
         if (!(context instanceof LatinIME)) return;
         String currentText = LatinIME.getInputText((LatinIME) context);
         Flow<String> flow = TranslatorUtils.translateTo(language, currentText);
-        // Lancer la coroutine avec GlobalScope et BuildersKt.launch
         BuildersKt.launch(
             GlobalScope.INSTANCE,
             Dispatchers.getIO(),
@@ -97,8 +96,6 @@ public final class InputView extends FrameLayout {
     protected boolean dispatchHoverEvent(final MotionEvent event) {
         if (AccessibilityUtils.Companion.getInstance().isTouchExplorationEnabled()
                 && mMainKeyboardView.isShowingPopupKeysPanel()) {
-            // With accessibility mode on, discard hover events while a popup keys keyboard is shown.
-            // The {@link PopupKeysKeyboard} receives hover events directly from the platform.
             return true;
         }
         return super.dispatchHoverEvent(event);
@@ -112,15 +109,11 @@ public final class InputView extends FrameLayout {
         final int x = (int)me.getX(index) + rect.left;
         final int y = (int)me.getY(index) + rect.top;
 
-        // The touch events that hit the top padding of keyboard should be forwarded to
-        // {@link SuggestionStripView}.
         if (mKeyboardTopPaddingForwarder.onInterceptTouchEvent(x, y, me)) {
             mActiveForwarder = mKeyboardTopPaddingForwarder;
             return true;
         }
 
-        // To cancel {@link MoreSuggestionsView}, we should intercept a touch event to
-        // {@link MainKeyboardView} and dismiss the {@link MoreSuggestionsView}.
         if (mMoreSuggestionsViewCanceler.onInterceptTouchEvent(x, y, me)) {
             mActiveForwarder = mMoreSuggestionsViewCanceler;
             return true;
@@ -146,20 +139,10 @@ public final class InputView extends FrameLayout {
 
     private Unit onNextLayout(View v) {
         Settings.getValues().mColors.setBackground(findViewById(R.id.main_keyboard_frame), ColorType.MAIN_BACKGROUND);
-
-        // Work around inset application being unreliable
         requestApplyInsets();
         return null;
     }
 
-    /**
-     * This class forwards series of {@link MotionEvent}s from <code>SenderView</code> to
-     * <code>ReceiverView</code>.
-     *
-     * @param <SenderView> a {@link View} that may send a {@link MotionEvent} to <ReceiverView>.
-     * @param <ReceiverView> a {@link View} that receives forwarded {@link MotionEvent} from
-     *     <SenderView>.
-     */
     private static abstract class
             MotionEventForwarder<SenderView extends View, ReceiverView extends View> {
         protected final SenderView mSenderView;
@@ -173,15 +156,12 @@ public final class InputView extends FrameLayout {
             mReceiverView = receiverView;
         }
 
-        // Return true if a touch event of global coordinate x, y needs to be forwarded.
         protected abstract boolean needsToForward(final int x, final int y);
 
-        // Translate global x-coordinate to <code>ReceiverView</code> local coordinate.
         protected int translateX(final int x) {
             return x - mEventReceivingRect.left;
         }
 
-        // Translate global y-coordinate to <code>ReceiverView</code> local coordinate.
         protected int translateY(final int y) {
             return y - mEventReceivingRect.top;
         }
