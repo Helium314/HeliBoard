@@ -6,7 +6,10 @@
 
 package helium314.keyboard.event
 
+import android.text.SpannableString;
+import android.text.Spanned;
 import android.text.TextUtils
+import android.text.style.BackgroundColorSpan;
 import android.util.SparseIntArray
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode
 import helium314.keyboard.latin.common.Constants
