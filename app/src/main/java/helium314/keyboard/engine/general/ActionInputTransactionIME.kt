@@ -1,17 +1,17 @@
-package org.futo.inputmethod.engine.general
+package helium314.keyboard.engine.general
 
-import org.futo.inputmethod.engine.IMEHelper
-import org.futo.inputmethod.engine.IMEInterface
-import org.futo.inputmethod.event.Event
-import org.futo.inputmethod.latin.InputConnectionInternalComposingWrapper
-import org.futo.inputmethod.latin.common.Constants
-import org.futo.inputmethod.latin.common.InputPointers
-import org.futo.inputmethod.latin.uix.ActionInputTransaction
-import org.futo.inputmethod.latin.uix.ExperimentalICComposing
-import org.futo.inputmethod.latin.uix.ExperimentalICFix
-import org.futo.inputmethod.latin.uix.getSetting
-import org.futo.inputmethod.latin.uix.utils.TextContext
-import org.futo.inputmethod.v2keyboard.KeyboardLayoutSetV2
+import helium314.keyboard.engine.IMEHelper
+import helium314.keyboard.engine.IMEInterface
+import helium314.keyboard.event.Event
+import helium314.keyboard.latin.InputConnectionInternalComposingWrapper
+import helium314.keyboard.latin.common.Constants
+import helium314.keyboard.latin.common.InputPointers
+import helium314.keyboard.latin.uix.ActionInputTransaction
+import helium314.keyboard.latin.uix.ExperimentalICComposing
+import helium314.keyboard.latin.uix.ExperimentalICFix
+import helium314.keyboard.latin.uix.getSetting
+import helium314.keyboard.latin.uix.utils.TextContext
+import helium314.keyboard.v2keyboard.KeyboardLayoutSetV2
 
 class ActionInputTransactionIME(val helper: IMEHelper) : IMEInterface, ActionInputTransaction {
     val ic = if(helper.context.getSetting(ExperimentalICFix)) {
