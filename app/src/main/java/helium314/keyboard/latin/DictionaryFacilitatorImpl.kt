@@ -497,8 +497,29 @@ class DictionaryFacilitatorImpl : DictionaryFacilitator {
             suggestionResults.mRawSuggestions?.addAll(it)
         }
 
+        // Ensure at least two non-emoji, non-typed word results, so that the first two shown suggestions can be non-emoji
+        if (suggestionResults.size > 2) {
+            val nonEmojiCount = suggestionResults.count { isNonEmojiNonTypedWord(it, composedData) }
+            if (nonEmojiCount < 2) {
+                val allResults = SuggestionResults(Int.MAX_VALUE, ngramContext.isBeginningOfSentenceContext, false)
+                suggestionsArray.forEach {
+                    if (it == null) return@forEach
+                    allResults.addAll(it)
+                }
+                for (i in 0 until 2 - nonEmojiCount) {
+                    val lastEmoji = suggestionResults.last { it.isEmoji }
+                    suggestionResults.remove(lastEmoji)
+                    val firstNonEmoji = allResults.first { !suggestionResults.contains(it) && isNonEmojiNonTypedWord(it, composedData) }
+                    suggestionResults.add(firstNonEmoji)
+                }
+            }
+        }
+
         return suggestionResults
     }
+
+    private fun isNonEmojiNonTypedWord(info: SuggestedWordInfo, composedData: ComposedData): Boolean =
+        !info.isEmoji && info.word.compareTo(composedData.mTypedWord, true) != 0
 
     private fun getSuggestions(
         composedData: ComposedData, ngramContext: NgramContext,
