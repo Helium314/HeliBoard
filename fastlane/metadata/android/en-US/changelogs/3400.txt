@@ -1,0 +1,5 @@
+- Limit number of emojis suggested in suggestion strip to one (if possible)
+- Fix bad space insertion
+- Fix white text on white background on some devices
+- Fix bad suggestions with `'`
+- Add plural schwa ɜ to Italian

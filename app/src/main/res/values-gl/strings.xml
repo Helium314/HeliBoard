@@ -166,7 +166,7 @@
     <string name="settings_category_experimental">Experimental</string>
     <string name="settings_category_miscellaneous">Varios</string>
     <string name="split_spacer_scale">Distancia de separación</string>
-    <string name="switch_language">Cambiar de Idioma</string>
+    <string name="switch_language">Cambiar de idioma</string>
     <string name="language_switch_key_switch_both">Cambiar os dous</string>
     <string name="show_emoji_key">Tecla Emoji</string>
     <string name="settings_no_limit">Sen límite</string>
@@ -302,7 +302,7 @@
     <string name="show_vertical_space_swipe">Xesto de desprazamento vertical na barra</string>
     <string name="show_horizontal_space_swipe">Xesto de desprazamento horizontal na barra</string>
     <string name="action_none">Ningún</string>
-    <string name="space_swipe_move_cursor_entry">Mover Cursor</string>
+    <string name="space_swipe_move_cursor_entry">Mover cursor</string>
     <string name="var_toolbar_direction">Dirección variable barra ferramentas</string>
     <string name="var_toolbar_direction_summary">Dirección inversa cando está seleccionado o tipo de teclado de dereita a esquerda</string>
     <string name="subtype_probhat_bn_BD">%s (Probhat)</string>
@@ -346,7 +346,7 @@
     <string name="suggest_clipboard_content">Suxerir contido do portapapeis</string>
     <string name="suggest_clipboard_content_summary">Mostra como suxestión ocontido copiado recentemente ao portapapeis</string>
     <string name="switch_keyboard_after">Cambiar ao teclado principal após…</string>
-    <string name="space_swipe_toggle_numpad_entry">Ver Teclado Numérico</string>
+    <string name="space_swipe_toggle_numpad_entry">Ver teclado numérico</string>
     <string name="show_popup_keys_main">Engadir variantes moi comúns (por defecto)</string>
     <string name="remove_redundant_popups">Retirar emerxentes redundantes</string>
     <string name="remove_redundant_popups_summary">Retira as letras emerxentes que xa están presentes na disposición base</string>
@@ -448,4 +448,9 @@
     <string name="toolbar_hiding_global">Ocultar tamén as barras de ferramentas de emoji e portapapeis</string>
     <string name="suggest_emojis">Suxerir emojis</string>
     <string name="suggest_emojis_summary">Usar dicionario de emoji nas suxestións normais</string>
+    <string name="suggest_punctuation">Suxestións de puntuación</string>
+    <string name="suggest_punctuation_summary">Mostra a puntuación cando non hai outras suxestións dispoñibles</string>
+    <string name="about_wiki_link">Ir á Wiki</string>
+    <string name="about_wiki_link_description">Calquera usuaria de GitHub pode colaborar coa Wiki!</string>
+    <string name="space_swipe_hide_keyboard_entry">Ocultar teclado</string>
 </resources>
