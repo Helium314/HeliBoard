@@ -13,7 +13,6 @@ import helium314.keyboard.latin.common.ComposedData
 import helium314.keyboard.latin.common.Constants
 import helium314.keyboard.latin.common.InputPointers
 import helium314.keyboard.latin.common.StringUtils
-import helium314.keyboard.latin.common.isEmoji
 import helium314.keyboard.latin.define.DebugFlags
 import helium314.keyboard.latin.define.DecoderSpecificConstants.SHOULD_AUTO_CORRECT_USING_NON_WHITE_LISTED_SUGGESTION
 import helium314.keyboard.latin.define.DecoderSpecificConstants.SHOULD_REMOVE_PREVIOUSLY_REJECTED_SUGGESTION
@@ -54,29 +53,14 @@ class Suggest(private val mDictionaryFacilitator: DictionaryFacilitator) {
 
     fun getSuggestedWords(wordComposer: WordComposer, ngramContext: NgramContext, keyboard: Keyboard,
                           settingsValuesForSuggestion: SettingsValuesForSuggestion, isCorrectionEnabled: Boolean,
-                          inputStyle: Int, sequenceNumber: Int): SuggestedWords {
-        val words =
-            if (wordComposer.isBatchMode) {
-                getSuggestedWordsForBatchInput(wordComposer, ngramContext, keyboard, settingsValuesForSuggestion,
-                    inputStyle, sequenceNumber)
-            } else {
-                getSuggestedWordsForNonBatchInput(wordComposer, ngramContext, keyboard, settingsValuesForSuggestion,
-                    inputStyle, isCorrectionEnabled, sequenceNumber)
-            }
-
-        // Make the first two suggestions non-emoji
-        for (i in 1..2) {
-            if (words.size() > 3 && words.getInfo(i).isEmoji) {
-                val relativeIndex = words.mSuggestedWordInfoList.subList(3, words.mSuggestedWordInfoList.size).indexOfFirst { !it.isEmoji }
-                if (relativeIndex < 0) break
-                val firstNonEmojiIndex = relativeIndex + 3
-                if (firstNonEmojiIndex > i) {
-                    words.mSuggestedWordInfoList.add(i, words.mSuggestedWordInfoList.removeAt(firstNonEmojiIndex))
-                }
-            }
+                          inputStyle: Int, sequenceNumber: Int): SuggestedWords =
+        if (wordComposer.isBatchMode) {
+            getSuggestedWordsForBatchInput(wordComposer, ngramContext, keyboard, settingsValuesForSuggestion,
+                inputStyle, sequenceNumber)
+        } else {
+            getSuggestedWordsForNonBatchInput(wordComposer, ngramContext, keyboard, settingsValuesForSuggestion,
+                inputStyle, isCorrectionEnabled, sequenceNumber)
         }
-        return words
-    }
 
     // Retrieves suggestions for non-batch input (typing, recorrection, predictions...)
     // and calls the callback function with the suggestions.
@@ -100,6 +84,7 @@ class Suggest(private val mDictionaryFacilitator: DictionaryFacilitator) {
         // we may want to re-add it in case auto-correction happens, so that the original word can at least be selected
         val typedWordFirstOccurrenceWordInfo = suggestionsContainer.firstOrNull { it.mWord == capitalizedTypedWord }
         val firstOccurrenceOfTypedWordInSuggestions = SuggestedWordInfo.removeDupsAndTypedWord(capitalizedTypedWord, suggestionsContainer)
+        makeFirstTwoSuggestionsNonEmoji(suggestionsContainer)
 
         val (allowsToBeAutoCorrected, hasAutoCorrection) = shouldBeAutoCorrected(
             trailingSingleQuotesCount,
@@ -313,6 +298,7 @@ class Suggest(private val mDictionaryFacilitator: DictionaryFacilitator) {
             rejected = null
         }
         SuggestedWordInfo.removeDupsAndTypedWord(null, suggestionsContainer)
+        makeFirstTwoSuggestionsNonEmoji(suggestionsContainer)
 
         // For some reason some suggestions with MIN_VALUE are making their way here.
         // TODO: Find a more robust way to detect distracters.
@@ -346,6 +332,19 @@ class Suggest(private val mDictionaryFacilitator: DictionaryFacilitator) {
         }
         return SuggestedWords(suggestionsList, suggestionResults.mRawSuggestions, pseudoTypedWordInfo, true,
             false, false, inputStyle, sequenceNumber)
+    }
+
+    private fun makeFirstTwoSuggestionsNonEmoji(words: MutableList<SuggestedWordInfo>) {
+        for (i in 0..1) {
+            if (words.size > 2 && words[i].isEmoji) {
+                val relativeIndex = words.subList(2, words.size).indexOfFirst { !it.isEmoji }
+                if (relativeIndex < 0) break
+                val firstNonEmojiIndex = relativeIndex + 2
+                if (firstNonEmojiIndex > i) {
+                    words.add(i, words.removeAt(firstNonEmojiIndex))
+                }
+            }
+        }
     }
 
     /** reduces score of the first suggestion if next one is close and has more than a single letter  */
