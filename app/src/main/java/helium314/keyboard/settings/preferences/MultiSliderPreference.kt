@@ -34,6 +34,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.settings.createPrefKeyForBooleanSettings
+import helium314.keyboard.latin.utils.FoldableUtils
 import helium314.keyboard.latin.utils.prefs
 import helium314.keyboard.settings.Theme
 import helium314.keyboard.settings.WithSmallTitle
@@ -96,8 +97,10 @@ private fun MultiSliderDialog(
     positionString: (Float) -> String,
 ) {
     val (variants, keys) = createVariantsAndKeys(dimensions, baseKey)
-    var checked by remember { mutableStateOf(List(variants.size) { true }) }
-    val prefs = LocalContext.current.prefs()
+    val foldedString = stringResource(R.string.folded)
+    val ctx = LocalContext.current
+    var checked by remember { mutableStateOf(dimensions.map { FoldableUtils.isFoldable(ctx) || !it.contains(foldedString) }) }
+    val prefs = ctx.prefs()
     val done = remember { mutableMapOf<String, () -> Unit>() }
 
     ThreeButtonAlertDialog(

@@ -200,7 +200,7 @@ fun createAppearanceSettings(context: Context) = listOf(
         MultiSliderPreference(
             name = setting.title,
             baseKey = setting.key,
-            dimensions = listOf(stringResource(R.string.landscape)),
+            dimensions = listOf(stringResource(R.string.landscape), stringResource(R.string.folded)),
             defaults = Defaults.PREF_SPLIT_SPACER_SCALE,
             range = 0.5f..2f,
             description = { "${(100 * it).toInt()}%" }
@@ -216,7 +216,7 @@ fun createAppearanceSettings(context: Context) = listOf(
         MultiSliderPreference(
             name = setting.title,
             baseKey = setting.key,
-            dimensions = listOf(stringResource(R.string.landscape)),
+            dimensions = listOf(stringResource(R.string.landscape), stringResource(R.string.folded)),
             defaults = Defaults.PREF_KEYBOARD_HEIGHT_SCALE,
             range = 0.3f..1.5f,
             description = { "${(100 * it).toInt()}%" }
@@ -226,7 +226,7 @@ fun createAppearanceSettings(context: Context) = listOf(
         MultiSliderPreference(
             name = setting.title,
             baseKey = setting.key,
-            dimensions = listOf(stringResource(R.string.landscape)),
+            dimensions = listOf(stringResource(R.string.landscape), stringResource(R.string.folded)),
             defaults = Defaults.PREF_BOTTOM_PADDING_SCALE,
             range = 0f..5f,
             description = { "${(100 * it).toInt()}%" }
@@ -236,7 +236,7 @@ fun createAppearanceSettings(context: Context) = listOf(
         MultiSliderPreference(
             name = setting.title,
             baseKey = setting.key,
-            dimensions = listOf(stringResource(R.string.landscape), stringResource(R.string.split)),
+            dimensions = listOf(stringResource(R.string.landscape), stringResource(R.string.split), stringResource(R.string.folded)),
             defaults = Defaults.PREF_SIDE_PADDING_SCALE,
             range = 0f..3f,
             description = { "${(100 * it).toInt()}%" }
