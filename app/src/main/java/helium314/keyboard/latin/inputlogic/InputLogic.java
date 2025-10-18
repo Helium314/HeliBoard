@@ -2419,18 +2419,25 @@ public final class InputLogic {
         final SettingsValues settingsValues = Settings.getValues();
         mWordComposer.adviseCapitalizedModeBeforeFetchingSuggestions(
                 getActualCapsMode(settingsValues, KeyboardSwitcher.getInstance().getKeyboardShiftMode()));
-        final SuggestedWords suggestedWords = mSuggest.getSuggestedWords(mWordComposer,
-                getNgramContextFromNthPreviousWordForSuggestion(
-                        settingsValues.mSpacingAndPunctuations,
-                        // Get the word on which we should search the bigrams. If we are composing
-                        // a word, it's whatever is *before* the half-committed word in the buffer,
-                        // hence 2; if we aren't, we should just skip whitespace if any, so 1.
-                        mWordComposer.isComposingWord() ? 2 : 1),
-                keyboard,
-                settingsValues.mSettingsValuesForSuggestion,
-                settingsValues.mAutoCorrectEnabled,
-                inputStyle, sequenceNumber);
-        callback.onGetSuggestedWords(suggestedWords);
+        try {
+            final SuggestedWords suggestedWords = mSuggest.getSuggestedWords(mWordComposer,
+                    getNgramContextFromNthPreviousWordForSuggestion(
+                    settingsValues.mSpacingAndPunctuations,
+                    // Get the word on which we should search the bigrams. If we are composing
+                    // a word, it's whatever is *before* the half-committed word in the buffer,
+                    // hence 2; if we aren't, we should just skip whitespace if any, so 1.
+                    mWordComposer.isComposingWord() ? 2 : 1),
+                    keyboard,
+                    settingsValues.mSettingsValuesForSuggestion,
+                    settingsValues.mAutoCorrectEnabled,
+                    inputStyle, sequenceNumber);
+            callback.onGetSuggestedWords(suggestedWords);
+        } catch (Exception e) {
+            // better go without suggestions than have the keyboard crash
+            Log.e(TAG, "Error fetching suggested words, using empty words instead", e);
+            callback.onGetSuggestedWords(SuggestedWords.getEmptyInstance());
+            KeyboardSwitcher.getInstance().showToast("Error getting suggestions", true);
+        }
     }
 
     /**
