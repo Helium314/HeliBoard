@@ -61,7 +61,7 @@ public final class AudioAndHapticFeedbackManager {
     }
 
     public void vibrate(final long milliseconds) {
-        if (mVibrator == null) {
+        if (mVibrator == null || milliseconds <= 0) {
             return;
         }
         mVibrator.vibrate(milliseconds);
