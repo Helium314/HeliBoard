@@ -1,0 +1,5 @@
+- Omezení počtu emodži navrhovaných v liště návrhů na jeden (pokud je to možné)
+- Oprava nesprávného vkládání mezer
+- Oprava bílého textu na bílém pozadí na některých zařízeních
+- Oprava nesprávných návrhů s `'`
+- Přidání plurálu schwa ɜ do italštiny
