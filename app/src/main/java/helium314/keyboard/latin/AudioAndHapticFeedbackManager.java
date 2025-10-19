@@ -33,7 +33,6 @@ public final class AudioAndHapticFeedbackManager {
 
     private static final AudioAndHapticFeedbackManager sInstance =
             new AudioAndHapticFeedbackManager();
-    private long mLastVibrationMillis;
 
     public static AudioAndHapticFeedbackManager getInstance() {
         return sInstance;
@@ -100,10 +99,6 @@ public final class AudioAndHapticFeedbackManager {
         if (!mSettingsValues.mVibrateOn || (mDoNotDisturb && !mSettingsValues.mVibrateInDndMode)) {
             return;
         }
-
-        if (System.currentTimeMillis() < mLastVibrationMillis + 100) return;
-        mLastVibrationMillis = System.currentTimeMillis();
-
         if (mSettingsValues.mKeypressVibrationDuration >= 0) {
             vibrate(mSettingsValues.mKeypressVibrationDuration);
             return;
