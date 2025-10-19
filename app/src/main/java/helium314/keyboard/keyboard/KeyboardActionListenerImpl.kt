@@ -193,7 +193,7 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
         val actualSteps = actualSteps(steps)
         val start = connection.expectedSelectionStart + actualSteps
         if (start > end) return
-        audioAndHapticFeedbackManager.performHapticFeedback(keyboardSwitcher.visibleKeyboardView, HapticEvent.GESTURE_MOVE)
+        gestureMoveBackHaptics()
         connection.setSelection(start, end)
     }
 
@@ -256,15 +256,19 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
 
     private fun onMoveCursorVertically(steps: Int): Boolean {
         if (steps == 0) return false
-        audioAndHapticFeedbackManager.performHapticFeedback(keyboardSwitcher.visibleKeyboardView, HapticEvent.GESTURE_MOVE)
-        val code = if (steps < 0) KeyCode.ARROW_UP else KeyCode.ARROW_DOWN
+        val code = if (steps < 0) {
+            gestureMoveBackHaptics()
+            KeyCode.ARROW_UP
+        } else {
+            gestureMoveForwardHaptics()
+            KeyCode.ARROW_DOWN
+        }
         onCodeInput(code, Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE, false)
         return true
     }
 
     private fun onMoveCursorHorizontally(rawSteps: Int): Boolean {
         if (rawSteps == 0) return false
-        audioAndHapticFeedbackManager.performHapticFeedback(keyboardSwitcher.visibleKeyboardView, HapticEvent.GESTURE_MOVE)
         // for RTL languages we want to invert pointer movement
         val steps = if (RichInputMethodManager.getInstance().currentSubtype.isRtlSubtype) -rawSteps else rawSteps
         val moveSteps: Int
@@ -279,6 +283,7 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
                 }
                 return true
             }
+            gestureMoveBackHaptics()
         } else {
             val text = connection.getTextAfterCursor(steps * 4, 0) ?: return false
             moveSteps = positiveMoveSteps(text, steps)
@@ -290,6 +295,7 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
                 }
                 return true
             }
+            gestureMoveForwardHaptics()
         }
 
         // the shortcut below causes issues due to horrible handling of text fields by Firefox and forks
@@ -336,6 +342,18 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
             actualSteps <= steps
         }
         return -min(-actualSteps, text.length)
+    }
+
+    private fun gestureMoveBackHaptics() {
+        if (connection.canDeleteCharacters()) {
+            audioAndHapticFeedbackManager.performHapticFeedback(keyboardSwitcher.visibleKeyboardView, HapticEvent.GESTURE_MOVE)
+        }
+    }
+
+    private fun gestureMoveForwardHaptics() {
+        if (!connection.noTextAfterCursor()) {
+            audioAndHapticFeedbackManager.performHapticFeedback(keyboardSwitcher.visibleKeyboardView, HapticEvent.GESTURE_MOVE)
+        }
     }
 
     private fun getHardwareKeyEventDecoder(deviceId: Int): HardwareEventDecoder {
