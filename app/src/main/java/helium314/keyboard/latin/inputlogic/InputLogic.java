@@ -2578,9 +2578,11 @@ public final class InputLogic {
         }
 
         if (codePoint != INLINE_EMOJI_SEARCH_MARKER && ! Character.isWhitespace(codePoint)
-                                                    && mConnection.getCodePointBeforeCursor() == INLINE_EMOJI_SEARCH_MARKER
-                                                    && ! settingsValues.isWordCodePoint(mConnection.getCharBeforeBeforeCursor())) {
-            setInlineEmojiSearchAction(true);
+                                                    && mConnection.getCodePointBeforeCursor() == INLINE_EMOJI_SEARCH_MARKER) {
+            var charBeforeBeforeCursor = mConnection.getCharBeforeBeforeCursor();
+            if (! Character.isDigit(charBeforeBeforeCursor) && ! settingsValues.isWordCodePoint(charBeforeBeforeCursor)) {
+                setInlineEmojiSearchAction(true);
+            }
         }
     }
 
@@ -2652,8 +2654,11 @@ public final class InputLogic {
             return null;
         }
 
-        if (markerIndex > 0 && Settings.getValues().mSpacingAndPunctuations.isWordCodePoint(text.codePointAt(markerIndex - 1))) {
-            return null;
+        if (markerIndex > 0) {
+            var prevCodePoint = text.codePointAt(markerIndex - 1);
+            if (Character.isDigit(prevCodePoint) || Settings.getValues().mSpacingAndPunctuations.isWordCodePoint(prevCodePoint)) {
+                return null;
+            }
         }
 
         if (Character.isWhitespace(text.codePointAt(markerIndex + 1))) {
