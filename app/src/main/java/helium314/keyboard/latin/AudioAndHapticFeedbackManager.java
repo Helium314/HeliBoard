@@ -102,6 +102,10 @@ public final class AudioAndHapticFeedbackManager {
         if (!mSettingsValues.mVibrateOn || (mDoNotDisturb && !mSettingsValues.mVibrateInDndMode)) {
             return;
         }
+        if (hapticEvent == HapticEvent.NO_HAPTICS) {
+            // Avoid surprises with the handling of HapticFeedbackConstants.NO_HAPTICS
+            return;
+        }
         if (hapticEvent.allowCustomDuration && mSettingsValues.mKeypressVibrationDuration >= 0) {
             vibrate(mSettingsValues.mKeypressVibrationDuration);
             return;
