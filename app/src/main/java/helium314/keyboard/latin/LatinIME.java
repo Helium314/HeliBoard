@@ -43,6 +43,7 @@ import android.view.inputmethod.InputMethodSubtype;
 import helium314.keyboard.accessibility.AccessibilityUtils;
 import helium314.keyboard.compat.ConfigurationCompatKt;
 import helium314.keyboard.compat.EditorInfoCompatUtils;
+import helium314.keyboard.event.HapticEvent;
 import helium314.keyboard.keyboard.KeyboardActionListener;
 import helium314.keyboard.keyboard.KeyboardActionListenerImpl;
 import helium314.keyboard.keyboard.internal.KeyboardIconsSet;
@@ -1771,7 +1772,8 @@ public class LatinIME extends InputMethodService implements
         }
     }
 
-    public void hapticAndAudioFeedback(final int code, final int repeatCount) {
+    public void hapticAndAudioFeedback(final int code, final int repeatCount,
+                                       final HapticEvent hapticEvent) {
         final MainKeyboardView keyboardView = mKeyboardSwitcher.getMainKeyboardView();
         if (keyboardView != null && keyboardView.isInDraggingFinger()) {
             // No need to feedback while finger is dragging.
@@ -1799,7 +1801,7 @@ public class LatinIME extends InputMethodService implements
                 AudioAndHapticFeedbackManager.getInstance();
         if (repeatCount == 0) {
             // TODO: Reconsider how to perform haptic feedback when repeating key.
-            feedbackManager.performHapticFeedback(keyboardView);
+            feedbackManager.performHapticFeedback(keyboardView, hapticEvent);
         }
         feedbackManager.performAudioFeedback(code);
     }

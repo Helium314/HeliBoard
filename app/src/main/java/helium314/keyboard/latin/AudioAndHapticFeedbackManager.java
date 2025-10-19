@@ -12,6 +12,7 @@ import android.os.Vibrator;
 import android.view.HapticFeedbackConstants;
 import android.view.View;
 
+import helium314.keyboard.event.HapticEvent;
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode;
 import helium314.keyboard.latin.common.Constants;
 import helium314.keyboard.latin.settings.SettingsValues;
@@ -51,9 +52,12 @@ public final class AudioAndHapticFeedbackManager {
         mVibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
     }
 
-    public void performHapticAndAudioFeedback(final int code,
-            final View viewToPerformHapticFeedbackOn) {
-        performHapticFeedback(viewToPerformHapticFeedbackOn);
+    public void performHapticAndAudioFeedback(
+        final int code,
+        final View viewToPerformHapticFeedbackOn,
+        final HapticEvent hapticEvent
+    ) {
+        performHapticFeedback(viewToPerformHapticFeedbackOn, hapticEvent);
         performAudioFeedback(code);
     }
 
@@ -92,7 +96,7 @@ public final class AudioAndHapticFeedbackManager {
         mAudioManager.playSoundEffect(sound, mSettingsValues.mKeypressSoundVolume);
     }
 
-    public void performHapticFeedback(final View viewToPerformHapticFeedbackOn) {
+    public void performHapticFeedback(final View viewToPerformHapticFeedbackOn, final HapticEvent hapticEvent) {
         if (!mSettingsValues.mVibrateOn || (mDoNotDisturb && !mSettingsValues.mVibrateInDndMode)) {
             return;
         }
@@ -107,7 +111,7 @@ public final class AudioAndHapticFeedbackManager {
         // Go ahead with the system default
         if (viewToPerformHapticFeedbackOn != null) {
             viewToPerformHapticFeedbackOn.performHapticFeedback(
-                    HapticFeedbackConstants.KEYBOARD_TAP,
+                    hapticEvent.feedbackConstant,
                     HapticFeedbackConstants.FLAG_IGNORE_GLOBAL_SETTING);
         }
     }

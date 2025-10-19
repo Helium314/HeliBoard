@@ -6,6 +6,7 @@ import android.view.KeyEvent
 import android.view.inputmethod.InputMethodSubtype
 import helium314.keyboard.event.Event
 import helium314.keyboard.event.HangulEventDecoder
+import helium314.keyboard.event.HapticEvent
 import helium314.keyboard.event.HardwareEventDecoder
 import helium314.keyboard.event.HardwareKeyboardEventDecoder
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode
@@ -61,10 +62,14 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
             else metaState or metaCode
     }
 
-    override fun onPressKey(primaryCode: Int, repeatCount: Int, isSinglePointer: Boolean) {
+    override fun onPressKey(primaryCode: Int, repeatCount: Int, isSinglePointer: Boolean, hapticEvent: HapticEvent) {
         adjustMetaState(primaryCode, false)
         keyboardSwitcher.onPressKey(primaryCode, isSinglePointer, latinIME.currentAutoCapsState, latinIME.currentRecapitalizeState)
-        latinIME.hapticAndAudioFeedback(primaryCode, repeatCount)
+        latinIME.hapticAndAudioFeedback(primaryCode, repeatCount, hapticEvent)
+    }
+
+    override fun onLongPressKey(primaryCode: Int) {
+        latinIME.hapticAndAudioFeedback(primaryCode, 0, HapticEvent.KEY_LONG_PRESS)
     }
 
     override fun onReleaseKey(primaryCode: Int, withSliding: Boolean) {
@@ -187,7 +192,7 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
         val actualSteps = actualSteps(steps)
         val start = connection.expectedSelectionStart + actualSteps
         if (start > end) return
-        AudioAndHapticFeedbackManager.getInstance().performHapticFeedback(keyboardSwitcher.visibleKeyboardView)
+        AudioAndHapticFeedbackManager.getInstance().performHapticFeedback(keyboardSwitcher.visibleKeyboardView, HapticEvent.GESTURE_MOVE)
         connection.setSelection(start, end)
     }
 
@@ -250,7 +255,7 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
 
     private fun onMoveCursorVertically(steps: Int): Boolean {
         if (steps == 0) return false
-        AudioAndHapticFeedbackManager.getInstance().performHapticFeedback(keyboardSwitcher.visibleKeyboardView)
+        AudioAndHapticFeedbackManager.getInstance().performHapticFeedback(keyboardSwitcher.visibleKeyboardView, HapticEvent.GESTURE_MOVE)
         val code = if (steps < 0) KeyCode.ARROW_UP else KeyCode.ARROW_DOWN
         onCodeInput(code, Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE, false)
         return true
@@ -258,7 +263,7 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
 
     private fun onMoveCursorHorizontally(rawSteps: Int): Boolean {
         if (rawSteps == 0) return false
-        AudioAndHapticFeedbackManager.getInstance().performHapticFeedback(keyboardSwitcher.visibleKeyboardView)
+        AudioAndHapticFeedbackManager.getInstance().performHapticFeedback(keyboardSwitcher.visibleKeyboardView, HapticEvent.GESTURE_MOVE)
         // for RTL languages we want to invert pointer movement
         val steps = if (RichInputMethodManager.getInstance().currentSubtype.isRtlSubtype) -rawSteps else rawSteps
         val moveSteps: Int
