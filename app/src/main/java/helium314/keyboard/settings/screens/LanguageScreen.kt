@@ -129,13 +129,11 @@ private fun dictsAvailable(locale: Locale, context: Context): Boolean {
 private fun getSortedSubtypes(context: Context): List<InputMethodSubtype> {
     val systemLocales = SubtypeSettings.getSystemLocales()
     val enabledSubtypes = SubtypeSettings.getEnabledSubtypes(true)
-    val localesWithDictionary = DictionaryInfoUtils.getCacheDirectories(context)?.mapNotNull { dir ->
-        if (!dir.isDirectory)
-            return@mapNotNull null
+    val localesWithDictionary = DictionaryInfoUtils.getCacheDirectories(context).mapNotNull { dir ->
         if (dir.list()?.any { it.endsWith(DictionaryInfoUtils.USER_DICTIONARY_SUFFIX) } == true)
             dir.name.constructLocale()
         else null
-    }.orEmpty()
+    }
 
     val defaultAdditionalSubtypes = Defaults.PREF_ADDITIONAL_SUBTYPES.split(Separators.SETS).map {
         it.substringBefore(Separators.SET) to (it.substringAfter(Separators.SET) + ",AsciiCapable,EmojiCapable,isAdditionalSubtype")

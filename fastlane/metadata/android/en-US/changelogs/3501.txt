@@ -1,0 +1,3 @@
+- Crash fixes
+- Fix bad auto-correct introduced in 3.4
+- Vibrate on space and delete swipe if enabled

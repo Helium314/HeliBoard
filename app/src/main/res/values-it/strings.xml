@@ -443,4 +443,13 @@
     <string name="popup_order_and_hint_source">Ordine dei caratteri popup e fonti dei suggerimenti</string>
     <string name="toolbar_mode_suggestion_strip">Solo suggerimenti</string>
     <string name="toolbar_mode">Modalità</string>
+    <string name="space_swipe_hide_keyboard_entry">Nascondi la tastiera</string>
+    <string name="about_wiki_link">HeliBoard Wiki</string>
+    <string name="about_wiki_link_description">Il Wiki può essere integrato e migliorato da qualsiasi utente GutHub!</string>
+    <string name="show_emoji_descriptions_summary">Richiede un dizionario emoji</string>
+    <string name="suggest_emojis">Suggerisci emoji</string>
+    <string name="suggest_emojis_summary">Usa i dizionari emoji nei suggerimenti standard</string>
+    <string name="show_emoji_descriptions">Tocca a lungo un\'emoji per visualizzare la descrizione</string>
+    <string name="suggest_punctuation">Suggerisci punteggiatura</string>
+    <string name="suggest_punctuation_summary">Mostra segni di interpunzione quando non sono disponibili altri suggerimenti</string>
 </resources>

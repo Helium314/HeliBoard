@@ -399,4 +399,49 @@
     <string name="show_emoji_descriptions_summary">Bir emoji sözlüğü gerektirir</string>
     <string name="autospace_after_suggestion">Bir öneri seçildikten sonra otomatik boşluk ekle</string>
     <string name="subtype_with_layout_generic">%1$s (%2$s)</string>
+    <string name="suggest_emojis">Emoji öner</string>
+    <string name="suggest_emojis_summary">Normal önerilerde emoji sözlüğünü kullanın</string>
+    <string name="landscape">Yatay</string>
+    <string name="split_spacer_scale_landscape">Bölünmüş mesafe (yatay)</string>
+    <string name="prefs_always_show_suggestions_except_web_text">Web düzenleme alanları için her zaman öneriler gösterme</string>
+    <string name="prefs_always_show_suggestions_except_web_text_summary">Web düzenleme alanları (çoğunlukla tarayıcılarda bulunur), her zaman önerileri göster ayarıyla ilgili sorunların çok yaygın bir nedenidir</string>
+    <string name="auto_correct_shortcuts">Kısayolları otomatik düzelt</string>
+    <string name="backspace_reverts_autocorrect">Sil tuşu otomatik düzeltmeyi geri alır</string>
+    <string name="suggest_punctuation">Noktalama önerileri</string>
+    <string name="suggest_punctuation_summary">Başka öneri bulunamadığında noktalama işaretlerini göster</string>
+    <string name="backup_restored">Yedekleme geri yüklendi</string>
+    <string name="locales_with_dict">Sözlükleri olan diller</string>
+    <string name="shift_removes_autospace_summary">Büyük harf tuşu, bekleyen otomatik boşluğu kaldırır</string>
+    <string name="popup_order_and_hint_source">Açılır pencere tuş sırası ve ipuçları kaynağı</string>
+    <string name="show_tld_popup_keys_summary">URL\'leri ve e-posta adreslerini yazarken nokta tuşunun açılır pencerelerini üst düzey alan adlarıyla değiştirin</string>
+    <string name="toolbar_mode_expandable">Araç çubuğu tuşları ve öneriler</string>
+    <string name="prefs_bottom_padding_scale_landscape">Alt dolgu ölçeği (yatay)</string>
+    <string name="prefs_side_padding_scale">Yan dolgu ölçeği</string>
+    <string name="prefs_side_padding_scale_landscape">Yan dolgu ölçeği (yatay)</string>
+    <string name="subtype_dag">Dagbani</string>
+    <string name="subtype_st">Sotho dili</string>
+    <string name="layout_in_use">Uyarı: düzen şu anda kullanımda</string>
+    <string name="layout_functional_keys_tablet" tools:keep="@string/layout_functional_keys_tablet">İşlev tuşları (büyük ekran)</string>
+    <string name="customize_background_image_landscape">Arka plan resmi ayarla (yatay)</string>
+    <string name="summary_customize_background_image_landscape">Ayar yapılmazsa, dikey resim kullanılacaktır</string>
+    <string name="after_numpad_and_space">Sayısal tuş takımındaki diğer tuşlardan sonra Enter veya boşluk tuşuna basmak</string>
+    <string name="get_colors_message">%s içinde renkleri bulabilir ve paylaşabilirsiniz.</string>
+    <string name="get_layouts_message">%s içinde düzenleri bulabilir ve paylaşabilirsiniz.</string>
+    <string name="discussion_section_link">tartışma bölümü</string>
+    <string name="about_wiki_link">Wiki\'ye git</string>
+    <string name="about_wiki_link_description">Wiki, herhangi bir GitHub kullanıcısı tarafından geliştirilebilir!</string>
+    <string name="label_stop_onehanded_mode_key" tools:keep="@string/label_stop_onehanded_mode_key">Tek elle modunu sonlandır</string>
+    <string name="label_resize_onehanded_key" tools:keep="@string/label_resize_onehanded_key">Tek elle kullanım modunu yeniden boyutlandır</string>
+    <string name="label_shortcut_key_disabled" tools:keep="@string/label_shortcut_key_disabled">Ses girişi devre dışı</string>
+    <string name="label_bin" tools:keep="@string/label_bin">Çöp kutusu</string>
+    <string name="space_swipe_hide_keyboard_entry">Klavyeyi gizle</string>
+    <string name="prefs_language_swipe_distance">Dil değiştirme kaydırma mesafesi</string>
+    <string name="customize_toolbar_key_codes">Araç çubuğu tuş kodlarını özelleştirin</string>
+    <string name="customize_toolbar_key_code_reset_message">Tüm özelleştirilmiş anahtar kodlarını gerçekten silmek istiyor musunuz?</string>
+    <string name="key_code">Anahtar kodu</string>
+    <string name="long_press_code">Uzun basma kodu</string>
+    <string name="customize_icons">Simgeleri özelleştirin</string>
+    <string name="customize_icons_reset_message">Tüm özelleştirilmiş simgeleri gerçekten sıfırlamak mı istiyorsunuz?</string>
+    <string name="delete_confirmation">%s\'yi gerçekten silmek istiyor musunuz?</string>
+    <string name="custom_subtype">Özel alt tür</string>
 </resources>

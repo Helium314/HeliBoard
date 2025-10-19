@@ -1,8 +1,8 @@
-* Bugfix: il layout per tablet ora funziona correttamente
-* Mostra il tasto 'cambia lingua' solo se si ha a disposizione più di una lingua tra i layout
-* Temi: il colore base per la modalità 'tutti i colori' è casuale (anziché grigio)
-* Aggiunta la possibilità di definire un intervallo di attesa tra inserimento normale e gestuale (@devycarol)
-* Possibilità di definire i tasti valuta (es. €, $, £, ¥)
-* Ridotto l'intervallo per l'abilitazione del blocco maiuscole con la pressione lunga su ⇧ (@devycarol)
-* Aggiunti nuovi caratteri apice predefiniti sui tasti 0-9 (@b02860de585071a2)
+* Bugfix layout per tablet
+* Tasto 'cambia lingua' dinamico (appare solo con più lingue)
+* Temi: colore base casuale per la modalità 'tutti i colori'
+* Possibilità di definire un tempo di attesa tra inserimento normale e gestuale
+* Possibilità di definire i tasti valuta
+* Ridotto l'intervallo per l'abilitazione del blocco maiuscole con la pressione lunga su ⇧
+* Aggiunti nuovi caratteri apice predefiniti sui tasti 0-9
 * Bugfix minori e miglioramenti vari

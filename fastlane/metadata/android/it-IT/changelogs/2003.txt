@@ -1,11 +1,11 @@
-* Layout dei tasti funzione modificabile
-* Aggiustamenti al layout simboli predefinito e nuovi layout simboli
-* Supporto base per i tasti ALT, CTRL, Meta e Fn
-* Barra degli strumenti aggiornata (aggiunte funzionalità alla pressione prolungata, possibilità di fissare i tasti al volo, barra mostrata e nascosta automaticamente (configurabile), miglioramenti alla gestione degli appunti)
-* Aggiunto il tasto Tab ⇥ (Tabulazione)
-* Aggiunto l'indicatore blocco maiuscolo ('caps lock')
-* Aggiunti layout per diverse lingue
-* Possibilità di aggiungere i tasti della barra degli strumenti direttamente nella tastiera
-* Personalizzazione avanzata dei colori
-* Notifica 'toast' dopo la copia di un testo negli appunti
-* Bugfix e miglioramenti vari (vedi le note di rilascio complete su GitHub)
+* Personalizzazione layout tasti funzione
+* Modifiche ai layout 'Simboli' e 'Altri simboli'
+* Supporto base ai tasti fisici ALT, CTRL, Meta
+* Nuove opzioni per barra strumenti dinamica
+* Nuovo tasto ⇥ (tab)
+* Indicatore blocco maiuscolo
+* Nuovi layout di lingue
+* Funzioni della barra utilizzabili come tasti standard
+* Modifica dei colori estesi dei temi
+* Notifica toast alla copia del testo
+* Correzioni di bug e miglioramenti
