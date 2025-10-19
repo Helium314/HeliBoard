@@ -84,7 +84,7 @@ import helium314.keyboard.latin.utils.SubtypeSettings;
 import helium314.keyboard.latin.utils.ToolbarMode;
 import helium314.keyboard.latin.utils.ViewLayoutUtils;
 import helium314.keyboard.settings.SettingsActivity;
-import helium314.keyboard.settings.screens.GestureDataScreenKt;
+import helium314.keyboard.settings.screens.gesturedata.GestureDataScreenKt;
 import kotlin.collections.CollectionsKt;
 
 import java.io.FileDescriptor;

@@ -1,13 +1,6 @@
-package helium314.keyboard.settings.screens
+package helium314.keyboard.settings.screens.gesturedata
 
-import android.content.ContentProvider
-import android.content.ContentValues
 import android.content.Context
-import android.content.Intent
-import android.net.Uri
-import android.os.ParcelFileDescriptor
-import androidx.activity.compose.ManagedActivityResultLauncher
-import androidx.activity.result.ActivityResult
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -56,46 +49,35 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.core.content.edit
-import androidx.core.net.toUri
 import com.android.inputmethod.latin.BinaryDictionary
 import helium314.keyboard.compat.locale
 import helium314.keyboard.keyboard.Keyboard
-import helium314.keyboard.latin.BuildConfig
 import helium314.keyboard.latin.Dictionary
 import helium314.keyboard.latin.NgramContext
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.SingleDictionaryFacilitator
 import helium314.keyboard.latin.SuggestedWords
 import helium314.keyboard.latin.common.ComposedData
-import helium314.keyboard.latin.common.InputPointers
 import helium314.keyboard.latin.common.LocaleUtils.constructLocale
 import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.utils.ChecksumCalculator
 import helium314.keyboard.latin.utils.DictionaryInfoUtils
 import helium314.keyboard.latin.utils.SubtypeLocaleUtils
 import helium314.keyboard.latin.utils.SuggestionResults
-import helium314.keyboard.latin.utils.getActivity
 import helium314.keyboard.latin.utils.prefs
 import helium314.keyboard.settings.DropDownField
 import helium314.keyboard.settings.NextScreenIcon
 import helium314.keyboard.settings.Theme
 import helium314.keyboard.settings.WithSmallTitle
-import helium314.keyboard.settings.filePicker
 import helium314.keyboard.settings.initPreview
 import helium314.keyboard.settings.previewDark
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import kotlinx.serialization.Serializable
-import kotlinx.serialization.json.Json
 import java.io.File
-import java.io.FileInputStream
-import java.io.FileNotFoundException
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
-import java.util.zip.ZipEntry
-import java.util.zip.ZipOutputStream
 import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
 
@@ -119,7 +101,6 @@ fun GestureDataScreen(
 ) {
     val ctx = LocalContext.current
     val prefs = ctx.prefs()
-    val dataFile = getDataFile(ctx)
     val scope = rememberCoroutineScope()
     val availableDicts = remember { getAvailableDictionaries(ctx) }
     val currentLocale = Settings.getValues().mLocale
@@ -188,7 +169,6 @@ fun GestureDataScreen(
             nextWord(false)
         }
     }
-    val getDataPicker = getData()
     val scrollState = rememberScrollState()
     Scaffold(
         contentWindowInsets = WindowInsets.safeDrawing.only(WindowInsetsSides.Bottom)
@@ -248,18 +228,7 @@ fun GestureDataScreen(
                     )
                 }
             }
-            TextButton({ getDataPicker.launch(getDataIntent) }, enabled = dataFile.length() > 0) { Text(stringResource(R.string.gesture_data_get_data)) }
-            TextButton({ dataFile.delete() }, enabled = dataFile.length() > 0) { Text(stringResource(R.string.gesture_data_delete_data)) }
-            TextButton(
-                onClick = {
-                    createZipFile(ctx)
-                    if (zippedDataPath.isNotEmpty())
-                        ctx.startActivity(sendMailIntent)
-                },
-                enabled = dataFile.length() > 0 && sendMailIntent.resolveActivity(ctx.packageManager) != null
-            ) {
-                Text(stringResource(R.string.gesture_data_send_mail))
-            }
+            ShareGestureData()
         }
     }
     // showing at top left in preview, but correctly on device
@@ -298,7 +267,7 @@ private fun getAvailableDictionaries(context: Context): List<Dict> {
     return cached + assets
 }
 
-private interface Dict {
+interface Dict {
     val hash: String
     val locale: Locale
     val internal: Boolean
@@ -342,178 +311,10 @@ private fun BinaryDictionary.addWords(words: MutableList<String>) {
 const val dictTestImeOption = "useTestDictionaryFacilitator"
 
 var facilitator: SingleDictionaryFacilitator? = null
-private val getDataIntent = Intent(Intent.ACTION_CREATE_DOCUMENT)
-    .addCategory(Intent.CATEGORY_OPENABLE)
-    .putExtra(Intent.EXTRA_TITLE, "gesture_data_${SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Calendar.getInstance().time)}.zip")
-    .setType("application/zip")
-private val sendMailIntent = Intent(Intent.ACTION_SENDTO).apply {
-    data = "mailto:".toUri()
-    putExtra(Intent.EXTRA_EMAIL, arrayOf(MAIL_ADDRESS))
-    putExtra(Intent.EXTRA_SUBJECT, MAIL_SUBJECT)
-    putExtra(Intent.EXTRA_TEXT, MAIL_TEXT)
-    putExtra(Intent.EXTRA_STREAM, MAIL_STREAM.toUri())
-}
 
-// necessary for giving the mail app access to an internal file
-class GestureFileProvider : ContentProvider() {
-    override fun onCreate() = true
-
-    @Throws(FileNotFoundException::class)
-    override fun openFile(uri: Uri, mode: String): ParcelFileDescriptor? {
-        // todo: this isn't called, possible issue with GESTURE_PROVIDER_AUTHORITY?
-        if (uri.toString() != MAIL_STREAM)
-            throw FileNotFoundException("Unsupported uri: $uri")
-        return ParcelFileDescriptor.open(File(zippedDataPath), ParcelFileDescriptor.MODE_READ_ONLY)
-    }
-
-    override fun update(uri: Uri, contentvalues: ContentValues?, s: String?, `as`: Array<String>?) = 0
-    override fun delete(uri: Uri, s: String?, `as`: Array<String>?) = 0
-    override fun insert(uri: Uri, contentvalues: ContentValues?) = null
-    override fun getType(uri: Uri) = null
-    override fun query(uri: Uri, projection: Array<String>?, s: String?, as1: Array<String>?, s1: String?) = null
-}
-
-private class WordData(
-    val targetWord: String,
-    val suggestions: SuggestionResults,
-    val composedData: ComposedData,
-    val ngramContext: NgramContext,
-    keyboard: Keyboard,
-    val inputStyle: Int,
-    val userId: String,
-) {
-    // keyboard is not immutable, so better store (potentially) relevant infos immediately
-    val keys = keyboard.sortedKeys
-    val proxInfo = keyboard.proximityInfo
-    val vGap = keyboard.mVerticalGap
-    val height = keyboard.mOccupiedHeight
-    val width = keyboard.mOccupiedWidth
-    val locale = keyboard.mId.locale // might differ from dict locale
-    val mode = keyboard.mId.mMode
-    val elementId = keyboard.mId.mElementId
-    val numberRow = keyboard.mId.mNumberRowEnabled
-    val oneHandedMode = keyboard.mId.mOneHandedModeEnabled
-    val split = keyboard.mId.mIsSplitLayout
-    val inputType = keyboard.mId.mEditorInfo.inputType
-    val imeOptions = keyboard.mId.mEditorInfo.imeOptions
-
-    fun save(dict: Dict, context: Context) {
-        // todo: guid / hash per gesture (could be hash of all other data)
-        val stillGliding = inputStyle == SuggestedWords.INPUT_STYLE_UPDATE_BATCH // todo: use?
-        val keyboardInfo = KeyboardInfo(
-            width, // baseHeight is without padding, but coordinates include padding
-            height,
-            keys.map { KeyInfo(it.x + it.width / 2, it.y + it.height / 2, it.code) }
-        )
-        val data = GestureData(
-            BuildConfig.VERSION_CODE,
-            context.prefs().getString(Settings.PREF_LIBRARY_CHECKSUM, "")!!,
-            userId,
-            targetWord,
-            listOf(), // todo: this is annoying to create... and currently not relevant
-            listOf(DictInfo(dict.hash, dict.locale.toString())),
-            suggestions.filter { it.mScore > 0 }.map { Suggestion(it.mWord, it.mScore) }, // todo: there is much more information available
-            PointerData.fromPointers(composedData.mInputPointers),
-            keyboardInfo
-        )
-        val string = Json.encodeToString(data)
-        getDataFile(context).appendText("$string,\n") // just need to remove trailing ,\n and put inside [ and ] to have an array
-    }
-}
-
-@Serializable
-private data class GestureData(
-    val appVersionCode: Int,
-    val libraryHash: String,
-    val uid: String,
-    val targetWord: String,
-    val precedingWords: List<String>,
-    val dictionaries: List<DictInfo>,
-    val suggestions: List<Suggestion>,
-    val gesture: List<PointerData>,
-    val keyboardInfo: KeyboardInfo,
-)
-
-@Serializable
-private data class DictInfo(val hash: String, val name: String)
-
-@Serializable
-private data class Suggestion(val word: String, val score: Int)
-
-@Serializable
-private data class PointerData(val id: Int, val x: Int, val y: Int, val millis: Int) {
-    companion object {
-        fun fromPointers(pointers: InputPointers): List<PointerData> {
-            val result = mutableListOf<PointerData>()
-            for (i in 0..pointers.pointerSize) {
-                result.add(PointerData(
-                    pointers.pointerIds[i],
-                    pointers.xCoordinates[i],
-                    pointers.yCoordinates[i],
-                    pointers.times[i]
-                ))
-            }
-            return result
-        }
-    }
-}
-
-// gesture typing only works with code, not with arbitrary labels
-// todo: is the center of a key still ok when we have "holes", e.g. in a split keyboard?
-@Serializable
-private data class KeyInfo(val centerX: Int, val centerY: Int, val codePoint: Int)
-
-// todo: more infos like inputType or whatever?
-@Serializable
-private data class KeyboardInfo(val width: Int, val height: Int, val keys: List<KeyInfo>)
-
-@Composable
-private fun getData(): ManagedActivityResultLauncher<Intent, ActivityResult> {
-    val ctx = LocalContext.current
-    // check if file exists and not size 0, otherwise don't even offer the button
-    return filePicker { uri ->
-        val file = getDataFile(ctx)
-        ctx.getActivity()?.contentResolver?.openOutputStream(uri)?.use { os ->
-            val zipStream = ZipOutputStream(os)
-            zipStream.setLevel(9)
-            val fileStream = FileInputStream(file).buffered()
-            zipStream.putNextEntry(ZipEntry(file.name))
-            fileStream.copyTo(zipStream, 1024)
-            fileStream.close()
-            zipStream.closeEntry()
-            zipStream.close()
-        }
-    }
-}
-
-private fun createZipFile(context: Context) {
-    zippedDataPath = ""
-    val dataFile = getDataFile(context)
-    val filename = "gesture_data.zip"
-    val zipfile = File(context.filesDir, filename)
-    zipfile.delete()
-    zipfile.outputStream().use { os ->
-        val zipStream = ZipOutputStream(os)
-        zipStream.setLevel(9)
-        val fileStream = FileInputStream(dataFile).buffered()
-        zipStream.putNextEntry(ZipEntry(dataFile.name))
-        fileStream.copyTo(zipStream, 1024)
-        fileStream.close()
-        zipStream.closeEntry()
-        zipStream.close()
-    }
-    zippedDataPath = zipfile.absolutePath
-}
-
-private fun getDataFile(context: Context) = File(context.filesDir, "gesture_data.json")
-private var zippedDataPath = "" // set after writing the file
+fun getGestureDataFile(context: Context) = File(context.filesDir, "gesture_data.json")
 
 private const val PREF_GESTURE_USER_ID = "gesture_typing_screen_user_id"
-private const val MAIL_ADDRESS = "insert mail here"
-private const val MAIL_SUBJECT = "Heliboard ${BuildConfig.VERSION_NAME} gesture data"
-private const val MAIL_TEXT = "here is gesture data"
-private const val GESTURE_PROVIDER_AUTHORITY = BuildConfig.APPLICATION_ID + ".provider"
-private const val MAIL_STREAM = "content://${GESTURE_PROVIDER_AUTHORITY}/gesture_data"
 
 @Preview
 @Composable
