@@ -99,7 +99,7 @@ public final class AudioAndHapticFeedbackManager {
         if (!mSettingsValues.mVibrateOn || (mDoNotDisturb && !mSettingsValues.mVibrateInDndMode)) {
             return;
         }
-        if (mSettingsValues.mKeypressVibrationDuration >= 0) {
+        if (hapticEvent.allowCustomDuration && mSettingsValues.mKeypressVibrationDuration >= 0) {
             vibrate(mSettingsValues.mKeypressVibrationDuration);
             return;
         }
