@@ -57,7 +57,7 @@ public final class AudioAndHapticFeedbackManager {
         final HapticEvent hapticEvent
     ) {
         performHapticFeedback(viewToPerformHapticFeedbackOn, hapticEvent);
-        performAudioFeedback(code);
+        performAudioFeedback(code, hapticEvent);
     }
 
     public boolean hasVibrator() {
@@ -78,7 +78,10 @@ public final class AudioAndHapticFeedbackManager {
         return mAudioManager.getRingerMode() == AudioManager.RINGER_MODE_NORMAL;
     }
 
-    public void performAudioFeedback(final int code) {
+    public void performAudioFeedback(final int code, final HapticEvent hapticEvent) {
+        if (hapticEvent != HapticEvent.KEY_PRESS) {
+            return;
+        }
         // if mAudioManager is null, we can't play a sound anyway, so return
         if (mAudioManager == null) {
             return;

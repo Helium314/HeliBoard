@@ -324,7 +324,7 @@ class SuggestionStripView(context: Context, attrs: AttributeSet?, defStyle: Int)
     }
 
     override fun onLongClick(view: View): Boolean {
-        AudioAndHapticFeedbackManager.getInstance().performHapticAndAudioFeedback(Constants.NOT_A_CODE, this, HapticEvent.KEY_LONG_PRESS)
+        AudioAndHapticFeedbackManager.getInstance().performHapticFeedback(this, HapticEvent.KEY_LONG_PRESS)
         if (view.tag is ToolbarKey) {
             onLongClickToolbarKey(view)
             return true
