@@ -424,6 +424,7 @@ fun checkVersionUpgrade(context: Context) {
         if (prefs.contains(Settings.PREF_ADDITIONAL_SUBTYPES)) {
             val new = prefs.getString(Settings.PREF_ADDITIONAL_SUBTYPES, "")!!.split(Separators.SETS).filter { it.isNotEmpty() }.mapNotNull { pref ->
                 val oldSplit = pref.split(Separators.SET)
+                if (oldSplit.size < 3) return@mapNotNull null
                 val languageTag = oldSplit[0]
                 val mainLayoutName = oldSplit[1]
                 val extraValue = oldSplit[2]
@@ -442,6 +443,9 @@ fun checkVersionUpgrade(context: Context) {
             val new = prefs.getString(key, "")!!.split(Separators.SETS).filter { it.isNotEmpty() }.joinToString(Separators.SETS) { pref ->
                 val oldSplit = pref.split(Separators.SET)
                 val languageTag = oldSplit[0]
+                if (oldSplit.size == 1)
+                    return@joinToString resourceSubtypes.first { it.locale().language == languageTag.constructLocale().language }
+                        .toSettingsSubtype().toPref()
                 val mainLayoutName = oldSplit[1]
                 // we now need more information than just locale and main layout name, get it from existing subtypes
                 val filtered = additionalSubtypes.filter {
