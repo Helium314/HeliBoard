@@ -79,14 +79,14 @@ public final class AudioAndHapticFeedbackManager {
     }
 
     public void performAudioFeedback(final int code, final HapticEvent hapticEvent) {
-        if (hapticEvent != HapticEvent.KEY_PRESS) {
-            return;
-        }
         // if mAudioManager is null, we can't play a sound anyway, so return
         if (mAudioManager == null) {
             return;
         }
         if (!mSoundOn) {
+            return;
+        }
+        if (hapticEvent != HapticEvent.KEY_PRESS) {
             return;
         }
         final int sound = switch (code) {
