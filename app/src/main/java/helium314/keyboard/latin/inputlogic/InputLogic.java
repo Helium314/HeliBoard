@@ -2590,11 +2590,9 @@ public final class InputLogic {
         }
 
         if (codePoint != INLINE_EMOJI_SEARCH_MARKER && ! Character.isWhitespace(codePoint)
-                                                    && mConnection.getCodePointBeforeCursor() == INLINE_EMOJI_SEARCH_MARKER) {
-            var charBeforeBeforeCursor = mConnection.getCharBeforeBeforeCursor();
-            if (! Character.isDigit(charBeforeBeforeCursor) && ! settingsValues.isWordCodePoint(charBeforeBeforeCursor)) {
-                setInlineEmojiSearchAction(true);
-            }
+                                        && mConnection.getCodePointBeforeCursor() == INLINE_EMOJI_SEARCH_MARKER
+                                        && isValidInlineEmojiSearchPreviousChar(mConnection.getCharBeforeBeforeCursor(), settingsValues)) {
+            setInlineEmojiSearchAction(true);
         }
     }
 
@@ -2634,8 +2632,7 @@ public final class InputLogic {
         var suggestedWordInfos = new ArrayList<SuggestedWordInfo>(suggestions.size() + 1);
         suggestedWordInfos.add(typedWordInfo);
         for (var suggestion: suggestions) {
-            //todo: change to suggestion.isEmoji()
-            if (StringUtilsKt.isEmoji(suggestion.mWord)) {
+            if (suggestion.isEmoji()) {
                 Suggest.addDebugInfo(suggestion, input);
                 suggestedWordInfos.add(suggestion);
             }
@@ -2666,11 +2663,8 @@ public final class InputLogic {
             return null;
         }
 
-        if (markerIndex > 0) {
-            var prevCodePoint = text.codePointAt(markerIndex - 1);
-            if (Character.isDigit(prevCodePoint) || Settings.getValues().mSpacingAndPunctuations.isWordCodePoint(prevCodePoint)) {
-                return null;
-            }
+        if (markerIndex > 0 && ! isValidInlineEmojiSearchPreviousChar(text.codePointAt(markerIndex - 1), Settings.getValues())) {
+            return null;
         }
 
         if (Character.isWhitespace(text.codePointAt(markerIndex + 1))) {
@@ -2678,6 +2672,10 @@ public final class InputLogic {
         }
 
         return text.substring(markerIndex + 1);
+    }
+
+    private static boolean isValidInlineEmojiSearchPreviousChar(int charBeforeBeforeCursor, SettingsValues settingsValues) {
+        return ! Character.isDigit(charBeforeBeforeCursor) && ! settingsValues.isWordCodePoint(charBeforeBeforeCursor);
     }
 
     public void updateEmojiDictionary(Locale locale) {
