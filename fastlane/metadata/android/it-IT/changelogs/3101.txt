@@ -1,0 +1,9 @@
+* Nomi delle app installate come suggerimenti
+* Cambio categoria di emoji con trascinamento
+* Notifica toast dopo il ripristino di un backup
+* Virgola come popup insieme ai suffissi di dominio
+* Carnagione predefinita per le emoji multicolore
+* Codici numerici per CTRL e ALT di sinistra e destra
+* Aggiunto il tasto 'timestamp'
+* Tasti speciali disponibili per i popup nei layout semplici
+* Migliorie e bugfix vari

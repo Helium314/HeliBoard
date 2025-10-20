@@ -59,7 +59,7 @@ import java.util.zip.ZipOutputStream
 //  https://developer.android.com/codelabs/jetpack-compose-performance#2
 //  https://developer.android.com/topic/performance/baselineprofiles/overview
 // todo: consider viewModel, at least for LanguageScreen and ColorsScreen it might help making them less awkward and complicated
-class SettingsActivity : ComponentActivity(), SharedPreferences.OnSharedPreferenceChangeListener {
+open class SettingsActivity : ComponentActivity(), SharedPreferences.OnSharedPreferenceChangeListener {
     private val prefs by lazy { this.prefs() }
     val prefChanged = MutableStateFlow(0) // simple counter, as the only relevant information is that something changed
     fun prefChanged() = prefChanged.value++
@@ -238,3 +238,6 @@ class SettingsActivity : ComponentActivity(), SharedPreferences.OnSharedPreferen
         prefChanged()
     }
 }
+
+// duplicate of SettingsActivity so we can launch it when the app icon is disabled in Android 9 and older
+class SettingsActivity2 : SettingsActivity()

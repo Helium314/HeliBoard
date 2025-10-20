@@ -1,0 +1,10 @@
+* Modalità barra degli strumenti nascosta
+* Nuove varianti di emoji
+* Schermate sottotipi e dizionario migliorate
+* Colori del tema scuro aggiornati
+* Impostazioni separate per modalità verticale/orizzontale
+* Testi intraducibili eliminati dalle stringhe di localizzazione
+* Direzione 'schermata successiva' corretta per le lingue destra-sinistra
+* Caricamento corretto dell'ebraico su Android 15
+* Tastiera minimale disponibile anche in caso di malfunzionamenti della libreria
+* Correzione di bug

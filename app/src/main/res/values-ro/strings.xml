@@ -14,9 +14,9 @@
     <string name="settings_screen_advanced">"Avansate"</string>
     <string name="settings_screen_theme">"Temă"</string>
     <string name="enable_split_keyboard">Activează tastatura divizată</string>
-    <string name="language_switch_key_switch_input_method">"Comut. alte metode de introd."</string>
+    <string name="language_switch_key_switch_input_method">Comută la alte metode de introducere</string>
     <string name="show_language_switch_key">"Tastă comutare limbi"</string>
-    <string name="abbreviation_unit_milliseconds">"%s msec."</string>
+    <string name="abbreviation_unit_milliseconds">%s ms</string>
     <string name="settings_system_default">"Valoare prestabilită"</string>
     <string name="use_contacts_dict_summary">Utilizează numele din Agendă pentru sugestii și corecții</string>
     <string name="use_personalized_dicts">"Sugestii personalizate"</string>
@@ -84,7 +84,7 @@
     <string name="last_update">"Data ultimei modificări"</string>
     <string name="settings">"Setări"</string>
     <string name="delete">Șterge</string>
-    <string name="version_text">Versiunea %1$s</string>
+    <string name="version_text">Versiune %s</string>
     <string name="user_dict_settings_add_dialog_title">Adaugă în dicționar</string>
     <string name="user_dict_settings_add_shortcut_option_name">"Comandă rapidă:"</string>
     <string name="user_dict_settings_add_locale_option_name">"Limbă:"</string>
@@ -98,7 +98,7 @@
     <string name="select_input_method">"Alege metoda de introducere de text"</string>
     <string name="settings_screen_appearance">"Aspect"</string>
     <string name="undo">Anulează</string>
-    <string name="redo">Repetă</string>
+    <string name="redo">Refă</string>
     <string name="use_personalized_dicts_summary">"Utilizează mesajele și datele introduse pt. a îmbunătăți sugestiile"</string>
     <string name="label_go_key">"Start"</string>
     <string name="label_next_key">Înainte</string>
@@ -129,12 +129,12 @@
     <string name="spell_checker_service_name">Verificator ortografic HeliBoard</string>
     <string name="android_spell_checker_settings">Setări pentru verificarea ortografică HeliBoard</string>
     <string name="settings_category_clipboard_history">Istoric clipboard</string>
-    <string name="enable_clipboard_history">Activează istoricul clipboard-ului</string>
+    <string name="enable_clipboard_history">Activează istoricul clipboardului</string>
     <string name="disable_personalized_dicts_message">Avertisment: dezactivarea acestei setări va șterge datele învățate</string>
     <string name="prefs_always_show_suggestions_summary">Ignoră solicitarea altor aplicații de a dezactiva sugestiile (poate cauza probleme)</string>
     <string name="more_autocorrect_summary">Corectează automat chiar și atunci când nu este solicitat în mod explicit de câmpul de intrare</string>
-    <string name="enable_clipboard_history_summary">Dacă este dezactivată, tasta clipboard va lipi conținutul clipboard-ului, dacă există</string>
-    <string name="switch_language">Schimbă limba</string>
+    <string name="enable_clipboard_history_summary">Dacă este dezactivată, tasta de clipboard va lipi conținutul clipboardului, dacă acesta există</string>
+    <string name="switch_language">Comută limba</string>
     <string name="backup_restore_message">Salvează sau încarcă din fișier. Avertisment: restaurarea va suprascrie datele existente</string>
     <string name="backup_error">Eroare copie de rezervă: %s</string>
     <string name="restore_error">Eroare la restaurarea copiei de rezervă: %s</string>
@@ -166,8 +166,8 @@
     <string name="popup_keys_layout" tools:keep="@string/popup_keys_layout">Aspect</string>
     <string name="popup_keys_symbols" tools:keep="@string/popup_keys_symbols">Simboluri</string>
     <string name="clipboard" tools:keep="@string/clipboard">Clipboard</string>
-    <string name="clear_clipboard" tools:keep="@string/clear_clipboard">Șterge clipboard-ul</string>
-    <string name="voice" tools:keep="@string/voice">Intrare vocală</string>
+    <string name="clear_clipboard" tools:keep="@string/clear_clipboard">Șterge clipboardul</string>
+    <string name="voice" tools:keep="@string/voice">Introducere vocală</string>
     <string name="one_handed" tools:keep="@string/one_handed">Modul cu o singură mână</string>
     <string name="select_word" tools:keep="@string/select_word">Selectare cuvânt</string>
     <string name="left" tools:keep="@string/left">Stânga</string>
@@ -198,8 +198,8 @@
     <string name="layout_phone" tools:keep="@string/layout_phone">Telefon</string>
     <string name="layout_phone_symbols" tools:keep="@string/layout_phone_symbols">Simboluri ale telefonului</string>
     <string name="layout_number" tools:keep="@string/layout_number">Numere</string>
-    <string name="layout_numpad" tools:keep="@string/layout_numpad">Numpad</string>
-    <string name="layout_numpad_landscape" tools:keep="@string/layout_numpad_landscape">Numpad (peisaj)</string>
+    <string name="layout_numpad" tools:keep="@string/layout_numpad">Tastatură numerică</string>
+    <string name="layout_numpad_landscape" tools:keep="@string/layout_numpad_landscape">Tastatură numerică (peisaj)</string>
     <string name="button_select_language">Selectează limba</string>
     <string name="replace_dictionary">Înlocuiește dicționarul</string>
     <string name="remove_dictionary_message">Elimini cu adevărat dicționarul adăugat de utilizator „%s”?</string>
@@ -245,7 +245,7 @@
     <string name="theme_name_violette" tools:keep="@string/theme_name_violette">Violet</string>
     <string name="add_new_dictionary_title">Adaugă dicționar din fișier</string>
     <string name="delete_layout">Ștergi cu adevărat aspectul personalizat %s?</string>
-    <string name="no_dictionary_message">"Fără un dicționar, vei primi doar sugestii pentru textul pe care l-ai introdus anterior.&lt;br&gt;\n\n        Poți descărca dicționare %1$s sau poți verifica dacă un dicționar pentru „%2$s” poate fi descărcat direct %3$s."</string>
+    <string name="no_dictionary_message">"Fără un dicționar, vei primi doar sugestii pentru textele introduse anterior.&lt;br&gt;\n        Poți descărca dicționare %1$s sau poți verifica dacă un dicționar pentru \"%2$s\" poate fi descărcat direct %3$s."</string>
     <string name="user_dict_settings_add_weight_value">Greutate:</string>
     <string name="theme_name_user" tools:keep="@string/theme_name_user">Definită de utilizator</string>
     <string name="button_copy_existing_layout">Copiază aspectul existent</string>
@@ -310,7 +310,7 @@
     <string name="center_suggestion_text_to_enter">Folosește întotdeauna sugestia de mijloc</string>
     <string name="center_suggestion_text_to_enter_summary">La apăsarea pe spațiu sau pe semnul de punctuație, va fi introdusă sugestia din mijloc</string>
     <string name="layout_emoji_bottom_row" tools:keep="@string/layout_emoji_bottom_row">Rândul Emoji de jos</string>
-    <string name="layout_clip_bottom_row" tools:keep="@string/layout_clip_bottom_row">Rândul Clipboard de jos</string>
+    <string name="layout_clip_bottom_row" tools:keep="@string/layout_clip_bottom_row">Rândul de jos al clipboardului</string>
     <string name="auto_hide_toolbar">Ascundere automată a barei de instrumente</string>
     <string name="auto_hide_toolbar_summary">Ascunde bara de instrumente când sugestiile devin disponibile</string>
     <string name="subtype_generic_extended">%s (Extins)</string>
@@ -338,20 +338,20 @@
     <string name="icon_style">Stilul pictogramei</string>
     <string name="customize_toolbar_key_codes">Personalizează codurile tastelor din bara de instrumente</string>
     <string name="suggest_clipboard_content">Sugerează conținut din clipboard</string>
-    <string name="suggest_clipboard_content_summary">Afișează conținutul clipboard copiat recent ca sugestie</string>
+    <string name="suggest_clipboard_content_summary">Afișează conținutul clipboardului copiat recent ca sugestie</string>
     <string name="page_end" tools:keep="@string/page_end">Sfârșitul paginii</string>
     <string name="word_left" tools:keep="@string/word_left">Cuvântul din stânga</string>
     <string name="word_right" tools:keep="@string/word_right">Cuvântul din dreapta</string>
     <string name="page_up" tools:keep="@string/page_up">Pagină sus</string>
     <string name="page_down" tools:keep="@string/page_down">Pagină jos</string>
     <string name="quick_pin_toolbar_keys">Fixează tasta din bara de instrumente la apăsarea lungă</string>
-    <string name="close_history" tools:keep="@string/close_history">Închide istoricul clipboard-ului</string>
+    <string name="close_history" tools:keep="@string/close_history">Închide istoricul clipboardului</string>
     <string name="clipboard_toolbar_keys">Selectează tastele barei de instrumente clipboard</string>
     <string name="switch_keyboard_after">Comutare la tastatura principală după…</string>
     <string name="after_emoji">Se selectează emoji în vizualizarea emoji</string>
-    <string name="after_clip">Se selectează intrarea în istoric din clipboard</string>
+    <string name="after_clip">Selectarea unei intrări din istoricul clipboardului</string>
     <string name="after_symbol_and_space">Apăsând enter sau spațiu după alte taste în vizualizarea simbolurilor</string>
-    <string name="space_swipe_toggle_numpad_entry">Comutare Numpad</string>
+    <string name="space_swipe_toggle_numpad_entry">Comută tastatura numerică</string>
     <string name="show_popup_keys_main">Adaugă variante foarte comune (implicit)</string>
     <string name="remove_redundant_popups">Elimină ferestrele pop-up redundante</string>
     <string name="subtype_mns">Mansi</string>
@@ -370,7 +370,7 @@
     <string name="label_stop_onehanded_mode_key" tools:keep="@string/label_stop_onehanded_mode_key">Încheie modul cu o singură mână</string>
     <string name="label_resize_onehanded_key" tools:keep="@string/label_resize_onehanded_key">Redimensionează modul cu o singură mână</string>
     <string name="label_switch_onehanded_key" tools:keep="@string/label_switch_onehanded_key">Schimbă partea modului cu o singură mână</string>
-    <string name="label_shortcut_key_disabled" tools:keep="@string/label_shortcut_key_disabled">Introducerea vocală este dezactivată</string>
+    <string name="label_shortcut_key_disabled" tools:keep="@string/label_shortcut_key_disabled">Introducere vocală dezactivată</string>
     <string name="label_toolbar_key" tools:keep="@string/label_toolbar_key">Afișează/ascunde bara de instrumente</string>
     <string name="customize_icons_reset_message">Resetezi cu adevărat toate pictogramele personalizate?</string>
     <string name="custom_subtype">Subtip personalizat</string>
@@ -382,7 +382,7 @@
     <string name="customize_background_image_landscape">Setează imaginea de fundal (peisaj)</string>
     <string name="summary_customize_background_image_landscape">Dacă nu este setat, se va folosi imaginea portret</string>
     <string name="get_layouts_message">Poți găsi și împărtăși aspecte în %s.</string>
-    <string name="label_zwj_key" tools:keep="@string/label_zwj_key">Conectorul lățimii zero</string>
+    <string name="label_zwj_key" tools:keep="@string/label_zwj_key">Îmbinare fără spațiu</string>
     <string name="customize_toolbar_key_code_reset_message">Ștergi cu adevărat toate codurile cheie personalizate?</string>
     <string name="split_spacer_scale_landscape">Distanța divizării (peisaj)</string>
     <string name="enable_split_keyboard_landscape">Activează tastatura divizată (peisaj)</string>
@@ -395,9 +395,9 @@
     <string name="layout_functional_keys_tablet" tools:keep="@string/layout_functional_keys_tablet">Taste funcționale (ecran mare)</string>
     <string name="settings_screen_secondary_layouts">Aspecte secundare</string>
     <string name="prefs_bottom_padding_scale_landscape">Scală umplutură inferioară (peisaj)</string>
-    <string name="prefs_font_scale">Scală font la tastatură</string>
+    <string name="prefs_font_scale">Scală font tastatură</string>
     <string name="prefs_emoji_font_scale">Scală font vizualizare emoji</string>
-    <string name="label_bin" tools:keep="@string/label_bin">Coș de reciclare</string>
+    <string name="label_bin" tools:keep="@string/label_bin">Coș</string>
     <string name="prefs_side_padding_scale_landscape">Scală umplutură laterală (peisaj)</string>
     <string name="prefs_side_padding_scale">Scală umplutură laterală</string>
     <string name="number_row_hints">Afișează indicii pe rândul cu numere</string>
@@ -408,7 +408,7 @@
     <string name="prefs_always_show_suggestions_except_web_text_summary">Câmpurile de editare web (mai ales în browser-e) sunt o cauză foarte frecventă pentru problemele cu setarea de afișare a sugestiilor întotdeauna</string>
     <string name="timestamp_format_title">Format pentru tasta Timestamp</string>
     <string name="show_tld_popup_keys">Afișează tastele pop-up TLD</string>
-    <string name="backspace_reverts_autocorrect">Apăsarea Backspace anulează corectarea automată</string>
+    <string name="backspace_reverts_autocorrect">Backspace anulează autocorectarea</string>
     <string name="autospace_after_gesture_typing">Spațiu automat după tastarea unui cuvânt prin gesturi</string>
     <string name="shift_removes_autospace">Fără spațiu automat la apăsarea tastei Shift</string>
     <string name="shift_removes_autospace_summary">Shift elimină în spațiul automat în așteptare</string>
@@ -419,8 +419,27 @@
     <string name="layout_number_row_basic" tools:keep="@string/layout_number_row_basic">Rândul cu numere (de bază)</string>
     <string name="prefs_emoji_key_fit">Scalarea dimensiunii tastelor emoji împreună cu dimensiunea fontului</string>
     <string name="backup_restored">Copie de rezervă restabilită</string>
-    <string name="after_numpad_and_space">Apăsarea Enter sau Spațiu după alte taste în Numpad</string>
+    <string name="after_numpad_and_space">Apăsarea tastei Enter sau a barei de spațiu după alte taste de pe tastatura numerică</string>
     <string name="use_apps_dict_summary">Utilizează numele aplicațiilor instalate pentru sugestii și corecții</string>
-    <string name="prefs_emoji_skin_tone">Ton implicit al pielii emoji</string>
+    <string name="prefs_emoji_skin_tone">Tonul implicit al pielii pentru emoji</string>
     <string name="prefs_emoji_skin_tone_neutral">Neutru</string>
+    <string name="space_swipe_hide_keyboard_entry">Ascunde tastatura</string>
+    <string name="show_tld_popup_keys_summary">Înlocuiește pop-up-urile tastei punct cu domenii de nivel superior atunci când scrii URL-uri și adrese de e-mail</string>
+    <string name="suggest_emojis">Sugerează emoji-uri</string>
+    <string name="show_emoji_descriptions">Afișează descrierea emoji-urilor la apăsare lungă</string>
+    <string name="show_emoji_descriptions_summary">Necesită un dicționar de emoji-uri</string>
+    <string name="suggest_emojis_summary">Utilizează dicționarul de emoji-uri în sugestiile normale</string>
+    <string name="suggest_punctuation">Sugestii de punctuație</string>
+    <string name="suggest_punctuation_summary">Afișează semnele de punctuație când nu sunt disponibile alte sugestii</string>
+    <string name="popup_order_and_hint_source">Ordinea tastelor pop-up și sursa de indicii</string>
+    <string name="toolbar_mode">Mod bară de instrumente</string>
+    <string name="toolbar_mode_expandable">Taste bară de instrumente și sugestii</string>
+    <string name="toolbar_mode_toolbar_keys">Doar tastele barei de instrumente</string>
+    <string name="toolbar_mode_suggestion_strip">Doar sugestii</string>
+    <string name="toolbar_mode_hidden">Ascuns</string>
+    <string name="toolbar_hiding_global">Ascunde și barele de instrumente pentru clipboard și emoji-uri</string>
+    <string name="about_wiki_link">Mergi la Wiki</string>
+    <string name="about_wiki_link_description">Wiki-ul poate fi îmbunătățit de orice utilizator GitHub!</string>
+    <string name="landscape">Peisaj</string>
+    <string name="label_zwnj_key" tools:keep="@string/label_zwnj_key">Separare fără spațiu</string>
 </resources>

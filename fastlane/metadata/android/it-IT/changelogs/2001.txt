@@ -1,11 +1,11 @@
-* personalizzazione dei layout dei tasti funzionali
-* modifiche ai layout personalizzati 'Simboli' e 'Altri simboli'
-* nuova opzione per mostrare/nascondere automaticamente la barra degli strumenti
-* notifica toast alla copia del testo
-* possibilità di separare le funzioni di cambio lingua e cambio tastiera
-* popup con virgola per i layout numerici e telefonici
-* opzione per rendere opzionale l'effetto del tap prolungato su un'icona della barra degli strumenti (fissa l'icona in modo che sia sempre visibile)
-* nuova sezione delle impostazioni dedicata alla barra degli strumenti
-* aggiunta del tasto tabulazione
-* CTRL/CMD, barra degli strumenti e altre etichette dei tasti nei layout
-* correzioni e miglioramenti minori
+* Personalizzazione layout tasti funzione
+* Modifiche ai layout 'Simboli' e 'Altri simboli'
+* Nuove opzioni per barra strumenti dinamica
+* Notifica toast alla copia del testo
+* Possibilità di separare cambio lingua e cambio tastiera
+* Popup con virgola per i layout numerici e telefonici
+* Tap prolungato su un'icona fissa della barra degli strumenti
+* Nuove impostazioni barra degli strumenti
+* Nuovo tasto ⇥ (tab)
+* CTRL/CMD, barra degli strumenti e altre etichette
+* Correzioni varie
