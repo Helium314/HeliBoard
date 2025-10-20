@@ -53,7 +53,7 @@ fun ShareGestureData() {
         },
         enabled = dataFile.length() > 0
     ) {
-        Text("share file")
+        Text("share file to mail")
     }
 
     // send file via mail
@@ -120,12 +120,12 @@ private val sendMailIntent = Intent(Intent.ACTION_SENDTO).apply {
     putExtra(Intent.EXTRA_EMAIL, arrayOf(MAIL_ADDRESS))
     putExtra(Intent.EXTRA_SUBJECT, MAIL_SUBJECT)
     putExtra(Intent.EXTRA_TEXT, MAIL_TEXT)
-    putExtra(Intent.EXTRA_STREAM, MAIL_STREAM.toUri())
+    putExtra(Intent.EXTRA_STREAM, MAIL_STREAM.toUri()) // todo: seems to be ignored by k9, whose fault is it?
 }
 
 // works for FairEmail, thunderbird / k9 not available
 private val shareFileIntent = Intent(Intent.ACTION_SEND).apply {
-    type = "application/octet-stream"
+    type = "application/octet-stream" // todo: try different type?
     putExtra(Intent.EXTRA_EMAIL, arrayOf(MAIL_ADDRESS))
     putExtra(Intent.EXTRA_STREAM, MAIL_STREAM.toUri())
 }
