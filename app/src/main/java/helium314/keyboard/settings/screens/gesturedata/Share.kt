@@ -127,6 +127,8 @@ private val sendMailIntent = Intent(Intent.ACTION_SENDTO).apply {
 private val shareFileIntent = Intent(Intent.ACTION_SEND).apply {
     type = "application/octet-stream" // todo: try different type?
     putExtra(Intent.EXTRA_EMAIL, arrayOf(MAIL_ADDRESS))
+    putExtra(Intent.EXTRA_SUBJECT, MAIL_SUBJECT)
+    putExtra(Intent.EXTRA_TEXT, MAIL_TEXT)
     putExtra(Intent.EXTRA_STREAM, MAIL_STREAM.toUri())
 }
 
@@ -203,4 +205,4 @@ private const val MAIL_ADDRESS = "insert mail here"
 private const val MAIL_SUBJECT = "Heliboard ${BuildConfig.VERSION_NAME} gesture data"
 private const val MAIL_TEXT = "here is gesture data"
 private const val GESTURE_PROVIDER_AUTHORITY = BuildConfig.APPLICATION_ID + ".provider"
-private const val MAIL_STREAM = "content://$GESTURE_PROVIDER_AUTHORITY/gesture_data"
+private const val MAIL_STREAM = "content://$GESTURE_PROVIDER_AUTHORITY/gesture_data.zip"
