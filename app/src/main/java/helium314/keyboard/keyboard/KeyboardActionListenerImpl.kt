@@ -69,7 +69,7 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
         latinIME.hapticAndAudioFeedback(primaryCode, repeatCount, hapticEvent)
     }
 
-    override fun onLongPressKey(primaryCode: Int) {
+    override fun onLongPressKey() {
         audioAndHapticFeedbackManager.performHapticFeedback(keyboardSwitcher.visibleKeyboardView, HapticEvent.KEY_LONG_PRESS)
     }
 

@@ -24,7 +24,7 @@ public interface KeyboardActionListener {
      * @param hapticEvent the type of haptic feedback to perform.
      */
     void onPressKey(int primaryCode, int repeatCount, boolean isSinglePointer, HapticEvent hapticEvent);
-    void onLongPressKey(int primaryCode);
+    void onLongPressKey();
 
     /**
      * Called when the user releases a key. This is sent after the {@link #onCodeInput} is called.
@@ -127,7 +127,7 @@ public interface KeyboardActionListener {
         @Override
         public void onPressKey(int primaryCode, int repeatCount, boolean isSinglePointer, HapticEvent hapticEvent) {}
         @Override
-        public void onLongPressKey(int primaryCode) {}
+        public void onLongPressKey() {}
         @Override
         public void onReleaseKey(int primaryCode, boolean withSliding) {}
         @Override

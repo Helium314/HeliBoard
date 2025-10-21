@@ -1129,8 +1129,7 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
         if (key == null) {
             return;
         }
-        final int code = key.getCode();
-        sListener.onLongPressKey(code);
+        sListener.onLongPressKey();
         if (key.hasNoPanelAutoPopupKey()) {
             cancelKeyTracking();
             final int popupKeyCode = key.getPopupKeys()[0].mCode;
@@ -1139,6 +1138,7 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
             sListener.onReleaseKey(popupKeyCode, false);
             return;
         }
+        final int code = key.getCode();
         if (code == KeyCode.LANGUAGE_SWITCH
                 || (code == Constants.CODE_SPACE && key.getPopupKeys() == null && Settings.getValues().mSpaceForLangChange)
         ) {
