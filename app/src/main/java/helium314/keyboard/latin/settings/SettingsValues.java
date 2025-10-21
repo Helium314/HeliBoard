@@ -323,8 +323,7 @@ public class SettingsValues {
     }
 
     public boolean isWordCodePoint(final int code) {
-        return Character.isLetter(code) || isWordConnector(code)
-                || Character.COMBINING_SPACING_MARK == Character.getType(code);
+        return mSpacingAndPunctuations.isWordCodePoint(code);
     }
 
     public boolean isUsuallyPrecededBySpace(final int code) {

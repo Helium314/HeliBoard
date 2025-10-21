@@ -23,6 +23,7 @@ import helium314.keyboard.keyboard.PointerTracker
 import helium314.keyboard.keyboard.internal.KeyDrawParams
 import helium314.keyboard.keyboard.internal.KeyVisualAttributes
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode
+import helium314.keyboard.latin.AudioAndHapticFeedbackManager
 import helium314.keyboard.latin.ClipboardHistoryManager
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.common.ColorType
@@ -197,6 +198,7 @@ class ClipboardHistoryView @JvmOverloads constructor(
     override fun onClick(view: View) {
         val tag = view.tag
         if (tag is ToolbarKey) {
+            AudioAndHapticFeedbackManager.getInstance().performHapticAndAudioFeedback(KeyCode.NOT_SPECIFIED, this)
             val code = getCodeForToolbarKey(tag)
             if (code != KeyCode.UNSPECIFIED) {
                 keyboardActionListener.onCodeInput(code, Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE, false)
@@ -208,6 +210,7 @@ class ClipboardHistoryView @JvmOverloads constructor(
     override fun onLongClick(view: View): Boolean {
         val tag = view.tag
         if (tag is ToolbarKey) {
+            AudioAndHapticFeedbackManager.getInstance().performHapticAndAudioFeedback(Constants.NOT_A_CODE, this)
             val longClickCode = getCodeForToolbarKeyLongClick(tag)
             if (longClickCode != KeyCode.UNSPECIFIED) {
                 keyboardActionListener.onCodeInput(
