@@ -66,11 +66,12 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
     override fun onPressKey(primaryCode: Int, repeatCount: Int, isSinglePointer: Boolean, hapticEvent: HapticEvent) {
         adjustMetaState(primaryCode, false)
         keyboardSwitcher.onPressKey(primaryCode, isSinglePointer, latinIME.currentAutoCapsState, latinIME.currentRecapitalizeState)
+        // we need to use LatinIME for handling of key-down audio and haptics
         latinIME.hapticAndAudioFeedback(primaryCode, repeatCount, hapticEvent)
     }
 
     override fun onLongPressKey() {
-        audioAndHapticFeedbackManager.performHapticFeedback(keyboardSwitcher.visibleKeyboardView, HapticEvent.KEY_LONG_PRESS)
+        performHapticFeedback(HapticEvent.KEY_LONG_PRESS)
     }
 
     override fun onReleaseKey(primaryCode: Int, withSliding: Boolean) {
@@ -346,14 +347,18 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
 
     private fun gestureMoveBackHaptics() {
         if (connection.canDeleteCharacters()) {
-            audioAndHapticFeedbackManager.performHapticFeedback(keyboardSwitcher.visibleKeyboardView, HapticEvent.GESTURE_MOVE)
+            performHapticFeedback(HapticEvent.GESTURE_MOVE)
         }
     }
 
     private fun gestureMoveForwardHaptics() {
         if (!connection.noTextAfterCursor()) {
-            audioAndHapticFeedbackManager.performHapticFeedback(keyboardSwitcher.visibleKeyboardView, HapticEvent.GESTURE_MOVE)
+            performHapticFeedback(HapticEvent.GESTURE_MOVE)
         }
+    }
+
+    private fun performHapticFeedback(hapticEvent: HapticEvent) {
+        audioAndHapticFeedbackManager.performHapticFeedback(keyboardSwitcher.visibleKeyboardView, hapticEvent)
     }
 
     private fun getHardwareKeyEventDecoder(deviceId: Int): HardwareEventDecoder {
