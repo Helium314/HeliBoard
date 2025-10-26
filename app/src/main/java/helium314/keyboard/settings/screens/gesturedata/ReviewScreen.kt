@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.DatePickerDialog
 import androidx.compose.material3.DateRangePicker
@@ -25,6 +26,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
+import androidx.compose.material3.TextField
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.rememberDateRangePickerState
 import androidx.compose.runtime.Composable
@@ -37,6 +39,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import helium314.keyboard.latin.R
 import helium314.keyboard.settings.preferences.Preference
@@ -57,6 +60,19 @@ fun ReviewScreen(
                 .padding(horizontal = 12.dp)
                 .then(Modifier.padding(innerPadding)),
         ) {
+            var includeActive by rememberSaveable { mutableStateOf(true) }
+            var includePassive by rememberSaveable { mutableStateOf(true) }
+            var includeExported by rememberSaveable { mutableStateOf(false) }
+            var selected by rememberSaveable { mutableStateOf(listOf<Int>()) } // index? hashCode?
+            var filter by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue()) }
+            val wordData = listOf<WordData>()
+            val filteredData = if (includeActive && includePassive && !includeExported && filter.text.isBlank()) wordData
+                else wordData.filter {
+                    // todo: active
+                    // todo: passive
+                    // todo: exported
+                    it.targetWord.contains(filter.text, true)
+                }
             TopAppBar(
                 title = { Text("Review & export gesture data") },
                 navigationIcon = {
@@ -77,13 +93,23 @@ fun ReviewScreen(
                             expanded = showMenu,
                             onDismissRequest = { showMenu = false }
                         ) {
-                            val menu = listOf("text" to { /* action */ })
-                            menu.forEach {
-                                DropdownMenuItem(
-                                    text = { Text(it.first) },
-                                    onClick = { showMenu = false; it.second() }
-                                )
-                            }
+                            DropdownMenuItem(
+                                text = { Text("delete all exported") },
+                                onClick = { showMenu = false; /* todo, confirmation dialog */ }
+                            )
+                            DropdownMenuItem(
+                                text = { Text("delete all selected") },
+                                onClick = { showMenu = false; /* todo, confirmation dialog */ }
+                            )
+                            DropdownMenuItem(
+                                text = { Text("sort chronologically") },
+                                onClick = { showMenu = false; /* todo */ }
+                            )
+                            DropdownMenuItem(
+                                text = { Text("sort alphabltically") },
+                                onClick = { showMenu = false; /* todo */ }
+                            )
+                            // and i guess the reverse sort order
                         }
                     }
                 }
@@ -104,19 +130,16 @@ fun ReviewScreen(
             //  mark entries as exported
             var showExportDialog by remember { mutableStateOf(false) }
             Preference(
-                name = "share gesture data",
+                name = if (selected.isNotEmpty()) "share selected data"
+                    else if (filter.text.isNotEmpty()) "share filtered data"
+                    else "share data",
                 onClick = { showExportDialog = true },
                 description = "any subtitle / description?"
             )
 
             PreferenceCategory("available data")
-            // delete-all-exported button? or rather menu?
             // filter (careful, controls should not be too large, also consider landscape orientation)
-            //  active switch
-            //  passive switch
-            var includeActive by remember { mutableStateOf(true) }
-            var includePassive by remember { mutableStateOf(true) }
-            Row {
+            Row { // try 2 switches in a row, for saving vertical space
                 Preference(
                     name = "active",
                     description = "show data from active gathering",
@@ -130,9 +153,7 @@ fun ReviewScreen(
                     value = { Switch(checked = includePassive, onCheckedChange = { includePassive = it }) }
                 )
             }
-            //  include-already-exported switch
             // todo: can we have 3 switches in a row, reasonably? maybe with a relatively short text below and a separator...
-            var includeExported by remember { mutableStateOf(false) }
             Preference(
                 name = "show already exported data",
                 onClick = { includeExported = !includeExported },
@@ -150,18 +171,26 @@ fun ReviewScreen(
             if (showDateRangePicker)
                 DateRangePickerModal({ startDate = it.first; endDate = it.second }) { showDateRangePicker = false }
             //  word text field (allow regex?)
-            //  user-id text field
+            TextField(value = filter, onValueChange = { filter = it}, supportingText = { Text("filter") })
+            //  user-id text field (todo: get rid of user-id?)
             //  and finally the result list
-            //   user-define sorting?
+            //   user-define sorting? -> menu
             //   have select-all thing (... menu?)
             //    yes, we need that menu, also for mass-actions
-            val filteredData = listOf<WordData>()
+            // once sth is selected -> show new buttons to delete and export?
+            //  though for export the export button text could change to "export selected"
+            //  if filter changes -> unselect all
             LazyColumn {
                 items(filteredData, { it.hashCode() }) { // todo: need the code, but the sha256(?) one
                     //   each entry consists of word, time, user-id, active/passive, whether it's already exported
                     //    click shows raw data?
                     //     and allows delete or remove user-id
                     //    long click selects
+                    Preference(
+                        name = it.targetWord,
+                        onClick = {},
+                        modifier = Modifier.selectable() // todo: long-click necessary if nothing selected, then just single click?
+                    )
                 }
             }
         }

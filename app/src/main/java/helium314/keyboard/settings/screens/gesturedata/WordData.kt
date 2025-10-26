@@ -65,7 +65,7 @@ class WordData(
 data class GestureData(
     val appVersionCode: Int,
     val libraryHash: String,
-    val uid: String,
+    val uid: String, // todo: better get rid of user-id
     val targetWord: String,
     val precedingWords: List<String>,
     val dictionaries: List<DictInfo>,
