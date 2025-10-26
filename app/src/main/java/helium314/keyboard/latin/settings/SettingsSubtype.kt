@@ -109,5 +109,8 @@ data class SettingsSubtype(val locale: Locale, val extraValues: String) {
             { "extra value contains not allowed characters $filteredExtraValue" }
             return SettingsSubtype(locale(), filteredExtraValue)
         }
+
+        fun String.toSubtype(): InputMethodSubtype? =
+            SubtypeSettings.getEnabledSubtypes().firstOrNull { it.toSettingsSubtype() == this.toSettingsSubtype() }
     }
 }

@@ -172,5 +172,5 @@ object Defaults {
     const val PREF_USER_COLORS = "[]"
     const val PREF_USER_MORE_COLORS = 0
     const val PREF_USER_ALL_COLORS = ""
-    const val PREF_SAVE_LOCALE_PER_APP = false
+    const val PREF_SAVE_SUBTYPE_PER_APP = false
 }

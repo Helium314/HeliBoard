@@ -10,7 +10,6 @@ import android.os.Build;
 import android.text.InputType;
 import android.view.inputmethod.EditorInfo;
 
-import helium314.keyboard.latin.common.Constants;
 import helium314.keyboard.latin.common.StringUtilsKt;
 import helium314.keyboard.latin.utils.Log;
 import helium314.keyboard.latin.utils.InputTypeUtils;
@@ -44,7 +43,6 @@ public final class InputAttributes {
      * {@link helium314.keyboard.latin.settings.SettingsValues#mGestureFloatingPreviewTextEnabled}
      */
     final public boolean mDisableGestureFloatingPreviewText;
-    public final boolean mDisableLocalePerApp;
     final public boolean mIsGeneralTextInput;
     final public int mInputType;
     final private EditorInfo mEditorInfo;
@@ -82,7 +80,6 @@ public final class InputAttributes {
             mShouldInsertSpacesAutomatically = false;
             mShouldShowVoiceInputKey = false;
             mDisableGestureFloatingPreviewText = false;
-            mDisableLocalePerApp = false;
             mIsGeneralTextInput = false;
             mNoLearning = false;
             return;
@@ -111,7 +108,6 @@ public final class InputAttributes {
 
         mDisableGestureFloatingPreviewText = InputAttributes.inPrivateImeOptions(
                 mPackageNameForPrivateImeOptions, NO_FLOATING_GESTURE_PREVIEW, editorInfo);
-        mDisableLocalePerApp = inPrivateImeOptions(mPackageNameForPrivateImeOptions, Constants.ImeOption.NO_LOCALE_PER_APP, editorInfo);
 
         // autocorrect if explicitly wanted, but also for most multi-line input types (like AOSP keyboard)
         // originally, URI and email were always excluded from autocorrect (in Suggest.java), but this is

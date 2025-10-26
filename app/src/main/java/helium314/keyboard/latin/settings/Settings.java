@@ -27,6 +27,7 @@ import helium314.keyboard.keyboard.KeyboardActionListener;
 import helium314.keyboard.latin.AudioAndHapticFeedbackManager;
 import helium314.keyboard.latin.InputAttributes;
 import helium314.keyboard.latin.R;
+import helium314.keyboard.latin.RichInputMethodSubtype;
 import helium314.keyboard.latin.common.StringUtils;
 import helium314.keyboard.latin.utils.DeviceProtectedUtils;
 import helium314.keyboard.latin.utils.KtxKt;
@@ -180,8 +181,8 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_PINNED_CLIPS = "pinned_clips";
     public static final String PREF_VERSION_CODE = "version_code";
     public static final String PREF_LIBRARY_CHECKSUM = "lib_checksum";
-    public static final String PREF_SAVE_LOCALE_PER_APP = "save_locale_per_app";
-    private static final String PREF_SAVED_APP_LOCALE_PREFIX = "saved_app_locale_";
+    public static final String PREF_SAVE_SUBTYPE_PER_APP = "save_subtype_per_app";
+    private static final String PREF_SAVED_APP_SUBTYPE_PREFIX = "saved_app_subtype_";
 
     private Context mContext;
     private SharedPreferences mPrefs;
@@ -233,7 +234,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
 
     @Override
     public void onSharedPreferenceChanged(final SharedPreferences prefs, final String key) {
-        if (dontReloadOnChanged.contains(key) || key != null && key.startsWith(PREF_SAVED_APP_LOCALE_PREFIX))
+        if (dontReloadOnChanged.contains(key) || key != null && key.startsWith(PREF_SAVED_APP_SUBTYPE_PREFIX))
             return;
         mSettingsValuesLock.lock();
         try {
@@ -543,19 +544,29 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
         else prefs.edit().putString(PREF_LAYOUT_PREFIX + type.name(), name).apply();
     }
 
-    public void saveLocaleForApp(Locale locale, String packageName) {
-        if (mSettingsValues.mSaveLocalePerApp && ! StringUtils.isEmpty(packageName)) {
-            mPrefs.edit().putString(PREF_SAVED_APP_LOCALE_PREFIX + packageName, locale.toLanguageTag()).apply();
+    public void saveSubtypeForApp(RichInputMethodSubtype subtype, String packageName) {
+        if (isSubtypePerApp() && ! StringUtils.isEmpty(packageName)) {
+            mPrefs.edit().putString(PREF_SAVED_APP_SUBTYPE_PREFIX + packageName,
+                                    SettingsSubtype.Companion.toSettingsSubtype(subtype.getRawSubtype()).toPref()).apply();
         }
     }
 
-    public Locale getLocaleForApp(String packageName) {
-        if (! mSettingsValues.mSaveLocalePerApp || StringUtils.isEmpty(packageName)) {
+    public RichInputMethodSubtype getSubtypeForApp(String packageName) {
+        if (! isSubtypePerApp() || StringUtils.isEmpty(packageName)) {
             return null;
         }
 
-        var languageTag = mPrefs.getString(PREF_SAVED_APP_LOCALE_PREFIX + packageName, null);
-        return languageTag != null? Locale.forLanguageTag(languageTag) : null;
+        var subtypePref = mPrefs.getString(PREF_SAVED_APP_SUBTYPE_PREFIX + packageName, null);
+        if (subtypePref == null) {
+            return null;
+        }
+
+        var subtype = SettingsSubtype.Companion.toSubtype(subtypePref);
+        return subtype != null? RichInputMethodSubtype.Companion.get(subtype) : null;
+    }
+
+    private boolean isSubtypePerApp() {
+        return mPrefs.getBoolean(PREF_SAVE_SUBTYPE_PER_APP, Defaults.PREF_SAVE_SUBTYPE_PER_APP);
     }
 
     @Nullable
