@@ -35,13 +35,6 @@ public final class Constants {
          */
         public static final String NO_FLOATING_GESTURE_PREVIEW = "noGestureFloatingPreview";
 
-        /**
-         * The private IME option used to suppress locale-per-app for a given text
-         * field. This overrides the corresponding keyboard settings preference.
-         * {@link helium314.keyboard.latin.settings.SettingsValues#mSaveLocalePerApp}
-         */
-        public static final String NO_LOCALE_PER_APP = "no_locale_per_app";
-
         private ImeOption() {
             // This utility class is not publicly instantiable.
         }
