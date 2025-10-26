@@ -2589,9 +2589,8 @@ public final class InputLogic {
             return;
         }
 
-        if (codePoint != INLINE_EMOJI_SEARCH_MARKER && ! Character.isWhitespace(codePoint)
-                                        && mConnection.getCodePointBeforeCursor() == INLINE_EMOJI_SEARCH_MARKER
-                                        && isValidInlineEmojiSearchPreviousChar(mConnection.getCharBeforeBeforeCursor(), settingsValues)) {
+        if (isStartOfInlineEmojiSearch(codePoint, mConnection.getCodePointBeforeCursor(), mConnection.getCharBeforeBeforeCursor(),
+                                       settingsValues)) {
             setInlineEmojiSearchAction(true);
         }
     }
@@ -2603,8 +2602,9 @@ public final class InputLogic {
     private void setInlineEmojiSearchAction(boolean on) {
         if (on != isInlineEmojiSearchAction()) {
             KeyboardSwitcher.getInstance().loadKeyboard(mLatinIME.getCurrentInputEditorInfo(), Settings.getValues(),
-                                    mLatinIME.getCurrentAutoCapsState(), mLatinIME.getCurrentRecapitalizeState(),
-                                    on? new KeyboardLayoutSet.InternalAction(KeyCode.INLINE_EMOJI_SEARCH_DONE, "\uD83D\uDC4D") : null);
+                            mLatinIME.getCurrentAutoCapsState(), mLatinIME.getCurrentRecapitalizeState(),
+                            on? new KeyboardLayoutSet.InternalAction(
+                                KeyCode.INLINE_EMOJI_SEARCH_DONE, Settings.getValues().mAutoCorrectEnabled? "\uD83D\uDC4D" : "⏹️") : null);
         }
     }
 
@@ -2652,7 +2652,11 @@ public final class InputLogic {
             return null;
         }
 
-        var textBeforeCursor = mConnection.getTextBeforeCursor(Constants.EDITOR_CONTENTS_CACHE_SIZE, 0);
+        return getInlineEmojiSearchString(mConnection.getTextBeforeCursor(Constants.EDITOR_CONTENTS_CACHE_SIZE, 0));
+    }
+
+    // public for testing
+    public static String getInlineEmojiSearchString(CharSequence textBeforeCursor) {
         if (textBeforeCursor == null) {
             return null;
         }
@@ -2672,6 +2676,13 @@ public final class InputLogic {
         }
 
         return text.substring(markerIndex + 1);
+    }
+
+    // public for testing
+    public static boolean isStartOfInlineEmojiSearch(int codePoint, int codePointBeforeCursor, int charBeforeBeforeCursor,
+                                                      SettingsValues settingsValues) {
+        return codePointBeforeCursor == INLINE_EMOJI_SEARCH_MARKER && codePoint != INLINE_EMOJI_SEARCH_MARKER
+                && ! Character.isWhitespace(codePoint) && isValidInlineEmojiSearchPreviousChar(charBeforeBeforeCursor, settingsValues);
     }
 
     private static boolean isValidInlineEmojiSearchPreviousChar(int charBeforeBeforeCursor, SettingsValues settingsValues) {
