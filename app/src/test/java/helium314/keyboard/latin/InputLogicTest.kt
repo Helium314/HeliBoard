@@ -37,6 +37,7 @@ import org.robolectric.annotation.Implements
 import org.robolectric.shadows.ShadowLog
 import java.util.*
 import kotlin.math.min
+import kotlin.streams.asSequence
 import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
@@ -698,6 +699,22 @@ class InputLogicTest {
         functionalKeyPress(KeyCode.TIMESTAMP)
         assertEquals(Calendar.getInstance().time.time.toDouble(),
             getTimestampFormatter(latinIME).parse(text.substring(5))!!.time.toDouble(), 1000.0)
+    }
+
+    @Test fun inlineEmojiSearch() {
+        assertEquals(true, InputLogic.isStartOfInlineEmojiSearch('t'.code, ':'.code, ' '.code, settingsValues))
+        assertEquals(false, InputLogic.isStartOfInlineEmojiSearch(' '.code, ':'.code, ' '.code, settingsValues))
+        assertEquals(true, InputLogic.isStartOfInlineEmojiSearch('t'.code, ':'.code, '.'.code, settingsValues))
+        assertEquals(true, InputLogic.isStartOfInlineEmojiSearch('t'.code, ':'.code, "🌍".codePoints().asSequence().last(), settingsValues))
+        assertEquals(false, InputLogic.isStartOfInlineEmojiSearch('t'.code, ':'.code, 't'.code, settingsValues))
+        assertEquals(false, InputLogic.isStartOfInlineEmojiSearch('t'.code, ':'.code, '3'.code, settingsValues))
+        assertEquals("test", InputLogic.getInlineEmojiSearchString(":test"))
+        assertEquals(null, InputLogic.getInlineEmojiSearchString("test"))
+        assertEquals("test", InputLogic.getInlineEmojiSearchString(" :test"))
+        assertEquals(null, InputLogic.getInlineEmojiSearchString("t:test"))
+        assertEquals(null, InputLogic.getInlineEmojiSearchString("6:test"))
+        assertEquals("test", InputLogic.getInlineEmojiSearchString("🌍:test"))
+        assertEquals("test", InputLogic.getInlineEmojiSearchString(",:test"))
     }
 
     // ------- helper functions ---------
