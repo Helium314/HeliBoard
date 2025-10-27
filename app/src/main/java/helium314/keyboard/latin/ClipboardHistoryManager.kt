@@ -13,6 +13,7 @@ import android.view.inputmethod.EditorInfo
 import androidx.core.view.isGone
 import kotlinx.serialization.json.Json
 import helium314.keyboard.compat.ClipboardManagerCompat
+import helium314.keyboard.event.HapticEvent
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode
 import helium314.keyboard.latin.common.ColorType
 import helium314.keyboard.latin.common.isValidNumber
@@ -206,7 +207,7 @@ class ClipboardHistoryManager(
         textView.setOnClickListener {
             dontShowCurrentSuggestion = true
             latinIME.onTextInput(content.toString())
-            AudioAndHapticFeedbackManager.getInstance().performHapticAndAudioFeedback(KeyCode.NOT_SPECIFIED, it)
+            AudioAndHapticFeedbackManager.getInstance().performHapticAndAudioFeedback(KeyCode.NOT_SPECIFIED, it, HapticEvent.KEY_PRESS)
             binding.root.isGone = true
         }
         val closeButton = binding.clipboardSuggestionClose
