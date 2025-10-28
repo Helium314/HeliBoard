@@ -39,17 +39,6 @@ object LayoutParser {
         if (layoutType == LayoutType.FUNCTIONAL && !params.mId.isAlphaOrSymbolKeyboard)
             return mutableListOf(mutableListOf()) // no functional keys
         val layoutName = if (layoutType == LayoutType.MAIN) params.mId.mSubtype.mainLayoutName
-            else if (layoutType == LayoutType.FUNCTIONAL) {
-                // Special handling for Bengali Khipro: use semicolon functional keys only for alphabet pages
-                val baseLayoutName = params.mId.mSubtype.layouts[layoutType] ?: Settings.readDefaultLayoutName(layoutType, context.prefs())
-                if (baseLayoutName == "functional_keys_khipro" && 
-                    (params.mId.mElementId == KeyboardId.ELEMENT_SYMBOLS || params.mId.mElementId == KeyboardId.ELEMENT_SYMBOLS_SHIFTED)) {
-                    // For symbols pages, use default functional keys (with normal shift)
-                    Settings.readDefaultLayoutName(layoutType, context.prefs())
-                } else {
-                    baseLayoutName
-                }
-            }
             else params.mId.mSubtype.layouts[layoutType] ?: Settings.readDefaultLayoutName(layoutType, context.prefs())
         return layoutCache.getOrPut(layoutType.name + layoutName) {
             createCacheLambda(layoutType, layoutName, context)
