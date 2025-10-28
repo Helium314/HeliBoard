@@ -181,7 +181,7 @@ class BnKhiproCombiner : Combiner {
             State.INIT to listOf("diacritic", "shor", "prithayok", "biram", "reph", "byanjon", "juktoborno"),
             State.SHOR_STATE to listOf("diacritic", "shor", "biram", "prithayok", "reph", "byanjon", "juktoborno"),
             State.REPH_STATE to listOf("prithayok", "ae", "byanjon", "juktoborno", "kar"),
-            State.BYANJON_STATE to listOf("diacritic", "prithayok", "biram", "kar", "byanjon", "juktoborno", "phola")
+            State.BYANJON_STATE to listOf("diacritic", "prithayok", "biram", "kar", "phola", "byanjon", "juktoborno")
         )
 
         // Precompute max key length per group for greedy matching
