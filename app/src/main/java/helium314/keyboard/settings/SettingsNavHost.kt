@@ -33,6 +33,7 @@ import helium314.keyboard.settings.screens.SubtypeScreen
 import helium314.keyboard.settings.screens.TextCorrectionScreen
 import helium314.keyboard.settings.screens.ToolbarScreen
 import helium314.keyboard.settings.screens.gesturedata.GestureDataScreen
+import helium314.keyboard.settings.screens.gesturedata.ReviewScreen
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -72,6 +73,7 @@ fun SettingsNavHost(
                 onClickToolbar = { navController.navigate(SettingsDestination.Toolbar) },
                 onClickGestureTyping = { navController.navigate(SettingsDestination.GestureTyping) },
                 onClickDataGathering = { navController.navigate(SettingsDestination.DataGathering) },
+                onClickDataReview = { navController.navigate(SettingsDestination.DataReview) },
                 onClickAdvanced = { navController.navigate(SettingsDestination.Advanced) },
                 onClickAppearance = { navController.navigate(SettingsDestination.Appearance) },
                 onClickLanguage = { navController.navigate(SettingsDestination.Languages) },
@@ -97,6 +99,9 @@ fun SettingsNavHost(
         }
         composable(SettingsDestination.DataGathering) {
             GestureDataScreen(onClickBack = ::goBack)
+        }
+        composable(SettingsDestination.DataReview) {
+            ReviewScreen(onClickBack = ::goBack)
         }
         composable(SettingsDestination.Advanced) {
             AdvancedSettingsScreen(onClickBack = ::goBack)
@@ -148,6 +153,7 @@ object SettingsDestination {
     const val Toolbar = "toolbar"
     const val GestureTyping = "gesture_typing"
     const val DataGathering = "data_gathering"
+    const val DataReview = "data_review"
     const val Advanced = "advanced"
     const val Debug = "debug"
     const val Appearance = "appearance"

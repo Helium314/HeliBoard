@@ -1,5 +1,6 @@
 package helium314.keyboard.settings.screens.gesturedata
 
+import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -12,9 +13,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.selection.selectable
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.DatePickerDialog
 import androidx.compose.material3.DateRangePicker
 import androidx.compose.material3.DropdownMenu
@@ -30,6 +29,7 @@ import androidx.compose.material3.TextField
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.rememberDateRangePickerState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -37,26 +37,34 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.TextFieldValue
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import helium314.keyboard.latin.R
+import helium314.keyboard.latin.utils.Log
+import helium314.keyboard.settings.Theme
 import helium314.keyboard.settings.preferences.Preference
 import helium314.keyboard.settings.preferences.PreferenceCategory
+import helium314.keyboard.settings.previewDark
+import kotlinx.serialization.json.Json
+import kotlin.time.ExperimentalTime
+import kotlin.time.Instant
 
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalTime::class)
 @Composable
 fun ReviewScreen(
     onClickBack: () -> Unit,
 ) {
-    val scrollState = rememberScrollState() // todo: maybe not scrollable, we'll have the scrollable list in there
+//    val scrollState = rememberScrollState() // todo: maybe not scrollable, we'll have the scrollable list in there
     Scaffold(
         contentWindowInsets = WindowInsets.safeDrawing.only(WindowInsetsSides.Bottom)
     ) { innerPadding ->
         Column(
             modifier = Modifier
-                .verticalScroll(scrollState)
+//                .verticalScroll(scrollState)
                 .padding(horizontal = 12.dp)
                 .then(Modifier.padding(innerPadding)),
         ) {
@@ -65,9 +73,13 @@ fun ReviewScreen(
             var includeExported by rememberSaveable { mutableStateOf(false) }
             var selected by rememberSaveable { mutableStateOf(listOf<Int>()) } // index? hashCode?
             var filter by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue()) }
-            val wordData = listOf<WordData>()
-            val filteredData = if (includeActive && includePassive && !includeExported && filter.text.isBlank()) wordData
-                else wordData.filter {
+            var gestureData by remember { mutableStateOf(listOf<GestureData>()) }
+            val ctx = LocalContext.current
+            LaunchedEffect(filter) {
+                gestureData = Json.decodeFromString("["+getGestureDataFile(ctx).readText().dropLast(2)+"]")
+            }
+            val filteredData = if (includeActive && includePassive && !includeExported && filter.text.isBlank()) gestureData
+                else gestureData.filter {
                     // todo: active
                     // todo: passive
                     // todo: exported
@@ -114,6 +126,8 @@ fun ReviewScreen(
                     }
                 }
             )
+            // excluded words and share could be in a bottom bar, with icons and a 1-2 word description
+
             // blacklist button (show number of entries)
             //  dialog, shows all entries, allows adding, changing and removing
             //  mention it's case- and diacritics insensitive
@@ -139,16 +153,18 @@ fun ReviewScreen(
 
             PreferenceCategory("available data")
             // filter (careful, controls should not be too large, also consider landscape orientation)
-            Row { // try 2 switches in a row, for saving vertical space
+            Row(Modifier.fillMaxWidth()) { // try 2 switches in a row, for saving vertical space
                 Preference(
                     name = "active",
                     description = "show data from active gathering",
+                    modifier = Modifier.weight(0.5f),
                     onClick = { includeActive = !includeActive },
                     value = { Switch(checked = includeActive, onCheckedChange = { includeActive = it }) }
                 )
                 Preference(
                     name = "passive",
                     description = "show data from passive gathering",
+                    modifier = Modifier.weight(0.5f),
                     onClick = { includePassive = !includePassive },
                     value = { Switch(checked = includePassive, onCheckedChange = { includePassive = it }) }
                 )
@@ -166,7 +182,7 @@ fun ReviewScreen(
             Preference(
                 name = "filter by date",
                 onClick = { showDateRangePicker = true },
-                description = "from / to"
+                description = "from ${startDate?.let { Instant.fromEpochMilliseconds(it)} } / to ${endDate?.let { Instant.fromEpochMilliseconds(it)} }"
             )
             if (showDateRangePicker)
                 DateRangePickerModal({ startDate = it.first; endDate = it.second }) { showDateRangePicker = false }
@@ -180,16 +196,33 @@ fun ReviewScreen(
             // once sth is selected -> show new buttons to delete and export?
             //  though for export the export button text could change to "export selected"
             //  if filter changes -> unselect all
+
             LazyColumn {
-                items(filteredData, { it.hashCode() }) { // todo: need the code, but the sha256(?) one
+                items(filteredData, { it.hashCode() }) { item -> // todo: need the code, but the sha256(?) one
                     //   each entry consists of word, time, user-id, active/passive, whether it's already exported
                     //    click shows raw data?
                     //     and allows delete or remove user-id
                     //    long click selects
-                    Preference(
-                        name = it.targetWord,
-                        onClick = {},
-                        modifier = Modifier.selectable() // todo: long-click necessary if nothing selected, then just single click?
+                    // todo: does this work at all?
+                    val startModifier = if (selected.isEmpty()) Modifier.combinedClickable(
+                        onClick = { Log.i("test", "click") },
+                        onLongClick = { Log.i("test", "long click"); selected = selected + item.hashCode() },
+                    )
+                    else Modifier.selectable(
+                        selected = item.hashCode() in selected,
+                        onClick = {
+                            Log.i("test", "select")
+                            // todo: this is inefficient, will be horrible for long lists
+                            if (item.hashCode() in selected) selected = selected.filterNot { it == item.hashCode() }
+                            else selected = selected + item.hashCode()
+                        },
+                        // how to use?
+//                        interactionSource = remember { MutableInteractionSource() },
+//                        indication = ripple()
+                    )
+                    Text(
+                        text = item.targetWord,
+                        modifier = startModifier.fillMaxWidth().padding(vertical = 10.dp, horizontal = 12.dp),
                     )
                 }
             }
@@ -242,5 +275,13 @@ fun DateRangePickerModal(
                 .height(500.dp)
                 .padding(16.dp)
         )
+    }
+}
+
+@Preview
+@Composable
+private fun Preview() {
+    Theme(previewDark) {
+        ReviewScreen { }
     }
 }
