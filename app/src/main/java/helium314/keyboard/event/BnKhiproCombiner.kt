@@ -9,22 +9,27 @@ import java.util.ArrayList
  * Bengali combiner implementing the Khipro state machine.
  * Converts Latin input sequences to Bengali text using greedy longest-match algorithm.
  * 
- * This implementation is 100% accurate with the Python reference, with:
- * - Only .ff → ৺ kept from punctuation
- * - All number mappings removed
- * - ZWJ/ZWNJ removed
+ * This implementation matches the m17n khipro layout with:
+ * - All core vowels (shor), consonants (byanjon), and conjuncts (juktoborno)
+ * - Minimal punctuation (।ff → ৺)
+ * 
+ * Intentionally excluded:
+ * - Number mappings (ongko group)
+ * - ZWJ/ZWNJ support
+ * - Extended punctuation (currency symbols, math operators)
  */
 class BnKhiproCombiner : Combiner {
 
     private val composingText = StringBuilder()
 
-    companion object {
-        // States
-        const val INIT = "init"
-        const val SHOR_STATE = "shor-state"
-        const val REPH_STATE = "reph-state"
-        const val BYANJON_STATE = "byanjon-state"
+    enum class State {
+        INIT,
+        SHOR_STATE,
+        REPH_STATE,
+        BYANJON_STATE
+    }
 
+    companion object {
         // Group mappings
         private val SHOR = mapOf(
             "o" to "অ", "oo" to "ঽ",
@@ -44,12 +49,12 @@ class BnKhiproCombiner : Combiner {
             "wae" to "ওয়্যা",
             "we" to "ওয়ে", "fwe" to "োয়ে",
             "ngo" to "ঙ", "nga" to "ঙা", "ngi" to "ঙি", "ngii" to "ঙী", "ngu" to "ঙু",
-            "nguff" to "ঙ", "nguu" to "ঙূ", "nguuff" to "ঙ", "ngq" to "ঙৃ", "nge" to "ঙে",
+            "nguff" to "ঙু", "nguu" to "ঙূ", "nguuff" to "ঙূ", "ngq" to "ঙৃ", "nge" to "ঙে",
             "ngoi" to "ঙৈ", "ngw" to "ঙো", "ngou" to "ঙৌ", "ngae" to "ঙ্যা"
         )
 
         private val BYANJON = mapOf(
-            "k" to "ক", "kh" to "খ", "g" to "গ", "gh" to "ঘ",
+            "k" to "ক", "kh" to "খ", "g" to "গ", "gh" to "ঘ",  "ngf" to "ঙ",
             "c" to "চ", "ch" to "ছ", "j" to "জ", "jh" to "ঝ", "nff" to "ঞ",
             "tf" to "ট", "tff" to "ঠ", "tfh" to "ঠ", "df" to "ড", "dff" to "ঢ", "dfh" to "ঢ", "nf" to "ণ",
             "t" to "ত", "th" to "থ", "d" to "দ", "dh" to "ধ", "n" to "ন",
@@ -68,7 +73,8 @@ class BnKhiproCombiner : Combiner {
             "khz" to "খ্য", "khr" to "খ্র",
             "ggg" to "গ্গ", "gnf" to "গ্‌ণ", "gdh" to "গ্ধ", "gdhz" to "গ্ধ্য", "gdhr" to "গ্ধ্র", "gn" to "গ্ন", "gnz" to "গ্ন্য", "gb" to "গ্ব", "gm" to "গ্ম", "gz" to "গ্য", "gr" to "গ্র", "grz" to "গ্র্য", "gl" to "গ্ল",
             "ghn" to "ঘ্ন", "ghr" to "ঘ্র",
-            "ngk" to "ঙ্ক", "ngkt" to "ঙ্‌ক্ত", "ngkz" to "ঙ্ক্য", "ngkr" to "ঙ্ক্র", "ngkkh" to "ঙ্ক্ষ", "ngksf" to "ঙ্ক্ষ", "ngkh" to "ঙ্খ", "ngg" to "ঙ্গ", "nggz" to "ঙ্গ্য", "nggh" to "ঙ্ঘ", "ngghz" to "ঙ্ঘ্য", "ngghr" to "ঙ্ঘ্র", "ngm" to "ঙ্ম",
+            "ngk" to "ঙ্ক", "ngkt" to "ঙ্‌ক্ত", "ngkz" to "ঙ্ক্য", "ngkr" to "ঙ্ক্র", "ngkf" to "ঙ্ক্ষ", "ngkkh" to "ঙ্ক্ষ", "ngksf" to "ঙ্ক্ষ", "ngkh" to "ঙ্খ", "ngg" to "ঙ্গ", "nggz" to "ঙ্গ্য", "nggh" to "ঙ্ঘ", "ngghz" to "ঙ্ঘ্য", "ngghr" to "ঙ্ঘ্র", "ngm" to "ঙ্ম",
+            "ngfk" to "ঙ্ক", "ngfkt" to "ঙ্‌ক্ত", "ngfkz" to "ঙ্ক্য", "ngfkr" to "ঙ্ক্র", "ngfkf" to "ঙ্ক্ষ", "ngfkkh" to "ঙ্ক্ষ", "ngfksf" to "ঙ্ক্ষ", "ngfkh" to "ঙ্খ", "ngfg" to "ঙ্গ", "ngfgz" to "ঙ্গ্য", "ngfgh" to "ঙ্ঘ", "ngfghz" to "ঙ্ঘ্য", "ngfghr" to "ঙ্ঘ্র", "ngfm" to "ঙ্ম",
             "cc" to "চ্চ", "cch" to "চ্ছ", "cchb" to "চ্ছ্ব", "cchr" to "চ্ছ্র", "cnff" to "চ্ঞ", "cb" to "চ্ব", "cz" to "চ্য",
             "jj" to "জ্জ", "jjb" to "জ্জ্ব", "jjh" to "জ্ঝ", "jnff" to "জ্ঞ", "gg" to "জ্ঞ", "jb" to "জ্ব", "jz" to "জ্য", "jr" to "জ্র",
             "nc" to "ঞ্চ", "nffc" to "ঞ্চ", "nj" to "ঞ্জ", "nffj" to "ঞ্জ", "njh" to "ঞ্ঝ", "nffjh" to "ঞ্ঝ", "nch" to "ঞ্ছ", "nffch" to "ঞ্ছ",
@@ -106,6 +112,9 @@ class BnKhiproCombiner : Combiner {
             "vrf" to "ভড়", "vrff" to "ভঢ়", "mprf" to "ম্পড়", "mprff" to "ম্পঢ়", "mbrf" to "ম্বড়", "mbrff" to "ম্বঢ়", "mvrf" to "ম্ভড়", "mvrff" to "ম্ভঢ়", "mrf" to "মড়", "mrff" to "মঢ়", "lkh" to "লখ", "lgh" to "লঘ", "shrf" to "শড়", "shrff" to "শঢ়", "sfkh" to "ষখ",
             "sfkrf" to "ষ্কড়", "sfkrff" to "ষ্কঢ়", "sftfrf" to "ষ্টড়", "sftfrff" to "ষ্টঢ়", "sfprf" to "ষ্পড়", "sfprff" to "ষ্পঢ়", "skrf" to "স্কড়", "skrff" to "স্কঢ়", "stfrf" to "স্টড়", "stfrff" to "স্টঢ়", "strf" to "স্তড়", "strff" to "স্তঢ়", "sprf" to "স্পড়", "sprff" to "স্পঢ়",
             "srf" to "সড়", "srff" to "সঢ়", "hrf" to "হড়", "hrff" to "হঢ়", "ldh" to "লধ", "ngksh" to "ঙ্কশ", "tfth" to "টথ", "dfdh" to "ডধ", "lth" to "লথ",
+            "ngfkk" to "ঙ্কক", "ngfks" to "ঙ্কস", "ngfkth" to "ঙ্কথ", "ngfkrf" to "ঙ্কড়", "ngfkrff" to "ঙ্কঢ়", "ngfghrf" to "ঙ্ঘড়", "ngfghrff" to "ঙ্ঘঢ়", "ngfksh" to "ঙ্কশ",
+            "kkf" to "কক্ষ", "lkf" to "লক্ষ", "sfkf" to "ষক্ষ", "skf" to "সক্ষ", "kkkh" to "কক্ষ", "lkkh" to "লক্ষ", "sfkkh" to "ষক্ষ", "skkh" to "সক্ষ", "kksf" to "কক্ষ", "lksf" to "লক্ষ", "sfksf" to "ষক্ষ", "sksf" to "সক্ষ",
+            "yr" to "য়র"
         )
 
         private val REPH = mapOf(
@@ -138,11 +147,11 @@ class BnKhiproCombiner : Combiner {
         )
 
         private val DIACRITIC = mapOf(
-            "qq" to "্", "xx" to "্‌", "t/" to "ৎ", "x" to "ঃ", "ng" to "ং", "ngf" to "ং", "/" to "ঁ", "//" to "/"
+            "qq" to "্", "xx" to "্‌", "t/" to "ৎ", "x" to "ঃ", "ng" to "ং", "/" to "ঁ", "//" to "/"
         )
 
         private val BIRAM = mapOf(
-            ".ff" to "৺"
+            "।ff" to "৺"
         )
 
         private val PRITHAYOK = mapOf(
@@ -169,10 +178,10 @@ class BnKhiproCombiner : Combiner {
 
         // Group order per state (priority used when same-length matches)
         private val STATE_GROUP_ORDER = mapOf(
-            INIT to listOf("diacritic", "shor", "prithayok", "biram", "reph", "byanjon", "juktoborno"),
-            SHOR_STATE to listOf("diacritic", "shor", "biram", "prithayok", "reph", "byanjon", "juktoborno"),
-            REPH_STATE to listOf("prithayok", "ae", "byanjon", "juktoborno", "kar"),
-            BYANJON_STATE to listOf("diacritic", "prithayok", "biram", "kar", "byanjon", "juktoborno", "phola")
+            State.INIT to listOf("diacritic", "shor", "prithayok", "biram", "reph", "byanjon", "juktoborno"),
+            State.SHOR_STATE to listOf("diacritic", "shor", "biram", "prithayok", "reph", "byanjon", "juktoborno"),
+            State.REPH_STATE to listOf("prithayok", "ae", "byanjon", "juktoborno", "kar"),
+            State.BYANJON_STATE to listOf("diacritic", "prithayok", "biram", "kar", "byanjon", "juktoborno", "phola")
         )
 
         // Precompute max key length per group for greedy matching
@@ -180,7 +189,7 @@ class BnKhiproCombiner : Combiner {
             map.keys.maxOfOrNull { it.length } ?: 0
         }
 
-        private fun findLongest(state: String, text: String, i: Int): Triple<String, String, String> {
+        private fun findLongest(state: State, text: String, i: Int): Triple<String, String, String> {
             val allowed = STATE_GROUP_ORDER[state] ?: return Triple("", "", "")
             
             // Determine the max lookahead we need
@@ -202,40 +211,39 @@ class BnKhiproCombiner : Combiner {
             return Triple("", "", "")
         }
 
-        private fun applyTransition(state: String, group: String): String {
+        private fun applyTransition(state: State, group: String): State {
             return when (state) {
-                INIT -> when (group) {
-                    "diacritic", "shor" -> SHOR_STATE
-                    "prithayok", "biram" -> INIT
-                    "reph" -> REPH_STATE
-                    "byanjon" -> BYANJON_STATE
-                    "juktoborno" -> BYANJON_STATE
+                State.INIT -> when (group) {
+                    "diacritic", "shor" -> State.SHOR_STATE
+                    "prithayok", "biram" -> State.INIT
+                    "reph" -> State.REPH_STATE
+                    "byanjon" -> State.BYANJON_STATE
+                    "juktoborno" -> State.BYANJON_STATE
                     else -> state
                 }
-                SHOR_STATE -> when (group) {
-                    "diacritic", "shor" -> SHOR_STATE
-                    "biram", "prithayok" -> INIT
-                    "reph" -> REPH_STATE
-                    "byanjon" -> BYANJON_STATE
-                    "juktoborno" -> BYANJON_STATE
+                State.SHOR_STATE -> when (group) {
+                    "diacritic", "shor" -> State.SHOR_STATE
+                    "biram", "prithayok" -> State.INIT
+                    "reph" -> State.REPH_STATE
+                    "byanjon" -> State.BYANJON_STATE
+                    "juktoborno" -> State.BYANJON_STATE
                     else -> state
                 }
-                REPH_STATE -> when (group) {
-                    "prithayok" -> INIT
-                    "ae" -> SHOR_STATE
-                    "byanjon" -> BYANJON_STATE
-                    "juktoborno" -> BYANJON_STATE
-                    "kar" -> SHOR_STATE
+                State.REPH_STATE -> when (group) {
+                    "prithayok" -> State.INIT
+                    "ae" -> State.SHOR_STATE
+                    "byanjon" -> State.BYANJON_STATE
+                    "juktoborno" -> State.BYANJON_STATE
+                    "kar" -> State.SHOR_STATE
                     else -> state
                 }
-                BYANJON_STATE -> when (group) {
-                    "diacritic", "kar" -> SHOR_STATE
-                    "prithayok", "biram" -> INIT
-                    "byanjon" -> BYANJON_STATE
-                    "juktoborno" -> BYANJON_STATE
+                State.BYANJON_STATE -> when (group) {
+                    "diacritic", "kar" -> State.SHOR_STATE
+                    "prithayok", "biram" -> State.INIT
+                    "byanjon" -> State.BYANJON_STATE
+                    "juktoborno" -> State.BYANJON_STATE
                     else -> state
                 }
-                else -> state
             }
         }
 
@@ -245,7 +253,7 @@ class BnKhiproCombiner : Combiner {
         fun convert(text: String): String {
             var i = 0
             val n = text.length
-            var state = INIT
+            var state = State.INIT
             val out = mutableListOf<String>()
 
             while (i < n) {
@@ -254,12 +262,12 @@ class BnKhiproCombiner : Combiner {
                     // No mapping: pass through this char and reset to INIT
                     out.add(text[i].toString())
                     i += 1
-                    state = INIT
+                    state = State.INIT
                     continue
                 }
 
                 // Special handling: PHOLA in BYANJON_STATE inserts virama before mapped char
-                if (state == BYANJON_STATE && group == "phola") {
+                if (state == State.BYANJON_STATE && group == "phola") {
                     out.add("্")
                     out.add(value)
                 } else {
