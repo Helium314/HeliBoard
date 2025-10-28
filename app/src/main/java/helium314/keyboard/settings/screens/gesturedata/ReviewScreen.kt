@@ -21,6 +21,7 @@ import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
@@ -44,7 +45,6 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import helium314.keyboard.latin.R
-import helium314.keyboard.latin.utils.Log
 import helium314.keyboard.settings.Theme
 import helium314.keyboard.settings.preferences.Preference
 import helium314.keyboard.settings.preferences.PreferenceCategory
@@ -203,31 +203,34 @@ fun ReviewScreen(
                     //    click shows raw data?
                     //     and allows delete or remove user-id
                     //    long click selects
-                    // todo: does this work at all?
-                    val startModifier = if (selected.isEmpty()) Modifier.combinedClickable(
-                        onClick = { Log.i("test", "click") },
-                        onLongClick = { Log.i("test", "long click"); selected = selected + item.hashCode() },
-                    )
-                    else Modifier.selectable(
-                        selected = item.hashCode() in selected,
-                        onClick = {
-                            Log.i("test", "select")
-                            // todo: this is inefficient, will be horrible for long lists
-                            if (item.hashCode() in selected) selected = selected.filterNot { it == item.hashCode() }
-                            else selected = selected + item.hashCode()
-                        },
-                        // how to use?
-//                        interactionSource = remember { MutableInteractionSource() },
-//                        indication = ripple()
-                    )
-                    Text(
-                        text = item.targetWord,
-                        modifier = startModifier.fillMaxWidth().padding(vertical = 10.dp, horizontal = 12.dp),
-                    )
+                    GestureDataEntry(item, item.hashCode() in selected, selected.isNotEmpty()) { sel ->
+                        selected = if (!sel) selected.filterNot { it == item.hashCode() }
+                        else selected + item.hashCode()
+                    }
                 }
             }
         }
     }
+}
+
+@Composable
+private fun GestureDataEntry(gestureData: GestureData, selected: Boolean, anythingSelected: Boolean, onSelect: (Boolean) -> Unit) {
+    val startModifier = if (!anythingSelected) Modifier.combinedClickable(
+        onClick = { },
+        onLongClick = { onSelect(true) },
+    )
+    else Modifier.selectable(
+        selected = selected,
+        onClick = { onSelect(!selected) },
+        // how to use?
+        //interactionSource = remember { MutableInteractionSource() },
+        //indication = ripple()
+    )
+    Text(
+        text = gestureData.targetWord,
+        modifier = startModifier.fillMaxWidth().padding(vertical = 10.dp, horizontal = 12.dp),
+        color = if (selected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface
+    )
 }
 
 // copied from https://developer.android.com/develop/ui/compose/components/datepickers
