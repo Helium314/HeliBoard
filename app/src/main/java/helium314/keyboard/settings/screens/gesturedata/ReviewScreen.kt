@@ -1,6 +1,9 @@
 package helium314.keyboard.settings.screens.gesturedata
 
+import android.text.format.DateFormat
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.combinedClickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -14,6 +17,9 @@ import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.selection.selectable
+import androidx.compose.material3.BottomAppBar
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.DatePickerDialog
 import androidx.compose.material3.DateRangePicker
 import androidx.compose.material3.DropdownMenu
@@ -36,8 +42,10 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -46,21 +54,62 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import helium314.keyboard.latin.R
 import helium314.keyboard.settings.Theme
-import helium314.keyboard.settings.preferences.Preference
-import helium314.keyboard.settings.preferences.PreferenceCategory
 import helium314.keyboard.settings.previewDark
 import kotlinx.serialization.json.Json
-import kotlin.time.ExperimentalTime
-import kotlin.time.Instant
+import java.util.Date
 
-@OptIn(ExperimentalMaterial3Api::class, ExperimentalTime::class)
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ReviewScreen(
     onClickBack: () -> Unit,
 ) {
 //    val scrollState = rememberScrollState() // todo: maybe not scrollable, we'll have the scrollable list in there
+    val buttonColors = ButtonColors(
+        containerColor = Color.Transparent,
+        contentColor = MaterialTheme.colorScheme.onSurface,
+        disabledContainerColor = Color.Transparent,
+        disabledContentColor = MaterialTheme.colorScheme.surfaceVariant
+    )
+    var showIgnoreListDialog by remember { mutableStateOf(false) }
+    var showExportDialog by remember { mutableStateOf(false) }
+    var selected by rememberSaveable { mutableStateOf(listOf<Int>()) } // index? hashCode?
+    var filter by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue()) }
     Scaffold(
-        contentWindowInsets = WindowInsets.safeDrawing.only(WindowInsetsSides.Bottom)
+        contentWindowInsets = WindowInsets.safeDrawing.only(WindowInsetsSides.Bottom),
+        bottomBar = {
+            BottomAppBar( // todo: hope it doesn't block anything
+                actions = {
+                    // todo: spread evenly, consistent icon size, enable / disable if necessary
+                    Button({}, colors = buttonColors) {
+                        Column {
+                            Icon(painterResource(R.drawable.ic_bin_rounded), "delete", Modifier.align(Alignment.CenterHorizontally))
+                            Text("delete")
+                        }
+                    }
+                    // share data (all, filtered, selected, non-exported)
+                    //  filter again against blacklist, even though blacklisted words shouldn't make it in the data anyway
+                    //  mark entries as exported
+                    Button({ showExportDialog = true }, colors = buttonColors) {
+                        Column {
+                            Icon(painterResource(R.drawable.sym_keyboard_language_switch), "share", Modifier.align(Alignment.CenterHorizontally)) // share icon
+                            Text(if (selected.isNotEmpty()) "share selected"
+                            else if (filter.text.isNotEmpty()) "share filtered"
+                            else "share all")
+                        }
+                    }
+                    // blacklist button (show number of entries)
+                    //  dialog, shows all entries, allows adding, changing and removing
+                    //  mention it's case- and diacritics insensitive
+                    //  update list on ok
+                    Button({ showIgnoreListDialog = true }, colors = buttonColors) {
+                        Column {
+                            Icon(painterResource(R.drawable.ic_autocorrect), "exclude", Modifier.align(Alignment.CenterHorizontally)) // block icon (strike through)
+                            Text("exclude")
+                        }
+                    }
+                }
+            )
+        }
     ) { innerPadding ->
         Column(
             modifier = Modifier
@@ -71,8 +120,6 @@ fun ReviewScreen(
             var includeActive by rememberSaveable { mutableStateOf(true) }
             var includePassive by rememberSaveable { mutableStateOf(true) }
             var includeExported by rememberSaveable { mutableStateOf(false) }
-            var selected by rememberSaveable { mutableStateOf(listOf<Int>()) } // index? hashCode?
-            var filter by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue()) }
             var gestureData by remember { mutableStateOf(listOf<GestureData>()) }
             val ctx = LocalContext.current
             LaunchedEffect(filter) {
@@ -118,7 +165,7 @@ fun ReviewScreen(
                                 onClick = { showMenu = false; /* todo */ }
                             )
                             DropdownMenuItem(
-                                text = { Text("sort alphabltically") },
+                                text = { Text("sort alphabetically") },
                                 onClick = { showMenu = false; /* todo */ }
                             )
                             // and i guess the reverse sort order
@@ -126,68 +173,44 @@ fun ReviewScreen(
                     }
                 }
             )
-            // excluded words and share could be in a bottom bar, with icons and a 1-2 word description
-
-            // blacklist button (show number of entries)
-            //  dialog, shows all entries, allows adding, changing and removing
-            //  mention it's case- and diacritics insensitive
-            //  update list on ok
-            var showIgnoreListDialog by remember { mutableStateOf(false) }
-            Preference(
-                name = "excluded words",
-                onClick = { showIgnoreListDialog = true },
-                description = "these words will be ignored"
-            )
-
-            // share data (all, filtered, selected, non-exported)
-            //  filter again against blacklist, even though blacklisted words shouldn't make it in the data anyway
-            //  mark entries as exported
-            var showExportDialog by remember { mutableStateOf(false) }
-            Preference(
-                name = if (selected.isNotEmpty()) "share selected data"
-                    else if (filter.text.isNotEmpty()) "share filtered data"
-                    else "share data",
-                onClick = { showExportDialog = true },
-                description = "any subtitle / description?"
-            )
-
-            PreferenceCategory("available data")
             // filter (careful, controls should not be too large, also consider landscape orientation)
-            Row(Modifier.fillMaxWidth()) { // try 2 switches in a row, for saving vertical space
-                Preference(
-                    name = "active",
-                    description = "show data from active gathering",
-                    modifier = Modifier.weight(0.5f),
-                    onClick = { includeActive = !includeActive },
-                    value = { Switch(checked = includeActive, onCheckedChange = { includeActive = it }) }
-                )
-                Preference(
-                    name = "passive",
-                    description = "show data from passive gathering",
-                    modifier = Modifier.weight(0.5f),
-                    onClick = { includePassive = !includePassive },
-                    value = { Switch(checked = includePassive, onCheckedChange = { includePassive = it }) }
-                )
+            Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly) { // not spaced evenly due to text length...
+                Button({ includeActive = !includeActive }, colors = buttonColors) {
+                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                        Switch(checked = includeActive, onCheckedChange = { includeActive = it })
+                        Text("active")
+                    }
+                }
+                Button({ includePassive = !includePassive }, colors = buttonColors) {
+                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                        Switch(checked = includePassive, onCheckedChange = { includePassive = it })
+                        Text("passive")
+                    }
+                }
+                Button({ includeExported = !includeExported }, colors = buttonColors) {
+                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                        Switch(checked = includeExported, onCheckedChange = { includeExported = it })
+                        Text("previously exported")
+                    }
+                }
             }
-            // todo: can we have 3 switches in a row, reasonably? maybe with a relatively short text below and a separator...
-            Preference(
-                name = "show already exported data",
-                onClick = { includeExported = !includeExported },
-                value = { Switch(checked = includeExported, onCheckedChange = { includeExported = it }) }
-            )
-            //  time from-to button (set time range in dialog)
             var showDateRangePicker by remember { mutableStateOf(false) }
             var startDate: Long? by rememberSaveable { mutableStateOf(null) }
             var endDate: Long? by rememberSaveable { mutableStateOf(null) }
-            Preference(
-                name = "filter by date",
-                onClick = { showDateRangePicker = true },
-                description = "from ${startDate?.let { Instant.fromEpochMilliseconds(it)} } / to ${endDate?.let { Instant.fromEpochMilliseconds(it)} }"
-            )
+            val df = DateFormat.getDateFormat(ctx)
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                //  word text field (allow regex?)
+                // todo: supportingText makes it look misaligned...
+                TextField(value = filter, onValueChange = { filter = it}, supportingText = { Text("filter") }, modifier = Modifier.weight(0.7f))
+                //  time from-to button (set time range in dialog)
+                Column(Modifier.clickable { showDateRangePicker = true }.weight(0.3f), horizontalAlignment = Alignment.CenterHorizontally) {
+                    Text("date", style = MaterialTheme.typography.bodyLarge)
+                    Text(startDate?.let { df.format(Date(it)) }.toString(), style = MaterialTheme.typography.bodyMedium)
+                    Text(endDate?.let { df.format(Date(it)) }.toString(), style = MaterialTheme.typography.bodyMedium)
+                }
+            }
             if (showDateRangePicker)
                 DateRangePickerModal({ startDate = it.first; endDate = it.second }) { showDateRangePicker = false }
-            //  word text field (allow regex?)
-            TextField(value = filter, onValueChange = { filter = it}, supportingText = { Text("filter") })
             //  user-id text field (todo: get rid of user-id?)
             //  and finally the result list
             //   user-define sorting? -> menu
