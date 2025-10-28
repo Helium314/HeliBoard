@@ -617,6 +617,11 @@ public final class InputLogic {
             inputTransaction.setDidAffectContents();
         }
         if (mWordComposer.isComposingWord()) {
+            // Check if we need to insert automatic space before starting to compose (e.g., after suggestion pickup)
+            if (SpaceState.PHANTOM == inputTransaction.getMSpaceState()) {
+                insertAutomaticSpaceIfOptionsAndTextAllow(inputTransaction.getMSettingsValues());
+                mSpaceState = SpaceState.NONE;
+            }
             setComposingTextInternal(mWordComposer.getTypedWord(), 1);
             inputTransaction.setDidAffectContents();
             inputTransaction.setRequiresUpdateSuggestions();
