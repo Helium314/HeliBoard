@@ -2,6 +2,7 @@
 
 package helium314.keyboard.latin
 
+import helium314.keyboard.latin.settings.Settings
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -11,7 +12,8 @@ data class ClipboardHistoryEntry (
         var isPinned: Boolean = false
 ) : Comparable<ClipboardHistoryEntry> {
     override fun compareTo(other: ClipboardHistoryEntry): Int {
-        val result = isPinned.compareTo(other.isPinned)
+        var result = other.isPinned.compareTo(isPinned)
+        if (Settings.getValues()?.mClipboardHistoryUnpinnedFirst == true) result = -result
         return if (result != 0) result else other.timeStamp.compareTo(timeStamp)
     }
 }
