@@ -529,7 +529,7 @@ public class LatinIME extends InputMethodService implements
         // TextFields can provide locale/language hints that the IME should use via 'hintLocales',
         // and subtypes may be saved per app.
         // If a matching subtype is found, we temporarily switch to that subtype until
-        // we return to a context that does not provide any hints, or until the user
+        // we return to a context that does not provide any hints or per-app saved subtype, or until the user
         // explicitly changes the language/subtype in use.
         // The steps are:
         // 1. if a subtype was saved for the app, and it matches any of the hint locales, we return it.

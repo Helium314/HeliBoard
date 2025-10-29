@@ -27,6 +27,7 @@ import helium314.keyboard.keyboard.KeyboardActionListener;
 import helium314.keyboard.latin.AudioAndHapticFeedbackManager;
 import helium314.keyboard.latin.InputAttributes;
 import helium314.keyboard.latin.R;
+import helium314.keyboard.latin.RichInputMethodManager;
 import helium314.keyboard.latin.RichInputMethodSubtype;
 import helium314.keyboard.latin.common.StringUtils;
 import helium314.keyboard.latin.utils.DeviceProtectedUtils;
@@ -182,7 +183,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_VERSION_CODE = "version_code";
     public static final String PREF_LIBRARY_CHECKSUM = "lib_checksum";
     public static final String PREF_SAVE_SUBTYPE_PER_APP = "save_subtype_per_app";
-    private static final String PREF_SAVED_APP_SUBTYPE_PREFIX = "saved_app_subtype_";
+    public static final String PREF_SAVED_APP_SUBTYPE_PREFIX = "saved_app_subtype_";
 
     private Context mContext;
     private SharedPreferences mPrefs;
@@ -234,7 +235,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
 
     @Override
     public void onSharedPreferenceChanged(final SharedPreferences prefs, final String key) {
-        if (dontReloadOnChanged.contains(key) || key != null && key.startsWith(PREF_SAVED_APP_SUBTYPE_PREFIX))
+        if (dontReloadOnChanged.contains(key) || (key != null && key.startsWith(PREF_SAVED_APP_SUBTYPE_PREFIX)))
             return;
         mSettingsValuesLock.lock();
         try {
@@ -552,16 +553,12 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     }
 
     public RichInputMethodSubtype getSubtypeForApp(String packageName) {
-        if (! isSubtypePerApp() || StringUtils.isEmpty(packageName)) {
-            return null;
-        }
-
+        if (! isSubtypePerApp() || StringUtils.isEmpty(packageName)) return null;
         var subtypePref = mPrefs.getString(PREF_SAVED_APP_SUBTYPE_PREFIX + packageName, null);
-        if (subtypePref == null) {
-            return null;
-        }
-
-        var subtype = SettingsSubtype.Companion.toSubtype(subtypePref);
+        if (subtypePref == null) return null;
+        var settingsSubtype = SettingsSubtype.Companion.toSettingsSubtype(subtypePref);
+        var subtype = settingsSubtype.toEnabledSubtype();
+        if (subtype == null) subtype = RichInputMethodManager.getInstance().findSubtypeForHintLocale(settingsSubtype.getLocale());
         return subtype != null? RichInputMethodSubtype.Companion.get(subtype) : null;
     }
 
