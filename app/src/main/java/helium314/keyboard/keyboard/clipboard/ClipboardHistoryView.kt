@@ -251,7 +251,7 @@ class ClipboardHistoryView @JvmOverloads constructor(
     override fun onSharedPreferenceChanged(prefs: SharedPreferences?, key: String?) {
         setToolbarButtonsActivatedStateOnPrefChange(KeyboardSwitcher.getInstance().clipboardStrip, key)
 
-        if (key == Settings.PREF_CLIPBOARD_HISTORY_UNPINNED_FIRST) {
+        if (::clipboardHistoryManager.isInitialized && key == Settings.PREF_CLIPBOARD_HISTORY_UNPINNED_FIRST) {
             // Ensure settings are reloaded first
             Settings.getInstance().onSharedPreferenceChanged(prefs, key)
             clipboardHistoryManager.sortHistoryEntries()
