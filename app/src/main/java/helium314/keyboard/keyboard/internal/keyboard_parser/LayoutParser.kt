@@ -2,7 +2,6 @@
 package helium314.keyboard.keyboard.internal.keyboard_parser
 
 import android.content.Context
-import helium314.keyboard.keyboard.KeyboardId
 import helium314.keyboard.keyboard.internal.KeyboardParams
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.AbstractKeyData
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.AutoTextKeyData

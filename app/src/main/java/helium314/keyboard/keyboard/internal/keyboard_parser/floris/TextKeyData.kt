@@ -316,8 +316,8 @@ sealed interface KeyData : AbstractKeyData {
         }
         // Replace shift with semicolon for Khipro layout (alphabet mode only)
         if (newLabel == KeyLabel.SHIFT && params.mId.isAlphabetKeyboard) {
-            val functionalLayoutName = params.mId.mSubtype.layouts[LayoutType.FUNCTIONAL]
-            if (functionalLayoutName == "functional_keys_khipro") {
+            val combiningRules = params.mId.mSubtype.getExtraValueOf(Constants.Subtype.ExtraValue.COMBINING_RULES)
+            if (combiningRules == "bn_khipro") {
                 return copy(newCode = ';'.code, newLabel = ";", newPopup = SimplePopups(listOf("/")))
             }
         }
