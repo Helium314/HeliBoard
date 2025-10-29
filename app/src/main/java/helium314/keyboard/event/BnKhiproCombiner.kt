@@ -301,7 +301,8 @@ class BnKhiproCombiner : Combiner {
             return createEventChainFromSequence(text, event)
         } else {
             // Add the character to composing text
-            composingText.append(event.mCodePoint.toChar())
+            // Use Character.toChars() to properly handle supplementary characters (emojis)
+            composingText.append(Character.toChars(event.mCodePoint))
             
             // Check if we just completed a biram sequence
             val text = composingText.toString()
