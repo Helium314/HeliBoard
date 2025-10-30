@@ -53,15 +53,14 @@ class Suggest(private val mDictionaryFacilitator: DictionaryFacilitator) {
 
     fun getSuggestedWords(wordComposer: WordComposer, ngramContext: NgramContext, keyboard: Keyboard,
                           settingsValuesForSuggestion: SettingsValuesForSuggestion, isCorrectionEnabled: Boolean,
-                          inputStyle: Int, sequenceNumber: Int): SuggestedWords {
-        return if (wordComposer.isBatchMode) {
+                          inputStyle: Int, sequenceNumber: Int): SuggestedWords =
+        if (wordComposer.isBatchMode) {
             getSuggestedWordsForBatchInput(wordComposer, ngramContext, keyboard, settingsValuesForSuggestion,
                 inputStyle, sequenceNumber)
         } else {
             getSuggestedWordsForNonBatchInput(wordComposer, ngramContext, keyboard, settingsValuesForSuggestion,
                 inputStyle, isCorrectionEnabled, sequenceNumber)
         }
-    }
 
     // Retrieves suggestions for non-batch input (typing, recorrection, predictions...)
     // and calls the callback function with the suggestions.
@@ -85,6 +84,7 @@ class Suggest(private val mDictionaryFacilitator: DictionaryFacilitator) {
         // we may want to re-add it in case auto-correction happens, so that the original word can at least be selected
         val typedWordFirstOccurrenceWordInfo = suggestionsContainer.firstOrNull { it.mWord == capitalizedTypedWord }
         val firstOccurrenceOfTypedWordInSuggestions = SuggestedWordInfo.removeDupsAndTypedWord(capitalizedTypedWord, suggestionsContainer)
+        makeFirstTwoSuggestionsNonEmoji(suggestionsContainer)
 
         val (allowsToBeAutoCorrected, hasAutoCorrection) = shouldBeAutoCorrected(
             trailingSingleQuotesCount,
@@ -298,6 +298,7 @@ class Suggest(private val mDictionaryFacilitator: DictionaryFacilitator) {
             rejected = null
         }
         SuggestedWordInfo.removeDupsAndTypedWord(null, suggestionsContainer)
+        makeFirstTwoSuggestionsNonEmoji(suggestionsContainer)
 
         // For some reason some suggestions with MIN_VALUE are making their way here.
         // TODO: Find a more robust way to detect distracters.
@@ -331,6 +332,19 @@ class Suggest(private val mDictionaryFacilitator: DictionaryFacilitator) {
         }
         return SuggestedWords(suggestionsList, suggestionResults.mRawSuggestions, pseudoTypedWordInfo, true,
             false, false, inputStyle, sequenceNumber)
+    }
+
+    private fun makeFirstTwoSuggestionsNonEmoji(words: MutableList<SuggestedWordInfo>) {
+        for (i in 0..1) {
+            if (words.size > 2 && words[i].isEmoji) {
+                val relativeIndex = words.subList(2, words.size).indexOfFirst { !it.isEmoji }
+                if (relativeIndex < 0) break
+                val firstNonEmojiIndex = relativeIndex + 2
+                if (firstNonEmojiIndex > i) {
+                    words.add(i, words.removeAt(firstNonEmojiIndex))
+                }
+            }
+        }
     }
 
     /** reduces score of the first suggestion if next one is close and has more than a single letter  */
@@ -486,7 +500,8 @@ class Suggest(private val mDictionaryFacilitator: DictionaryFacilitator) {
                     || -1 == info.mWord.indexOf(Constants.CODE_SPACE.toChar()))
         }
 
-        private fun getTransformedSuggestedWordInfo(
+        // public for testing
+        fun getTransformedSuggestedWordInfo(
             wordInfo: SuggestedWordInfo, locale: Locale, isAllUpperCase: Boolean,
             isOnlyFirstCharCapitalized: Boolean, trailingSingleQuotesCount: Int
         ): SuggestedWordInfo {
@@ -497,7 +512,7 @@ class Suggest(private val mDictionaryFacilitator: DictionaryFacilitator) {
             val quotesToAppend = (trailingSingleQuotesCount
                     - if (-1 == wordInfo.mWord.indexOf(Constants.CODE_SINGLE_QUOTE.toChar())) 0 else 1)
             for (i in quotesToAppend - 1 downTo 0) {
-                capitalizedWord = capitalizedWord + Constants.CODE_SINGLE_QUOTE
+                capitalizedWord = "$capitalizedWord'"
             }
             return SuggestedWordInfo(
                 capitalizedWord, wordInfo.mPrevWordsContext,

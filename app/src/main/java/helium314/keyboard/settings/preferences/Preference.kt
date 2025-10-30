@@ -69,7 +69,7 @@ fun Preference(
         verticalAlignment = Alignment.CenterVertically
     ) {
         if (icon != null)
-            IconOrImage(icon, name, 32f)
+            IconOrImage(icon, name, 32)
         Column(modifier = Modifier.weight(1f)) {
             Text(text = name, style = MaterialTheme.typography.bodyLarge)
             if (description != null) {

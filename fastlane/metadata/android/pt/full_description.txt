@@ -1,0 +1,30 @@
+HeliBoard é um teclado open-source privado, baseado no AOSP / OpenBoard.
+Não usa a permissão da internet, assim sendo 100% offline.
+
+Funcionalidades:
+<ul>
+  <li>Adicionar dicionários para sugestões e correção ortográfica</li>
+  <ul>
+    <li>construa os seus próprios, ou obtenha-os  <a href="https://codeberg.org/Helium314/aosp-dictionaries#dictionaries">aqui</a>, ou na secção <a href="https://codeberg.org/Helium314/aosp-dictionaries#experimental-dictionaries">experimental</a> (qualidade pode variar)</li>
+    <li>additional dictionaries for emojis or scientific symbols can be used to provide suggestions (similar to "emoji search")</li>
+    <li>note que para o layout coreano, sugestões apenas funcionam com <a href="https://github.com/openboard-team/openboard/commit/83fca9533c03b9fecc009fc632577226bbd6301f">este dicionário</a>, as ferramentas no repositório de dicionário não são capazes de criar dicionários funcionais</li>
+  </ul>
+  <li>Personalize temas do teclado (estilo, cores e imagem de fundo)</li>
+  <ul>
+    <li>pode se adaptar ao tema Escuro/Claro do telemóvel no Android 10+ (e em algumas versões do Android 9)</li>
+    <li>pode se adaptar a cores dinâmicas para o Android 12+</li>
+  </ul>
+  <li>Personalize <a href="https://github.com/Helium314/HeliBoard/blob/main/layouts.md">layouts</a> do teclado (apenas disponível ao desativar <i>usar idiomas do sistema</i>)</li>
+  <li>Personalize layouts especiais, como símbolos, números, ou layouts de teclas funcionais</li>
+  <li>Escrita Multilíngua</li>
+  <li>Escrita por gestos (<i>apenas com biblioteca closed source</i> ☹️)</li>
+  <ul>
+    <li>biblioteca não incluída na aplicação, dado que não existe nenhuma biblioteca open-source compatível disponível</li>
+    <li>pode ser extraída de 'GApps packages' ("<i>swypelibs</i>"), ou descarregada <a href="https://github.com/erkserkserks/openboard/tree/46fdf2b550035ca69299ce312fa158e7ade36967/app/src/main/jniLibs">daqui</a> (clique no ficheiro e depois "raw" ou o pequeno botão de descarregar)</li>
+  </ul>
+  <li>Histórico da área da transferência</li>
+  <li>Modo de uma mão</li>
+  <li>Teclado dividido (apenas disponível se o ecrã for grande o suficiente)</li>
+  <li>Teclado numérico</li>
+  <li>Faça backup and restaure as suas definições e palavras aprendidas / dados do histórico</li>
+</ul>

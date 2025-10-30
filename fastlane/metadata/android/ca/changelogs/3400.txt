@@ -1,0 +1,5 @@
+- Limitar el nombre d'emojis suggerits a la tira de suggeriments a un (si és possible)
+- Corregir la inserció d'espais incorrecta
+- Corregir el text blanc sobre fons blanc en alguns dispositius
+- Corregir els suggeriments incorrectes amb `'`
+- Afegir el plural schwa ɜ a l'italià

@@ -1,20 +1,20 @@
-* nuova icona di @FabianOvrWrt con contributi da @the-eclectic-dyslexic (#517, #592)
-* trackpad della barra spaziatrice e cambio lingua maggiormente personalizzabile, di @arcarum (#486)
-* aggiungi % al layout dei simboli shift (#568, #428)
-* migliorato il comportamento del tasto di cambio lingua se è impostato per cambiare sia la lingua che la tastiera
-* mostra i link ai dizionari esistenti quando si aggiunge un dizionario
-* aggiungi il layout Kaitag, di @alkaitagi (#519)
-* aggiungi il layout Probhat, di @fahimscirex (#489)
-* icone in ordine inverso sulla barra degli strumenti per le lingue destra-sinistra, di @codokie (#557, #574)
-* personalizzazione di layout speciali (tastierino numerico, telefono...)
-* (ancora sperimentale, poiché i layout di base potrebbero cambiare)
-* spellchecker.xml aggiornato per includere le impostazioni locali in cui sono disponibili i dizionari non inclusi nell'app
-* traduzioni aggiornate (grazie a tutti i traduttori!)
-* aggiornamento ndk, di @Syphyr (#560)
-* riempimento automatico in linea aggiornato, di @arcarum (#595)
-* risolto un problema con la finestra di dialogo del tasto della barra degli strumenti (#505)
-* risolto un problema con il layout turco (#508)
-* corretti gli stati di switch errati quando si ruota nella schermata Personalizza colori (#563)
-* risolto il problema delle emoji recenti che non si caricano (#527)
-* risolto il problema con i numeri che non sono visualizzati in determinati campi (#585)
-* alcune correzioni minori
+* Icona di @FabianOvrWrt/@the-eclectic-dyslexic
+* Funzioni trackpad e cambio lingua su spazio migliorate
+* % in layout simboli ⇧
+* Tasto cambio lingua+tastiera migliorato
+* Link ai dizionari esistenti
+* Layout Kaitag
+* Layout Probhat
+* Icone invertite per RTL
+* Layout speciali
+   (beta)
+* Spellchecker.xml ampliato
+* Traduzioni aggiornate
+* Ndk aggiornato
+* Riempimento inline aggiornato
+* Fix toolbar
+* Fix layout turco
+* Fix switch colori
+* Fix emoji recenti
+* Fix numeri invisibili
+* Bugfix

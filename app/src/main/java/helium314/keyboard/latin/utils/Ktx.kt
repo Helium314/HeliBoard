@@ -3,6 +3,7 @@ package helium314.keyboard.latin.utils
 import android.content.Context
 import android.content.ContextWrapper
 import android.content.SharedPreferences
+import android.content.res.Resources
 import androidx.activity.ComponentActivity
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
@@ -11,6 +12,7 @@ import androidx.compose.ui.text.LinkAnnotation
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextLinkStyles
 import androidx.compose.ui.text.withLink
+import androidx.core.util.TypedValueCompat
 
 // generic extension functions
 
@@ -90,3 +92,6 @@ fun AnnotatedString.Builder.appendLink(text: String, url: String) =
     )) {
         append(text)
     }
+
+/** Convenience for converting dp to px, int -> int */
+fun Int.dpToPx(resources: Resources) = TypedValueCompat.dpToPx(this.toFloat(), resources.displayMetrics).toInt()

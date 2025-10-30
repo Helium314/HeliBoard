@@ -26,7 +26,6 @@ fun getDictionaryLocales(context: Context): MutableSet<Locale> {
 
     // get cached dictionaries: extracted or user-added dictionaries
     DictionaryInfoUtils.getCacheDirectories(context).forEach { directory ->
-        if (!directory.isDirectory) return@forEach
         if (!hasAnythingOtherThanExtractedMainDictionary(directory)) return@forEach
         val locale = DictionaryInfoUtils.getWordListIdFromFileName(directory.name).constructLocale()
         locales.add(locale)

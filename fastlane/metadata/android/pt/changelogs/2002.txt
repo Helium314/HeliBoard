@@ -1,0 +1,4 @@
+* adicionar tecla de emoji, por @codokie (#845, #837)
+* melhorias relacionadas com letras duplicadas (#225 e possivelmente outros)
+* evitar posicionar o cursor nos emojis (#859)
+* correções pequenas para funcionalidades recentes
