@@ -119,15 +119,15 @@ class SuggestionStripView(context: Context, attrs: AttributeSet?, defStyle: Int)
     private val defaultToolbarBackground: Drawable = toolbarExpandKey.background
     private val enabledToolKeyBackground = GradientDrawable()
     private var direction = 1 // 1 if LTR, -1 if RTL
-    private val colors = Settings.getValues().mColors
 
-    // toolbar keys setup
     private val toolbarKeyLayoutParams = LinearLayout.LayoutParams(
         resources.getDimensionPixelSize(R.dimen.config_suggestions_strip_edge_key_width),
         LinearLayout.LayoutParams.MATCH_PARENT
     )
 
     init {
+        val colors = Settings.getValues().mColors
+
         // expand key
         // weird way of setting size (default is config_suggestions_strip_edge_key_width)
         // but better not change it or people will complain
@@ -148,6 +148,8 @@ class SuggestionStripView(context: Context, attrs: AttributeSet?, defStyle: Int)
         if (mToolbarMode == ToolbarMode.TOOLBAR_KEYS) {
             setToolbarVisibility(true)
         }
+
+        // toolbar keys setup
         if (mToolbarMode == ToolbarMode.TOOLBAR_KEYS || mToolbarMode == ToolbarMode.EXPANDABLE) {
             for (key in getEnabledToolbarKeys(context.prefs())) {
                 val button = createToolbarKey(context, key)
@@ -245,13 +247,14 @@ class SuggestionStripView(context: Context, attrs: AttributeSet?, defStyle: Int)
 
         if (addCloseButton) {
             val wrapper = LinearLayout(context)
-            wrapper.setLayoutParams(LinearLayout.LayoutParams(suggestionsStrip.width - 80, LayoutParams.MATCH_PARENT))
+            wrapper.setLayoutParams(LinearLayout.LayoutParams(suggestionsStrip.width - 30.dpToPx(resources),
+                LayoutParams.MATCH_PARENT))
             wrapper.addView(view)
             suggestionsStrip.addView(wrapper)
 
             val closeButton = createToolbarKey(context, ToolbarKey.CLOSE_HISTORY)
             closeButton.layoutParams = toolbarKeyLayoutParams
-            setupKey(closeButton, colors)
+            setupKey(closeButton, Settings.getValues().mColors)
             closeButton.setOnClickListener {
                 listener.removeExternalSuggestions()
             }
