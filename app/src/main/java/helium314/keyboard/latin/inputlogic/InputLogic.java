@@ -618,7 +618,9 @@ public final class InputLogic {
         }
         if (mWordComposer.isComposingWord()) {
             // Check if we need to insert automatic space before starting to compose (e.g., after suggestion pickup)
-            if (SpaceState.PHANTOM == inputTransaction.getMSpaceState()) {
+            // Only do this for the Khipro combiner
+            if (SpaceState.PHANTOM == inputTransaction.getMSpaceState()
+                    && "bn_khipro".equals(mWordComposer.getCombiningSpec())) {
                 insertAutomaticSpaceIfOptionsAndTextAllow(inputTransaction.getMSettingsValues());
                 mSpaceState = SpaceState.NONE;
             }
