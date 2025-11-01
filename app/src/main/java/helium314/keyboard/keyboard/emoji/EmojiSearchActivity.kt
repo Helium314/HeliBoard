@@ -202,8 +202,7 @@ class EmojiSearchActivity : ComponentActivity() {
                                 keyboardOptions = KeyboardOptions(
                                     imeAction = ImeAction.Done,
                                     hintLocales = hintLocales,
-                                    platformImeOptions = PlatformImeOptions(encodePrivateImeOptions(PrivateImeOptions(heightPx),
-                                        this@EmojiSearchActivity))),
+                                    platformImeOptions = PlatformImeOptions(encodePrivateImeOptions(PrivateImeOptions(heightPx)))),
                                 keyboardActions = KeyboardActions(onDone = { finish() }),
                                 singleLine = true,
                                 cursorBrush = SolidColor(textFieldColors.cursorColor)
@@ -380,9 +379,8 @@ class EmojiSearchActivity : ComponentActivity() {
             editorInfo?.privateImeOptions?.takeIf { it.startsWith(PRIVATE_IME_OPTIONS_PREFIX) }
                 ?.let { it.substring(PRIVATE_IME_OPTIONS_PREFIX.length + 1, it.indexOf(',')) }?.toInt() ?: 0)
 
-        private fun encodePrivateImeOptions(privateImeOptions: PrivateImeOptions, context: Context) =
+        private fun encodePrivateImeOptions(privateImeOptions: PrivateImeOptions) =
             "$PRIVATE_IME_OPTIONS_PREFIX.${privateImeOptions.height},"
-        //todo: add ${context.packageName}.${Constants.ImeOption.NO_LOCALE_PER_APP}
 
         private fun initDictionaryFacilitator(context: Context) {
             val locale = RichInputMethodManager.getInstance().currentSubtype.locale
