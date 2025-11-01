@@ -522,7 +522,7 @@ public class LatinIME extends InputMethodService implements
         private InputMethodSubtype mLastActiveSubtype;
         private boolean mCurrentSubtypeHasBeenUsed = true; // starting with true avoids immediate switch
 
-        public void setCurrentSubtypeHasBeenUsed() {
+        void setCurrentSubtypeHasBeenUsed() {
             mCurrentSubtypeHasBeenUsed = true;
         }
 
@@ -609,7 +609,7 @@ public class LatinIME extends InputMethodService implements
                                          secLocale -> LocaleUtils.INSTANCE.getMatchLevel(hintLocale, secLocale) >= minimumMatchLevel);
         }
 
-        public void onSubtypeChanged(final InputMethodSubtype oldSubtype,
+        void onSubtypeChanged(final InputMethodSubtype oldSubtype,
                                      final InputMethodSubtype newSubtype) {
             if (oldSubtype != mOverriddenByLocale) {
                 // Whenever the subtype is changed, clear tracking
@@ -619,7 +619,7 @@ public class LatinIME extends InputMethodService implements
             }
         }
 
-        public void switchSubtype(final RichInputMethodManager richImm) {
+        void switchSubtype(final RichInputMethodManager richImm) {
             final InputMethodSubtype currentSubtype = richImm.getCurrentSubtype().getRawSubtype();
             final InputMethodSubtype lastActiveSubtype = mLastActiveSubtype;
             final boolean currentSubtypeHasBeenUsed = mCurrentSubtypeHasBeenUsed;
