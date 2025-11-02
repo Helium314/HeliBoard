@@ -73,7 +73,7 @@ fun PreferencesScreen(
         R.string.settings_category_clipboard_history,
         Settings.PREF_ENABLE_CLIPBOARD_HISTORY,
         if (clipboardHistoryEnabled) Settings.PREF_CLIPBOARD_HISTORY_RETENTION_TIME else null,
-        if (clipboardHistoryEnabled) Settings.PREF_CLIPBOARD_HISTORY_UNPINNED_FIRST else null
+        if (clipboardHistoryEnabled) Settings.PREF_CLIPBOARD_HISTORY_PINNED_FIRST else null
     )
     SearchSettingsScreen(
         onClickBack = onClickBack,
@@ -172,8 +172,8 @@ fun createPreferencesSettings(context: Context) = listOf(
             range = 1f..121f,
         )
     },
-    Setting(context, Settings.PREF_CLIPBOARD_HISTORY_UNPINNED_FIRST, R.string.clipboard_history_unpinned_first) {
-        SwitchPreference(it, Defaults.PREF_CLIPBOARD_HISTORY_UNPINNED_FIRST)
+    Setting(context, Settings.PREF_CLIPBOARD_HISTORY_PINNED_FIRST, R.string.clipboard_history_pinned_first) {
+        SwitchPreference(it, Defaults.PREF_CLIPBOARD_HISTORY_PINNED_FIRST)
     },
     Setting(context, Settings.PREF_VIBRATION_DURATION_SETTINGS, R.string.prefs_keypress_vibration_duration_settings) { setting ->
         SliderPreference(

@@ -12,8 +12,9 @@ data class ClipboardHistoryEntry (
         var isPinned: Boolean = false
 ) : Comparable<ClipboardHistoryEntry> {
     override fun compareTo(other: ClipboardHistoryEntry): Int {
-        var result = other.isPinned.compareTo(isPinned)
-        if (Settings.getValues()?.mClipboardHistoryUnpinnedFirst == true) result = -result
-        return if (result != 0) result else other.timeStamp.compareTo(timeStamp)
+        val result = other.isPinned.compareTo(isPinned)
+        if (result == 0) return other.timeStamp.compareTo(timeStamp)
+        if (Settings.getValues()?.mClipboardHistoryPinnedFirst == false) return -result
+        return result
     }
 }

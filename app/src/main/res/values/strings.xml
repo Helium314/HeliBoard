@@ -195,8 +195,8 @@
     <string name="enable_clipboard_history_summary">If disabled, clipboard key will paste clipboard content if any</string>
     <!-- Preferences item for controlling clipboard history retention time -->
     <string name="clipboard_history_retention_time">History retention time</string>
-    <!-- Preferences item for showing unpinned clipboard items first -->
-    <string name="clipboard_history_unpinned_first">Show unpinned items on top</string>
+    <!-- Preferences item for showing pinned clipboard items first -->
+    <string name="clipboard_history_pinned_first">Show pinned items on top</string>
     <!-- Preferences item for enabling swipe deletion -->
     <string name="delete_swipe">Delete swipe</string>
     <!-- Description for "delete_swipe" option. -->
