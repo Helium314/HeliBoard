@@ -121,6 +121,7 @@ private val sendMailIntent = Intent(Intent.ACTION_SENDTO).apply {
     putExtra(Intent.EXTRA_SUBJECT, MAIL_SUBJECT)
     putExtra(Intent.EXTRA_TEXT, MAIL_TEXT)
     putExtra(Intent.EXTRA_STREAM, MAIL_STREAM.toUri()) // todo: seems to be ignored by k9, whose fault is it?
+    addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
 }
 
 // works for FairEmail, thunderbird / k9 not available
@@ -130,6 +131,7 @@ private val shareFileIntent = Intent(Intent.ACTION_SEND).apply {
     putExtra(Intent.EXTRA_SUBJECT, MAIL_SUBJECT)
     putExtra(Intent.EXTRA_TEXT, MAIL_TEXT)
     putExtra(Intent.EXTRA_STREAM, MAIL_STREAM.toUri())
+    addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
 }
 
 // should work with all clients, but careful because android intents do have a size limit of 1 MB
@@ -185,7 +187,8 @@ class GestureFileProvider : ContentProvider() {
 
     @Throws(FileNotFoundException::class)
     override fun openFile(uri: Uri, mode: String): ParcelFileDescriptor? {
-        // todo: this isn't called, possible issue with GESTURE_PROVIDER_AUTHORITY?
+        // todo: not called by K9 when using sendMailIntent, maybe "their fault"? works with FairEmail
+        // todo: remove file when we're back in this activity?
         if (uri.toString() != MAIL_STREAM)
             throw FileNotFoundException("Unsupported uri: $uri")
         return ParcelFileDescriptor.open(File(zippedDataPath), ParcelFileDescriptor.MODE_READ_ONLY)
