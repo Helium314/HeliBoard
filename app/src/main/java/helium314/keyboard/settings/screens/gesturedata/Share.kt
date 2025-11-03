@@ -33,6 +33,7 @@ import java.util.zip.ZipEntry
 import java.util.zip.ZipOutputStream
 import kotlin.io.encoding.Base64
 
+// todo: find "best" ways, maybe 2 or 3 that work everywhere
 @Composable
 fun ShareGestureData() {
     val ctx = LocalContext.current

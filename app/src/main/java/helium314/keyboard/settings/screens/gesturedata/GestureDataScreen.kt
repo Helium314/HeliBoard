@@ -108,7 +108,6 @@ fun GestureDataScreen(
     val words = remember { mutableListOf<String>() }
     var wordFromDict by remember { mutableStateOf<String?>(null) } // some word from the dictionary
     var typed by remember { mutableStateOf(TextFieldValue()) }
-    var userId by remember { mutableStateOf(prefs.getString(PREF_GESTURE_USER_ID, "")!!) }
     var lastData by remember { mutableStateOf<WordData?>(null) }
     val suggestionLogger = remember {
         object : SingleDictionaryFacilitator.Companion.SuggestionLogger {
@@ -123,25 +122,18 @@ fun GestureDataScreen(
                 val target = wordFromDict ?: return
                 // todo: do we want to store intermediate suggestions?
                 //  currently they are overwritten by the next ones, but stored if the user presses next-word while typing
-                lastData = WordData(target, suggestions, composedData, ngramContext, keyboard, inputStyle, userId)
+                lastData = WordData(target, suggestions, composedData, ngramContext, keyboard, inputStyle)
                 if (inputStyle == SuggestedWords.INPUT_STYLE_TAIL_BATCH) {
                     // todo: call nextWord immediately if target has a good score in suggestions?
                 }
             }
         }
     }
-    fun newUserId() {
-        val newId = Uuid.random().toString()
-        prefs.edit { putString(PREF_GESTURE_USER_ID, newId) }
-        userId = newId
-    }
-    if (userId == "")
-        newUserId()
     fun nextWord(save: Boolean) {
         val dict = dict ?: return
         if (!save)
             lastData = null
-        lastData?.save(dict, ctx)
+        lastData?.save(listOf(dict), ctx)
         typed = TextFieldValue()
         wordFromDict = words.ifEmpty { null }?.random() // randomly choose from dict
         lastData = null
@@ -190,16 +182,6 @@ fun GestureDataScreen(
             )
             Text(stringResource(R.string.gesture_data_description))
             Spacer(Modifier.height(12.dp))
-            WithSmallTitle(stringResource(R.string.gesture_data_user_id)) {
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                    modifier = Modifier.fillMaxWidth()
-                ) {
-                    Text(userId, style = MaterialTheme.typography.bodySmall)
-                    TextButton({ newUserId() }) { Text(stringResource(R.string.gesture_data_new_user_id)) }
-                }
-            }
             // todo: show data for how many words are actually prepared / stored? currently we don't keep track
             DropDownField(availableDicts, dict, { dict = it }) {
                 val locale = it?.locale?.getDisplayName(LocalConfiguration.current.locale())
@@ -311,8 +293,6 @@ const val dictTestImeOption = "useTestDictionaryFacilitator"
 var facilitator: SingleDictionaryFacilitator? = null
 
 fun getGestureDataFile(context: Context) = File(context.filesDir, "gesture_data.json")
-
-private const val PREF_GESTURE_USER_ID = "gesture_typing_screen_user_id"
 
 @Preview
 @Composable

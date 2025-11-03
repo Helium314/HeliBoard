@@ -921,10 +921,6 @@ New dictionary:
     todo: make it nice, and clarify whether data will be public, and if so (I think yes) what it will look like
      -->
     <string name="gesture_data_description">Tell the user why this screen exists, what they can do, ...</string>
-    <!-- Short button text for generating a new user id -->
-    <string name="gesture_data_new_user_id">New id</string>
-    <!-- Title about the user id -->
-    <string name="gesture_data_user_id">User id</string>
     <!-- Button for getting the data file -->
     <string name="gesture_data_get_data">Get gesture data file</string>
     <!-- Button for deleting the data file -->

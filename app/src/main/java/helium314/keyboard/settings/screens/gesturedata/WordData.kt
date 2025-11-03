@@ -3,6 +3,7 @@ package helium314.keyboard.settings.screens.gesturedata
 import android.content.Context
 import helium314.keyboard.keyboard.Keyboard
 import helium314.keyboard.latin.BuildConfig
+import helium314.keyboard.latin.InputAttributes
 import helium314.keyboard.latin.NgramContext
 import helium314.keyboard.latin.SuggestedWords
 import helium314.keyboard.latin.common.ComposedData
@@ -10,6 +11,7 @@ import helium314.keyboard.latin.common.InputPointers
 import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.utils.SuggestionResults
 import helium314.keyboard.latin.utils.prefs
+import helium314.keyboard.settings.dialogs.DictionaryDialog
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
 
@@ -18,9 +20,8 @@ class WordData(
     val suggestions: SuggestionResults,
     val composedData: ComposedData,
     val ngramContext: NgramContext,
-    keyboard: Keyboard,
+    val keyboard: Keyboard,
     val inputStyle: Int,
-    val userId: String,
 ) {
     // keyboard is not immutable, so better store (potentially) relevant infos immediately
     val keys = keyboard.sortedKeys
@@ -37,9 +38,11 @@ class WordData(
     val inputType = keyboard.mId.mEditorInfo.inputType
     val imeOptions = keyboard.mId.mEditorInfo.imeOptions
 
-    fun save(dict: Dict, context: Context) {
+    fun save(dicts: List<Dict>, context: Context) {
+        if (!isSavingOk())
+            return
+
         // todo: guid / hash per gesture (could be hash of all other data)
-        val stillGliding = inputStyle == SuggestedWords.INPUT_STYLE_UPDATE_BATCH // todo: use?
         val keyboardInfo = KeyboardInfo(
             width, // baseHeight is without padding, but coordinates include padding
             height,
@@ -48,16 +51,32 @@ class WordData(
         val data = GestureData(
             BuildConfig.VERSION_CODE,
             context.prefs().getString(Settings.PREF_LIBRARY_CHECKSUM, "")!!,
-            userId,
             targetWord,
             listOf(), // todo: this is annoying to create... and currently not relevant
-            listOf(DictInfo(dict.hash, dict.locale.toString())),
+            dicts.map { DictInfo(it.hash, it.locale.toString()) }, // todo: locale to string or language tag?
             suggestions.filter { it.mScore > 0 }.map { Suggestion(it.mWord, it.mScore) }, // todo: there is much more information available
             PointerData.fromPointers(composedData.mInputPointers),
-            keyboardInfo
+            keyboardInfo,
+            false, // todo: active / passive
         )
         val string = Json.encodeToString(data)
+        // todo: use a database, we might end up with a lot of data!
+        //  store full json, word, and time (latter 2 for filtering)
+        //  and whether the word / data set was already exported (maybe when?)
         getGestureDataFile(context).appendText("$string,\n") // just need to remove trailing ,\n and put inside [ and ] to have an array
+    }
+
+    // find when we should NOT save
+    private fun isSavingOk(): Boolean {
+        // todo: check if inputStyle == SuggestedWords.INPUT_STYLE_TAIL_BATCH is necessary to be gliding
+        if (inputStyle == SuggestedWords.INPUT_STYLE_UPDATE_BATCH)
+            return false // don't save if user hasn't finished the gesture, we will get full data once they are finished anyway
+        val inputAttributes = InputAttributes(keyboard.mId.mEditorInfo, false, "")
+        if (inputAttributes.mIsPasswordField || inputAttributes.mNoLearning)
+            return false // probably some more inputAttributes to consider
+        // todo: check exclusion list
+        // todo: don't save if the word is coming from personal or contacts dict?
+        return true
     }
 }
 
@@ -65,13 +84,13 @@ class WordData(
 data class GestureData(
     val appVersionCode: Int,
     val libraryHash: String,
-    val uid: String, // todo: better get rid of user-id
     val targetWord: String,
     val precedingWords: List<String>,
     val dictionaries: List<DictInfo>,
     val suggestions: List<Suggestion>,
     val gesture: List<PointerData>,
     val keyboardInfo: KeyboardInfo,
+    val activeMode: Boolean
 )
 
 @Serializable

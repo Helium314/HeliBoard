@@ -63,7 +63,6 @@ import java.util.Date
 fun ReviewScreen(
     onClickBack: () -> Unit,
 ) {
-//    val scrollState = rememberScrollState() // todo: maybe not scrollable, we'll have the scrollable list in there
     val buttonColors = ButtonColors(
         containerColor = Color.Transparent,
         contentColor = MaterialTheme.colorScheme.onSurface,
@@ -77,7 +76,7 @@ fun ReviewScreen(
     Scaffold(
         contentWindowInsets = WindowInsets.safeDrawing.only(WindowInsetsSides.Bottom),
         bottomBar = {
-            BottomAppBar( // todo: hope it doesn't block anything
+            BottomAppBar( // todo: make sure it doesn't block anything (last entry, scrolling, landscape mode, ...
                 actions = {
                     // todo: spread evenly, consistent icon size, enable / disable if necessary
                     Button({}, colors = buttonColors) {
@@ -113,7 +112,6 @@ fun ReviewScreen(
     ) { innerPadding ->
         Column(
             modifier = Modifier
-//                .verticalScroll(scrollState)
                 .padding(horizontal = 12.dp)
                 .then(Modifier.padding(innerPadding)),
         ) {
@@ -211,7 +209,6 @@ fun ReviewScreen(
             }
             if (showDateRangePicker)
                 DateRangePickerModal({ startDate = it.first; endDate = it.second }) { showDateRangePicker = false }
-            //  user-id text field (todo: get rid of user-id?)
             //  and finally the result list
             //   user-define sorting? -> menu
             //   have select-all thing (... menu?)
@@ -222,9 +219,8 @@ fun ReviewScreen(
 
             LazyColumn {
                 items(filteredData, { it.hashCode() }) { item -> // todo: need the code, but the sha256(?) one
-                    //   each entry consists of word, time, user-id, active/passive, whether it's already exported
+                    //   each entry consists of word, time, active/passive, whether it's already exported
                     //    click shows raw data?
-                    //     and allows delete or remove user-id
                     //    long click selects
                     GestureDataEntry(item, item.hashCode() in selected, selected.isNotEmpty()) { sel ->
                         selected = if (!sel) selected.filterNot { it == item.hashCode() }
@@ -245,7 +241,7 @@ private fun GestureDataEntry(gestureData: GestureData, selected: Boolean, anythi
     else Modifier.selectable(
         selected = selected,
         onClick = { onSelect(!selected) },
-        // how to use?
+        // how to use? -> looks like the color change is enough, without those 2 lines
         //interactionSource = remember { MutableInteractionSource() },
         //indication = ripple()
     )
