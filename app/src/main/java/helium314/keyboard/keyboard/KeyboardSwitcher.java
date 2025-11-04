@@ -494,16 +494,7 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
         mKeyboardViewWrapper.setOneHandedGravity(settings.getCurrent().mOneHandedModeGravity);
 
         settings.writeOneHandedModeEnabled(enabled);
-
-        // Reload the entire keyboard set with the same parameters, and switch to the previous layout
-        boolean wasEmoji = isShowingEmojiPalettes();
-        boolean wasClipboard = isShowingClipboardHistory();
         reloadKeyboard();
-        if (wasEmoji)
-            setEmojiKeyboard();
-        else if (wasClipboard) {
-            setClipboardKeyboard();
-        }
     }
 
     // Implements {@link KeyboardState.SwitchActions}.
@@ -531,8 +522,16 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
     }
 
     public void reloadMainKeyboard() {
+        // Reload the entire keyboard, and switch to the previous layout
+        var wasEmoji = isShowingEmojiPalettes();
+        var wasClipboard = isShowingClipboardHistory();
         loadKeyboard(mLatinIME.getCurrentInputEditorInfo(), Settings.getValues(),
                 mLatinIME.getCurrentAutoCapsState(), mLatinIME.getCurrentRecapitalizeState());
+        if (wasEmoji) {
+            setEmojiKeyboard();
+        } else if (wasClipboard) {
+            setClipboardKeyboard();
+        }
     }
 
     /**
