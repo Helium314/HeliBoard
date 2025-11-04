@@ -63,6 +63,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PlatformImeOptions
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.input.VisualTransformation
@@ -199,8 +200,7 @@ class EmojiSearchActivity : ComponentActivity() {
                                     search(it.text)
                                 },
                                 enabled = true,
-                                keyboardOptions = KeyboardOptions(
-                                    imeAction = ImeAction.Done,
+                                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text, imeAction = ImeAction.Done,
                                     hintLocales = hintLocales,
                                     platformImeOptions = PlatformImeOptions(encodePrivateImeOptions(PrivateImeOptions(heightPx)))),
                                 keyboardActions = KeyboardActions(onDone = { finish() }),
@@ -311,6 +311,7 @@ class EmojiSearchActivity : ComponentActivity() {
             override fun getDescription(emoji: String): String? = if (Settings.getValues().mShowEmojiDescriptions)
                 dictionaryFacilitator?.getWordProperty(getEmojiNeutralVersion(emoji))?.mShortcutTargets[0]?.mWord else null
         })
+        KeyboardSwitcher.getInstance().setAlphabetKeyboard()
         Log.d("emoji-search", "init end")
     }
 
