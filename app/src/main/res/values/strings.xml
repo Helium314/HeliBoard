@@ -197,8 +197,10 @@
     <string name="enable_clipboard_history">Enable clipboard history</string>
     <!-- Description for enabling/disabling clipboard history mentioning that if disabled, clipboard content is pasted -->
     <string name="enable_clipboard_history_summary">If disabled, clipboard key will paste clipboard content if any</string>
-    <!-- Preferences item for enabling clipboard history -->
+    <!-- Preferences item for controlling clipboard history retention time -->
     <string name="clipboard_history_retention_time">History retention time</string>
+    <!-- Preferences item for showing pinned clipboard items first -->
+    <string name="clipboard_history_pinned_first">Show pinned items on top</string>
     <!-- Preferences item for enabling swipe deletion -->
     <string name="delete_swipe">Delete swipe</string>
     <!-- Description for "delete_swipe" option. -->
@@ -282,6 +284,8 @@
     <string name="localized_number_row_summary">Prefer localized over latin numbers</string>
     <!-- Title of the setting to enable number row hints -->
     <string name="number_row_hints">Show hints on number row</string>
+    <!-- Title of the setting to save subtype per app -->
+    <string name="save_subtype_per_app">Remember language per app</string>
     <!-- Title of the setting to show key hints -->
     <string name="show_hints">Show key hints</string>
     <!-- Description of the settings to show hints -->
@@ -427,6 +431,8 @@
     <string name="subtype_probhat_bn_BD">%s (Probhat)</string>
     <!-- Description for "LANGUAGE_NAME" (Baishakhi) keyboard subtype with explicit keyboard layout -->
     <string name="subtype_baishakhi_bn_IN">%s (Baishakhi)</string>
+    <!-- Description for "LANGUAGE_NAME" (Khipro) keyboard subtype with explicit keyboard layout -->
+    <string name="subtype_khipro_bn">%s (Khipro)</string>
     <!-- Description for "LANGUAGE_NAME" (Compact) keyboard subtype with explicit keyboard layout -->
     <string name="subtype_generic_compact">%s (Compact)</string>
     <!-- Description for "LANGUAGE_NAME" (Phonetic) keyboard subtype with explicit keyboard layout -->

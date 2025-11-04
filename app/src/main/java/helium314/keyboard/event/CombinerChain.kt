@@ -41,6 +41,8 @@ class CombinerChain(initialText: String, combiningSpec: String) {
         mCombiners.add(DeadKeyCombiner())
         if (combiningSpec == "hangul")
             mCombiners.add(HangulCombiner())
+        else if (combiningSpec == "bn_khipro")
+            mCombiners.add(BnKhiproCombiner())
     }
 
     fun reset() {

@@ -58,6 +58,7 @@ class ClipboardAdapter(
                 setOnTouchListener(this@ViewHolder)
                 setOnLongClickListener(this@ViewHolder)
                 setBackgroundResource(itemBackgroundId)
+                isHapticFeedbackEnabled = false
             }
             Settings.getValues().mColors.setBackground(view, ColorType.KEY_BACKGROUND)
             pinnedIconView = view.findViewById<ImageView>(R.id.clipboard_entry_pinned_icon).apply {

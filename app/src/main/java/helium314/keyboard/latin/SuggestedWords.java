@@ -15,6 +15,7 @@ import androidx.annotation.Nullable;
 import helium314.keyboard.latin.common.StringUtils;
 import helium314.keyboard.latin.common.StringUtilsKt;
 import helium314.keyboard.latin.define.DebugFlags;
+import helium314.keyboard.latin.dictionary.Dictionary;
 import helium314.keyboard.latin.settings.Settings;
 
 import java.util.ArrayList;

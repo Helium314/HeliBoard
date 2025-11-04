@@ -114,7 +114,7 @@ class ClipboardHistoryManager(
             historyEntries.removeAt(index)
     }
 
-    private fun sortHistoryEntries() {
+    fun sortHistoryEntries() {
         historyEntries.sort()
     }
 
@@ -157,7 +157,6 @@ class ClipboardHistoryManager(
         if (pinnedClipString.isEmpty()) return
         val pinnedClips: List<ClipboardHistoryEntry> = Json.decodeFromString(pinnedClipString)
         historyEntries.addAll(pinnedClips)
-        sortHistoryEntries()
         if (onHistoryChangeListener != null) {
             pinnedClips.forEach {
                 onHistoryChangeListener?.onClipboardHistoryEntryAdded(historyEntries.indexOf(it))

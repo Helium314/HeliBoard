@@ -81,6 +81,7 @@ import helium314.keyboard.latin.utils.StatsUtils;
 import helium314.keyboard.latin.utils.StatsUtilsManager;
 import helium314.keyboard.latin.utils.SubtypeLocaleUtils;
 import helium314.keyboard.latin.utils.SubtypeSettings;
+import helium314.keyboard.latin.utils.SubtypeUtilsKt;
 import helium314.keyboard.latin.utils.ToolbarMode;
 import helium314.keyboard.latin.utils.ViewLayoutUtils;
 import helium314.keyboard.settings.SettingsActivity2;
@@ -522,17 +523,25 @@ public class LatinIME extends InputMethodService implements
         private InputMethodSubtype mLastActiveSubtype;
         private boolean mCurrentSubtypeHasBeenUsed = true; // starting with true avoids immediate switch
 
-        public void setCurrentSubtypeHasBeenUsed() {
+        void setCurrentSubtypeHasBeenUsed() {
             mCurrentSubtypeHasBeenUsed = true;
         }
 
-        // TextFields can provide locale/language hints that the IME should use via 'hintLocales'.
+        // TextFields can provide locale/language hints that the IME should use via 'hintLocales',
+        // and subtypes may be saved per app.
         // If a matching subtype is found, we temporarily switch to that subtype until
-        // we return to a context that does not provide any hints, or until the user
+        // we return to a context that does not provide any hints or per-app saved subtype, or until the user
         // explicitly changes the language/subtype in use.
-        public InputMethodSubtype getSubtypeForLocales(final RichInputMethodManager richImm, final Iterable<Locale> locales) {
+        // The steps are:
+        // 1. if a subtype was saved for the app, and it matches any of the hint locales, we return it.
+        // 2. if the current subtype matches any of the hint locales, we don't switch.
+        // 3. for each hint locale, if any enabled subtype matches it, we return it.
+        // 4. if a subtype was saved for the app, we fall back on it.
+        // 5. we don't switch.
+        InputMethodSubtype getSubtypeForLocales(final RichInputMethodManager richImm, final List<Locale> locales,
+                                                RichInputMethodSubtype subtypeForApp) {
             final InputMethodSubtype overriddenByLocale = mOverriddenByLocale;
-            if (locales == null) {
+            if (locales.isEmpty() && subtypeForApp == null) {
                 if (overriddenByLocale != null) {
                     // no locales provided, so switch back to
                     // whatever subtype was used last time.
@@ -544,43 +553,64 @@ public class LatinIME extends InputMethodService implements
                 return null;
             }
 
-            final InputMethodSubtype currentSubtype = richImm.getCurrentSubtype().getRawSubtype();
-            final Locale currentSubtypeLocale = richImm.getCurrentSubtypeLocale();
-            final int minimumMatchLevel = 3; // LocaleUtils.LOCALE_LANGUAGE_MATCH_COUNTRY_DIFFER;
+            final RichInputMethodSubtype currentSubtype = richImm.getCurrentSubtype();
 
-            // Try finding a subtype matching the hint language.
-            for (final Locale hintLocale : locales) {
-                if (LocaleUtils.INSTANCE.getMatchLevel(hintLocale, currentSubtypeLocale) >= minimumMatchLevel
-                        || CollectionsKt.any(mSettings.getCurrent().mSecondaryLocales,
-                            (secLocale) -> LocaleUtils.INSTANCE.getMatchLevel(hintLocale, secLocale) >= minimumMatchLevel)) {
-                    // current locales are already a good match, and we want to avoid unnecessary layout switches.
-                    return null;
+            // Try finding a subtype matching the hint languages and app saved subtype.
+            InputMethodSubtype newSubtype = null;
+            if (subtypeForApp != null) {
+                for (final Locale hintLocale : locales) {
+                    if (isGoodMatch(subtypeForApp, hintLocale)) {
+                        // saved subtype is a good match
+                        newSubtype = subtypeForApp.getRawSubtype();
+                        break;
+                    }
+                }
+            }
+
+            if (newSubtype == null) {
+                for (final Locale hintLocale : locales) {
+                    if (isGoodMatch(currentSubtype, hintLocale)) {
+                         // current locales are already a good match, and we want to avoid unnecessary layout switches.
+                         return null;
+                     }
                 }
 
-                final InputMethodSubtype subtypeForHintLocale = richImm.findSubtypeForHintLocale(hintLocale);
-                if (subtypeForHintLocale == null) {
-                    continue;
+                for (final Locale hintLocale : locales) {
+                    final InputMethodSubtype subtypeForHintLocale = richImm.findSubtypeForHintLocale(hintLocale);
+                    if (subtypeForHintLocale != null) {
+                        newSubtype = subtypeForHintLocale;
+                        break;
+                    }
                 }
+            }
 
-                if (subtypeForHintLocale.equals(currentSubtype)) {
-                    // no need to switch, we already use the correct locale.
-                    return null;
-                }
+            if (newSubtype == null && subtypeForApp != null) {
+                // fall back on saved subtype
+                newSubtype = subtypeForApp.getRawSubtype();
+            }
 
+            if (newSubtype != null && ! newSubtype.equals(currentSubtype.getRawSubtype())) {
                 if (overriddenByLocale == null) {
                     // auto-switching based on hint locale, so store
                     // whatever subtype was in use so we can switch back
                     // to it later when there are no hint locales.
-                    mOverriddenByLocale = currentSubtype;
+                    mOverriddenByLocale = currentSubtype.getRawSubtype();
                 }
 
-                return subtypeForHintLocale;
+                return newSubtype;
             }
 
             return null;
         }
 
-        public void onSubtypeChanged(final InputMethodSubtype oldSubtype,
+        private static boolean isGoodMatch(RichInputMethodSubtype candidateSubtype, Locale hintLocale) {
+            final int minimumMatchLevel = 3; // LocaleUtils.LOCALE_LANGUAGE_MATCH_COUNTRY_DIFFER;
+            return LocaleUtils.INSTANCE.getMatchLevel(hintLocale, candidateSubtype.getLocale()) >= minimumMatchLevel
+                    || CollectionsKt.any(SubtypeUtilsKt.getSecondaryLocales(candidateSubtype.getRawSubtype().getExtraValue()),
+                                         secLocale -> LocaleUtils.INSTANCE.getMatchLevel(hintLocale, secLocale) >= minimumMatchLevel);
+        }
+
+        void onSubtypeChanged(final InputMethodSubtype oldSubtype,
                                      final InputMethodSubtype newSubtype) {
             if (! Objects.equals(oldSubtype, mOverriddenByLocale)) {
                 // Whenever the subtype is changed, clear tracking
@@ -590,7 +620,7 @@ public class LatinIME extends InputMethodService implements
             }
         }
 
-        public void switchSubtype(final RichInputMethodManager richImm) {
+        void switchSubtype(final RichInputMethodManager richImm) {
             final InputMethodSubtype currentSubtype = richImm.getCurrentSubtype().getRawSubtype();
             final InputMethodSubtype lastActiveSubtype = mLastActiveSubtype;
             final boolean currentSubtypeHasBeenUsed = mCurrentSubtypeHasBeenUsed;
@@ -637,9 +667,9 @@ public class LatinIME extends InputMethodService implements
         KeyboardSwitcher.init(this);
         super.onCreate();
 
+        loadSettings();
         mClipboardHistoryManager.onCreate();
         mHandler.onCreate();
-        loadSettings();
 
         // Register to receive ringer mode change.
         final IntentFilter filter = new IntentFilter();
@@ -930,6 +960,7 @@ public class LatinIME extends InputMethodService implements
         if (hasSuggestionStripView()) {
             mSuggestionStripView.setRtl(mRichImm.getCurrentSubtype().isRtlSubtype());
         }
+        mSettings.saveSubtypeForApp(mRichImm.getCurrentSubtype(), getCurrentInputEditorInfo().packageName);
     }
 
     /** alias to onCurrentInputMethodSubtypeChanged with a better name, as it's also used for internal switching */
@@ -937,13 +968,14 @@ public class LatinIME extends InputMethodService implements
         onCurrentInputMethodSubtypeChanged(subtype);
     }
 
-    void onStartInputInternal(final EditorInfo editorInfo, final boolean restarting) {
+    private void onStartInputInternal(final EditorInfo editorInfo, final boolean restarting) {
         super.onStartInput(editorInfo, restarting);
 
+        var subtypeForApp = mSettings.getSubtypeForApp(editorInfo.packageName);
         final List<Locale> hintLocales = EditorInfoCompatUtils.getHintLocales(editorInfo);
-        final InputMethodSubtype subtypeForLocales = mSubtypeState.getSubtypeForLocales(mRichImm, hintLocales);
+        final InputMethodSubtype subtypeForLocales = mSubtypeState.getSubtypeForLocales(mRichImm, hintLocales, subtypeForApp);
         if (subtypeForLocales != null) {
-            // found a better subtype using hint locales that we should switch to.
+            // found a better subtype using hint locales and saved-per-app subtype, that we should switch to.
             mHandler.postSwitchLanguage(subtypeForLocales);
         }
     }
@@ -1410,7 +1442,7 @@ public class LatinIME extends InputMethodService implements
         // Without this function the inline autofill suggestions will not be visible
         mHandler.cancelResumeSuggestions();
 
-        mSuggestionStripView.setExternalSuggestionView(inlineSuggestionView);
+        mSuggestionStripView.setExternalSuggestionView(inlineSuggestionView, true);
 
         return true;
     }
@@ -1695,7 +1727,7 @@ public class LatinIME extends InputMethodService implements
     public boolean tryShowClipboardSuggestion() {
         final View clipboardView = mClipboardHistoryManager.getClipboardSuggestionView(getCurrentInputEditorInfo(), mSuggestionStripView);
         if (clipboardView != null && hasSuggestionStripView()) {
-            mSuggestionStripView.setExternalSuggestionView(clipboardView);
+            mSuggestionStripView.setExternalSuggestionView(clipboardView, false);
             return true;
         }
         return false;
@@ -1732,6 +1764,12 @@ public class LatinIME extends InputMethodService implements
     @Override
     public void removeSuggestion(final String word) {
         mDictionaryFacilitator.removeWord(word);
+    }
+
+    @Override
+    public void removeExternalSuggestions() {
+        setNeutralSuggestionStrip();
+        mHandler.postResumeSuggestions(false);
     }
 
     private void loadKeyboard() {

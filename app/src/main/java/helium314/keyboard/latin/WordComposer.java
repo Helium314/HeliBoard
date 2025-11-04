@@ -476,6 +476,14 @@ public final class WordComposer {
         return mRejectedBatchModeSuggestion;
     }
 
+    /**
+     * Get the current combining spec.
+     * @return the combining spec string, or null if none is set.
+     */
+    public String getCombiningSpec() {
+        return mCombiningSpec;
+    }
+
     void addInputPointerForTest(int index, int keyX, int keyY) {
         mInputPointers.addPointerAt(index, keyX, keyY, 0, 0);
     }

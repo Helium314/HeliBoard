@@ -14,6 +14,8 @@ import androidx.annotation.Nullable;
 
 import helium314.keyboard.keyboard.Keyboard;
 import helium314.keyboard.latin.common.ComposedData;
+import helium314.keyboard.latin.dictionary.Dictionary;
+import helium314.keyboard.latin.dictionary.DictionaryStats;
 import helium314.keyboard.latin.settings.SettingsValuesForSuggestion;
 import helium314.keyboard.latin.utils.SuggestionResults;
 

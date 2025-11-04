@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
  */
 
-package helium314.keyboard.latin;
+package helium314.keyboard.latin.dictionary;
 
 import android.content.Context;
 import android.database.ContentObserver;
@@ -13,8 +13,6 @@ import android.database.sqlite.SQLiteException;
 import android.net.Uri;
 import android.provider.UserDictionary.Words;
 import android.text.TextUtils;
-
-import androidx.annotation.Nullable;
 
 import com.android.inputmethod.latin.BinaryDictionary;
 
@@ -60,7 +58,7 @@ public class UserBinaryDictionary extends ExpandableBinaryDictionary {
     protected UserBinaryDictionary(final Context context, final Locale locale,
                                    final boolean alsoUseMoreRestrictiveLocales,
                                    final File dictFile, final String name) {
-        super(context, getDictName(name, locale, dictFile), locale, Dictionary.TYPE_USER, dictFile);
+        super(context, getDictName(name, locale, dictFile), locale, TYPE_USER, dictFile);
         if (null == locale) throw new NullPointerException(); // Catch the error earlier
         final String localeStr = locale.toString();
         if (SubtypeLocaleUtils.NO_LANGUAGE.equals(localeStr)) {

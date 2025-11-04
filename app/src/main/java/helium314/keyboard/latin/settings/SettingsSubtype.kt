@@ -74,6 +74,9 @@ data class SettingsSubtype(val locale: Locale, val extraValues: String) {
 
     fun isSameAsDefault() = SubtypeSettings.getResourceSubtypesForLocale(locale).any { it.toSettingsSubtype() == this.toPref().toSettingsSubtype() }
 
+    fun toEnabledSubtype(): InputMethodSubtype? =
+        SubtypeSettings.getEnabledSubtypes().firstOrNull { it.toSettingsSubtype() == this }
+
     companion object {
         fun String.toSettingsSubtype(): SettingsSubtype =
             SettingsSubtype(

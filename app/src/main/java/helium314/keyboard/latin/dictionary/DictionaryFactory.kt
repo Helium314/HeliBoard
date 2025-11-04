@@ -3,7 +3,7 @@
 * modified
 * SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
 */
-package helium314.keyboard.latin
+package helium314.keyboard.latin.dictionary
 
 import android.content.Context
 import helium314.keyboard.latin.common.LocaleUtils
