@@ -667,9 +667,9 @@ public class LatinIME extends InputMethodService implements
         KeyboardSwitcher.init(this);
         super.onCreate();
 
+        loadSettings();
         mClipboardHistoryManager.onCreate();
         mHandler.onCreate();
-        loadSettings();
 
         // Register to receive ringer mode change.
         final IntentFilter filter = new IntentFilter();
