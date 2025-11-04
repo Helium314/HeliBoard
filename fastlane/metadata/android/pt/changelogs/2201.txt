@@ -1,0 +1,2 @@
+* adicionar opções visuais para escrita por gestos, por @devycarol (#944)
+* atualizar alguns ícones, por @BlackyHawky (#977)

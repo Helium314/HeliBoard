@@ -26,7 +26,7 @@ import helium314.keyboard.event.InputTransaction;
 import helium314.keyboard.keyboard.Keyboard;
 import helium314.keyboard.keyboard.KeyboardSwitcher;
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode;
-import helium314.keyboard.latin.Dictionary;
+import helium314.keyboard.latin.dictionary.Dictionary;
 import helium314.keyboard.latin.DictionaryFacilitator;
 import helium314.keyboard.latin.LastComposedWord;
 import helium314.keyboard.latin.LatinIME;
@@ -197,6 +197,7 @@ public final class InputLogic {
         }
         resetComposingState(true);
         mInputLogicHandler.reset();
+        mSpaceState = SpaceState.NONE;
     }
 
     /**
@@ -402,11 +403,7 @@ public final class InputLogic {
         // Stop the last recapitalization, if started.
         mRecapitalizeStatus.stop();
         mWordBeingCorrectedByCursor = null;
-
-        // we do not return true if
-        final boolean oneSidedSelectionMove = hasOrHadSelection
-            && ((oldSelEnd == newSelEnd && oldSelStart != newSelStart) || (oldSelEnd != newSelEnd && oldSelStart == newSelStart));
-        return !oneSidedSelectionMove;
+        return true;
     }
 
     public boolean moveCursorByAndReturnIfInsideComposingWord(int distance) {
@@ -618,6 +615,13 @@ public final class InputLogic {
             inputTransaction.setDidAffectContents();
         }
         if (mWordComposer.isComposingWord()) {
+            // Check if we need to insert automatic space before starting to compose (e.g., after suggestion pickup)
+            // Only do this for the Khipro combiner
+            if (SpaceState.PHANTOM == inputTransaction.getMSpaceState()
+                    && "bn_khipro".equals(mWordComposer.getCombiningSpec())) {
+                insertAutomaticSpaceIfOptionsAndTextAllow(inputTransaction.getMSettingsValues());
+                mSpaceState = SpaceState.NONE;
+            }
             setComposingTextInternal(mWordComposer.getTypedWord(), 1);
             inputTransaction.setDidAffectContents();
             inputTransaction.setRequiresUpdateSuggestions();
@@ -984,6 +988,7 @@ public final class InputLogic {
             // and not for a correction
             // keep composing and don't unlearn word in this case
             resetEntireInputState(mConnection.getExpectedSelectionStart(), mConnection.getExpectedSelectionEnd(), false);
+            isComposingWord = false;
         } else if (mWordComposer.isCursorFrontOrMiddleOfComposingWord()) {
             // If we are in the middle of a recorrection, we need to commit the recorrection
             // first so that we can insert the character at the current cursor position.
@@ -1003,7 +1008,7 @@ public final class InputLogic {
         // We never go into composing state if suggestions are not requested.
                 && settingsValues.needsToLookupSuggestions() &&
         // In languages with spaces, we only start composing a word when we are not already
-        // touching a word. In languages without spaces, the above conditions are sufficient.
+        // in the middle or at the end of a word. In languages without spaces, the above conditions are sufficient.
         // NOTE: If the InputConnection is slow, we skip the text-after-cursor check since it
         // can incur a very expensive getTextAfterCursor() lookup, potentially making the
         // keyboard UI slow and non-responsive.
@@ -1011,7 +1016,8 @@ public final class InputLogic {
         // each time. We are already doing this for getTextBeforeCursor().
                 (!settingsValues.mSpacingAndPunctuations.mCurrentLanguageHasSpaces
                         || !mConnection.isCursorTouchingWord(settingsValues.mSpacingAndPunctuations,
-                                !mConnection.hasSlowInputConnection() /* checkTextAfter */))) {
+                                !mConnection.hasSlowInputConnection() /* checkTextAfter */)
+                        || isCursorAtStartOrAfterSeparator(settingsValues))) {
             // Reset entirely the composing state anyway, then start composing a new word unless
             // the character is a word connector. The idea here is, word connectors are not
             // separators and they should be treated as normal characters, except in the first
@@ -1046,6 +1052,12 @@ public final class InputLogic {
             }
         }
         inputTransaction.setRequiresUpdateSuggestions();
+    }
+
+    private boolean isCursorAtStartOrAfterSeparator(SettingsValues settingsValues) {
+        var codePointBeforeCursor = mConnection.getCodePointBeforeCursor();
+        return codePointBeforeCursor == Constants.NOT_A_CODE
+                || settingsValues.mSpacingAndPunctuations.isWordSeparator(codePointBeforeCursor);
     }
 
     /**
@@ -2424,18 +2436,25 @@ public final class InputLogic {
         final SettingsValues settingsValues = Settings.getValues();
         mWordComposer.adviseCapitalizedModeBeforeFetchingSuggestions(
                 getActualCapsMode(settingsValues, KeyboardSwitcher.getInstance().getKeyboardShiftMode()));
-        final SuggestedWords suggestedWords = mSuggest.getSuggestedWords(mWordComposer,
-                getNgramContextFromNthPreviousWordForSuggestion(
-                        settingsValues.mSpacingAndPunctuations,
-                        // Get the word on which we should search the bigrams. If we are composing
-                        // a word, it's whatever is *before* the half-committed word in the buffer,
-                        // hence 2; if we aren't, we should just skip whitespace if any, so 1.
-                        mWordComposer.isComposingWord() ? 2 : 1),
-                keyboard,
-                settingsValues.mSettingsValuesForSuggestion,
-                settingsValues.mAutoCorrectEnabled,
-                inputStyle, sequenceNumber);
-        callback.onGetSuggestedWords(suggestedWords);
+        try {
+            final SuggestedWords suggestedWords = mSuggest.getSuggestedWords(mWordComposer,
+                    getNgramContextFromNthPreviousWordForSuggestion(
+                    settingsValues.mSpacingAndPunctuations,
+                    // Get the word on which we should search the bigrams. If we are composing
+                    // a word, it's whatever is *before* the half-committed word in the buffer,
+                    // hence 2; if we aren't, we should just skip whitespace if any, so 1.
+                    mWordComposer.isComposingWord() ? 2 : 1),
+                    keyboard,
+                    settingsValues.mSettingsValuesForSuggestion,
+                    settingsValues.mAutoCorrectEnabled,
+                    inputStyle, sequenceNumber);
+            callback.onGetSuggestedWords(suggestedWords);
+        } catch (Exception e) {
+            // better go without suggestions than have the keyboard crash
+            Log.e(TAG, "Error fetching suggested words, using empty words instead", e);
+            callback.onGetSuggestedWords(SuggestedWords.getEmptyInstance());
+            KeyboardSwitcher.getInstance().showToast("Error getting suggestions", true);
+        }
     }
 
     /**

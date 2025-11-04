@@ -88,8 +88,9 @@ object DictionaryInfoUtils {
         return sb.toString()
     }
 
-    /** Helper method to the list of cache directories, one for each distinct locale. */
-    fun getCacheDirectories(context: Context) = File(getWordListCacheDirectory(context)).listFiles().orEmpty()
+    /** Helper method to the list of non-empty cache directories, one for each distinct locale. */
+    fun getCacheDirectories(context: Context) = File(getWordListCacheDirectory(context)).listFiles()
+        ?.filter { it.isDirectory && !it.list().isNullOrEmpty() }.orEmpty()
 
     /** Find out the cache directory associated with a specific locale. */
     fun getCacheDirectoryForLocale(locale: Locale, context: Context): String? {

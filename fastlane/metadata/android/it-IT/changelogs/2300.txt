@@ -1,6 +1,6 @@
-* Personalizzazione di nuovi elementi: riga dei numeri, codici tasto, testo sulla barra spaziatrice, barre inferiori del selettore emoji e della cronologia appunti
+* Personalizzazione di nuovi elementi
 * Stile della tastiera e delle icone selezionabili in modo indipendente
-* Eliminazione dei tasti popup ridondanti non più impostata come predefinita (più un piccolo miglioramento)
+* Tasti popup duplicati mostrati di default (più un piccolo miglioramento)
 * Aggiunta di parole al dizionario utente meno aggressiva
 * Nessuna vibrazione in modalità 'Non disturbare'
 * Prestazioni migliorate in caso di copia di testi molto lunghi

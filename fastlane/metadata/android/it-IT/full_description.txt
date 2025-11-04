@@ -15,6 +15,7 @@ Caratteristiche:
 <li>colori dinamici per Android 12+</li>
 </ul>
 <li><a href="https://github.com/Helium314/HeliBoard/blob/main/layouts.md">Layout personalizzabili</a> (disponibili se si disabilita <i>usa lingue di sistema</i>)</li>
+<li>Personalizza layout speciali come simboli, numeri o tasti funzione</li>
 <li>digitazione multilingue</li>
 <li>digitazione a scorrimento (<i>solo con libreria closed source</i> ☹️)</li>
 <ul>

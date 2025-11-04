@@ -33,7 +33,7 @@ import helium314.keyboard.keyboard.KeyboardSwitcher
 import helium314.keyboard.keyboard.internal.KeyboardIconsSet
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode
 import helium314.keyboard.latin.AudioAndHapticFeedbackManager
-import helium314.keyboard.latin.Dictionary
+import helium314.keyboard.latin.dictionary.Dictionary
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.SuggestedWords
 import helium314.keyboard.latin.SuggestedWords.SuggestedWordInfo
@@ -49,6 +49,7 @@ import helium314.keyboard.latin.utils.ToolbarKey
 import helium314.keyboard.latin.utils.ToolbarMode
 import helium314.keyboard.latin.utils.addPinnedKey
 import helium314.keyboard.latin.utils.createToolbarKey
+import helium314.keyboard.latin.utils.dpToPx
 import helium314.keyboard.latin.utils.getCodeForToolbarKey
 import helium314.keyboard.latin.utils.getCodeForToolbarKeyLongClick
 import helium314.keyboard.latin.utils.getEnabledToolbarKeys
@@ -72,6 +73,7 @@ class SuggestionStripView(context: Context, attrs: AttributeSet?, defStyle: Int)
         fun pickSuggestionManually(word: SuggestedWordInfo?)
         fun onCodeInput(primaryCode: Int, x: Int, y: Int, isKeyRepeat: Boolean)
         fun removeSuggestion(word: String?)
+        fun removeExternalSuggestions()
     }
 
     private val moreSuggestionsContainer: View
@@ -118,6 +120,12 @@ class SuggestionStripView(context: Context, attrs: AttributeSet?, defStyle: Int)
     private val defaultToolbarBackground: Drawable = toolbarExpandKey.background
     private val enabledToolKeyBackground = GradientDrawable()
     private var direction = 1 // 1 if LTR, -1 if RTL
+
+    private val toolbarKeyLayoutParams = LinearLayout.LayoutParams(
+        resources.getDimensionPixelSize(R.dimen.config_suggestions_strip_edge_key_width),
+        LinearLayout.LayoutParams.MATCH_PARENT
+    )
+
     init {
         val colors = Settings.getValues().mColors
 
@@ -143,10 +151,6 @@ class SuggestionStripView(context: Context, attrs: AttributeSet?, defStyle: Int)
         }
 
         // toolbar keys setup
-        val toolbarKeyLayoutParams = LinearLayout.LayoutParams(
-            resources.getDimensionPixelSize(R.dimen.config_suggestions_strip_edge_key_width),
-            LinearLayout.LayoutParams.MATCH_PARENT
-        )
         if (mToolbarMode == ToolbarMode.TOOLBAR_KEYS || mToolbarMode == ToolbarMode.EXPANDABLE) {
             for (key in getEnabledToolbarKeys(context.prefs())) {
                 val button = createToolbarKey(context, key)
@@ -180,7 +184,7 @@ class SuggestionStripView(context: Context, attrs: AttributeSet?, defStyle: Int)
             override fun onScroll(down: MotionEvent?, me: MotionEvent, deltaX: Float, deltaY: Float): Boolean {
                 if (down == null) return false
                 val dy = me.y - down.y
-                return if (toolbarContainer.visibility != VISIBLE && deltaY > 0 && dy < 0) showMoreSuggestions()
+                return if (toolbarContainer.visibility != VISIBLE && deltaY > 0 && dy < (-10).dpToPx(resources)) showMoreSuggestions()
                 else false
             }
         }
@@ -238,10 +242,28 @@ class SuggestionStripView(context: Context, attrs: AttributeSet?, defStyle: Int)
         updateKeys();
     }
 
-    fun setExternalSuggestionView(view: View?) {
+    fun setExternalSuggestionView(view: View?, addCloseButton: Boolean) {
         clear()
         isExternalSuggestionVisible = true
-        suggestionsStrip.addView(view)
+
+        if (addCloseButton) {
+            val wrapper = LinearLayout(context)
+            wrapper.setLayoutParams(LinearLayout.LayoutParams(suggestionsStrip.width - 30.dpToPx(resources),
+                LayoutParams.MATCH_PARENT))
+            wrapper.addView(view)
+            suggestionsStrip.addView(wrapper)
+
+            val closeButton = createToolbarKey(context, ToolbarKey.CLOSE_HISTORY)
+            closeButton.layoutParams = toolbarKeyLayoutParams
+            setupKey(closeButton, Settings.getValues().mColors)
+            closeButton.setOnClickListener {
+                listener.removeExternalSuggestions()
+            }
+            suggestionsStrip.addView(closeButton)
+        } else {
+            suggestionsStrip.addView(view)
+        }
+
         if (Settings.getValues().mAutoHideToolbar) setToolbarVisibility(false)
     }
 

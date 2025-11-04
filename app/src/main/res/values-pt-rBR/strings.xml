@@ -52,8 +52,8 @@
     <string name="subtype_es_US">Espanhol (Estados Unidos)</string>
     <string name="subtype_hi_Latn">Hinglês</string>
     <string name="subtype_sr_Latn">Sérvio (Latino)</string>
-    <string name="subtype_generic_traditional">Nepali (Nepal) %s (Tradicional)</string>
-    <string name="subtype_akkhor_bn_BD">Bengali (Bangladesh) %s (Akkhor)</string>
+    <string name="subtype_generic_traditional">%s (Tradicional)</string>
+    <string name="subtype_akkhor_bn_BD">%s (Akkhor)</string>
     <string name="subtype_emoji">Emojis</string>
     <string name="add">Adicionar</string>
     <string name="remove">Remover</string>
@@ -124,7 +124,7 @@
     <string name="language_switch_key_switch_input_method">Alterar para outros métodos de entrada</string>
     <string name="show_language_switch_key">Tecla de alteração de idioma</string>
     <string name="show_emoji_key">Tecla de emoji</string>
-    <string name="subtype_generic_compact">Hindi %s (Compacto)</string>
+    <string name="subtype_generic_compact">%s (Compacto)</string>
     <string name="enable_clipboard_history_summary">Se desativado, a tecla da área de transferência somente colará o conteúdo na área de transferência</string>
     <string name="autospace_after_punctuation">Espaço automático após pontuação</string>
     <string name="autospace_after_punctuation_summary">Inserir um espaço automaticamente após a pontuação ao digitar uma nova palavra</string>

@@ -18,9 +18,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import helium314.keyboard.compat.locale
 import helium314.keyboard.dictionarypack.DictionaryPackConstants
-import helium314.keyboard.latin.Dictionary
+import helium314.keyboard.latin.dictionary.Dictionary
 import helium314.keyboard.latin.R
-import helium314.keyboard.latin.ReadOnlyBinaryDictionary
+import helium314.keyboard.latin.dictionary.ReadOnlyBinaryDictionary
 import helium314.keyboard.latin.common.LocaleUtils.constructLocale
 import helium314.keyboard.latin.common.LocaleUtils.localizedDisplayName
 import helium314.keyboard.latin.makedict.DictionaryHeader

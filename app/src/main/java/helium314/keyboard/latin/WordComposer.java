@@ -217,7 +217,7 @@ public final class WordComposer {
     }
 
     public boolean isCursorInFrontOfComposingWord() {
-        return mCursorPositionWithinWord == 0;
+        return isComposingWord() && mCursorPositionWithinWord == 0;
     }
 
     /**
@@ -474,6 +474,14 @@ public final class WordComposer {
 
     public String getRejectedBatchModeSuggestion() {
         return mRejectedBatchModeSuggestion;
+    }
+
+    /**
+     * Get the current combining spec.
+     * @return the combining spec string, or null if none is set.
+     */
+    public String getCombiningSpec() {
+        return mCombiningSpec;
     }
 
     void addInputPointerForTest(int index, int keyX, int keyY) {
