@@ -86,8 +86,8 @@ import helium314.keyboard.keyboard.internal.keyboard_parser.getEmojiDefaultVersi
 import helium314.keyboard.keyboard.internal.keyboard_parser.getEmojiKeyDimensions
 import helium314.keyboard.keyboard.internal.keyboard_parser.getEmojiNeutralVersion
 import helium314.keyboard.keyboard.internal.keyboard_parser.getEmojiPopupSpec
-import helium314.keyboard.latin.Dictionary
-import helium314.keyboard.latin.DictionaryFactory
+import helium314.keyboard.latin.dictionary.Dictionary
+import helium314.keyboard.latin.dictionary.DictionaryFactory
 import helium314.keyboard.latin.LatinIME
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.RichInputMethodManager
