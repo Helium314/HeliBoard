@@ -1,8 +1,10 @@
 // SPDX-License-Identifier: GPL-3.0-only
 
-package helium314.keyboard.latin;
+package helium314.keyboard.latin.dictionary;
 
 import helium314.keyboard.event.HangulCombiner;
+import helium314.keyboard.latin.NgramContext;
+import helium314.keyboard.latin.SuggestedWords;
 import helium314.keyboard.latin.common.ComposedData;
 import helium314.keyboard.latin.makedict.WordProperty;
 import helium314.keyboard.latin.settings.SettingsValuesForSuggestion;

@@ -12,6 +12,7 @@ import androidx.annotation.Nullable;
 import helium314.keyboard.keyboard.internal.KeySpecParser;
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode;
 import helium314.keyboard.latin.common.StringUtils;
+import helium314.keyboard.latin.dictionary.Dictionary;
 
 import java.util.ArrayList;
 import java.util.Arrays;

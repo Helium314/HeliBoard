@@ -7,6 +7,8 @@ import helium314.keyboard.keyboard.Keyboard
 import helium314.keyboard.keyboard.KeyboardSwitcher
 import helium314.keyboard.latin.DictionaryFacilitator.DictionaryInitializationListener
 import helium314.keyboard.latin.common.ComposedData
+import helium314.keyboard.latin.dictionary.Dictionary
+import helium314.keyboard.latin.dictionary.DictionaryStats
 import helium314.keyboard.latin.makedict.WordProperty
 import helium314.keyboard.latin.settings.SettingsValuesForSuggestion
 import helium314.keyboard.latin.utils.SuggestionResults
