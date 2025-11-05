@@ -119,6 +119,7 @@ class EmojiSearchActivity : ComponentActivity() {
     private lateinit var keyboardParams: KeyboardParams
     private var keyWidth by Delegates.notNull<Float>()
     private var keyHeight by Delegates.notNull<Float>()
+    private var firstKey: Key? = null
     private var pressedKey: Key? = null
     private var imeVisible = false
     private var imeClosed = false
@@ -203,7 +204,10 @@ class EmojiSearchActivity : ComponentActivity() {
                                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text, imeAction = ImeAction.Done,
                                     hintLocales = hintLocales,
                                     platformImeOptions = PlatformImeOptions(encodePrivateImeOptions(PrivateImeOptions(heightPx)))),
-                                keyboardActions = KeyboardActions(onDone = { finish() }),
+                                keyboardActions = KeyboardActions(onDone = {
+                                    if (Settings.getValues().mAutoCorrectEnabled) pressedKey = firstKey
+                                    finish()
+                                }),
                                 singleLine = true,
                                 cursorBrush = SolidColor(textFieldColors.cursorColor)
                             ) {
@@ -336,6 +340,7 @@ class EmojiSearchActivity : ComponentActivity() {
 
         val keyboard = emojiPageKeyboardView.keyboard as DynamicGridKeyboard
         keyboard.removeAllKeys()
+        firstKey = null
         pressedKey = null
         //todo: change to suggestion.isEmoji()
         dictionaryFacilitator!!.getSuggestions(text.splitOnWhitespace()).filter { isEmoji(it.word) }.forEach {
@@ -347,8 +352,7 @@ class EmojiSearchActivity : ComponentActivity() {
             keyParams.mAbsoluteHeight = keyHeight
             val key = keyParams.createKey()
             keyboard.addKeyLast(key)
-            if (pressedKey == null && Settings.getValues().mAutoCorrectEnabled)
-                pressedKey = key
+            if (firstKey == null) firstKey = key
         }
         emojiPageKeyboardView.invalidate()
 
@@ -361,7 +365,6 @@ class EmojiSearchActivity : ComponentActivity() {
     }
 
     private fun cancel() {
-        pressedKey = null
         finish()
     }
 
