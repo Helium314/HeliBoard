@@ -513,14 +513,18 @@ class DictionaryFacilitatorImpl : DictionaryFacilitator {
                     if (it == null) return@forEach
                     allResults.addAll(it)
                 }
+                var addedWord: String? = null
                 for (i in 0 until 2 - nonEmojiNonTypedWordCount) {
-                    allResults.firstOrNull { !suggestionResults.contains(it) && !isEmojiOrTypedWord(it, composedData) }
-                        ?.let { firstNonEmojiNonTypedWord ->
-                            // The conditions above guarantee that there are at least two EmojiOrTypedWord items
-                            val lastEmojiOrTypedWord = suggestionResults.last { isEmojiOrTypedWord(it, composedData) }
-                            suggestionResults.remove(lastEmojiOrTypedWord)
-                            suggestionResults.add(firstNonEmojiNonTypedWord)
-                        }
+                    allResults.firstOrNull {
+                        !suggestionResults.contains(it) && !isEmojiOrTypedWord(it, composedData)
+                            && addedWord?.compareTo(it.word, true) != 0
+                    }?.let { firstNonEmojiNonTypedWord ->
+                        // The conditions above guarantee that there are at least two EmojiOrTypedWord items
+                        val lastEmojiOrTypedWord = suggestionResults.last { isEmojiOrTypedWord(it, composedData) }
+                        suggestionResults.remove(lastEmojiOrTypedWord)
+                        suggestionResults.add(firstNonEmojiNonTypedWord)
+                        addedWord = firstNonEmojiNonTypedWord.word
+                    }
                 }
             }
         }
