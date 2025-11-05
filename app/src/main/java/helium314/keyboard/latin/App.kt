@@ -13,6 +13,8 @@ import helium314.keyboard.latin.common.Constants.Separators
 import helium314.keyboard.latin.common.Constants.Subtype.ExtraValue
 import helium314.keyboard.latin.common.LocaleUtils.constructLocale
 import helium314.keyboard.latin.common.encodeBase36
+import helium314.keyboard.latin.database.ClipboardDao
+import helium314.keyboard.latin.database.Database
 import helium314.keyboard.latin.define.DebugFlags
 import helium314.keyboard.latin.settings.Defaults
 import helium314.keyboard.latin.settings.Settings
@@ -36,9 +38,12 @@ import helium314.keyboard.latin.utils.getResourceSubtypes
 import helium314.keyboard.latin.utils.locale
 import helium314.keyboard.latin.utils.mainLayoutNameOrQwerty
 import helium314.keyboard.latin.utils.prefs
+import helium314.keyboard.latin.utils.protectedPrefs
 import helium314.keyboard.latin.utils.upgradeToolbarPrefs
 import helium314.keyboard.latin.utils.writeCustomKeyCodes
 import helium314.keyboard.settings.screens.colorPrefsAndResIds
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.json.Json
 import java.io.File
 import java.util.EnumMap
 
@@ -51,6 +56,7 @@ class App : Application() {
         RichInputMethodManager.init(this)
 
         checkVersionUpgrade(this)
+        transferOldPinnedClips(this) // todo: remove in a few months, maybe mid 2026
         app = this
         Defaults.initDynamicDefaults(this)
         LayoutUtilsCustom.removeMissingLayouts(this) // only after version upgrade
@@ -625,4 +631,25 @@ fun checkVersionUpgrade(context: Context) {
     upgradeToolbarPrefs(prefs)
     LayoutUtilsCustom.onLayoutFileChanged() // just to be sure
     prefs.edit { putInt(Settings.PREF_VERSION_CODE, BuildConfig.VERSION_CODE) }
+}
+
+// not only on upgrade, because this might also be called when db is locked
+fun transferOldPinnedClips(context: Context) {
+    @Serializable
+    data class OldClipboardHistoryEntry (
+        var timeStamp: Long,
+        val content: String,
+        var isPinned: Boolean = false
+    )
+    try {
+        val pinnedClipString = context.protectedPrefs().getString("pinned_clips", "")
+        if (pinnedClipString.isNullOrBlank())
+            return
+        val pinnedClips: List<OldClipboardHistoryEntry> = Json.decodeFromString(pinnedClipString)
+        val dao = ClipboardDao.getInstance(context) ?: return
+        pinnedClips.forEach { dao.addClip(it.timeStamp, it.isPinned, it.content) }
+        context.protectedPrefs().edit().remove("pinned_clips").apply()
+    } catch (e: Throwable) {
+        Log.e("upgrade", "error transferring old pinned clips", e)
+    }
 }

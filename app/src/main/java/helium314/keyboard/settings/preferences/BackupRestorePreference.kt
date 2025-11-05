@@ -21,7 +21,9 @@ import helium314.keyboard.keyboard.emoji.SupportedEmojis
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.checkVersionUpgrade
 import helium314.keyboard.latin.common.FileUtils
+import helium314.keyboard.latin.database.Database
 import helium314.keyboard.latin.settings.Settings
+import helium314.keyboard.latin.transferOldPinnedClips
 import helium314.keyboard.latin.utils.DeviceProtectedUtils
 import helium314.keyboard.latin.utils.ExecutorUtils
 import helium314.keyboard.latin.utils.LayoutUtilsCustom
@@ -134,6 +136,14 @@ private fun backupLauncher(onError: (String) -> Unit): ManagedActivityResultLaun
                         fileStream.close()
                         zipStream.closeEntry()
                     }
+                    val dbFile = ctx.getDatabasePath(Database.NAME)
+                    if (dbFile.exists()) {
+                        val fileStream = FileInputStream(dbFile).buffered()
+                        zipStream.putNextEntry(ZipEntry(Database.NAME))
+                        fileStream.copyTo(zipStream, 1024)
+                        fileStream.close()
+                        zipStream.closeEntry()
+                    }
                     zipStream.putNextEntry(ZipEntry(PREFS_FILE_NAME))
                     settingsToJsonStream(ctx.prefs().all, zipStream)
                     zipStream.closeEntry()
@@ -158,6 +168,7 @@ private fun restoreLauncher(onError: (String) -> Unit): ManagedActivityResultLau
     val ctx = LocalContext.current
     return filePicker { uri ->
         val wait = CountDownLatch(1)
+        val restoredDb = ctx.getDatabasePath(Database.NAME + "_restored")
         ExecutorUtils.getBackgroundExecutor(ExecutorUtils.KEYBOARD).execute {
             try {
                 ctx.getActivity()?.contentResolver?.openInputStream(uri)?.use { inputStream ->
@@ -176,9 +187,11 @@ private fun restoreLauncher(onError: (String) -> Unit): ManagedActivityResultLau
                                     val file = File(deviceProtectedFilesDir, adjustedName)
                                     FileUtils.copyStreamToNewFile(zip, file)
                                 }
-                            } else if (backupFilePatterns.any { entry!!.name.matches(it) }) {
+                            } else if (backupFilePatterns.any { entry.name.matches(it) }) {
                                 val file = File(filesDir, entry.name)
                                 FileUtils.copyStreamToNewFile(zip, file)
+                            } else if (entry.name == Database.NAME) {
+                                FileUtils.copyStreamToNewFile(zip, restoredDb)
                             } else if (entry.name == PREFS_FILE_NAME) {
                                 val prefLines = String(zip.readBytes()).split("\n")
                                 val prefs = ctx.prefs()
@@ -196,6 +209,7 @@ private fun restoreLauncher(onError: (String) -> Unit): ManagedActivityResultLau
                     }
                 }
 
+                Database.copyFromDb(restoredDb, ctx)
                 Looper.prepare()
                 Toast.makeText(ctx, ctx.getString(R.string.backup_restored), Toast.LENGTH_LONG).show()
             } catch (t: Throwable) {
@@ -207,6 +221,7 @@ private fun restoreLauncher(onError: (String) -> Unit): ManagedActivityResultLau
         }
         wait.await()
         checkVersionUpgrade(ctx)
+        transferOldPinnedClips(ctx)
         Settings.getInstance().startListener()
         SubtypeSettings.reloadEnabledSubtypes(ctx)
         val newDictBroadcast = Intent(DictionaryPackConstants.NEW_DICTIONARY_INTENT_ACTION)

@@ -13,6 +13,7 @@ import helium314.keyboard.keyboard.KeyboardLayoutSet
 import helium314.keyboard.keyboard.KeyboardSwitcher
 import helium314.keyboard.latin.AudioAndHapticFeedbackManager
 import helium314.keyboard.latin.R
+import helium314.keyboard.latin.database.ClipboardDao
 import helium314.keyboard.latin.settings.Defaults
 import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.utils.Log
@@ -125,11 +126,6 @@ fun createPreferencesSettings(context: Context) = listOf(
             KeyboardSwitcher.getInstance().reloadKeyboard()
         }
     },
-    Setting(context, Settings.PREF_ENABLE_CLIPBOARD_HISTORY,
-        R.string.enable_clipboard_history, R.string.enable_clipboard_history_summary)
-    {
-        SwitchPreference(it, Defaults.PREF_ENABLE_CLIPBOARD_HISTORY)
-    },
     Setting(context, Settings.PREF_SHOW_NUMBER_ROW, R.string.number_row, R.string.number_row_summary) {
         SwitchPreference(it, Defaults.PREF_SHOW_NUMBER_ROW) { KeyboardSwitcher.getInstance().setThemeNeedsReload() }
     },
@@ -164,7 +160,14 @@ fun createPreferencesSettings(context: Context) = listOf(
     {
         SwitchPreference(it, Defaults.PREF_REMOVE_REDUNDANT_POPUPS) { KeyboardSwitcher.getInstance().setThemeNeedsReload() }
     },
+    Setting(context, Settings.PREF_ENABLE_CLIPBOARD_HISTORY,
+        R.string.enable_clipboard_history, R.string.enable_clipboard_history_summary)
+    {
+        val ctx = LocalContext.current
+        SwitchPreference(it, Defaults.PREF_ENABLE_CLIPBOARD_HISTORY) { ClipboardDao.getInstance(ctx)?.clearNonPinned() }
+    },
     Setting(context, Settings.PREF_CLIPBOARD_HISTORY_RETENTION_TIME, R.string.clipboard_history_retention_time) { setting ->
+        val ctx = LocalContext.current
         SliderPreference(
             name = setting.title,
             key = setting.key,
@@ -174,7 +177,7 @@ fun createPreferencesSettings(context: Context) = listOf(
                 else stringResource(R.string.abbreviation_unit_minutes, it.toString())
             },
             range = 1f..121f,
-        )
+        ) { ClipboardDao.getInstance(ctx)?.clearOldClips(true) }
     },
     Setting(context, Settings.PREF_CLIPBOARD_HISTORY_PINNED_FIRST, R.string.clipboard_history_pinned_first) {
         SwitchPreference(it, Defaults.PREF_CLIPBOARD_HISTORY_PINNED_FIRST)
