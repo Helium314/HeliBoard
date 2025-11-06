@@ -26,7 +26,7 @@ import helium314.keyboard.event.InputTransaction;
 import helium314.keyboard.keyboard.Keyboard;
 import helium314.keyboard.keyboard.KeyboardSwitcher;
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode;
-import helium314.keyboard.latin.Dictionary;
+import helium314.keyboard.latin.dictionary.Dictionary;
 import helium314.keyboard.latin.DictionaryFacilitator;
 import helium314.keyboard.latin.LastComposedWord;
 import helium314.keyboard.latin.LatinIME;
@@ -619,6 +619,13 @@ public final class InputLogic {
             inputTransaction.setDidAffectContents();
         }
         if (mWordComposer.isComposingWord()) {
+            // Check if we need to insert automatic space before starting to compose (e.g., after suggestion pickup)
+            // Only do this for the Khipro combiner
+            if (SpaceState.PHANTOM == inputTransaction.getMSpaceState()
+                    && "bn_khipro".equals(mWordComposer.getCombiningSpec())) {
+                insertAutomaticSpaceIfOptionsAndTextAllow(inputTransaction.getMSettingsValues());
+                mSpaceState = SpaceState.NONE;
+            }
             setComposingTextInternal(mWordComposer.getTypedWord(), 1);
             inputTransaction.setDidAffectContents();
             inputTransaction.setRequiresUpdateSuggestions();

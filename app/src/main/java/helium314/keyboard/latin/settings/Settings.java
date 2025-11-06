@@ -27,6 +27,9 @@ import helium314.keyboard.keyboard.KeyboardActionListener;
 import helium314.keyboard.latin.AudioAndHapticFeedbackManager;
 import helium314.keyboard.latin.InputAttributes;
 import helium314.keyboard.latin.R;
+import helium314.keyboard.latin.RichInputMethodManager;
+import helium314.keyboard.latin.RichInputMethodSubtype;
+import helium314.keyboard.latin.common.StringUtils;
 import helium314.keyboard.latin.utils.DeviceProtectedUtils;
 import helium314.keyboard.latin.utils.KtxKt;
 import helium314.keyboard.latin.utils.LayoutType;
@@ -147,6 +150,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
 
     public static final String PREF_ENABLE_CLIPBOARD_HISTORY = "enable_clipboard_history";
     public static final String PREF_CLIPBOARD_HISTORY_RETENTION_TIME = "clipboard_history_retention_time";
+    public static final String PREF_CLIPBOARD_HISTORY_PINNED_FIRST = "clipboard_history_pinned_first";
 
     public static final String PREF_ADD_TO_PERSONAL_DICTIONARY = "add_to_personal_dictionary";
     public static final String PREF_NAVBAR_COLOR = "navbar_color";
@@ -177,9 +181,10 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_LAST_SHOWN_EMOJI_CATEGORY_ID = "last_shown_emoji_category_id";
     public static final String PREF_LAST_SHOWN_EMOJI_CATEGORY_PAGE_ID = "last_shown_emoji_category_page_id";
 
-    public static final String PREF_PINNED_CLIPS = "pinned_clips";
     public static final String PREF_VERSION_CODE = "version_code";
     public static final String PREF_LIBRARY_CHECKSUM = "lib_checksum";
+    public static final String PREF_SAVE_SUBTYPE_PER_APP = "save_subtype_per_app";
+    public static final String PREF_SAVED_APP_SUBTYPE_PREFIX = "saved_app_subtype_";
 
     private Context mContext;
     private SharedPreferences mPrefs;
@@ -195,7 +200,6 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
 
     // preferences that are not used in SettingsValues and thus should not trigger reload when changed
     private static final HashSet<String> dontReloadOnChanged = new HashSet<>() {{
-        add(PREF_PINNED_CLIPS);
         add(PREF_LAST_SHOWN_EMOJI_CATEGORY_PAGE_ID);
         add(PREF_LAST_SHOWN_EMOJI_CATEGORY_ID);
         add(PREF_EMOJI_RECENT_KEYS);
@@ -231,7 +235,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
 
     @Override
     public void onSharedPreferenceChanged(final SharedPreferences prefs, final String key) {
-        if (dontReloadOnChanged.contains(key))
+        if (dontReloadOnChanged.contains(key) || (key != null && key.startsWith(PREF_SAVED_APP_SUBTYPE_PREFIX)))
             return;
         mSettingsValuesLock.lock();
         try {
@@ -447,25 +451,6 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
                 && conf.hardKeyboardHidden != Configuration.HARDKEYBOARDHIDDEN_YES;
     }
 
-    public static String readPinnedClipString(final Context context) {
-        try {
-            final SharedPreferences prefs = KtxKt.protectedPrefs(context);
-            return prefs.getString(PREF_PINNED_CLIPS, Defaults.PREF_PINNED_CLIPS);
-        } catch (final IllegalStateException e) {
-            // SharedPreferences in credential encrypted storage are not available until after user is unlocked
-            return "";
-        }
-    }
-
-    public static void writePinnedClipString(final Context context, final String clips) {
-        try {
-            final SharedPreferences prefs = KtxKt.protectedPrefs(context);
-            prefs.edit().putString(PREF_PINNED_CLIPS, clips).apply();
-        } catch (final IllegalStateException e) {
-            // SharedPreferences in credential encrypted storage are not available until after user is unlocked
-        }
-    }
-
     @Nullable public static Drawable readUserBackgroundImage(final Context context, final boolean night) {
         final boolean landscape = context.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
         final int index = (night ? 1 : 0) + (landscape ? 2 : 0);
@@ -540,6 +525,27 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static void writeDefaultLayoutName(@Nullable final String name, final LayoutType type, final SharedPreferences prefs) {
         if (name == null) prefs.edit().remove(PREF_LAYOUT_PREFIX + type.name()).apply();
         else prefs.edit().putString(PREF_LAYOUT_PREFIX + type.name(), name).apply();
+    }
+
+    public void saveSubtypeForApp(RichInputMethodSubtype subtype, String packageName) {
+        if (isSubtypePerApp() && ! StringUtils.isEmpty(packageName)) {
+            mPrefs.edit().putString(PREF_SAVED_APP_SUBTYPE_PREFIX + packageName,
+                                    SettingsSubtype.Companion.toSettingsSubtype(subtype.getRawSubtype()).toPref()).apply();
+        }
+    }
+
+    public RichInputMethodSubtype getSubtypeForApp(String packageName) {
+        if (! isSubtypePerApp() || StringUtils.isEmpty(packageName)) return null;
+        var subtypePref = mPrefs.getString(PREF_SAVED_APP_SUBTYPE_PREFIX + packageName, null);
+        if (subtypePref == null) return null;
+        var settingsSubtype = SettingsSubtype.Companion.toSettingsSubtype(subtypePref);
+        var subtype = settingsSubtype.toEnabledSubtype();
+        if (subtype == null) subtype = RichInputMethodManager.getInstance().findSubtypeForHintLocale(settingsSubtype.getLocale());
+        return subtype != null? RichInputMethodSubtype.Companion.get(subtype) : null;
+    }
+
+    private boolean isSubtypePerApp() {
+        return mPrefs.getBoolean(PREF_SAVE_SUBTYPE_PER_APP, Defaults.PREF_SAVE_SUBTYPE_PER_APP);
     }
 
     @Nullable

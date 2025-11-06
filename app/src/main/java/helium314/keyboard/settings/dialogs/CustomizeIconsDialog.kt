@@ -36,10 +36,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.toBitmap
-import androidx.core.util.TypedValueCompat
 import helium314.keyboard.keyboard.internal.KeyboardIconsSet
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.settings.customIconNames
+import helium314.keyboard.latin.utils.dpToPx
 import helium314.keyboard.latin.utils.getStringResourceOrName
 import helium314.keyboard.latin.utils.prefs
 import helium314.keyboard.settings.Theme
@@ -154,7 +154,7 @@ fun CustomizeIconsDialog(
                                 if (drawable is VectorDrawable)
                                     Icon(painterResource(resId), null, Modifier.fillMaxSize(0.8f))
                                 else {
-                                    val px = TypedValueCompat.dpToPx(40f, ctx.resources.displayMetrics).toInt()
+                                    val px = 40.dpToPx(ctx.resources)
                                     Icon(drawable.toBitmap(px, px).asImageBitmap(), null, Modifier.fillMaxSize(0.8f))
                                 }
                             }

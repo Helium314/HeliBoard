@@ -61,7 +61,7 @@ fun <T: Number> SliderPreference(
             range = range,
             positionString = {
                 @Suppress("UNCHECKED_CAST")
-                description((if (default is Int) it.roundToInt() else it) as T)
+                description((if (default is Int) it.toInt() else it) as T)
             },
             onValueChanged = onValueChanged,
             showDefault = true,

@@ -2,16 +2,18 @@
 
 package helium314.keyboard.latin
 
-import kotlinx.serialization.Serializable
+import helium314.keyboard.latin.settings.Settings
 
-@Serializable
-data class ClipboardHistoryEntry (
-        var timeStamp: Long,
-        val content: String,
-        var isPinned: Boolean = false
+class ClipboardHistoryEntry(
+    val id: Long,
+    var timeStamp: Long,
+    var isPinned: Boolean,
+    val text: String
 ) : Comparable<ClipboardHistoryEntry> {
     override fun compareTo(other: ClipboardHistoryEntry): Int {
         val result = other.isPinned.compareTo(isPinned)
-        return if (result != 0) result else other.timeStamp.compareTo(timeStamp)
+        if (result == 0) return other.timeStamp.compareTo(timeStamp)
+        if (Settings.getValues()?.mClipboardHistoryPinnedFirst == false) return -result
+        return result
     }
 }
