@@ -5,6 +5,7 @@ import android.content.ContentProvider
 import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
+import android.database.Cursor
 import android.net.Uri
 import android.os.ParcelFileDescriptor
 import androidx.activity.compose.ManagedActivityResultLauncher
@@ -20,6 +21,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.core.net.toUri
 import helium314.keyboard.latin.BuildConfig
 import helium314.keyboard.latin.R
+import helium314.keyboard.latin.utils.Log
 import helium314.keyboard.latin.utils.getActivity
 import helium314.keyboard.settings.filePicker
 import kotlinx.coroutines.launch
@@ -184,10 +186,14 @@ private fun createZipFile(context: Context) {
 
 // necessary for giving the mail app access to an internal file
 class GestureFileProvider : ContentProvider() {
-    override fun onCreate() = true
+    override fun onCreate(): Boolean {
+        Log.d("GestureFileProvider", "onCreate")
+        return true
+    }
 
     @Throws(FileNotFoundException::class)
     override fun openFile(uri: Uri, mode: String): ParcelFileDescriptor? {
+        Log.d("GestureFileProvider", "openFile $uri, mode $mode")
         // todo: not called by K9 when using sendMailIntent, maybe "their fault"? works with FairEmail
         // todo: remove file when we're back in this activity?
         if (uri.toString() != MAIL_STREAM)
@@ -195,11 +201,26 @@ class GestureFileProvider : ContentProvider() {
         return ParcelFileDescriptor.open(File(zippedDataPath), ParcelFileDescriptor.MODE_READ_ONLY)
     }
 
-    override fun update(uri: Uri, contentvalues: ContentValues?, s: String?, `as`: Array<String>?) = 0
-    override fun delete(uri: Uri, s: String?, `as`: Array<String>?) = 0
-    override fun insert(uri: Uri, contentvalues: ContentValues?) = null
-    override fun getType(uri: Uri) = null
-    override fun query(uri: Uri, projection: Array<String>?, s: String?, as1: Array<String>?, s1: String?) = null
+    override fun update(uri: Uri, contentvalues: ContentValues?, s: String?, `as`: Array<String>?): Int {
+        Log.d("GestureFileProvider", "update $uri, but we don't support it")
+        return 0
+    }
+    override fun delete(uri: Uri, s: String?, `as`: Array<String>?): Int {
+        Log.d("GestureFileProvider", "delete $uri, but we don't support it")
+        return 0
+    }
+    override fun insert(uri: Uri, contentvalues: ContentValues?): Uri? {
+        Log.d("GestureFileProvider", "insert $uri, but we don't support it")
+        return null
+    }
+    override fun getType(uri: Uri): String? {
+        Log.d("GestureFileProvider", "getType $uri")
+        return null
+    }
+    override fun query(uri: Uri, projection: Array<String>?, s: String?, as1: Array<String>?, s1: String?): Cursor? {
+        Log.d("GestureFileProvider", "query $uri, but we don't support it")
+        return null
+    }
 }
 
 private var zippedDataPath = "" // set after writing the file
