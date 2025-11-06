@@ -52,13 +52,13 @@ import androidx.core.content.edit
 import com.android.inputmethod.latin.BinaryDictionary
 import helium314.keyboard.compat.locale
 import helium314.keyboard.keyboard.Keyboard
-import helium314.keyboard.latin.Dictionary
 import helium314.keyboard.latin.NgramContext
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.SingleDictionaryFacilitator
 import helium314.keyboard.latin.SuggestedWords
 import helium314.keyboard.latin.common.ComposedData
 import helium314.keyboard.latin.common.LocaleUtils.constructLocale
+import helium314.keyboard.latin.dictionary.Dictionary
 import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.utils.ChecksumCalculator
 import helium314.keyboard.latin.utils.DictionaryInfoUtils
