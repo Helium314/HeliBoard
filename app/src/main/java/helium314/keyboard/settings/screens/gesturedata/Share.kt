@@ -1,15 +1,20 @@
 package helium314.keyboard.settings.screens.gesturedata
 
 import android.content.ClipData
+import android.content.ComponentName
 import android.content.ContentProvider
 import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.database.AbstractCursor
 import android.database.Cursor
+import android.database.CursorWrapper
 import android.net.Uri
 import android.os.ParcelFileDescriptor
 import androidx.activity.compose.ManagedActivityResultLauncher
 import androidx.activity.result.ActivityResult
+import androidx.compose.material.icons.materialIcon
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
@@ -47,58 +52,17 @@ fun ShareGestureData() {
         Text(stringResource(R.string.gesture_data_get_data))
     }
 
-    // share file
+    // share file, but only to mail apps
     TextButton(
         onClick = {
             createZipFile(ctx)
             if (zippedDataPath.isNotEmpty())
-                ctx.startActivity(Intent.createChooser(shareFileIntent, "share it"))
+                ctx.startActivity(createSendIntentChooserThatTargetsOnlyMailApps(ctx))
         },
-        enabled = dataFile.length() > 0
+        enabled = dataFile.length() > 0 && Intent(Intent.ACTION_SENDTO)
+            .apply { data = "mailto:".toUri() }.resolveActivity(ctx.packageManager) != null
     ) {
         Text("share file to mail")
-    }
-
-    // send file via mail
-    TextButton(
-        onClick = {
-            createZipFile(ctx)
-            if (zippedDataPath.isNotEmpty())
-                ctx.startActivity(sendMailIntent)
-        },
-        enabled = dataFile.length() > 0 && sendMailIntent.resolveActivity(ctx.packageManager) != null
-    ) {
-        Text("send file via mail") //Text(stringResource(R.string.gesture_data_send_mail))
-    }
-
-    // send file content via mail
-    TextButton(
-        onClick = {
-            if (getGestureDataFile(ctx).length() > INTENT_SIZE_LIMIT) {
-                // todo: tell user to do it manually
-                return@TextButton
-            }
-            ctx.startActivity(sendMailPlaintextIntent(getGestureDataFile(ctx).readText()))
-        },
-        enabled = dataFile.length() > 0 && sendMailIntent.resolveActivity(ctx.packageManager) != null
-    ) {
-        Text("send data as text")
-    }
-
-    // send zipped base64 encoded file content via mail
-    TextButton(
-        onClick = {
-            createZipFile(ctx)
-            if (zippedDataPath.isEmpty()) return@TextButton
-            if (File(zippedDataPath).length() > INTENT_SIZE_LIMIT) {
-                // todo: tell user to do it manually
-                return@TextButton
-            }
-            ctx.startActivity(sendMailPlaintextIntent(Base64.encode(File(zippedDataPath).readBytes())))
-        },
-        enabled = dataFile.length() > 0 && sendMailIntent.resolveActivity(ctx.packageManager) != null
-    ) {
-        Text("send data as text (compressed")
     }
 
     // copy mail address to clipboard, in case user doesn't use the mail intent
@@ -117,33 +81,31 @@ private val getDataIntent = Intent(Intent.ACTION_CREATE_DOCUMENT)
     .putExtra(Intent.EXTRA_TITLE, "gesture_data_${SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Calendar.getInstance().time)}.zip")
     .setType("application/zip")
 
-// works with FairEmail, thunderbird / k9 ignore the attached file
-private val sendMailIntent = Intent(Intent.ACTION_SENDTO).apply {
-    data = "mailto:".toUri()
-    putExtra(Intent.EXTRA_EMAIL, arrayOf(MAIL_ADDRESS))
-    putExtra(Intent.EXTRA_SUBJECT, MAIL_SUBJECT)
-    putExtra(Intent.EXTRA_TEXT, MAIL_TEXT)
-    putExtra(Intent.EXTRA_STREAM, MAIL_STREAM.toUri()) // todo: seems to be ignored by k9, whose fault is it?
-    addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-}
+// the straightforward way would be to just put the extras in the sendMailIntent and return that,
+// but this doesn't attach the file in K9 and Proton
+private fun createSendIntentChooserThatTargetsOnlyMailApps(context: Context): Intent {
+    // targets the correct apps
+    val sendMailIntent = Intent(Intent.ACTION_SENDTO).apply { data = "mailto:".toUri() }
+    val mailTargets = context.packageManager.queryIntentActivities(sendMailIntent, 0)
+    // targets all apps that accept this kind of intent
+    val shareFileIntent = Intent(Intent.ACTION_SEND).apply {
+        type = "application/zip"
+        putExtra(Intent.EXTRA_EMAIL, arrayOf(MAIL_ADDRESS))
+        putExtra(Intent.EXTRA_SUBJECT, MAIL_SUBJECT)
+        putExtra(Intent.EXTRA_TEXT, MAIL_TEXT)
+        putExtra(Intent.EXTRA_STREAM, MAIL_STREAM.toUri())
+        addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+    }
+    val shareTargets = context.packageManager.queryIntentActivities(shareFileIntent, 0)
 
-// works for FairEmail, thunderbird / k9 not available
-private val shareFileIntent = Intent(Intent.ACTION_SEND).apply {
-    type = "application/octet-stream" // todo: try different type?
-    putExtra(Intent.EXTRA_EMAIL, arrayOf(MAIL_ADDRESS))
-    putExtra(Intent.EXTRA_SUBJECT, MAIL_SUBJECT)
-    putExtra(Intent.EXTRA_TEXT, MAIL_TEXT)
-    putExtra(Intent.EXTRA_STREAM, MAIL_STREAM.toUri())
-    addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-}
-
-// should work with all clients, but careful because android intents do have a size limit of 1 MB
-// base64 encoded zip file is about 25% larger than normal zip, but still only 20% of plain text
-private fun sendMailPlaintextIntent(text: String) = Intent(Intent.ACTION_SENDTO).apply {
-    data = "mailto:".toUri()
-    putExtra(Intent.EXTRA_EMAIL, arrayOf(MAIL_ADDRESS))
-    putExtra(Intent.EXTRA_SUBJECT, MAIL_SUBJECT)
-    putExtra(Intent.EXTRA_TEXT, MAIL_TEXT + "\n" + text)
+    // so now we get the shareTargets that are not mailTargets and create ComponentNames...
+    val mailTargetPackages = mailTargets.map { it.activityInfo.packageName }
+    val nonMailShareTargets = shareTargets.filterNot { it.activityInfo.packageName in mailTargetPackages }
+    val nonMailShareTargetComponentNames = nonMailShareTargets.map { ComponentName(it.activityInfo.packageName, it.activityInfo.name) }
+    // ... because the chooser only allows to exclude components, but has no multi-component include functionality
+    val chooser = Intent.createChooser(shareFileIntent, "share it")
+    chooser.putExtra(Intent.EXTRA_EXCLUDE_COMPONENTS, nonMailShareTargetComponentNames.toTypedArray())
+    return chooser
 }
 
 @Composable
@@ -218,7 +180,63 @@ class GestureFileProvider : ContentProvider() {
         return null
     }
     override fun query(uri: Uri, projection: Array<String>?, s: String?, as1: Array<String>?, s1: String?): Cursor? {
-        Log.d("GestureFileProvider", "query $uri, but we don't support it")
+        // apps query information about the file
+        // FairEmail queries _display_name, mime_type, _size separately, K9 both at the same time
+        // but just returning null is actually fine, only difference seems to be K9 not showing a file size
+        return null
+        Log.d("GestureFileProvider", "query $uri, ${projection?.toList()}, $s, ${as1.toString()}, $s1, but we don't support it")
+
+        // looks like the only effect of not returning null is different names, mime types and K9 showing file size
+        return object : AbstractCursor() {
+            override fun getCount(): Int {
+                Log.d("GestureFileProvider", "get count")
+                return 1
+            }
+
+            override fun getColumnNames(): Array<out String?>? {
+                Log.d("GestureFileProvider", "get col names")
+                return projection
+            }
+
+            override fun getString(p0: Int): String? {
+                Log.d("GestureFileProvider", "get string at $p0")
+                return when (projection?.getOrNull(p0)) {
+                    "_display_name" -> "disp name"
+                    "_size" -> "1234567"
+                    "mime_type" -> "application/zipp"
+                    else -> null
+                }
+            }
+
+            override fun getShort(p0: Int): Short {
+                TODO("Not yet implemented")
+            }
+
+            override fun getInt(p0: Int): Int {
+                Log.d("GestureFileProvider", "get int at $p0")
+                return when (projection?.getOrNull(p0)) {
+                    "_size" -> 123456
+                    else -> TODO("Not yet implemented")
+                }
+            }
+
+            override fun getLong(p0: Int): Long {
+                TODO("Not yet implemented")
+            }
+
+            override fun getFloat(p0: Int): Float {
+                TODO("Not yet implemented")
+            }
+
+            override fun getDouble(p0: Int): Double {
+                TODO("Not yet implemented")
+            }
+
+            override fun isNull(p0: Int): Boolean {
+                TODO("Not yet implemented")
+            }
+
+        }
         return null
     }
 }
