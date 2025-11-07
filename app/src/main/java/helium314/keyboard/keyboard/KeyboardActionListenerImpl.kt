@@ -296,7 +296,7 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
                 }
                 return true
             }
-            gestureMoveForwardHaptics()
+            gestureMoveForwardHaptics(text.isNotEmpty())
         }
 
         // the shortcut below causes issues due to horrible handling of text fields by Firefox and forks
@@ -351,8 +351,8 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
         }
     }
 
-    private fun gestureMoveForwardHaptics() {
-        if (!connection.noTextAfterCursor()) {
+    private fun gestureMoveForwardHaptics(hasTextAfterCursor: Boolean? = null) {
+        if (hasTextAfterCursor ?: !connection.noTextAfterCursor()) {
             performHapticFeedback(HapticEvent.GESTURE_MOVE)
         }
     }
