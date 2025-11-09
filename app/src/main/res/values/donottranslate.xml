@@ -6,6 +6,9 @@
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="gesture_data_provider_authority" translatable="false">helium314.keyboard.provider</string>
+    <string name="gesture_data_directory" translatable="false">gesture_data</string>
+    <string name="gesture_data_json" translatable="false">gesture_data.json</string>
+    <string name="gesture_data_zip" translatable="false">gesture_data.zip</string>
 
     <!-- Subtype locale whose name should be displayed in Locale.ROOT. -->
     <string-array name="subtype_locale_displayed_in_root_locale">
@@ -56,7 +59,7 @@
 
     <!-- Description for Bulgarian (BDS) subtype. -->
     <string name="subtype_bulgarian_bds" translatable="false">%s (BDS)</string>
-	
+
     <!-- Description for Bulgarian (BEKL) subtype. -->
     <string name="subtype_bulgarian_bekl" translatable="false">%s (BEKL)</string>
 

@@ -22,12 +22,10 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -48,7 +46,6 @@ import androidx.compose.ui.text.input.PlatformImeOptions
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.core.content.edit
 import com.android.inputmethod.latin.BinaryDictionary
 import helium314.keyboard.compat.locale
 import helium314.keyboard.keyboard.Keyboard
@@ -68,7 +65,6 @@ import helium314.keyboard.latin.utils.prefs
 import helium314.keyboard.settings.DropDownField
 import helium314.keyboard.settings.NextScreenIcon
 import helium314.keyboard.settings.Theme
-import helium314.keyboard.settings.WithSmallTitle
 import helium314.keyboard.settings.initPreview
 import helium314.keyboard.settings.previewDark
 import kotlinx.coroutines.Dispatchers
@@ -77,7 +73,6 @@ import kotlinx.coroutines.launch
 import java.io.File
 import java.util.Locale
 import kotlin.uuid.ExperimentalUuidApi
-import kotlin.uuid.Uuid
 
 /**
  *  Simple "settings" screen that shows up when glide typing is enabled.
@@ -292,7 +287,17 @@ const val dictTestImeOption = "useTestDictionaryFacilitator"
 
 var facilitator: SingleDictionaryFacilitator? = null
 
-fun getGestureDataFile(context: Context) = File(context.filesDir, "gesture_data.json")
+fun getGestureDataFile(context: Context): File = fileGetDelegate(context, context.getString(R.string.gesture_data_json))
+
+fun fileGetDelegate(context: Context, filename: String): File {
+    // ensure folder exists
+    val dir = File(context.filesDir, context.getString(R.string.gesture_data_directory))
+    if (!dir.exists()) {
+        dir.mkdirs()
+    }
+
+    return File(dir, filename)
+}
 
 @Preview
 @Composable
