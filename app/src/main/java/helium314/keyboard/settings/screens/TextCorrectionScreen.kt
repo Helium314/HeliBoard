@@ -17,10 +17,12 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.tooling.preview.Preview
 import helium314.keyboard.dictionarypack.DictionaryPackConstants
 import helium314.keyboard.keyboard.KeyboardSwitcher
 import helium314.keyboard.latin.R
+import helium314.keyboard.latin.common.Links
 import helium314.keyboard.latin.permissions.PermissionsUtil
 import helium314.keyboard.latin.settings.Defaults
 import helium314.keyboard.latin.settings.Settings
@@ -28,6 +30,7 @@ import helium314.keyboard.latin.utils.DictionaryInfoUtils.getLocalesWithEmojiDic
 import helium314.keyboard.latin.utils.JniUtils
 import helium314.keyboard.latin.utils.Log
 import helium314.keyboard.latin.utils.ToolbarMode
+import helium314.keyboard.latin.utils.appendLink
 import helium314.keyboard.latin.utils.getActivity
 import helium314.keyboard.latin.utils.prefs
 import helium314.keyboard.settings.NextScreenIcon
@@ -253,11 +256,7 @@ fun createCorrectionSettings(context: Context) = listOf(
     },
     Setting(
         context, Settings.PREF_INLINE_EMOJI_SEARCH, R.string.inline_emoji_search, R.string.inline_emoji_search_summary) {
-        var showWarningDialog by rememberSaveable { mutableStateOf(false) }
-        SwitchPreference(it, Defaults.PREF_INLINE_EMOJI_SEARCH) { showWarningDialog = it && getLocalesWithEmojiDicts(context).isEmpty() }
-        if (showWarningDialog) {
-            InfoDialog(stringResource(R.string.emoji_dictionary_required), onDismissRequest = { showWarningDialog = false })
-        }
+        SwitchPreferenceWithEmojiDictWarning(it, Defaults.PREF_INLINE_EMOJI_SEARCH, context)
     },
     Setting(context, Settings.PREF_ADD_TO_PERSONAL_DICTIONARY,
         R.string.add_to_personal_dictionary, R.string.add_to_personal_dictionary_summary
@@ -265,6 +264,23 @@ fun createCorrectionSettings(context: Context) = listOf(
         SwitchPreference(it, Defaults.PREF_ADD_TO_PERSONAL_DICTIONARY)
     },
 )
+
+@Composable
+fun SwitchPreferenceWithEmojiDictWarning(setting: Setting, default: Boolean, context: Context) {
+    var showWarningDialog by rememberSaveable { mutableStateOf(false) }
+    SwitchPreference(setting, default) { showWarningDialog = it && getLocalesWithEmojiDicts(context).isEmpty() }
+    if (showWarningDialog) {
+        // emoji_dictionary_required contains "%s" since we didn't supply a formatArg
+        val message = stringResource(R.string.emoji_dictionary_required)
+        val annotated = buildAnnotatedString {
+            append(message.substringBefore("%s"))
+            appendLink(stringResource(R.string.dictionary_link_text), Links.DICTIONARY_URL + Links.DICTIONARY_DOWNLOAD_SUFFIX
+                + Links.DICTIONARY_EMOJI_CLDR_SUFFIX)
+            append(message.substringAfter("%s"))
+        }
+        InfoDialog(annotated, onDismissRequest = { showWarningDialog = false })
+    }
+}
 
 @Preview
 @Composable

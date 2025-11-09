@@ -124,14 +124,7 @@ fun createPreferencesSettings(context: Context) = listOf(
         SwitchPreference(it, Defaults.PREF_SOUND_ON)
     },
     Setting(context, Settings.PREF_SHOW_EMOJI_DESCRIPTIONS, R.string.show_emoji_descriptions) {
-        var showWarningDialog by rememberSaveable { mutableStateOf(false) }
-        SwitchPreference(it, Defaults.PREF_SHOW_EMOJI_DESCRIPTIONS) {
-            showWarningDialog = it && getLocalesWithEmojiDicts(context).isEmpty()
-            KeyboardSwitcher.getInstance().reloadKeyboard()
-        }
-        if (showWarningDialog) {
-            InfoDialog(stringResource(R.string.emoji_dictionary_required), onDismissRequest = { showWarningDialog = false })
-        }
+        SwitchPreferenceWithEmojiDictWarning(it, Defaults.PREF_SHOW_EMOJI_DESCRIPTIONS, context)
     },
     Setting(context, Settings.PREF_ENABLE_CLIPBOARD_HISTORY,
         R.string.enable_clipboard_history, R.string.enable_clipboard_history_summary)

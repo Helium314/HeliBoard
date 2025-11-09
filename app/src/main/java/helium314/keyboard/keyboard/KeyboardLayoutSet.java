@@ -70,6 +70,12 @@ public final class KeyboardLayoutSet {
         }
     }
 
+
+    /**
+     * Represents an internal action that overrides the action provided by the input field.
+     * @param code to send on action key press
+     * @param label to display on action key
+     */
     public record InternalAction(int code, String label) {}
 
     public static final class Params {

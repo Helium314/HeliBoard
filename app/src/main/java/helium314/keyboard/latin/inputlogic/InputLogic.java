@@ -2470,7 +2470,7 @@ public final class InputLogic {
             callback.onGetSuggestedWords(SuggestedWords.getEmptyInstance());
             return;
         }
-        if (! Set.of(SuggestedWords.INPUT_STYLE_UPDATE_BATCH, SuggestedWords.INPUT_STYLE_TAIL_BATCH).contains(inputStyle)
+        if (inputStyle != SuggestedWords.INPUT_STYLE_UPDATE_BATCH && inputStyle != SuggestedWords.INPUT_STYLE_TAIL_BATCH
                         && isInlineEmojiSearchAction()) {
             searchForEmojiInline(sequenceNumber, callback);
             return;
@@ -2659,7 +2659,7 @@ public final class InputLogic {
             return null;
         }
 
-        return getInlineEmojiSearchString(mConnection.getTextBeforeCursor(Constants.EDITOR_CONTENTS_CACHE_SIZE, 0));
+        return getInlineEmojiSearchString(mConnection.getTextBeforeCursor(50, 0));
     }
 
     // public for testing

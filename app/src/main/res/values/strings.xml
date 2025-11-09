@@ -26,7 +26,7 @@
     <!-- Description for option to perform inline emoji search -->
     <string name="inline_emoji_search_summary">Suggest only emojis when a word is preceded by a colon</string>
     <!-- Warning text for when enabling inline emoji search with no emoji dictionary -->
-    <string name="emoji_dictionary_required">An emoji dictionary is required for this feature to work</string>
+    <string name="emoji_dictionary_required">An emoji dictionary is required for this feature to work. Dictionaries in .dict format can be downloaded %s.</string>
     <!-- Option to show emoji descriptions on long press -->
     <string name="show_emoji_descriptions">Show emoji description on long press</string>
     <!-- Option to control whether or not to show a popup with a larger font on each key press. -->
