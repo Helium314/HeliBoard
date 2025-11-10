@@ -86,7 +86,7 @@ public final class SpacingAndPunctuations {
     }
 
     public boolean isWordCodePoint(final int code) {
-        return Character.isLetter(code) || isWordConnector(code);
+        return Character.isLetter(code) || isWordConnector(code) || Character.COMBINING_SPACING_MARK == Character.getType(code);
     }
 
     public boolean isUsuallyPrecededBySpace(final int code) {

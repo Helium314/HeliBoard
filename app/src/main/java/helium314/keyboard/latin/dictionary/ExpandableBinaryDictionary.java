@@ -4,9 +4,10 @@
  * SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
  */
 
-package helium314.keyboard.latin;
+package helium314.keyboard.latin.dictionary;
 
 import android.content.Context;
+import helium314.keyboard.latin.NgramContext;
 import helium314.keyboard.latin.utils.Log;
 
 import androidx.annotation.NonNull;
@@ -68,7 +69,7 @@ abstract public class ExpandableBinaryDictionary extends Dictionary {
             new WordProperty[0] /* default */;
 
     /** The application context. */
-    protected final Context mContext;
+    public final Context mContext;
 
     /**
      * The binary dictionary generated dynamically from the fusion dictionary. This is used to

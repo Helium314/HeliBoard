@@ -31,9 +31,9 @@ object EditorInfoCompatUtils {
     @JvmStatic
     fun getHintLocales(editorInfo: EditorInfo?): List<Locale>? {
         if (editorInfo == null || Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
-            return null
+            return listOf()
         }
-        val localeList = editorInfo.hintLocales ?: return null
+        val localeList = editorInfo.hintLocales ?: return listOf()
         val locales = ArrayList<Locale>(localeList.size())
         for (i in 0 until localeList.size()) {
             locales.add(localeList.get(i))

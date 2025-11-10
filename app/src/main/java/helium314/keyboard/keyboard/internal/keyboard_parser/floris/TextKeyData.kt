@@ -314,6 +314,13 @@ sealed interface KeyData : AbstractKeyData {
                 && params.mId.mSubtype.hasExtraValue(Constants.Subtype.ExtraValue.NO_SHIFT_KEY)) {
             return null
         }
+        // Replace shift with semicolon for Khipro layout (alphabet mode only)
+        if (newLabel == KeyLabel.SHIFT && params.mId.isAlphabetKeyboard) {
+            val combiningRules = params.mId.mSubtype.getExtraValueOf(Constants.Subtype.ExtraValue.COMBINING_RULES)
+            if (combiningRules == "bn_khipro") {
+                return copy(newCode = ';'.code, newLabel = ";", newPopup = SimplePopups(listOf("/")))
+            }
+        }
         val newCode = code.checkAndConvertCode()
         val newLabelFlags = if (labelFlags == 0 && params.mId.isNumberLayout) {
             if (type == KeyType.NUMERIC) {

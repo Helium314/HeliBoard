@@ -56,7 +56,6 @@ fun LanguageScreen(
 ) {
     val ctx = LocalContext.current
     val sortedSubtypes by remember { mutableStateOf(getSortedSubtypes(ctx)) }
-    val prefs = ctx.prefs()
     val b = (LocalContext.current.getActivity() as? SettingsActivity)?.prefChanged?.collectAsState()
     if ((b?.value ?: 0) < 0)
         Log.v("irrelevant", "stupid way to trigger recomposition on preference change")
@@ -79,45 +78,49 @@ fun LanguageScreen(
                     .splitOnWhitespace().any { it.startsWith(term, true) }
             }
         },
-        itemContent = { item ->
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .clickable {
-                        SettingsDestination.navigateTo(SettingsDestination.Subtype + item.toSettingsSubtype().toPref())
-                    }
-                    .padding(vertical = 6.dp, horizontal = 16.dp)
-            ) {
-                var showNoDictDialog by remember { mutableStateOf(false) }
-                Column(modifier = Modifier.weight(1f)) {
-                    Text(item.displayName(), style = MaterialTheme.typography.bodyLarge)
-                    val description = if (SubtypeSettings.isAdditionalSubtype(item)) {
-                        val secondaryLocales = item.getExtraValueOf(ExtraValue.SECONDARY_LOCALES)?.split(Separators.KV)
-                            ?.joinToString(", ") { it.constructLocale().localizedDisplayName(ctx.resources) }
-                        stringResource(R.string.custom_subtype) + (secondaryLocales?.let { "\n$it" } ?: "")
-                    } else null
-                    if (description != null)
-                        Text(
-                            text = description,
-                            style = MaterialTheme.typography.bodyMedium,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant,
-                        )
-                }
-                Switch(
-                    checked = item in enabledSubtypes,
-                    onCheckedChange = {
-                        if (it && !dictsAvailable(item.locale(), ctx))
-                            showNoDictDialog = true
-                        if (it) SubtypeSettings.addEnabledSubtype(prefs, item)
-                        else SubtypeSettings.removeEnabledSubtype(ctx, item)
-                    }
-                )
-                if (showNoDictDialog)
-                    MissingDictionaryDialog({ showNoDictDialog = false }, item.locale())
-            }
-        }
+        itemContent = { SubtypeRow(it, it in enabledSubtypes) }
     )
+}
+
+@Composable
+private fun SubtypeRow(subtype: InputMethodSubtype, isEnabled: Boolean) {
+    val ctx = LocalContext.current
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = Modifier
+            .fillMaxWidth()
+            .clickable {
+                SettingsDestination.navigateTo(SettingsDestination.Subtype + subtype.toSettingsSubtype().toPref())
+            }
+            .padding(vertical = 6.dp, horizontal = 16.dp)
+    ) {
+        var showNoDictDialog by remember { mutableStateOf(false) }
+        Column(modifier = Modifier.weight(1f)) {
+            Text(subtype.displayName(), style = MaterialTheme.typography.bodyLarge)
+            val description = if (SubtypeSettings.isAdditionalSubtype(subtype)) {
+                val secondaryLocales = subtype.getExtraValueOf(ExtraValue.SECONDARY_LOCALES)?.split(Separators.KV)
+                    ?.joinToString(", ") { it.constructLocale().localizedDisplayName(ctx.resources) }
+                stringResource(R.string.custom_subtype) + (secondaryLocales?.let { "\n$it" } ?: "")
+            } else null
+            if (description != null)
+                Text(
+                    text = description,
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
+        }
+        Switch(
+            checked = isEnabled,
+            onCheckedChange = {
+                if (it && !dictsAvailable(subtype.locale(), ctx))
+                    showNoDictDialog = true
+                if (it) SubtypeSettings.addEnabledSubtype(ctx.prefs(), subtype)
+                else SubtypeSettings.removeEnabledSubtype(ctx, subtype)
+            }
+        )
+        if (showNoDictDialog)
+            MissingDictionaryDialog({ showNoDictDialog = false }, subtype.locale())
+    }
 }
 
 private fun dictsAvailable(locale: Locale, context: Context): Boolean {
@@ -129,13 +132,11 @@ private fun dictsAvailable(locale: Locale, context: Context): Boolean {
 private fun getSortedSubtypes(context: Context): List<InputMethodSubtype> {
     val systemLocales = SubtypeSettings.getSystemLocales()
     val enabledSubtypes = SubtypeSettings.getEnabledSubtypes(true)
-    val localesWithDictionary = DictionaryInfoUtils.getCacheDirectories(context)?.mapNotNull { dir ->
-        if (!dir.isDirectory)
-            return@mapNotNull null
+    val localesWithDictionary = DictionaryInfoUtils.getCacheDirectories(context).mapNotNull { dir ->
         if (dir.list()?.any { it.endsWith(DictionaryInfoUtils.USER_DICTIONARY_SUFFIX) } == true)
             dir.name.constructLocale()
         else null
-    }.orEmpty()
+    }
 
     val defaultAdditionalSubtypes = Defaults.PREF_ADDITIONAL_SUBTYPES.split(Separators.SETS).map {
         it.substringBefore(Separators.SET) to (it.substringAfter(Separators.SET) + ",AsciiCapable,EmojiCapable,isAdditionalSubtype")

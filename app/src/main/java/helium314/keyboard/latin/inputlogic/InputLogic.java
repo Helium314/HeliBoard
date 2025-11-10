@@ -26,7 +26,7 @@ import helium314.keyboard.event.InputTransaction;
 import helium314.keyboard.keyboard.Keyboard;
 import helium314.keyboard.keyboard.KeyboardSwitcher;
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode;
-import helium314.keyboard.latin.Dictionary;
+import helium314.keyboard.latin.dictionary.Dictionary;
 import helium314.keyboard.latin.DictionaryFacilitator;
 import helium314.keyboard.latin.LastComposedWord;
 import helium314.keyboard.latin.LatinIME;
@@ -614,6 +614,13 @@ public final class InputLogic {
             inputTransaction.setDidAffectContents();
         }
         if (mWordComposer.isComposingWord()) {
+            // Check if we need to insert automatic space before starting to compose (e.g., after suggestion pickup)
+            // Only do this for the Khipro combiner
+            if (SpaceState.PHANTOM == inputTransaction.getMSpaceState()
+                    && "bn_khipro".equals(mWordComposer.getCombiningSpec())) {
+                insertAutomaticSpaceIfOptionsAndTextAllow(inputTransaction.getMSettingsValues());
+                mSpaceState = SpaceState.NONE;
+            }
             setComposingTextInternal(mWordComposer.getTypedWord(), 1);
             inputTransaction.setDidAffectContents();
             inputTransaction.setRequiresUpdateSuggestions();
@@ -2419,18 +2426,25 @@ public final class InputLogic {
         final SettingsValues settingsValues = Settings.getValues();
         mWordComposer.adviseCapitalizedModeBeforeFetchingSuggestions(
                 getActualCapsMode(settingsValues, KeyboardSwitcher.getInstance().getKeyboardShiftMode()));
-        final SuggestedWords suggestedWords = mSuggest.getSuggestedWords(mWordComposer,
-                getNgramContextFromNthPreviousWordForSuggestion(
-                        settingsValues.mSpacingAndPunctuations,
-                        // Get the word on which we should search the bigrams. If we are composing
-                        // a word, it's whatever is *before* the half-committed word in the buffer,
-                        // hence 2; if we aren't, we should just skip whitespace if any, so 1.
-                        mWordComposer.isComposingWord() ? 2 : 1),
-                keyboard,
-                settingsValues.mSettingsValuesForSuggestion,
-                settingsValues.mAutoCorrectEnabled,
-                inputStyle, sequenceNumber);
-        callback.onGetSuggestedWords(suggestedWords);
+        try {
+            final SuggestedWords suggestedWords = mSuggest.getSuggestedWords(mWordComposer,
+                    getNgramContextFromNthPreviousWordForSuggestion(
+                    settingsValues.mSpacingAndPunctuations,
+                    // Get the word on which we should search the bigrams. If we are composing
+                    // a word, it's whatever is *before* the half-committed word in the buffer,
+                    // hence 2; if we aren't, we should just skip whitespace if any, so 1.
+                    mWordComposer.isComposingWord() ? 2 : 1),
+                    keyboard,
+                    settingsValues.mSettingsValuesForSuggestion,
+                    settingsValues.mAutoCorrectEnabled,
+                    inputStyle, sequenceNumber);
+            callback.onGetSuggestedWords(suggestedWords);
+        } catch (Exception e) {
+            // better go without suggestions than have the keyboard crash
+            Log.e(TAG, "Error fetching suggested words, using empty words instead", e);
+            callback.onGetSuggestedWords(SuggestedWords.getEmptyInstance());
+            KeyboardSwitcher.getInstance().showToast("Error getting suggestions", true);
+        }
     }
 
     /**

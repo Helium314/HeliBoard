@@ -12,8 +12,8 @@ android {
         applicationId = "helium314.keyboard"
         minSdk = 21
         targetSdk = 35
-        versionCode = 3500
-        versionName = "3.5-beta1"
+        versionCode = 3501
+        versionName = "3.5"
         ndk {
             abiFilters.clear()
             abiFilters.addAll(listOf("armeabi-v7a", "arm64-v8a", "x86", "x86_64"))
@@ -38,6 +38,10 @@ android {
             // "normal" debug has minify for smaller APK to fit the GitHub 25 MB limit when zipped
             // and for better performance in case users want to install a debug APK
             isMinifyEnabled = true
+            androidResources {
+                // got a little too big for GitHub after some dependency upgrades, so we remove the largest dictionary
+                ignoreAssetsPattern = "main_ro.dict"
+            }
             isJniDebuggable = false
             applicationIdSuffix = ".debug"
         }
