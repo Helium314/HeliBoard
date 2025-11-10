@@ -24,6 +24,7 @@ import android.os.IBinder;
 import android.os.Message;
 import android.os.Process;
 import android.text.InputType;
+import android.util.DisplayMetrics;
 import android.util.PrintWriterPrinter;
 import android.util.Printer;
 import android.view.Gravity;
@@ -72,6 +73,7 @@ import helium314.keyboard.latin.suggestions.SuggestionStripView;
 import helium314.keyboard.latin.suggestions.SuggestionStripViewAccessor;
 import helium314.keyboard.latin.touchinputconsumer.GestureConsumer;
 import helium314.keyboard.latin.utils.ColorUtilKt;
+import helium314.keyboard.latin.utils.FoldableUtils;
 import helium314.keyboard.latin.utils.InlineAutofillUtils;
 import helium314.keyboard.latin.utils.InputMethodPickerKt;
 import helium314.keyboard.latin.utils.JniUtils;
@@ -670,7 +672,7 @@ public class LatinIME extends InputMethodService implements
         loadSettings();
         mClipboardHistoryManager.onCreate();
         mHandler.onCreate();
-
+        FoldableUtils.INSTANCE.registerObserver(this);
         // Register to receive ringer mode change.
         final IntentFilter filter = new IntentFilter();
         filter.addAction(AudioManager.RINGER_MODE_CHANGED_ACTION);
@@ -827,7 +829,8 @@ public class LatinIME extends InputMethodService implements
     @Override
     public void onConfigurationChanged(final Configuration conf) {
         SettingsValues settingsValues = mSettings.getCurrent();
-        Log.i(TAG, "onConfigurationChanged");
+        final DisplayMetrics dm = getResources().getDisplayMetrics();
+        Log.i("FOLD", "onConfigurationChanged, display "+dm.widthPixels+" x "+dm.heightPixels+", "+dm.density+"/"+dm.xdpi+"/"+dm.ydpi);
         SubtypeSettings.INSTANCE.reloadSystemLocales(this);
         if (settingsValues.mDisplayOrientation != conf.orientation) {
             mHandler.startOrientationChanging();

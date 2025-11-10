@@ -1,16 +1,74 @@
 package helium314.keyboard.latin.utils
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.pm.PackageManager
+import android.database.ContentObserver
 import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
+import android.net.Uri
 import android.os.Build
+import android.os.Handler
+import android.os.Looper
+import android.provider.Settings
+import java.util.regex.Pattern
 
+
+@SuppressLint("StaticFieldLeak")
 object FoldableUtils {
     fun isFoldable(context: Context) = Build.VERSION.SDK_INT >= Build.VERSION_CODES.R
         && context.packageManager.hasSystemFeature(PackageManager.FEATURE_SENSOR_HINGE_ANGLE)
+
+    val displayFeaturesUri = Settings.Global.getUriFor("display_features")
+
+    lateinit var context: Context
+
+    val observer = object : ContentObserver(Handler(Looper.getMainLooper())) {
+        override fun onChange(selfChange: Boolean, uri: Uri?) {
+            if (uri != displayFeaturesUri) return
+            val f = getFeatureString(context)
+            Log.i("FOLD", "features changed: $f")
+            checkIt(f)
+        }
+    }
+
+    fun getFeatureString(context: Context) = Settings.Global.getString(context.contentResolver, "display_features")
+
+    fun registerObserver(ctx: Context) {
+        context = ctx
+        checkIt(getFeatureString(context))
+        context.contentResolver.registerContentObserver(displayFeaturesUri, false, observer)
+    }
+
+    fun checkIt(value: String) {
+        value.split(";").forEach {
+            val matcher = FEATURE_PATTERN.matcher(it)
+            val type = when (val featureType = matcher.group(1)) {
+                FEATURE_TYPE_FOLD -> "type fold (continuous screen)"
+                FEATURE_TYPE_HINGE -> "type hinge (gap)"
+                else -> "unknown type $featureType"
+            }
+            val left = matcher.group(2)
+            val top = matcher.group(3)
+            val right = matcher.group(4)
+            val bottom = matcher.group(5)
+            val state = when (val stateString = matcher.group(6)) {
+                PATTERN_STATE_FLAT -> "state flat"
+                PATTERN_STATE_HALF_OPENED -> "state half opened"
+                else -> "state other: $stateString"
+            }
+            Log.i("FOLD", "found: type $type, state $state, featureRect $left, $right, $top, $bottom")
+        }
+    }
+
+    val FEATURE_PATTERN = Pattern.compile("([a-z]+)-\\[(\\d+),(\\d+),(\\d+),(\\d+)]-?(flat|half-opened)?")
+    val FEATURE_TYPE_FOLD = "fold"
+    val FEATURE_TYPE_HINGE = "hinge"
+    val PATTERN_STATE_FLAT = "flat"
+    val PATTERN_STATE_HALF_OPENED = "half-opened"
+
 
     // todo: needs to be tested, folded state detection seems to be pretty insane
     //  Apparently we can't read the sensor directly, that would be too simple.
@@ -35,7 +93,7 @@ object FoldableUtils {
             Thread.sleep(0, 100000)
             wait++
         }
-        Log.i("FoldableUtils", "return $angle after $wait")
+        Log.i("FOLD", "return $angle after $wait")
         return (angle ?: 180f) < 90
     }
 }
