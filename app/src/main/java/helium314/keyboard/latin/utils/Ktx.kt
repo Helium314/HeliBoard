@@ -8,10 +8,9 @@ import androidx.activity.ComponentActivity
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.text.AnnotatedString
-import androidx.compose.ui.text.LinkAnnotation
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextLinkStyles
-import androidx.compose.ui.text.withLink
+import androidx.compose.ui.text.fromHtml
 import androidx.core.util.TypedValueCompat
 
 // generic extension functions
@@ -84,14 +83,9 @@ fun Context.prefs(): SharedPreferences = DeviceProtectedUtils.getSharedPreferenc
 fun Context.protectedPrefs(): SharedPreferences = getSharedPreferences("${packageName}_preferences", Context.MODE_PRIVATE)
 
 @Composable
-fun AnnotatedString.Builder.appendLink(text: String, url: String) =
-    withLink(
-        LinkAnnotation.Url(
-        url,
-        styles = TextLinkStyles(style = SpanStyle(color = MaterialTheme.colorScheme.primary))
-    )) {
-        append(text)
-    }
+fun String.htmlToAnnotated() = AnnotatedString.fromHtml(this, TextLinkStyles(style = SpanStyle(color = MaterialTheme.colorScheme.primary)))
+
+fun String.withHtmlLink(link: String) = "<a href='$link'>$this</a>"
 
 /** Convenience for converting dp to px, int -> int */
 fun Int.dpToPx(resources: Resources) = TypedValueCompat.dpToPx(this.toFloat(), resources.displayMetrics).toInt()
