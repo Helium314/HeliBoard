@@ -14,13 +14,7 @@ fun InfoDialog(
     message: String,
     onDismissRequest: () -> Unit
 ) {
-    ThreeButtonAlertDialog(
-        onDismissRequest = onDismissRequest,
-        content = { Text(message) },
-        cancelButtonText = stringResource(android.R.string.ok),
-        onConfirmed = { },
-        confirmButtonText = null
-    )
+    InfoDialog(AnnotatedString(message), onDismissRequest)
 }
 
 @Composable
