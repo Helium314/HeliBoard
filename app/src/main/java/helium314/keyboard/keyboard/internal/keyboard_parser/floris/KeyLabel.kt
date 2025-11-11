@@ -2,6 +2,7 @@ package helium314.keyboard.keyboard.internal.keyboard_parser.floris
 
 import android.view.inputmethod.EditorInfo
 import helium314.keyboard.keyboard.KeyboardId
+import helium314.keyboard.keyboard.internal.KeyboardCodesSet
 import helium314.keyboard.keyboard.internal.KeyboardIconsSet
 import helium314.keyboard.keyboard.internal.KeyboardParams
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyData.Companion.replaceIconWithLabelIfNoDrawable
@@ -136,12 +137,15 @@ object KeyLabel {
         else "!icon/space_key_for_number_layout|!code/key_space"
 
     // todo (later): should this be handled with metaState? but metaState shift would require LOTS of changes...
-    private fun getActionKeyCode(params: KeyboardParams) =
-        if (params.mId.isMultiLine && (params.mId.mElementId == KeyboardId.ELEMENT_ALPHABET_MANUAL_SHIFTED || params.mId.mElementId == KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCK_SHIFTED))
+    private fun getActionKeyCode(params: KeyboardParams): String {
+        params.mId.mInternalAction?.let { return "${KeyboardCodesSet.PREFIX_CODE}${it.code()}" }
+        return if (params.mId.isMultiLine && (params.mId.mElementId == KeyboardId.ELEMENT_ALPHABET_MANUAL_SHIFTED || params.mId.mElementId == KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCK_SHIFTED))
             "!code/key_shift_enter"
         else "!code/key_enter"
+    }
 
     private fun getActionKeyLabel(params: KeyboardParams): String {
+        params.mId.mInternalAction?.let { return it.label() }
         if (params.mId.isMultiLine && (params.mId.mElementId == KeyboardId.ELEMENT_ALPHABET_MANUAL_SHIFTED || params.mId.mElementId == KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCK_SHIFTED))
             return "!icon/enter_key"
         val iconName = when (params.mId.imeAction()) {
