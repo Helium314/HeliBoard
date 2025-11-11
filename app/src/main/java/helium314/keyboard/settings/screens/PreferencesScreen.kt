@@ -6,10 +6,6 @@ import android.media.AudioManager
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -19,7 +15,6 @@ import helium314.keyboard.latin.AudioAndHapticFeedbackManager
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.settings.Defaults
 import helium314.keyboard.latin.settings.Settings
-import helium314.keyboard.latin.utils.DictionaryInfoUtils.getLocalesWithEmojiDicts
 import helium314.keyboard.latin.utils.Log
 import helium314.keyboard.latin.utils.SubtypeSettings
 import helium314.keyboard.latin.utils.getActivity
@@ -33,8 +28,8 @@ import helium314.keyboard.settings.SettingsActivity
 import helium314.keyboard.settings.preferences.SliderPreference
 import helium314.keyboard.settings.preferences.SwitchPreference
 import helium314.keyboard.settings.Theme
-import helium314.keyboard.settings.dialogs.InfoDialog
 import helium314.keyboard.settings.initPreview
+import helium314.keyboard.settings.preferences.SwitchPreferenceWithEmojiDictWarning
 import helium314.keyboard.settings.previewDark
 
 @Composable
@@ -124,7 +119,7 @@ fun createPreferencesSettings(context: Context) = listOf(
         SwitchPreference(it, Defaults.PREF_SOUND_ON)
     },
     Setting(context, Settings.PREF_SHOW_EMOJI_DESCRIPTIONS, R.string.show_emoji_descriptions) {
-        SwitchPreferenceWithEmojiDictWarning(it, Defaults.PREF_SHOW_EMOJI_DESCRIPTIONS, context)
+        SwitchPreferenceWithEmojiDictWarning(it, Defaults.PREF_SHOW_EMOJI_DESCRIPTIONS)
     },
     Setting(context, Settings.PREF_ENABLE_CLIPBOARD_HISTORY,
         R.string.enable_clipboard_history, R.string.enable_clipboard_history_summary)
