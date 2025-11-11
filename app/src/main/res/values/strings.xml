@@ -418,7 +418,10 @@
     <string name="subtype_dag">Dagbani</string>
     <!-- Description for Sesotho (https://en.wikipedia.org/wiki/Sesotho_language) keyboard subtype -->
     <string name="subtype_st">Sesotho</string>
+    <!-- Name for Dargwa (https://en.wikipedia.org/wiki/Dargwa_language) keyboard subtype -->
     <string name="subtype_dru">Dargwa (Urakhi)</string>
+    <!-- Name for Eastern Mari (https://en.wikipedia.org/wiki/Meadow_Mari_language) keyboard subtype -->
+    <string name="subtype_mhr">Mari (Eastern)</string>
     <!-- Description for a generic language / layout combination. %1$s is the language, %2$s is the layout -->
     <string name="subtype_with_layout_generic">%1$s (%2$s)</string>
     <!-- Description for "LANGUAGE_NAME" (Extended) keyboard subtype -->
