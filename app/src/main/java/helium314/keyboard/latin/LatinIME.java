@@ -85,6 +85,7 @@ import helium314.keyboard.latin.utils.SubtypeUtilsKt;
 import helium314.keyboard.latin.utils.ToolbarMode;
 import helium314.keyboard.latin.utils.ViewLayoutUtils;
 import helium314.keyboard.settings.SettingsActivity2;
+import helium314.keyboard.settings.screens.gesturedata.GestureDataScreenKt;
 import kotlin.collections.CollectionsKt;
 
 import java.io.FileDescriptor;
@@ -128,8 +129,9 @@ public class LatinIME extends InputMethodService implements
 
     // UIHandler is needed when creating InputLogic
     public final UIHandler mHandler = new UIHandler(this);
-    private final DictionaryFacilitator mDictionaryFacilitator =
+    private DictionaryFacilitator mDictionaryFacilitator =
             DictionaryFacilitatorProvider.getDictionaryFacilitator(false);
+    private final DictionaryFacilitator mOriginalDictionaryFacilitator = mDictionaryFacilitator;
     final InputLogic mInputLogic = new InputLogic(this, this, mDictionaryFacilitator);
 
     // TODO: Move these {@link View}s to {@link KeyboardSwitcher}.
@@ -981,6 +983,15 @@ public class LatinIME extends InputMethodService implements
 
     void onStartInputViewInternal(final EditorInfo editorInfo, final boolean restarting) {
         super.onStartInputView(editorInfo, restarting);
+
+        if (GestureDataScreenKt.dictTestImeOption.equals(editorInfo.privateImeOptions)
+                && GestureDataScreenKt.getFacilitator() != null
+        ) {
+            mDictionaryFacilitator = GestureDataScreenKt.getFacilitator();
+        } else {
+            mDictionaryFacilitator = mOriginalDictionaryFacilitator;
+        }
+        mInputLogic.setFacilitator(mDictionaryFacilitator);
 
         mDictionaryFacilitator.onStartInput();
         // Switch to the null consumer to handle cases leading to early exit below, for which we

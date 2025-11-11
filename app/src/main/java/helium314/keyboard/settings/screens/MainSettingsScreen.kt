@@ -34,6 +34,8 @@ fun MainSettingsScreen(
     onClickPreferences: () -> Unit,
     onClickToolbar: () -> Unit,
     onClickGestureTyping: () -> Unit,
+    onClickDataGathering: () -> Unit,
+    onClickDataReview: () -> Unit,
     onClickAdvanced: () -> Unit,
     onClickAppearance: () -> Unit,
     onClickLanguage: () -> Unit,
@@ -78,6 +80,18 @@ fun MainSettingsScreen(
                         onClick = onClickGestureTyping,
                         icon = R.drawable.ic_settings_gesture
                     ) { NextScreenIcon() }
+                if (JniUtils.sHaveGestureLib)
+                    Preference(
+                        name = stringResource(R.string.gesture_data_screen),
+                        onClick = onClickDataGathering,
+                        icon = R.drawable.ic_settings_gesture
+                    ) { NextScreenIcon() }
+                if (JniUtils.sHaveGestureLib)
+                    Preference(
+                        name = "data review",
+                        onClick = onClickDataReview,
+                        icon = R.drawable.ic_settings_gesture
+                    ) { NextScreenIcon() }
                 Preference(
                     name = stringResource(R.string.settings_screen_correction),
                     onClick = onClickTextCorrection,
@@ -114,7 +128,7 @@ private fun PreviewScreen() {
     initPreview(LocalContext.current)
     Theme(previewDark) {
         Surface {
-            MainSettingsScreen({}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {})
+            MainSettingsScreen({}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {})
         }
     }
 }
