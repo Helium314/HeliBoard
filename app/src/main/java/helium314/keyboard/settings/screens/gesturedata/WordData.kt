@@ -38,6 +38,12 @@ class WordData(
     val inputType = keyboard.mId.mEditorInfo.inputType
     val imeOptions = keyboard.mId.mEditorInfo.imeOptions
 
+    // todo: what could we additionally need for passive gathering?
+    //  main + secondary locales
+    //  currently active locales
+    //  exact dictionary per suggestion (locale, type, hash if possible)
+    //  selected word (would be the target, needs to consider manual suggestion pick)
+
     fun save(dicts: List<Dict>, context: Context) {
         if (!isSavingOk())
             return
