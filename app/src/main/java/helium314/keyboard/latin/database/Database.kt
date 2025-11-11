@@ -1,0 +1,44 @@
+// SPDX-License-Identifier: GPL-3.0-only
+package helium314.keyboard.latin.database
+
+import android.content.Context
+import android.database.sqlite.SQLiteDatabase
+import android.database.sqlite.SQLiteOpenHelper
+import java.io.File
+
+class Database private constructor(context: Context, name: String = NAME) : SQLiteOpenHelper(context, name, null, VERSION) {
+    override fun onCreate(db: SQLiteDatabase) {
+        db.execSQL(ClipboardDao.CREATE_TABLE)
+    }
+
+    override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
+        // nothing yet
+    }
+
+    companion object {
+        private const val VERSION = 1
+        const val NAME = "heliboard.db"
+        private var instance: Database? = null
+        fun getInstance(context: Context): Database {
+            if (instance == null)
+                instance = Database(context)
+            return instance!!
+        }
+
+        // needs to be in sync with db version
+        fun copyFromDb(file: File, context: Context){
+            if (!file.exists())
+                return
+            val otherDb = Database(context, file.name)
+            val clipDao = ClipboardDao.getInstance(context)!! // insert to dao because of cache
+            otherDb.readableDatabase.rawQuery("SELECT TIMESTAMP, PINNED, TEXT FROM CLIPBOARD", null)
+                .use {
+                    clipDao.clear()
+                    while (it.moveToNext())
+                        clipDao.addClip(it.getLong(0), it.getInt(1) != 0, it.getString(2))
+                }
+            otherDb.close()
+            file.delete()
+        }
+    }
+}
