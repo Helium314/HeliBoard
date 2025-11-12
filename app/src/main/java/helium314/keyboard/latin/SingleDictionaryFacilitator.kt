@@ -86,7 +86,7 @@ class SingleDictionaryFacilitator(private val dict: Dictionary) : DictionaryFaci
 
     override fun onStartInput() {}
 
-    override fun onFinishInput(context: Context) {
+    override fun onFinishInput() {
         dict.onFinishInput()
     }
 

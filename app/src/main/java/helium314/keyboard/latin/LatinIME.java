@@ -1161,7 +1161,7 @@ public class LatinIME extends InputMethodService implements
         super.onFinishInput();
         Log.i(TAG, "onFinishInput");
 
-        mDictionaryFacilitator.onFinishInput(this);
+        mDictionaryFacilitator.onFinishInput();
         final MainKeyboardView mainKeyboardView = mKeyboardSwitcher.getMainKeyboardView();
         if (mainKeyboardView != null) {
             mainKeyboardView.closing();
