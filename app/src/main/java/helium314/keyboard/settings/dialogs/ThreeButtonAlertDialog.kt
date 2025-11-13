@@ -42,6 +42,7 @@ fun ThreeButtonAlertDialog(
     cancelButtonText: String = stringResource(android.R.string.cancel),
     neutralButtonText: String? = null,
     reducePadding: Boolean = false,
+    confirmDismissesDialog: Boolean = true,
     properties: DialogProperties = DialogProperties()
 ) {
     Dialog(
@@ -87,7 +88,7 @@ fun ThreeButtonAlertDialog(
                         if (confirmButtonText != null)
                             TextButton(
                                 enabled = checkOk(),
-                                onClick = { onConfirmed(); onDismissRequest() },
+                                onClick = { onConfirmed(); if (confirmDismissesDialog) onDismissRequest() },
                             ) { Text(confirmButtonText) }
                     }
                 }

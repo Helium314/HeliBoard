@@ -275,13 +275,15 @@ abstract public class ExpandableBinaryDictionary extends Dictionary {
                 shortcutFreq, isNotAWord, isPossiblyOffensive, timestamp));
     }
 
-    protected void addUnigramLocked(final String word, final int frequency,
+    protected boolean addUnigramLocked(final String word, final int frequency,
             final String shortcutTarget, final int shortcutFreq, final boolean isNotAWord,
             final boolean isPossiblyOffensive, final int timestamp) {
         if (!mBinaryDictionary.addUnigramEntry(word, frequency, shortcutTarget, shortcutFreq,
                 false /* isBeginningOfSentence */, isNotAWord, isPossiblyOffensive, timestamp)) {
             Log.e(TAG, "Cannot add unigram entry. word: " + word);
+            return false;
         }
+        return true;
     }
 
     /**
