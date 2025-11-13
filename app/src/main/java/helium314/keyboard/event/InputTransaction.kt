@@ -7,22 +7,22 @@ package helium314.keyboard.event
 
 import helium314.keyboard.latin.settings.SettingsValues
 
-/**
- * An object encapsulating a single transaction for input.
- */
-class InputTransaction(// Initial conditions
-        val mSettingsValues: SettingsValues, val mEvent: Event,
-        val mTimestamp: Long, val mSpaceState: Int, val mShiftState: Int) {
-    /**
-     * Gets what type of shift update this transaction requires.
-     * @return The shift update type.
-     */
+/** An object encapsulating a single transaction for input. */
+class InputTransaction(
+    // Initial conditions
+    val settingsValues: SettingsValues,
+    val event: Event,
+    val timestamp: Long,
+    val spaceState: Int,
+    val shiftState: Int
+) {
+    /** Gets what type of shift update this transaction requires. */
     // Outputs
     var requiredShiftUpdate = SHIFT_NO_UPDATE
         private set
-    private var mRequiresUpdateSuggestions = false
-    private var mDidAffectContents = false
-    private var mDidAutoCorrect = false
+    private var requiresUpdateSuggestions = false
+    private var didAffectContents = false
+    private var didAutoCorrect = false
     /**
      * Indicate that this transaction requires some type of shift update.
      * @param updateType What type of shift update this requires.
@@ -31,50 +31,29 @@ class InputTransaction(// Initial conditions
         requiredShiftUpdate = requiredShiftUpdate.coerceAtLeast(updateType)
     }
 
-    /**
-     * Indicate that this transaction requires updating the suggestions.
-     */
+    /** Indicate that this transaction requires updating the suggestions.*/
     fun setRequiresUpdateSuggestions() {
-        mRequiresUpdateSuggestions = true
+        requiresUpdateSuggestions = true
     }
 
-    /**
-     * Find out whether this transaction requires updating the suggestions.
-     * @return Whether this transaction requires updating the suggestions.
-     */
-    fun requiresUpdateSuggestions(): Boolean {
-        return mRequiresUpdateSuggestions
-    }
+    /** Whether this transaction requires updating the suggestions. */
+    fun requiresUpdateSuggestions() = requiresUpdateSuggestions
 
-    /**
-     * Indicate that this transaction affected the contents of the editor.
-     */
+    /** Indicate that this transaction affected the contents of the editor. */
     fun setDidAffectContents() {
-        mDidAffectContents = true
+        didAffectContents = true
     }
 
-    /**
-     * Find out whether this transaction affected contents of the editor.
-     * @return Whether this transaction affected contents of the editor.
-     */
-    fun didAffectContents(): Boolean {
-        return mDidAffectContents
-    }
+    /** Whether this transaction affected contents of the editor. */
+    fun didAffectContents() = didAffectContents
 
-    /**
-     * Indicate that this transaction performed an auto-correction.
-     */
+    /** Indicate that this transaction performed an auto-correction. */
     fun setDidAutoCorrect() {
-        mDidAutoCorrect = true
+        didAutoCorrect = true
     }
 
-    /**
-     * Find out whether this transaction performed an auto-correction.
-     * @return Whether this transaction performed an auto-correction.
-     */
-    fun didAutoCorrect(): Boolean {
-        return mDidAutoCorrect
-    }
+    /** Whether this transaction performed an auto-correction. */
+    fun didAutoCorrect() = didAutoCorrect
 
     companion object {
         // UPDATE_LATER is stronger than UPDATE_NOW. The reason for this is, if we have to update later,
@@ -86,5 +65,4 @@ class InputTransaction(// Initial conditions
         const val SHIFT_UPDATE_NOW = 1
         const val SHIFT_UPDATE_LATER = 2
     }
-
 }

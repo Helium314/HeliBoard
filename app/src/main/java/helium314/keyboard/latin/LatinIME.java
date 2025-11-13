@@ -1588,7 +1588,7 @@ public class LatinIME extends InputMethodService implements
     // This method is public for testability of LatinIME, but also in the future it should
     // completely replace #onCodeInput.
     public void onEvent(@NonNull final Event event) {
-        if (KeyCode.VOICE_INPUT == event.getMKeyCode()) {
+        if (KeyCode.VOICE_INPUT == event.getKeyCode()) {
             mRichImm.switchToShortcutIme(this);
         }
         final InputTransaction completeInputTransaction =
@@ -1601,7 +1601,7 @@ public class LatinIME extends InputMethodService implements
 
     public void onTextInput(final String rawText) {
         // TODO: have the keyboard pass the correct key code when we need it.
-        final Event event = Event.createSoftwareTextEvent(rawText, KeyCode.MULTIPLE_CODE_POINTS);
+        final Event event = Event.createSoftwareTextEvent(rawText, KeyCode.MULTIPLE_CODE_POINTS, null);
         final InputTransaction completeInputTransaction =
                 mInputLogic.onTextInput(mSettings.getCurrent(), event,
                         mKeyboardSwitcher.getKeyboardShiftMode(), mHandler);
@@ -1803,10 +1803,10 @@ public class LatinIME extends InputMethodService implements
         }
         if (inputTransaction.requiresUpdateSuggestions()) {
             final int inputStyle;
-            if (inputTransaction.getMEvent().isSuggestionStripPress()) {
+            if (inputTransaction.getEvent().isSuggestionStripPress()) {
                 // Suggestion strip press: no input.
                 inputStyle = SuggestedWords.INPUT_STYLE_NONE;
-            } else if (inputTransaction.getMEvent().isGesture()) {
+            } else if (inputTransaction.getEvent().isGesture()) {
                 inputStyle = SuggestedWords.INPUT_STYLE_TAIL_BATCH;
             } else {
                 inputStyle = SuggestedWords.INPUT_STYLE_TYPING;

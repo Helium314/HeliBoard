@@ -602,7 +602,7 @@ class KeyboardState(private val mSwitchActions: SwitchActions) {
     }
 
     fun onEvent(event: Event, autoCapsFlags: Int, recapitalizeMode: Int) {
-        val code = if (event.isFunctionalKeyEvent) event.mKeyCode else event.mCodePoint
+        val code = if (event.isFunctionalKeyEvent) event.keyCode else event.codePoint
         if (DEBUG_EVENT) {
             Log.d(TAG, "onEvent: code=${Constants.printableCode(code)} ${stateToString(autoCapsFlags, recapitalizeMode)}")
         }
