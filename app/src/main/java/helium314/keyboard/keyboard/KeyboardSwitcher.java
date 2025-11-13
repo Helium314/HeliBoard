@@ -191,6 +191,9 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
     }
 
     private void setKeyboard(final int keyboardId, @NonNull final KeyboardSwitchState toggleState) {
+        // with a hardware keyboard we might get here without ever calling onCreateInputView, so don't crash
+        if (mKeyboardView == null) return;
+
         // Make {@link MainKeyboardView} visible and hide {@link EmojiPalettesView}.
         final SettingsValues currentSettingsValues = Settings.getValues();
         setMainKeyboardFrame(currentSettingsValues, toggleState);
