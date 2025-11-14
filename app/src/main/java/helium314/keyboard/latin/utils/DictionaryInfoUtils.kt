@@ -106,7 +106,7 @@ object DictionaryInfoUtils {
 
     @JvmStatic
     fun getLocalesWithEmojiDicts(context: Context): List<Locale> =
-        RichInputMethodManager.Companion.getInstance().getMyEnabledInputMethodSubtypes(true)
+        SubtypeSettings.getEnabledSubtypes(true)
             .map { it.locale() }.filter { getCachedDictForLocaleAndType(it, Dictionary.TYPE_EMOJI, context) != null }
 
     @JvmStatic

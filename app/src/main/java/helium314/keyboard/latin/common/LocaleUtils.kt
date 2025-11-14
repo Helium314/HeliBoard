@@ -5,7 +5,6 @@
  */
 package helium314.keyboard.latin.common
 
-import android.content.Context
 import android.content.res.Resources
 import helium314.keyboard.compat.locale
 import helium314.keyboard.latin.R
@@ -184,9 +183,10 @@ object LocaleUtils {
             "sr-Latn" -> R.string.subtype_sr_Latn
             "mns" -> R.string.subtype_mns
             "xdq" -> R.string.subtype_xdq
-            "dru" -> R.string.subtype_xdq
+            "dru" -> R.string.subtype_dru
             "st" -> R.string.subtype_st
             "dag" -> R.string.subtype_dag
+            "mhr" -> R.string.subtype_mhr
             else -> 0
         }
         if (overrideResId != 0) {

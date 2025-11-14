@@ -24,7 +24,7 @@ class SingleDictionaryFacilitator(private val dict: Dictionary) : DictionaryFaci
      * Returns combined suggestions that match any of the given words, with scores that reflect the matches against all words.
      * The combined score is calculated as the average absolute (above [Int.MIN_VALUE]) score,
      * where a non-match is considered an absolute zero.
-     * Other suggestion fields of combined matches are taken arbitrarily from one of them.
+     * Other suggestion fields of combined matches are taken from the highest-score one.
      */
     fun getSuggestions(words: List<String>): SuggestionResults {
         val suggestionResults = SuggestionResults(SuggestedWords.MAX_SUGGESTIONS, false, false)
@@ -86,7 +86,7 @@ class SingleDictionaryFacilitator(private val dict: Dictionary) : DictionaryFaci
 
     override fun onStartInput() {}
 
-    override fun onFinishInput(context: Context) {
+    override fun onFinishInput() {
         dict.onFinishInput()
     }
 

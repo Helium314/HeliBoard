@@ -103,7 +103,7 @@ class InputLogicHandler implements Handler.Callback {
         } else {
             suggestedWordsToShowSuggestions = suggestedWordsForBatchInput;
         }
-        mLatinIMEHandler.showGesturePreviewAndSuggestionStrip(suggestedWordsToShowSuggestions, isTailBatchInput);
+        mLatinIMEHandler.showGesturePreviewAndSetSuggestions(suggestedWordsToShowSuggestions, isTailBatchInput);
         if (isTailBatchInput) {
             mInBatchInput = false;
             // The following call schedules onEndBatchInputInternal

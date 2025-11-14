@@ -29,6 +29,7 @@ import org.robolectric.annotation.Config
 import org.robolectric.annotation.Implementation
 import org.robolectric.annotation.Implements
 import org.robolectric.shadows.ShadowLog
+import java.io.File
 import java.util.Locale
 import kotlin.test.BeforeTest
 import kotlin.test.Test
@@ -72,7 +73,7 @@ f
 a
 b
 c
-    
+
 d
 e
 f
@@ -98,8 +99,8 @@ f
 
 """, // too many newlines
 """
-a 
-b x  
+a
+b x
 c v
 
 d
@@ -293,7 +294,7 @@ f""", // no newline at the end
       } }
     }]]""", Expected('('.code, "(", popups = listOf("<", "[", "{").map { it to it.first().code }))
     }
-    
+
     @Test fun autoMultiTextKey() {
         assertIsExpected("""[[{ "label": "্র" }]]""", Expected(KeyCode.MULTIPLE_CODE_POINTS, "্র", text = "্র"))
     }
@@ -458,8 +459,10 @@ f""", // no newline at the end
     }
 
     @Test fun parseExistingLayouts() {
-        latinIME.assets.list("layouts")?.forEach {
-            val content = latinIME.assets.open("layouts/$it").reader().readText()
+        val dir = File("src/main/assets/layouts")
+        dir.walk().forEach {
+            if (it.isDirectory) return@forEach
+            val content = it.readText()
             if (it.endsWith(".json"))
                 LayoutParser.parseJsonString(content)
             else LayoutParser.parseSimpleString(content)
