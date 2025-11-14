@@ -147,16 +147,24 @@ f""", // no newline at the end
     @Test fun labelAndImplicitAndExplicitCode() { // explicit code overrides implicit code
         assertIsExpected("""[[{ "code": 32, "label": "a|b" }]]""", Expected(' '.code, "a"))
         assertIsExpected("""[[{ "code": 32, "label": "a|!code/key_delete" }]]""", Expected(' '.code, "a"))
+        assertIsExpected("""[[{ "code": 32, "label": "a|!code/-1" }]]""", Expected(' '.code, "a"))
+        assertIsExpected("""[[{ "code": -1, "label": "a|!code/key_delete" }]]""", Expected(KeyCode.CTRL, "a"))
         // todo: should text be null? it's not used at all (it could be, but it really should not)
         assertIsExpected("""[[{ "code": 32, "label": "a|bb" }]]""", Expected(' '.code, "a", text = "bb"))
+        assertIsExpected("""[[{ "code": 32, "label": "a|bb", "popup": { "main": { "code": 32, "label": "!icon/undo|!code/key_delete" } } }]]""", Expected(' '.code, "a", text = "bb", popups = listOf(null to ' '.code)))
+        assertIsExpected("""[[{ "code": 32, "label": "a|bb", "popup": { "main": { "code": -1, "label": "!icon/undo|!code/key_delete" } } }]]""", Expected(' '.code, "a", text = "bb", popups = listOf(null to KeyCode.CTRL)))
+        assertIsExpected("""[[{ "code": 32, "label": "a|bb", "popup": { "main": { "code": 32, "label": "a|!code/key_delete" } } }]]""", Expected(' '.code, "a", text = "bb", popups = listOf("a" to ' '.code)))
+        assertIsExpected("""[[{ "code": 32, "label": "a|bb", "popup": { "main": { "code": -1, "label": "a|!code/key_delete" } } }]]""", Expected(' '.code, "a", text = "bb", popups = listOf("a" to KeyCode.CTRL)))
     }
 
     @Test fun keyWithIconAndExplicitCode() {
         assertIsExpected("""[[{ "label": "!icon/clipboard", "code": 55 }]]""", Expected(55, icon = "clipboard"))
+        assertIsExpected("""[[{ "label": "!icon/clipboard", "code": -1 }]]""", Expected(KeyCode.CTRL, icon = "clipboard"))
     }
 
     @Test fun keyWithIconAndImplicitCode() {
         assertIsExpected("""[[{ "label": "!icon/clipboard_action_key|!code/key_clipboard" }]]""", Expected(KeyCode.CLIPBOARD, icon = "clipboard_action_key"))
+        assertIsExpected("""[[{ "label": "!icon/clipboard_action_key|!code/key_clipboard", "popup": { "main": { "label": "!icon/undo|!code/key_delete" } } }]]""", Expected(KeyCode.CLIPBOARD, icon = "clipboard_action_key", popups = listOf(null to KeyCode.DELETE)))
     }
 
     @Test fun popupKeyWithIconAndExplicitCode() {
@@ -312,7 +320,7 @@ f""", // no newline at the end
         assertIsExpected("""[[{ "code":   57, "label": "9", "type": "numeric" }]]""", Expected(57, "9"))
         assertIsExpected("""[[{ "code":   -7, "label": "delete", "type": "enter_editing" }]]""", Expected(-7, icon = "delete_key"))
         // -207 gets translated to -202 in Int.toKeyEventCode
-        assertIsExpected("""[[{ "code": -207, "label": "view_phone2", "type": "system_gui" }]]""", Expected(-202, "?123", text = "?123"))
+        assertIsExpected("""[[{ "code": -207, "label": "view_phone2", "type": "system_gui" }]]""", Expected(-202, "?123"))
     }
 
     @Test fun spaceKey() {
@@ -467,6 +475,36 @@ f""", // no newline at the end
                 LayoutParser.parseJsonString(content)
             else LayoutParser.parseSimpleString(content)
         }
+    }
+
+    @Test fun simpleWithLabelPopupHasCode() {
+        val keys = LayoutParser.parseSimpleString("""
+            a symbol
+            b esc
+            c undo
+
+            d $$$
+            e $$$1
+            f blah
+            tab timestamp
+    """).map { it.mapNotNull { it.compute(params)?.toKeyParams(params) } }.flatten()
+        assertEquals("?123", keys[0].mPopupKeys?.first()?.mLabel)
+        assertEquals(KeyCode.SYMBOL, keys[0].mPopupKeys?.first()?.mCode)
+        assertEquals("ESC", keys[1].mPopupKeys?.first()?.mLabel)
+        assertEquals(KeyCode.ESCAPE, keys[1].mPopupKeys?.first()?.mCode)
+        assertEquals(null, keys[2].mPopupKeys?.first()?.mLabel)
+        assertEquals("undo", keys[2].mPopupKeys?.first()?.mIconName)
+        assertEquals(KeyCode.UNDO, keys[2].mPopupKeys?.first()?.mCode)
+        assertEquals("$", keys[3].mPopupKeys?.first()?.mLabel)
+        assertEquals('$'.code, keys[3].mPopupKeys?.first()?.mCode)
+        assertEquals("£", keys[4].mPopupKeys?.first()?.mLabel)
+        assertEquals('£'.code, keys[4].mPopupKeys?.first()?.mCode)
+        assertEquals("blah", keys[5].mPopupKeys?.first()?.mLabel)
+        assertEquals(KeyCode.MULTIPLE_CODE_POINTS, keys[5].mPopupKeys?.first()?.mCode)
+        assertEquals("tab_key", keys[6].mIconName)
+        assertEquals(KeyCode.TAB, keys[6].mCode)
+        assertEquals("⌚", keys[6].mPopupKeys?.first()?.mLabel)
+        assertEquals(KeyCode.TIMESTAMP, keys[6].mPopupKeys?.first()?.mCode)
     }
 
     private data class Expected(val code: Int, val label: String? = null, val icon: String? = null, val text: String? = null, val popups: List<Pair<String?, Int>>? = null)
