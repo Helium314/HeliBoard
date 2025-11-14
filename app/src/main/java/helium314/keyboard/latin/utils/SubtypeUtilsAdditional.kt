@@ -102,6 +102,8 @@ object SubtypeUtilsAdditional {
             enabled.add(to)
             editor.putString(Settings.PREF_ENABLED_SUBTYPES, SubtypeSettings.createPrefSubtypes(enabled))
         }
+        prefs.all.filterKeys { it.startsWith(Settings.PREF_SAVED_APP_SUBTYPE_PREFIX) }
+            .filterValues { it.toString().toSettingsSubtype() == from }.forEach { editor.putString(it.key, to.toPref()) }
         editor.apply()
         SubtypeSettings.reloadEnabledSubtypes(context)
     }

@@ -213,7 +213,7 @@
     <string name="user_dict_word_already_present">Dit woord is al aanwezig in het gebruikerswoordenboek van %s. Typ er nog een.</string>
     <string name="user_dict_add_word_button">Woord toevoegen</string>
     <string name="select_user_colors_summary">Selecteer kleuren voor tekst en achtergronden</string>
-    <string name="switch_language">Andere taal</string>
+    <string name="switch_language">Taal wisselen</string>
     <string name="popup_keys_language_priority" tools:keep="@string/popup_keys_language_priority">Taal (prioriteit)</string>
     <string name="popup_keys_layout" tools:keep="@string/popup_keys_layout">Lay-out</string>
     <string name="popup_keys_symbols" tools:keep="@string/popup_keys_symbols">Symbolen</string>
@@ -380,7 +380,7 @@
     <string name="page_down" tools:keep="@string/page_down">Pagina omlaag</string>
     <string name="suggest_clipboard_content">Inhoud van het klembord voorstellen</string>
     <string name="suggest_clipboard_content_summary">Recent gekopieerde inhoud van het klembord tonen als suggestie</string>
-    <string name="space_swipe_toggle_numpad_entry">Numpad wisselen</string>
+    <string name="space_swipe_toggle_numpad_entry">Numpad omschakelen</string>
     <string name="after_emoji">Emoji selecteren in de emoji-weergave</string>
     <string name="after_clip">Vermelding in de klembordgeschiedenis selecteren</string>
     <string name="switch_keyboard_after">Schakel over naar het hoofdtoetsenbord na…</string>
@@ -479,4 +479,13 @@
     <string name="toolbar_hiding_global">Klembord- en emoji-werkbalken ook verbergen</string>
     <string name="popup_order_and_hint_source">Popup toetsvolgorde en bron van hints</string>
     <string name="landscape">Liggend</string>
+    <string name="show_emoji_descriptions_summary">Vereist een emoji-woordenboek</string>
+    <string name="show_emoji_descriptions">Toon emoji-beschrijving bij lang indrukken</string>
+    <string name="suggest_emojis">Emoji\'s voorstellen</string>
+    <string name="suggest_emojis_summary">Emoji-woordenboek gebruiken in normale suggesties</string>
+    <string name="space_swipe_hide_keyboard_entry">Toetsenbord verbergen</string>
+    <string name="suggest_punctuation">Interpunctie-suggesties</string>
+    <string name="suggest_punctuation_summary">Toon interpunctie wanneer er geen andere suggesties beschikbaar zijn</string>
+    <string name="about_wiki_link">Ga naar Wiki</string>
+    <string name="about_wiki_link_description">De Wiki kan door elke GitHub-gebruiker worden verbeterd!</string>
 </resources>

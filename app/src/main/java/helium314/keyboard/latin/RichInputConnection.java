@@ -18,6 +18,7 @@ import android.text.TextUtils;
 import android.text.style.CharacterStyle;
 
 import helium314.keyboard.keyboard.KeyboardSwitcher;
+import helium314.keyboard.latin.define.DebugFlags;
 import helium314.keyboard.latin.settings.Settings;
 import helium314.keyboard.latin.utils.Log;
 import android.view.KeyEvent;
@@ -319,6 +320,8 @@ public final class RichInputConnection implements PrivateCommandPerformer {
     public void commitText(final CharSequence text, final int newCursorPosition) {
         if (DEBUG_BATCH_NESTING) checkBatchEdit();
         if (DEBUG_PREVIOUS_TEXT) checkConsistencyForDebug();
+        if (DebugFlags.DEBUG_ENABLED)
+            Log.d(TAG, "committing "+text.length()+" characters");
         mCommittedTextBeforeComposingText.append(text);
         // TODO: the following is exceedingly error-prone. Right now when the cursor is in the
         //  middle of the composing word mComposingText only holds the part of the composing text
@@ -425,7 +428,10 @@ public final class RichInputConnection implements PrivateCommandPerformer {
     public int getCharBeforeBeforeCursor() {
         if (mComposingText.length() >= 2) return mComposingText.charAt(mComposingText.length() - 2);
         final int length = mCommittedTextBeforeComposingText.length();
-        if (mComposingText.length() == 1) return mCommittedTextBeforeComposingText.charAt(length - 1);
+        if (mComposingText.length() == 1) {
+            if (length < 1) return Constants.NOT_A_CODE;
+            return mCommittedTextBeforeComposingText.charAt(length - 1);
+        }
         if (length < 2) return Constants.NOT_A_CODE;
         return mCommittedTextBeforeComposingText.charAt(length - 2);
     }
@@ -557,6 +563,8 @@ public final class RichInputConnection implements PrivateCommandPerformer {
         // TODO: the following is incorrect if the cursor is not immediately after the composition.
         //  Right now we never come here in this case because we reset the composing state before we
         //  come here in this case, but we need to fix this.
+        if (DebugFlags.DEBUG_ENABLED)
+            Log.d(TAG, "deleting "+beforeLength+" characters before cursor");
         final int remainingChars = mComposingText.length() - beforeLength;
         if (remainingChars >= 0) {
             mComposingText.setLength(remainingChars);
@@ -591,6 +599,8 @@ public final class RichInputConnection implements PrivateCommandPerformer {
 
     public void sendKeyEvent(final KeyEvent keyEvent) {
         if (DEBUG_BATCH_NESTING) checkBatchEdit();
+        if (DebugFlags.DEBUG_ENABLED) // no details, might be too sensitive
+            Log.d(TAG, "key event with action "+keyEvent.getAction()+", is control: "+Character.isISOControl(keyEvent.getUnicodeChar()));
         if (keyEvent.getAction() == KeyEvent.ACTION_DOWN) {
             if (DEBUG_PREVIOUS_TEXT) checkConsistencyForDebug();
             // This method is only called for enter or backspace when speaking to old applications
@@ -682,6 +692,8 @@ public final class RichInputConnection implements PrivateCommandPerformer {
         // TODO: support values of newCursorPosition != 1. At this time, this is never called with
         //  newCursorPosition != 1.
         if (isConnected()) {
+            if (DebugFlags.DEBUG_ENABLED)
+                Log.d(TAG, "setting composing text of length "+text.length()); // don't log actual text
             mIC.setComposingText(text, newCursorPosition);
             if (!Settings.getValues().mInputAttributes.mShouldShowSuggestions && text.length() > 0) {
                 // We have a field that disables suggestions, but still committed text is set.
@@ -713,6 +725,9 @@ public final class RichInputConnection implements PrivateCommandPerformer {
     public boolean setSelection(final int start, final int end) {
         if (DEBUG_BATCH_NESTING) checkBatchEdit();
         if (DEBUG_PREVIOUS_TEXT) checkConsistencyForDebug();
+        if (DebugFlags.DEBUG_ENABLED)
+            Log.d(TAG, "setting selection from "+start+" to "+end);
+
         if (start < 0 || end < 0) {
             return false;
         }
@@ -788,6 +803,8 @@ public final class RichInputConnection implements PrivateCommandPerformer {
         if (DEBUG_BATCH_NESTING) checkBatchEdit();
         if (DEBUG_PREVIOUS_TEXT) checkConsistencyForDebug();
         CharSequence text = completionInfo.getText();
+        if (DebugFlags.DEBUG_ENABLED)
+            Log.d(TAG, "committing completion of length "+text.length()); // don't log actual text
         // text should never be null, but just in case, it's better to insert nothing than to crash
         if (null == text) text = "";
         mCommittedTextBeforeComposingText.append(text);

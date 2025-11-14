@@ -26,15 +26,21 @@ class HardwareKeyboardEventDecoder(val mDeviceId: Int) : HardwareEventDecoder {
         // hence the name "codePointAndFlags". {@see KeyEvent#getUnicodeChar()} for more info.
         val codePointAndFlags = keyEvent.unicodeChar.takeIf { it != 0 }
             ?: Event.NOT_A_CODE_POINT // KeyEvent has 0 if no codePoint, but that's actually valid so we convert it to -1
+
         // The keyCode is the abstraction used by the KeyEvent to represent different keys that
         // do not necessarily map to a unicode character. This represents a physical key, like
         // the key for 'A' or Space, but also Backspace or Ctrl or Caps Lock.
         val keyCode = keyEvent.keyCode
         val metaState = keyEvent.metaState
         val isKeyRepeat = 0 != keyEvent.repeatCount
+
         return if (KeyEvent.KEYCODE_DEL == keyCode) {
             Event.createHardwareKeypressEvent(Event.NOT_A_CODE_POINT, KeyCode.DELETE, metaState, null, isKeyRepeat)
-        } else if (keyEvent.isPrintingKey || KeyEvent.KEYCODE_SPACE == keyCode || KeyEvent.KEYCODE_ENTER == keyCode) {
+        } else if (
+            (keyEvent.isPrintingKey && codePointAndFlags != Event.NOT_A_CODE_POINT) // can be NOT_A_CODE_POINT depending on meta state (e.g. ctrl+c)
+                || KeyEvent.KEYCODE_SPACE == keyCode
+                || KeyEvent.KEYCODE_ENTER == keyCode
+        ) {
             if (0 != codePointAndFlags and KeyCharacterMap.COMBINING_ACCENT) { // A dead key.
                 Event.createDeadEvent(codePointAndFlags and KeyCharacterMap.COMBINING_ACCENT_MASK, keyCode, metaState, null)
             } else if (KeyEvent.KEYCODE_ENTER == keyCode) {

@@ -1,9 +1,9 @@
-* aggiornamento delle icone per i tasti di correzione automatica e selezione nella barra degli strumenti, di @codokie (#524, #651)
-* aggiunto il layout Chuvash, di @tenextractor (#677)
-* aggiunto il tasto 'Taglia' alla barra degli strumenti, di @codokie (#678)
-* layout Probhat aggiornato, di @fahimscirex (#628)
-* le impostazioni relative alla della barra degli strumenti mostrano le icone degli strumenti
-* aggiunto il pulsante 'Chiudi' nella cronologia degli appunti, di @codokie (#403, #649)
-* aggiunto il layout Russo (Studente), di @Zolax9 (#640)
-* impostazione che rende opzionale la comparsa del tastierino numerico alla pressione prolungata del tasto dei simboli (#588)
-* correzioni e miglioramenti minori, inclusi #632, #637, #638, di @RHJihan
+* Aggiornate icone tasti correzione automatica e selezione barra strumenti
+* Aggiunto layout Chuvash
+* Aggiunto tasto Taglia alla barra strumenti
+* Aggiornato layout Probhat
+* Impostazioni barra strumenti mostrano le icone
+* Aggiunto pulsante Chiudi nella cronologia appunti
+* Aggiunto layout Russo Studente
+* Opzione per rendere facoltativo il tastierino numerico su pressione prolungata
+* Correzioni e miglioramenti minori

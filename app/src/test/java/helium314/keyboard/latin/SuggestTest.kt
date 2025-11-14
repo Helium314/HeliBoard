@@ -11,6 +11,7 @@ import helium314.keyboard.latin.SuggestedWords.SuggestedWordInfo.KIND_SHORTCUT
 import helium314.keyboard.latin.SuggestedWords.SuggestedWordInfo.KIND_WHITELIST
 import helium314.keyboard.latin.common.ComposedData
 import helium314.keyboard.latin.common.StringUtils
+import helium314.keyboard.latin.dictionary.Dictionary
 import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.settings.SettingsValuesForSuggestion
 import helium314.keyboard.latin.utils.DeviceProtectedUtils
@@ -26,6 +27,7 @@ import org.robolectric.shadows.ShadowLog
 import java.util.*
 import kotlin.test.BeforeTest
 import kotlin.test.Test
+import kotlin.test.assertEquals
 
 @Suppress("NonAsciiCharacters")
 @RunWith(RobolectricTestRunner::class)
@@ -266,6 +268,12 @@ class SuggestTest {
             thresholdAggressive
         )
         assert(!result.last()) // should not be corrected
+    }
+
+    @Test fun `quotes are added to suggestions when needed`() {
+        val result = Suggest.Companion.getTransformedSuggestedWordInfo(suggestion("word", 1, Locale.ENGLISH, true),
+            Locale.ENGLISH, false, false, 1)
+        assertEquals("word'", result.mWord)
     }
 
     private fun shouldBeAutoCorrected(word: String, // typed word

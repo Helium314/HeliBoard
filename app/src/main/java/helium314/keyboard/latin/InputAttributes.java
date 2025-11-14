@@ -248,7 +248,7 @@ public final class InputAttributes {
         return String.format(
                 "%s: inputType=0x%08x%s%s%s%s%s targetApp=%s\n", getClass().getSimpleName(),
                 mInputType,
-                (mInputTypeShouldAutoCorrect ? " noAutoCorrect" : ""),
+                (mInputTypeShouldAutoCorrect ? " shouldAutoCorrect" : ""),
                 (mIsPasswordField ? " password" : ""),
                 (mShouldShowSuggestions ? " shouldShowSuggestions" : ""),
                 (mApplicationSpecifiedCompletionOn ? " appSpecified" : ""),

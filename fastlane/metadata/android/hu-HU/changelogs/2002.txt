@@ -1,0 +1,4 @@
+* Emodzsi eszköztárbillentyű hozzáadása @codokie-tól (#845, #837)
+* Fejlesztések a duplikált betűkkel kapcsolatban (#225 és talán mások)
+* Kurzor elhelyezésének elkerülése az emodzsikon belül (#859)
+* Kisebb javítások a nemrég hozzáadott funkciókhoz

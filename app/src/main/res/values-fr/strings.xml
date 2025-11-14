@@ -441,4 +441,13 @@ Nouveau dictionnaire:
     <string name="toolbar_mode_expandable">Touches de la barre d\'outil et suggestions</string>
     <string name="landscape">Paysage</string>
     <string name="popup_order_and_hint_source">Ordre des touches popup et source des symboles</string>
+    <string name="show_emoji_descriptions_summary">Nécessite un dictionnaire d\'émojis</string>
+    <string name="show_emoji_descriptions">Afficher la description de l\'emoji en appuyant longuement</string>
+    <string name="suggest_emojis_summary">Utiliser le dictionnaire d\'emojis dans les suggestions normales</string>
+    <string name="suggest_emojis">Suggérer des émojis</string>
+    <string name="space_swipe_hide_keyboard_entry">Masquer le clavier</string>
+    <string name="suggest_punctuation">Suggestions de ponctuation</string>
+    <string name="suggest_punctuation_summary">Afficher la ponctuation lorsqu\'aucune autre suggestion n\'est disponible</string>
+    <string name="about_wiki_link_description">Le Wiki peut être amélioré par n\'importe quel utilisateur de GitHub !</string>
+    <string name="about_wiki_link">Accéder au Wiki</string>
 </resources>

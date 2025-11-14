@@ -68,7 +68,7 @@ Updating translations in a PR will not be accepted, as it may cause conflicts wi
 
 Some notes on translations
 * when translating metadata, translating the changelogs is rather useless. It's available as it was requested by translators.
-* the `hidden_features_message` is horrible to translate with Weblate, and serves little benefit as it's just a copy of what's already in the wiki: https://github.com/Helium314/HeliBoard/wiki/Hidden-functionality. It's been made available in the app on user request/contribution.
+* the `hidden_features_message` is horrible to translate with Weblate, and serves little benefit as it's just a copy of what's already in the wiki: https://github.com/Helium314/HeliBoard/wiki/9.-Hidden-features. It's been made available in the app on user request/contribution.
 
 ## To Community
 You can share your themes, layouts and dictionaries with other people:

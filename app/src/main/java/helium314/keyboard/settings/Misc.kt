@@ -33,7 +33,7 @@ import androidx.compose.ui.text.style.TextDirection
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.toBitmap
-import androidx.core.util.TypedValueCompat
+import helium314.keyboard.latin.utils.dpToPx
 
 @Composable
 fun WithSmallTitle(
@@ -67,13 +67,13 @@ fun ActionRow(
 
 /** Icon if resource is a vector image, (bitmap) Image otherwise */
 @Composable
-fun IconOrImage(@DrawableRes resId: Int, name: String?, sizeDp: Float) {
+fun IconOrImage(@DrawableRes resId: Int, name: String?, sizeDp: Int) {
     val ctx = LocalContext.current
     val drawable = ContextCompat.getDrawable(ctx, resId)
     if (drawable is VectorDrawable)
         Icon(painterResource(resId), name, Modifier.size(sizeDp.dp))
     else {
-        val px = TypedValueCompat.dpToPx(sizeDp, ctx.resources.displayMetrics).toInt()
+        val px = sizeDp.dpToPx(ctx.resources)
         Image(drawable!!.toBitmap(px, px).asImageBitmap(), name)
     }
 }

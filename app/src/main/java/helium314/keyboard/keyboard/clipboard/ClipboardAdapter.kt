@@ -58,6 +58,7 @@ class ClipboardAdapter(
                 setOnTouchListener(this@ViewHolder)
                 setOnLongClickListener(this@ViewHolder)
                 setBackgroundResource(itemBackgroundId)
+                isHapticFeedbackEnabled = false
             }
             Settings.getValues().mColors.setBackground(view, ColorType.KEY_BACKGROUND)
             pinnedIconView = view.findViewById<ImageView>(R.id.clipboard_entry_pinned_icon).apply {
@@ -75,8 +76,8 @@ class ClipboardAdapter(
         }
 
         fun setContent(historyEntry: ClipboardHistoryEntry?) {
-            itemView.tag = historyEntry?.timeStamp
-            contentView.text = historyEntry?.content?.take(1000) // truncate displayed text for performance reasons
+            itemView.tag = historyEntry?.id
+            contentView.text = historyEntry?.text?.take(1000) // truncate displayed text for performance reasons
             pinnedIconView.visibility = if (historyEntry?.isPinned == true) View.VISIBLE else View.GONE
         }
 
@@ -97,5 +98,4 @@ class ClipboardAdapter(
             return true
         }
     }
-
 }

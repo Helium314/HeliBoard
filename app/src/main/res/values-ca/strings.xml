@@ -435,4 +435,13 @@
     <string name="toolbar_mode_hidden">Amagat</string>
     <string name="popup_order_and_hint_source">Ordre de les tecles emergents i font de pistes</string>
     <string name="landscape">Apaïsat</string>
+    <string name="show_emoji_descriptions_summary">Requereix un diccionari d\'emojis</string>
+    <string name="show_emoji_descriptions">Mostra descripció d\'emoji en prémer llarg</string>
+    <string name="suggest_emojis_summary">Utilitzar diccionari d\'emojis als suggeriments normals</string>
+    <string name="suggest_emojis">Suggerir emojis</string>
+    <string name="space_swipe_hide_keyboard_entry">Amaga el teclat</string>
+    <string name="suggest_punctuation_summary">Mostra la puntuació quan no hi ha altres suggeriments disponibles</string>
+    <string name="suggest_punctuation">Suggeriments de puntuació</string>
+    <string name="about_wiki_link">Anar al Wiki</string>
+    <string name="about_wiki_link_description">Qualsevol compte de GitHub pot millorar el Wiki!</string>
 </resources>

@@ -34,7 +34,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import helium314.keyboard.keyboard.internal.KeyboardIconsSet
@@ -65,13 +65,14 @@ import helium314.keyboard.latin.utils.SubtypeLocaleUtils
 import helium314.keyboard.latin.utils.SubtypeLocaleUtils.displayName
 import helium314.keyboard.latin.utils.SubtypeSettings
 import helium314.keyboard.latin.utils.SubtypeUtilsAdditional
-import helium314.keyboard.latin.utils.appendLink
 import helium314.keyboard.latin.utils.getActivity
 import helium314.keyboard.latin.utils.getDictionaryLocales
 import helium314.keyboard.latin.utils.getSecondaryLocales
 import helium314.keyboard.latin.utils.getStringResourceOrName
+import helium314.keyboard.latin.utils.htmlToAnnotated
 import helium314.keyboard.latin.utils.mainLayoutName
 import helium314.keyboard.latin.utils.prefs
+import helium314.keyboard.latin.utils.withHtmlLink
 import helium314.keyboard.settings.ActionRow
 import helium314.keyboard.settings.DefaultButton
 import helium314.keyboard.settings.DeleteButton
@@ -481,19 +482,11 @@ private fun MainLayoutRow(
             )
         }
         if (showAddLayoutDialog) {
-            // layoutString contains "%s" since we didn't supply a formatArg
-            val layoutString = stringResource(R.string.message_add_custom_layout)
-            val linkText = stringResource(R.string.dictionary_link_text)
-            val discussionSectionText = stringResource(R.string.get_layouts_message)
-            val annotated = buildAnnotatedString {
-                append(layoutString.substringBefore("%s"))
-                appendLink(linkText, Links.LAYOUT_FORMAT_URL)
-                append(layoutString.substringAfter("%s"))
-                appendLine()
-                append(discussionSectionText.substringBefore("%s"))
-                appendLink(stringResource(R.string.discussion_section_link), Links.CUSTOM_LAYOUTS)
-                append(discussionSectionText.substringAfter("%s"))
-            }
+            val wikiLink = stringResource(R.string.dictionary_link_text).withHtmlLink(Links.LAYOUT_WIKI_URL)
+            val layoutText = stringResource(R.string.message_add_custom_layout, wikiLink).htmlToAnnotated()
+            val discussionLink = stringResource(R.string.discussion_section_link).withHtmlLink(Links.CUSTOM_LAYOUTS)
+            val discussionSectionText = stringResource(R.string.get_layouts_message, discussionLink).htmlToAnnotated()
+            val annotated = layoutText + AnnotatedString("\n") + discussionSectionText
 
             ConfirmationDialog(
                 onDismissRequest = { showAddLayoutDialog = false },

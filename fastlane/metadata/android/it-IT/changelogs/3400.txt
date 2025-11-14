@@ -1,0 +1,5 @@
+- Limite di una sola emoji (se disponibile) tra i suggerimenti
+- Risolto il problema degli spazi aggiunti in modo incoerente
+- Risolto il bug del testo bianco su bianco (su alcuni dispositivi)
+- Risolto il bug dei suggerimenti con `'` errati
+- Aggiunto lo schwa plurale per la lingua italiana

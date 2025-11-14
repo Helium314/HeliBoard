@@ -54,9 +54,6 @@ class RichInputMethodManager private constructor() {
 
     val isShortcutImeReady get() = shortcutInputMethodInfo != null
 
-    fun getMyEnabledInputMethodSubtypes(allowsImplicitlySelectedSubtypes: Boolean) =
-        SubtypeSettings.getEnabledSubtypes(allowsImplicitlySelectedSubtypes)
-
     fun getEnabledInputMethodSubtypes(imi: InputMethodInfo, allowsImplicitlySelectedSubtypes: Boolean) =
         inputMethodInfoCache.getEnabledInputMethodSubtypeList(imi, allowsImplicitlySelectedSubtypes)
 
@@ -68,7 +65,7 @@ class RichInputMethodManager private constructor() {
 
     fun getNextSubtypeInThisIme(onlyCurrentIme: Boolean): InputMethodSubtype? {
         val currentSubtype = currentSubtype.rawSubtype
-        val enabledSubtypes = getMyEnabledInputMethodSubtypes(true)
+        val enabledSubtypes = SubtypeSettings.getEnabledSubtypes(true)
         val currentIndex = enabledSubtypes.indexOf(currentSubtype)
         if (currentIndex == -1) {
             Log.w(TAG, "Can't find current subtype in enabled subtypes: subtype=" +
@@ -86,7 +83,7 @@ class RichInputMethodManager private constructor() {
 
     fun findSubtypeForHintLocale(locale: Locale): InputMethodSubtype? {
         // Find the best subtype based on a locale matching
-        val subtypes = getMyEnabledInputMethodSubtypes(true)
+        val subtypes = SubtypeSettings.getEnabledSubtypes(true)
         var bestMatch = getBestMatch(locale, subtypes) { it.locale() }
         if (bestMatch != null) return bestMatch
 
@@ -150,7 +147,7 @@ class RichInputMethodManager private constructor() {
                 && !SubtypeSettings.getEnabledSubtypes(false).contains(richSubtype.rawSubtype)
         val systemLocale = context.resources.configuration.locale()
         LanguageOnSpacebarUtils.onSubtypeChanged(richSubtype, implicitlyEnabledSubtype, systemLocale)
-        LanguageOnSpacebarUtils.setEnabledSubtypes(getMyEnabledInputMethodSubtypes(true))
+        LanguageOnSpacebarUtils.setEnabledSubtypes(SubtypeSettings.getEnabledSubtypes(true))
 
         // TODO: Update an icon for shortcut IME
         val shortcuts = inputMethodManager.shortcutInputMethodsAndSubtypes
@@ -204,7 +201,7 @@ class RichInputMethodManager private constructor() {
         if (filteredImisCount > 1) {
             return true
         }
-        val subtypes = getMyEnabledInputMethodSubtypes(true)
+        val subtypes = SubtypeSettings.getEnabledSubtypes(true)
         // imm.getEnabledInputMethodSubtypeList(null, true) will return the current IME's
         // both explicitly and implicitly enabled input method subtype.
         // (The current IME should be LatinIME.)

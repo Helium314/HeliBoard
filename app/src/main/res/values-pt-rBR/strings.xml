@@ -52,8 +52,8 @@
     <string name="subtype_es_US">Espanhol (Estados Unidos)</string>
     <string name="subtype_hi_Latn">Hinglês</string>
     <string name="subtype_sr_Latn">Sérvio (Latino)</string>
-    <string name="subtype_generic_traditional">Nepali (Nepal) %s (Tradicional)</string>
-    <string name="subtype_akkhor_bn_BD">Bengali (Bangladesh) %s (Akkhor)</string>
+    <string name="subtype_generic_traditional">%s (Tradicional)</string>
+    <string name="subtype_akkhor_bn_BD">%s (Akkhor)</string>
     <string name="subtype_emoji">Emojis</string>
     <string name="add">Adicionar</string>
     <string name="remove">Remover</string>
@@ -124,7 +124,7 @@
     <string name="language_switch_key_switch_input_method">Alterar para outros métodos de entrada</string>
     <string name="show_language_switch_key">Tecla de alteração de idioma</string>
     <string name="show_emoji_key">Tecla de emoji</string>
-    <string name="subtype_generic_compact">Hindi %s (Compacto)</string>
+    <string name="subtype_generic_compact">%s (Compacto)</string>
     <string name="enable_clipboard_history_summary">Se desativado, a tecla da área de transferência somente colará o conteúdo na área de transferência</string>
     <string name="autospace_after_punctuation">Espaço automático após pontuação</string>
     <string name="autospace_after_punctuation_summary">Inserir um espaço automaticamente após a pontuação ao digitar uma nova palavra</string>
@@ -286,7 +286,7 @@
     <string name="select_color_gesture">Entrada de gesto</string>
     <string name="settings_screen_about">Sobre</string>
     <string name="about_github_link">Veja no GitHub</string>
-    <string name="save_log">Salvar log</string>
+    <string name="save_log">Salvar registros</string>
     <string name="license">Licença de código aberto</string>
     <string name="dialog_close">Fechar</string>
     <string name="text_tap_languages">Toque no idioma para abrir configurações</string>
@@ -444,4 +444,13 @@
     <string name="toolbar_mode_hidden">Oculta</string>
     <string name="landscape">Paisagem</string>
     <string name="popup_order_and_hint_source">Ordem das teclas de pop-up e fonte de dicas</string>
+    <string name="show_emoji_descriptions">Mostrar descrição do emoji ao pressionar</string>
+    <string name="show_emoji_descriptions_summary">Requer um dicionário de emoji</string>
+    <string name="suggest_emojis">Sugerir emojis</string>
+    <string name="suggest_emojis_summary">Usar dicionário de emojis em sugestões normais</string>
+    <string name="space_swipe_hide_keyboard_entry">Ocultar teclado</string>
+    <string name="suggest_punctuation">Sugestões de pontuação</string>
+    <string name="suggest_punctuation_summary">Mostrar pontuação quando não há outras sugestões</string>
+    <string name="about_wiki_link">Ir para a Wiki</string>
+    <string name="about_wiki_link_description">A wiki pode ser melhorada por qualquer usuário do GitHub!</string>
 </resources>

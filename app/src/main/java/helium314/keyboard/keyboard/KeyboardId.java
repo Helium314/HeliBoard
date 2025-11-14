@@ -12,10 +12,12 @@ import android.view.inputmethod.EditorInfo;
 
 import helium314.keyboard.compat.EditorInfoCompatUtils;
 import helium314.keyboard.latin.RichInputMethodSubtype;
+import helium314.keyboard.latin.WordComposer;
 import helium314.keyboard.latin.utils.InputTypeUtils;
 
 import java.util.Arrays;
 import java.util.Locale;
+import java.util.Objects;
 
 import static helium314.keyboard.latin.common.Constants.Subtype.ExtraValue.KEYBOARD_LAYOUT_SET;
 
@@ -80,6 +82,7 @@ public final class KeyboardId {
     public final boolean mHasShortcutKey;
     public final boolean mIsSplitLayout;
     public final boolean mOneHandedModeEnabled;
+    public final KeyboardLayoutSet.InternalAction mInternalAction;
 
     private final int mHashCode;
 
@@ -99,6 +102,7 @@ public final class KeyboardId {
         mHasShortcutKey = params.mVoiceInputKeyEnabled;
         mIsSplitLayout = params.mIsSplitLayoutEnabled;
         mOneHandedModeEnabled = params.mOneHandedModeEnabled;
+        mInternalAction = params.mInternalAction;
 
         mHashCode = computeHashCode(this);
     }
@@ -121,7 +125,8 @@ public final class KeyboardId {
                 id.navigateNext(),
                 id.navigatePrevious(),
                 id.mSubtype,
-                id.mIsSplitLayout
+                id.mIsSplitLayout,
+                id.mInternalAction
         });
     }
 
@@ -144,7 +149,8 @@ public final class KeyboardId {
                 && other.navigateNext() == navigateNext()
                 && other.navigatePrevious() == navigatePrevious()
                 && other.mSubtype.equals(mSubtype)
-                && other.mIsSplitLayout == mIsSplitLayout;
+                && other.mIsSplitLayout == mIsSplitLayout
+                && Objects.equals(other.mInternalAction, mInternalAction);
     }
 
     private static boolean isAlphabetKeyboard(final int elementId) {
@@ -304,5 +310,15 @@ public final class KeyboardId {
     public static String actionName(final int actionId) {
         return (actionId == InputTypeUtils.IME_ACTION_CUSTOM_LABEL) ? "actionCustomLabel"
                 : EditorInfoCompatUtils.imeActionName(actionId);
+    }
+
+    public int getKeyboardCapsMode() {
+        return switch (mElementId) {
+            case KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCKED, KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCK_SHIFTED ->
+                WordComposer.CAPS_MODE_MANUAL_SHIFT_LOCKED;
+            case KeyboardId.ELEMENT_ALPHABET_MANUAL_SHIFTED -> WordComposer.CAPS_MODE_MANUAL_SHIFTED;
+            case KeyboardId.ELEMENT_ALPHABET_AUTOMATIC_SHIFTED -> WordComposer.CAPS_MODE_AUTO_SHIFTED;
+            default -> WordComposer.CAPS_MODE_OFF;
+        };
     }
 }

@@ -9,6 +9,7 @@ import helium314.keyboard.event.HangulEventDecoder
 import helium314.keyboard.event.HardwareEventDecoder
 import helium314.keyboard.event.HardwareKeyboardEventDecoder
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode
+import helium314.keyboard.latin.AudioAndHapticFeedbackManager
 import helium314.keyboard.latin.EmojiAltPhysicalKeyDetector
 import helium314.keyboard.latin.LatinIME
 import helium314.keyboard.latin.RichInputMethodManager
@@ -21,6 +22,7 @@ import helium314.keyboard.latin.common.loopOverCodePointsBackwards
 import helium314.keyboard.latin.define.ProductionFlags
 import helium314.keyboard.latin.inputlogic.InputLogic
 import helium314.keyboard.latin.settings.Settings
+import helium314.keyboard.latin.utils.SubtypeSettings
 import kotlin.math.abs
 import kotlin.math.min
 
@@ -163,6 +165,10 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
         KeyboardActionListener.SWIPE_MOVE_CURSOR -> onMoveCursorVertically(steps)
         KeyboardActionListener.SWIPE_SWITCH_LANGUAGE -> onLanguageSlide(steps)
         KeyboardActionListener.SWIPE_TOGGLE_NUMPAD -> toggleNumpad(false, false)
+        KeyboardActionListener.SWIPE_HIDE_KEYBOARD -> {
+            latinIME.requestHideSelf(0)
+            true
+        }
         else -> false
     }
 
@@ -182,6 +188,7 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
         val actualSteps = actualSteps(steps)
         val start = connection.expectedSelectionStart + actualSteps
         if (start > end) return
+        AudioAndHapticFeedbackManager.getInstance().performHapticFeedback(keyboardSwitcher.visibleKeyboardView)
         connection.setSelection(start, end)
     }
 
@@ -216,7 +223,7 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
 
     private fun onLanguageSlide(steps: Int): Boolean {
         if (abs(steps) < settings.current.mLanguageSwipeDistance) return false
-        val subtypes = RichInputMethodManager.getInstance().getMyEnabledInputMethodSubtypes(true)
+        val subtypes = SubtypeSettings.getEnabledSubtypes(true)
         if (subtypes.size <= 1) { // only allow if we have more than one subtype
             return false
         }
@@ -244,6 +251,7 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
 
     private fun onMoveCursorVertically(steps: Int): Boolean {
         if (steps == 0) return false
+        AudioAndHapticFeedbackManager.getInstance().performHapticFeedback(keyboardSwitcher.visibleKeyboardView)
         val code = if (steps < 0) KeyCode.ARROW_UP else KeyCode.ARROW_DOWN
         onCodeInput(code, Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE, false)
         return true
@@ -251,6 +259,7 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
 
     private fun onMoveCursorHorizontally(rawSteps: Int): Boolean {
         if (rawSteps == 0) return false
+        AudioAndHapticFeedbackManager.getInstance().performHapticFeedback(keyboardSwitcher.visibleKeyboardView)
         // for RTL languages we want to invert pointer movement
         val steps = if (RichInputMethodManager.getInstance().currentSubtype.isRtlSubtype) -rawSteps else rawSteps
         val moveSteps: Int

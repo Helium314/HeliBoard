@@ -58,7 +58,7 @@
     <string name="remove">"Odebrat"</string>
     <string name="save">"Uložit"</string>
     <string name="subtype_locale">"Jazyk"</string>
-    <string name="keyboard_layout_set">"Rozvržení"</string>
+    <string name="keyboard_layout_set">Rozložení</string>
     <string name="prefs_keypress_vibration_duration_settings">"Délka vibrace při stisknutí klávesy"</string>
     <string name="prefs_keypress_sound_volume_settings">"Hlasitost stisknutí klávesy"</string>
     <string name="prefs_key_longpress_timeout_settings">"Prodleva dlouhého stisknutí"</string>
@@ -105,7 +105,7 @@
     <string name="settings_no_limit">Bez limitu</string>
     <string name="enable_clipboard_history">Povolit historii schránky</string>
     <string name="clipboard_history_retention_time">Doba zachování historie</string>
-    <string name="spell_checker_service_name">HeliBoard Kontrola Pravopisu</string>
+    <string name="spell_checker_service_name">Kontrola pravopisu HeliBoard</string>
     <string name="android_spell_checker_settings">Nastavení kontroly pravopisu HeliBoard</string>
     <string name="autospace_after_punctuation_summary">Automaticky vloží mezeru po ukončení slova znaménkem</string>
     <string name="incognito">Vynutit režim inkognito</string>
@@ -163,13 +163,13 @@
     <string name="show_popup_keys_all">Přidat všechny dostupné varianty</string>
     <string name="url_detection_title">Detekce URL</string>
     <string name="url_detection_summary">Snažit se detekovat URL a podobné adresy jako jedno slovo</string>
-    <string name="language_and_layouts_title">Jazyky &amp; Rozvržení</string>
+    <string name="language_and_layouts_title">Jazyky a rozložení</string>
     <string name="localized_number_row">Lokalizace číselného řádku</string>
     <string name="popup_keys_number" tools:keep="@string/popup_keys_number">Číselný řádek</string>
     <string name="localized_number_row_summary">Upřednostňovat lokalizovaná čísla před čísly v latince</string>
     <string name="hint_source">Zvolit zdroj tipů</string>
     <string name="popup_keys_language_priority" tools:keep="@string/popup_keys_language_priority">Jazyk (prioritní)</string>
-    <string name="popup_keys_layout" tools:keep="@string/popup_keys_layout">Rozvržení</string>
+    <string name="popup_keys_layout" tools:keep="@string/popup_keys_layout">Rozložení</string>
     <string name="popup_keys_symbols" tools:keep="@string/popup_keys_symbols">Symboly</string>
     <string name="select_word" tools:keep="@string/select_word">Vybrat slovo</string>
     <string name="one_handed" tools:keep="@string/one_handed">Režim ovládání jednou rukou</string>
@@ -178,7 +178,7 @@
     <string name="popup_order">Zvolit pořadí kláves vyskakovacího okna</string>
     <string name="toolbar_keys">Výběr kláves na panelu nástrojů</string>
     <string name="prefs_narrow_key_gaps">Zmenšit mezery mezi klávesami</string>
-    <string name="button_title_add_custom_layout">Přidat vlastní rozvržení</string>
+    <string name="button_title_add_custom_layout">Přidat vlastní rozložení</string>
     <string name="setup_step3_action">Konfigurace klávesnice</string>
     <string name="button_select_language">Výběr jazyka</string>
     <string name="theme_colors_night">Barvy (noční)</string>
@@ -206,7 +206,7 @@
     <string name="layout_number" tools:keep="@string/layout_number">Čísla</string>
     <string name="delete_layout">Opravdu odstranit vlastní rozložení %s?</string>
     <string name="layout_error">Chyba rozložení: %s</string>
-    <string name="edit_layout">Klepnutím lze upravit původní rozvržení</string>
+    <string name="edit_layout">Klepnutím upravíte původní rozložení</string>
     <string name="layout_numpad_landscape" tools:keep="@string/layout_numpad_landscape">Numerická klávesnice (na šířku)</string>
     <string name="customize_background_image">Nastavení obrázku na pozadí</string>
     <string name="day_or_night_image">Nastavit obrázek pro denní nebo noční režim?</string>
@@ -220,10 +220,10 @@
     <string name="theme_name_pink" tools:keep="@string/theme_name_pink">Růžový</string>
     <string name="hidden_features_summary">Zobrazit funkce, které mohou zůstat nepovšimnuty</string>
     <string name="hidden_features_text">chráněné úložiště zařízení</string>
-    <string name="space_swipe_move_cursor_entry">Přesun kurzoru</string>
+    <string name="space_swipe_move_cursor_entry">Přesunout kurzor</string>
     <string name="show_vertical_space_swipe">Svislé gesto přejetí mezerníku</string>
     <string name="prefs_always_show_suggestions_summary">Ignorovat požadavek jiných aplikací na zakázání návrhů (může způsobit problémy)</string>
-    <string name="no_dictionary_message">"Bez slovníku se zobrazí pouze návrhy textu, který jste zadali dříve.&lt;br&gt;\n        Můžete si stáhnout slovníky %1$s nebo zkontrolovat, zda lze slovník pro „%2$s“ stáhnout přímo %3$s."</string>
+    <string name="no_dictionary_message">"Bez slovníku se zobrazí pouze návrhy textu, který jste zadali dříve.&lt;br&gt;\n        Slovníky si můžete stáhnout %1$s nebo můžete zkontrolovat, zda lze slovník pro „%2$s“ stáhnout přímo %3$s."</string>
     <string name="dictionary_link_text">zde</string>
     <string name="add_dictionary">Vybrat slovník, který chcete přidat. Slovníky ve formátu .dict lze stáhnout %s.</string>
     <string name="available_dictionary_experimental">%s (experimentální)</string>
@@ -437,4 +437,13 @@
     <string name="toolbar_mode">Režim panelu nástrojů</string>
     <string name="popup_order_and_hint_source">Pořadí vyskakovacích kláves a zdroj tipů</string>
     <string name="landscape">Na šířku</string>
+    <string name="show_emoji_descriptions_summary">Vyžaduje slovník emodži</string>
+    <string name="show_emoji_descriptions">Při dlouhém podržení zobrazit popis emodži</string>
+    <string name="suggest_emojis">Navrhovat emodži</string>
+    <string name="suggest_emojis_summary">Použít slovník emodži v normálních návrzích</string>
+    <string name="suggest_punctuation">Návrhy interpunkce</string>
+    <string name="space_swipe_hide_keyboard_entry">Skrýt klávesnici</string>
+    <string name="suggest_punctuation_summary">Zobrazit interpunkci, pokud nejsou dostupné žádné jiné návrhy</string>
+    <string name="about_wiki_link">Přejít na wiki</string>
+    <string name="about_wiki_link_description">Wiki může vylepšit jakýkoli uživatel GitHubu!</string>
 </resources>

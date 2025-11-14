@@ -41,6 +41,8 @@ class CombinerChain(initialText: String, combiningSpec: String) {
         mCombiners.add(DeadKeyCombiner())
         if (combiningSpec == "hangul")
             mCombiners.add(HangulCombiner())
+        else if (combiningSpec == "bn_khipro")
+            mCombiners.add(BnKhiproCombiner())
     }
 
     fun reset() {
@@ -88,7 +90,7 @@ class CombinerChain(initialText: String, combiningSpec: String) {
      */
     fun applyProcessedEvent(event: Event?) {
         if (null != event) { // TODO: figure out the generic way of doing this
-            if (KeyCode.DELETE == event.mKeyCode) {
+            if (KeyCode.DELETE == event.keyCode) {
                 val length = mCombinedText.length
                 if (length > 0) {
                     val lastCodePoint = mCombinedText.codePointBefore(length)

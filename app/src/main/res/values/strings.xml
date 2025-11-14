@@ -21,10 +21,14 @@
     <string name="suggest_emojis">Suggest emojis</string>
     <!-- Description for option to suggest emojis -->
     <string name="suggest_emojis_summary">Use emoji dictionary in normal suggestions</string>
+    <!-- Option to perform inline emoji search -->
+    <string name="inline_emoji_search">Inline emoji search</string>
+    <!-- Description for option to perform inline emoji search -->
+    <string name="inline_emoji_search_summary">Suggest only emojis when a word is preceded by a colon</string>
+    <!-- Warning text for when enabling inline emoji search with no emoji dictionary. The %s will be replaced by dictionary_link_text. -->
+    <string name="emoji_dictionary_required">An emoji dictionary is required for this feature to work. Dictionaries in .dict format can be downloaded %s.</string>
     <!-- Option to show emoji descriptions on long press -->
     <string name="show_emoji_descriptions">Show emoji description on long press</string>
-    <!-- Description for option to show emoji descriptions on long press -->
-    <string name="show_emoji_descriptions_summary">Requires an emoji dictionary</string>
     <!-- Option to control whether or not to show a popup with a larger font on each key press. -->
     <string name="popup_on_keypress">Popup on keypress</string>
     <!-- Settings screen title for preferences-->
@@ -64,7 +68,7 @@
     <!-- Option name for including other IMEs in the language key switch list -->
     <string name="language_switch_key_switch_input_method">Switch to other input methods</string>
     <!-- Option name for switching language / subtype only -->
-    <string name="switch_language">Switch Language</string>
+    <string name="switch_language">Switch language</string>
     <!-- Option name for switching language / subtype and input method -->
     <string name="language_switch_key_switch_both">Switch both</string>
     <!-- Option to show language switch key -->
@@ -157,6 +161,10 @@
     <string name="bigram_prediction">Next-word suggestions</string>
     <!-- Description for "next word suggestion" option. This displays suggestions even when there is no input, based on the previous word. -->
     <string name="bigram_prediction_summary">Use the previous word in making suggestions</string>
+    <!-- Option to enable using punctuation suggestions. -->
+    <string name="suggest_punctuation">Punctuation suggestions</string>
+    <!-- Description for "suggest_punctuation" option. -->
+    <string name="suggest_punctuation_summary">Show punctuation when no other suggestions are available</string>
     <!-- Option to enable the suggestion of clipboard content. -->
     <string name="suggest_clipboard_content">Suggest clipboard content</string>
     <!-- Description for the "suggest clipboard content" option. This makes the primary clipboard content visible in the suggestion strip view. -->
@@ -189,8 +197,10 @@
     <string name="enable_clipboard_history">Enable clipboard history</string>
     <!-- Description for enabling/disabling clipboard history mentioning that if disabled, clipboard content is pasted -->
     <string name="enable_clipboard_history_summary">If disabled, clipboard key will paste clipboard content if any</string>
-    <!-- Preferences item for enabling clipboard history -->
+    <!-- Preferences item for controlling clipboard history retention time -->
     <string name="clipboard_history_retention_time">History retention time</string>
+    <!-- Preferences item for showing pinned clipboard items first -->
+    <string name="clipboard_history_pinned_first">Show pinned items on top</string>
     <!-- Preferences item for enabling swipe deletion -->
     <string name="delete_swipe">Delete swipe</string>
     <!-- Description for "delete_swipe" option. -->
@@ -274,6 +284,8 @@
     <string name="localized_number_row_summary">Prefer localized over latin numbers</string>
     <!-- Title of the setting to enable number row hints -->
     <string name="number_row_hints">Show hints on number row</string>
+    <!-- Title of the setting to save subtype per app -->
+    <string name="save_subtype_per_app">Remember language per app</string>
     <!-- Title of the setting to show key hints -->
     <string name="show_hints">Show key hints</string>
     <!-- Description of the settings to show hints -->
@@ -406,7 +418,10 @@
     <string name="subtype_dag">Dagbani</string>
     <!-- Description for Sesotho (https://en.wikipedia.org/wiki/Sesotho_language) keyboard subtype -->
     <string name="subtype_st">Sesotho</string>
+    <!-- Name for Dargwa (https://en.wikipedia.org/wiki/Dargwa_language) keyboard subtype -->
     <string name="subtype_dru">Dargwa (Urakhi)</string>
+    <!-- Name for Eastern Mari (https://en.wikipedia.org/wiki/Meadow_Mari_language) keyboard subtype -->
+    <string name="subtype_mhr">Mari (Eastern)</string>
     <!-- Description for a generic language / layout combination. %1$s is the language, %2$s is the layout -->
     <string name="subtype_with_layout_generic">%1$s (%2$s)</string>
     <!-- Description for "LANGUAGE_NAME" (Extended) keyboard subtype -->
@@ -419,6 +434,8 @@
     <string name="subtype_probhat_bn_BD">%s (Probhat)</string>
     <!-- Description for "LANGUAGE_NAME" (Baishakhi) keyboard subtype with explicit keyboard layout -->
     <string name="subtype_baishakhi_bn_IN">%s (Baishakhi)</string>
+    <!-- Description for "LANGUAGE_NAME" (Khipro) keyboard subtype with explicit keyboard layout -->
+    <string name="subtype_khipro_bn">%s (Khipro)</string>
     <!-- Description for "LANGUAGE_NAME" (Compact) keyboard subtype with explicit keyboard layout -->
     <string name="subtype_generic_compact">%s (Compact)</string>
     <!-- Description for "LANGUAGE_NAME" (Phonetic) keyboard subtype with explicit keyboard layout -->
@@ -743,12 +760,16 @@ New dictionary:
     <string name="get_layouts_message">"You can find and share layouts in the %s."</string>
     <!-- Text to be used in get_colors_message and get_layouts_message -->
     <string name="discussion_section_link">"discussion section"</string>
-    <!-- Settings screen title for about-->
+    <!-- Settings screen title for about -->
     <string name="settings_screen_about">About</string>
-    <!-- version for about screen-->
+    <!-- version for about screen -->
     <string name="version">Version</string>
-    <!-- github repo link for about screen-->
+    <!-- github repo link for about screen -->
     <string name="about_github_link">View on GitHub</string>
+    <!-- link to the wiki for about screen -->
+    <string name="about_wiki_link">Go to Wiki</string>
+    <!-- description for wiki link -->
+    <string name="about_wiki_link_description">The Wiki can be improved by any GitHub user!</string>
     <!-- preference title for saving the log to a file -->
     <string name="save_log">Save log</string>
     <!-- license for about screen-->
@@ -866,9 +887,11 @@ New dictionary:
     <!-- Option for no action when (currently only used for swiping the spacebar) -->
     <string name="action_none">None</string>
     <!-- Option to move the cursor when swiping the spacebar -->
-    <string name="space_swipe_move_cursor_entry">Move Cursor</string>
+    <string name="space_swipe_move_cursor_entry">Move cursor</string>
     <!-- Option to toggle the numpad when swiping the spacebar -->
-    <string name="space_swipe_toggle_numpad_entry">Toggle Numpad</string>
+    <string name="space_swipe_toggle_numpad_entry">Toggle numpad</string>
+    <!-- Option to hide the keyboard when swiping the spacebar -->
+    <string name="space_swipe_hide_keyboard_entry">Hide keyboard</string>
     <!-- Title of the setting for variable toolbar direction -->
     <string name="var_toolbar_direction">Variable toolbar direction</string>
     <!-- Description of the variable toolbar direction setting -->

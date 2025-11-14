@@ -1,0 +1,11 @@
+* Egyéni témák mentésének / exportálásának lehetősége
+* Nyilak ismétlődő lenyomásának engedélyezése a billentyűzeten
+* Több kurzor-eszköztárgomb (lapozás fel/le(/elejére/végére), szó balra/jobbra)
+* Beillesztés billentyű hozzáadása
+* Billentyűcsúsztatás viselkedésének javítása
+* Szóközön csúsztatás beállítás hozzáadása a számbillentyűzet váltásához
+* Vágólapjavaslat hozzáadása a nemrég másolt szöveghez
+* Kijelölés megszüntetése a kijelölő billentyűk ismételt megnyomásakor
+* Néhány szín finomhangolása a beállításokban Android 12+ esetén
+* Nyelvfüggő felugró billentyűk módosítása
+* Kisebb javítások és fejlesztések

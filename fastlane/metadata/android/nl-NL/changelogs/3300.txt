@@ -1,0 +1,11 @@
+- suggesties kapitaliseren bij het indrukken van shift
+- sleutelcodes toevoegen voor uitzendintenties
+- geef optioneel emoji-beschrijvingen weer, heeft een emoji-woordenboek nodig
+- verbeter de hardware-toetsenbordbehandeling
+- voeg de optie "Toetsenbord verbergen" toe bij verticaal spatie vegen
+- latijns subtype toevoegen
+- sta toe emoji-suggesties uit te schakelen bij het toevoegen van een emoji-woordenboek
+- repareer ontbrekende emoji's in een gesplitst toetsenbord
+- verwijder emoji's die niet op zichzelf mogen worden gebruikt
+- problemen met blacklist oplossen
+- herstel het backspace-gedrag met sommige emoji's

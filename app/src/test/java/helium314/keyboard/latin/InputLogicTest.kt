@@ -25,7 +25,7 @@ import helium314.keyboard.latin.inputlogic.SpaceState
 import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.utils.ScriptUtils
 import helium314.keyboard.latin.utils.SubtypeSettings
-import helium314.keyboard.latin.utils.getTimestamp
+import helium314.keyboard.latin.utils.getTimestampFormatter
 import helium314.keyboard.latin.utils.prefs
 import org.junit.runner.RunWith
 import org.mockito.Mockito
@@ -37,6 +37,7 @@ import org.robolectric.annotation.Implements
 import org.robolectric.shadows.ShadowLog
 import java.util.*
 import kotlin.math.min
+import kotlin.streams.asSequence
 import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
@@ -97,10 +98,7 @@ class InputLogicTest {
         setCursorPosition(8) // after o in you
         functionalKeyPress(KeyCode.DELETE)
         assertEquals("hello yu there", text)
-        // todo: do we really want an empty composing text in this case?
-        //  setting whole word composing will delete text behind cursor
-        //  setting part before cursor as composing may be bad if user just wants to adjust a letter and result is some autocorrect
-        assertEquals("", composingText)
+        assertEquals("yu", composingText)
     }
 
     @Test fun insertLetterIntoWord() {
@@ -140,7 +138,7 @@ class InputLogicTest {
 
     // todo: make it work, but it might not be that simple because adding is done in combiner
     //  https://github.com/Helium314/HeliBoard/issues/214
-    @Test fun insertLetterIntoWordHangul() {
+    @Test fun insertLetterIntoWordHangulFails() {
         if (BuildConfig.BUILD_TYPE == "runTests") return
         reset()
         latinIME.switchToSubtype(SubtypeSettings.getResourceSubtypesForLocale("ko".constructLocale()).first())
@@ -700,7 +698,24 @@ class InputLogicTest {
         reset()
         chainInput("hello")
         functionalKeyPress(KeyCode.TIMESTAMP)
-        assertEquals("hello" + getTimestamp(latinIME), text)
+        assertEquals(Calendar.getInstance().time.time.toDouble(),
+            getTimestampFormatter(latinIME).parse(text.substring(5))!!.time.toDouble(), 1000.0)
+    }
+
+    @Test fun inlineEmojiSearch() {
+        assertEquals(true, InputLogic.isStartOfInlineEmojiSearch('t'.code, ':'.code, ' '.code, settingsValues))
+        assertEquals(false, InputLogic.isStartOfInlineEmojiSearch(' '.code, ':'.code, ' '.code, settingsValues))
+        assertEquals(true, InputLogic.isStartOfInlineEmojiSearch('t'.code, ':'.code, '.'.code, settingsValues))
+        assertEquals(true, InputLogic.isStartOfInlineEmojiSearch('t'.code, ':'.code, "🌍".codePoints().asSequence().last(), settingsValues))
+        assertEquals(false, InputLogic.isStartOfInlineEmojiSearch('t'.code, ':'.code, 't'.code, settingsValues))
+        assertEquals(false, InputLogic.isStartOfInlineEmojiSearch('t'.code, ':'.code, '3'.code, settingsValues))
+        assertEquals("test", InputLogic.getInlineEmojiSearchString(":test"))
+        assertEquals(null, InputLogic.getInlineEmojiSearchString("test"))
+        assertEquals("test", InputLogic.getInlineEmojiSearchString(" :test"))
+        assertEquals(null, InputLogic.getInlineEmojiSearchString("t:test"))
+        assertEquals(null, InputLogic.getInlineEmojiSearchString("6:test"))
+        assertEquals("test", InputLogic.getInlineEmojiSearchString("🌍:test"))
+        assertEquals("test", InputLogic.getInlineEmojiSearchString(",:test"))
     }
 
     // ------- helper functions ---------

@@ -430,10 +430,19 @@
     <string name="subtype_with_layout_generic">%1$s (%2$s)</string>
     <string name="toolbar_mode_expandable">টুলবার বোতাম ও পরামর্শ</string>
     <string name="toolbar_mode">টুলবার মোড</string>
-    <string name="toolbar_hiding_global">ক্লিপবোর্ড ও ইমোজি টুলবারও গোপনকরণ</string>
+    <string name="toolbar_hiding_global">ক্লিপবোর্ড ও ইমোজি টুলবারও আড়াল হবে</string>
     <string name="toolbar_mode_toolbar_keys">কেবল টুলবার বোতাম</string>
     <string name="toolbar_mode_suggestion_strip">কেবল পরামর্শ</string>
     <string name="toolbar_mode_hidden">গোপনকৃত</string>
     <string name="landscape">ল্যান্ডস্কেপ</string>
     <string name="popup_order_and_hint_source">পপআপ বোতামের ক্রমিক ও ইঙ্গিতের উৎস</string>
+    <string name="show_emoji_descriptions_summary">ইমোজি অভিধান আবশ্যক</string>
+    <string name="show_emoji_descriptions">দীর্ঘ চাপে ইমোজির বর্ণনা প্রদর্শন</string>
+    <string name="suggest_emojis">ইমোজির পরামর্শ প্রদান</string>
+    <string name="suggest_emojis_summary">সাধারণ পরামর্শে ইমোজি অভিধান ব্যবহার</string>
+    <string name="space_swipe_hide_keyboard_entry">কিবোর্ড আড়াল</string>
+    <string name="suggest_punctuation_summary">কোনো পরামর্শ উপলব্ধ না থাকলে যতিচিহ্ন প্রদর্শন</string>
+    <string name="suggest_punctuation">যতিচিহ্নের পরামর্শ</string>
+    <string name="about_wiki_link">উইকিতে প্রবেশ</string>
+    <string name="about_wiki_link_description">যেকোনো গিটহাব ব্যবহারকারী উইকির উন্নয়ন করতে পারবে!</string>
 </resources>
