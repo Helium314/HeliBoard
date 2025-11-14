@@ -276,11 +276,16 @@ object KeyCode {
         '*' -> KeyEvent.KEYCODE_STAR
         ']' -> KeyEvent.KEYCODE_RIGHT_BRACKET
         '[' -> KeyEvent.KEYCODE_LEFT_BRACKET
+        ')' -> KeyEvent.KEYCODE_NUMPAD_RIGHT_PAREN
+        '(' -> KeyEvent.KEYCODE_NUMPAD_LEFT_PAREN
         '+' -> KeyEvent.KEYCODE_PLUS
         '-' -> KeyEvent.KEYCODE_MINUS
         '=' -> KeyEvent.KEYCODE_EQUALS
+        '@' -> KeyEvent.KEYCODE_AT
+        '#' -> KeyEvent.KEYCODE_POUND
         '\n' -> KeyEvent.KEYCODE_ENTER
         '\t' -> KeyEvent.KEYCODE_TAB
+        ' ' -> KeyEvent.KEYCODE_SPACE
         '0' -> KeyEvent.KEYCODE_0
         '1' -> KeyEvent.KEYCODE_1
         '2' -> KeyEvent.KEYCODE_2

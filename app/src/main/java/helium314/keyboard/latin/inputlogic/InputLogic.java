@@ -800,6 +800,17 @@ public final class InputLogic {
             case KeyCode.IME_HIDE_UI:
                 mLatinIME.requestHideSelf(0);
                 break;
+            case KeyCode.INLINE_EMOJI_SEARCH_DONE:
+                setInlineEmojiSearchAction(false);
+                if (mSuggestedWords.mWillAutoCorrect) {
+                    deleteTextReplacedByEmoji();
+                    commitCurrentAutoCorrection(inputTransaction.getSettingsValues(), LastComposedWord.NOT_A_SEPARATOR, handler);
+                    inputTransaction.setDidAutoCorrect();
+                    mSuggestionStripViewAccessor.setNeutralSuggestionStrip();
+                } else {
+                    inputTransaction.setRequiresUpdateSuggestions();
+                }
+                break;
             case KeyCode.VOICE_INPUT:
                 // switching to shortcut IME, shift state, keyboard,... is handled by LatinIME,
                 // {@link KeyboardSwitcher#onEvent(Event)}, or {@link #onPressKey(int,int,boolean)} and {@link #onReleaseKey(int,boolean)}.
@@ -813,31 +824,28 @@ public final class InputLogic {
                     inputTransaction.setRequiresUpdateSuggestions();
                 }
                 break;
-            case KeyCode.INLINE_EMOJI_SEARCH_DONE:
-                setInlineEmojiSearchAction(false);
-                if (mSuggestedWords.mWillAutoCorrect) {
-                    deleteTextReplacedByEmoji();
-                    commitCurrentAutoCorrection(inputTransaction.getSettingsValues(), LastComposedWord.NOT_A_SEPARATOR, handler);
-                    inputTransaction.setDidAutoCorrect();
-                    mSuggestionStripViewAccessor.setNeutralSuggestionStrip();
-                } else {
-                    inputTransaction.setRequiresUpdateSuggestions();
-                }
-
-                break;
             default:
                 if (KeyCode.INSTANCE.isModifier(keyCode))
                     return; // continuation of previous switch case above, but modifiers are held in a separate place
                 final int keyEventCode = keyCode > 0
                     ? keyCode
-                    : event.getCodePoint() >= 0 ? KeyCode.codePointToKeyEventCode(event.getCodePoint())
-                    : KeyCode.keyCodeToKeyEventCode(keyCode);
+                    : event.getCodePoint() >= 0
+                        ? KeyCode.codePointToKeyEventCode(event.getCodePoint())
+                        : KeyCode.keyCodeToKeyEventCode(keyCode);
                 if (keyEventCode != KeyEvent.KEYCODE_UNKNOWN) {
                     sendDownUpKeyEventWithMetaState(keyEventCode, event.getMetaState());
                     return;
                 }
+                if (event.getMetaState() != 0 && event.getCodePoint() >= 32) {
+                    // Try handling it as normal key event, this essentially just ignore the meta state.
+                    // The conversion is good, as this way we are able to use e.g. ctrl + V. But if we don't have a codePointToKeyEventCode
+                    // for that key, we will just input the normal key now, e.g. ctrl + @ will (probably) do nothing, but ctrl + _ will input _
+                    // Maybe we should just return instead?
+                    handleNonFunctionalEvent(event, inputTransaction, handler);
+                    return;
+                }
                 // unknown event
-                Log.e(TAG, "unknown event, key code: "+keyCode+", meta: "+event.getMetaState());
+                Log.e(TAG, "unknown event, key code: "+keyCode+", codepoint "+event.getCodePoint()+", meta: "+event.getMetaState());
                 if (DebugFlags.DEBUG_ENABLED)
                     throw new RuntimeException("Unknown event");
         }
