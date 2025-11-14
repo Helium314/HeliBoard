@@ -4,6 +4,7 @@ import android.text.InputType
 import android.util.SparseArray
 import android.view.KeyEvent
 import android.view.inputmethod.InputMethodSubtype
+import androidx.core.util.forEach
 import helium314.keyboard.event.Event
 import helium314.keyboard.event.HangulEventDecoder
 import helium314.keyboard.event.HardwareEventDecoder
@@ -37,39 +38,23 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
 
     private val keyboardSwitcher = KeyboardSwitcher.getInstance()
     private val settings = Settings.getInstance()
-    private var metaState = 0 // is this enough, or are there threading issues with the different PointerTrackers?
 
     // language slide state
     private var initialSubtype: InputMethodSubtype? = null
     private var subtypeSwitchCount = 0
 
-    // todo: maybe keep meta state presses to KeyboardActionListenerImpl, and avoid calls to press/release key
-    private fun adjustMetaState(code: Int, remove: Boolean) {
-        val metaCode = when (code) {
-            KeyCode.CTRL -> KeyEvent.META_CTRL_ON
-            KeyCode.CTRL_LEFT -> KeyEvent.META_CTRL_LEFT_ON
-            KeyCode.CTRL_RIGHT -> KeyEvent.META_CTRL_RIGHT_ON
-            KeyCode.ALT -> KeyEvent.META_ALT_ON
-            KeyCode.ALT_LEFT -> KeyEvent.META_ALT_LEFT_ON
-            KeyCode.ALT_RIGHT -> KeyEvent.META_ALT_RIGHT_ON
-            KeyCode.FN -> KeyEvent.META_FUNCTION_ON
-            KeyCode.META -> KeyEvent.META_META_ON
-            KeyCode.META_LEFT -> KeyEvent.META_META_LEFT_ON
-            KeyCode.META_RIGHT -> KeyEvent.META_META_RIGHT_ON
-            else -> return
-        }
-        metaState = if (remove) metaState and metaCode.inv()
-            else metaState or metaCode
-    }
-
     override fun onPressKey(primaryCode: Int, repeatCount: Int, isSinglePointer: Boolean) {
-        adjustMetaState(primaryCode, false)
+        metaOnPressKey(primaryCode)
         keyboardSwitcher.onPressKey(primaryCode, isSinglePointer, latinIME.currentAutoCapsState, latinIME.currentRecapitalizeState)
         latinIME.hapticAndAudioFeedback(primaryCode, repeatCount)
     }
 
+    override fun onLongPressKey(primaryCode: Int) {
+        metaOnLongPressKey(primaryCode)
+    }
+
     override fun onReleaseKey(primaryCode: Int, withSliding: Boolean) {
-        adjustMetaState(primaryCode, true)
+        metaOnReleaseKey(primaryCode)
         keyboardSwitcher.onReleaseKey(primaryCode, withSliding, latinIME.currentAutoCapsState, latinIME.currentRecapitalizeState)
     }
 
@@ -129,6 +114,7 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
             Event.createSoftwareKeypressEvent(primaryCode, metaState, mkv.getKeyX(x), mkv.getKeyY(y), isKeyRepeat)
         }
         latinIME.onEvent(event)
+        metaAfterCodeInput(primaryCode)
     }
 
     override fun onTextInput(text: String?) = latinIME.onTextInput(text)
@@ -340,5 +326,117 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
         val newDecoder = HardwareKeyboardEventDecoder(deviceId)
         hardwareEventDecoders.put(deviceId, newDecoder)
         return newDecoder
+    }
+
+    // -------------------------- meta state handling -----------------------------
+
+    // current state
+    // press enables meta
+    // release keeps meta enabled, unless there was a onCodeInput for a different key in between
+    // onCodeInput ends the meta if it was enabled
+    // long press on meta key also ends meta so popups are handled properly
+    // sliding from a meta key to some other words too, though this was not intended (and there are no sliding key input graphics)
+
+    // todo: move meta state tracking to KeyboardState? seems more suitable, also for handling sliding input
+    //  but the issue is that meta state is used in Event to determine whether it's a functional Event (does not add a character)
+    //  (and also it's in the hardware keyEvents which are handled by onKeyUp/Down, but that should be manageable)
+
+    /** actual Android metaState like in KeyEvent */
+    private var metaState = 0
+
+    /** keeps track of the state of meta keys by (HeliBoard) KeyCodes */
+    private val metaPressStates = SparseArray<MetaPressState>(4)
+
+    private fun metaOnPressKey(primaryCode: Int) {
+        val metaCode = primaryCode.toMetaState()
+        if (metaCode != null) {
+            if (metaPressStates[primaryCode] == MetaPressState.RELEASED_BUT_ACTIVE) {
+                // meta key was locked, now is pressed again without anything else -> disable on release
+                metaPressStates[primaryCode] = MetaPressState.USED
+            } else {
+                // otherwise just press it normally
+                metaPressStates[primaryCode] = MetaPressState.PRESSED
+            }
+            metaState = metaState or metaCode
+            // pressed graphics are set anyway, no need to lock it
+        }
+    }
+
+    // looks like this is not called if there are no popups
+    private fun metaOnLongPressKey(primaryCode: Int) {
+        if (metaPressStates[primaryCode] != MetaPressState.PRESSED) return
+        // we long-pressed a meta key that has popups -> disable the meta state
+        metaPressStates[primaryCode] = MetaPressState.UNSET
+        val metaCode = primaryCode.toMetaState() ?: return
+        metaState = metaState and metaCode.inv()
+        keyboardSwitcher.mainKeyboardView?.updateLockState(primaryCode, false)
+    }
+
+    private fun metaOnReleaseKey(primaryCode: Int) {
+        val metaCode = primaryCode.toMetaState()
+        if (metaCode != null) {
+            val metaPressState = metaPressStates[primaryCode]
+            if (metaPressState == MetaPressState.USED) {
+                metaPressStates[primaryCode] = MetaPressState.UNSET
+                metaState = metaState and metaCode.inv()
+                keyboardSwitcher.mainKeyboardView?.updateLockState(primaryCode, false)
+            } else if (metaPressState == MetaPressState.PRESSED) {
+                metaPressStates[primaryCode] = MetaPressState.RELEASED_BUT_ACTIVE
+                keyboardSwitcher.mainKeyboardView?.updateLockState(primaryCode, true)
+            }
+        }
+    }
+
+    private fun metaAfterCodeInput(primaryCode: Int) {
+        val metaCode = primaryCode.toMetaState()
+        if (metaCode != null) {
+            // meta key might be a popup key, we just toggle between set and unset
+            val metaPressState = metaPressStates[primaryCode] ?: MetaPressState.UNSET
+            if (metaPressState == MetaPressState.UNSET) {
+                metaPressStates[primaryCode] = MetaPressState.SET
+                metaState = metaState or metaCode
+                keyboardSwitcher.mainKeyboardView?.updateLockState(primaryCode, true)
+            } else if (metaPressState == MetaPressState.SET) {
+                metaPressStates[primaryCode] = MetaPressState.UNSET
+                metaState = metaState and metaCode.inv()
+                keyboardSwitcher.mainKeyboardView?.updateLockState(primaryCode, false)
+            }
+        } else if (metaState != 0) {
+            // non-meta key -> unset all set / released_but_active, and mark pressed as used
+            metaPressStates.forEach { key, value ->
+                if (value == MetaPressState.RELEASED_BUT_ACTIVE || value == MetaPressState.SET) {
+                    metaPressStates[key] = MetaPressState.UNSET
+                    keyboardSwitcher.mainKeyboardView?.updateLockState(key, false)
+                    val metaCode = key.toMetaState() ?: return@forEach
+                    metaState = metaState and metaCode.inv()
+                } else if (value == MetaPressState.PRESSED) {
+                    metaPressStates[key] = MetaPressState.USED
+                }
+            }
+        }
+    }
+
+    companion object {
+        private enum class MetaPressState {
+            UNSET, // default state
+            SET, // enabled without key press (e.g. in popup)
+            PRESSED, // key is pressed
+            RELEASED_BUT_ACTIVE, // key was released without a non-meta code input since pressing
+            USED // key is still pressed, state will be unset on release
+        }
+
+        private fun Int.toMetaState() = when (this) {
+            KeyCode.CTRL -> KeyEvent.META_CTRL_ON
+            KeyCode.CTRL_LEFT -> KeyEvent.META_CTRL_LEFT_ON
+            KeyCode.CTRL_RIGHT -> KeyEvent.META_CTRL_RIGHT_ON
+            KeyCode.ALT -> KeyEvent.META_ALT_ON
+            KeyCode.ALT_LEFT -> KeyEvent.META_ALT_LEFT_ON
+            KeyCode.ALT_RIGHT -> KeyEvent.META_ALT_RIGHT_ON
+            KeyCode.FN -> KeyEvent.META_FUNCTION_ON
+            KeyCode.META -> KeyEvent.META_META_ON
+            KeyCode.META_LEFT -> KeyEvent.META_META_LEFT_ON
+            KeyCode.META_RIGHT -> KeyEvent.META_META_RIGHT_ON
+            else -> null
+        }
     }
 }

@@ -23,6 +23,8 @@ public interface KeyboardActionListener {
      */
     void onPressKey(int primaryCode, int repeatCount, boolean isSinglePointer);
 
+    void onLongPressKey(int primaryCode);
+
     /**
      * Called when the user releases a key. This is sent after the {@link #onCodeInput} is called.
      * For keys that repeat, this is only called once.
@@ -123,6 +125,8 @@ public interface KeyboardActionListener {
     class Adapter implements KeyboardActionListener {
         @Override
         public void onPressKey(int primaryCode, int repeatCount, boolean isSinglePointer) {}
+        @Override
+        public void onLongPressKey(int primaryCode) {}
         @Override
         public void onReleaseKey(int primaryCode, boolean withSliding) {}
         @Override

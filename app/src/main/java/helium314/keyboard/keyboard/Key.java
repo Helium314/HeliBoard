@@ -136,10 +136,8 @@ public class Key implements Comparable<Key> {
     public static final int BACKGROUND_TYPE_EMPTY = 0;
     public static final int BACKGROUND_TYPE_NORMAL = 1;
     public static final int BACKGROUND_TYPE_FUNCTIONAL = 2;
-    public static final int BACKGROUND_TYPE_STICKY_OFF = 3;
-    public static final int BACKGROUND_TYPE_STICKY_ON = 4;
-    public static final int BACKGROUND_TYPE_ACTION = 5;
-    public static final int BACKGROUND_TYPE_SPACEBAR = 6;
+    public static final int BACKGROUND_TYPE_ACTION = 3;
+    public static final int BACKGROUND_TYPE_SPACEBAR = 4;
 
     private final int mActionFlags;
     private static final int ACTION_FLAGS_IS_REPEATABLE = 0x01;
@@ -190,7 +188,8 @@ public class Key implements Comparable<Key> {
     private boolean mPressed;
     /** Key is enabled and responds on press */
     private boolean mEnabled = true;
-
+    /** Key is locked (appears permanently pressed) */
+    private boolean mLocked = false;
     /**
      * Constructor for a key on <code>PopupKeyKeyboard</code> and on <code>MoreSuggestions</code>.
      */
@@ -462,8 +461,6 @@ public class Key implements Comparable<Key> {
             case BACKGROUND_TYPE_EMPTY -> "empty";
             case BACKGROUND_TYPE_NORMAL -> "normal";
             case BACKGROUND_TYPE_FUNCTIONAL -> "functional";
-            case BACKGROUND_TYPE_STICKY_OFF -> "stickyOff";
-            case BACKGROUND_TYPE_STICKY_ON -> "stickyOn";
             case BACKGROUND_TYPE_ACTION -> "action";
             case BACKGROUND_TYPE_SPACEBAR -> "spacebar";
             default -> null;
@@ -741,8 +738,6 @@ public class Key implements Comparable<Key> {
      * @see Key#BACKGROUND_TYPE_EMPTY
      * @see Key#BACKGROUND_TYPE_NORMAL
      * @see Key#BACKGROUND_TYPE_FUNCTIONAL
-     * @see Key#BACKGROUND_TYPE_STICKY_OFF
-     * @see Key#BACKGROUND_TYPE_STICKY_ON
      * @see Key#BACKGROUND_TYPE_ACTION
      * @see Key#BACKGROUND_TYPE_SPACEBAR
      */
@@ -838,6 +833,10 @@ public class Key implements Comparable<Key> {
         mEnabled = enabled;
     }
 
+    public void setLocked(final boolean locked) {
+        mLocked = locked;
+    }
+
     @NonNull
     public Rect getHitBox() {
         return mHitBox;
@@ -894,13 +893,9 @@ public class Key implements Comparable<Key> {
             new KeyBackgroundState(),
             // 2: BACKGROUND_TYPE_FUNCTIONAL
             new KeyBackgroundState(),
-            // 3: BACKGROUND_TYPE_STICKY_OFF
-            new KeyBackgroundState(android.R.attr.state_checkable),
-            // 4: BACKGROUND_TYPE_STICKY_ON
-            new KeyBackgroundState(android.R.attr.state_checkable, android.R.attr.state_checked),
-            // 5: BACKGROUND_TYPE_ACTION
+            // 3: BACKGROUND_TYPE_ACTION
             new KeyBackgroundState(android.R.attr.state_active),
-            // 6: BACKGROUND_TYPE_SPACEBAR
+            // 4: BACKGROUND_TYPE_SPACEBAR
             new KeyBackgroundState(),
         };
     }
@@ -925,7 +920,7 @@ public class Key implements Comparable<Key> {
         } else {
             background = keyBackground;
         }
-        final int[] state = KeyBackgroundState.STATES[mBackgroundType].getState(mPressed);
+        final int[] state = KeyBackgroundState.STATES[mBackgroundType].getState(mPressed || mLocked);
         background.setState(state);
         return background;
     }
@@ -937,9 +932,7 @@ public class Key implements Comparable<Key> {
     }
 
     public boolean hasFunctionalBackground() {
-        return mBackgroundType == BACKGROUND_TYPE_FUNCTIONAL
-                || mBackgroundType == BACKGROUND_TYPE_STICKY_OFF
-                || mBackgroundType == BACKGROUND_TYPE_STICKY_ON;
+        return mBackgroundType == BACKGROUND_TYPE_FUNCTIONAL;
     }
 
     @Nullable private static String getDisabledIconName(@NonNull final String iconName) {
