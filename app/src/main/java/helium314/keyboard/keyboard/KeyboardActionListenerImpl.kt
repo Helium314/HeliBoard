@@ -387,42 +387,38 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
     private val metaPressStates = SparseArray<MetaPressState>(4)
 
     private fun metaOnPressKey(primaryCode: Int) {
-        val metaCode = primaryCode.toMetaState()
-        if (metaCode != null) {
-            if (metaPressStates[primaryCode] == MetaPressState.RELEASED_BUT_ACTIVE) {
-                // meta key was locked, now is pressed again without anything else -> disable on release
-                metaPressStates[primaryCode] = MetaPressState.USED
-            } else {
-                // otherwise just press it normally
-                metaPressStates[primaryCode] = MetaPressState.PRESSED
-            }
-            metaState = metaState or metaCode
-            // pressed graphics are set anyway, no need to lock it
+        val metaCode = primaryCode.toMetaState() ?: return
+        if (metaPressStates[primaryCode] == MetaPressState.RELEASED_BUT_ACTIVE) {
+            // meta key was locked, now is pressed again without anything else -> should be disabled on release
+            metaPressStates[primaryCode] = MetaPressState.USED
+        } else {
+            // otherwise just press it normally
+            metaPressStates[primaryCode] = MetaPressState.PRESSED
         }
+        metaState = metaState or metaCode
+        // pressed graphics are set anyway, no need to lock it
     }
 
     // looks like this is not called if there are no popups
     private fun metaOnLongPressKey(primaryCode: Int) {
         if (metaPressStates[primaryCode] != MetaPressState.PRESSED) return
-        // we long-pressed a meta key that has popups -> disable the meta state
+        // we long-pressed a meta key that has popups -> disable so the meta state is not used for the popup
         metaPressStates[primaryCode] = MetaPressState.UNSET
+        keyboardSwitcher.mainKeyboardView?.updateLockState(primaryCode, false)
         val metaCode = primaryCode.toMetaState() ?: return
         metaState = metaState and metaCode.inv()
-        keyboardSwitcher.mainKeyboardView?.updateLockState(primaryCode, false)
     }
 
     private fun metaOnReleaseKey(primaryCode: Int) {
-        val metaCode = primaryCode.toMetaState()
-        if (metaCode != null) {
-            val metaPressState = metaPressStates[primaryCode]
-            if (metaPressState == MetaPressState.USED) {
-                metaPressStates[primaryCode] = MetaPressState.UNSET
-                metaState = metaState and metaCode.inv()
-                keyboardSwitcher.mainKeyboardView?.updateLockState(primaryCode, false)
-            } else if (metaPressState == MetaPressState.PRESSED) {
-                metaPressStates[primaryCode] = MetaPressState.RELEASED_BUT_ACTIVE
-                keyboardSwitcher.mainKeyboardView?.updateLockState(primaryCode, true)
-            }
+        val metaCode = primaryCode.toMetaState() ?: return
+        val metaPressState = metaPressStates[primaryCode]
+        if (metaPressState == MetaPressState.USED) {
+            metaPressStates[primaryCode] = MetaPressState.UNSET
+            metaState = metaState and metaCode.inv()
+            keyboardSwitcher.mainKeyboardView?.updateLockState(primaryCode, false)
+        } else if (metaPressState == MetaPressState.PRESSED) {
+            metaPressStates[primaryCode] = MetaPressState.RELEASED_BUT_ACTIVE
+            keyboardSwitcher.mainKeyboardView?.updateLockState(primaryCode, true)
         }
     }
 
@@ -457,11 +453,11 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
 
     companion object {
         private enum class MetaPressState {
-            UNSET, // default state
-            SET, // enabled without key press (e.g. in popup)
+            UNSET, // default state, not active
+            SET, // enabled without onPressKey (e.g. in popup)
             PRESSED, // key is pressed
-            RELEASED_BUT_ACTIVE, // key was released without a non-meta code input since pressing
-            USED // key is still pressed, state will be unset on release
+            USED, // key is pressed, but state will be unset on release
+            RELEASED_BUT_ACTIVE, // key was released without used state, meta state is still set
         }
 
         private fun Int.toMetaState() = when (this) {
