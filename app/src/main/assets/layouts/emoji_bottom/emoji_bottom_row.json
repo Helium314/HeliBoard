@@ -2,7 +2,6 @@
   [
     { "label": "alpha", "width": 0.15 },
     { "label": "space", "width": -1 },
-    { "label": "delete", "width": 0.15 },
-    { "label": "action", "width": 0.15 }
+    { "label": "delete", "width": 0.15 }
   ]
 ]
