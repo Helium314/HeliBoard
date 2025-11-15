@@ -131,8 +131,10 @@ object KeyCode {
     const val SHIFT_ENTER =               -10005
     const val ACTION_NEXT =               -10006
     const val ACTION_PREVIOUS =           -10007
-    // Code value representing the code is not specified.
-    const val NOT_SPECIFIED =             -10008 // todo: not sure if there is need to have the "old" unspecified keyCode different, just test it and maybe merge
+    // Code value representing the code is not specified. This is "old", and treated different than UNSPECIFIED.
+    // A main difference is that such a NOT_SPECIFIED code results in the key being disabled (see Key.mEnabled).
+    // Used for Key.Spacer and Key.OptionalAttributes and as dummy KeyCode in some places
+    const val NOT_SPECIFIED =             -10008
     const val CLIPBOARD_COPY_ALL =        -10009
     const val PAGE_UP =                   -10010
     const val PAGE_DOWN =                 -10011
