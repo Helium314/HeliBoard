@@ -1,9 +1,9 @@
-* Ikonok cseréje az automatikus javítás és az összes kijelölése eszköztár-gombokhoz @codokie-tól (#524, #651)
-* Csuvas elrendezés hozzáadása @tenextractor-tól (#677)
-* Kivágás eszköztárgomb hozzáadása @codokie-tól (#678)
-* Probhat elrendezés frissítése @fahimscirex-től (#628)
+* Ikonok cseréje az automatikus javítás és az összes kijelölése eszköztár-gombokhoz
+* Csuvas elrendezés hozzáadása
+* Kivágás eszköztárgomb hozzáadása
+* Probhat elrendezés frissítése
 * Eszköztár ikonok megjelenítése az eszköztárgomb-párbeszédablakban
-* Bezárás billentyű hozzáadása a vágólapelőzményekhez @codokie-tól (#403, #649)
-* Orosz (Tanuló) elrendezés hozzáadása @Zolax9-től (#640)
-* Számbillentyűzet a szimbólumbillentyű nyomva tartásával nem kötelezővé tétele (#588)
-* Kisebb javítások és fejlesztések, beleértve #632, #637, #638 @RHJihan-tól
+* Bezárás billentyű hozzáadása a vágólapelőzményekhez
+* Orosz (Tanuló) elrendezés hozzáadása
+* Számbillentyűzet a szimbólumbillentyű nyomva tartásával nem kötelezővé tétele
+* Kisebb javítások és fejlesztések

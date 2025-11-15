@@ -100,11 +100,11 @@
     <string name="enable_clipboard_history_summary">אם מושבת, לוח מקשים ידביק את תוכן הלוח אם קיים</string>
     <string name="clipboard_history_retention_time">שמירת זמן היסטוריה</string>
     <string name="number_row">שורת מספרים</string>
-    <string name="number_row_summary">הצג תמיד שורת מספרים</string>
+    <string name="number_row_summary">הצגת שורת מספרים קבועה</string>
     <string name="prefs_long_press_keyboard_to_change_lang_summary">לחיצה ארוכה על מקש הרווח תציג תפריט בחירת שיטת הזנה</string>
     <string name="show_hints">הצגת רמזים עיקריים</string>
     <string name="show_hints_summary">הצגת רמזים בלחיצה ארוכה</string>
-    <string name="prefs_keyboard_height_scale">סולם גובה מקלדת</string>
+    <string name="prefs_keyboard_height_scale">סרגל גובה המקלדת</string>
     <string name="key_borders">גבולות מקלדת</string>
     <string name="day_night_mode">מצב יום/לילה אוטומטי</string>
     <string name="android_spell_checker_settings">הגדרות בודק האיות של HeliBoard</string>
@@ -113,9 +113,9 @@
     <string name="subtype_akkhor_bn_BD">%s (תווים)</string>
     <string name="spell_checker_service_name">בודק האיות של HeliBoard</string>
     <string name="settings_category_clipboard_history">היסטוריית הלוח</string>
-    <string name="autospace_after_punctuation">רווח אוטומטי לאחר סימני פיסוק</string>
+    <string name="autospace_after_punctuation">הוספת רווח אוטומטית אחרי סימני פיסוק</string>
     <string name="day_night_mode_summary">המראה יעקוב אחר הגדרות המערכת</string>
-    <string name="autospace_after_punctuation_summary">הוסף רווח אוטומטי לאחר סימני פיסוק בעת הקלדת מילה חדשה</string>
+    <string name="autospace_after_punctuation_summary">הוספת רווח אוטומטית לאחר סימני פיסוק בעת הקלדת מילה חדשה</string>
     <string name="ime_settings">הגדרות HeliBoard</string>
     <string name="settings_category_input">קֶלֶט</string>
     <string name="settings_category_experimental">נסיוני</string>
@@ -188,8 +188,8 @@
     <string name="load_gesture_library_button_delete">מחיקת ספריה</string>
     <string name="language_and_layouts_title">שפות ופריסות</string>
     <string name="toolbar_keys">בחירת כפתורי סרגל הכלים</string>
-    <string name="prefs_narrow_key_gaps">מרווחי קלידים צרים</string>
-    <string name="localized_number_row">תרגום number row</string>
+    <string name="prefs_narrow_key_gaps">מרווחי צרים בין המקשים</string>
+    <string name="localized_number_row">תרגום שורת המספרים</string>
     <string name="popup_keys_number" tools:keep="@string/popup_keys_number">שורת מספרים</string>
     <string name="popup_keys_language_priority" tools:keep="@string/popup_keys_language_priority">שפה (עדיפות)</string>
     <string name="popup_keys_layout" tools:keep="@string/popup_keys_layout">פריסה</string>
@@ -253,7 +253,7 @@
     <string name="switch_language">מעבר שפות</string>
     <string name="restore_error">שגיאה בשחזור מהגיבוי: %s</string>
     <string name="show_popup_keys_title">הצגת תווים נוספים עם סימני הבחן (דיאקריטיים) בחלונית הקופצת</string>
-    <string name="show_popup_keys_normal">הצגת ניבי השפה המוגדרים בשפות המקלדת</string>
+    <string name="show_popup_keys_normal">הצגת ניבים של השפה המוגדרת במקלדת</string>
     <string name="show_popup_keys_more">הוספת ניבים נפוצים</string>
     <string name="url_detection_title">איתור כתובת URL</string>
     <string name="up" tools:keep="@string/up">מעלה</string>
@@ -261,7 +261,7 @@
     <string name="show_popup_hints">הצגת רמזים פונקציונליים</string>
     <string name="show_popup_hints_summary">הצגת רמזים אם לחיצה ממושכת תגרום להפעלת פונקציונליות נוספת</string>
     <string name="prefs_long_press_symbol_for_numpad">כפתור סימנים בלחיצה ממושכת עבור numpad</string>
-    <string name="prefs_bottom_padding_scale">סולם המרווח התחתון</string>
+    <string name="prefs_bottom_padding_scale">סרגל גובה המרווח התחתון</string>
     <string name="replace_dictionary_message">באמת להחליף את המילון שנוסף ע\"י המשתמש \"%1$s\"?
 \n
 \nהמילון הנוכחי:
@@ -269,7 +269,7 @@
 \n
 \nהמילון החדש:
 \n%3$s</string>
-    <string name="select_color_key">מלל הקליד</string>
+    <string name="select_color_key">מלל המקש</string>
     <string name="version">גירסה</string>
     <string name="license">רישיון קוד פתוח</string>
     <string name="dialog_close">סגירה</string>
@@ -331,9 +331,9 @@
     <string name="hidden_features_text">אחסון מוגן של המכשיר</string>
     <string name="hidden_features_summary">הצגת תכונות שעשויות לחמוק מתשומת הלב</string>
     <string name="more_colors">הצגת יותר צבעים</string>
-    <string name="select_color_key_hint">מלל רמז הקליד</string>
+    <string name="select_color_key_hint">מלל רמז המקש</string>
     <string name="select_color_suggestion">מלל סרגל ההצעות</string>
-    <string name="select_color_key_background">רקע הקלידים</string>
+    <string name="select_color_key_background">רקע המקשים</string>
     <string name="select_color_functional_key_background">רקע הכפתורים הפונקציונליים</string>
     <string name="select_color_spacebar_background">רקע מקש הרווח</string>
     <string name="select_color_spacebar_text">מלל מקש הרווח</string>
@@ -387,13 +387,13 @@
     <string name="customize_toolbar_key_code_reset_message">האם למחוק את כל קודי המקשים המותאמים?</string>
     <string name="auto_correct_shortcuts">קיצורי דרך של תיקון שגיאות אוטומטי</string>
     <string name="auto_correct_shortcuts_summary">כאשר מופעל, קיצורי דרך עשויים להיות מורחבים ע\"י התיקון האוטומטי</string>
-    <string name="customize_background_image_landscape">הגדרת תמונת רקע (אופקית)</string>
+    <string name="customize_background_image_landscape">הגדרת תמונת רקע (במצב אופקי)</string>
     <string name="custom_font">הגדרת גופן מותאם מקובץ</string>
-    <string name="summary_customize_background_image_landscape">אם לא הוגדרה אופקית, תוגדר התמונה האנכית</string>
-    <string name="prefs_bottom_padding_scale_landscape">קנה-מידה של המרווח התחתון (אופקי)</string>
+    <string name="summary_customize_background_image_landscape">אם לא הוגדרה תמונת רקע במצב אופקי, תוצג תמונת הרקע האנכית</string>
+    <string name="prefs_bottom_padding_scale_landscape">קנה-מידה של המרווח התחתון (במצב אופקי)</string>
     <string name="prefs_font_scale">קנה-מידה של גופן המקלדת</string>
     <string name="prefs_emoji_font_scale">קנה-מידה של גופן תצוגת האמוג\'י</string>
-    <string name="prefs_side_padding_scale_landscape">קנה-מידה של המרווח הצדדי (אופקי)</string>
+    <string name="prefs_side_padding_scale_landscape">קנה-מידה של המרווח הצדדי (במצב אופקי)</string>
     <string name="prefs_side_padding_scale">קנה-מידה של המרווח הצדדי</string>
     <string name="number_row_hints">הצגת רמזים על שורת המספרים</string>
     <string name="prefs_language_swipe_distance">אורך מחוות ההחלקה להחלפת שפה</string>
@@ -436,7 +436,7 @@
     <string name="use_apps_dict_summary">שימוש בשמות יישומים מותקנים להצעות ולתיקונים</string>
     <string name="subtype_with_layout_generic">%1$s (%2$s)</string>
     <string name="popup_order_and_hint_source">סדר הסימנים בחלון צץ ומקור הרמזים</string>
-    <string name="landscape">אופקי</string>
+    <string name="landscape">במצב אופקי</string>
     <string name="toolbar_mode_suggestion_strip">הצעות בלבד</string>
     <string name="toolbar_mode_hidden">מוסתר</string>
     <string name="toolbar_hiding_global">הסתרת סרגלי כלי הלוח והאמוג\'ים גם</string>
@@ -444,7 +444,6 @@
     <string name="toolbar_mode_expandable">פקדי סרגל הכלים והצעות</string>
     <string name="toolbar_mode_toolbar_keys">פקדי סרגל הכלים בלבד</string>
     <string name="show_emoji_descriptions">הצגת תיאור אמוג\'י בלחיצה ממושכת</string>
-    <string name="show_emoji_descriptions_summary">נדרש מילון אמוג\'י</string>
     <string name="suggest_emojis">הצעת אמוג\'ים</string>
     <string name="suggest_emojis_summary">שימוש במילון האמוג\'ים בהצעות רגילות</string>
     <string name="space_swipe_hide_keyboard_entry">הסתרת המקלדת</string>
@@ -452,4 +451,7 @@
     <string name="suggest_punctuation_summary">הצגת פיסוק כאשר אין הצעות זמינות אחרות</string>
     <string name="about_wiki_link">מעבר ל-Wiki</string>
     <string name="about_wiki_link_description">ה-Wiki יכול להיות משופר ע\"י כל משתמש GitHub!</string>
+    <string name="subtype_khipro_bn">%s (כיפרו)</string>
+    <string name="save_subtype_per_app">שיוך שפה ליישום</string>
+    <string name="clipboard_history_pinned_first">הצגת פריטים נעוצים תחילה</string>
 </resources>

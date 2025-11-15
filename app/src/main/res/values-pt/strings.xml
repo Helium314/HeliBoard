@@ -164,7 +164,6 @@
     <string name="locales_with_dict">Idiomas com dicionários</string>
     <string name="load_gesture_library">Carregar biblioteca de escrita por gestos</string>
     <string name="load_gesture_library_summary">Fornecer uma biblioteca nativa para permitir a escrita por gestos</string>
-    <string name="show_emoji_descriptions_summary">Requer um dicionário de emoji</string>
     <string name="split_spacer_scale">Distância da divisão</string>
     <string name="language_switch_key_switch_both">Alterar ambos</string>
     <string name="language_switch_key_behavior">Comportamento da tela de mudança de idioma</string>

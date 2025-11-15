@@ -4,8 +4,10 @@ import android.text.InputType
 import android.util.SparseArray
 import android.view.KeyEvent
 import android.view.inputmethod.InputMethodSubtype
+import androidx.core.util.forEach
 import helium314.keyboard.event.Event
 import helium314.keyboard.event.HangulEventDecoder
+import helium314.keyboard.event.HapticEvent
 import helium314.keyboard.event.HardwareEventDecoder
 import helium314.keyboard.event.HardwareKeyboardEventDecoder
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode
@@ -37,39 +39,26 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
 
     private val keyboardSwitcher = KeyboardSwitcher.getInstance()
     private val settings = Settings.getInstance()
-    private var metaState = 0 // is this enough, or are there threading issues with the different PointerTrackers?
+    private val audioAndHapticFeedbackManager = AudioAndHapticFeedbackManager.getInstance()
 
     // language slide state
     private var initialSubtype: InputMethodSubtype? = null
     private var subtypeSwitchCount = 0
 
-    // todo: maybe keep meta state presses to KeyboardActionListenerImpl, and avoid calls to press/release key
-    private fun adjustMetaState(code: Int, remove: Boolean) {
-        val metaCode = when (code) {
-            KeyCode.CTRL -> KeyEvent.META_CTRL_ON
-            KeyCode.CTRL_LEFT -> KeyEvent.META_CTRL_LEFT_ON
-            KeyCode.CTRL_RIGHT -> KeyEvent.META_CTRL_RIGHT_ON
-            KeyCode.ALT -> KeyEvent.META_ALT_ON
-            KeyCode.ALT_LEFT -> KeyEvent.META_ALT_LEFT_ON
-            KeyCode.ALT_RIGHT -> KeyEvent.META_ALT_RIGHT_ON
-            KeyCode.FN -> KeyEvent.META_FUNCTION_ON
-            KeyCode.META -> KeyEvent.META_META_ON
-            KeyCode.META_LEFT -> KeyEvent.META_META_LEFT_ON
-            KeyCode.META_RIGHT -> KeyEvent.META_META_RIGHT_ON
-            else -> return
-        }
-        metaState = if (remove) metaState and metaCode.inv()
-            else metaState or metaCode
+    override fun onPressKey(primaryCode: Int, repeatCount: Int, isSinglePointer: Boolean, hapticEvent: HapticEvent) {
+        metaOnPressKey(primaryCode)
+        keyboardSwitcher.onPressKey(primaryCode, isSinglePointer, latinIME.currentAutoCapsState, latinIME.currentRecapitalizeState)
+        // we need to use LatinIME for handling of key-down audio and haptics
+        latinIME.hapticAndAudioFeedback(primaryCode, repeatCount, hapticEvent)
     }
 
-    override fun onPressKey(primaryCode: Int, repeatCount: Int, isSinglePointer: Boolean) {
-        adjustMetaState(primaryCode, false)
-        keyboardSwitcher.onPressKey(primaryCode, isSinglePointer, latinIME.currentAutoCapsState, latinIME.currentRecapitalizeState)
-        latinIME.hapticAndAudioFeedback(primaryCode, repeatCount)
+    override fun onLongPressKey(primaryCode: Int) {
+        metaOnLongPressKey(primaryCode)
+        performHapticFeedback(HapticEvent.KEY_LONG_PRESS)
     }
 
     override fun onReleaseKey(primaryCode: Int, withSliding: Boolean) {
-        adjustMetaState(primaryCode, true)
+        metaOnReleaseKey(primaryCode)
         keyboardSwitcher.onReleaseKey(primaryCode, withSliding, latinIME.currentAutoCapsState, latinIME.currentRecapitalizeState)
     }
 
@@ -111,8 +100,8 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
 
     override fun onCodeInput(primaryCode: Int, x: Int, y: Int, isKeyRepeat: Boolean) {
         when (primaryCode) {
-            KeyCode.TOGGLE_AUTOCORRECT -> return Settings.getInstance().toggleAutoCorrect()
-            KeyCode.TOGGLE_INCOGNITO_MODE -> return Settings.getInstance().toggleAlwaysIncognitoMode()
+            KeyCode.TOGGLE_AUTOCORRECT -> return settings.toggleAutoCorrect()
+            KeyCode.TOGGLE_INCOGNITO_MODE -> return settings.toggleAlwaysIncognitoMode()
         }
         val mkv = keyboardSwitcher.mainKeyboardView
 
@@ -129,6 +118,7 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
             Event.createSoftwareKeypressEvent(primaryCode, metaState, mkv.getKeyX(x), mkv.getKeyY(y), isKeyRepeat)
         }
         latinIME.onEvent(event)
+        metaAfterCodeInput(primaryCode)
     }
 
     override fun onTextInput(text: String?) = latinIME.onTextInput(text)
@@ -178,7 +168,7 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
     }
 
     override fun toggleNumpad(withSliding: Boolean, forceReturnToAlpha: Boolean): Boolean {
-        KeyboardSwitcher.getInstance().toggleNumpad(withSliding, latinIME.currentAutoCapsState, latinIME.currentRecapitalizeState, forceReturnToAlpha)
+        keyboardSwitcher.toggleNumpad(withSliding, latinIME.currentAutoCapsState, latinIME.currentRecapitalizeState, forceReturnToAlpha)
         return true
     }
 
@@ -188,7 +178,7 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
         val actualSteps = actualSteps(steps)
         val start = connection.expectedSelectionStart + actualSteps
         if (start > end) return
-        AudioAndHapticFeedbackManager.getInstance().performHapticFeedback(keyboardSwitcher.visibleKeyboardView)
+        gestureMoveBackHaptics()
         connection.setSelection(start, end)
     }
 
@@ -245,21 +235,25 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
         }
         if (steps > 0) subtypeSwitchCount++ else subtypeSwitchCount--
 
-        KeyboardSwitcher.getInstance().switchToSubtype(newSubtype)
+        keyboardSwitcher.switchToSubtype(newSubtype)
         return true
     }
 
     private fun onMoveCursorVertically(steps: Int): Boolean {
         if (steps == 0) return false
-        AudioAndHapticFeedbackManager.getInstance().performHapticFeedback(keyboardSwitcher.visibleKeyboardView)
-        val code = if (steps < 0) KeyCode.ARROW_UP else KeyCode.ARROW_DOWN
+        val code = if (steps < 0) {
+            gestureMoveBackHaptics()
+            KeyCode.ARROW_UP
+        } else {
+            gestureMoveForwardHaptics()
+            KeyCode.ARROW_DOWN
+        }
         onCodeInput(code, Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE, false)
         return true
     }
 
     private fun onMoveCursorHorizontally(rawSteps: Int): Boolean {
         if (rawSteps == 0) return false
-        AudioAndHapticFeedbackManager.getInstance().performHapticFeedback(keyboardSwitcher.visibleKeyboardView)
         // for RTL languages we want to invert pointer movement
         val steps = if (RichInputMethodManager.getInstance().currentSubtype.isRtlSubtype) -rawSteps else rawSteps
         val moveSteps: Int
@@ -272,8 +266,12 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
                 repeat(-steps) {
                     onCodeInput(KeyCode.ARROW_LEFT, Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE, false)
                 }
+                if (text.isNotEmpty()) {
+                    gestureMoveBackHaptics()
+                }
                 return true
             }
+            gestureMoveBackHaptics()
         } else {
             val text = connection.getTextAfterCursor(steps * 4, 0) ?: return false
             moveSteps = positiveMoveSteps(text, steps)
@@ -283,8 +281,12 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
                 repeat(steps) {
                     onCodeInput(KeyCode.ARROW_RIGHT, Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE, false)
                 }
+                if (text.isNotEmpty()) {
+                    gestureMoveForwardHaptics(true)
+                }
                 return true
             }
+            gestureMoveForwardHaptics(text.isNotEmpty())
         }
 
         // the shortcut below causes issues due to horrible handling of text fields by Firefox and forks
@@ -315,6 +317,9 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
         var actualSteps = 0
         // corrected steps to avoid splitting chars belonging to the same codepoint
         loopOverCodePoints(text) { cp, charCount ->
+            // For emojis we (incorrectly) return 0 so the move is handled by virtual arrow key presses.
+            // This is a simple workaround to avoid determining the correct character count, which can
+            // be tricky because in some cases older Android versions show two emojis where newer ones show one.
             if (StringUtils.mightBeEmoji(cp)) return 0
             actualSteps += charCount
             actualSteps >= steps
@@ -326,11 +331,31 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
         var actualSteps = 0
         // corrected steps to avoid splitting chars belonging to the same codepoint
         loopOverCodePointsBackwards(text) { cp, charCount ->
+            // For emojis we (incorrectly) return 0 so the move is handled by virtual arrow key presses.
+            // This is a simple workaround to avoid determining the correct character count, which can
+            // be tricky because in some cases older Android versions show two emojis where newer ones show one.
             if (StringUtils.mightBeEmoji(cp)) return 0
             actualSteps -= charCount
             actualSteps <= steps
         }
         return -min(-actualSteps, text.length)
+    }
+
+    private fun gestureMoveBackHaptics() {
+        if (connection.canDeleteCharacters()) {
+            performHapticFeedback(HapticEvent.GESTURE_MOVE)
+        }
+    }
+
+    // hasTextAfterCursor is used because text before the cursor is cached, going through the InputConnection can be slow
+    private fun gestureMoveForwardHaptics(hasTextAfterCursor: Boolean? = null) {
+        if (hasTextAfterCursor ?: connection.hasTextAfterCursor()) {
+            performHapticFeedback(HapticEvent.GESTURE_MOVE)
+        }
+    }
+
+    private fun performHapticFeedback(hapticEvent: HapticEvent) {
+        audioAndHapticFeedbackManager.performHapticFeedback(keyboardSwitcher.visibleKeyboardView, hapticEvent)
     }
 
     private fun getHardwareKeyEventDecoder(deviceId: Int): HardwareEventDecoder {
@@ -340,5 +365,129 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
         val newDecoder = HardwareKeyboardEventDecoder(deviceId)
         hardwareEventDecoders.put(deviceId, newDecoder)
         return newDecoder
+    }
+
+    // -------------------------- meta state handling -----------------------------
+
+    // current state
+    // press enables meta
+    // release keeps meta enabled, unless there was a onCodeInput for a different key in between
+    // onCodeInput ends the meta if it was enabled
+    // long press on meta key also ends meta so popups are handled properly
+    // sliding from a meta key to some other words too, though this was not intended (and there are no sliding key input graphics)
+
+    // todo: move meta state tracking to KeyboardState? seems more suitable, also for handling sliding input
+    //  but the issue is that meta state is used in Event to determine whether it's a functional Event (does not add a character)
+    //  (and also it's in the hardware keyEvents which are handled by onKeyUp/Down, but that should be manageable)
+
+    /** actual Android metaState like in KeyEvent */
+    private var metaState = 0
+
+    /** keeps track of the state of meta keys by (HeliBoard) KeyCodes */
+    private val metaPressStates = SparseArray<MetaPressState>(4)
+
+    // todo: lock and non-lock versions interact badly: when any of them is released, the meta state is removed
+    //  this is not wanted, especially because the state of the other key is not affected (still looks pressed)
+    private fun metaOnPressKey(primaryCode: Int) {
+        val metaCode = primaryCode.toMetaState() ?: return
+        if (primaryCode.isMetaLock()) {
+            // if unset -> lock, otherwise set to UNSET_ON_RELEASE so it's unset on release
+            if (metaPressStates[primaryCode] != MetaPressState.LOCKED) {
+                metaPressStates[primaryCode] = MetaPressState.LOCKED
+                keyboardSwitcher.mainKeyboardView?.updateLockState(primaryCode, true)
+                metaState = metaState or metaCode
+            } else {
+                metaPressStates[primaryCode] = MetaPressState.UNSET_ON_RELEASE
+            }
+            return
+        }
+        if (metaPressStates[primaryCode] == MetaPressState.RELEASED_BUT_ACTIVE) {
+            // meta key is pressed again without other input -> should be disabled on release
+            metaPressStates[primaryCode] = MetaPressState.UNSET_ON_RELEASE
+        } else {
+            // otherwise just press it normally
+            metaPressStates[primaryCode] = MetaPressState.PRESSED
+        }
+        metaState = metaState or metaCode
+        // pressed graphics are set anyway, no need to lock it
+    }
+
+    // looks like this is not called if there are no popups
+    private fun metaOnLongPressKey(primaryCode: Int) {
+        if (metaPressStates[primaryCode] != MetaPressState.PRESSED) return
+        // we long-pressed a meta key that has popups -> disable so the meta state is not used for the popup
+        metaPressStates[primaryCode] = MetaPressState.UNSET
+        keyboardSwitcher.mainKeyboardView?.updateLockState(primaryCode, false)
+        val metaCode = primaryCode.toMetaState() ?: return
+        metaState = metaState and metaCode.inv()
+    }
+
+    private fun metaOnReleaseKey(primaryCode: Int) {
+        val metaCode = primaryCode.toMetaState() ?: return
+        val metaPressState = metaPressStates[primaryCode]
+        if (metaPressState == MetaPressState.UNSET_ON_RELEASE) {
+            metaPressStates[primaryCode] = MetaPressState.UNSET
+            metaState = metaState and metaCode.inv()
+            keyboardSwitcher.mainKeyboardView?.updateLockState(primaryCode, false)
+        } else if (metaPressState == MetaPressState.PRESSED) {
+            metaPressStates[primaryCode] = MetaPressState.RELEASED_BUT_ACTIVE
+            keyboardSwitcher.mainKeyboardView?.updateLockState(primaryCode, true)
+        }
+    }
+
+    private fun metaAfterCodeInput(primaryCode: Int) {
+        val metaCode = primaryCode.toMetaState()
+        if (metaCode != null) {
+            // meta key might be a popup key, we just toggle between set and unset
+            val metaPressState = metaPressStates[primaryCode] ?: MetaPressState.UNSET
+            if (metaPressState == MetaPressState.UNSET) {
+                metaPressStates[primaryCode] = MetaPressState.SET
+                metaState = metaState or metaCode
+                keyboardSwitcher.mainKeyboardView?.updateLockState(primaryCode, true)
+            } else if (metaPressState == MetaPressState.SET) {
+                metaPressStates[primaryCode] = MetaPressState.UNSET
+                metaState = metaState and metaCode.inv()
+                keyboardSwitcher.mainKeyboardView?.updateLockState(primaryCode, false)
+            }
+        } else if (metaState != 0) {
+            // non-meta key -> unset all set / released_but_active, and mark pressed as UNSET_ON_RELEASE
+            metaPressStates.forEach { key, value ->
+                if (value == MetaPressState.RELEASED_BUT_ACTIVE || value == MetaPressState.SET) {
+                    metaPressStates[key] = MetaPressState.UNSET
+                    keyboardSwitcher.mainKeyboardView?.updateLockState(key, false)
+                    val metaCode = key.toMetaState() ?: return@forEach
+                    metaState = metaState and metaCode.inv()
+                } else if (value == MetaPressState.PRESSED) {
+                    metaPressStates[key] = MetaPressState.UNSET_ON_RELEASE
+                }
+            }
+        }
+    }
+
+    companion object {
+        private enum class MetaPressState {
+            UNSET, // default state, not active
+            SET, // enabled without onPressKey (e.g. in popup)
+            PRESSED, // key is pressed
+            UNSET_ON_RELEASE, // key is pressed, but state will be unset on release
+            RELEASED_BUT_ACTIVE, // key was released without UNSET_ON_RELEASE state, meta state is still set
+            LOCKED, // key is locked and will be released only by pressing the same key again
+        }
+
+        private fun Int.toMetaState() = when (this) {
+            KeyCode.CTRL, KeyCode.CTRL_LOCK -> KeyEvent.META_CTRL_ON
+            KeyCode.CTRL_LEFT               -> KeyEvent.META_CTRL_LEFT_ON
+            KeyCode.CTRL_RIGHT              -> KeyEvent.META_CTRL_RIGHT_ON
+            KeyCode.ALT, KeyCode.ALT_LOCK   -> KeyEvent.META_ALT_ON
+            KeyCode.ALT_LEFT                -> KeyEvent.META_ALT_LEFT_ON
+            KeyCode.ALT_RIGHT               -> KeyEvent.META_ALT_RIGHT_ON
+            KeyCode.FN, KeyCode.FN_LOCK     -> KeyEvent.META_FUNCTION_ON
+            KeyCode.META, KeyCode.META_LOCK -> KeyEvent.META_META_ON
+            KeyCode.META_LEFT               -> KeyEvent.META_META_LEFT_ON
+            KeyCode.META_RIGHT              -> KeyEvent.META_META_RIGHT_ON
+            else -> null
+        }
+
+        private fun Int.isMetaLock() = this == KeyCode.CTRL_LOCK || this == KeyCode.ALT_LOCK || this == KeyCode.FN_LOCK || this == KeyCode.META_LOCK
     }
 }

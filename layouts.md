@@ -54,9 +54,9 @@ If the layout has exactly 2 keys in the bottom row, these keys will replace comm
   * There are some more values, but they do nothing
 * `code`: code point that is entered when the key is pressed, determined from the label by default, not available for `multi_text_key`
   * There are special negative values available, e.g. the ones used by functional keys, see [KeyCode.kt](/app/src/main/java/helium314/keyboard/keyboard/internal/keyboard_parser/floris/KeyCode.kt). There are several not yet supported key codes in there, you can see in the function `checkAndConvertCode` which ones are working.
-  * Special notes for the modifier keys `CTRL`, `ALT`, `FN`, `META`
-    * Currently there is no special lock-treatment, so you need to hold the key and press another key at the same time (like on a hardware keyboard)
-    * this means you should avoid putting popups on modifier keys (or press the other key quickly)
+  * Notes for the modifier keys `CTRL`, `ALT`, `FN`, `META` and the left/right/lock versions
+    * The lock versions (`CTRL_LOCK`, `ALT_LOCK`, `FN_LOCK`, `META_LOCK`) will stay active until pressed again. The normal versions will stay active until released or a code input happens (whatever comes later). Avoid having both lock and non-lock versions of the same key on a keyboard, they interact badly.
+    * Some applications will only react to a specific `_LEFT` or `_RIGHT` version of a meta key
 * `codePoints`: when multiple code points should be entered, only available for `multi_text_key`
 * `label`: text to display on the key, determined from code if empty
   * There are some special values, see the [label section](#labels)

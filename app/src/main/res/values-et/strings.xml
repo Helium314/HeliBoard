@@ -472,7 +472,6 @@
     <string name="toolbar_hiding_global">Peida ka lõikelaud ja emojide rida</string>
     <string name="popup_order_and_hint_source">Klahvide järjestus hüpikaknas ja vihjete allikas</string>
     <string name="landscape">Rõhtvaade</string>
-    <string name="show_emoji_descriptions_summary">Selleks on vajalik emojide sõnastiku olemasolu</string>
     <string name="show_emoji_descriptions">Näita emojide kirjeldusi pika vajutusega</string>
     <string name="suggest_emojis">Soovita emojisid</string>
     <string name="suggest_emojis_summary">Kasuta tavaliste soovituste jaoks emojide sõnastikku</string>
@@ -481,4 +480,11 @@
     <string name="suggest_punctuation_summary">Kui muid soovitusi ei leidu, siis näita kirjavahemärkide soovitusi</string>
     <string name="about_wiki_link_description">Iga GitHubi kasutaja võib viki importida!</string>
     <string name="about_wiki_link">Ava viki leht</string>
+    <string name="clipboard_history_pinned_first">Näita esiletõstetud objekte ülal</string>
+    <string name="save_subtype_per_app">Jäta kasutatud keel meelde rakendusekohaselt</string>
+    <string name="subtype_khipro_bn">%s (khipro)</string>
+    <string name="subtype_mhr">idamari</string>
+    <string name="inline_emoji_search">Emojide lõimitud otsing</string>
+    <string name="inline_emoji_search_summary">Soovita emojisid vaid siis, kui sõna ees on koolon</string>
+    <string name="emoji_dictionary_required">Et see funktsionaalsus toimiks, vajada emojide sõnastikku. Nõutavas .dict vormingus sõnastikke saad alla laadida siit: %s.</string>
 </resources>

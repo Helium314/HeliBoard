@@ -472,7 +472,6 @@
     <string name="toolbar_hiding_global">Скриване и на лентите с инструменти за клипборда и емотиконите</string>
     <string name="landscape">Пейзаж</string>
     <string name="popup_order_and_hint_source">Ред на изскачащите клавиши и източник на съвети</string>
-    <string name="show_emoji_descriptions_summary">Изисква речник на емотикони</string>
     <string name="show_emoji_descriptions">Показване на описание на емотикони при продължително натискане</string>
     <string name="suggest_emojis">Предлагане на емотикони</string>
     <string name="suggest_emojis_summary">Използване на речник за емотикони в нормални предложения</string>
@@ -481,4 +480,11 @@
     <string name="space_swipe_hide_keyboard_entry">Скриване на клавиатурата</string>
     <string name="about_wiki_link">Отидете на Уики</string>
     <string name="about_wiki_link_description">Уикито може да бъде подобрено от всеки потребител на GitHub!</string>
+    <string name="save_subtype_per_app">Запомняне на езика за всяко приложение</string>
+    <string name="subtype_khipro_bn">%s (Khipro)</string>
+    <string name="clipboard_history_pinned_first">Показване на закачените елементи отгоре</string>
+    <string name="inline_emoji_search">Вградено търсене на емотикони</string>
+    <string name="inline_emoji_search_summary">Предлагай емотикони само когато думата е предшествана от двоеточие</string>
+    <string name="emoji_dictionary_required">За да работи тази функция, е необходим речник с емотикони. Речници във формат .dict могат да бъдат изтеглени %s.</string>
+    <string name="subtype_mhr">Мари (Източен)</string>
 </resources>

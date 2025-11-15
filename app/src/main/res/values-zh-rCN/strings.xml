@@ -46,7 +46,7 @@
     <string name="gesture_space_aware_summary">"滑行输入时，滑过空格键即可输入空格"</string>
     <string name="subtype_en_GB">英语（英国）</string>
     <string name="subtype_en_US">英语（美国）</string>
-    <string name="subtype_es_US">"西班牙语（美国）"</string>
+    <string name="subtype_es_US">西班牙语（美国）</string>
     <string name="subtype_hi_Latn">"印地英语"</string>
     <string name="subtype_sr_Latn">"塞尔维亚语（拉丁语布局）"</string>
     <string name="subtype_generic_traditional">%s（传统）</string>
@@ -438,7 +438,6 @@
     <string name="toolbar_hiding_global">同时隐藏剪贴板和表情符号工具栏</string>
     <string name="popup_order_and_hint_source">弹出键顺序和提示源</string>
     <string name="landscape">横屏</string>
-    <string name="show_emoji_descriptions_summary">需要表情符号词典</string>
     <string name="show_emoji_descriptions">长按时显示表情符号描述</string>
     <string name="suggest_emojis">建议表情符号</string>
     <string name="suggest_emojis_summary">在常规建议中使用表情符号词典</string>
@@ -447,4 +446,11 @@
     <string name="space_swipe_hide_keyboard_entry">隐藏键盘</string>
     <string name="about_wiki_link_description">任何 GitHub 用户都可以改进 Wiki！</string>
     <string name="about_wiki_link">前往 Wiki</string>
+    <string name="save_subtype_per_app">为每个应用记住语言设置</string>
+    <string name="subtype_khipro_bn">%s (Khipro)</string>
+    <string name="clipboard_history_pinned_first">在顶部显示已固定项目</string>
+    <string name="subtype_mhr">东马里语</string>
+    <string name="inline_emoji_search">内联表情符号搜索</string>
+    <string name="inline_emoji_search_summary">仅当单词以冒号开头时建议表情符号</string>
+    <string name="emoji_dictionary_required">此功能需要表情符号词典才能使用。可以下载 .dict 格式的词典 %s。</string>
 </resources>

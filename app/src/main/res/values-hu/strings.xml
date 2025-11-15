@@ -359,12 +359,11 @@
     <string name="label_shift_key" tools:keep="@string/label_shift_key">Shift</string>
     <string name="vibrate_in_dnd_mode">Rezgés ne zavarjanak módban is</string>
     <string name="show_emoji_descriptions">Emodzsi leírásának megjelenítése nyomva tartáskor</string>
-    <string name="show_emoji_descriptions_summary">Emodzsiszótár szükséges</string>
     <string name="settings_category_space">Szóköz</string>
     <string name="split_spacer_scale_landscape">Osztott távolság (fekvő)</string>
     <string name="use_apps_dict">Alkalmazásnevek keresése</string>
     <string name="use_apps_dict_summary">Telepített alkalmazások neveinek használata a javaslatokhoz és javításokhoz</string>
-    <string name="suggest_punctuation">Írásjeljavaslatok</string>
+    <string name="suggest_punctuation">Írásjel-javaslatok</string>
     <string name="suggest_punctuation_summary">Ha nincs más javaslat, akkor jelenítse meg az írásjeleket</string>
     <string name="gesture_floating_preview_static">Lebegő előnézet</string>
     <string name="gesture_floating_preview_static_summary">Ajánlott szó megjelenítése kézmozdulat-gépelés közben</string>
@@ -444,4 +443,7 @@
     <string name="layout_emoji_bottom_row" tools:keep="@string/layout_emoji_bottom_row">Emodzsi alsó sorának elrendezése</string>
     <string name="layout_clip_bottom_row" tools:keep="@string/layout_clip_bottom_row">Vágólap alsó sorának elrendezése</string>
     <string name="prefs_side_padding_scale_landscape">Oldalsó margó mérete (fekvő)</string>
+    <string name="save_subtype_per_app">Emlékezzen a kiválasztott nyelvre alkalmazásonként</string>
+    <string name="subtype_khipro_bn">%s (Khipro)</string>
+    <string name="clipboard_history_pinned_first">Kitűzött elemek megjelenítése felül</string>
 </resources>

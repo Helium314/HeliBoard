@@ -57,7 +57,6 @@ import helium314.keyboard.latin.settings.Settings;
 import helium314.keyboard.latin.utils.KtxKt;
 import helium314.keyboard.latin.utils.LanguageOnSpacebarUtils;
 import helium314.keyboard.latin.utils.Log;
-import helium314.keyboard.latin.utils.SubtypeLocaleUtils;
 import helium314.keyboard.latin.utils.TypefaceUtils;
 
 import java.util.ArrayList;
@@ -656,6 +655,19 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
         }
         shortcutKey.setEnabled(available);
         invalidateKey(shortcutKey);
+    }
+
+    public void updateLockState(final int keyCode, final boolean locked) {
+        final Keyboard keyboard = getKeyboard();
+        if (keyboard == null) {
+            return;
+        }
+        final Key lockKey = keyboard.getKey(keyCode);
+        if (lockKey == null) {
+            return;
+        }
+        lockKey.setLocked(locked);
+        invalidateKey(lockKey);
     }
 
     // the whole language on spacebar thing could probably be simplified quite a bit

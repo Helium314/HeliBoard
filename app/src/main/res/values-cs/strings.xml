@@ -437,7 +437,6 @@
     <string name="toolbar_mode">Režim panelu nástrojů</string>
     <string name="popup_order_and_hint_source">Pořadí vyskakovacích kláves a zdroj tipů</string>
     <string name="landscape">Na šířku</string>
-    <string name="show_emoji_descriptions_summary">Vyžaduje slovník emodži</string>
     <string name="show_emoji_descriptions">Při dlouhém podržení zobrazit popis emodži</string>
     <string name="suggest_emojis">Navrhovat emodži</string>
     <string name="suggest_emojis_summary">Použít slovník emodži v normálních návrzích</string>
@@ -446,4 +445,11 @@
     <string name="suggest_punctuation_summary">Zobrazit interpunkci, pokud nejsou dostupné žádné jiné návrhy</string>
     <string name="about_wiki_link">Přejít na wiki</string>
     <string name="about_wiki_link_description">Wiki může vylepšit jakýkoli uživatel GitHubu!</string>
+    <string name="save_subtype_per_app">Zapamatovat jazyk dle aplikace</string>
+    <string name="subtype_khipro_bn">%s (Khipro)</string>
+    <string name="clipboard_history_pinned_first">Zobrazit připnuté položky nahoře</string>
+    <string name="inline_emoji_search">Vyhledávání emodži na řádku</string>
+    <string name="inline_emoji_search_summary">Navrhovat emodži pouze, pokud je na začátku slova dvojtečka</string>
+    <string name="emoji_dictionary_required">Aby tato funkce fungovala, je nutný slovník emodži. Slovníky ve formátu .dict lze stáhnout %s.</string>
+    <string name="subtype_mhr">Mari (východní)</string>
 </resources>

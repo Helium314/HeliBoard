@@ -479,7 +479,6 @@
     <string name="toolbar_hiding_global">Klembord- en emoji-werkbalken ook verbergen</string>
     <string name="popup_order_and_hint_source">Popup toetsvolgorde en bron van hints</string>
     <string name="landscape">Liggend</string>
-    <string name="show_emoji_descriptions_summary">Vereist een emoji-woordenboek</string>
     <string name="show_emoji_descriptions">Toon emoji-beschrijving bij lang indrukken</string>
     <string name="suggest_emojis">Emoji\'s voorstellen</string>
     <string name="suggest_emojis_summary">Emoji-woordenboek gebruiken in normale suggesties</string>

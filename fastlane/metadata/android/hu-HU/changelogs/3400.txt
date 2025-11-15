@@ -1,0 +1,5 @@
+- Javaslatsávban javasolt emodzsik számának korlátozása egyre (ha lehetséges)
+- Helytelen szóközbeillesztés javítása
+- Fehér háttérre írt fehér szöveg javítása egyes eszközökön
+- `'` karakterrel kapcsolatos helytelen javaslatok javítása
+- Többes számú schwa ɜ hozzáadása az olasz nyelvhez

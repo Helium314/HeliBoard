@@ -426,7 +426,6 @@
     <string name="about_wiki_link">Ir para a Wiki</string>
     <string name="about_wiki_link_description">Qualquer pessoa pode melhorar a wiki no Github!</string>
     <string name="landscape">Horizontal</string>
-    <string name="show_emoji_descriptions_summary">Requer um dicionário de emojis</string>
     <string name="suggest_emojis">Sujerir emojis</string>
     <string name="use_apps_dict">Procurar nomes de apps instaladas</string>
     <string name="use_apps_dict_summary">Usar nomes de apps instaladas para sugestões e correções</string>
