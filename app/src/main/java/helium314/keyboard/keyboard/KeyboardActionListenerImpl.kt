@@ -334,6 +334,9 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
         var actualSteps = 0
         // corrected steps to avoid splitting chars belonging to the same codepoint
         loopOverCodePoints(text) { cp, charCount ->
+            // For emojis we (incorrectly) return 0 so the move is handled by virtual arrow key presses.
+            // This is a simple workaround to avoid determining the correct character count, which can
+            // be tricky because in some cases older Android versions show two emojis where newer ones show one.
             if (StringUtils.mightBeEmoji(cp)) return 0
             actualSteps += charCount
             actualSteps >= steps
@@ -345,6 +348,9 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
         var actualSteps = 0
         // corrected steps to avoid splitting chars belonging to the same codepoint
         loopOverCodePointsBackwards(text) { cp, charCount ->
+            // For emojis we (incorrectly) return 0 so the move is handled by virtual arrow key presses.
+            // This is a simple workaround to avoid determining the correct character count, which can
+            // be tricky because in some cases older Android versions show two emojis where newer ones show one.
             if (StringUtils.mightBeEmoji(cp)) return 0
             actualSteps -= charCount
             actualSteps <= steps
@@ -358,6 +364,7 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
         }
     }
 
+    // hasTextAfterCursor is used because text before the cursor is cached, going through the InputConnection can be slow
     private fun gestureMoveForwardHaptics(hasTextAfterCursor: Boolean? = null) {
         if (hasTextAfterCursor ?: connection.hasTextAfterCursor()) {
             performHapticFeedback(HapticEvent.GESTURE_MOVE)
