@@ -359,7 +359,7 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
     }
 
     private fun gestureMoveForwardHaptics(hasTextAfterCursor: Boolean? = null) {
-        if (hasTextAfterCursor ?: !connection.noTextAfterCursor()) {
+        if (hasTextAfterCursor ?: connection.hasTextAfterCursor()) {
             performHapticFeedback(HapticEvent.GESTURE_MOVE)
         }
     }

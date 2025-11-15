@@ -364,9 +364,9 @@ public final class RichInputConnection implements PrivateCommandPerformer {
         return mExpectedSelStart > 0;
     }
 
-    public boolean noTextAfterCursor() {
+    public boolean hasTextAfterCursor() {
         final CharSequence after = getTextAfterCursor(1, 0);
-        return TextUtils.isEmpty(after);
+        return !TextUtils.isEmpty(after);
     }
 
     /**
@@ -749,7 +749,7 @@ public final class RichInputConnection implements PrivateCommandPerformer {
 
     public void selectAll() {
         if (!isConnected()) return;
-        if (mExpectedSelStart != mExpectedSelEnd && mExpectedSelStart == 0 && noTextAfterCursor()) { // all text already selected
+        if (mExpectedSelStart != mExpectedSelEnd && mExpectedSelStart == 0 && !hasTextAfterCursor()) { // all text already selected
             mIC.setSelection(mExpectedSelEnd, mExpectedSelEnd);
         } else mIC.performContextMenuAction(android.R.id.selectAll);
     }

@@ -1834,7 +1834,7 @@ public class LatinIME extends InputMethodService implements
                     return;
                 break;
             case KeyCode.ARROW_RIGHT, KeyCode.ARROW_DOWN, KeyCode.WORD_RIGHT, KeyCode.PAGE_DOWN:
-                if (mInputLogic.mConnection.noTextAfterCursor())
+                if (!mInputLogic.mConnection.hasTextAfterCursor())
                     return;
                 break;
             }
