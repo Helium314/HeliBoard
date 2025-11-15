@@ -96,7 +96,7 @@ class DictionaryFacilitatorImpl : DictionaryFacilitator {
     override fun onStartInput() {
     }
 
-    override fun onFinishInput(context: Context) {
+    override fun onFinishInput() {
         for (dictGroup in dictionaryGroups) {
             DictionaryFacilitator.ALL_DICTIONARY_TYPES.forEach { dictGroup.getDict(it)?.onFinishInput() }
         }
@@ -262,6 +262,7 @@ class DictionaryFacilitatorImpl : DictionaryFacilitator {
     }
 
     override fun closeDictionaries() {
+        onFinishInput() // the dictionaries will save updates to file
         val dictionaryGroupsToClose: List<DictionaryGroup>
         synchronized(this) {
             dictionaryGroupsToClose = dictionaryGroups

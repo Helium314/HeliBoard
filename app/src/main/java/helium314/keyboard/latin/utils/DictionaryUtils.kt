@@ -8,7 +8,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
-import androidx.compose.ui.text.buildAnnotatedString
 import androidx.core.content.edit
 import helium314.keyboard.compat.locale
 import helium314.keyboard.latin.R
@@ -40,7 +39,6 @@ fun getDictionaryLocales(context: Context): MutableSet<Locale> {
     return locales
 }
 
-// why is this so horrible with annotated string?
 @Composable
 fun MissingDictionaryDialog(onDismissRequest: () -> Unit, locale: Locale) {
     val prefs = LocalContext.current.prefs()
@@ -49,27 +47,13 @@ fun MissingDictionaryDialog(onDismissRequest: () -> Unit, locale: Locale) {
         return
     }
     val availableDicts = createDictionaryTextAnnotated(locale)
-    val dictLink = "${Links.DICTIONARY_URL}/src/branch/main/dictionaries/main_$locale.dict"
-    val message = stringResource(R.string.no_dictionary_message, "§repl1§", locale.toString(), "§repl2§")
-        .replace("<br>", "\n") // compose doesn't understand html... // todo: modify the string?
-
-    // this relies on the order and thus is fragile, but so far it's fine with all translations
-    val part1 = message.substringBefore("§repl1§")
-    val part2 = message.substringBefore("§repl2§").substringAfter("§repl1§")
-    val part3 = message.substringAfter("§repl2§")
-
-    val annotatedString = buildAnnotatedString {
-        append(part1)
-        appendLink(stringResource(R.string.dictionary_link_text), Links.DICTIONARY_URL)
-        append(part2)
-        appendLink(stringResource(R.string.dictionary_link_text), dictLink)
-        append(part3)
-        if (availableDicts.isNotEmpty()) {
-            appendLine()
-            appendLine()
-            append(availableDicts)
-        }
-    }
+    val repositoryLink = stringResource(R.string.dictionary_link_text).withHtmlLink(Links.DICTIONARY_URL)
+    val dictUrl = "${Links.DICTIONARY_URL}${Links.DICTIONARY_DOWNLOAD_SUFFIX}dictionaries/main_$locale.dict"
+    val dictionaryLink = stringResource(R.string.dictionary_link_text).withHtmlLink(dictUrl)
+    val message = stringResource(R.string.no_dictionary_message, repositoryLink, locale.toString(), dictionaryLink)
+    var annotatedString = message.htmlToAnnotated()
+    if (availableDicts.isNotEmpty())
+        annotatedString += AnnotatedString("\n") + availableDicts
 
     ConfirmationDialog(
         onDismissRequest = onDismissRequest,
@@ -83,18 +67,16 @@ fun MissingDictionaryDialog(onDismissRequest: () -> Unit, locale: Locale) {
 /** if dictionaries for [locale] or language are available returns links to them */
 @Composable
 fun createDictionaryTextAnnotated(locale: Locale): AnnotatedString {
-    val builder = AnnotatedString.Builder()
     val context = LocalContext.current
     val knownDicts = getKnownDictionariesForLocale(locale, context)
     if (knownDicts.isEmpty()) return AnnotatedString("")
-    knownDicts.forEach {
-        builder.append("\u2022 ") // bullet point as replacement for <ul>
-        builder.appendLink(it.first , it.second)
-        builder.appendLine()
+    val knownDictLinks = knownDicts.map { (name, link) ->
+        "<li>${name.withHtmlLink(link)}</li>"
     }
-    return builder.toAnnotatedString()
+    return "<ul>${knownDictLinks.joinToString("\n")}</ul>".htmlToAnnotated()
 }
 
+/** returns a pair of dictionary description and link for each dictionary  */
 fun getKnownDictionariesForLocale(locale: Locale, context: Context): List<Pair<String, String>> {
     val knownDicts = mutableListOf<Pair<String, String>>()
     context.assets.open("dictionaries_in_dict_repo.csv").reader().forEachLine {

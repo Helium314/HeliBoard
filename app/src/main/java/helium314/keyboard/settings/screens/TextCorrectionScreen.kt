@@ -41,6 +41,7 @@ import helium314.keyboard.settings.initPreview
 import helium314.keyboard.settings.preferences.ListPreference
 import helium314.keyboard.settings.preferences.Preference
 import helium314.keyboard.settings.preferences.SwitchPreference
+import helium314.keyboard.settings.preferences.SwitchPreferenceWithEmojiDictWarning
 import helium314.keyboard.settings.previewDark
 
 @Composable
@@ -79,6 +80,7 @@ fun TextCorrectionScreen(
             Settings.PREF_ALWAYS_SHOW_SUGGESTIONS_EXCEPT_WEB_TEXT else null,
         if (suggestionsEnabled) Settings.PREF_CENTER_SUGGESTION_TEXT_TO_ENTER else null,
         if (suggestionsEnabled || autocorrectEnabled) Settings.PREF_SUGGEST_EMOJIS else null,
+        if (suggestionsEnabled || autocorrectEnabled) Settings.PREF_INLINE_EMOJI_SEARCH else null,
         Settings.PREF_KEY_USE_PERSONALIZED_DICTS,
         Settings.PREF_BIGRAM_PREDICTIONS,
         Settings.PREF_SUGGEST_PUNCTUATION,
@@ -247,6 +249,10 @@ fun createCorrectionSettings(context: Context) = listOf(
         SwitchPreference(it, Defaults.PREF_SUGGEST_EMOJIS) {
             context.sendBroadcast(Intent(DictionaryPackConstants.NEW_DICTIONARY_INTENT_ACTION))
         }
+    },
+    Setting(
+        context, Settings.PREF_INLINE_EMOJI_SEARCH, R.string.inline_emoji_search, R.string.inline_emoji_search_summary) {
+        SwitchPreferenceWithEmojiDictWarning(it, Defaults.PREF_INLINE_EMOJI_SEARCH)
     },
     Setting(context, Settings.PREF_ADD_TO_PERSONAL_DICTIONARY,
         R.string.add_to_personal_dictionary, R.string.add_to_personal_dictionary_summary

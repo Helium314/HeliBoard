@@ -27,9 +27,7 @@ import helium314.keyboard.latin.spellcheck.AndroidSpellCheckerService
 import helium314.keyboard.latin.utils.LayoutType
 import helium314.keyboard.latin.utils.Log
 import helium314.keyboard.latin.utils.ToolbarKey
-import helium314.keyboard.latin.utils.getCodeForToolbarKey
 import helium314.keyboard.latin.utils.toolbarKeyStrings
-import java.util.Locale
 
 // taken from FlorisBoard, modified (see also KeyData)
 
@@ -239,12 +237,6 @@ sealed interface KeyData : AbstractKeyData {
             return getStringInLocale(id, params)
         }
 
-        fun processLabel(label: String, params: KeyboardParams): String =
-            KeyLabel.keyLabelToActualLabel(label, params)
-                ?: if (label in toolbarKeyStrings.values)
-                    "!icon/$label|!code/${getCodeForToolbarKey(ToolbarKey.valueOf(label.uppercase(Locale.US)))}"
-                else label
-
         private fun shouldShowTldPopups(params: KeyboardParams): Boolean =
             (Settings.getInstance().current.mShowTldPopupKeys
                     && params.mId.mSubtype.layouts[LayoutType.FUNCTIONAL] != "functional_keys_tablet"
@@ -266,14 +258,12 @@ sealed interface KeyData : AbstractKeyData {
     // so better only do it in case the popup stuff needs more improvements
     // idea: directly create PopupKeySpec, but need to deal with needsToUpcase and popupKeysColumnAndFlags
     fun getPopupLabel(params: KeyboardParams): String {
-        val newLabel = processLabel(label, params)
+        var newLabel = KeyLabel.keyLabelToActualLabel(label, params)
         if (code == KeyCode.UNSPECIFIED) {
-            if (newLabel == label || newLabel.contains(KeyboardCodesSet.PREFIX_CODE))
-                return newLabel
-            val newCode = processCode()
-            if (newLabel.endsWith("|")) return "${newLabel}${KeyboardCodesSet.PREFIX_CODE}$newCode" // maybe not used any more
-            return if (newCode == code) newLabel else "${newLabel}|${KeyboardCodesSet.PREFIX_CODE}$newCode"
+            return newLabel
         }
+        if (newLabel.contains(KeyboardCodesSet.PREFIX_CODE))
+            newLabel =  newLabel.substringBefore("|!code/") // explicit code goes first
         if (code >= 32) {
             if (newLabel.startsWith(KeyboardIconsSet.PREFIX_ICON)) {
                 // we ignore everything after the first |
@@ -290,12 +280,12 @@ sealed interface KeyData : AbstractKeyData {
             val outputText = String(codePoints, 0, codePoints.size)
             return "${newLabel}|$outputText"
         }
-        return if (newLabel.endsWith("|")) "$newLabel${KeyboardCodesSet.PREFIX_CODE}${processCode()}" // for toolbar keys
-        else "$newLabel|${KeyboardCodesSet.PREFIX_CODE}${processCode()}"
+        return if (newLabel.endsWith("|")) "$newLabel${KeyboardCodesSet.PREFIX_CODE}$code" // for toolbar keys
+        else "$newLabel|${KeyboardCodesSet.PREFIX_CODE}$code"
     }
 
     fun getCurrencyLabel(params: KeyboardParams): String {
-        val newLabel = processLabel(label, params)
+        val newLabel = KeyLabel.keyLabelToActualLabel(label, params)
         return when (code) {
             // consider currency codes for label
             KeyCode.CURRENCY_SLOT_1 -> "$newLabel|${params.mLocaleKeyboardInfos.currencyKey.first}"
@@ -357,11 +347,11 @@ sealed interface KeyData : AbstractKeyData {
         if (code in KeyCode.Spec.CURRENCY) {
             // special treatment necessary, because we may need to encode it in the label
             // (currency is a string, so might have more than 1 codepoint, e.g. for Nepal)
-            newCode = 0
+            newCode = KeyCode.UNSPECIFIED
             newLabel = getCurrencyLabel(params)
         } else {
-            newCode = processCode()
-            newLabel = processLabel(label, params)
+            newCode = code
+            newLabel = KeyLabel.keyLabelToActualLabel(label, params)
         }
         var newLabelFlags = labelFlags or additionalLabelFlags or getAdditionalLabelFlags(params)
         val newPopupKeys = popup.merge(getAdditionalPopupKeys(params))
@@ -404,6 +394,7 @@ sealed interface KeyData : AbstractKeyData {
                 )
             }
         } else {
+            // there might be a code encoded in the label, but it's ignored due to the explicit code
             Key.KeyParams(
                 newLabel.ifEmpty { StringUtils.newSingleCodePointString(newCode) },
                 newCode,
@@ -445,27 +436,6 @@ sealed interface KeyData : AbstractKeyData {
         return if (label == KeyLabel.SPACE && params.mId.isAlphaOrSymbolKeyboard) -1f
         else if (type == KeyType.NUMERIC && params.mId.isNumberLayout) -1f
         else params.mDefaultKeyWidth
-    }
-
-    private fun processCode(): Int {
-        if (code != KeyCode.UNSPECIFIED) return code
-        return when (label) {
-            KeyLabel.SYMBOL_ALPHA -> KeyCode.SYMBOL_ALPHA
-            KeyLabel.SYMBOL -> KeyCode.SYMBOL
-            KeyLabel.ALPHA -> KeyCode.ALPHA
-            KeyLabel.CTRL -> KeyCode.CTRL
-            KeyLabel.ALT -> KeyCode.ALT
-            KeyLabel.FN -> KeyCode.FN
-            KeyLabel.META -> KeyCode.META
-            KeyLabel.TAB -> KeyCode.TAB
-            KeyLabel.ESCAPE -> KeyCode.ESCAPE
-            KeyLabel.TIMESTAMP -> KeyCode.TIMESTAMP
-            else -> {
-                if (label in toolbarKeyStrings.values) {
-                    getCodeForToolbarKey(ToolbarKey.valueOf(label.uppercase(Locale.US)))
-                } else code
-            }
-        }
     }
 
     // todo (later): add explanations / reasoning, often this is just taken from conversion from OpenBoard / AOSP layouts

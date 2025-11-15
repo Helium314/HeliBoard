@@ -30,6 +30,7 @@ import helium314.keyboard.settings.preferences.SliderPreference
 import helium314.keyboard.settings.preferences.SwitchPreference
 import helium314.keyboard.settings.Theme
 import helium314.keyboard.settings.initPreview
+import helium314.keyboard.settings.preferences.SwitchPreferenceWithEmojiDictWarning
 import helium314.keyboard.settings.previewDark
 
 @Composable
@@ -118,13 +119,8 @@ fun createPreferencesSettings(context: Context) = listOf(
     Setting(context, Settings.PREF_SOUND_ON, R.string.sound_on_keypress) {
         SwitchPreference(it, Defaults.PREF_SOUND_ON)
     },
-    Setting(
-        context, Settings.PREF_SHOW_EMOJI_DESCRIPTIONS, R.string.show_emoji_descriptions,
-        R.string.show_emoji_descriptions_summary
-    ) {
-        SwitchPreference(it, Defaults.PREF_SHOW_EMOJI_DESCRIPTIONS) {
-            KeyboardSwitcher.getInstance().reloadKeyboard()
-        }
+    Setting(context, Settings.PREF_SHOW_EMOJI_DESCRIPTIONS, R.string.show_emoji_descriptions) {
+        SwitchPreferenceWithEmojiDictWarning(it, Defaults.PREF_SHOW_EMOJI_DESCRIPTIONS)
     },
     Setting(context, Settings.PREF_SHOW_NUMBER_ROW, R.string.number_row, R.string.number_row_summary) {
         SwitchPreference(it, Defaults.PREF_SHOW_NUMBER_ROW) { KeyboardSwitcher.getInstance().setThemeNeedsReload() }

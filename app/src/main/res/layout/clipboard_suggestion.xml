@@ -3,7 +3,7 @@
     android:orientation="horizontal"
     android:background="@drawable/clipboard_suggestion_background"
     android:gravity="center"
-    android:paddingRight="12dp"
+    android:paddingEnd="12dp"
     android:layout_width="wrap_content"
     android:layout_height="match_parent">
     <TextView
