@@ -100,7 +100,7 @@ fun DictionaryDialog(
         onNeutral = {
             val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
                 .addCategory(Intent.CATEGORY_OPENABLE)
-                .setType("application/octet-stream")
+                .setType("*/*")
             picker.launch(intent)
         }
     )
@@ -135,7 +135,7 @@ private fun DictionaryDetails(dict: File) {
         ConfirmationDialog(
             onDismissRequest = { showDeleteDialog = false },
             confirmButtonText = stringResource(R.string.remove),
-            onConfirmed = { dict.delete() },
+            onConfirmed = { dict.deleteRecursively() },
             content = { Text(stringResource(R.string.remove_dictionary_message, type))}
         )
 }

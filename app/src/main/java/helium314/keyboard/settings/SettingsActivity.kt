@@ -39,11 +39,13 @@ import helium314.keyboard.latin.common.FileUtils
 import helium314.keyboard.latin.define.DebugFlags
 import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.utils.DeviceProtectedUtils
+import helium314.keyboard.latin.utils.DictionaryInfoUtils
 import helium314.keyboard.latin.utils.ExecutorUtils
 import helium314.keyboard.latin.utils.UncachedInputMethodManagerUtils
 import helium314.keyboard.latin.utils.cleanUnusedMainDicts
 import helium314.keyboard.latin.utils.prefs
 import helium314.keyboard.settings.dialogs.ConfirmationDialog
+import helium314.keyboard.settings.dialogs.InfoDialog
 import helium314.keyboard.settings.dialogs.NewDictionaryDialog
 import kotlinx.coroutines.flow.MutableStateFlow
 import java.io.BufferedOutputStream
@@ -138,11 +140,17 @@ open class SettingsActivity : ComponentActivity(), SharedPreferences.OnSharedPre
                         }
                     }
                     if (dictUri != null) {
-                        NewDictionaryDialog(
-                            onDismissRequest = { dictUriFlow.value = null },
-                            cachedFile = cachedDictionaryFile,
-                            mainLocale = null
-                        )
+                        val header = DictionaryInfoUtils.getDictionaryFileHeaderOrNull(cachedDictionaryFile, 0, cachedDictionaryFile.length())
+                        if (header == null)
+                            InfoDialog(stringResource(R.string.dictionary_file_error)) { dictUriFlow.value = null }
+                        else
+                            NewDictionaryDialog(
+                                onDismissRequest = { dictUriFlow.value = null },
+                                cachedFile = cachedDictionaryFile,
+                                mainLocale = null,
+                                header = header,
+                                isTextFile = false
+                            )
                     }
                 }
             }

@@ -11,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -33,18 +34,23 @@ import helium314.keyboard.settings.WithSmallTitle
 import java.io.File
 import java.util.Locale
 import androidx.compose.ui.platform.LocalConfiguration
+import helium314.keyboard.latin.dictionary.UserAddedDictionary
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 @Composable
 fun NewDictionaryDialog(
     onDismissRequest: () -> Unit,
     cachedFile: File,
-    mainLocale: Locale?
+    mainLocale: Locale?,
+    header: DictionaryHeader,
+    isTextFile: Boolean
 ) {
-    val (error, header) = checkDict(cachedFile)
-    if (error != null) {
-        InfoDialog(stringResource(error), onDismissRequest)
+    if (!isTextFile && !canLoadDictionary(cachedFile)) {
+        InfoDialog(stringResource(R.string.dictionary_load_error), onDismissRequest)
         cachedFile.delete()
-    } else if (header != null) {
+    } else {
         val ctx = LocalContext.current
         val dictLocale = header.mLocaleString.constructLocale()
         val enabledLanguages = SubtypeSettings.getEnabledSubtypes().map { it.locale().language }
@@ -57,20 +63,47 @@ fun NewDictionaryDialog(
         val dictFile = File(cacheDir, header.mIdString.substringBefore(":") + "_" + DictionaryInfoUtils.USER_DICTIONARY_SUFFIX)
         val type = header.mIdString.substringBefore(":")
         val info = header.info(LocalConfiguration.current.locale())
+        var showWait by rememberSaveable { mutableStateOf<String?>(null) }
+        if (showWait != null)
+            InfoDialog(showWait.toString()) { } // no way to cancel
         ThreeButtonAlertDialog(
             onDismissRequest = { onDismissRequest(); cachedFile.delete() },
             onConfirmed = {
                 dictFile.parentFile?.mkdirs()
                 dictFile.delete()
-                cachedFile.renameTo(dictFile)
-                if (type == Dictionary.TYPE_MAIN) {
-                    // replaced main dict, remove the one created from internal data
-                    val internalMainDictFile = File(cacheDir, DictionaryInfoUtils.MAIN_DICT_FILE_NAME)
-                    internalMainDictFile.delete()
+                fun finish() {
+                    if (type == Dictionary.TYPE_MAIN) {
+                        // replaced main dict, remove the one created from internal data
+                        val internalMainDictFile = File(cacheDir, DictionaryInfoUtils.MAIN_DICT_FILE_NAME)
+                        internalMainDictFile.delete()
+                    }
+                    val newDictBroadcast = Intent(DictionaryPackConstants.NEW_DICTIONARY_INTENT_ACTION)
+                    ctx.sendBroadcast(newDictBroadcast)
+                    onDismissRequest()
                 }
-                val newDictBroadcast = Intent(DictionaryPackConstants.NEW_DICTIONARY_INTENT_ACTION)
-                ctx.sendBroadcast(newDictBroadcast)
+                if (isTextFile) {
+                    showWait = "please wait"
+                    val dict = UserAddedDictionary(ctx, locale, type)
+                    dict.setContents(cachedFile.readLines())
+                    // maybe this shit is not necessary, but if we don't do it the user doesn't know about failed imports
+                    GlobalScope.launch {
+                        var wait = 0
+                        while (dict.content != null && wait < 3000) {
+                            delay(100)
+                            wait++
+                            showWait = "please wait, ${dict.added} words added, failed for ${dict.failed} words"
+                        }
+                        dict.onFinishInput()
+                        showWait = null
+                        cachedFile.delete()
+                        finish()
+                    }
+                } else {
+                    cachedFile.renameTo(dictFile)
+                    finish()
+                }
             },
+            confirmDismissesDialog = false,
             confirmButtonText = stringResource(if (dictFile.exists()) R.string.replace_dictionary else android.R.string.ok),
             title = { Text(stringResource(R.string.add_new_dictionary_title)) },
             content = {
@@ -107,15 +140,11 @@ fun NewDictionaryDialog(
     }
 }
 
-private fun checkDict(file: File): Pair<Int?, DictionaryHeader?> {
-    val newHeader = DictionaryInfoUtils.getDictionaryFileHeaderOrNull(file, 0, file.length())
-        ?: return R.string.dictionary_file_error to null
-
+private fun canLoadDictionary(file: File): Boolean {
+    val newHeader = DictionaryInfoUtils.getDictionaryFileHeaderOrNull(file, 0, file.length()) ?: return false
     val locale = newHeader.mLocaleString.constructLocale()
     val dict = ReadOnlyBinaryDictionary(file.absolutePath, 0, file.length(), false, locale, "test")
-    if (!dict.isValidDictionary) {
-        dict.close()
-        return R.string.dictionary_load_error to null
-    }
-    return null to newHeader
+    val isValid = dict.isValidDictionary
+    dict.close()
+    return isValid
 }
