@@ -8,11 +8,11 @@ import java.util.ArrayList
 /**
  * Bengali combiner implementing the Khipro state machine.
  * Converts Latin input sequences to Bengali text using greedy longest-match algorithm.
- * 
+ *
  * This implementation matches the m17n khipro layout with:
  * - All core vowels (shor), consonants (byanjon), and conjuncts (juktoborno)
  * - Minimal punctuation (।ff → ৺)
- * 
+ *
  * Intentionally excluded:
  * - Number mappings (ongko group)
  * - ZWJ/ZWNJ support
@@ -191,11 +191,11 @@ class BnKhiproCombiner : Combiner {
 
         private fun findLongest(state: State, text: String, i: Int): Triple<String, String, String> {
             val allowed = STATE_GROUP_ORDER[state] ?: return Triple("", "", "")
-            
+
             // Determine the max lookahead we need
             val maxlen = allowed.maxOfOrNull { MAXLEN_PER_GROUP[it] ?: 0 } ?: 0
             val end = minOf(text.length, i + maxlen)
-            
+
             // Try lengths from longest to shortest to implement greedy matching
             for (L in (end - i) downTo 1) {
                 val chunk = text.substring(i, i + L)
@@ -283,14 +283,14 @@ class BnKhiproCombiner : Combiner {
     }
 
     override fun processEvent(previousEvents: ArrayList<Event>?, event: Event): Event {
-        if (event.mKeyCode == KeyCode.SHIFT) return event
-        
-        if (Character.isWhitespace(event.mCodePoint)) {
+        if (event.keyCode == KeyCode.SHIFT) return event
+
+        if (Character.isWhitespace(event.codePoint)) {
             val text = combiningStateFeedback
             reset()
             return createEventChainFromSequence(text, event)
         } else if (event.isFunctionalKeyEvent) {
-            if (event.mKeyCode == KeyCode.DELETE) {
+            if (event.keyCode == KeyCode.DELETE) {
                 // Always reset composing state and let keyboard handle delete natively
                 val text = combiningStateFeedback
                 reset()
@@ -302,8 +302,8 @@ class BnKhiproCombiner : Combiner {
         } else {
             // Add the character to composing text
             // Use Character.toChars() to properly handle supplementary characters (emojis)
-            composingText.append(Character.toChars(event.mCodePoint))
-            
+            composingText.append(Character.toChars(event.codePoint))
+
             // Check if we just completed a biram sequence
             val text = composingText.toString()
             if (text.endsWith(".ff")) {
@@ -311,7 +311,7 @@ class BnKhiproCombiner : Combiner {
                 reset()
                 return createEventChainFromSequence(result, event)
             }
-            
+
             return Event.createConsumedEvent(event)
         }
     }

@@ -20,7 +20,7 @@ object HangulEventDecoder {
     @JvmStatic
     fun decodeSoftwareKeyEvent(event: Event): Event {
         if (event.isCombining) return event
-        return if (HangulJamo.of(event.mCodePoint) is HangulJamo.NonHangul) event
+        return if (HangulJamo.of(event.codePoint) is HangulJamo.NonHangul) event
         else Event.createCombiningEvent(event)
     }
 

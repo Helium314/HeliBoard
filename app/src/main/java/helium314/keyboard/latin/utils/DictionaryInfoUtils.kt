@@ -8,6 +8,8 @@ package helium314.keyboard.latin.utils
 import android.content.Context
 import android.text.TextUtils
 import com.android.inputmethod.latin.utils.BinaryDictionaryUtils
+import helium314.keyboard.latin.dictionary.Dictionary
+import helium314.keyboard.latin.RichInputMethodManager
 import helium314.keyboard.latin.common.FileUtils
 import helium314.keyboard.latin.common.LocaleUtils.constructLocale
 import helium314.keyboard.latin.common.loopOverCodePoints
@@ -101,6 +103,11 @@ object DictionaryInfoUtils {
         }
         return absoluteDirectoryName
     }
+
+    @JvmStatic
+    fun getLocalesWithEmojiDicts(context: Context): List<Locale> =
+        SubtypeSettings.getEnabledSubtypes(true)
+            .map { it.locale() }.filter { getCachedDictForLocaleAndType(it, Dictionary.TYPE_EMOJI, context) != null }
 
     @JvmStatic
     fun getCachedDictForLocaleAndType(locale: Locale, type: String, context: Context): File? =

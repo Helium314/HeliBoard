@@ -27,6 +27,7 @@ import helium314.keyboard.latin.ClipboardHistoryManager
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.common.ColorType
 import helium314.keyboard.latin.common.Constants
+import helium314.keyboard.latin.database.ClipboardDao
 import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.utils.ResourceUtils
 import helium314.keyboard.latin.utils.ToolbarKey
@@ -43,7 +44,7 @@ class ClipboardHistoryView @JvmOverloads constructor(
         attrs: AttributeSet?,
         defStyle: Int = R.attr.clipboardHistoryViewStyle
 ) : LinearLayout(context, attrs, defStyle), View.OnClickListener,
-    ClipboardHistoryManager.OnHistoryChangeListener, OnKeyEventListener,
+    ClipboardDao.Listener, OnKeyEventListener,
     View.OnLongClickListener, SharedPreferences.OnSharedPreferenceChangeListener {
 
     private val clipboardLayoutParams = ClipboardLayoutParams(context)
@@ -85,7 +86,6 @@ class ClipboardHistoryView @JvmOverloads constructor(
     @SuppressLint("ClickableViewAccessibility")
     private fun initialize() { // needs to be delayed for access to ClipboardStrip, which is not a child of this view
         if (this::clipboardAdapter.isInitialized) return
-        clipboardHistoryManager.sortHistoryEntries()
         val colors = Settings.getValues().mColors
         clipboardAdapter = ClipboardAdapter(clipboardLayoutParams, this).apply {
             itemBackgroundId = keyBackgroundId
@@ -230,25 +230,25 @@ class ClipboardHistoryView @JvmOverloads constructor(
 
     override fun onKeyUp(clipId: Long) {
         val clipContent = clipboardHistoryManager.getHistoryEntryContent(clipId)
-        keyboardActionListener.onTextInput(clipContent.content.toString())
+        keyboardActionListener.onTextInput(clipContent?.text)
         keyboardActionListener.onReleaseKey(KeyCode.NOT_SPECIFIED, false)
         if (Settings.getValues().mAlphaAfterClipHistoryEntry)
             keyboardActionListener.onCodeInput(KeyCode.ALPHA, Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE, false)
     }
 
-    override fun onClipboardHistoryEntryAdded(at: Int) {
-        clipboardAdapter.notifyItemInserted(at)
-        clipboardRecyclerView.smoothScrollToPosition(at)
+    override fun onClipInserted(position: Int) {
+        clipboardAdapter.notifyItemInserted(position)
+        clipboardRecyclerView.smoothScrollToPosition(position)
     }
 
-    override fun onClipboardHistoryEntriesRemoved(pos: Int, count: Int) {
-        clipboardAdapter.notifyItemRangeRemoved(pos, count)
+    override fun onClipsRemoved(position: Int, count: Int) {
+        clipboardAdapter.notifyItemRangeRemoved(position, count)
     }
 
-    override fun onClipboardHistoryEntryMoved(from: Int, to: Int) {
-        clipboardAdapter.notifyItemMoved(from, to)
-        clipboardAdapter.notifyItemChanged(to)
-        if (to < from) clipboardRecyclerView.smoothScrollToPosition(to)
+    override fun onClipMoved(oldPosition: Int, newPosition: Int) {
+        clipboardAdapter.notifyItemMoved(oldPosition, newPosition)
+        clipboardAdapter.notifyItemChanged(newPosition)
+        if (newPosition < oldPosition) clipboardRecyclerView.smoothScrollToPosition(newPosition)
     }
 
     override fun onSharedPreferenceChanged(prefs: SharedPreferences?, key: String?) {

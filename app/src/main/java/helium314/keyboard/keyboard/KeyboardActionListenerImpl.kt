@@ -22,6 +22,7 @@ import helium314.keyboard.latin.common.loopOverCodePointsBackwards
 import helium314.keyboard.latin.define.ProductionFlags
 import helium314.keyboard.latin.inputlogic.InputLogic
 import helium314.keyboard.latin.settings.Settings
+import helium314.keyboard.latin.utils.SubtypeSettings
 import kotlin.math.abs
 import kotlin.math.min
 
@@ -222,7 +223,7 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
 
     private fun onLanguageSlide(steps: Int): Boolean {
         if (abs(steps) < settings.current.mLanguageSwipeDistance) return false
-        val subtypes = RichInputMethodManager.getInstance().getMyEnabledInputMethodSubtypes(true)
+        val subtypes = SubtypeSettings.getEnabledSubtypes(true)
         if (subtypes.size <= 1) { // only allow if we have more than one subtype
             return false
         }

@@ -2,12 +2,14 @@ package helium314.keyboard.keyboard.internal.keyboard_parser.floris
 
 import android.view.inputmethod.EditorInfo
 import helium314.keyboard.keyboard.KeyboardId
+import helium314.keyboard.keyboard.internal.KeyboardCodesSet
 import helium314.keyboard.keyboard.internal.KeyboardIconsSet
 import helium314.keyboard.keyboard.internal.KeyboardParams
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyData.Companion.replaceIconWithLabelIfNoDrawable
 import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.utils.InputTypeUtils
 import helium314.keyboard.latin.utils.ToolbarKey
+import helium314.keyboard.latin.utils.getCodeForToolbarKey
 import helium314.keyboard.latin.utils.toolbarKeyStrings
 import java.util.Locale
 
@@ -85,29 +87,47 @@ object KeyLabel {
         }
     }
 
-    fun keyLabelToActualLabel(label: String, params: KeyboardParams) = when (label) {
-        SYMBOL_ALPHA -> if (params.mId.isAlphabetKeyboard) params.mLocaleKeyboardInfos.labelSymbol else params.mLocaleKeyboardInfos.labelAlphabet
-        SYMBOL -> params.mLocaleKeyboardInfos.labelSymbol
-        ALPHA -> params.mLocaleKeyboardInfos.labelAlphabet
-        COMMA -> params.mLocaleKeyboardInfos.labelComma
-        PERIOD -> getPeriodLabel(params)
-        SPACE -> getSpaceLabel(params)
-        ACTION -> "${getActionKeyLabel(params)}|${getActionKeyCode(params)}"
-        DELETE -> "!icon/delete_key|!code/key_delete"
-        SHIFT -> "${getShiftLabel(params)}|!code/key_shift"
-        COM -> params.mLocaleKeyboardInfos.tlds.first()
-        LANGUAGE_SWITCH -> "!icon/language_switch_key|!code/key_language_switch"
-        ZWNJ -> "!icon/zwnj_key|\u200C"
-        CURRENCY -> params.mLocaleKeyboardInfos.currencyKey.first
-        CURRENCY1 -> params.mLocaleKeyboardInfos.currencyKey.second[0]
-        CURRENCY2 -> params.mLocaleKeyboardInfos.currencyKey.second[1]
-        CURRENCY3 -> params.mLocaleKeyboardInfos.currencyKey.second[2]
-        CURRENCY4 -> params.mLocaleKeyboardInfos.currencyKey.second[3]
-        CURRENCY5 -> params.mLocaleKeyboardInfos.currencyKey.second[4]
-        CTRL, ALT, FN, META, ESCAPE -> label.uppercase(Locale.US)
-        TAB -> "!icon/tab_key|!code/${KeyCode.TAB}"
-        TIMESTAMP -> "⌚|!code/${KeyCode.TIMESTAMP}"
-        else -> null
+    fun keyLabelToActualLabel(label: String, params: KeyboardParams): String {
+        val newLabel = when (label) {
+            SYMBOL_ALPHA -> if (params.mId.isAlphabetKeyboard) params.mLocaleKeyboardInfos.labelSymbol else params.mLocaleKeyboardInfos.labelAlphabet
+            SYMBOL -> params.mLocaleKeyboardInfos.labelSymbol
+            ALPHA -> params.mLocaleKeyboardInfos.labelAlphabet
+            COMMA -> params.mLocaleKeyboardInfos.labelComma
+            PERIOD -> getPeriodLabel(params)
+            SPACE -> getSpaceLabel(params)
+            ACTION -> "${getActionKeyLabel(params)}|${getActionKeyCode(params)}"
+            DELETE -> "!icon/delete_key|!code/key_delete"
+            SHIFT -> "${getShiftLabel(params)}|!code/key_shift"
+            COM -> params.mLocaleKeyboardInfos.tlds.first()
+            LANGUAGE_SWITCH -> "!icon/language_switch_key|!code/key_language_switch"
+            ZWNJ -> "!icon/zwnj_key|\u200C"
+            CURRENCY -> params.mLocaleKeyboardInfos.currencyKey.first
+            CURRENCY1 -> params.mLocaleKeyboardInfos.currencyKey.second[0]
+            CURRENCY2 -> params.mLocaleKeyboardInfos.currencyKey.second[1]
+            CURRENCY3 -> params.mLocaleKeyboardInfos.currencyKey.second[2]
+            CURRENCY4 -> params.mLocaleKeyboardInfos.currencyKey.second[3]
+            CURRENCY5 -> params.mLocaleKeyboardInfos.currencyKey.second[4]
+            CTRL, ALT, FN, META, ESCAPE -> label.uppercase(Locale.US)
+            TAB -> "!icon/tab_key|!code/${KeyCode.TAB}"
+            TIMESTAMP -> "⌚"
+            else -> if (label in toolbarKeyStrings.values)
+                "!icon/$label|!code/${getCodeForToolbarKey(ToolbarKey.valueOf(label.uppercase(Locale.US)))}"
+            else label
+        }
+        val code = when (label) { // maybe a bit lazy to not assemble the entire string above
+            SYMBOL_ALPHA -> KeyCode.SYMBOL_ALPHA
+            SYMBOL       -> KeyCode.SYMBOL
+            ALPHA        -> KeyCode.ALPHA
+            CTRL         -> KeyCode.CTRL
+            ALT          -> KeyCode.ALT
+            FN           -> KeyCode.FN
+            META         -> KeyCode.META
+            ESCAPE       -> KeyCode.ESCAPE
+            TIMESTAMP    -> KeyCode.TIMESTAMP
+            else         -> null
+        }
+        return if (code == null) newLabel
+        else "$newLabel|!code/$code"
     }
 
     private fun getShiftLabel(params: KeyboardParams) = when (params.mId.mElementId) {
@@ -136,12 +156,15 @@ object KeyLabel {
         else "!icon/space_key_for_number_layout|!code/key_space"
 
     // todo (later): should this be handled with metaState? but metaState shift would require LOTS of changes...
-    private fun getActionKeyCode(params: KeyboardParams) =
-        if (params.mId.isMultiLine && (params.mId.mElementId == KeyboardId.ELEMENT_ALPHABET_MANUAL_SHIFTED || params.mId.mElementId == KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCK_SHIFTED))
+    private fun getActionKeyCode(params: KeyboardParams): String {
+        params.mId.mInternalAction?.let { return "${KeyboardCodesSet.PREFIX_CODE}${it.code()}" }
+        return if (params.mId.isMultiLine && (params.mId.mElementId == KeyboardId.ELEMENT_ALPHABET_MANUAL_SHIFTED || params.mId.mElementId == KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCK_SHIFTED))
             "!code/key_shift_enter"
         else "!code/key_enter"
+    }
 
     private fun getActionKeyLabel(params: KeyboardParams): String {
+        params.mId.mInternalAction?.let { return it.label() }
         if (params.mId.isMultiLine && (params.mId.mElementId == KeyboardId.ELEMENT_ALPHABET_MANUAL_SHIFTED || params.mId.mElementId == KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCK_SHIFTED))
             return "!icon/enter_key"
         val iconName = when (params.mId.imeAction()) {

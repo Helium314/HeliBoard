@@ -71,6 +71,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_VIBRATE_IN_DND_MODE = "vibrate_in_dnd_mode";
     public static final String PREF_SOUND_ON = "sound_on";
     public static final String PREF_SUGGEST_EMOJIS = "suggest_emojis";
+    public static final String PREF_INLINE_EMOJI_SEARCH = "inline_emoji_search";
     public static final String PREF_SHOW_EMOJI_DESCRIPTIONS = "show_emoji_descriptions";
     public static final String PREF_POPUP_ON = "popup_on";
     public static final String PREF_AUTO_CORRECTION = "auto_correction";
@@ -181,7 +182,6 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_LAST_SHOWN_EMOJI_CATEGORY_ID = "last_shown_emoji_category_id";
     public static final String PREF_LAST_SHOWN_EMOJI_CATEGORY_PAGE_ID = "last_shown_emoji_category_page_id";
 
-    public static final String PREF_PINNED_CLIPS = "pinned_clips";
     public static final String PREF_VERSION_CODE = "version_code";
     public static final String PREF_LIBRARY_CHECKSUM = "lib_checksum";
     public static final String PREF_SAVE_SUBTYPE_PER_APP = "save_subtype_per_app";
@@ -201,7 +201,6 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
 
     // preferences that are not used in SettingsValues and thus should not trigger reload when changed
     private static final HashSet<String> dontReloadOnChanged = new HashSet<>() {{
-        add(PREF_PINNED_CLIPS);
         add(PREF_LAST_SHOWN_EMOJI_CATEGORY_PAGE_ID);
         add(PREF_LAST_SHOWN_EMOJI_CATEGORY_ID);
         add(PREF_EMOJI_RECENT_KEYS);
@@ -451,25 +450,6 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
         // is NOKEYS and if it's not hidden (e.g. folded inside the device).
         return conf.keyboard != Configuration.KEYBOARD_NOKEYS
                 && conf.hardKeyboardHidden != Configuration.HARDKEYBOARDHIDDEN_YES;
-    }
-
-    public static String readPinnedClipString(final Context context) {
-        try {
-            final SharedPreferences prefs = KtxKt.protectedPrefs(context);
-            return prefs.getString(PREF_PINNED_CLIPS, Defaults.PREF_PINNED_CLIPS);
-        } catch (final IllegalStateException e) {
-            // SharedPreferences in credential encrypted storage are not available until after user is unlocked
-            return "";
-        }
-    }
-
-    public static void writePinnedClipString(final Context context, final String clips) {
-        try {
-            final SharedPreferences prefs = KtxKt.protectedPrefs(context);
-            prefs.edit().putString(PREF_PINNED_CLIPS, clips).apply();
-        } catch (final IllegalStateException e) {
-            // SharedPreferences in credential encrypted storage are not available until after user is unlocked
-        }
     }
 
     @Nullable public static Drawable readUserBackgroundImage(final Context context, final boolean night) {
