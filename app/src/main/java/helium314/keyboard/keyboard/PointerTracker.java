@@ -733,8 +733,10 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
 
     private void startKeySelectionByDraggingFinger(final Key key) {
         if (!mIsInDraggingFinger) {
-            final int code = key.getCode(); // todo: no sliding input yet for those keys, but it would be really useful
-            mIsInSlidingKeyInput = key.isModifier() && code != KeyCode.CTRL && code != KeyCode.ALT && code != KeyCode.FN && code != KeyCode.META;
+            // the meta lock keys stay enabled after sliding input, but should not
+            // (even without sliding input they actually behave the same... this is just about the graphics)
+            final int code = key.getCode();
+            mIsInSlidingKeyInput = key.isModifier() && code != KeyCode.CTRL_LOCK && code != KeyCode.ALT_LOCK && code != KeyCode.FN_LOCK && code != KeyCode.META_LOCK;
         }
         mIsInDraggingFinger = true;
     }
@@ -1129,7 +1131,7 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
         if (key == null) {
             return;
         }
-        sListener.onLongPressKey();
+        sListener.onLongPressKey(key.getCode());
         if (key.hasNoPanelAutoPopupKey()) {
             cancelKeyTracking();
             final int popupKeyCode = key.getPopupKeys()[0].mCode;
@@ -1159,10 +1161,6 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
         final PopupKeysPanel popupKeysPanel = sDrawingProxy.showPopupKeysKeyboard(key, this);
         if (popupKeysPanel == null) {
             return;
-        }
-        if (code == KeyCode.CTRL || code == KeyCode.ALT || code == KeyCode.FN || code == KeyCode.META) {
-            // avoid metaState getting stuck
-            sListener.onReleaseKey(code, false);
         }
         final int translatedX = popupKeysPanel.translateX(mLastX);
         final int translatedY = popupKeysPanel.translateY(mLastY);

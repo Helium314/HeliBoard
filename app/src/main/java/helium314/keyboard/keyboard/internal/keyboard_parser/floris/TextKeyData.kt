@@ -359,11 +359,10 @@ sealed interface KeyData : AbstractKeyData {
             KeyType.PLACEHOLDER, KeyType.UNSPECIFIED -> Key.BACKGROUND_TYPE_EMPTY
             KeyType.NAVIGATION -> Key.BACKGROUND_TYPE_SPACEBAR
             KeyType.ENTER_EDITING -> Key.BACKGROUND_TYPE_ACTION
-            KeyType.LOCK -> getShiftBackground(params)
+            KeyType.LOCK -> Key.BACKGROUND_TYPE_FUNCTIONAL
             null -> getDefaultBackground(params)
         }
-        if (background == Key.BACKGROUND_TYPE_FUNCTIONAL
-            || background == Key.BACKGROUND_TYPE_STICKY_ON || background == Key.BACKGROUND_TYPE_STICKY_OFF)
+        if (background == Key.BACKGROUND_TYPE_FUNCTIONAL)
             newLabelFlags = newLabelFlags or Key.LABEL_FLAGS_FOLLOW_FUNCTIONAL_TEXT_COLOR
 
         return if (newCode == KeyCode.UNSPECIFIED || newCode == KeyCode.MULTIPLE_CODE_POINTS) {
@@ -412,21 +411,13 @@ sealed interface KeyData : AbstractKeyData {
             KeyLabel.FN, KeyLabel.META, toolbarKeyStrings[ToolbarKey.EMOJI] -> return Key.BACKGROUND_TYPE_FUNCTIONAL
             KeyLabel.SPACE, KeyLabel.ZWNJ -> return Key.BACKGROUND_TYPE_SPACEBAR
             KeyLabel.ACTION -> return Key.BACKGROUND_TYPE_ACTION
-            KeyLabel.SHIFT -> return getShiftBackground(params)
+            KeyLabel.SHIFT -> return Key.BACKGROUND_TYPE_FUNCTIONAL
         }
         if (type == KeyType.PLACEHOLDER) return Key.BACKGROUND_TYPE_EMPTY
         if ((params.mId.mElementId == KeyboardId.ELEMENT_SYMBOLS || params.mId.mElementId == KeyboardId.ELEMENT_SYMBOLS_SHIFTED)
                 && (groupId == GROUP_COMMA || groupId == GROUP_PERIOD))
             return Key.BACKGROUND_TYPE_FUNCTIONAL
         return Key.BACKGROUND_TYPE_NORMAL
-    }
-
-    // todo (later): possibly the whole stickyOn/Off stuff can be removed, currently it should only have a very slight effect in holo
-    //  but iirc there is some attempt in reviving the sticky thing, right?
-    private fun getShiftBackground(params: KeyboardParams): Int {
-        return if (params.mId.mElementId == KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCK_SHIFTED
-            || params.mId.mElementId == KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCKED) Key.BACKGROUND_TYPE_STICKY_ON
-        else Key.BACKGROUND_TYPE_STICKY_OFF
     }
 
     private fun getDefaultWidth(params: KeyboardParams): Float {
