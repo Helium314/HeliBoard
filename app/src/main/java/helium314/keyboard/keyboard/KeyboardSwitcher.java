@@ -635,6 +635,10 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
         return mStripContainer.isShown();
     }
 
+    public EmojiPalettesView getEmojiPalettesView() {
+        return mEmojiPalettesView;
+    }
+
     public View getVisibleKeyboardView() {
         if (isShowingEmojiPalettes()) {
             return mEmojiPalettesView;
