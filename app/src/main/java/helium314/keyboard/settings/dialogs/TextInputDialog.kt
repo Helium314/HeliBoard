@@ -44,17 +44,6 @@ fun TextInputDialog(
     reducePadding: Boolean = false,
     checkTextValid: (text: String) -> Boolean = { it.isNotBlank() }
 ) {
-    val focusRequester = remember { FocusRequester() }
-    // crappy workaround because otherwise we get a disappearing dialog and a crash
-    // but doesn't work perfectly, dialog doesn't nicely show up again...
-    // todo: understand why it works in ExpandableSearchField, but not here
-    var done by rememberSaveable { mutableStateOf(false) }
-    LaunchedEffect(initialText) {
-        if (done) return@LaunchedEffect
-        focusRequester.requestFocus()
-        done = true
-    }
-
     var value by rememberSaveable(stateSaver = TextFieldValue.Saver) {
         mutableStateOf(TextFieldValue(initialText, selection = TextRange(if (singleLine) initialText.length else 0)))
     }
@@ -69,6 +58,7 @@ fun TextInputDialog(
         modifier = modifier,
         title = title,
         content = {
+            val focusRequester = remember { FocusRequester() }
             OutlinedTextField(
                 value = value,
                 onValueChange = { value = it },
@@ -80,6 +70,7 @@ fun TextInputDialog(
                 singleLine = singleLine,
                 textStyle = contentTextDirectionStyle,
             )
+            LaunchedEffect(Unit) { focusRequester.requestFocus() }
         },
         properties = properties,
         reducePadding = reducePadding,
