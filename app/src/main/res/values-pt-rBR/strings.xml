@@ -453,4 +453,11 @@
     <string name="suggest_punctuation_summary">Mostrar pontuação quando não há outras sugestões</string>
     <string name="about_wiki_link">Ir para a Wiki</string>
     <string name="about_wiki_link_description">A wiki pode ser melhorada por qualquer usuário do GitHub!</string>
+    <string name="save_subtype_per_app">Lembrar idioma por app</string>
+    <string name="clipboard_history_pinned_first">Mostrar itens fixados no topo</string>
+    <string name="subtype_khipro_bn">%s (Khipro)</string>
+    <string name="inline_emoji_search">Busca por emojis embutida</string>
+    <string name="inline_emoji_search_summary">Sugerir apenas emojis quando uma palavra for precedida por dois pontos</string>
+    <string name="emoji_dictionary_required">Um dicionário de emoji é necessário para esta funcionalidade. Dicionários no formato .dict podem ser baixados %s.</string>
+    <string name="subtype_mhr">Mari (Oriental)</string>
 </resources>

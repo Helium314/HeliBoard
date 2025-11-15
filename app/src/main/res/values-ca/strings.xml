@@ -444,4 +444,11 @@
     <string name="suggest_punctuation">Suggeriments de puntuació</string>
     <string name="about_wiki_link">Anar al Wiki</string>
     <string name="about_wiki_link_description">Qualsevol compte de GitHub pot millorar el Wiki!</string>
+    <string name="save_subtype_per_app">Recordar idioma per app</string>
+    <string name="subtype_khipro_bn">%s (Khipro)</string>
+    <string name="clipboard_history_pinned_first">Mostrar els elements fixats a dalt</string>
+    <string name="inline_emoji_search">Cerca d\'emojis en línia</string>
+    <string name="inline_emoji_search_summary">Suggerir emojis només quan una paraula va precedida de dos punts</string>
+    <string name="emoji_dictionary_required">Cal un diccionari d\'emojis per a aquesta funció. Els diccionaris en format .dict es poden descarregar %s.</string>
+    <string name="subtype_mhr">Mari (Oriental)</string>
 </resources>

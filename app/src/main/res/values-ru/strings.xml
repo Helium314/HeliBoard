@@ -444,4 +444,11 @@
     <string name="space_swipe_hide_keyboard_entry">Скрыть клавиатуру</string>
     <string name="about_wiki_link">Перейти на Wiki</string>
     <string name="about_wiki_link_description">Любой пользователь GitHub может улучшить Wiki!</string>
+    <string name="save_subtype_per_app">Запоминать язык для каждого приложения</string>
+    <string name="subtype_khipro_bn">%s (Кипро)</string>
+    <string name="clipboard_history_pinned_first">Показывать закрепленные элементы вверху</string>
+    <string name="inline_emoji_search">Прямой поиск эмодзи</string>
+    <string name="inline_emoji_search_summary">Предлагать только эмодзи, когда слово предшествует двоеточию</string>
+    <string name="emoji_dictionary_required">Для работы этой функции требуется словарь эмодзи. Словари в формате .dict можно загрузить по ссылке %s.</string>
+    <string name="subtype_mhr">Луговомарийский (Лугововосточный марийский)</string>
 </resources>

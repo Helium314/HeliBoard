@@ -450,4 +450,11 @@ Nouveau dictionnaire:
     <string name="suggest_punctuation_summary">Afficher la ponctuation lorsqu\'aucune autre suggestion n\'est disponible</string>
     <string name="about_wiki_link_description">Le Wiki peut être amélioré par n\'importe quel utilisateur de GitHub !</string>
     <string name="about_wiki_link">Accéder au Wiki</string>
+    <string name="save_subtype_per_app">Mémoriser la langue par application</string>
+    <string name="subtype_khipro_bn">%s (Khipro)</string>
+    <string name="clipboard_history_pinned_first">Afficher les éléments épinglés en haut</string>
+    <string name="inline_emoji_search">Recherche d\'émojis intégrée</string>
+    <string name="inline_emoji_search_summary">Proposer uniquement des émojis lorsqu\'un mot est précédé de deux points</string>
+    <string name="emoji_dictionary_required">Un dictionnaire d\'émojis est nécessaire pour que cette fonctionnalité soit opérationnelle. Les dictionnaires au format .dict peuvent être téléchargés ici : %s.</string>
+    <string name="subtype_mhr">Mari (Eastern)</string>
 </resources>

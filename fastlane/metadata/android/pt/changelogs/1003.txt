@@ -1,4 +1,3 @@
-* mudar ícones para autocorreção e tecla de selecionar tudo por @codokie (#524, #651)
 * adicionar layout Chuvash por @tenextractor (#677)
 * adicionar tecla de corte por @codokie (#678)
 * atualizar o Probhat layout por @fahimscirex (#628)

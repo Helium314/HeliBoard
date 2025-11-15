@@ -453,4 +453,11 @@
     <string name="about_wiki_link">Ir á Wiki</string>
     <string name="about_wiki_link_description">Calquera usuaria de GitHub pode colaborar coa Wiki!</string>
     <string name="space_swipe_hide_keyboard_entry">Ocultar teclado</string>
+    <string name="clipboard_history_pinned_first">Mostrar arriba os elementos fixados</string>
+    <string name="inline_emoji_search">Busca de emojis ao escribir</string>
+    <string name="inline_emoji_search_summary">Só suxerir emojis cando a palabra comece por dous puntos</string>
+    <string name="emoji_dictionary_required">Requírese un dicionario de emojis para que esta ferramenta funcione. Podes descargar dicionarios en formato .dict desde %s.</string>
+    <string name="save_subtype_per_app">Lembrar idioma por aplicación</string>
+    <string name="subtype_mhr">Mari (Eastern)</string>
+    <string name="subtype_khipro_bn">%s (Khipro)</string>
 </resources>

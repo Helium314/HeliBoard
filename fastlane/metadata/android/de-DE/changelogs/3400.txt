@@ -1,0 +1,5 @@
+- Begrenzung der Anzahl der in der Vorschlagsleiste angezeigten Emojis auf eins (wenn möglich)
+- Behebung eines Fehlers beim Einfügen von Leerzeichen
+- Behebung eines Fehlers, bei dem auf einigen Geräten weißer Text auf weißem Hintergrund angezeigt wurde
+- Behebung eines Fehlers bei Vorschlägen mit `'`
+- Hinzufügen des Plural-Schwa ɜ zum Italienischen

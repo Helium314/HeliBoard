@@ -1,0 +1,11 @@
+- Vorschläge großschreiben, wenn die Umschalttaste gedrückt wird
+- Tastencodes für Broadcast-Intents hinzugefügt
+- Optionale Anzeige von Emoji-Beschreibungen, Emoji-Wörterbuch erforderlich
+- Verbesserung der HW-Tastaturhandhabung
+- Option „Tastatur ausblenden” beim vertikalen Wischen hinzug.
+- Lateinischer Subtyp hinzugefügt
+- mögl. Deaktiv. von Emoji-Vorschl. beim Hinzuf. eines Emoji-Wörterbuchs
+- Beheben fehlender Emojis in geteilter Tastatur
+- Entfernen von Emojis, die nicht allein verwendet werden sollen
+- Probleme mit der Blacklist behoben
+- Backspace-Verhaltens bei einigen Emojis behoben

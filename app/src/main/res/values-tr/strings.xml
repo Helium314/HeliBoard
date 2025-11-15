@@ -333,7 +333,7 @@
     <string name="after_clip">Pano geçmişi girişini seçme</string>
     <string name="theme_name_darker" tools:keep="@string/theme_name_darker">Daha koyu</string>
     <string name="show_popup_keys_main">Yaygın varyantları ekle (varsayılan)</string>
-    <string name="remove_redundant_popups_summary">Temel düzende bulunan açılır tuşları gizle</string>
+    <string name="remove_redundant_popups_summary">Temel düzende zaten bulunan açılır tuşları gizle</string>
     <string name="settings_screen_toolbar">Araç çubuğu</string>
     <string name="remove_redundant_popups">Gereksiz açılır pencereleri kaldır</string>
     <string name="space_swipe_toggle_numpad_entry">Sayısal tuş takımını aç kapa</string>
@@ -444,4 +444,11 @@
     <string name="customize_icons_reset_message">Tüm özelleştirilmiş simgeleri gerçekten sıfırlamak mı istiyorsunuz?</string>
     <string name="delete_confirmation">%s\'yi gerçekten silmek istiyor musunuz?</string>
     <string name="custom_subtype">Özel alt tür</string>
+    <string name="enable_split_keyboard_landscape">Bölünmüş klavyeyi etkinleştir (yatay)</string>
+    <string name="show_tld_popup_keys">TLD açılır pencere tuşlarını göster</string>
+    <string name="subtype_dru">Dargwa (Urakhi)</string>
+    <string name="subtype_baishakhi_bn_IN">%s (Baishakhi)</string>
+    <string name="subtype_generic_phonetic">%s (Fonetik)</string>
+    <string name="label_switch_onehanded_key" tools:keep="@string/label_switch_onehanded_key">Tek elle kullanım tarafını değiştir</string>
+    <string name="label_zwj_key" tools:keep="@string/label_zwj_key">Sıfır genişlikli bağlantı elemanı</string>
 </resources>

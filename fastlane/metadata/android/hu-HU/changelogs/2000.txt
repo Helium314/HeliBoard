@@ -1,10 +1,9 @@
 * Módosítóbillentyűk alapszintű támogatása
-* Hosszú lenyomás funkciók hozzáadása több eszköztárgombhoz
-* További vágólapelőzmény-eszköztárgombok
-* Vágólapelőzmény-eszköztár testreszabhatóvá tétele
+* Hosszú lenyomás funkciók több eszköztárgombhoz
+* További és testreszabható vágólapelőzmény-eszköztárgombok
 * Minden szín testreszabásának engedélyezése
-* Beállítás hozzáadása, hogy a beírt szó mindig középső javaslatként jelenjen meg
+* Beállítás a beírt szó középső javaslatként való megjelenítéséhez
 * Caps lock jelző hozzáadása
-* Piemonti, keleti mari, manysi, kiterjesztett kanadai és magyar elrendezések hozzáadása
-* Billentyű-előnézeti felugró ablakban levágott szöveg javítása egyes eszközökön
-* További javítások és fejlesztések, lásd a kiadási jegyzeteket
+* Új elrendezések (piemonti, keleti mari, manysi, kiterjesztett kanadai, magyar)
+
+* És még több hibajavítás - további részletek a bejelentésben
