@@ -1,6 +1,5 @@
 package helium314.keyboard.event
 
-import android.os.Build
 import android.view.HapticFeedbackConstants
 
 enum class HapticEvent(@JvmField val feedbackConstant: Int, @JvmField val allowCustomDuration: Boolean) {
@@ -24,14 +23,7 @@ enum class HapticEvent(@JvmField val feedbackConstant: Int, @JvmField val allowC
 //        },
 //        ?
 //    ),
-    GESTURE_MOVE(
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1) {
-            HapticFeedbackConstants.TEXT_HANDLE_MOVE
-        } else {
-            HapticFeedbackConstants.CLOCK_TICK
-        },
-        false
-    ),
+    GESTURE_MOVE(HapticFeedbackConstants.CLOCK_TICK, false),
 //    GESTURE_END(
 //        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
 //            HapticFeedbackConstants.GESTURE_END

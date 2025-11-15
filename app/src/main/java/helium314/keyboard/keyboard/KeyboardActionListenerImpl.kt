@@ -282,6 +282,9 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
                 repeat(-steps) {
                     onCodeInput(KeyCode.ARROW_LEFT, Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE, false)
                 }
+                if (text.isNotEmpty()) {
+                    gestureMoveBackHaptics()
+                }
                 return true
             }
             gestureMoveBackHaptics()
@@ -293,6 +296,9 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
                 // we fall back to virtually pressing the left/right key one or more times instead
                 repeat(steps) {
                     onCodeInput(KeyCode.ARROW_RIGHT, Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE, false)
+                }
+                if (text.isNotEmpty()) {
+                    gestureMoveForwardHaptics(true)
                 }
                 return true
             }
