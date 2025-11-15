@@ -6,6 +6,7 @@ import android.view.KeyEvent
 import android.view.inputmethod.InputMethodSubtype
 import helium314.keyboard.event.Event
 import helium314.keyboard.event.HangulEventDecoder
+import helium314.keyboard.event.HapticEvent
 import helium314.keyboard.event.HardwareEventDecoder
 import helium314.keyboard.event.HardwareKeyboardEventDecoder
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode
@@ -37,6 +38,7 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
 
     private val keyboardSwitcher = KeyboardSwitcher.getInstance()
     private val settings = Settings.getInstance()
+    private val audioAndHapticFeedbackManager = AudioAndHapticFeedbackManager.getInstance()
     private var metaState = 0 // is this enough, or are there threading issues with the different PointerTrackers?
 
     // language slide state
@@ -62,10 +64,15 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
             else metaState or metaCode
     }
 
-    override fun onPressKey(primaryCode: Int, repeatCount: Int, isSinglePointer: Boolean) {
+    override fun onPressKey(primaryCode: Int, repeatCount: Int, isSinglePointer: Boolean, hapticEvent: HapticEvent) {
         adjustMetaState(primaryCode, false)
         keyboardSwitcher.onPressKey(primaryCode, isSinglePointer, latinIME.currentAutoCapsState, latinIME.currentRecapitalizeState)
-        latinIME.hapticAndAudioFeedback(primaryCode, repeatCount)
+        // we need to use LatinIME for handling of key-down audio and haptics
+        latinIME.hapticAndAudioFeedback(primaryCode, repeatCount, hapticEvent)
+    }
+
+    override fun onLongPressKey() {
+        performHapticFeedback(HapticEvent.KEY_LONG_PRESS)
     }
 
     override fun onReleaseKey(primaryCode: Int, withSliding: Boolean) {
@@ -111,8 +118,8 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
 
     override fun onCodeInput(primaryCode: Int, x: Int, y: Int, isKeyRepeat: Boolean) {
         when (primaryCode) {
-            KeyCode.TOGGLE_AUTOCORRECT -> return Settings.getInstance().toggleAutoCorrect()
-            KeyCode.TOGGLE_INCOGNITO_MODE -> return Settings.getInstance().toggleAlwaysIncognitoMode()
+            KeyCode.TOGGLE_AUTOCORRECT -> return settings.toggleAutoCorrect()
+            KeyCode.TOGGLE_INCOGNITO_MODE -> return settings.toggleAlwaysIncognitoMode()
         }
         val mkv = keyboardSwitcher.mainKeyboardView
 
@@ -178,7 +185,7 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
     }
 
     override fun toggleNumpad(withSliding: Boolean, forceReturnToAlpha: Boolean): Boolean {
-        KeyboardSwitcher.getInstance().toggleNumpad(withSliding, latinIME.currentAutoCapsState, latinIME.currentRecapitalizeState, forceReturnToAlpha)
+        keyboardSwitcher.toggleNumpad(withSliding, latinIME.currentAutoCapsState, latinIME.currentRecapitalizeState, forceReturnToAlpha)
         return true
     }
 
@@ -188,7 +195,7 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
         val actualSteps = actualSteps(steps)
         val start = connection.expectedSelectionStart + actualSteps
         if (start > end) return
-        AudioAndHapticFeedbackManager.getInstance().performHapticFeedback(keyboardSwitcher.visibleKeyboardView)
+        gestureMoveBackHaptics()
         connection.setSelection(start, end)
     }
 
@@ -245,21 +252,25 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
         }
         if (steps > 0) subtypeSwitchCount++ else subtypeSwitchCount--
 
-        KeyboardSwitcher.getInstance().switchToSubtype(newSubtype)
+        keyboardSwitcher.switchToSubtype(newSubtype)
         return true
     }
 
     private fun onMoveCursorVertically(steps: Int): Boolean {
         if (steps == 0) return false
-        AudioAndHapticFeedbackManager.getInstance().performHapticFeedback(keyboardSwitcher.visibleKeyboardView)
-        val code = if (steps < 0) KeyCode.ARROW_UP else KeyCode.ARROW_DOWN
+        val code = if (steps < 0) {
+            gestureMoveBackHaptics()
+            KeyCode.ARROW_UP
+        } else {
+            gestureMoveForwardHaptics()
+            KeyCode.ARROW_DOWN
+        }
         onCodeInput(code, Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE, false)
         return true
     }
 
     private fun onMoveCursorHorizontally(rawSteps: Int): Boolean {
         if (rawSteps == 0) return false
-        AudioAndHapticFeedbackManager.getInstance().performHapticFeedback(keyboardSwitcher.visibleKeyboardView)
         // for RTL languages we want to invert pointer movement
         val steps = if (RichInputMethodManager.getInstance().currentSubtype.isRtlSubtype) -rawSteps else rawSteps
         val moveSteps: Int
@@ -272,8 +283,12 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
                 repeat(-steps) {
                     onCodeInput(KeyCode.ARROW_LEFT, Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE, false)
                 }
+                if (text.isNotEmpty()) {
+                    gestureMoveBackHaptics()
+                }
                 return true
             }
+            gestureMoveBackHaptics()
         } else {
             val text = connection.getTextAfterCursor(steps * 4, 0) ?: return false
             moveSteps = positiveMoveSteps(text, steps)
@@ -283,8 +298,12 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
                 repeat(steps) {
                     onCodeInput(KeyCode.ARROW_RIGHT, Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE, false)
                 }
+                if (text.isNotEmpty()) {
+                    gestureMoveForwardHaptics(true)
+                }
                 return true
             }
+            gestureMoveForwardHaptics(text.isNotEmpty())
         }
 
         // the shortcut below causes issues due to horrible handling of text fields by Firefox and forks
@@ -331,6 +350,22 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
             actualSteps <= steps
         }
         return -min(-actualSteps, text.length)
+    }
+
+    private fun gestureMoveBackHaptics() {
+        if (connection.canDeleteCharacters()) {
+            performHapticFeedback(HapticEvent.GESTURE_MOVE)
+        }
+    }
+
+    private fun gestureMoveForwardHaptics(hasTextAfterCursor: Boolean? = null) {
+        if (hasTextAfterCursor ?: !connection.noTextAfterCursor()) {
+            performHapticFeedback(HapticEvent.GESTURE_MOVE)
+        }
+    }
+
+    private fun performHapticFeedback(hapticEvent: HapticEvent) {
+        audioAndHapticFeedbackManager.performHapticFeedback(keyboardSwitcher.visibleKeyboardView, hapticEvent)
     }
 
     private fun getHardwareKeyEventDecoder(deviceId: Int): HardwareEventDecoder {
