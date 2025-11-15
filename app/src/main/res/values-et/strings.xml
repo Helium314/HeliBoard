@@ -472,7 +472,6 @@
     <string name="toolbar_hiding_global">Peida ka lõikelaud ja emojide rida</string>
     <string name="popup_order_and_hint_source">Klahvide järjestus hüpikaknas ja vihjete allikas</string>
     <string name="landscape">Rõhtvaade</string>
-    <string name="show_emoji_descriptions_summary">Selleks on vajalik emojide sõnastiku olemasolu</string>
     <string name="show_emoji_descriptions">Näita emojide kirjeldusi pika vajutusega</string>
     <string name="suggest_emojis">Soovita emojisid</string>
     <string name="suggest_emojis_summary">Kasuta tavaliste soovituste jaoks emojide sõnastikku</string>

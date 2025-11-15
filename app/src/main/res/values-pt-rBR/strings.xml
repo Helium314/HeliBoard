@@ -445,7 +445,6 @@
     <string name="landscape">Paisagem</string>
     <string name="popup_order_and_hint_source">Ordem das teclas de pop-up e fonte de dicas</string>
     <string name="show_emoji_descriptions">Mostrar descrição do emoji ao pressionar</string>
-    <string name="show_emoji_descriptions_summary">Requer um dicionário de emoji</string>
     <string name="suggest_emojis">Sugerir emojis</string>
     <string name="suggest_emojis_summary">Usar dicionário de emojis em sugestões normais</string>
     <string name="space_swipe_hide_keyboard_entry">Ocultar teclado</string>

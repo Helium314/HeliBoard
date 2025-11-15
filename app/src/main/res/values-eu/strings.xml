@@ -433,7 +433,6 @@
     <string name="discussion_section_link">eztabaiden atala</string>
     <string name="name_invalid">Izen baliogabea</string>
     <string name="show_emoji_descriptions">Erakutsi emojiaren deskribapena luze sakatzean</string>
-    <string name="show_emoji_descriptions_summary">Emoji hiztegia eskatzen du</string>
     <string name="suggest_emojis_summary">Erabili emoji hiztegia iradokizun normaletan</string>
     <string name="suggest_emojis">Iradokitako emojiak</string>
     <string name="toolbar_hiding_global">Ezkutatu arbela eta emojien tresna-barrak ere</string>

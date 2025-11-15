@@ -436,7 +436,6 @@
     <string name="toolbar_mode_hidden">প্রচ্ছন্ন</string>
     <string name="landscape">ল্যান্ডস্কেপ</string>
     <string name="popup_order_and_hint_source">পপআপ বোতামের ক্রমিক ও ইঙ্গিতের উৎস</string>
-    <string name="show_emoji_descriptions_summary">ইমোজি অভিধান আবশ্যক</string>
     <string name="show_emoji_descriptions">দীর্ঘ চাপে ইমোজির বর্ণনা প্রদর্শন</string>
     <string name="suggest_emojis">ইমোজির পরামর্শ প্রদান</string>
     <string name="suggest_emojis_summary">সাধারণ পরামর্শে ইমোজি অভিধান ব্যবহার</string>

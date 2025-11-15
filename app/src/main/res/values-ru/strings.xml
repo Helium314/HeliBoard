@@ -436,7 +436,6 @@
     <string name="popup_order_and_hint_source">Порядок всплывающих клавиш и источник подсказок</string>
     <string name="landscape">Ландшафт</string>
     <string name="show_emoji_descriptions">Показывать описание эмодзи при долгом нажатии</string>
-    <string name="show_emoji_descriptions_summary">Требуется словарь эмодзи</string>
     <string name="suggest_emojis">Предложить эмодзи</string>
     <string name="suggest_emojis_summary">Использовать словарь эмодзи в обычных предложениях</string>
     <string name="suggest_punctuation">Предложения по пунктуации</string>

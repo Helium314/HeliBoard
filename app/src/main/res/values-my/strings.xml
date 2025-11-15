@@ -114,7 +114,6 @@
     <string name="suggest_emojis">အီမိုဂျီအကြံပေး</string>
     <string name="suggest_emojis_summary">အီမိုဂျီအဘိဓာန်ကို သာမန်အကြံပေးစနစ်တွင် အသုံးပြုပါ</string>
     <string name="show_emoji_descriptions">ကြာကြာဖိပါက အီမိုဂျီအဓိပ္ပာယ်ကို ဖော်ပြပါ</string>
-    <string name="show_emoji_descriptions_summary">အီမိုဂျီအဘိဓာန်ပြုလုပ်ရန် လိုအပ်ပါသည်</string>
     <string name="settings_category_input">အချက်အလက်ဖြည့်သွင်းခြင်းစနစ်</string>
     <string name="settings_category_additional_keys">အပိုခလုပ်များ</string>
     <string name="settings_category_clipboard_history">ယာယီစာထိန်းစနစ်</string>

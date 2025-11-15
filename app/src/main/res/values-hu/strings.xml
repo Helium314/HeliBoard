@@ -359,7 +359,6 @@
     <string name="label_shift_key" tools:keep="@string/label_shift_key">Shift</string>
     <string name="vibrate_in_dnd_mode">Rezgés ne zavarjanak módban is</string>
     <string name="show_emoji_descriptions">Emodzsi leírásának megjelenítése nyomva tartáskor</string>
-    <string name="show_emoji_descriptions_summary">Emodzsiszótár szükséges</string>
     <string name="settings_category_space">Szóköz</string>
     <string name="split_spacer_scale_landscape">Osztott távolság (fekvő)</string>
     <string name="use_apps_dict">Alkalmazásnevek keresése</string>

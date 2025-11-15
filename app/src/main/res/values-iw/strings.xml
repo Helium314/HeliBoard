@@ -444,7 +444,6 @@
     <string name="toolbar_mode_expandable">פקדי סרגל הכלים והצעות</string>
     <string name="toolbar_mode_toolbar_keys">פקדי סרגל הכלים בלבד</string>
     <string name="show_emoji_descriptions">הצגת תיאור אמוג\'י בלחיצה ממושכת</string>
-    <string name="show_emoji_descriptions_summary">נדרש מילון אמוג\'י</string>
     <string name="suggest_emojis">הצעת אמוג\'ים</string>
     <string name="suggest_emojis_summary">שימוש במילון האמוג\'ים בהצעות רגילות</string>
     <string name="space_swipe_hide_keyboard_entry">הסתרת המקלדת</string>

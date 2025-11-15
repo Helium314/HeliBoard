@@ -472,7 +472,6 @@
     <string name="toolbar_hiding_global">Скриване и на лентите с инструменти за клипборда и емотиконите</string>
     <string name="landscape">Пейзаж</string>
     <string name="popup_order_and_hint_source">Ред на изскачащите клавиши и източник на съвети</string>
-    <string name="show_emoji_descriptions_summary">Изисква речник на емотикони</string>
     <string name="show_emoji_descriptions">Показване на описание на емотикони при продължително натискане</string>
     <string name="suggest_emojis">Предлагане на емотикони</string>
     <string name="suggest_emojis_summary">Използване на речник за емотикони в нормални предложения</string>

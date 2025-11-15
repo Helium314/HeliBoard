@@ -427,7 +427,6 @@
     <string name="show_tld_popup_keys_summary">Înlocuiește pop-up-urile tastei punct cu domenii de nivel superior atunci când scrii URL-uri și adrese de e-mail</string>
     <string name="suggest_emojis">Sugerează emoji-uri</string>
     <string name="show_emoji_descriptions">Afișează descrierea emoji-urilor la apăsare lungă</string>
-    <string name="show_emoji_descriptions_summary">Necesită un dicționar de emoji-uri</string>
     <string name="suggest_emojis_summary">Utilizează dicționarul de emoji-uri în sugestiile normale</string>
     <string name="suggest_punctuation">Sugestii de punctuație</string>
     <string name="suggest_punctuation_summary">Afișează semnele de punctuație când nu sunt disponibile alte sugestii</string>

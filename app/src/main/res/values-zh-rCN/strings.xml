@@ -438,7 +438,6 @@
     <string name="toolbar_hiding_global">同时隐藏剪贴板和表情符号工具栏</string>
     <string name="popup_order_and_hint_source">弹出键顺序和提示源</string>
     <string name="landscape">横屏</string>
-    <string name="show_emoji_descriptions_summary">需要表情符号词典</string>
     <string name="show_emoji_descriptions">长按时显示表情符号描述</string>
     <string name="suggest_emojis">建议表情符号</string>
     <string name="suggest_emojis_summary">在常规建议中使用表情符号词典</string>

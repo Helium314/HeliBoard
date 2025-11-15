@@ -437,7 +437,6 @@
     <string name="toolbar_mode">Režim panelu nástrojů</string>
     <string name="popup_order_and_hint_source">Pořadí vyskakovacích kláves a zdroj tipů</string>
     <string name="landscape">Na šířku</string>
-    <string name="show_emoji_descriptions_summary">Vyžaduje slovník emodži</string>
     <string name="show_emoji_descriptions">Při dlouhém podržení zobrazit popis emodži</string>
     <string name="suggest_emojis">Navrhovat emodži</string>
     <string name="suggest_emojis_summary">Použít slovník emodži v normálních návrzích</string>

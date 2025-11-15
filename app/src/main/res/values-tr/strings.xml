@@ -396,7 +396,6 @@
     <string name="timestamp_format_title">Zaman damgası anahtarı için biçim</string>
     <string name="autospace_after_gesture_typing">Bir sözcük yazma hareketinden sonra otomatik boşluk ekle</string>
     <string name="show_emoji_descriptions">Uzun basmada emoji açıklamasını göster</string>
-    <string name="show_emoji_descriptions_summary">Bir emoji sözlüğü gerektirir</string>
     <string name="autospace_after_suggestion">Bir öneri seçildikten sonra otomatik boşluk ekle</string>
     <string name="subtype_with_layout_generic">%1$s (%2$s)</string>
     <string name="suggest_emojis">Emoji öner</string>

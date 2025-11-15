@@ -115,7 +115,6 @@
     <string name="suggest_emojis">Cadangkan emoji</string>
     <string name="suggest_emojis_summary">Gunakan kamus emoji dalam cadangan normal</string>
     <string name="show_emoji_descriptions">Tunjukkan deskripsi emoji jika ditekan lama</string>
-    <string name="show_emoji_descriptions_summary">Memerlukan kamus emoji</string>
     <string name="settings_category_input">Input</string>
     <string name="settings_category_additional_keys">Kekunci tambahan</string>
     <string name="settings_category_clipboard_history">Sejarah papan klip</string>

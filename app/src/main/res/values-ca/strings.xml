@@ -435,7 +435,6 @@
     <string name="toolbar_mode_hidden">Amagat</string>
     <string name="popup_order_and_hint_source">Ordre de les tecles emergents i font de pistes</string>
     <string name="landscape">Apaïsat</string>
-    <string name="show_emoji_descriptions_summary">Requereix un diccionari d\'emojis</string>
     <string name="show_emoji_descriptions">Mostra descripció d\'emoji en prémer llarg</string>
     <string name="suggest_emojis_summary">Utilitzar diccionari d\'emojis als suggeriments normals</string>
     <string name="suggest_emojis">Suggerir emojis</string>
