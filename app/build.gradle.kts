@@ -1,3 +1,5 @@
+import com.android.build.api.variant.ApplicationVariant
+
 plugins {
     id("com.android.application")
     kotlin("android")
@@ -38,10 +40,6 @@ android {
             // "normal" debug has minify for smaller APK to fit the GitHub 25 MB limit when zipped
             // and for better performance in case users want to install a debug APK
             isMinifyEnabled = true
-            androidResources {
-                // got a little too big for GitHub after some dependency upgrades, so we remove the largest dictionary
-                ignoreAssetsPattern = "main_ro.dict"
-            }
             isJniDebuggable = false
             applicationIdSuffix = ".debug"
         }
@@ -57,6 +55,12 @@ android {
             applicationIdSuffix = ".debug"
         }
         base.archivesBaseName = "HeliBoard_" + defaultConfig.versionName
+        // got a little too big for GitHub after some dependency upgrades, so we remove the largest dictionary
+        androidComponents.onVariants { variant: ApplicationVariant ->
+            if (variant.buildType == "debug") {
+                variant.androidResources.ignoreAssetsPatterns = listOf("main_ro.dict")
+            }
+        }
     }
 
     buildFeatures {
