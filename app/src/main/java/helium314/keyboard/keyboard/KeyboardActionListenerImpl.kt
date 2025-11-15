@@ -386,11 +386,24 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
     /** keeps track of the state of meta keys by (HeliBoard) KeyCodes */
     private val metaPressStates = SparseArray<MetaPressState>(4)
 
+    // todo: lock and non-lock versions interact badly: when any of them is released, the meta state is removed
+    //  this is not wanted, especially because the state of the other key is not affected (still looks pressed)
     private fun metaOnPressKey(primaryCode: Int) {
         val metaCode = primaryCode.toMetaState() ?: return
+        if (primaryCode.isMetaLock()) {
+            // if unset -> lock, otherwise set to UNSET_ON_RELEASE so it's unset on release
+            if (metaPressStates[primaryCode] != MetaPressState.LOCKED) {
+                metaPressStates[primaryCode] = MetaPressState.LOCKED
+                keyboardSwitcher.mainKeyboardView?.updateLockState(primaryCode, true)
+                metaState = metaState or metaCode
+            } else {
+                metaPressStates[primaryCode] = MetaPressState.UNSET_ON_RELEASE
+            }
+            return
+        }
         if (metaPressStates[primaryCode] == MetaPressState.RELEASED_BUT_ACTIVE) {
-            // meta key was locked, now is pressed again without anything else -> should be disabled on release
-            metaPressStates[primaryCode] = MetaPressState.USED
+            // meta key is pressed again without other input -> should be disabled on release
+            metaPressStates[primaryCode] = MetaPressState.UNSET_ON_RELEASE
         } else {
             // otherwise just press it normally
             metaPressStates[primaryCode] = MetaPressState.PRESSED
@@ -412,7 +425,7 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
     private fun metaOnReleaseKey(primaryCode: Int) {
         val metaCode = primaryCode.toMetaState() ?: return
         val metaPressState = metaPressStates[primaryCode]
-        if (metaPressState == MetaPressState.USED) {
+        if (metaPressState == MetaPressState.UNSET_ON_RELEASE) {
             metaPressStates[primaryCode] = MetaPressState.UNSET
             metaState = metaState and metaCode.inv()
             keyboardSwitcher.mainKeyboardView?.updateLockState(primaryCode, false)
@@ -437,7 +450,7 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
                 keyboardSwitcher.mainKeyboardView?.updateLockState(primaryCode, false)
             }
         } else if (metaState != 0) {
-            // non-meta key -> unset all set / released_but_active, and mark pressed as used
+            // non-meta key -> unset all set / released_but_active, and mark pressed as UNSET_ON_RELEASE
             metaPressStates.forEach { key, value ->
                 if (value == MetaPressState.RELEASED_BUT_ACTIVE || value == MetaPressState.SET) {
                     metaPressStates[key] = MetaPressState.UNSET
@@ -445,7 +458,7 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
                     val metaCode = key.toMetaState() ?: return@forEach
                     metaState = metaState and metaCode.inv()
                 } else if (value == MetaPressState.PRESSED) {
-                    metaPressStates[key] = MetaPressState.USED
+                    metaPressStates[key] = MetaPressState.UNSET_ON_RELEASE
                 }
             }
         }
@@ -456,22 +469,25 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
             UNSET, // default state, not active
             SET, // enabled without onPressKey (e.g. in popup)
             PRESSED, // key is pressed
-            USED, // key is pressed, but state will be unset on release
-            RELEASED_BUT_ACTIVE, // key was released without used state, meta state is still set
+            UNSET_ON_RELEASE, // key is pressed, but state will be unset on release
+            RELEASED_BUT_ACTIVE, // key was released without UNSET_ON_RELEASE state, meta state is still set
+            LOCKED, // key is locked and will be released only by pressing the same key again
         }
 
         private fun Int.toMetaState() = when (this) {
-            KeyCode.CTRL -> KeyEvent.META_CTRL_ON
-            KeyCode.CTRL_LEFT -> KeyEvent.META_CTRL_LEFT_ON
-            KeyCode.CTRL_RIGHT -> KeyEvent.META_CTRL_RIGHT_ON
-            KeyCode.ALT -> KeyEvent.META_ALT_ON
-            KeyCode.ALT_LEFT -> KeyEvent.META_ALT_LEFT_ON
-            KeyCode.ALT_RIGHT -> KeyEvent.META_ALT_RIGHT_ON
-            KeyCode.FN -> KeyEvent.META_FUNCTION_ON
-            KeyCode.META -> KeyEvent.META_META_ON
-            KeyCode.META_LEFT -> KeyEvent.META_META_LEFT_ON
-            KeyCode.META_RIGHT -> KeyEvent.META_META_RIGHT_ON
+            KeyCode.CTRL, KeyCode.CTRL_LOCK -> KeyEvent.META_CTRL_ON
+            KeyCode.CTRL_LEFT               -> KeyEvent.META_CTRL_LEFT_ON
+            KeyCode.CTRL_RIGHT              -> KeyEvent.META_CTRL_RIGHT_ON
+            KeyCode.ALT, KeyCode.ALT_LOCK   -> KeyEvent.META_ALT_ON
+            KeyCode.ALT_LEFT                -> KeyEvent.META_ALT_LEFT_ON
+            KeyCode.ALT_RIGHT               -> KeyEvent.META_ALT_RIGHT_ON
+            KeyCode.FN, KeyCode.FN_LOCK     -> KeyEvent.META_FUNCTION_ON
+            KeyCode.META, KeyCode.META_LOCK -> KeyEvent.META_META_ON
+            KeyCode.META_LEFT               -> KeyEvent.META_META_LEFT_ON
+            KeyCode.META_RIGHT              -> KeyEvent.META_META_RIGHT_ON
             else -> null
         }
+
+        private fun Int.isMetaLock() = this == KeyCode.CTRL_LOCK || this == KeyCode.ALT_LOCK || this == KeyCode.FN_LOCK || this == KeyCode.META_LOCK
     }
 }
