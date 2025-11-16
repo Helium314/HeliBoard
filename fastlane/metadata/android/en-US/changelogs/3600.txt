@@ -1,3 +1,4 @@
+* add inline emoji search
 * optionally remember language / subtype per app
 * haptic feedback fixes and improvements
 * keep unpinned clipboard on app restart
