@@ -11,6 +11,7 @@ import helium314.keyboard.latin.makedict.FormatSpec.DictionaryOptions
 import java.text.DateFormat
 import java.util.Date
 import java.util.Locale
+import kotlin.jvm.Throws
 
 /**
  * Class representing dictionary header.
@@ -58,5 +59,17 @@ class DictionaryHeader(
         const val MAX_TRIGRAM_COUNT_KEY = "MAX_TRIGRAM_ENTRY_COUNT"
         const val ATTRIBUTE_VALUE_TRUE = "1"
         const val CODE_POINT_TABLE_KEY = "codePointTable"
+
+        @Throws(UnsupportedFormatException::class)
+        fun fromString(string: String): DictionaryHeader {
+            val split = string.split(",").map { it.trim() }.filter { "=" in it }
+            val map = split.associateTo(HashMap()) { it.split("=").let { it[0] to it[1] } }
+            return DictionaryHeader(DictionaryOptions(map))
+        }
+
+        fun createEmptyHeader(): DictionaryHeader {
+            val map = hashMapOf(DICTIONARY_LOCALE_KEY to "", DICTIONARY_VERSION_KEY to "", DICTIONARY_ID_KEY to "")
+            return DictionaryHeader(DictionaryOptions(map))
+        }
     }
 }

@@ -74,11 +74,7 @@ object DictionaryFactory {
     }
 
     @JvmStatic
-    fun getDictionary(
-        file: File,
-        locale: Locale
-    ): Dictionary? {
-        if (!file.isFile) return null
+    fun getDictionary(file: File, locale: Locale): Dictionary? {
         val header = DictionaryInfoUtils.getDictionaryFileHeaderOrNull(file)
         if (header == null) {
             killDictionary(file)

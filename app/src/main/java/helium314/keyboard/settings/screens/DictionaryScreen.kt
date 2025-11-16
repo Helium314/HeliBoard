@@ -113,7 +113,7 @@ fun DictionaryScreen(
             onConfirmed = {
                 val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
                     .addCategory(Intent.CATEGORY_OPENABLE)
-                    .setType("application/octet-stream")
+                    .setType("*/*")
                 dictPicker.launch(intent)
             },
             title = { Text(stringResource(R.string.add_new_dictionary_title)) },
