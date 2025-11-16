@@ -342,8 +342,7 @@ class EmojiSearchActivity : ComponentActivity() {
         keyboard.removeAllKeys()
         firstKey = null
         pressedKey = null
-        //todo: change to suggestion.isEmoji()
-        dictionaryFacilitator!!.getSuggestions(text.splitOnWhitespace()).filter { isEmoji(it.word) }.forEach {
+        dictionaryFacilitator!!.getSuggestions(text.splitOnWhitespace()).filter { it.isEmoji }.forEach {
             val emoji = getEmojiDefaultVersion(it.word)
             val popupSpec = getEmojiPopupSpec(emoji)
             val keyParams = Key.KeyParams(emoji, emoji.getCode(), if (popupSpec != null) EMOJI_HINT_LABEL else null, popupSpec,

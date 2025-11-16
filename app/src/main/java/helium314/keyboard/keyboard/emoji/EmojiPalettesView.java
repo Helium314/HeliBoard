@@ -354,7 +354,6 @@ public final class EmojiPalettesView extends LinearLayout
             return;
         }
         getRecentsKeyboard().addKeyFirst(key);
-
         mPager.getAdapter().notifyItemChanged(mEmojiCategory.getRecentTabId());
     }
 
