@@ -81,7 +81,6 @@
     <string name="show_setup_wizard_icon_summary">"Vis app-ikonet i appoversikten"</string>
     <string name="dictionary_category_title">"Tilleggsordlister"</string>
     <string name="dictionary_available">"Ordliste tilgjengelig"</string>
-    <string name="last_update">"Sist oppdatert"</string>
     <string name="settings">"Innstillinger"</string>
     <string name="delete">"Slett"</string>
     <string name="version_text">"Versjon %1$s"</string>
@@ -119,7 +118,6 @@
     <string name="show_hints_summary">Vis langtrykkshint</string>
     <string name="incognito">Påtving inkognito-modus</string>
     <string name="key_borders">Tastekanter</string>
-    <string name="use_system_language_to_select_input_method_subtypes">"Bruk systemspråk"</string>
     <string name="select_input_method">"Velg inndatametode"</string>
     <string name="undo">"Angre"</string>
     <string name="redo">"Utfør likevel"</string>
@@ -197,7 +195,6 @@
     <string name="layout_numpad" tools:keep="@string/layout_numpad">Talltastatur</string>
     <string name="layout_numpad_landscape" tools:keep="@string/layout_numpad_landscape">Talltastatur (landskap)</string>
     <string name="day_or_night_night">Natt</string>
-    <string name="dictionary_file_wrong_locale_ok">Fortsatt bruke</string>
     <string name="dictionary_file_wrong_script">Feil: scriptet er ikke kompatibelt med dette tastaturet</string>
     <string name="dictionary_load_error">Feil ved innlasting av ordbok-fil</string>
     <string name="switch_language">Bytt språk</string>
@@ -233,7 +230,6 @@
     <string name="about_github_link">Se på GitHub</string>
     <string name="subtype_generic_sebeolsik_final">%s (Sebeolsik Final)</string>
     <string name="button_load_custom">Last inn fil</string>
-    <string name="button_copy_existing_layout">Kopier eksisterende oppsett</string>
     <string name="layout_error">Oppsettsfeil: %s</string>
     <string name="customize_background_image">Sett bakgrunnsbilde</string>
     <string name="day_or_night_image">Sett bilde for dag- eller natt-modus?</string>
@@ -251,7 +247,6 @@
     <string name="remove_dictionary_message">Virkelig fjerne brukertillagt ordbok \"%s\"?</string>
     <string name="no_dictionary_dont_show_again_button">Ikke vis igjen</string>
     <string name="available_dictionary_experimental">%s (eksperimentell)</string>
-    <string name="dictionary_file_wrong_locale">Den valgte filen er for %1$s, men %2$s var forventet. Fortsatt bruke den for %2$s?</string>
     <string name="user_dict_settings_add_weight_value">Vekt:</string>
     <string name="user_dict_add_word_button">Legg til ord</string>
     <string name="theme_style">Stil</string>

@@ -187,7 +187,7 @@ public class Key implements Comparable<Key> {
     /** The current pressed state of this key */
     private boolean mPressed;
     /** Key is enabled and responds on press */
-    private boolean mEnabled = true;
+    private boolean mEnabled;
     /** Key is locked (appears permanently pressed) */
     private boolean mLocked = false;
     /**
@@ -522,8 +522,8 @@ public class Key implements Comparable<Key> {
         return (mActionFlags & ACTION_FLAGS_IS_REPEATABLE) != 0;
     }
 
-    public final boolean noKeyPreview() {
-        return (mActionFlags & ACTION_FLAGS_NO_KEY_PREVIEW) != 0;
+    public final boolean hasPreview() {
+        return (mActionFlags & ACTION_FLAGS_NO_KEY_PREVIEW) == 0;
     }
 
     /**
@@ -973,16 +973,16 @@ public class Key implements Comparable<Key> {
 
         // params that remains constant
         public final int mCode;
-        @Nullable public String mLabel;
+        @Nullable public final String mLabel;
         @Nullable public final String mHintLabel;
         public final int mLabelFlags;
         @Nullable public final String mIconName;
-        @Nullable public PopupKeySpec[] mPopupKeys;
+        @Nullable public final PopupKeySpec[] mPopupKeys;
         public final int mPopupKeysColumnAndFlags;
-        public int mBackgroundType;
+        public final int mBackgroundType;
         public final int mActionFlags;
         @Nullable public final KeyVisualAttributes mKeyVisualAttributes;
-        @Nullable public final OptionalAttributes mOptionalAttributes;
+        @Nullable final OptionalAttributes mOptionalAttributes;
         public final boolean mEnabled;
 
         public static KeyParams newSpacer(final KeyboardParams params, final float width) {

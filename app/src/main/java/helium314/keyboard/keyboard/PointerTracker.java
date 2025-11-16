@@ -88,12 +88,13 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
 
     public static void switchTo(DrawingProxy drawingProxy) {
         sDrawingProxy = drawingProxy;
-        Object[] thatArray = sProxyMap.get(drawingProxy); // if it's null, the view we're switching to should not exist
+        final Object[] thatArray = sProxyMap.get(drawingProxy); // if it's null, the view we're switching to should not exist
         sParams = (PointerTrackerParams) thatArray[0];
         sGestureStrokeRecognitionParams = (GestureStrokeRecognitionParams) thatArray[1];
         sGestureStrokeDrawingParams = (GestureStrokeDrawingParams) thatArray[2];
         sTypingTimeRecorder = (TypingTimeRecorder) thatArray[3];
         sTimerProxy = (TimerProxy) thatArray[4];
+        //noinspection unchecked
         sTrackers = (ArrayList<PointerTracker>) thatArray[5];
     }
 
@@ -127,7 +128,7 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
     // The position and time at which first down event occurred.
     private long mDownTime;
     @NonNull
-    private int[] mDownCoordinates = CoordinateUtils.newInstance();
+    private final int[] mDownCoordinates = CoordinateUtils.newInstance();
     private long mUpTime;
 
     // The current key where this pointer is.
@@ -268,8 +269,7 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
     }
 
     // Returns true if keyboard has been changed by this callback.
-    private boolean callListenerOnPressAndCheckKeyboardLayoutChange(final Key key,
-            final int repeatCount) {
+    private boolean callListenerOnPressAndCheckKeyboardLayoutChange(@NonNull final Key key, final int repeatCount) {
         // While gesture input is going on, this method should be a no-operation. But when gesture
         // input has been canceled, <code>sInGesture</code> and <code>mIsDetectingGesture</code>
         // are set to false. To keep this method is a no-operation,
@@ -280,10 +280,11 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
         final boolean ignoreModifierKey = mIsInDraggingFinger && key.isModifier();
         if (DEBUG_LISTENER) {
             Log.d(TAG, String.format(Locale.US, "[%d] onPress    : %s%s%s%s", mPointerId,
-                    (key == null ? "none" : Constants.printableCode(key.getCode())),
-                    ignoreModifierKey ? " ignoreModifier" : "",
-                    key.isEnabled() ? "" : " disabled",
-                    repeatCount > 0 ? " repeatCount=" + repeatCount : ""));
+                Constants.printableCode(key.getCode()),
+                ignoreModifierKey ? " ignoreModifier" : "",
+                key.isEnabled() ? "" : " disabled",
+                repeatCount > 0 ? " repeatCount=" + repeatCount : "")
+            );
         }
         if (ignoreModifierKey) {
             return false;
@@ -822,8 +823,7 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
         onMoveEventInternal(x, y, eventTime);
     }
 
-    private void processDraggingFingerInToNewKey(final Key newKey, final int x, final int y,
-            final long eventTime) {
+    private void processDraggingFingerInToNewKey(final Key newKey, final int x, final int y, final long eventTime) {
         // This onPress call may have changed keyboard layout. Those cases are detected
         // at {@link #setKeyboard}. In those cases, we should update key according
         // to the new keyboard layout.
@@ -1307,8 +1307,7 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
     }
 
     private void startKeyRepeatTimer(final int repeatCount) {
-        final int delay =
-                (repeatCount == 1) ? sParams.mKeyRepeatStartTimeout : sParams.mKeyRepeatInterval;
+        final int delay = (repeatCount == 1) ? sParams.mKeyRepeatStartTimeout : sParams.mKeyRepeatInterval;
         sTimerProxy.startKeyRepeatTimerOf(this, repeatCount, delay);
     }
 

@@ -69,7 +69,7 @@
     <string name="setup_start_action">"Първи стъпки"</string>
     <string name="setup_steps_title">"Настройване на %s"</string>
     <string name="setup_step1_title">"Активирайте %s"</string>
-    <string name="setup_step1_instruction">Моля, проверете \\%s\" на вашите Езици &amp; входни настройки. Това ще го разреши да работи на вашето устройство.</string>
+    <string name="setup_step1_instruction">Моля, проверете \"%s\" на вашите Езици &amp; входни настройки. Това ще го разреши да работи на вашето устройство.</string>
     <string name="setup_step1_action">"Активиране в настройките"</string>
     <string name="setup_step2_title">"Превключете към %s"</string>
     <string name="setup_step2_instruction">След това изберете \"%s\" като активен метод за въвеждане на текст.</string>
@@ -81,7 +81,6 @@
     <string name="show_setup_wizard_icon_summary">"Показване на иконата на приложението в стартовия панел"</string>
     <string name="dictionary_category_title">"Добавени речници"</string>
     <string name="dictionary_available">"Речникът е налице"</string>
-    <string name="last_update">Последна актуализация</string>
     <string name="settings">"Настройки"</string>
     <string name="delete">"Изтриване"</string>
     <string name="version_text">Версия %s</string>
@@ -94,7 +93,6 @@
     <string name="user_dict_settings_all_languages">"За всички езици"</string>
     <string name="user_dict_settings_more_languages">"Още езици…"</string>
     <string name="user_dict_fast_scroll_alphabet">" АБВГДЕЖЗИЙКЛМНОПРСТУФХЦЧШЩЬЪЮЯ"</string>
-    <string name="use_system_language_to_select_input_method_subtypes">"Използване на системните езици"</string>
     <string name="settings_category_input">въвеждане</string>
     <string name="select_input_method">"Избор на метод на въвеждане"</string>
     <string name="undo">"Отмяна"</string>
@@ -217,7 +215,6 @@
     <string name="button_load_custom">Заредете файл</string>
     <string name="emoji" tools:keep="@string/emoji">Емотикони</string>
     <string name="setup_step3_action">Конфигуриране на клавиатурата</string>
-    <string name="button_copy_existing_layout">Копирайте съществуващото оформление</string>
     <string name="edit_layout">Докоснете, за да редактирате необработено оформление</string>
     <string name="day_or_night_image">Задаване на изображение за дневен или нощен режим?</string>
     <string name="left" tools:keep="@string/left">Вляво</string>
@@ -276,7 +273,6 @@
     <string name="theme_name_dark" tools:keep="@string/theme_name_dark">Тъмна</string>
     <string name="show_horizontal_space_swipe">Хоризонтален жест за плъзгане с интервал</string>
     <string name="dictionary_file_wrong_script">Грешка: скриптът не е съвместим с тази клавиатура</string>
-    <string name="dictionary_file_wrong_locale_ok">Все още се използва</string>
     <string name="theme_name_forest" tools:keep="@string/theme_name_forest">Гора</string>
     <string name="settings_screen_toolbar">Лента с инструменти</string>
     <string name="theme_name_cloudy" tools:keep="@string/theme_name_cloudy">Облачно</string>
@@ -310,7 +306,6 @@
     <string name="theme_name_black" tools:keep="@string/theme_name_black">Черена</string>
     <string name="theme_name_dynamic" tools:keep="@string/theme_name_dynamic">Динамични цветове</string>
     <string name="theme_name_ocean" tools:keep="@string/theme_name_ocean">Океан</string>
-    <string name="dictionary_file_wrong_locale">Избраният файл е за %1$s, но %2$s се очакваше. Все още ли го използвате за %2$s?</string>
     <string name="theme_colors">Цветове</string>
     <string name="theme_colors_night">Цветове (нощ)</string>
     <string name="user_dict_add_word_button">Добавете дума</string>
@@ -420,14 +415,11 @@
     <string name="custom_font">Задайте персонализиран шрифт от файл</string>
     <string name="summary_customize_background_image_landscape">Ако не е зададено, ще се използва портретно изображение</string>
     <string name="customize_toolbar_key_code_reset_message">Наистина ли изчиствате всички персонализирани ключови кодове?</string>
-    <string name="prefs_bottom_padding_scale_landscape">Мащаб на долната подложка (пейзаж)</string>
     <string name="prefs_font_scale">Мащаб на шрифта на клавиатурата</string>
     <string name="prefs_emoji_font_scale">Мащаб на шрифта за изглед на емотикони</string>
     <string name="prefs_side_padding_scale">Мащаб на страничната подложка</string>
-    <string name="prefs_side_padding_scale_landscape">Мащаб на страничната подложка (пейзаж)</string>
     <string name="number_row_hints">Показване на съвети в реда с числа</string>
     <string name="prefs_language_swipe_distance">Разстояние на плъзгане за превключване на езика</string>
-    <string name="split_spacer_scale_landscape">Разделно разстояние (пейзаж)</string>
     <string name="split" tools:keep="@string/split">Разделена клавиатура</string>
     <string name="enable_split_keyboard_landscape">Активиране на разделена клавиатура (пейзаж)</string>
     <string name="delete_confirmation">Наистина ли изтривате %s?</string>
@@ -487,4 +479,6 @@
     <string name="inline_emoji_search_summary">Предлагай емотикони само когато думата е предшествана от двоеточие</string>
     <string name="emoji_dictionary_required">За да работи тази функция, е необходим речник с емотикони. Речници във формат .dict могат да бъдат изтеглени %s.</string>
     <string name="subtype_mhr">Мари (Източен)</string>
+    <string name="layout_emoji_bottom_row_with_action" tools:keep="@string/layout_emoji_bottom_row_with_action">Долен ред емотикони с клавиш за действие</string>
+    <string name="layout_clip_bottom_row_with_action" tools:keep="@string/layout_clip_bottom_row_with_action">Долен ред на клипборда с клавиш за действие</string>
 </resources>

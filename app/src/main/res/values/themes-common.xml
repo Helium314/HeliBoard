@@ -6,7 +6,6 @@
 -->
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
-    <style name="KeyboardIcons" />
     <style name="InputView" />
     <!-- Default theme values -->
     <style name="Keyboard">

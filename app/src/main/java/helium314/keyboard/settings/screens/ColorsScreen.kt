@@ -161,7 +161,9 @@ fun ColorsScreen(
         ),
         onClickBack = onClickBack,
         filteredItems = { search ->
-            val result = shownColors.filter { it.displayName.split(" ", "_").any { it.startsWith(search, true) } }
+            val result = shownColors.filter { color ->
+                color.displayName.split(" ", "_").any { it.startsWith(search, true) }
+            }
             if (moreColors == 2) result.toMutableList<ColorSetting?>().apply { add(0, null) }
             else result
         },

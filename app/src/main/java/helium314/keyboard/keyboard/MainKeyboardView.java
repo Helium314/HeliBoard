@@ -8,6 +8,7 @@ package helium314.keyboard.keyboard;
 
 import android.animation.AnimatorInflater;
 import android.animation.ObjectAnimator;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -92,7 +93,6 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
     // Stuff to draw altCodeWhileTyping keys.
     private final ObjectAnimator mAltCodeKeyWhileTypingFadeoutAnimator;
     private final ObjectAnimator mAltCodeKeyWhileTypingFadeinAnimator;
-    private int mAltCodeKeyWhileTypingAnimAlpha = Constants.Color.ALPHA_OPAQUE;
 
     // Drawing preview placer view
     private final DrawingPreviewPlacerView mDrawingPreviewPlacerView;
@@ -106,7 +106,7 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
     private final KeyPreviewChoreographer mKeyPreviewChoreographer;
 
     // More keys keyboard
-    private final Paint mBackgroundDimAlphaPaint = new Paint();
+    private final Paint mBackgroundDimAlphaPaint = new Paint(); // todo: not used at all
     private final View mPopupKeysKeyboardContainer;
     private final View mPopupKeysKeyboardForActionContainer;
     private final WeakHashMap<Key, Keyboard> mPopupKeysKeyboardCache = new WeakHashMap<>();
@@ -365,7 +365,7 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
             return;
         }
         mKeyPreviewDrawParams.setVisibleOffset(-keyboard.mVerticalGap);
-        if (withPreview && !key.noKeyPreview() && mKeyPreviewDrawParams.isPopupEnabled()) {
+        if (withPreview && key.hasPreview() && mKeyPreviewDrawParams.isPopupEnabled()) {
             showKeyPreview(key);
         }
     }
@@ -387,7 +387,7 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
     public void onKeyReleased(@NonNull final Key key, final boolean withAnimation) {
         key.onReleased();
         invalidateKey(key);
-        if (!key.noKeyPreview()) {
+        if (key.hasPreview()) {
             if (withAnimation) {
                 dismissKeyPreview(key);
             } else {
@@ -491,7 +491,7 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
             // will cause zero-division error at
             // {@link PopupKeysKeyboardParams#setParameters(int,int,int,int,int,int,boolean,int)}.
             final boolean isSinglePopupKeyWithPreview = mKeyPreviewDrawParams.isPopupEnabled()
-                    && !key.noKeyPreview() && popupKeys.length == 1
+                    && key.hasPreview() && popupKeys.length == 1
                     && mKeyPreviewDrawParams.getVisibleWidth() > 0;
             final PopupKeysKeyboard.Builder builder = new PopupKeysKeyboard.Builder(
                     getContext(), key, getKeyboard(), isSinglePopupKeyWithPreview,
@@ -510,8 +510,7 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
 
         final int[] lastCoords = CoordinateUtils.newInstance();
         tracker.getLastCoordinates(lastCoords);
-        final boolean keyPreviewEnabled = mKeyPreviewDrawParams.isPopupEnabled()
-                && !key.noKeyPreview();
+        final boolean keyPreviewEnabled = mKeyPreviewDrawParams.isPopupEnabled() && key.hasPreview();
         // The popup keys keyboard is usually horizontally aligned with the center of the parent key.
         // If showPopupKeysKeyboardAtTouchedPoint is true and the key preview is disabled, the more
         // keys keyboard is placed at the touch point of the parent key.
@@ -577,6 +576,7 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
         return mTimerHandler.isInDoubleTapShiftKeyTimeout();
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     public boolean onTouchEvent(final MotionEvent event) {
         if (getKeyboard() == null) {
@@ -703,7 +703,7 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
     protected void onDrawKeyTopVisuals(@NonNull final Key key, @NonNull final Canvas canvas,
             @NonNull final Paint paint, @NonNull final KeyDrawParams params) {
         if (key.altCodeWhileTyping() && key.isEnabled()) {
-            params.mAnimAlpha = mAltCodeKeyWhileTypingAnimAlpha;
+            params.mAnimAlpha = Constants.Color.ALPHA_OPAQUE;
         }
         super.onDrawKeyTopVisuals(key, canvas, paint, params);
         final int code = key.getCode();
@@ -746,7 +746,7 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
         final List<Locale> secondaryLocales = Settings.getValues().mSecondaryLocales;
         // avoid showing same language twice
         final List<Locale> secondaryLocalesToUse = withoutDuplicateLanguages(secondaryLocales, subtype.getLocale().getLanguage());
-        if (secondaryLocalesToUse.size() > 0) {
+        if (!secondaryLocalesToUse.isEmpty()) {
             StringBuilder sb = new StringBuilder(subtype.getMiddleDisplayName());
             final Locale displayLocale = ConfigurationCompatKt.locale(getResources().getConfiguration());
             for (Locale locale : secondaryLocales) {

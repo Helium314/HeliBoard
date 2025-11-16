@@ -14,8 +14,6 @@ class MakeEmojiKeys {
 
     class Options(argsArray: Array<String>) {
 
-        private val OPTION_ASSETS = "-assets"
-
         var assetPath: String? = null
 
         init {
@@ -30,7 +28,7 @@ class MakeEmojiKeys {
                         usage("Unknown option: $arg")
                     }
                 }
-            } catch (e: NoSuchElementException) {
+            } catch (_: NoSuchElementException) {
                 usage("Option $arg needs argument")
             }
         }
@@ -92,10 +90,10 @@ class MakeEmojiKeys {
         }
 
         private fun writeEmojiGroup(outFile: File, emojis: List<EmojiSpec>) {
-            val text = emojis.map { emoji ->
+            val text = emojis.joinToString("\n") { emoji ->
                 if (emoji.variants.isEmpty()) emoji.text
                 else "${emoji.text} ${emoji.variants.joinToString(" ") { it.text }}"
-            }.joinToString("\n")
+            }
             outFile.writeText(text, Charset.forName("UTF-8"))
         }
 
@@ -105,3 +103,5 @@ class MakeEmojiKeys {
         }
     }
 }
+
+private const val OPTION_ASSETS = "-assets"

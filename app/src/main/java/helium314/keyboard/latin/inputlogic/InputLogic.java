@@ -1916,8 +1916,7 @@ public final class InputLogic {
         final String stringToCommit = originallyTypedWord +
                 (usePhantomSpace ? "" : separatorString);
         final SpannableString textToCommit = new SpannableString(stringToCommit);
-        if (committedWord instanceof SpannableString) {
-            final SpannableString committedWordWithSuggestionSpans = (SpannableString)committedWord;
+        if (committedWord instanceof SpannableString committedWordWithSuggestionSpans) {
             final Object[] spans = committedWordWithSuggestionSpans.getSpans(0,
                     committedWord.length(), Object.class);
             final int lastCharIndex = textToCommit.length() - 1;
@@ -2359,8 +2358,7 @@ public final class InputLogic {
         }
         final SuggestedWordInfo autoCorrectionOrNull = mWordComposer.getAutoCorrectionOrNull();
         final String typedWord = mWordComposer.getTypedWord();
-        final String stringToCommit = (autoCorrectionOrNull != null)
-                ? autoCorrectionOrNull.mWord : typedWord;
+        final String stringToCommit = (autoCorrectionOrNull != null) ? autoCorrectionOrNull.mWord : typedWord;
         if (stringToCommit != null) {
             final boolean isBatchMode = mWordComposer.isBatchMode();
             commitChosenWord(settingsValues, stringToCommit, LastComposedWord.COMMIT_TYPE_DECIDED_WORD, separator);
@@ -2374,7 +2372,7 @@ public final class InputLogic {
                 mConnection.commitCorrection(new CorrectionInfo(
                         mConnection.getExpectedSelectionEnd() - stringToCommit.length(),
                         typedWord, stringToCommit));
-                String prevWordsContext = (autoCorrectionOrNull != null)
+                final String prevWordsContext = (autoCorrectionOrNull != null)
                         ? autoCorrectionOrNull.mPrevWordsContext
                         : "";
                 StatsUtils.onAutoCorrection(typedWord, stringToCommit, isBatchMode,

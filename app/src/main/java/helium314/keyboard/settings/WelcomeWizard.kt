@@ -134,7 +134,7 @@ fun WelcomeWizard(
                     actionText = stringResource(R.string.setup_step1_action)
                     action = {
                         val intent = Intent()
-                        intent.setAction(Settings.ACTION_INPUT_METHOD_SETTINGS)
+                        intent.action = Settings.ACTION_INPUT_METHOD_SETTINGS
                         intent.addCategory(Intent.CATEGORY_DEFAULT)
                         launcher.launch(intent)
                     }

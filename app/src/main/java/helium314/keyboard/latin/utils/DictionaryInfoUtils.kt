@@ -9,7 +9,6 @@ import android.content.Context
 import android.text.TextUtils
 import com.android.inputmethod.latin.utils.BinaryDictionaryUtils
 import helium314.keyboard.latin.dictionary.Dictionary
-import helium314.keyboard.latin.RichInputMethodManager
 import helium314.keyboard.latin.common.FileUtils
 import helium314.keyboard.latin.common.LocaleUtils.constructLocale
 import helium314.keyboard.latin.common.loopOverCodePoints
@@ -28,7 +27,7 @@ object DictionaryInfoUtils {
     const val USER_DICTIONARY_SUFFIX = "user.dict"
     const val MAIN_DICT_PREFIX = DEFAULT_MAIN_DICT + "_"
     const val ASSETS_DICTIONARY_FOLDER = "dicts"
-    const val MAIN_DICT_FILE_NAME = DEFAULT_MAIN_DICT + ".dict"
+    const val MAIN_DICT_FILE_NAME = "$DEFAULT_MAIN_DICT.dict"
     private const val MAX_HEX_DIGITS_FOR_CODEPOINT = 6 // unicode is limited to 21 bits
 
     /**
@@ -116,22 +115,12 @@ object DictionaryInfoUtils {
     fun getCachedDictsForLocale(locale: Locale, context: Context) =
         getCacheDirectoryForLocale(locale, context)?.let { File(it).listFiles() }.orEmpty()
 
-    fun getDictionaryFileHeaderOrNull(file: File, offset: Long, length: Long): DictionaryHeader? {
-        return try {
-            BinaryDictionaryUtils.getHeaderWithOffsetAndLength(file, offset, length)
-        } catch (e: UnsupportedFormatException) {
-            null
-        } catch (e: IOException) {
-            null
-        }
-    }
-
     fun getDictionaryFileHeaderOrNull(file: File): DictionaryHeader? {
         return try {
             BinaryDictionaryUtils.getHeader(file)
-        } catch (e: UnsupportedFormatException) {
+        } catch (_: UnsupportedFormatException) {
             null
-        } catch (e: IOException) {
+        } catch (_: IOException) {
             null
         }
     }
@@ -158,17 +147,14 @@ object DictionaryInfoUtils {
                 targetFile
             )
         } catch (e: IOException) {
-            Log.e(TAG, "Could not extract assets dictionary $dictionaryFileName")
+            Log.e(TAG, "Could not extract assets dictionary $dictionaryFileName", e)
             return null
         }
         return targetFile
     }
 
-    fun getAssetsDictionaryList(context: Context): Array<String>? = try {
-        context.assets.list(ASSETS_DICTIONARY_FOLDER)
-    } catch (e: IOException) {
-        null
-    }
+    fun getAssetsDictionaryList(context: Context): Array<String>? =
+        runCatching { context.assets.list(ASSETS_DICTIONARY_FOLDER) }.getOrNull()
 
     @JvmStatic
     fun looksValidForDictionaryInsertion(text: CharSequence, spacingAndPunctuations: SpacingAndPunctuations): Boolean {

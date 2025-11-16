@@ -65,6 +65,7 @@ class ClipboardHistoryView @JvmOverloads constructor(
                 R.styleable.ClipboardHistoryView, defStyle, R.style.ClipboardHistoryView)
         pinIconId = clipboardViewAttr.getResourceId(R.styleable.ClipboardHistoryView_iconPinnedClip, 0)
         clipboardViewAttr.recycle()
+        @SuppressLint("UseKtx") // suggestion does not work
         val keyboardViewAttr = context.obtainStyledAttributes(attrs, R.styleable.KeyboardView, defStyle, R.style.KeyboardView)
         keyBackgroundId = keyboardViewAttr.getResourceId(R.styleable.KeyboardView_keyBackground, 0)
         keyboardViewAttr.recycle()
@@ -173,7 +174,7 @@ class ClipboardHistoryView @JvmOverloads constructor(
 
             // set side padding
             val keyboardAttr = context.obtainStyledAttributes(
-                null, R.styleable.Keyboard, R.attr.keyboardStyle, R.style.Keyboard);
+                null, R.styleable.Keyboard, R.attr.keyboardStyle, R.style.Keyboard)
             val leftPadding = (keyboardAttr.getFraction(R.styleable.Keyboard_keyboardLeftPadding,
                 keyboardWidth, keyboardWidth, 0f)
                     * settings.current.mSidePaddingScale).toInt()

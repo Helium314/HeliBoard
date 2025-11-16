@@ -118,7 +118,7 @@ public final class RichInputConnection implements PrivateCommandPerformer {
      * This variable is a temporary object used in {@link #commitText(CharSequence,int)}
      * to avoid object creation.
      */
-    private SpannableStringBuilder mTempObjectForCommitText = new SpannableStringBuilder();
+    private final SpannableStringBuilder mTempObjectForCommitText = new SpannableStringBuilder();
 
     private final InputMethodService mParent;
     private InputConnection mIC;

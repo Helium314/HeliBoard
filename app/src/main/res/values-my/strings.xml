@@ -81,7 +81,6 @@
     <string name="show_setup_wizard_icon_summary">"launcher တွင် အပလီကေးရှင်း သင်္ကေတကိုပြရန်"</string>
     <string name="dictionary_category_title">"ပေါင်းထည့်ထားသည့် အဘိဓါန်များ"</string>
     <string name="dictionary_available">"အဘိဓါန်ရရှိနိုင်"</string>
-    <string name="last_update">"နောက်ဆုံး အသစ်မွမ်းမံမှု"</string>
     <string name="settings">"ဆက်တင်များ"</string>
     <string name="delete">"ဖျက်ရန်"</string>
     <string name="version_text">"ဗားရှင်း %1$s"</string>
@@ -94,7 +93,6 @@
     <string name="user_dict_settings_all_languages">"ဘာသာစကားအားလုံးအတွက်"</string>
     <string name="user_dict_settings_more_languages">"ဘာသာစကားပိုများများ…"</string>
     <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
-    <string name="use_system_language_to_select_input_method_subtypes">စနစ်၌ ရွေးချယ်ထားသော ဘာသာစကားများကို သုံးမည်</string>
     <string name="select_input_method">လက်ကွက်စနစ်‌ရွေးမည်</string>
     <string name="undo">"ပြန်ဖျက်ရန်"</string>
     <string name="redo">"ထပ်လုပ်ပါ"</string>
@@ -124,7 +122,6 @@
     <string name="settings_category_miscellaneous">အခြားထွေထွေချိန်ညှိချက်များ</string>
     <string name="enable_split_keyboard_landscape">အလျားလိုက် လက်ကွက်ကို နှစ်ခြမ်းခွဲပါ</string>
     <string name="split_spacer_scale">ကီးဘုတ်နှစ်ခြမ်းကြား အကွာအ‌‌‌ဝေး</string>
-    <string name="split_spacer_scale_landscape">အလျားလိုက်ကီးဘုတ် နှစ်ခြမ်းကြား အကွာအဝေး</string>
     <string name="switch_language">ဘာသာစကားပြောင်းလဲရန်</string>
     <string name="language_switch_key_switch_both">နှစ်မျိုးစလုံးပြောင်းလဲရန်</string>
     <string name="language_switch_key_behavior">ဘာသာစကားပြောင်းခလုတ် အလုပ်လုပ်ပုံ</string>

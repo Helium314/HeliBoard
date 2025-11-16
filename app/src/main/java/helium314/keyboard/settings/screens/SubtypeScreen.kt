@@ -441,7 +441,7 @@ private fun MainLayoutRow(
             }
             if (showLayoutDeleteDialog) {
                 val others = SubtypeSettings.getAdditionalSubtypes().filter { st -> st.mainLayoutName() == it }
-                    .any { it.toSettingsSubtype() != currentSubtype }
+                    .any { st -> st.toSettingsSubtype() != currentSubtype }
                 ConfirmationDialog(
                     onDismissRequest = { showLayoutDeleteDialog = false },
                     confirmButtonText = stringResource(R.string.delete),

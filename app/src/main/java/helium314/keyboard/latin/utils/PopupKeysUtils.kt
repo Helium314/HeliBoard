@@ -75,10 +75,10 @@ fun getHintLabel(popupSet: PopupSet<*>?, params: KeyboardParams, label: String):
     if (hintLabel in toolbarKeyStrings.values || hintLabel.isNullOrEmpty())
         return null // better show nothing instead of the toolbar key label
 
-    return KeySpecParser.getLabel(transformLabel(hintLabel!!, params))
+    return KeySpecParser.getLabel(transformLabel(hintLabel, params))
         // avoid e.g. !autoColumnOrder! as label
         //  this will avoid having labels on comma and period keys
-        ?.takeIf { !it.startsWith("!") || it.count { it == '!' } != 2 } // excluding the special labels
+        ?.takeIf { label -> !label.startsWith("!") || label.count { it == '!' } != 2 } // excluding the special labels
 }
 
 private fun transformLabel(label: String, params: KeyboardParams): String =

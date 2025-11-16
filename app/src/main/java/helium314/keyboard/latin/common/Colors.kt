@@ -34,6 +34,7 @@ import helium314.keyboard.latin.utils.darken
 import helium314.keyboard.latin.utils.isBrightColor
 import helium314.keyboard.latin.utils.isDarkColor
 import java.util.EnumMap
+import androidx.core.graphics.drawable.toDrawable
 
 interface Colors {
     // these theme parameters should no be in here, but are still used
@@ -347,7 +348,7 @@ class DynamicColors(context: Context, override val themeStyle: String, override 
             MAIN_BACKGROUND -> {
                 if (keyboardBackground != null) {
                     if (!backgroundSetupDone) {
-                        keyboardBackground = BitmapDrawable(view.context.resources, keyboardBackground!!.toBitmap(view.width, view.height))
+                        keyboardBackground = keyboardBackground!!.toBitmap(view.width, view.height).toDrawable(view.context.resources)
                         backgroundSetupDone = true
                     }
                     view.background = keyboardBackground
@@ -532,7 +533,7 @@ class DefaultColors (
             MAIN_BACKGROUND -> {
                 if (keyboardBackground != null) {
                     if (!backgroundSetupDone) {
-                        keyboardBackground = BitmapDrawable(view.context.resources, keyboardBackground!!.toBitmap(view.width, view.height))
+                        keyboardBackground = keyboardBackground!!.toBitmap(view.width, view.height).toDrawable(view.context.resources)
                         backgroundSetupDone = true
                     }
                     view.background = keyboardBackground
@@ -583,7 +584,7 @@ class AllColors(private val colorMap: EnumMap<ColorType, Int>, override val them
             MAIN_BACKGROUND -> {
                 if (keyboardBackground != null) {
                     if (!backgroundSetupDone) {
-                        keyboardBackground = BitmapDrawable(view.context.resources, keyboardBackground!!.toBitmap(view.width, view.height))
+                        keyboardBackground = keyboardBackground!!.toBitmap(view.width, view.height).toDrawable(view.context.resources)
                         backgroundSetupDone = true
                     }
                     view.background = keyboardBackground

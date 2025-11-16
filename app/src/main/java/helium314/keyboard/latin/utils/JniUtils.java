@@ -18,6 +18,7 @@ import helium314.keyboard.latin.settings.Settings;
 import java.io.File;
 import java.io.FileInputStream;
 
+@SuppressLint("PrivateApi") // it's a fallback in try/catch
 public final class JniUtils {
     private static final String TAG = JniUtils.class.getSimpleName();
     public static final String JNI_LIB_NAME = "jni_latinime";
@@ -82,6 +83,7 @@ public final class JniUtils {
                 } else {
                     // delete if checksum doesn't match
                     // this is bad if we can't get the application and the user has a different library than expected...
+                    //noinspection ResultOfMethodCallIgnored
                     userSuppliedLibrary.delete();
                     sHaveGestureLib = false;
                 }

@@ -43,6 +43,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Calendar
+import androidx.core.content.edit
+import java.util.Locale
 
 @Composable
 fun AboutScreen(
@@ -85,7 +87,7 @@ fun createAboutSettings(context: Context) = listOf(
                     return@Preference
                 count++
                 if (count < 5) return@Preference
-                prefs.edit().putBoolean(DebugSettings.PREF_SHOW_DEBUG_SETTINGS, true).apply()
+                prefs.edit { putBoolean(DebugSettings.PREF_SHOW_DEBUG_SETTINGS, true) }
                 Toast.makeText(ctx, R.string.prefs_debug_settings_enabled, Toast.LENGTH_LONG).show()
             },
             icon = R.drawable.ic_settings_about
@@ -165,10 +167,10 @@ fun createAboutSettings(context: Context) = listOf(
             val uri = result.data?.data ?: return@rememberLauncherForActivityResult
             scope.launch(Dispatchers.IO) {
                 ctx.getActivity()?.contentResolver?.openOutputStream(uri)?.use { os ->
-                    os.writer().use {
+                    os.writer().use { writer ->
                         val logcat = Runtime.getRuntime().exec("logcat -d -b all *:W").inputStream.use { it.reader().readText() }
                         val internal = Log.getLog().joinToString("\n")
-                        it.write(logcat + "\n\n" + internal)
+                        writer.write(logcat + "\n\n" + internal)
                     }
                 }
             }
@@ -177,7 +179,7 @@ fun createAboutSettings(context: Context) = listOf(
             name = setting.title,
             description = setting.description,
             onClick = {
-                val date = SimpleDateFormat("yyyy-MM-dd_HH-mm-ss").format(Calendar.getInstance().time)
+                val date = SimpleDateFormat("yyyy-MM-dd_HH-mm-ss", Locale.US).format(Calendar.getInstance().time)
                 val intent = Intent(Intent.ACTION_CREATE_DOCUMENT)
                     .addCategory(Intent.CATEGORY_OPENABLE)
                     .putExtra(

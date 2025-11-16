@@ -148,11 +148,8 @@
     <string name="dictionary_file_wrong_script">ত্রুটি: এই কিবোর্ডের সাথে সামঞ্জস্যপূর্ণ স্ক্রিপ্ট নয়</string>
     <string name="dictionary_link_text">এখানে</string>
     <string name="dictionary_file_error">"ত্রুটি: নির্বাচিত ফাইলটি বৈধ অভিধান ফাইল নয়"</string>
-    <string name="dictionary_file_wrong_locale">"নির্বাচিত ফাইলটি %1$s এর জন্য, %2$s এর জন্য ফাইল প্রয়োজন। তবুও %2$s এর জন্য ব্যবহৃত হবে?"</string>
-    <string name="dictionary_file_wrong_locale_ok">তবুও ব্যবহৃত হবে</string>
     <string name="dictionary_load_error">অভিধান ফাইল অধিযোজন করতে ত্রুটি</string>
     <string name="dictionary_available">অভিধান উপলব্ধ</string>
-    <string name="last_update">সর্বশেষ আপডেট</string>
     <string name="settings">সেটিংস</string>
     <string name="delete">বিলোপ করুন</string>
     <string name="version_text">সংস্করণ %s</string>
@@ -193,7 +190,6 @@
     <string name="gnu_gpl">জিএনইউ জেনারেল পাবলিক লাইসেন্স তৃতীয় সংস্করণ</string>
     <string name="prefs_narrow_key_gaps">বোতামের বিভাজন সংকীর্ণকরণ</string>
     <string name="dialog_close">বন্ধ করুন</string>
-    <string name="use_system_language_to_select_input_method_subtypes">"সিস্টেমের ভাষা ব্যবহার"</string>
     <string name="text_tap_languages">সেটিংস খুলতে ভাষাতে ট্যাপ করুন</string>
     <string name="select_input_method">"কিবোর্ড পরিবর্তন"</string>
     <string name="settings_screen_appearance">"অবয়ব"</string>
@@ -246,7 +242,6 @@
     <string name="down" tools:keep="@string/down">নিচ</string>
     <string name="button_load_custom">ফাইল অধিযোগ</string>
     <string name="file_read_error">অপঠনযোগ্য ফাইল</string>
-    <string name="button_copy_existing_layout">বিদ্যমান লেআউট অনুলিপি</string>
     <string name="layout_error">লেআউট ত্রুটি: %s</string>
     <string name="edit_layout">মূল লেআউট সম্পাদনা করতে ট্যাপ করুন</string>
     <string name="layout_symbols_shifted" tools:keep="@string/layout_symbols_shifted">অধিক প্রতীক</string>
@@ -386,14 +381,11 @@
     <string name="summary_customize_background_image_landscape">নির্ধারিত না থাকলে পোর্ট্রেট ছবি ব্যবহৃত হবে</string>
     <string name="customize_background_image_landscape">পটভূমির ছবি নির্বাচন (ল্যান্ডস্কেপ)</string>
     <string name="customize_toolbar_key_code_reset_message">সকল নিজস্বীকৃত বোতাম কোডেক পরিষ্কারকরণ?</string>
-    <string name="prefs_bottom_padding_scale_landscape">নিম্ন প্যাডিং স্কেল (ল্যান্ডস্কেপ)</string>
     <string name="prefs_font_scale">কিবোর্ড ফন্ট স্কেল</string>
     <string name="prefs_emoji_font_scale">ইমোজি দর্শনের ফন্ট স্কেল</string>
     <string name="prefs_side_padding_scale">পার্শ্ব প্যাডিং স্কেল</string>
-    <string name="prefs_side_padding_scale_landscape">পার্শ্ব প্যাডিং স্কেল (ল্যান্ডস্কেপ)</string>
     <string name="number_row_hints">নম্বর সারিতে ইঙ্গিত প্রদর্শন</string>
     <string name="enable_split_keyboard_landscape">বিভক্ত কিবোর্ড সক্রিয়করণ (ল্যান্ডস্কেপ)</string>
-    <string name="split_spacer_scale_landscape">বিভক্তির দূরত্ব (ল্যান্ডস্কেপ)</string>
     <string name="split" tools:keep="@string/split">বিভক্ত কিবোর্ড</string>
     <string name="delete_confirmation">%s বিলোপ করতে নিশ্চিত?</string>
     <string name="layout_functional_keys_tablet" tools:keep="@string/layout_functional_keys_tablet">ফাংশনাল বোতাম (বড়ো স্ক্রিন)</string>
@@ -451,4 +443,6 @@
     <string name="inline_emoji_search_summary">কোনো শব্দের পূর্বে কোলন থাকলে কেবল ইমোজি পরামর্শ প্রদান</string>
     <string name="emoji_dictionary_required">এই বৈশিষ্ট্য সচল করার জন্য ইমোজি অভিধান প্রয়োজন। %s .dict ফরম্যাটের অভিধান ডাউনলোড করা যেতে পারে।</string>
     <string name="subtype_mhr">মারি (পূর্ব)</string>
+    <string name="layout_emoji_bottom_row_with_action" tools:keep="@string/layout_emoji_bottom_row_with_action">অ্যাকশন বোতামসহ ইমোজির নিম্ন সারি</string>
+    <string name="layout_clip_bottom_row_with_action" tools:keep="@string/layout_clip_bottom_row_with_action">অ্যাকশন বোতামসহ ক্লিপবোর্ডের নিম্ন সারি</string>
 </resources>

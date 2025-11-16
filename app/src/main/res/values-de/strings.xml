@@ -81,7 +81,6 @@
     <string name="show_setup_wizard_icon_summary">"App-Symbol in der Übersicht anzeigen"</string>
     <string name="dictionary_category_title">"Erweiterte Wörterbücher"</string>
     <string name="dictionary_available">"Wörterbuch verfügbar"</string>
-    <string name="last_update">"Zuletzt aktualisiert"</string>
     <string name="settings">"Einstellungen"</string>
     <string name="delete">"Löschen"</string>
     <string name="version_text">Version %s</string>
@@ -94,7 +93,6 @@
     <string name="user_dict_settings_all_languages">"Für alle Sprachen"</string>
     <string name="user_dict_settings_more_languages">"Weitere Sprachen…"</string>
     <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
-    <string name="use_system_language_to_select_input_method_subtypes">"Systemsprachen verwenden"</string>
     <string name="select_input_method">"Eingabemethode wählen"</string>
     <string name="settings_category_clipboard_history">Zwischenablage-Verlauf</string>
     <string name="settings_category_correction">Korrekturen</string>
@@ -181,7 +179,6 @@
     <string name="dictionary_file_error">Fehler: Ausgewählte Datei ist keine gültige Wörterbuchdatei</string>
     <string name="hidden_features_text">gerätegeschützter Speicher</string>
     <string name="theme_navbar">Navigationsleiste einfärben</string>
-    <string name="dictionary_file_wrong_locale_ok">Trotzdem benutzen</string>
     <string name="theme_name_forest" tools:keep="@string/theme_name_forest">Wald</string>
     <string name="load_gesture_library_message">Du benötigst die Bibliothek für „%s“. Inkompatible Bibliotheken können zu Abstürzen beim Gesten-Tippen führen. \n \nWarnung: Das Laden von externem Code kann ein Sicherheitsrisiko darstellen. Verwende nur Bibliotheken aus Quellen, denen du vertraust.</string>
     <string name="add_dictionary">Wörterbuch zum Hinzufügen auswählen. Wörterbücher im .dict-Format können %s heruntergeladen werden.</string>
@@ -260,13 +257,11 @@
     <string name="day_or_night_night">Nacht</string>
     <string name="prefs_narrow_key_gaps">Enge Tastenlücken</string>
     <string name="no_dictionary_dont_show_again_button">Nicht noch einmal zeigen</string>
-    <string name="dictionary_file_wrong_locale">Die ausgewählte Datei ist für %1$s, es wurde jedoch %2$s erwartet. Trotzdem für %2$s verwenden?</string>
     <string name="disable_personalized_dicts_message">Warnung: Deaktivieren dieser Einstellung löscht gelernte Daten</string>
     <string name="load_gesture_library_button_load">Bibliothek laden</string>
     <string name="button_load_custom">Datei laden</string>
     <string name="dialog_close">Schließen</string>
     <string name="prefs_bottom_padding_scale">Randabstand unten</string>
-    <string name="button_copy_existing_layout">Vorhandenes Layout kopieren</string>
     <string name="select_color_gesture">Gesteneingabe</string>
     <string name="text_tap_languages">Sprache antippen, um Einstellungen zu öffnen</string>
     <string name="show_popup_keys_title">Mehr Buchstaben mit diakritischen Zeichen im Popup anzeigen</string>
@@ -382,7 +377,6 @@
     <string name="customize_background_image_landscape">Hintergrundbild setzen (Querformat)</string>
     <string name="customize_toolbar_key_code_reset_message">Wirklich alle benutzerdefinierten Tastencodes zurücksetzen?</string>
     <string name="enable_split_keyboard_landscape">Geteilte Tastatur aktivieren (Querformat)</string>
-    <string name="split_spacer_scale_landscape">Teilungsabstand (Querformat)</string>
     <string name="number_row_hints">Hinweise auf der Zahlenzeile zeigen</string>
     <string name="split" tools:keep="@string/split">Getrennte Tastatur</string>
     <string name="prefs_font_scale">Tastatur-Schriftgrad</string>
@@ -393,9 +387,7 @@
     <string name="subtype_dru">Dargwa (Urakhi)</string>
     <string name="settings_screen_secondary_layouts">Sekundäre Layouts</string>
     <string name="layout_functional_keys_tablet" tools:keep="@string/layout_functional_keys_tablet">Funktionstasten (großer Bildschirm)</string>
-    <string name="prefs_bottom_padding_scale_landscape">Randabstand unten (Querformat)</string>
     <string name="prefs_side_padding_scale">Seitenabstand</string>
-    <string name="prefs_side_padding_scale_landscape">Seitenabstand (Querformat)</string>
     <string name="subtype_generic_phonetic">%s (Phonetisch)</string>
     <string name="layout_in_use">Warnung: Das Layout wird derzeit verwendet</string>
     <string name="get_layouts_message">Du kannst Layouts im %s finden und freigeben.</string>

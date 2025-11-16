@@ -81,7 +81,6 @@
     <string name="show_setup_wizard_icon_summary">"Rakenduse ikooni kuvamine käivitajas"</string>
     <string name="dictionary_category_title">"Pistiksõnastikud"</string>
     <string name="dictionary_available">"Sõnastik on saadaval"</string>
-    <string name="last_update">"Viimati värskendatud"</string>
     <string name="settings">Seadistused</string>
     <string name="delete">"Kustuta"</string>
     <string name="version_text">Versioon %s</string>
@@ -94,7 +93,6 @@
     <string name="user_dict_settings_all_languages">"Kõikides keeltes"</string>
     <string name="user_dict_settings_more_languages">"Rohkem keeli …"</string>
     <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSŠZŽTUVWÕÄÖÜXY"</string>
-    <string name="use_system_language_to_select_input_method_subtypes">"Kasuta süsteemi keeli"</string>
     <string name="select_input_method">"Valige sisestusmeetod"</string>
     <string name="undo">"Võta tagasi"</string>
     <string name="redo">"Tee uuesti"</string>
@@ -226,7 +224,6 @@
     <string name="button_save_file">Salvesta faili</string>
     <string name="copy_to_clipboard">Kopeeri lõikelauale</string>
     <string name="file_read_error">Faili lugemine ei õnnestu</string>
-    <string name="button_copy_existing_layout">Kopeeri olemasolev klaviatuuri paigutus</string>
     <string name="delete_layout">Kas sa kindlasti soovid kustutada sinu tehtud klahvistiku paigutuse „%s“?</string>
     <string name="layout_error">Klahvistiku paigutuse viga: %s</string>
     <string name="pinned_toolbar_keys">Vali esiletõstetud tööriistariba nupud</string>
@@ -256,7 +253,6 @@
     <string name="key_borders">Klahvide äärejooned</string>
     <string name="theme_colors">Värvid</string>
     <string name="day_night_mode">Automaatne päeva- ja öörežiim</string>
-    <string name="dictionary_file_wrong_locale_ok">Kasuta ikkagi</string>
     <string name="style_name_Rounded" tools:keep="@string/style_name_Rounded">Ümardatud</string>
     <string name="add_dictionary">Vali lisatav sõnastik. Sõnastikke .dict vormingust saad alla laadida %s.</string>
     <string name="dictionary_link_text">siit</string>
@@ -264,7 +260,6 @@
     <string name="no_dictionary_dont_show_again_button">Ära näita enam uuesti</string>
     <string name="replace_dictionary_message">Kas kindlasti soovid asendada enda lisatud sõnastiku „%1$s“? \n \nPraegune sõnastik: \n„%2$s“ \n \nUus sõnastik: \n„%3$s“</string>
     <string name="dictionary_file_error">Viga: valitud fail pole korrektne sõnastikufail</string>
-    <string name="dictionary_file_wrong_locale">Valitud fail on %1$s jaoks, aga me eeldasime %2$s. Ikkagi kasutame %2$s jaoks?</string>
     <string name="replace_dictionary">Asenda sõnastik</string>
     <string name="remove_dictionary_message">Kas kindlasti tahad eemaldada enda lisatud sõnastiku „%s“?</string>
     <string name="no_dictionary_message">"Ilma sõnastikuta sisaldavad soovitused vaid neid sõnu, mida oled varem sisestanud.&lt;br&gt;\n        Sa saad laadida sõnastikke %1$s või kontrolli, kas „%2$s“ sõnastiku saad siit otse alla laadida %3$s."</string>
@@ -420,14 +415,11 @@
     <string name="summary_customize_background_image_landscape">Kui see valik pole sisselülitatud, siis kasutatakse püstvormingus taustapilti</string>
     <string name="customize_toolbar_key_code_reset_message">Kas tõesti eemaldame kõik sinu loodud klahvide koodid?</string>
     <string name="custom_font">Vali oma kirjatüübi fail</string>
-    <string name="prefs_bottom_padding_scale_landscape">Alumiste veeriste mõõtkava (rõhtvaates)</string>
     <string name="prefs_font_scale">Klahvistiku kirjatüüpide mõõtkava</string>
     <string name="prefs_emoji_font_scale">Emojide vaate kirjatüüpide mõõtkava</string>
     <string name="prefs_side_padding_scale">Külgmiste veeriste mõõtkava</string>
-    <string name="prefs_side_padding_scale_landscape">Külgmiste veeriste mõõtkava (rõhtvaates)</string>
     <string name="number_row_hints">Näita numbrireas vihjeid</string>
     <string name="prefs_language_swipe_distance">Vaheta keele viipamiskaugust</string>
-    <string name="split_spacer_scale_landscape">Jagatud poolte vahemaa (rõhtvaates)</string>
     <string name="split" tools:keep="@string/split">Poolitatud klahvistik</string>
     <string name="enable_split_keyboard_landscape">Kasuta kaheks jaotatud klahvistikku (rõhtvaates)</string>
     <string name="delete_confirmation">Kas kindlasti kustutame „%s“?</string>

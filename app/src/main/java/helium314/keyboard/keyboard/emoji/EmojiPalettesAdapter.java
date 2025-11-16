@@ -47,8 +47,7 @@ final class EmojiPalettesAdapter extends RecyclerView.Adapter<EmojiPalettesAdapt
             Log.d(TAG, "instantiate item: " + position);
         }
 
-        final Keyboard keyboard =
-                mEmojiCategory.getKeyboardFromAdapterPosition(mCategoryId, position);
+        final Keyboard keyboard = mEmojiCategory.getKeyboardFromAdapterPosition(mCategoryId, position);
         holder.getKeyboardView().setKeyboard(keyboard);
     }
 
@@ -64,7 +63,7 @@ final class EmojiPalettesAdapter extends RecyclerView.Adapter<EmojiPalettesAdapt
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        private EmojiPageKeyboardView customView;
+        private final EmojiPageKeyboardView customView;
 
         public ViewHolder(View v) {
             super(v);

@@ -81,7 +81,6 @@
     <string name="show_setup_wizard_icon_summary">"Икона апликације се приказује у покретачу"</string>
     <string name="dictionary_category_title">"Помоћни речници"</string>
     <string name="dictionary_available">"Речник је доступан"</string>
-    <string name="last_update">"Последње ажурирање"</string>
     <string name="settings">"Подешавања"</string>
     <string name="delete">"Избриши"</string>
     <string name="version_text">"Верзија %1$s"</string>
@@ -94,7 +93,6 @@
     <string name="user_dict_settings_all_languages">"За све језике"</string>
     <string name="user_dict_settings_more_languages">"Још језика…"</string>
     <string name="user_dict_fast_scroll_alphabet">" АБВГДЂЕЖЗИЈКЛЉМНЊОПРСТЋУФХЦЧЏШ"</string>
-    <string name="use_system_language_to_select_input_method_subtypes">"Користи језике система"</string>
     <string name="select_input_method">"Избор метода уноса"</string>
     <string name="spell_checker_service_name">ХелиБоард провера правописа</string>
     <string name="android_spell_checker_settings">ХелиБоард подешавања провере правописа</string>

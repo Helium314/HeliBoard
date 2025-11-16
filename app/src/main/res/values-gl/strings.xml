@@ -81,7 +81,6 @@
     <string name="show_setup_wizard_icon_summary">"Mostra a icona da aplicación no Launcher"</string>
     <string name="dictionary_category_title">"Dicionarios complementarios"</string>
     <string name="dictionary_available">"Dicionario dispoñible"</string>
-    <string name="last_update">"Última actualización"</string>
     <string name="settings">"Configuración"</string>
     <string name="delete">"Eliminar"</string>
     <string name="version_text">"Versión %1$s"</string>
@@ -94,7 +93,6 @@
     <string name="user_dict_settings_all_languages">"Para todos os idiomas"</string>
     <string name="user_dict_settings_more_languages">"Máis idiomas…"</string>
     <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
-    <string name="use_system_language_to_select_input_method_subtypes">"Usar idiomas do sistema"</string>
     <string name="select_input_method">"Escoller método de introdución de texto"</string>
     <string name="undo">"Desfacer"</string>
     <string name="redo">"Refacer"</string>
@@ -241,7 +239,6 @@
     <string name="message_add_custom_layout">Elixe un ficheiro cun formato compatible. Tes información sobre os formatos en %s.</string>
     <string name="button_load_custom">Cargar ficheiro</string>
     <string name="file_read_error">Non se puido ler o ficheiro</string>
-    <string name="button_copy_existing_layout">Copiar disposición existente</string>
     <string name="delete_layout">Queres eliminar a disposición persoal %s?</string>
     <string name="layout_error">Erro na disposición: %s</string>
     <string name="edit_layout">Toca para editar a disposición</string>
@@ -261,7 +258,6 @@
     <string name="add_dictionary">Elixe o dicionario a engadir. Os dicionarios en formato .dict están dispoñibles en %s.</string>
     <string name="dictionary_file_error">Erro: o ficheiro seleccionado non é un dicionario válido</string>
     <string name="dictionary_file_wrong_script">Erro: o script non é compatible con este teclado</string>
-    <string name="dictionary_file_wrong_locale_ok">Usar igualmente</string>
     <string name="dictionary_load_error">Erro ao cargar o ficheiro do dicionario</string>
     <string name="user_dict_word_already_present">Esta palabra xa está presente no dicionario %s da usuaria. Por favor escribe outra.</string>
     <string name="theme_name_black" tools:keep="@string/theme_name_black">Negro</string>
@@ -278,7 +274,6 @@
 \n%3$s</string>
     <string name="dictionary_link_text">aquí</string>
     <string name="select_color_functional_key_background">Fondo da tecla función</string>
-    <string name="dictionary_file_wrong_locale">O ficheiro seleccionado é para %1$s, mais agardábase %2$s. Usar igualmente para %2$s?</string>
     <string name="spell_checker_service_name">Revisor de Ortografía</string>
     <string name="android_spell_checker_settings">Axustes do revisor de Ortografía de HeliBoard</string>
     <string name="load_gesture_library_message">Vas precisar a biblioteca para \'%s\': As bibliotecas incompatibles podería estragar a app ao escribir.
@@ -391,13 +386,10 @@
     <string name="customize_background_image_landscape">Establecer imaxe de fondo (paisaxe)</string>
     <string name="summary_customize_background_image_landscape">Se non se establece usarase a imaxe como retrato</string>
     <string name="enable_split_keyboard_landscape">Activar teclado separado (paisaxe)</string>
-    <string name="split_spacer_scale_landscape">Distancia de separación (paisaxe)</string>
     <string name="split" tools:keep="@string/split">Telcado separado</string>
-    <string name="prefs_bottom_padding_scale_landscape">Escala da marxe inferior (paisaxe)</string>
     <string name="prefs_font_scale">Escala do tamaño da letra</string>
     <string name="prefs_emoji_font_scale">Escala da visualización de emoji</string>
     <string name="prefs_side_padding_scale">Escala da marxe lateral</string>
-    <string name="prefs_side_padding_scale_landscape">Escala da marxe lateral (paisaxe)</string>
     <string name="number_row_hints">Mostrar suxestións na fila de números</string>
     <string name="layout_in_use">Aviso: xa se está usando a disposición</string>
     <string name="get_colors_message">Podes atopar e compartir cores na %s.</string>

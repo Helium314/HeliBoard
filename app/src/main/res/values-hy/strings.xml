@@ -81,7 +81,6 @@
     <string name="show_setup_wizard_icon_summary">"Ցուցադրել հավելվածի պատկերակը գործարկիչում"</string>
     <string name="dictionary_category_title">"Հավելյալ բառարաններ"</string>
     <string name="dictionary_available">"Բառարանն առկա է"</string>
-    <string name="last_update">"Վերջին անգամ թարմացվել է"</string>
     <string name="settings">"Կարգավորումներ"</string>
     <string name="delete">"Ջնջել"</string>
     <string name="version_text">"Տարբերակ %1$s"</string>
@@ -94,7 +93,6 @@
     <string name="user_dict_settings_all_languages">"Բոլոր լեզուներով"</string>
     <string name="user_dict_settings_more_languages">"Ավելի շատ լեզուներով…"</string>
     <string name="user_dict_fast_scroll_alphabet">" ԱԲԳԴԵԶԷԸԹԺԻԼԽԾԿՀՁՂՃՄՅՆՇՈՉՊՋՌՍՎՏՐՑՈՒՓՔԵւՕՖ"</string>
-    <string name="use_system_language_to_select_input_method_subtypes">"Օգտագործել համակարգի լեզուները"</string>
     <string name="select_input_method">"Ընտրեք ներածման եղանակը"</string>
     <string name="settings_screen_appearance">"Արտաքին տեսք"</string>
     <string name="undo">"Հետարկել"</string>

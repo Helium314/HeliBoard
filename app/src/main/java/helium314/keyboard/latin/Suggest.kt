@@ -155,9 +155,7 @@ class Suggest(private val mDictionaryFacilitator: DictionaryFacilitator) {
         firstOccurrenceOfTypedWordInSuggestions: Int,
         typedWordInfo: SuggestedWordInfo?
     ): Pair<Boolean, Boolean> {
-        val consideredWord = if (trailingSingleQuotesCount > 0)
-                typedWordString.substring(0, typedWordString.length - trailingSingleQuotesCount)
-            else typedWordString
+        val consideredWord = typedWordString.dropLast(trailingSingleQuotesCount)
         val firstAndTypedEmptyInfos by lazy { getEmptyWordSuggestions() }
 
         val scoreLimit = Settings.getValues().mScoreLimitForAutocorrect
@@ -462,7 +460,7 @@ class Suggest(private val mDictionaryFacilitator: DictionaryFacilitator) {
         }
 
         @JvmStatic
-        public fun addDebugInfo(wordInfo: SuggestedWordInfo?, typedWord: String) {
+        fun addDebugInfo(wordInfo: SuggestedWordInfo?, typedWord: String) {
             if (!SuggestionStripView.DEBUG_SUGGESTIONS)
                 return
             val normalizedScore = BinaryDictionaryUtils.calcNormalizedScore(typedWord, wordInfo.toString(), wordInfo!!.mScore)

@@ -22,6 +22,7 @@ import helium314.keyboard.latin.utils.withHtmlLink
 import helium314.keyboard.settings.Setting
 import helium314.keyboard.settings.SettingsActivity
 import helium314.keyboard.settings.dialogs.InfoDialog
+import androidx.core.content.edit
 
 @Composable
 fun SwitchPreference(
@@ -62,7 +63,7 @@ fun SwitchPreference(
             return
         }
         value = newValue
-        prefs.edit().putBoolean(key, newValue).apply()
+        prefs.edit { putBoolean(key, newValue) }
         onCheckedChange(newValue)
     }
     Preference(

@@ -81,7 +81,6 @@
     <string name="show_setup_wizard_icon_summary">"在啟動器中顯示應用程式圖示"</string>
     <string name="dictionary_category_title">"外掛字典"</string>
     <string name="dictionary_available">"可用的字典"</string>
-    <string name="last_update">"上次更新時間："</string>
     <string name="settings">"設定"</string>
     <string name="delete">"刪除"</string>
     <string name="version_text">"版本 %1$s"</string>
@@ -94,7 +93,6 @@
     <string name="user_dict_settings_all_languages">"所有語言"</string>
     <string name="user_dict_settings_more_languages">"更多語言…"</string>
     <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
-    <string name="use_system_language_to_select_input_method_subtypes">"使用系統語言"</string>
     <string name="select_input_method">"選擇輸入法"</string>
     <string name="undo">"復原"</string>
     <string name="redo">"重做"</string>

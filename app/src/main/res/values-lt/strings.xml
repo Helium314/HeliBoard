@@ -81,7 +81,6 @@
     <string name="show_setup_wizard_icon_summary">"Pateikti programos piktogramą paleidimo priemonėje"</string>
     <string name="dictionary_category_title">"Papildomi žodynai"</string>
     <string name="dictionary_available">"Galimas žodynas"</string>
-    <string name="last_update">"Paskutinį kartą atnaujinta"</string>
     <string name="settings">"Nustatymai"</string>
     <string name="delete">"Ištrinti"</string>
     <!-- syntax error in translation for should_download_over_metered_prompt (6737084685073734292) org.xmlpull.v1.XmlPullParserException: expected: /string read: b (position:END_TAG </b>@1:781 in     <string name="should_download_over_metered_prompt">"Pasiekiamas mobiliajame įrenginyje pasirinktos kalbos žodynas.&lt;br/&gt; Rekomenduojame &lt;b&gt;atsisiųsti&lt;/b&gt; %1$s žodyną, kad pagerintumėte savo teksto vedimo įgūdžius.&lt;br/&gt; &lt;br/&gt; Jei naudojamas 3G ryšys, atsisiuntimas truks kelias minutes. Jei neturite &lt;b&gt;neribotų duomenų plano&lt;/b&gt;, gali būti taikomi mokesčiai.&lt;br/&gt; Jei nežinote, kokį duomenų planą naudojate, rekomenduojame prisijungti prie „Wi-Fi“ ryšio, kad atsisiuntimas būtų pradėtas automatiškai.&lt;br/&gt; &lt;br/&gt; Patarimas: žodynus galite atsisiųsti ir pridėti mobiliajame įrenginyje nuėję į meniu <b>Nustatymai</b> skiltį &lt;b&gt;Kalbos ir įvestis</b>."</string>
@@ -96,7 +95,6 @@
     <string name="user_dict_settings_all_languages">"Visos kalbos"</string>
     <string name="user_dict_settings_more_languages">"Daugiau kalbų…"</string>
     <string name="user_dict_fast_scroll_alphabet">" AĄBCČDEĘĖFGHIĮYJKLMNOPRSŠTUŲŪVZŽ"</string>
-    <string name="use_system_language_to_select_input_method_subtypes">"Sistemos kalbų naudojimas"</string>
     <string name="select_input_method">"Pasirinkite įvesties metodą"</string>
     <string name="undo">"Anuliuoti"</string>
     <string name="redo">"Grąžinti"</string>
@@ -129,7 +127,6 @@
     <string name="settings_category_miscellaneous">Kita</string>
     <string name="enable_split_keyboard_landscape">Įgalinti perskirtą klaviatūrą (horizontaliai)</string>
     <string name="split_spacer_scale">Perskyrimo atstumas</string>
-    <string name="split_spacer_scale_landscape">Perskyrimo atstumas (horizontaliai)</string>
     <string name="switch_language">Perjungti kalbą</string>
     <string name="language_switch_key_switch_both">Perjungti abu</string>
     <string name="language_switch_key_behavior">Kalbos perjungimo elgsena</string>
@@ -288,7 +285,6 @@
     <string name="load">įkelti</string>
     <string name="button_save_file">Išsaugoti į failą</string>
     <string name="copy_to_clipboard">Kopijuoti į iškarpinę</string>
-    <string name="button_copy_existing_layout">Kopijuoti esamą išdėstymą</string>
     <string name="layout_in_use">Įspėjimas: išdėstymas naudojamas</string>
     <string name="settings_screen_secondary_layouts">Papildomi išdėstymai</string>
     <string name="layout_functional_keys" tools:keep="@string/layout_functional_keys">Funkciniai klavišai</string>
@@ -310,9 +306,7 @@
     <string name="remove_redundant_popups">Pašalinti pasikartojančius iššokančius langus</string>
     <string name="remove_redundant_popups_summary">Paslėpti iššokančius mygtukus kurie jau yra</string>
     <string name="prefs_long_press_symbol_for_numpad">Skaičių įvesčiai ilgai paspausti simbolių mygtuką</string>
-    <string name="prefs_bottom_padding_scale_landscape">Apačios dydis (horizontaliai)</string>
     <string name="prefs_side_padding_scale">Šono dydis</string>
-    <string name="prefs_side_padding_scale_landscape">Šono dydis (horizontaliai)</string>
     <string name="prefs_emoji_font_scale">Jaustukų peržiūros šrifto dydis</string>
     <string name="prefs_emoji_key_fit">Keisti jaustukų mygtuko dydį kartu su šrifto dydžiu</string>
     <string name="prefs_emoji_skin_tone">Numatytasis jaustukų temos tonas</string>
@@ -344,9 +338,7 @@
     <string name="dictionary_link_text">čia</string>
     <string name="available_dictionary_experimental">%s (eksperimentinis)</string>
     <string name="dictionary_file_error">Klaida: pasirinktas failas netinkamas</string>
-    <string name="dictionary_file_wrong_locale">Pasirinktas failas skirtas %1$s, bet laukta %2$s .Vistiek naudoti %2$s?</string>
     <string name="dictionary_file_wrong_script">Klaida: scenarijus nesuderinamas su šia kalba</string>
-    <string name="dictionary_file_wrong_locale_ok">Vistiek naudoti</string>
     <string name="dictionary_load_error">Klaida įkeliant žodyno failą</string>
     <string name="user_dict_settings_add_weight_value">Svoris:</string>
     <string name="user_dict_word_already_present">Šis žodis jau yra %s naudotojo žodyne. Įrašykite kitą.</string>

@@ -1,5 +1,6 @@
 package helium314.keyboard.latin.utils
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.ContextWrapper
 import android.content.SharedPreferences
@@ -24,6 +25,7 @@ inline fun <T> Iterable<T>.sumOf(selector: (T) -> Float): Float {
     return sum
 }
 
+@SuppressLint("DiscouragedApi")
 fun CharSequence.getStringResourceOrName(prefix: String, context: Context): String {
     val resId = context.resources.getIdentifier(prefix + this, "string", context.packageName)
     return if (resId == 0) this.toString() else context.getString(resId)

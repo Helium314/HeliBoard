@@ -82,7 +82,6 @@
     <string name="show_setup_wizard_icon_summary">"Display application icon in the launcher"</string>
     <string name="dictionary_category_title">"Add-on dictionaries"</string>
     <string name="dictionary_available">"Dictionary available"</string>
-    <string name="last_update">"Last updated"</string>
     <string name="settings">"Settings"</string>
     <string name="delete">"Delete"</string>
     <string name="version_text">Version %s</string>
@@ -129,7 +128,6 @@
     <string name="subtype_akkhor_bn_BD">%s (Akkhor)</string>
     <string name="autospace_after_punctuation">Autospace after punctuation</string>
     <string name="autospace_after_punctuation_summary">Automatically insert space after punctuation when typing a new word</string>
-    <string name="use_system_language_to_select_input_method_subtypes">"Use system languages"</string>
     <string name="auto_correction_confidence">Auto-correction confidence</string>
     <string name="select_input_method">"Choose input method"</string>
     <string name="settings_screen_appearance">"Appearance"</string>

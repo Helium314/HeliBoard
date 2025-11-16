@@ -73,8 +73,8 @@ fun LanguageScreen(
             }
         },
         filteredItems = { term ->
-            sortedSubtypes.filter {
-                it.displayName().replace("(", "")
+            sortedSubtypes.filter { subtype ->
+                subtype.displayName().replace("(", "")
                     .splitOnWhitespace().any { it.startsWith(term, true) }
             }
         },
