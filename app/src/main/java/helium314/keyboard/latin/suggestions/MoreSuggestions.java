@@ -252,7 +252,6 @@ public final class MoreSuggestions extends Keyboard {
             // KeyboardIconsSet and alpha are unused. Use the icon that has been passed to the
             // constructor.
             // TODO: Drawable itself should have an alpha value.
-            // todo: replace with shape or vector, or maybe remove it completely
             mIcon.setAlpha(128);
             return mIcon;
         }
