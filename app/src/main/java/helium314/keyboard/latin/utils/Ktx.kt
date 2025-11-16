@@ -1,10 +1,17 @@
 package helium314.keyboard.latin.utils
 
+import android.R
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.ContextWrapper
 import android.content.SharedPreferences
 import android.content.res.Resources
+import android.inputmethodservice.InputMethodService
+import android.os.Build
+import android.view.Gravity
+import android.view.View
+import android.view.ViewGroup
+import android.view.WindowManager
 import androidx.activity.ComponentActivity
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
@@ -83,6 +90,53 @@ fun Context.prefs(): SharedPreferences = DeviceProtectedUtils.getSharedPreferenc
 
 /** The "default" preferences that are only accessible after the device has been unlocked. */
 fun Context.protectedPrefs(): SharedPreferences = getSharedPreferences("${packageName}_preferences", Context.MODE_PRIVATE)
+
+/**
+ * Returns the context object whose resources are adjusted to match the metrics of the display.
+ *
+ * Note that before [Build.VERSION_CODES.KITKAT], there is no way to support
+ * multi-display scenarios, so the context object will just return the IME context itself.
+ *
+ * With initiating multi-display APIs from [Build.VERSION_CODES.KITKAT], the
+ * context object has to return with re-creating the display context according the metrics
+ * of the display in runtime.
+ *
+ * Starts from [Build.VERSION_CODES.S_V2], the returning context object has
+ * became to IME context self since it ends up capable of updating its resources internally.
+ */
+@Suppress("deprecation")
+fun Context.getDisplayContext(): Context {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S_V2) {
+        // IME context sources is now managed by WindowProviderService from Android 12L.
+        return this
+    }
+    // An issue in Q that non-activity components Resources / DisplayMetrics in
+    // Context doesn't well updated when the IME window moving to external display.
+    // Currently we do a workaround is to create new display context directly and re-init
+    // keyboard layout with this context.
+    val wm = getSystemService(Context.WINDOW_SERVICE) as WindowManager
+    return createDisplayContext(wm.defaultDisplay)
+}
+
+/** Override layout parameters to expand SoftInputWindow to the entire screen, See setInputView and SoftInputWindow.updateWidthHeight */
+fun InputMethodService.updateSoftInputWindowLayoutParameters(inputView: View?) {
+    val window = window.window ?: return
+    ViewLayoutUtils.updateLayoutHeightOf(window, ViewGroup.LayoutParams.MATCH_PARENT)
+
+    if (inputView == null) return
+    // In non-fullscreen mode, InputView and its parent inputArea should expand to the entire screen
+    // and be placed at the bottom of SoftInputWindow. In fullscreen mode, these shouldn't
+    // expand to the entire screen and should be coexistent with mExtractedArea above.
+    // See setInputView and com.android.internal.R.layout.input_method.xml.
+    val layoutHeight = if (isFullscreenMode)
+        ViewGroup.LayoutParams.WRAP_CONTENT
+    else
+        ViewGroup.LayoutParams.MATCH_PARENT
+    val inputArea = window.findViewById<View?>(R.id.inputArea)
+    ViewLayoutUtils.updateLayoutHeightOf(inputArea, layoutHeight)
+    ViewLayoutUtils.updateLayoutGravityOf(inputArea, Gravity.BOTTOM)
+    ViewLayoutUtils.updateLayoutHeightOf(inputView, layoutHeight)
+}
 
 @Composable
 fun String.htmlToAnnotated() = AnnotatedString.fromHtml(this, TextLinkStyles(style = SpanStyle(color = MaterialTheme.colorScheme.primary)))

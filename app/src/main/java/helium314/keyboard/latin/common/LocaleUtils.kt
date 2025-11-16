@@ -8,8 +8,10 @@ package helium314.keyboard.latin.common
 import android.content.res.Resources
 import helium314.keyboard.compat.locale
 import helium314.keyboard.latin.R
+import helium314.keyboard.latin.RichInputMethodSubtype
 import helium314.keyboard.latin.utils.ScriptUtils.script
 import helium314.keyboard.latin.utils.SubtypeLocaleUtils
+import helium314.keyboard.latin.utils.getSecondaryLocales
 import helium314.keyboard.latin.utils.runInLocale
 import java.util.Locale
 
@@ -112,6 +114,12 @@ object LocaleUtils {
             else if (reference.variant.isEmpty()) LOCALE_LANGUAGE_AND_COUNTRY_MATCH
             else LOCALE_LANGUAGE_AND_COUNTRY_MATCH_VARIANT_DIFFER
     }
+
+    @JvmStatic
+    fun isGoodMatch(subtype: RichInputMethodSubtype, locale: Locale) =
+        getMatchLevel(locale, subtype.locale) >= LOCALE_LANGUAGE_MATCH_COUNTRY_DIFFER
+            || getSecondaryLocales(subtype.rawSubtype.extraValue)
+                .any { getMatchLevel(locale, it) >= LOCALE_LANGUAGE_MATCH_COUNTRY_DIFFER }
 
     @JvmStatic
     fun <T> getBestMatch(locale: Locale, collection: Collection<T>, toLocale: (T) -> Locale): T? {
