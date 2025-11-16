@@ -487,4 +487,6 @@
     <string name="inline_emoji_search_summary">Предлагай емотикони само когато думата е предшествана от двоеточие</string>
     <string name="emoji_dictionary_required">За да работи тази функция, е необходим речник с емотикони. Речници във формат .dict могат да бъдат изтеглени %s.</string>
     <string name="subtype_mhr">Мари (Източен)</string>
+    <string name="layout_emoji_bottom_row_with_action" tools:keep="@string/layout_emoji_bottom_row_with_action">Долен ред емотикони с клавиш за действие</string>
+    <string name="layout_clip_bottom_row_with_action" tools:keep="@string/layout_clip_bottom_row_with_action">Долен ред на клипборда с клавиш за действие</string>
 </resources>

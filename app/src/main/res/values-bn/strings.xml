@@ -451,4 +451,6 @@
     <string name="inline_emoji_search_summary">কোনো শব্দের পূর্বে কোলন থাকলে কেবল ইমোজি পরামর্শ প্রদান</string>
     <string name="emoji_dictionary_required">এই বৈশিষ্ট্য সচল করার জন্য ইমোজি অভিধান প্রয়োজন। %s .dict ফরম্যাটের অভিধান ডাউনলোড করা যেতে পারে।</string>
     <string name="subtype_mhr">মারি (পূর্ব)</string>
+    <string name="layout_emoji_bottom_row_with_action" tools:keep="@string/layout_emoji_bottom_row_with_action">অ্যাকশন বোতামসহ ইমোজির নিম্ন সারি</string>
+    <string name="layout_clip_bottom_row_with_action" tools:keep="@string/layout_clip_bottom_row_with_action">অ্যাকশন বোতামসহ ক্লিপবোর্ডের নিম্ন সারি</string>
 </resources>

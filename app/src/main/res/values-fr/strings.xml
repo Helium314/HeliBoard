@@ -456,4 +456,6 @@ Nouveau dictionnaire:
     <string name="inline_emoji_search_summary">Proposer uniquement des émojis lorsqu\'un mot est précédé de deux points</string>
     <string name="emoji_dictionary_required">Un dictionnaire d\'émojis est nécessaire pour que cette fonctionnalité soit opérationnelle. Les dictionnaires au format .dict peuvent être téléchargés ici : %s.</string>
     <string name="subtype_mhr">Mari (Eastern)</string>
+    <string name="layout_emoji_bottom_row_with_action" tools:keep="@string/layout_emoji_bottom_row_with_action">Rangée inférieure (emoji) avec touche d\'action</string>
+    <string name="layout_clip_bottom_row_with_action" tools:keep="@string/layout_clip_bottom_row_with_action">Rangée inférieure du presse-papiers avec touche d\'action</string>
 </resources>

@@ -452,4 +452,6 @@
     <string name="inline_emoji_search_summary">Navrhovat emodži pouze, pokud je na začátku slova dvojtečka</string>
     <string name="emoji_dictionary_required">Aby tato funkce fungovala, je nutný slovník emodži. Slovníky ve formátu .dict lze stáhnout %s.</string>
     <string name="subtype_mhr">Mari (východní)</string>
+    <string name="layout_emoji_bottom_row_with_action" tools:keep="@string/layout_emoji_bottom_row_with_action">Spodní řádek emodži s akční klávesou</string>
+    <string name="layout_clip_bottom_row_with_action" tools:keep="@string/layout_clip_bottom_row_with_action">Spodní řádek schránky s akční klávesou</string>
 </resources>

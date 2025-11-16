@@ -450,4 +450,6 @@
     <string name="inline_emoji_search_summary">Предлагать только эмодзи, когда слово предшествует двоеточию</string>
     <string name="emoji_dictionary_required">Для работы этой функции требуется словарь эмодзи. Словари в формате .dict можно загрузить по ссылке %s.</string>
     <string name="subtype_mhr">Луговомарийский (Лугововосточный марийский)</string>
+    <string name="layout_emoji_bottom_row_with_action" tools:keep="@string/layout_emoji_bottom_row_with_action">Нижний ряд эмодзи с кнопкой действия</string>
+    <string name="layout_clip_bottom_row_with_action" tools:keep="@string/layout_clip_bottom_row_with_action">Панель буфера обмена внизу с кнопкой действия</string>
 </resources>
