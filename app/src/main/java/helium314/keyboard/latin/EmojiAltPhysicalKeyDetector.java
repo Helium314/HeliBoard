@@ -31,7 +31,7 @@ public final class EmojiAltPhysicalKeyDetector {
 
     private static class HotKeySet extends HashSet<Pair<Integer, Integer>> { }
 
-    private abstract class EmojiHotKeys {
+    private abstract static class EmojiHotKeys {
         private final String mName;
         private final HotKeySet mKeySet;
 

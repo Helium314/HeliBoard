@@ -49,6 +49,7 @@ import helium314.keyboard.settings.preferences.BackupRestorePreference
 import helium314.keyboard.settings.preferences.LoadGestureLibPreference
 import helium314.keyboard.settings.preferences.TextInputPreference
 import helium314.keyboard.settings.previewDark
+import androidx.core.content.edit
 
 @Composable
 fun AdvancedSettingsScreen(
@@ -183,10 +184,10 @@ fun createAdvancedSettings(context: Context) = listOf(
                 onDismissRequest = { showDialog = false },
                 textInputLabel = { Text(stringResource(R.string.customize_currencies_detail)) },
                 initialText = prefs.getString(setting.key, Defaults.PREF_CUSTOM_CURRENCY_KEY)!!,
-                onConfirmed = { prefs.edit().putString(setting.key, it).apply(); KeyboardLayoutSet.onSystemLocaleChanged() },
+                onConfirmed = { prefs.edit { putString(setting.key, it) }; KeyboardLayoutSet.onSystemLocaleChanged() },
                 title = { Text(stringResource(R.string.customize_currencies)) },
                 neutralButtonText = if (prefs.contains(setting.key)) stringResource(R.string.button_default) else null,
-                onNeutral = { prefs.edit().remove(setting.key).apply(); KeyboardLayoutSet.onSystemLocaleChanged() },
+                onNeutral = { prefs.edit { remove(setting.key)}; KeyboardLayoutSet.onSystemLocaleChanged() },
                 checkTextValid = { text -> text.splitOnWhitespace().none { it.length > 8 } }
             )
         }
@@ -200,8 +201,8 @@ fun createAdvancedSettings(context: Context) = listOf(
     Setting(context, SettingsWithoutKey.BACKUP_RESTORE, R.string.backup_restore_title) {
         BackupRestorePreference(it)
     },
-    Setting(context, Settings.PREF_TIMESTAMP_FORMAT, R.string.timestamp_format_title) {
-        TextInputPreference(it, Defaults.PREF_TIMESTAMP_FORMAT) { checkTimestampFormat(it) }
+    Setting(context, Settings.PREF_TIMESTAMP_FORMAT, R.string.timestamp_format_title) { setting ->
+        TextInputPreference(setting, Defaults.PREF_TIMESTAMP_FORMAT) { checkTimestampFormat(it) }
     },
     Setting(context, SettingsWithoutKey.DEBUG_SETTINGS, R.string.debug_settings_title) {
         Preference(

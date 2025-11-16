@@ -82,7 +82,6 @@
     <string name="show_setup_wizard_icon_summary">"Wyświetlaj ikonę aplikacji w programie uruchamiającym"</string>
     <string name="dictionary_category_title">"Słowniki dodatkowe"</string>
     <string name="dictionary_available">Dostępny słownik</string>
-    <string name="last_update">"Ostatnia aktualizacja"</string>
     <string name="settings">"Ustawienia"</string>
     <string name="delete">"Usuń"</string>
     <string name="version_text">Wersja %1$s</string>
@@ -130,7 +129,6 @@
     <string name="autospace_after_punctuation_summary">Automatyczne wstawianie spacji po znaku interpunkcyjnym podczas wpisywania nowego słowa</string>
     <string name="autospace_after_punctuation">Automatyczne wstawianie spacji po znaku interpunkcyjnym</string>
     <string name="auto_correction_confidence">Dokładność autokorekty</string>
-    <string name="use_system_language_to_select_input_method_subtypes">"Użyj języków systemu"</string>
     <string name="select_input_method">"Wybierz metodę wprowadzania"</string>
     <string name="undo">"Cofnij"</string>
     <string name="redo">"Ponów"</string>
@@ -181,7 +179,6 @@
     <string name="dictionary_file_error">Błąd: wybrany plik nie jest prawidłowym plikiem słownika</string>
     <string name="hidden_features_text">chronionej pamięci urządzenia</string>
     <string name="theme_navbar">Koloruj pasek nawigacyjny</string>
-    <string name="dictionary_file_wrong_locale_ok">Tak</string>
     <string name="theme_name_forest" tools:keep="@string/theme_name_forest">Leśne</string>
     <string name="load_gesture_library_message">Będziesz potrzebować biblioteki dla \\\'%s\\\'. Niekompatybilne biblioteki mogą powodować awarie podczas pisania gestami.
 \n
@@ -306,13 +303,11 @@
     <string name="day_or_night_night">Nocny</string>
     <string name="prefs_narrow_key_gaps">Mniejszy odstęp między klawiszami</string>
     <string name="no_dictionary_dont_show_again_button">Nie pokazuj ponownie</string>
-    <string name="dictionary_file_wrong_locale">Wybrano słownik %1$s, a nie %2$s. Na pewno chcesz użyć tego słownika dla języka: %2$s?</string>
     <string name="disable_personalized_dicts_message">Uwaga: wyłączenie tego ustawienia spowoduje usunięcie nauczonych podpowiedzi</string>
     <string name="load_gesture_library_button_load">Dodaj bibliotekę</string>
     <string name="button_load_custom">Dodaj plik</string>
     <string name="dialog_close">Zamknij</string>
     <string name="prefs_bottom_padding_scale">Wysokość dolnego odstępu</string>
-    <string name="button_copy_existing_layout">Skopiuj istniejący układ</string>
     <string name="select_color_gesture">Gest</string>
     <string name="text_tap_languages">Dotknij język, aby wyświetlić opcje</string>
     <string name="show_popup_keys_title">Pokaż więcej liter ze znakami diakrytycznymi w wyskakującym okienku</string>
@@ -427,15 +422,12 @@
     <string name="customize_toolbar_key_code_reset_message">Na pewno usunąć wszystkie dostosowane kody klawiszy?</string>
     <string name="customize_background_image_landscape">Ustaw obraz jako tło klawiatury (poziomo)</string>
     <string name="summary_customize_background_image_landscape">Jeśli nie ustawiono, zostanie użyty obraz portretowy</string>
-    <string name="prefs_bottom_padding_scale_landscape">Wysokość dolnego odstępu (poziomo)</string>
     <string name="prefs_font_scale">Rozmiar czcionki klawiatury</string>
     <string name="prefs_emoji_font_scale">Rozmiar czcionki w widoku emoji</string>
-    <string name="prefs_side_padding_scale_landscape">Rozmiar bocznego odstępu (poziomo)</string>
     <string name="prefs_side_padding_scale">Rozmiar bocznego odstępu</string>
     <string name="number_row_hints">Pokaż wskazówki na wierszu numerycznym</string>
     <string name="prefs_language_swipe_distance">Zmień język - odległość przesunięcia</string>
     <string name="enable_split_keyboard_landscape">Włącz podzieloną klawiaturę (poziomo)</string>
-    <string name="split_spacer_scale_landscape">Szerokość podziału (poziomo)</string>
     <string name="split" tools:keep="@string/split">Podziel klawiaturę</string>
     <string name="delete_confirmation">Na pewno usunąć %s?</string>
     <string name="settings_screen_secondary_layouts">Inne układy</string>

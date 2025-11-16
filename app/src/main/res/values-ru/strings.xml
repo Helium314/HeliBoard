@@ -84,7 +84,6 @@
     <string name="show_setup_wizard_icon_summary">Отображать значок приложения на панели запуска</string>
     <string name="dictionary_category_title">Дополнительные словари</string>
     <string name="dictionary_available">Доступный словарь</string>
-    <string name="last_update">Последнее обновление</string>
     <string name="settings">Настройки</string>
     <string name="delete">Удалить</string>
     <string name="version_text">Версия %s</string>
@@ -172,7 +171,6 @@
     <string name="license">Лицензия с открытым исходным кодом</string>
     <string name="gnu_gpl">Стандартная общественная лицензия GNU v3.0</string>
     <string name="dialog_close">Закрыть</string>
-    <string name="use_system_language_to_select_input_method_subtypes">Использовать языки системы</string>
     <string name="text_tap_languages">Нажмите на язык для настроек</string>
     <string name="select_input_method">"Выберите метод ввода"</string>
     <string name="hidden_features_title">Описание скрытых функций</string>
@@ -275,12 +273,9 @@
     <string name="full_right" tools:keep="@string/full_right">Полностью вправо</string>
     <string name="user_dict_settings_add_weight_value">Вес:</string>
     <string name="button_load_custom">Загрузить файл</string>
-    <string name="button_copy_existing_layout">Копировать текущую раскладку</string>
     <string name="layout_error">Ошибка раскладки: %s</string>
     <string name="user_dict_word_already_present">Это слово уже присутствует в пользовательском словаре %s. Пожалуйста, введите другое.</string>
     <string name="dictionary_file_wrong_script">Ошибка: скрипт несовместим с этой клавиатурой</string>
-    <string name="dictionary_file_wrong_locale_ok">Всё равно использовать</string>
-    <string name="dictionary_file_wrong_locale">Выбранный файл предназначен для %1$s, но ожидался %2$s. Всё равно использовать его для %2$s?</string>
     <string name="dictionary_file_error">Ошибка: выбранный файл не является корректным словарем</string>
     <string name="no_dictionary_message">"Без словаря вы будете получать предложения только для введенного ранее текста.&lt;br&gt;\n        Вы можете загрузить словари %1$s или проверить, можно ли загрузить словарь для «%2$s» напрямую %3$s."</string>
     <string name="available_dictionary_experimental">%s (экспериментальный)</string>
@@ -378,11 +373,9 @@
     <string name="subtype_generic_phonetic">%s (Фонетика)</string>
     <string name="auto_correct_shortcuts">Автоисправление сокращений</string>
     <string name="custom_font">Установить пользовательский шрифт из файла</string>
-    <string name="prefs_bottom_padding_scale_landscape">Масштаб нижнего отступа (ландшафт)</string>
     <string name="prefs_font_scale">Масштаб шрифта клавиатуры</string>
     <string name="prefs_emoji_font_scale">Масштаб шрифта отображения эмодзи</string>
     <string name="prefs_side_padding_scale">Масштаб бокового отступа</string>
-    <string name="prefs_side_padding_scale_landscape">Масштаб бокового отступа (ландшафт)</string>
     <string name="auto_correct_shortcuts_summary">Если включено, автоисправление превратит сокращения в полные слова</string>
     <string name="customize_toolbar_key_code_reset_message">Вы действительно хотите удалить все настроенные коды клавиш?</string>
     <string name="prefs_key_emoji_max_sdk">Переопределить версию эмодзи</string>
@@ -390,7 +383,6 @@
     <string name="customize_background_image_landscape">Установить фоновое изображение (ландшафт)</string>
     <string name="number_row_hints">Показывать подсказки в ряду с цифрами</string>
     <string name="prefs_language_swipe_distance">Расстояние смахивания для переключения языка</string>
-    <string name="split_spacer_scale_landscape">Расстояние разделения (ландшафт)</string>
     <string name="enable_split_keyboard_landscape">Включить разделение клавиатуры (ландшафт)</string>
     <string name="split" tools:keep="@string/split">Разделение клавиатуры</string>
     <string name="custom_subtype">Пользовательский подтип</string>

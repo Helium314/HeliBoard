@@ -90,8 +90,7 @@ public final class PopupKeySpec {
         if (this == o) {
             return true;
         }
-        if (o instanceof PopupKeySpec) {
-            final PopupKeySpec other = (PopupKeySpec)o;
+        if (o instanceof PopupKeySpec other) {
             return mCode == other.mCode
                     && TextUtils.equals(mIconName, other.mIconName)
                     && TextUtils.equals(mLabel, other.mLabel)
@@ -102,10 +101,8 @@ public final class PopupKeySpec {
 
     @Override
     public String toString() {
-        final String label = (mIconName == null ? mLabel
-                : KeyboardIconsSet.PREFIX_ICON + mIconName);
-        final String output = (mCode == KeyCode.MULTIPLE_CODE_POINTS ? mOutputText
-                : Constants.printableCode(mCode));
+        final String label = (mIconName == null ? mLabel : KeyboardIconsSet.PREFIX_ICON + mIconName);
+        final String output = (mCode == KeyCode.MULTIPLE_CODE_POINTS ? mOutputText : Constants.printableCode(mCode));
         if (StringUtils.codePointCount(label) == 1 && label.codePointAt(0) == mCode) {
             return output;
         }

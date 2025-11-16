@@ -81,7 +81,6 @@
     <string name="show_setup_wizard_icon_summary">"Paparkan ikon apl dalam pelancar"</string>
     <string name="dictionary_category_title">"Kamus tambahan"</string>
     <string name="dictionary_available">"Kamus tersedia"</string>
-    <string name="last_update">"Kali terakhir dikemas kini"</string>
     <string name="settings">"Tetapan"</string>
     <string name="delete">"Padam"</string>
     <string name="version_text">Versi %s</string>
@@ -94,7 +93,6 @@
     <string name="user_dict_settings_all_languages">"Untuk semua bahasa"</string>
     <string name="user_dict_settings_more_languages">"Lebih banyak bahasa…"</string>
     <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
-    <string name="use_system_language_to_select_input_method_subtypes">"Gunakan bahasa sistem"</string>
     <string name="select_input_method">"Pilih kaedah input"</string>
     <string name="settings_screen_appearance">"Tampilan"</string>
     <string name="undo">"Buat asal"</string>
@@ -125,7 +123,6 @@
     <string name="settings_category_miscellaneous">Lain-lain</string>
     <string name="enable_split_keyboard_landscape">Hidupkan papan kekunci terpisah (landskap)</string>
     <string name="split_spacer_scale">Jarak pisahan</string>
-    <string name="split_spacer_scale_landscape">Jarak pisahan (landskap)</string>
     <string name="switch_language">Tukar bahasa</string>
     <string name="language_switch_key_switch_both">Tukar kedua-duanya</string>
     <string name="language_switch_key_behavior">Fungsi kekunci tukar bahasa</string>

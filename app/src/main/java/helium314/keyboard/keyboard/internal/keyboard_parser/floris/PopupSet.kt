@@ -21,7 +21,7 @@ open class PopupSet<T : AbstractKeyData>(
         if (main == null && relevant == null) return null
         val popupKeys = mutableListOf<String>()
         main?.compute(params)?.getPopupLabel(params)?.let { popupKeys.add(it) }
-        relevant?.let { popupKeys.addAll(it.mapNotNull { it.compute(params)?.getPopupLabel(params) }) }
+        relevant?.let { keys -> popupKeys.addAll(keys.mapNotNull { it.compute(params)?.getPopupLabel(params) }) }
         if (popupKeys.isEmpty()) return null
         return popupKeys
     }

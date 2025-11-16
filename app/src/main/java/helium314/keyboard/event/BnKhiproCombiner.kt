@@ -197,8 +197,8 @@ class BnKhiproCombiner : Combiner {
             val end = minOf(text.length, i + maxlen)
 
             // Try lengths from longest to shortest to implement greedy matching
-            for (L in (end - i) downTo 1) {
-                val chunk = text.substring(i, i + L)
+            for (l in (end - i) downTo 1) {
+                val chunk = text.substring(i, i + l)
                 // Check groups by priority
                 for (g in allowed) {
                     val map = GROUP_MAPS[g]

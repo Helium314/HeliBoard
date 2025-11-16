@@ -18,6 +18,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -145,7 +147,7 @@ fun KeyboardIconsSet.GetIcon(name: String?) {
         if (drawable is VectorDrawable)
             Icon(painterResource(iconIds[name?.lowercase()]!!), name, Modifier.fillMaxSize(0.8f))
         else if (drawable != null) {
-            val px = 40.dpToPx(ctx.resources)
+            val px = with(LocalDensity.current) { 40.dp.toPx() }.toInt()
             Icon(drawable.toBitmap(px, px).asImageBitmap(), name, Modifier.fillMaxSize(0.8f))
         }
     }

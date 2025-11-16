@@ -81,7 +81,6 @@
     <string name="show_setup_wizard_icon_summary">"లాంచర్‌లో యాప్‌ చిహ్నాన్ని ప్రదర్శించు"</string>
     <string name="dictionary_category_title">"ఇతర నిఘంటువులు"</string>
     <string name="dictionary_available">"నిఘంటువు అందుబాటులో ఉంది"</string>
-    <string name="last_update">"చివరిగా నవీకరించబడినది"</string>
     <string name="settings">"సెట్టింగ్‌లు"</string>
     <string name="delete">"తొలగించు"</string>
     <string name="version_text">"వెర్షన్ %1$s"</string>
@@ -96,7 +95,6 @@
     <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
     <string name="number_row_summary">సంఖ్యల వరుసను ఎల్లప్పుడూ చూపండి</string>
     <string name="incognito">అజ్ఞాత పద్దతి ప్రయోగించండి</string>
-    <string name="use_system_language_to_select_input_method_subtypes">"సిస్టమ్ భాషలను ఉపయోగించండి"</string>
     <string name="select_input_method">"ఇన్‌పుట్ పద్ధతిని ఎంచుకోండి"</string>
     <string name="prefs_force_incognito_mode_summary">కొత్త పదముల అభ్యాసమును ఆపండి</string>
     <string name="prefs_long_press_keyboard_to_change_lang">ఇన్పుట్ పద్దతి మార్చుటకు స్పేస్ కీ వాడండి</string>

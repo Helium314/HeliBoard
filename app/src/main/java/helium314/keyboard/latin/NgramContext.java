@@ -75,8 +75,7 @@ public class NgramContext {
         @Override
         public boolean equals(Object o) {
             if (this == o) return true;
-            if (!(o instanceof WordInfo)) return false;
-            final WordInfo wordInfo = (WordInfo)o;
+            if (!(o instanceof WordInfo wordInfo)) return false;
             if (mWord == null || wordInfo.mWord == null) {
                 return mWord == wordInfo.mWord
                         && mIsBeginningOfSentence == wordInfo.mIsBeginningOfSentence;
@@ -177,7 +176,7 @@ public class NgramContext {
                 }
             }
         }
-        return prevTermList.toArray(new String[prevTermList.size()]);
+        return prevTermList.toArray(new String[0]);
     }
 
     public boolean isValid() {
@@ -238,8 +237,7 @@ public class NgramContext {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof NgramContext)) return false;
-        final NgramContext prevWordsInfo = (NgramContext)o;
+        if (!(o instanceof NgramContext prevWordsInfo)) return false;
 
         final int minLength = Math.min(mPrevWordsCount, prevWordsInfo.mPrevWordsCount);
         for (int i = 0; i < minLength; i++) {

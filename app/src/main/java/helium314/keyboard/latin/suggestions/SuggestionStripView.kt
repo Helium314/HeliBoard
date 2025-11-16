@@ -89,7 +89,7 @@ class SuggestionStripView(context: Context, attrs: AttributeSet?, defStyle: Int)
         val colors = Settings.getValues().mColors
         colors.setBackground(this, ColorType.STRIP_BACKGROUND)
         val customTypeface = Settings.getInstance().customTypeface
-        for (pos in 0..<SuggestedWords.MAX_SUGGESTIONS) {
+        repeat(SuggestedWords.MAX_SUGGESTIONS) {
             val word = TextView(context, null, R.attr.suggestionWordStyle)
             word.contentDescription = resources.getString(R.string.spoken_empty_suggestion)
             word.setOnClickListener(this)
@@ -239,7 +239,7 @@ class SuggestionStripView(context: Context, attrs: AttributeSet?, defStyle: Int)
             context, suggestedWords, suggestionsStrip, this
         )
         isExternalSuggestionVisible = false
-        updateKeys();
+        updateKeys()
     }
 
     fun setExternalSuggestionView(view: View?, addCloseButton: Boolean) {
@@ -248,8 +248,7 @@ class SuggestionStripView(context: Context, attrs: AttributeSet?, defStyle: Int)
 
         if (addCloseButton) {
             val wrapper = LinearLayout(context)
-            wrapper.setLayoutParams(LinearLayout.LayoutParams(suggestionsStrip.width - 30.dpToPx(resources),
-                LayoutParams.MATCH_PARENT))
+            wrapper.layoutParams = LinearLayout.LayoutParams(suggestionsStrip.width - 30.dpToPx(resources), LayoutParams.MATCH_PARENT)
             wrapper.addView(view)
             suggestionsStrip.addView(wrapper)
 

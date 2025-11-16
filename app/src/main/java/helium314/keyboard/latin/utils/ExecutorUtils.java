@@ -67,20 +67,18 @@ public class ExecutorUtils {
         if (sExecutorServiceForTests != null) {
             return sExecutorServiceForTests;
         }
-        switch (name) {
-            case KEYBOARD:
-                return sKeyboardExecutorService;
-            case SPELLING:
-                return sSpellingExecutorService;
-            default:
-                throw new IllegalArgumentException("Invalid executor: " + name);
-        }
+        return switch (name) {
+            case KEYBOARD -> sKeyboardExecutorService;
+            case SPELLING -> sSpellingExecutorService;
+            default -> throw new IllegalArgumentException("Invalid executor: " + name);
+        };
     }
 
     public static void killTasks(final String name) {
         final ScheduledExecutorService executorService = getBackgroundExecutor(name);
         executorService.shutdownNow();
         try {
+            //noinspection ResultOfMethodCallIgnored
             executorService.awaitTermination(5, TimeUnit.SECONDS);
         } catch (InterruptedException e) {
             Log.wtf(TAG, "Failed to shut down: " + name);

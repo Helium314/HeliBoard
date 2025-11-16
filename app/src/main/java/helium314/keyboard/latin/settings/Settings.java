@@ -6,6 +6,7 @@
 
 package helium314.keyboard.latin.settings;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
@@ -494,6 +495,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
         return mContext.getResources().getInteger(R.integer.config_screen_metrics) >= 3;
     }
 
+    @SuppressLint("DiscouragedApi")
     public int getStringResIdByName(final String name) {
         return mContext.getResources().getIdentifier(name, "string", mContext.getPackageName());
     }
@@ -554,7 +556,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
         if (!sCustomTypefaceLoaded) {
             try {
                 sCachedTypeface = Typeface.createFromFile(getCustomFontFile(mContext));
-            } catch (Exception e) { }
+            } catch (Exception ignored) { }
         }
         sCustomTypefaceLoaded = true;
         return sCachedTypeface;

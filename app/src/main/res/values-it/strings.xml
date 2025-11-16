@@ -81,7 +81,6 @@
     <string name="show_setup_wizard_icon_summary">Mostra HeliBoard tra le app di Android</string>
     <string name="dictionary_category_title">Dizionari</string>
     <string name="dictionary_available">"Dizionario disponibile"</string>
-    <string name="last_update">"Ultimo aggiornamento"</string>
     <string name="settings">"Impostazioni"</string>
     <string name="delete">"Elimina"</string>
     <string name="version_text">Versione %s</string>
@@ -129,7 +128,6 @@
     <string name="key_borders">Bordi dei tasti</string>
     <string name="day_night_mode">Tema chiaro/scuro automatico</string>
     <string name="auto_correction_confidence">Modalità correzione automatica</string>
-    <string name="use_system_language_to_select_input_method_subtypes">"Utilizza le lingue di sistema"</string>
     <string name="select_input_method">"Scegli il metodo di immissione"</string>
     <string name="undo">"Annulla"</string>
     <string name="redo">Ripristina</string>
@@ -196,7 +194,6 @@
     <string name="disable_personalized_dicts_message">Attenzione: la disattivazione di questa impostazione cancellerà tutti i dati memorizzati</string>
     <string name="load_gesture_library_button_load">Carica libreria</string>
     <string name="button_load_custom">Carica file</string>
-    <string name="button_copy_existing_layout">Duplica un layout esistente</string>
     <string name="show_popup_keys_title">Mostra più opzioni per le lettere nei tasti popup</string>
     <string name="one_handed" tools:keep="@string/one_handed">Modalità a una mano</string>
     <string name="layout_error">Errore layout: %s</string>
@@ -236,7 +233,6 @@
     <string name="dictionary_file_error">Errore: Il file non è un dizionario valido</string>
     <string name="hidden_features_text">spazio di archiviazione protetto</string>
     <string name="theme_navbar">Colora la barra di navigazione</string>
-    <string name="dictionary_file_wrong_locale_ok">Ignora e procedi</string>
     <string name="theme_name_forest" tools:keep="@string/theme_name_forest">Foresta</string>
     <string name="add_dictionary">Scegli un dizionario da aggiungere. I dizionari in formato .dict possono essere scaricati %s.</string>
     <string name="dictionary_load_error">Errore nel caricamento del dizionario</string>
@@ -279,7 +275,6 @@
     <string name="user_dict_settings_add_weight_value">Peso:</string>
     <string name="no_dictionary_message">"Senza un dizionario, si otterranno solo suggerimenti in base al testo immesso in precedenza.&lt;br&gt;\n\n                  È possibile scaricare i dizionari %1$s, oppure verificare se un dizionario per \"%2$s\" può essere scaricato direttamente %3$s."</string>
     <string name="no_dictionary_dont_show_again_button">Non mostrare più</string>
-    <string name="dictionary_file_wrong_locale">Il dizionario è stato creato per la lingua %1$s, ma lo stai aggiungendo a %2$s. Confermi?</string>
     <string name="dialog_close">Chiudi</string>
     <string name="select_color_gesture">Traccia dell\'input gestuale</string>
     <string name="text_tap_languages">Tocca la lingua per impostazioni</string>
@@ -386,7 +381,6 @@
     <string name="prefs_key_emoji_max_sdk">Forza la versione delle emoji</string>
     <string name="subtype_dru">Dargwa (Urakhi)</string>
     <string name="enable_split_keyboard_landscape">Tastiera divisa (orizzontale)</string>
-    <string name="split_spacer_scale_landscape">Distanza (orizzontale)</string>
     <string name="split" tools:keep="@string/split">Tastiera divisa</string>
     <string name="auto_correct_shortcuts_summary">Scorciatoie espanse dalla correzione automatica</string>
     <string name="delete_confirmation">Vuoi davvero eliminare %s?</string>
@@ -396,11 +390,9 @@
     <string name="customize_toolbar_key_code_reset_message">Vuoi davvero riportare tutti i valori ai predefiniti?</string>
     <string name="settings_screen_secondary_layouts">Layout secondari</string>
     <string name="layout_functional_keys_tablet" tools:keep="@string/layout_functional_keys_tablet">Tasti funzione (schermi grandi)</string>
-    <string name="prefs_bottom_padding_scale_landscape">Spaziatura inferiore (orizzontale)</string>
     <string name="prefs_font_scale">Dimensione dei caratteri della tastiera</string>
     <string name="prefs_emoji_font_scale">Dimensione delle emoji</string>
     <string name="prefs_side_padding_scale">Spaziatura laterale</string>
-    <string name="prefs_side_padding_scale_landscape">Spaziatura laterale (orizzontale)</string>
     <string name="number_row_hints">Mostra suggerimenti sulla riga dei numeri</string>
     <string name="auto_correct_shortcuts">Scorciatoie correzione</string>
     <string name="name_invalid">Nome non valido</string>

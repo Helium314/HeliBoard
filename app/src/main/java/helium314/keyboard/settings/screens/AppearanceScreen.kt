@@ -40,6 +40,7 @@ import helium314.keyboard.settings.preferences.CustomFontPreference
 import helium314.keyboard.settings.preferences.MultiSliderPreference
 import helium314.keyboard.settings.preferences.TextInputPreference
 import helium314.keyboard.settings.previewDark
+import androidx.core.content.edit
 
 @Composable
 fun AppearanceScreen(
@@ -105,9 +106,9 @@ fun createAppearanceSettings(context: Context) = listOf(
         ) {
             if (it != KeyboardTheme.STYLE_HOLO) {
                 if (prefs.getString(Settings.PREF_THEME_COLORS, Defaults.PREF_THEME_COLORS) == KeyboardTheme.THEME_HOLO_WHITE)
-                    prefs.edit().remove(Settings.PREF_THEME_COLORS).apply()
+                    prefs.edit { remove(Settings.PREF_THEME_COLORS) }
                 if (prefs.getString(Settings.PREF_THEME_COLORS_NIGHT, Defaults.PREF_THEME_COLORS_NIGHT) == KeyboardTheme.THEME_HOLO_WHITE)
-                    prefs.edit().remove(Settings.PREF_THEME_COLORS_NIGHT).apply()
+                    prefs.edit { remove(Settings.PREF_THEME_COLORS_NIGHT) }
             }
             KeyboardIconsSet.needsReload = true // only relevant for Settings.PREF_CUSTOM_ICON_NAMES
             KeyboardSwitcher.getInstance().setThemeNeedsReload()

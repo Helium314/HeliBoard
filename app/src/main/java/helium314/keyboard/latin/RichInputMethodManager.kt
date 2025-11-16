@@ -158,7 +158,7 @@ class RichInputMethodManager private constructor() {
             // TODO: Returns the first found IMI for now. Should handle all shortcuts as appropriate.
             shortcutInputMethodInfo = imi
             // TODO: Pick up the first found subtype for now. Should handle all subtypes as appropriate.
-            shortcutSubtype = if (subtypes.size > 0) subtypes[0] else null
+            shortcutSubtype = subtypes.getOrNull(0)
             break
         }
         if (DEBUG) {

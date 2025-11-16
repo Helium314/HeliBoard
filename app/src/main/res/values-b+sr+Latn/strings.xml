@@ -81,7 +81,6 @@
     <string name="show_setup_wizard_icon_summary">"Ikona aplikacije se prikazuje u pokretaču"</string>
     <string name="dictionary_category_title">"Pomoćni rečnici"</string>
     <string name="dictionary_available">"Rečnik je dostupan"</string>
-    <string name="last_update">"Poslednje ažuriranje"</string>
     <string name="settings">"Podešavanja"</string>
     <string name="delete">"Izbriši"</string>
     <string name="version_text">"Verzija %1$s"</string>
@@ -94,7 +93,6 @@
     <string name="user_dict_settings_all_languages">"Za sve jezike"</string>
     <string name="user_dict_settings_more_languages">"Još jezika…"</string>
     <string name="user_dict_fast_scroll_alphabet">" ABVGDĐEŽZIJKLLJMNNJOPRSTĆUFHCČDŽŠ"</string>
-    <string name="use_system_language_to_select_input_method_subtypes">"Koristi jezike sistema"</string>
     <string name="select_input_method">"Izbor metoda unosa"</string>
     <string name="undo">"Opozovi"</string>
     <string name="redo">"Ponovi"</string>

@@ -81,7 +81,6 @@
     <string name="show_setup_wizard_icon_summary">"Launcherga ilova ikonkasini chiqarish"</string>
     <string name="dictionary_category_title">"Qo‘shimcha lug‘atlar"</string>
     <string name="dictionary_available">"Lug‘at mavjud"</string>
-    <string name="last_update">"So‘nggi marta yangilandi"</string>
     <string name="settings">"Sozlamalar"</string>
     <string name="delete">"O‘chirish"</string>
     <string name="version_text">%1$s versiya</string>
@@ -96,7 +95,6 @@
     <string name="user_dict_fast_scroll_alphabet">" ABDEFGHIJKLMNOPQRSTUVXYZO‘G‘SHCH"</string>
     <string name="settings_category_clipboard_history">Bufer tarixi</string>
     <string name="show_emoji_key">Emoji kaliti</string>
-    <string name="use_system_language_to_select_input_method_subtypes">"Tizimdagi mavjud tillar"</string>
     <string name="select_input_method">"Matn kiritish usulini tanlang"</string>
     <string name="abbreviation_unit_minutes">%smin.</string>
     <string name="settings_no_limit">Cheklanmagan</string>

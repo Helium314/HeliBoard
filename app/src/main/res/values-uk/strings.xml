@@ -70,10 +70,10 @@
     <string name="setup_start_action">Розпочати</string>
     <string name="setup_steps_title">Налаштування%s</string>
     <string name="setup_step1_title">Увімкнути%s</string>
-    <string name="setup_step1_instruction">Перевірте застосунок \\%s у налаштуваннях «Мова та введення». Це дозволить йому працювати на вашому пристрої.</string>
+    <string name="setup_step1_instruction">Перевірте застосунок \"%s\" у налаштуваннях «Мова та введення». Це дозволить йому працювати на вашому пристрої.</string>
     <string name="setup_step1_action">Увімкнути в налаштуваннях</string>
     <string name="setup_step2_title">Перемкнути на%s</string>
-    <string name="setup_step2_instruction">Виберіть \\%s поточним методом введення.</string>
+    <string name="setup_step2_instruction">Виберіть %s поточним методом введення.</string>
     <string name="setup_step2_action">Змінити метод введення</string>
     <string name="setup_step3_title">Вітаємо, налаштування завершено!</string>
     <string name="setup_step3_instruction">Тепер ви можете писати в усіх улюблених застосунках за допомогою %s.</string>
@@ -82,7 +82,6 @@
     <string name="show_setup_wizard_icon_summary">Відображати піктограму програми нв лаунчері</string>
     <string name="dictionary_category_title">Додаткові словники</string>
     <string name="dictionary_available">Словник доступний</string>
-    <string name="last_update">Останнє оновлення</string>
     <string name="settings">Налаштування</string>
     <string name="delete">Видалити</string>
     <string name="version_text">Версія %s</string>
@@ -140,7 +139,6 @@
     <string name="about_github_link">Подивитися на GitHub</string>
     <string name="license">Ліцензія з відкритим кодом</string>
     <string name="gnu_gpl">Загальна публічна ліцензія GNU версії 3.0</string>
-    <string name="use_system_language_to_select_input_method_subtypes">Використовувати мови системи</string>
     <string name="dialog_close">Закрити</string>
     <string name="text_tap_languages">Натисніть мову, щоб відкрити налаштування</string>
     <string name="hidden_features_title">Опис прихованих функцій</string>
@@ -258,7 +256,6 @@
     <string name="layout_phone" tools:keep="@string/layout_phone">Телефон</string>
     <string name="button_load_custom">Завантажити файл</string>
     <string name="file_read_error">Неможливо прочитати файл</string>
-    <string name="button_copy_existing_layout">Копіювати поточну розкладку</string>
     <string name="delete_layout">Справді видалити власну розкладку %s?</string>
     <string name="layout_error">Помилка розкладки: %s</string>
     <string name="subtype_probhat_bn_BD">%s (Пробгат)</string>
@@ -271,7 +268,6 @@
     <string name="dictionary_link_text">тут</string>
     <string name="available_dictionary_experimental">%s (експериментальний)</string>
     <string name="dictionary_file_error">Помилка: вибраний файл не є коректним словником</string>
-    <string name="dictionary_file_wrong_locale">Вибраний файл призначений для %1$s, але очікувався %2$s. Ви все ще використовуєте його для %2$s?</string>
     <string name="all_colors">Показувати усі кольори</string>
     <string name="select_color_suggestion">Текст смуги пропозицій</string>
     <string name="hidden_features_text">сховище, захищене пристроєм</string>
@@ -287,7 +283,6 @@
     <string name="no_dictionary_dont_show_again_button">Більше не показувати</string>
     <string name="add_dictionary">Виберіть, щоб додати словник. Словники у форматі .dict можна завантажити у %s.</string>
     <string name="dictionary_file_wrong_script">Помилка: скрипт несумісний із цією клавіатурою</string>
-    <string name="dictionary_file_wrong_locale_ok">Все ще використовується</string>
     <string name="dictionary_load_error">Помилка завантаження файлу словника</string>
     <string name="user_dict_settings_add_weight_value">Вага:</string>
     <string name="user_dict_word_already_present">Це слово вже є у словнику користувача %s. Будь ласка, введіть інше.</string>
@@ -377,7 +372,6 @@
     <string name="label_bin" tools:keep="@string/label_bin">Смітник</string>
     <string name="customize_icons_reset_message">Дійсно скинути всі персоналізовані значки?</string>
     <string name="vibrate_in_dnd_mode">Вібрація в режимі «Не турбувати»</string>
-    <string name="split_spacer_scale_landscape">Відстань розділення (альбомна)</string>
     <string name="subtype_dru">Даргинська (Урахі)</string>
     <string name="split" tools:keep="@string/split">Розділена клавіатура</string>
     <string name="enable_split_keyboard_landscape">Увімкнути розділену клавіатуру (альбомну)</string>
@@ -389,11 +383,9 @@
     <string name="prefs_key_emoji_max_sdk">Перевизначити версію емоджі</string>
     <string name="custom_font">Встановити власний шрифт з файлу</string>
     <string name="customize_toolbar_key_code_reset_message">Ви дійсно хочете очистити всі налаштовані коди клавіш?</string>
-    <string name="prefs_bottom_padding_scale_landscape">Шкала нижнього відступу (альбомна)</string>
     <string name="prefs_font_scale">Шкала шрифту клавіатури</string>
     <string name="prefs_emoji_font_scale">Шкала шрифту перегляду емоджі</string>
     <string name="prefs_side_padding_scale">Шкала бічного відступу</string>
-    <string name="prefs_side_padding_scale_landscape">Шкала бічного відступу (альбомна)</string>
     <string name="number_row_hints">Показувати підказки в рядку з цифрами</string>
     <string name="prefs_language_swipe_distance">Відстань проведення для перемикання мови</string>
     <string name="suggest_emojis">Запропонувати емодзі</string>

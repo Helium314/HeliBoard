@@ -43,6 +43,7 @@ import helium314.keyboard.settings.preferences.Preference
 import helium314.keyboard.settings.preferences.SwitchPreference
 import helium314.keyboard.settings.preferences.SwitchPreferenceWithEmojiDictWarning
 import helium314.keyboard.settings.previewDark
+import androidx.core.content.edit
 
 @Composable
 fun TextCorrectionScreen(
@@ -193,7 +194,7 @@ fun createCorrectionSettings(context: Context) = listOf(
             ConfirmationDialog(
                 onDismissRequest = { showConfirmDialog = false },
                 onConfirmed = {
-                    prefs.edit().putBoolean(setting.key, false).apply()
+                    prefs.edit { putBoolean(setting.key, false) }
                 },
                 content = { Text(stringResource(R.string.disable_personalized_dicts_message)) }
             )
@@ -227,7 +228,7 @@ fun createCorrectionSettings(context: Context) = listOf(
         val launcher = rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) {
             granted = it
             if (granted)
-                activity.prefs().edit().putBoolean(setting.key, true).apply()
+                activity.prefs().edit { putBoolean(setting.key, true) }
         }
         SwitchPreference(setting, Defaults.PREF_USE_CONTACTS,
             allowCheckedChange = {

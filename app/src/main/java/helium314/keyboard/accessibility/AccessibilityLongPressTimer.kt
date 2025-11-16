@@ -13,13 +13,15 @@ import helium314.keyboard.keyboard.Key
 import helium314.keyboard.latin.R
 
 // Handling long press timer to show a popup keys keyboard.
-internal class AccessibilityLongPressTimer(private val mCallback: LongPressTimerCallback,
-                                           context: Context) : Handler() {
+internal class AccessibilityLongPressTimer(
+    private val mCallback: LongPressTimerCallback,
+    context: Context
+) : Handler(context.mainLooper) {
     interface LongPressTimerCallback {
         fun performLongClickOn(key: Key)
     }
 
-    private val mConfigAccessibilityLongPressTimeout: Long
+    private val mConfigAccessibilityLongPressTimeout = context.resources.getInteger(R.integer.config_accessibility_long_press_key_timeout).toLong()
     override fun handleMessage(msg: Message) {
         when (msg.what) {
             MSG_LONG_PRESS -> {
@@ -46,10 +48,5 @@ internal class AccessibilityLongPressTimer(private val mCallback: LongPressTimer
 
     companion object {
         private const val MSG_LONG_PRESS = 1
-    }
-
-    init {
-        mConfigAccessibilityLongPressTimeout = context.resources.getInteger(
-                R.integer.config_accessibility_long_press_key_timeout).toLong()
     }
 }

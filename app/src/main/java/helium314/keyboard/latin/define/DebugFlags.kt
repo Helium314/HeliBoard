@@ -15,7 +15,6 @@ import helium314.keyboard.latin.utils.DeviceProtectedUtils
 import helium314.keyboard.latin.utils.Log
 import helium314.keyboard.latin.utils.prefs
 import java.io.File
-import java.io.IOException
 import java.io.PrintWriter
 import java.io.StringWriter
 import java.text.SimpleDateFormat
@@ -65,14 +64,14 @@ ${Log.getLog(100).joinToString("\n")}
     private fun writeCrashReportToFile(text: String) {
         try {
             val dir = appContext.getExternalFilesDir(null)
-            val date = SimpleDateFormat("yyyy-MM-dd_HH-mm-ss").format(Calendar.getInstance().time)
+            val date = SimpleDateFormat("yyyy-MM-dd_HH-mm-ss", Locale.US).format(Calendar.getInstance().time)
             val crashReportFile = File(dir, "crash_report_$date.txt")
             crashReportFile.appendText(text)
         } catch (_: Exception) {
             // can't write in external files dir, maybe device just booted and is still locked
             // in this case there shouldn't be any sensitive data and we can put crash logs in unprotected files dir
             val dir = DeviceProtectedUtils.getFilesDir(appContext) ?: return
-            val date = SimpleDateFormat("yyyy-MM-dd_HH-mm-ss").format(Calendar.getInstance().time)
+            val date = SimpleDateFormat("yyyy-MM-dd_HH-mm-ss", Locale.US).format(Calendar.getInstance().time)
             val crashReportFile = File(dir, "crash_report_unprotected_$date.txt")
             crashReportFile.appendText(text)
         }

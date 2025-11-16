@@ -5,7 +5,6 @@
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
 -->
 <resources>
-    <string name="use_system_language_to_select_input_method_subtypes">Usar les llingües del sistema</string>
     <string name="select_input_method">Cambéu de tecláu</string>
     <string name="undo">Desfacer</string>
     <string name="redo">Refacer</string>
