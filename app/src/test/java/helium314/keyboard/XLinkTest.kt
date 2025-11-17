@@ -16,7 +16,7 @@ import kotlin.test.assertEquals
 
 @RunWith(RobolectricTestRunner::class)
 class XLinkTest { // Without the X, SubtypeTests fail with ClassCastException. WTF?
-/*    @Test fun knownDictionaries() {
+    @Test fun knownDictionaries() {
         if (BuildConfig.BUILD_TYPE == "runTests") return // don't spam requests to Codeberg on every PR update
         val context = ApplicationProvider.getApplicationContext<App>()
         val urls = mutableSetOf<String>()
@@ -32,7 +32,7 @@ class XLinkTest { // Without the X, SubtypeTests fail with ClassCastException. W
             checkLink(it)
         }
     }
-*/
+
     @Test fun readmeLinks() {
         val file = File("../README.md")
         val linkRegex = "(?:https?:\\/\\/.)?(?:www\\.)?[-a-zA-Z0-9@%._\\+~#=]{2,256}\\.[a-z]{2,6}\\b(?:[-a-zA-Z0-9@:%_\\+.~#?&\\/\\/=]*)".toRegex()
