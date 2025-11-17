@@ -7,5 +7,5 @@
 * Betűméret-skála beállítás hozzáadása
 * Automatikus nyelvváltás javítása
 * Beállítások átdolgozása
-* Beállítások hozzáadása a billentyűzet margójának, automatikus szóköznek, automatikus javításnak, számsornak további finomhangolásához
-* További funkciók és javítások
+
+* És még több hibajavítás - további részletek a bejelentésben

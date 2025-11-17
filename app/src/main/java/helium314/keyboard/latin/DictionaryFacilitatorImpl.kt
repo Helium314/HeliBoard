@@ -96,7 +96,7 @@ class DictionaryFacilitatorImpl : DictionaryFacilitator {
     override fun onStartInput() {
     }
 
-    override fun onFinishInput(context: Context) {
+    override fun onFinishInput() {
         for (dictGroup in dictionaryGroups) {
             DictionaryFacilitator.ALL_DICTIONARY_TYPES.forEach { dictGroup.getDict(it)?.onFinishInput() }
         }
@@ -262,6 +262,7 @@ class DictionaryFacilitatorImpl : DictionaryFacilitator {
     }
 
     override fun closeDictionaries() {
+        onFinishInput() // the dictionaries will save updates to file
         val dictionaryGroupsToClose: List<DictionaryGroup>
         synchronized(this) {
             dictionaryGroupsToClose = dictionaryGroups
@@ -504,32 +505,10 @@ class DictionaryFacilitatorImpl : DictionaryFacilitator {
             suggestionResults.mRawSuggestions?.addAll(it)
         }
 
-        // Include at least two non-emoji, non-typed word results if possible, so that the first two shown suggestions can be non-emoji
-        if (suggestionResults.size > 2) {
-            val nonEmojiNonTypedWordCount = suggestionResults.count { !isEmojiOrTypedWord(it, composedData) }
-            if (nonEmojiNonTypedWordCount < 2) {
-                val allResults = SuggestionResults(Int.MAX_VALUE, ngramContext.isBeginningOfSentenceContext, false)
-                suggestionsArray.forEach {
-                    if (it == null) return@forEach
-                    allResults.addAll(it)
-                }
-                for (i in 0 until 2 - nonEmojiNonTypedWordCount) {
-                    allResults.firstOrNull { !suggestionResults.contains(it) && !isEmojiOrTypedWord(it, composedData) }
-                        ?.let { firstNonEmojiNonTypedWord ->
-                            // The conditions above guarantee that there are at least two EmojiOrTypedWord items
-                            val lastEmojiOrTypedWord = suggestionResults.last { isEmojiOrTypedWord(it, composedData) }
-                            suggestionResults.remove(lastEmojiOrTypedWord)
-                            suggestionResults.add(firstNonEmojiNonTypedWord)
-                        }
-                }
-            }
-        }
+        includeAtLeastTwoWordSuggestions(suggestionResults, suggestionsArray, composedData.mTypedWord)
 
         return suggestionResults
     }
-
-    private fun isEmojiOrTypedWord(info: SuggestedWordInfo, composedData: ComposedData): Boolean =
-        info.isEmoji || info.word.compareTo(composedData.mTypedWord, true) == 0
 
     private fun getSuggestions(
         composedData: ComposedData, ngramContext: NgramContext,
@@ -676,6 +655,37 @@ class DictionaryFacilitatorImpl : DictionaryFacilitator {
             }
             return locales
         }
+
+        /** Include at least two non-emoji, non-typed word results if possible, so that the first two shown suggestions can be non-emoji */
+        private fun includeAtLeastTwoWordSuggestions(
+            suggestionResults: SuggestionResults,
+            suggestionsArray: Array<List<SuggestedWordInfo>?>,
+            typedWord: String
+        ) {
+            if (suggestionResults.size <= 2) return
+            var nonEmojiNonTypedWordCount = 0
+            suggestionResults.forEach {
+                if (isEmojiOrTypedWord(it, typedWord)) return@forEach
+                ++nonEmojiNonTypedWordCount
+                if (nonEmojiNonTypedWordCount >= 2) return
+            }
+            val allResults = SuggestionResults(Int.MAX_VALUE, false, false)
+            suggestionsArray.forEach {
+                if (it == null) return@forEach
+                allResults.addAll(it)
+            }
+            for (i in 0 until 2 - nonEmojiNonTypedWordCount) {
+                val firstNonEmojiNonTypedWord = allResults
+                    .firstOrNull { !suggestionResults.contains(it) && !isEmojiOrTypedWord(it, typedWord) } ?: continue
+                // The conditions above guarantee that there are at least two EmojiOrTypedWord items
+                val lastEmojiOrTypedWord = suggestionResults.last { isEmojiOrTypedWord(it, typedWord) }
+                suggestionResults.remove(lastEmojiOrTypedWord)
+                suggestionResults.add(firstNonEmojiNonTypedWord)
+            }
+        }
+
+        private fun isEmojiOrTypedWord(info: SuggestedWordInfo, typedWord: String): Boolean =
+            info.isEmoji || info.word.compareTo(typedWord, true) == 0
     }
 }
 

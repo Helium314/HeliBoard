@@ -81,7 +81,6 @@
     <string name="show_setup_wizard_icon_summary">"ਲਾਂਚਰ ਵਿੱਚ ਐਪਲੀਕੇਸ਼ਨ ਪ੍ਰਤੀਕ ਪ੍ਰਦਰਸ਼ਿਤ ਕਰੋ"</string>
     <string name="dictionary_category_title">"ਐਡ-ਆਨ ਸ਼ਬਦਕੋਸ਼"</string>
     <string name="dictionary_available">"ਸ਼ਬਦਕੋਸ਼ ਉਪਲਬਧ"</string>
-    <string name="last_update">"ਆਖਰੀ ਵਾਰ ਅੱਪਡੇਟ ਕੀਤਾ"</string>
     <string name="settings">"ਸੈਟਿੰਗਾਂ"</string>
     <string name="delete">"ਮਿਟਾਓ"</string>
     <string name="version_text">"ਰੂਪ %1$s"</string>
@@ -94,7 +93,6 @@
     <string name="user_dict_settings_all_languages">"ਸਾਰੀਆਂ ਭਾਸ਼ਾਵਾਂ ਲਈ"</string>
     <string name="user_dict_settings_more_languages">"ਹੋਰ ਭਾਸ਼ਾਵਾਂ…"</string>
     <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
-    <string name="use_system_language_to_select_input_method_subtypes">"ਸਿਸਟਮ ਭਾਸ਼ਾਵਾਂ ਦੀ ਵਰਤੋਂ ਕਰੋ"</string>
     <string name="select_input_method">"ਇਨਪੁਟ ਵਿਧੀ ਚੁਣੋ"</string>
     <string name="undo">"ਅਣਕੀਤਾ ਕਰੋ"</string>
     <string name="redo">"ਮੁੜ-ਓਹੀ ਕਰੋ"</string>

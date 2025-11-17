@@ -6,6 +6,7 @@
 
 package helium314.keyboard.keyboard.emoji;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Paint;
@@ -13,7 +14,6 @@ import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.os.Handler;
 import android.util.AttributeSet;
-import android.view.Gravity;
 import android.widget.LinearLayout;
 import helium314.keyboard.keyboard.PopupTextView;
 import helium314.keyboard.latin.utils.Log;
@@ -267,21 +267,19 @@ public final class EmojiPageKeyboardView extends KeyboardView implements
     /**
      * {@inheritDoc}
      */
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     public boolean onTouchEvent(final MotionEvent e) {
-        switch (e.getActionMasked()) {
-            case MotionEvent.ACTION_DOWN:
+        return switch (e.getActionMasked()) {
+            case MotionEvent.ACTION_DOWN -> {
                 mPointerId = e.getPointerId(0);
-                return onDown(e);
-            case MotionEvent.ACTION_UP:
-                return onUp(e);
-            case MotionEvent.ACTION_MOVE:
-                return onMove(e);
-            case MotionEvent.ACTION_CANCEL:
-                return onCancel(e);
-            default:
-                return false;
-        }
+                yield onDown(e);
+            }
+            case MotionEvent.ACTION_UP -> onUp(e);
+            case MotionEvent.ACTION_MOVE -> onMove(e);
+            case MotionEvent.ACTION_CANCEL -> onCancel(e);
+            default -> false;
+        };
     }
 
     private Key getKey(final int x, final int y) {

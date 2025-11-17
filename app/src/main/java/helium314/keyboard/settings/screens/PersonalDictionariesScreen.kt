@@ -45,8 +45,8 @@ fun PersonalDictionariesScreen(
         onClickBack = onClickBack,
         title = { Text(stringResource(R.string.edit_personal_dictionary)) },
         filteredItems = { term ->
-            locales.filter {
-                it.getLocaleDisplayNameForUserDictSettings(ctx).replace("(", "")
+            locales.filter { locale ->
+                locale.getLocaleDisplayNameForUserDictSettings(ctx).replace("(", "")
                     .splitOnWhitespace().any { it.startsWith(term, true) }
             }
         },

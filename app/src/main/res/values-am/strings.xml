@@ -81,7 +81,6 @@
     <string name="show_setup_wizard_icon_summary">"የመተግበሪያ አዶውን በማስጀመሪያው ውስጥ አሳይ"</string>
     <string name="dictionary_category_title">"ጭማሪ መዝገበ-ቃላት"</string>
     <string name="dictionary_available">"መዝገበ-ቃላት ይገኛል"</string>
-    <string name="last_update">"ለመጨረሻ ጊዜ የተዘመነው"</string>
     <string name="settings">"ቅንብሮች"</string>
     <string name="delete">"ሰርዝ"</string>
     <string name="version_text">"ሥሪት %1$s"</string>
@@ -94,7 +93,6 @@
     <string name="user_dict_settings_all_languages">"ለሁሉም ቋንቋዎች"</string>
     <string name="user_dict_settings_more_languages">"ተጨማሪ ቋንቋዎች…"</string>
     <string name="user_dict_fast_scroll_alphabet">" ሀለሐመሠረሰሸቀበቨተቸኀነኘአከኸወዐዘዠየደጀገጠጨጰጸፀፈፐ"</string>
-    <string name="use_system_language_to_select_input_method_subtypes">"የሥርዓት ቋንቋዎችን ይጠቀሙ"</string>
     <string name="select_input_method">"የግቤት ስልት ምረጥ"</string>
     <string name="undo">"ቀልብስ"</string>
     <string name="redo">"ድገም"</string>

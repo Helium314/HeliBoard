@@ -37,6 +37,7 @@ import com.github.skydoves.colorpicker.compose.HsvColorPicker
 import com.github.skydoves.colorpicker.compose.rememberColorPickerController
 import helium314.keyboard.settings.Theme
 import helium314.keyboard.settings.previewDark
+import androidx.core.graphics.toColorInt
 
 @Composable
 fun ColorPickerDialog(
@@ -66,14 +67,14 @@ fun ColorPickerDialog(
                 color = Color(initialColor),
                 modifier = Modifier.fillMaxWidth(0.5f)
                     .padding(start = 10.dp)
-                    .height(barHeight))
-            {  }
+                    .height(barHeight)
+            ) { }
             Surface(
                 color = currentColor,
                 modifier = Modifier.fillMaxWidth()
                     .padding(end = 10.dp)
-                    .height(barHeight))
-            {  }
+                    .height(barHeight)
+            ) { }
         }
     }
     @Composable fun picker() {
@@ -119,7 +120,7 @@ fun ColorPickerDialog(
             keyboardActions = KeyboardActions(onDone = { onDismissRequest(); onConfirmed(controller.selectedColor.value.toArgb()) }),
             onValueChange = {
                 textValue = it
-                val androidColor = runCatching { android.graphics.Color.parseColor("#${it.text}") }.getOrNull()
+                val androidColor = runCatching { "#${it.text}".toColorInt() }.getOrNull()
                 if (androidColor != null)
                     controller.selectByColor(Color(androidColor), false)
             }

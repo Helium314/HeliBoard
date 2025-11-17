@@ -6,6 +6,7 @@
 
 package helium314.keyboard.latin.settings;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
@@ -71,6 +72,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_VIBRATE_IN_DND_MODE = "vibrate_in_dnd_mode";
     public static final String PREF_SOUND_ON = "sound_on";
     public static final String PREF_SUGGEST_EMOJIS = "suggest_emojis";
+    public static final String PREF_INLINE_EMOJI_SEARCH = "inline_emoji_search";
     public static final String PREF_SHOW_EMOJI_DESCRIPTIONS = "show_emoji_descriptions";
     public static final String PREF_POPUP_ON = "popup_on";
     public static final String PREF_AUTO_CORRECTION = "auto_correction";
@@ -493,6 +495,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
         return mContext.getResources().getInteger(R.integer.config_screen_metrics) >= 3;
     }
 
+    @SuppressLint("DiscouragedApi")
     public int getStringResIdByName(final String name) {
         return mContext.getResources().getIdentifier(name, "string", mContext.getPackageName());
     }
@@ -553,7 +556,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
         if (!sCustomTypefaceLoaded) {
             try {
                 sCachedTypeface = Typeface.createFromFile(getCustomFontFile(mContext));
-            } catch (Exception e) { }
+            } catch (Exception ignored) { }
         }
         sCustomTypefaceLoaded = true;
         return sCachedTypeface;

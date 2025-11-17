@@ -4,6 +4,5 @@
 * Kevésbé agresszív szóhozzáadás a személyes szótárhoz
 * Nincs rezgés „ne zavarjanak” módban
 * Teljesítmény javítása nagy szövegek másolásakor
-* Részben hibás írásjel-felugró ablakok javítása
-* Néhány probléma javítása, ahol a szöveg duplikálódott
-* Kisebb dolgok és további hibajavítások
+
+* És még több hibajavítás - további részletek a bejelentésben

@@ -71,7 +71,6 @@
     <string name="button_title_add_custom_layout">Ajouter une disposition personnalisée</string>
     <string name="message_add_custom_layout">Sélectionner un fichier dans un format compatible. Des informations sur les formats sont disponibles %s.</string>
     <string name="button_load_custom">Charger fichier</string>
-    <string name="button_copy_existing_layout">Copier une disposition existante</string>
     <string name="delete_layout">Souhaitez-vous réellement supprimer la disposition personnalisée %s ?</string>
     <string name="layout_error">Erreur de disposition : %s</string>
     <string name="edit_layout">Appuyez pour modifier la disposition d\'origine</string>
@@ -120,12 +119,9 @@ Nouveau dictionnaire:
     <string name="add_dictionary">"Selectionnez un dictionnaire à ajouter. Les dictionnaires au format .dict peuvent être téléchargés %s."</string>
     <string name="dictionary_link_text">"ici"</string>
     <string name="dictionary_file_error">Erreur : Le fichier sélectionné n\'est pas un fichier dictionnaire valide</string>
-    <string name="dictionary_file_wrong_locale">"Le fichier sélectionné est pour \"%1$s\", mais \"%2$s\" était attendu. L\'utiliser quand même pour \"%2$s\" ?"</string>
     <string name="dictionary_file_wrong_script">Erreur : script non compatible avec ce clavier</string>
-    <string name="dictionary_file_wrong_locale_ok">"Utiliser quand même"</string>
     <string name="dictionary_load_error">"Erreur de chargement du fichier dictionnaire"</string>
     <string name="dictionary_available">Dictionnaires disponibles</string>
-    <string name="last_update">"Dernière mise à jour"</string>
     <string name="delete">"Supprimer"</string>
     <string name="version_text">Version %s</string>
     <string name="user_dict_settings_add_dialog_title">"Ajouter au dictionnaire"</string>
@@ -263,7 +259,6 @@ Nouveau dictionnaire:
     <string name="show_popup_keys_all">Ajouter toutes les variantes disponibles</string>
     <string name="url_detection_title">Détection d\'URL</string>
     <string name="url_detection_summary">Essaye de détecter les URL et autres éléments similaires comme un seul mot</string>
-    <string name="use_system_language_to_select_input_method_subtypes">"Utiliser les langues du système"</string>
     <string name="auto_correction_confidence">Confiance dans la correction automatique</string>
     <string name="select_input_method">"Sélectionnez le mode de saisie"</string>
     <string name="settings_screen_appearance">"Apparence"</string>
@@ -389,15 +384,12 @@ Nouveau dictionnaire:
     <string name="summary_customize_background_image_landscape">Si non défini, l\'image portrait sera utilisée</string>
     <string name="customize_background_image_landscape">Définir l\'image d\'arrière-plan (paysage)</string>
     <string name="customize_toolbar_key_code_reset_message">Effacer tous les codes clés personnalisés ?</string>
-    <string name="prefs_bottom_padding_scale_landscape">Hauteur du remplissage inférieur (paysage)</string>
     <string name="prefs_font_scale">Échelle de police du clavier</string>
     <string name="prefs_emoji_font_scale">Échelle de police de la vue Emoji</string>
-    <string name="prefs_side_padding_scale_landscape">Espacement latéral (paysage)</string>
     <string name="prefs_side_padding_scale">Espacement latéral</string>
     <string name="number_row_hints">Afficher les symboles sur la rangée numérique</string>
     <string name="prefs_language_swipe_distance">Distance de balayage pour changer de langue</string>
     <string name="enable_split_keyboard_landscape">Activer le clavier divisé (paysage)</string>
-    <string name="split_spacer_scale_landscape">Distance de séparation (paysage)</string>
     <string name="split" tools:keep="@string/split">Clavier divisé</string>
     <string name="delete_confirmation">Voulez-vous vraiment supprimer %s ?</string>
     <string name="name_invalid">Nom invalide</string>
@@ -441,7 +433,6 @@ Nouveau dictionnaire:
     <string name="toolbar_mode_expandable">Touches de la barre d\'outil et suggestions</string>
     <string name="landscape">Paysage</string>
     <string name="popup_order_and_hint_source">Ordre des touches popup et source des symboles</string>
-    <string name="show_emoji_descriptions_summary">Nécessite un dictionnaire d\'émojis</string>
     <string name="show_emoji_descriptions">Afficher la description de l\'emoji en appuyant longuement</string>
     <string name="suggest_emojis_summary">Utiliser le dictionnaire d\'emojis dans les suggestions normales</string>
     <string name="suggest_emojis">Suggérer des émojis</string>
@@ -450,4 +441,13 @@ Nouveau dictionnaire:
     <string name="suggest_punctuation_summary">Afficher la ponctuation lorsqu\'aucune autre suggestion n\'est disponible</string>
     <string name="about_wiki_link_description">Le Wiki peut être amélioré par n\'importe quel utilisateur de GitHub !</string>
     <string name="about_wiki_link">Accéder au Wiki</string>
+    <string name="save_subtype_per_app">Mémoriser la langue par application</string>
+    <string name="subtype_khipro_bn">%s (Khipro)</string>
+    <string name="clipboard_history_pinned_first">Afficher les éléments épinglés en haut</string>
+    <string name="inline_emoji_search">Recherche d\'émojis intégrée</string>
+    <string name="inline_emoji_search_summary">Proposer uniquement des émojis lorsqu\'un mot est précédé de deux points</string>
+    <string name="emoji_dictionary_required">Un dictionnaire d\'émojis est nécessaire pour que cette fonctionnalité soit opérationnelle. Les dictionnaires au format .dict peuvent être téléchargés ici : %s.</string>
+    <string name="subtype_mhr">Mari (Eastern)</string>
+    <string name="layout_emoji_bottom_row_with_action" tools:keep="@string/layout_emoji_bottom_row_with_action">Rangée inférieure (emoji) avec touche d\'action</string>
+    <string name="layout_clip_bottom_row_with_action" tools:keep="@string/layout_clip_bottom_row_with_action">Rangée inférieure du presse-papiers avec touche d\'action</string>
 </resources>

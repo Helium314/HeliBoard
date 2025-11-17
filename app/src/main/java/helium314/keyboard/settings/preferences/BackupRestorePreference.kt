@@ -47,6 +47,7 @@ import java.util.concurrent.CountDownLatch
 import java.util.zip.ZipEntry
 import java.util.zip.ZipInputStream
 import java.util.zip.ZipOutputStream
+import androidx.core.content.edit
 
 @Composable
 fun BackupRestorePreference(setting: Setting) {
@@ -194,12 +195,12 @@ private fun restoreLauncher(onError: (String) -> Unit): ManagedActivityResultLau
                             } else if (entry.name == PREFS_FILE_NAME) {
                                 val prefLines = String(zip.readBytes()).split("\n")
                                 val prefs = ctx.prefs()
-                                prefs.edit().clear().apply()
+                                prefs.edit { clear() }
                                 readJsonLinesToSettings(prefLines, prefs)
                             } else if (entry.name == PROTECTED_PREFS_FILE_NAME) {
                                 val prefLines = String(zip.readBytes()).split("\n")
                                 val protectedPrefs = ctx.protectedPrefs()
-                                protectedPrefs.edit().clear().apply()
+                                protectedPrefs.edit { clear() }
                                 readJsonLinesToSettings(prefLines, protectedPrefs)
                             }
                             zip.closeEntry()

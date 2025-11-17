@@ -104,7 +104,7 @@ class KeyboardParser(private val params: KeyboardParams, private val context: Co
             baseKeys.add(0, numberRow.mapTo(mutableListOf()) { it.copy(newLabelFlags = newLabelFlags) })
         }
         if (!params.mAllowRedundantPopupKeys)
-            params.baseKeys = baseKeys.flatMap { it.map { it.toKeyParams(params) } }
+            params.baseKeys = baseKeys.flatMap { row -> row.map { it.toKeyParams(params) } }
 
         val allFunctionalKeys = LayoutParser.parseLayout(LayoutType.FUNCTIONAL, params, context)
         adjustBottomFunctionalRowAndBaseKeys(allFunctionalKeys, baseKeys)

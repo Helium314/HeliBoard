@@ -37,7 +37,7 @@ class KeyboardIconsSet private constructor() {
                 val icon = ContextCompat.getDrawable(context, id) ?: return@forEach
                 icon.setBounds(0, 0, icon.intrinsicWidth, icon.intrinsicHeight)
                 iconsByName[name] = icon
-            } catch (e: Resources.NotFoundException) {
+            } catch (_: Resources.NotFoundException) {
                 Log.w(TAG, "Drawable resource for icon $name not found")
             }
         }

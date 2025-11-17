@@ -81,7 +81,6 @@
     <string name="show_setup_wizard_icon_summary">"런처에 애플리케이션 아이콘 표시"</string>
     <string name="dictionary_category_title">"사전 추가"</string>
     <string name="dictionary_available">"사전 사용 가능"</string>
-    <string name="last_update">"최종 업데이트"</string>
     <string name="settings">"설정"</string>
     <string name="delete">"삭제"</string>
     <string name="version_text">버전 %1$s</string>
@@ -96,7 +95,6 @@
     <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
     <string name="autospace_after_punctuation">마침표 후 자동 띄어쓰기</string>
     <string name="autospace_after_punctuation_summary">새로운 단어를 입력할 때 마침표가 앞에 있다면 자동으로 띄어쓰기 하기</string>
-    <string name="use_system_language_to_select_input_method_subtypes">"시스템 언어 사용"</string>
     <string name="select_input_method">"입력 방법 선택"</string>
     <string name="spell_checker_service_name">HeliBoard 맞춤법 검사기</string>
     <string name="android_spell_checker_settings">HeliBoard 맞춤법 검사기 설정</string>

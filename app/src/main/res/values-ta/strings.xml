@@ -81,7 +81,6 @@
     <string name="show_setup_wizard_icon_summary">"துவக்கியில் ஆப்ஸ் ஐகானைக் காட்டும்"</string>
     <string name="dictionary_category_title">"துணை அகராதிகள்"</string>
     <string name="dictionary_available">"அகராதி கிடைக்கிறது"</string>
-    <string name="last_update">"இறுதியாகப் புதுப்பித்தது"</string>
     <string name="settings">"அமைப்பு"</string>
     <string name="delete">"நீக்கு"</string>
     <string name="version_text">"%1$s பதிப்பு"</string>
@@ -94,7 +93,6 @@
     <string name="user_dict_settings_all_languages">"எல்லா மொழிகளுக்கும்"</string>
     <string name="user_dict_settings_more_languages">"மேலும் மொழிகள்…"</string>
     <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
-    <string name="use_system_language_to_select_input_method_subtypes">"சாதன மொழிகளைப் பயன்படுத்து"</string>
     <string name="select_input_method">"உள்ளீட்டு முறையைத் தேர்வுசெய்க"</string>
     <string name="undo">"செயல்தவிர்"</string>
     <string name="redo">"மீண்டும்செய்"</string>

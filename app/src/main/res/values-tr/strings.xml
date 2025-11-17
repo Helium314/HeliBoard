@@ -81,7 +81,6 @@
     <string name="show_setup_wizard_icon_summary">"Uygulama simgesini başlatıcıda gösterir"</string>
     <string name="dictionary_category_title">"Ek sözlükler"</string>
     <string name="dictionary_available">"Sözlük mevcut"</string>
-    <string name="last_update">"Son güncelleme tarihi"</string>
     <string name="settings">"Ayarlar"</string>
     <string name="delete">"Sil"</string>
     <string name="version_text">Sürüm %1$s</string>
@@ -129,7 +128,6 @@
     <string name="autospace_after_punctuation">Noktalama işaretlerinden sonra otomatik boşluk</string>
     <string name="autospace_after_punctuation_summary">Yeni bir sözcük yazarken noktalama işaretlerinden sonra otomatik olarak boşluk ekle</string>
     <string name="auto_correction_confidence">Otomatik düzeltme güveni</string>
-    <string name="use_system_language_to_select_input_method_subtypes">Sistem dilini kullan</string>
     <string name="select_input_method">"Giriş yöntemini seçin"</string>
     <string name="undo">"Geri al"</string>
     <string name="redo">"Yeniden yap"</string>
@@ -272,7 +270,6 @@
     <string name="down" tools:keep="@string/down">Aşağı</string>
     <string name="subtype_xdq">Kaitag</string>
     <string name="internal_dictionary_summary">Dahili ana sözlük</string>
-    <string name="dictionary_file_wrong_locale_ok">Hala kullanıyorum</string>
     <string name="dictionary_load_error">Sözlük dosyası yüklenirken hata oluştu</string>
     <string name="user_dict_add_word_button">Bir kelime ekle</string>
     <string name="theme_colors_night">Renkler (gece)</string>
@@ -333,16 +330,14 @@
     <string name="after_clip">Pano geçmişi girişini seçme</string>
     <string name="theme_name_darker" tools:keep="@string/theme_name_darker">Daha koyu</string>
     <string name="show_popup_keys_main">Yaygın varyantları ekle (varsayılan)</string>
-    <string name="remove_redundant_popups_summary">Temel düzende bulunan açılır tuşları gizle</string>
+    <string name="remove_redundant_popups_summary">Temel düzende zaten bulunan açılır tuşları gizle</string>
     <string name="settings_screen_toolbar">Araç çubuğu</string>
     <string name="remove_redundant_popups">Gereksiz açılır pencereleri kaldır</string>
     <string name="space_swipe_toggle_numpad_entry">Sayısal tuş takımını aç kapa</string>
     <string name="subtype_generic_student">%s (Öğrenci)</string>
-    <string name="button_copy_existing_layout">Mevcut düzeni kopyala</string>
     <string name="add_dictionary">Eklemek için bir sözlük seç .dict biçimindeki sözlükler %s indirilebilir.</string>
     <string name="dictionary_file_error">Hata: Seçilen dosya geçerli bir sözlük dosyası değil</string>
     <string name="dictionary_file_wrong_script">Hata: komut dosyası bu klavyeyle uyumlu değil</string>
-    <string name="dictionary_file_wrong_locale">Seçilen dosya %1$s için, ancak %2$s bekleniyordu. Hala %2$s için mi kullanıyorsun?</string>
     <string name="more_colors">Daha fazla renk göster</string>
     <string name="all_colors_warning">Bu ayar dahili olarak kullanılan tüm renkleri ortaya çıkarır. Renk listesi herhangi bir zamanda değişebilir. Varsayılan renk rastgeledir ve adlar çevrilmeyecektir.</string>
     <string name="select_color_background">Klavye arka planı</string>
@@ -396,13 +391,11 @@
     <string name="timestamp_format_title">Zaman damgası anahtarı için biçim</string>
     <string name="autospace_after_gesture_typing">Bir sözcük yazma hareketinden sonra otomatik boşluk ekle</string>
     <string name="show_emoji_descriptions">Uzun basmada emoji açıklamasını göster</string>
-    <string name="show_emoji_descriptions_summary">Bir emoji sözlüğü gerektirir</string>
     <string name="autospace_after_suggestion">Bir öneri seçildikten sonra otomatik boşluk ekle</string>
     <string name="subtype_with_layout_generic">%1$s (%2$s)</string>
     <string name="suggest_emojis">Emoji öner</string>
     <string name="suggest_emojis_summary">Normal önerilerde emoji sözlüğünü kullanın</string>
     <string name="landscape">Yatay</string>
-    <string name="split_spacer_scale_landscape">Bölünmüş mesafe (yatay)</string>
     <string name="prefs_always_show_suggestions_except_web_text">Web düzenleme alanları için her zaman öneriler gösterme</string>
     <string name="prefs_always_show_suggestions_except_web_text_summary">Web düzenleme alanları (çoğunlukla tarayıcılarda bulunur), her zaman önerileri göster ayarıyla ilgili sorunların çok yaygın bir nedenidir</string>
     <string name="auto_correct_shortcuts">Kısayolları otomatik düzelt</string>
@@ -415,9 +408,7 @@
     <string name="popup_order_and_hint_source">Açılır pencere tuş sırası ve ipuçları kaynağı</string>
     <string name="show_tld_popup_keys_summary">URL\'leri ve e-posta adreslerini yazarken nokta tuşunun açılır pencerelerini üst düzey alan adlarıyla değiştirin</string>
     <string name="toolbar_mode_expandable">Araç çubuğu tuşları ve öneriler</string>
-    <string name="prefs_bottom_padding_scale_landscape">Alt dolgu ölçeği (yatay)</string>
     <string name="prefs_side_padding_scale">Yan dolgu ölçeği</string>
-    <string name="prefs_side_padding_scale_landscape">Yan dolgu ölçeği (yatay)</string>
     <string name="subtype_dag">Dagbani</string>
     <string name="subtype_st">Sotho dili</string>
     <string name="layout_in_use">Uyarı: düzen şu anda kullanımda</string>
@@ -444,4 +435,11 @@
     <string name="customize_icons_reset_message">Tüm özelleştirilmiş simgeleri gerçekten sıfırlamak mı istiyorsunuz?</string>
     <string name="delete_confirmation">%s\'yi gerçekten silmek istiyor musunuz?</string>
     <string name="custom_subtype">Özel alt tür</string>
+    <string name="enable_split_keyboard_landscape">Bölünmüş klavyeyi etkinleştir (yatay)</string>
+    <string name="show_tld_popup_keys">TLD açılır pencere tuşlarını göster</string>
+    <string name="subtype_dru">Dargwa (Urakhi)</string>
+    <string name="subtype_baishakhi_bn_IN">%s (Baishakhi)</string>
+    <string name="subtype_generic_phonetic">%s (Fonetik)</string>
+    <string name="label_switch_onehanded_key" tools:keep="@string/label_switch_onehanded_key">Tek elle kullanım tarafını değiştir</string>
+    <string name="label_zwj_key" tools:keep="@string/label_zwj_key">Sıfır genişlikli bağlantı elemanı</string>
 </resources>

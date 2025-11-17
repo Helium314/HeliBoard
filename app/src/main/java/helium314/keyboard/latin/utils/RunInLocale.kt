@@ -1,11 +1,13 @@
 // SPDX-License-Identifier: GPL-3.0-only
 package helium314.keyboard.latin.utils
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.res.Configuration
 import android.content.res.Resources
 import java.util.Locale
 
+@SuppressLint("AppBundleLocaleChanges")
 fun <T> runInLocale(context: Context, locale: Locale, run: (Context) -> T): T {
     val config = Configuration(context.resources.configuration)
     config.setLocale(locale)

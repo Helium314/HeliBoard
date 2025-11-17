@@ -33,7 +33,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -47,10 +46,11 @@ import helium314.keyboard.latin.common.decodeBase36
 import helium314.keyboard.latin.settings.Defaults
 import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.utils.Log
-import helium314.keyboard.latin.utils.appendLink
 import helium314.keyboard.latin.utils.getActivity
 import helium314.keyboard.latin.utils.getStringResourceOrName
+import helium314.keyboard.latin.utils.htmlToAnnotated
 import helium314.keyboard.latin.utils.prefs
+import helium314.keyboard.latin.utils.withHtmlLink
 import helium314.keyboard.settings.DeleteButton
 import helium314.keyboard.settings.EditButton
 import helium314.keyboard.settings.Setting
@@ -65,6 +65,7 @@ import kotlinx.coroutines.launch
 import kotlinx.serialization.SerializationException
 import kotlinx.serialization.json.Json
 import java.util.EnumMap
+import androidx.core.content.edit
 
 @Composable
 fun ColorThemePickerDialog(
@@ -140,13 +141,9 @@ fun ColorThemePickerDialog(
             onDismissRequest = { showLoadDialog = false },
             title = { Text(stringResource(R.string.load)) },
             content = {
-                val text = stringResource(R.string.get_colors_message)
-                val annotated = buildAnnotatedString {
-                    append(text.substringBefore("%s"))
-                    appendLink(stringResource(R.string.discussion_section_link), Links.CUSTOM_COLORS)
-                    append(text.substringAfter("%s"))
-                }
-                Text(annotated)
+                val link = stringResource(R.string.discussion_section_link).withHtmlLink(Links.CUSTOM_COLORS)
+                val text = stringResource(R.string.get_colors_message, link)
+                Text(text.htmlToAnnotated())
             },
             onConfirmed = {
                 val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
@@ -193,7 +190,7 @@ private fun AddColorRow(onDismissRequest: () -> Unit, userColors: Collection<Str
         )
         EditButton(currentName.isNotBlank() && currentName !in userColors) {
             onDismissRequest()
-            prefs.edit().putString(prefKey, currentName).apply()
+            prefs.edit { putString(prefKey, currentName) }
             KeyboardTheme.writeUserMoreColors(prefs, currentName, Defaults.PREF_USER_MORE_COLORS) // write sth so theme is stored
             SettingsDestination.navigateTo(targetScreen + currentName)
             KeyboardSwitcher.getInstance().setThemeNeedsReload()
@@ -211,7 +208,7 @@ private fun ColorItemRow(onDismissRequest: () -> Unit, item: String, isSelected:
         modifier = Modifier
             .clickable {
                 onDismissRequest()
-                prefs.edit().putString(prefKey, item).apply()
+                prefs.edit {putString(prefKey, item)}
                 KeyboardSwitcher.getInstance().setThemeNeedsReload()
             }
             .padding(start = 6.dp)
@@ -221,7 +218,7 @@ private fun ColorItemRow(onDismissRequest: () -> Unit, item: String, isSelected:
             selected = isSelected,
             onClick = {
                 onDismissRequest()
-                prefs.edit().putString(prefKey, item).apply()
+                prefs.edit { putString(prefKey, item) }
                 KeyboardSwitcher.getInstance().setThemeNeedsReload()
             }
         )
@@ -243,11 +240,12 @@ private fun ColorItemRow(onDismissRequest: () -> Unit, item: String, isSelected:
                     content = { Text(stringResource(R.string.delete_confirmation, item)) },
                     onConfirmed = {
                         showDialog = false
-                        prefs.edit().remove(Settings.PREF_USER_COLORS_PREFIX + item)
-                            .remove(Settings.PREF_USER_ALL_COLORS_PREFIX + item)
-                            .remove(Settings.PREF_USER_MORE_COLORS_PREFIX + item).apply()
-                        if (isSelected)
-                            prefs.edit().remove(prefKey).apply()
+                        prefs.edit {
+                            remove(Settings.PREF_USER_COLORS_PREFIX + item)
+                            remove(Settings.PREF_USER_ALL_COLORS_PREFIX + item)
+                            remove(Settings.PREF_USER_MORE_COLORS_PREFIX + item)
+                            if (isSelected) remove(prefKey)
+                        }
                         KeyboardSwitcher.getInstance().setThemeNeedsReload()
                     }
                 )
@@ -263,23 +261,23 @@ private fun loadColorString(colorString: String, prefs: SharedPreferences): Bool
         val colors = that.colors.map { ColorSetting(it.key, it.value.second, it.value.first) }
         KeyboardTheme.writeUserColors(prefs, themeName, colors)
         KeyboardTheme.writeUserMoreColors(prefs, themeName, that.moreColors)
-    } catch (e: SerializationException) {
+    } catch (_: SerializationException) {
         try {
             val allColorsStringMap = Json.decodeFromString<Map<String, Int>>(colorString)
             val allColors = EnumMap<ColorType, Int>(ColorType::class.java)
             var themeName = "imported colors"
-            allColorsStringMap.forEach {
+            allColorsStringMap.forEach { (key, value) ->
                 try {
-                    allColors[ColorType.valueOf(it.key)] = it.value
+                    allColors[ColorType.valueOf(key)] = value
                 } catch (_: IllegalArgumentException) {
-                    if (it.value == 0) // hacky way of storing theme name: put it in a key with value 0
-                        runCatching { decodeBase36(it.key) }.getOrNull()?.let { themeName = it }
+                    if (value == 0) // hacky way of storing theme name: put it in a key with value 0
+                        runCatching { decodeBase36(key) }.getOrNull()?.let { themeName = it }
                 }
             }
             themeName = KeyboardTheme.getUnusedThemeName(themeName, prefs)
             KeyboardTheme.writeUserAllColors(prefs, themeName, allColors)
             KeyboardTheme.writeUserMoreColors(prefs, themeName, 2)
-        } catch (e: SerializationException) {
+        } catch (_: SerializationException) {
             return false
         }
     }

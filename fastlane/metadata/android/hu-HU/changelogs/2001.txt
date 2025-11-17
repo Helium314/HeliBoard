@@ -4,8 +4,5 @@
 * Felugró értesítés hozzáadása szöveg másolásakor
 * Nyelvváltó billentyű viselkedésének szétválasztása az engedélyezéstől
 * Vesszőbillentyű felugró ablakainak hozzáadása a szám- és telefonelrendezésekhez
-* Hosszú lenyomásos rögzítés az eszköztárban nem kötelezővé tétele
-* Eszköztár beállításainak áthelyezése egy külön szakaszba
-* Tabulátor billentyű hozzáadása
-* Ctrl, eszköztár és egyéb billentyűfeliratok értelmezése az elrendezésekben
-* Kisebb javítások és fejlesztések
+
+* És még több hibajavítás - további részletek a bejelentésben

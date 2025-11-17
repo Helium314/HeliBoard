@@ -72,7 +72,7 @@
     <string name="setup_step1_instruction">Por favor, compruebe \"%s\" en sus ajustes de entrada de Idiomas. Esto lo autorizará a ejecutarse en su dispositivo.\"</string>
     <string name="setup_step1_action">"Habilitar en Ajustes"</string>
     <string name="setup_step2_title">Cambiar a %s</string>
-    <string name="setup_step2_instruction">A continuación, seleccione \\%s\" como su método de entrada de texto activo.\"</string>
+    <string name="setup_step2_instruction">A continuación, seleccione \"%s\" como su método de entrada de texto activo.</string>
     <string name="setup_step2_action">Cambiar métodos de entrada</string>
     <string name="setup_step3_title">"¡Enhorabuena, has terminado!"</string>
     <string name="setup_step3_instruction">Ahora puedes escribir en todas tus aplicaciones favoritas con %s.</string>
@@ -81,7 +81,6 @@
     <string name="show_setup_wizard_icon_summary">"Mostrar icono de aplicación en menú de aplicaciones"</string>
     <string name="dictionary_category_title">"Diccionarios complementarios"</string>
     <string name="dictionary_available">"Diccionario disponible"</string>
-    <string name="last_update">"Última actualización"</string>
     <string name="settings">"Ajustes"</string>
     <string name="delete">"Eliminar"</string>
     <string name="version_text">Versión %1$s</string>
@@ -128,7 +127,6 @@
     <string name="enable_clipboard_history_summary">Si está deshabilitada, la tecla del portapapeles pegará el contenido del portapapeles, si lo hay</string>
     <string name="autospace_after_punctuation">Espacio automático después del punto</string>
     <string name="autospace_after_punctuation_summary">Insertar un espacio automático después del punto cuando se escriba una nueva palabra</string>
-    <string name="use_system_language_to_select_input_method_subtypes">"Usar idiomas del sistema"</string>
     <string name="auto_correction_confidence">Precisión de la corrección automática</string>
     <string name="select_input_method">"Selecciona un método de entrada"</string>
     <string name="undo">"Deshacer"</string>
@@ -185,13 +183,11 @@
     <string name="no_dictionary_dont_show_again_button">No ver de nuevo</string>
     <string name="button_load_custom">Cargar archivo</string>
     <string name="file_read_error">Error al leer archivo</string>
-    <string name="button_copy_existing_layout">Copiar diseño existente</string>
     <string name="delete_layout">¿Desea borrar el diseño personalizado %s?</string>
     <string name="dictionary_link_text">aquí</string>
     <string name="available_dictionary_experimental">%s (experimental)</string>
     <string name="dictionary_file_error">Error: Archivo no válido</string>
     <string name="dictionary_file_wrong_script">Error: script incompatible con este teclado</string>
-    <string name="dictionary_file_wrong_locale_ok">En uso</string>
     <string name="dictionary_load_error">Error al cargar diccionario</string>
     <string name="user_dict_settings_add_weight_value">Ancho:</string>
     <string name="user_dict_word_already_present">Esta palabra ya está presente en el diccionario del usuario %s. Por favor, escriba otra.</string>
@@ -241,7 +237,6 @@
     <string name="setup_step3_action">Configurar el teclado</string>
     <string name="dictionary_settings_category">Diccionarios</string>
     <string name="internal_dictionary_summary">Diccionario interno principal</string>
-    <string name="dictionary_file_wrong_locale">El fichero seleccionado es para %1$s, pero se esperaba %2$s. ¿Sigue utilizándolo para %2$s?</string>
     <string name="license">Licencia de código abierto</string>
     <string name="add_dictionary">Seleccione un diccionario para añadir. Los diccionarios con formato .dict pueden ser descargados %s.</string>
     <string name="disable_personalized_dicts_message">Advertencia: Si desactiva esta opción, se borrarán los datos aprendidos</string>
@@ -391,10 +386,8 @@
     <string name="customize_background_image_landscape">Establecer imagen de fondo (horizontal)</string>
     <string name="summary_customize_background_image_landscape">Si no se establece, se utilizará la imagen vertical</string>
     <string name="customize_toolbar_key_code_reset_message">¿Realmente borrar todos los códigos clave personalizados?</string>
-    <string name="prefs_bottom_padding_scale_landscape">Escala de relleno inferior (horizontal)</string>
     <string name="prefs_font_scale">Tamaño de la fuente del teclado</string>
     <string name="prefs_emoji_font_scale">Tamaño de fuente de la vista Emoji</string>
-    <string name="prefs_side_padding_scale_landscape">Escala de relleno lateral (apaisado)</string>
     <string name="prefs_side_padding_scale">Escala de relleno lateral</string>
     <string name="custom_subtype">Subtipo personalizado</string>
     <string name="prefs_always_show_suggestions_except_web_text_summary">Los campos de edición web (que se encuentran sobre todo en los navegadores) son una causa muy común de problemas con la configuración de mostrar siempre sugerencias</string>
@@ -402,7 +395,6 @@
     <string name="layout_number_row_basic" tools:keep="@string/layout_number_row_basic">Fila de números (básica)</string>
     <string name="subtype_baishakhi_bn_IN">%s (Baishakhi)</string>
     <string name="name_invalid">Nombre inválido</string>
-    <string name="split_spacer_scale_landscape">Distancia de dividido (paisaje)</string>
     <string name="enable_split_keyboard_landscape">Habilitar teclado dividido (paisaje)</string>
     <string name="settings_category_space">Espacio</string>
     <string name="backspace_reverts_autocorrect">Retroceso revierte la autocorrección</string>

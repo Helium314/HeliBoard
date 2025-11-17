@@ -2,6 +2,7 @@
 
 package helium314.keyboard.latin.utils
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.SharedPreferences
 import android.content.res.Resources
@@ -67,7 +68,26 @@ object SubtypeSettings {
 
     /** @return whether subtype was actually removed */
     fun removeEnabledSubtype(context: Context, subtype: InputMethodSubtype): Boolean {
-        if (!removeEnabledSubtype(context.prefs(), subtype.toSettingsSubtype())) return false
+        val prefs = context.prefs()
+        if (!removeEnabledSubtype(prefs, subtype.toSettingsSubtype())) {
+            if (SubtypeUtilsAdditional.isAdditionalSubtype(subtype))
+                return false
+            // We want to disable a built-in subtype, but can't. This might be because it was changed in method.xml, and we definitely should disable it
+            val enabledFromSettings = createSettingsSubtypes(context.prefs().getString(Settings.PREF_ENABLED_SUBTYPES, Defaults.PREF_ENABLED_SUBTYPES)!!)
+            val match = enabledFromSettings.firstOrNull {
+                !it.isAdditionalSubtype(context.prefs())
+                    && it.locale == subtype.locale()
+                    && it.mainLayoutName() == subtype.mainLayoutNameOrQwerty()
+            }
+            // the match is done on locale and main layout name, like in loadEnabledSubtypes
+            if (match == null || !removeEnabledSubtype(prefs, match)) {
+                Log.e(TAG, "tried to disable built-in ${subtype.toSettingsSubtype()}, but failed")
+                return false
+            }
+            else {
+                Log.w(TAG, "had to do some workaround to actually disable $match")
+            }
+        }
         if (!enabledSubtypes.remove(subtype)) reloadEnabledSubtypes(context)
         else RichInputMethodManager.getInstance().refreshSubtypeCaches()
         return true
@@ -130,6 +150,7 @@ object SubtypeSettings {
      * Update subtypes that contain the layout. If new name is null (layout deleted) and the
      * subtype is now identical to a resource subtype, remove the subtype from additional subtypes.
      */
+    @SuppressLint("UseKtx") // easier to read
     fun onRenameLayout(type: LayoutType, from: String, to: String?, context: Context) {
         val prefs = context.prefs()
         val editor = prefs.edit() // calling apply for each separate setting would result in an invalid intermediate state
@@ -193,6 +214,7 @@ object SubtypeSettings {
         loadEnabledSubtypes(context)
     }
 
+    @Suppress("SameReturnValue")
     private fun getDefaultEnabledSubtypes(): List<InputMethodSubtype> {
         if (systemSubtypes.isNotEmpty()) return systemSubtypes
         val subtypes = systemLocales.mapNotNull { locale ->

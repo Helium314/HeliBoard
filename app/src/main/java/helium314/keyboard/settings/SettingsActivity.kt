@@ -49,7 +49,6 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import java.io.BufferedOutputStream
 import java.io.File
 import java.io.FileInputStream
-import java.io.IOException
 import java.util.zip.ZipEntry
 import java.util.zip.ZipOutputStream
 
@@ -77,7 +76,7 @@ open class SettingsActivity : ComponentActivity(), SharedPreferences.OnSharedPre
         }
         ExecutorUtils.getBackgroundExecutor(ExecutorUtils.KEYBOARD).execute { cleanUnusedMainDicts(this) }
         crashReportFiles.value = findCrashReports(!BuildConfig.DEBUG && !DebugFlags.DEBUG_ENABLED)
-        val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
 
         settingsContainer = SettingsContainer(this)
 
@@ -130,7 +129,7 @@ open class SettingsActivity : ComponentActivity(), SharedPreferences.OnSharedPre
                                     val intent = Intent(Intent.ACTION_CREATE_DOCUMENT)
                                     intent.addCategory(Intent.CATEGORY_OPENABLE)
                                     intent.putExtra(Intent.EXTRA_TITLE, "crash_reports.zip")
-                                    intent.setType("application/zip")
+                                    intent.type = "application/zip"
                                     crashFilePicker.launch(intent)
                                 },
                                 content = { Text("Crash report files found") },
@@ -203,7 +202,7 @@ open class SettingsActivity : ComponentActivity(), SharedPreferences.OnSharedPre
     private fun saveCrashReports(uri: Uri) {
         val files = findCrashReports(false)
         if (files.isEmpty()) return
-        try {
+        runCatching {
             contentResolver.openOutputStream(uri)?.use {
                 val bos = BufferedOutputStream(it)
                 val z = ZipOutputStream(bos)
@@ -220,7 +219,6 @@ open class SettingsActivity : ComponentActivity(), SharedPreferences.OnSharedPre
                     file.delete()
                 }
             }
-        } catch (ignored: IOException) {
         }
     }
 
