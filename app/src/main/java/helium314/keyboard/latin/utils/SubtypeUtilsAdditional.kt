@@ -1,5 +1,6 @@
 package helium314.keyboard.latin.utils
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Build
 import android.view.inputmethod.InputMethodSubtype
@@ -15,8 +16,8 @@ import helium314.keyboard.latin.settings.SettingsSubtype
 import helium314.keyboard.latin.settings.SettingsSubtype.Companion.toSettingsSubtype
 import helium314.keyboard.latin.utils.LayoutType.Companion.toExtraValue
 import helium314.keyboard.latin.utils.ScriptUtils.script
-import java.util.EnumMap
 import java.util.Locale
+import androidx.core.content.edit
 
 object SubtypeUtilsAdditional {
 
@@ -70,10 +71,11 @@ object SubtypeUtilsAdditional {
         val settingsSubtype = subtype.toSettingsSubtype()
         val newAdditionalSubtypes = oldAdditionalSubtypes.filter { it != settingsSubtype }
         val newAdditionalSubtypesString = SubtypeSettings.createPrefSubtypes(newAdditionalSubtypes)
-        prefs.edit().putString(Settings.PREF_ADDITIONAL_SUBTYPES, newAdditionalSubtypesString).apply()
+        prefs.edit { putString(Settings.PREF_ADDITIONAL_SUBTYPES, newAdditionalSubtypesString) }
     }
 
     // updates additional subtypes, enabled subtypes, and selected subtype
+    @SuppressLint("UseKtx") // easier to understand
     fun changeAdditionalSubtype(from: SettingsSubtype, to: SettingsSubtype, context: Context) {
         val prefs = context.prefs()
         // read now because there may be an intermediate state where the subtype is invalid and thus removed
@@ -102,6 +104,8 @@ object SubtypeUtilsAdditional {
             enabled.add(to)
             editor.putString(Settings.PREF_ENABLED_SUBTYPES, SubtypeSettings.createPrefSubtypes(enabled))
         }
+        prefs.all.filterKeys { it.startsWith(Settings.PREF_SAVED_APP_SUBTYPE_PREFIX) }
+            .filterValues { it.toString().toSettingsSubtype() == from }.forEach { editor.putString(it.key, to.toPref()) }
         editor.apply()
         SubtypeSettings.reloadEnabledSubtypes(context)
     }

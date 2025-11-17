@@ -82,7 +82,6 @@
     <string name="show_setup_wizard_icon_summary">Паказаць значок праграмы ў панэлi запуску</string>
     <string name="dictionary_category_title">"Дадатковыя слоўнікі"</string>
     <string name="dictionary_available">"Даступны слоўнік"</string>
-    <string name="last_update">"Апошняе абнаўленне"</string>
     <string name="settings">"Налады"</string>
     <string name="delete">"Выдаліць"</string>
     <string name="version_text">Версія %1$s</string>
@@ -146,7 +145,6 @@
     <string name="license">Ліцэнзія з адкрытым зыходным кодам</string>
     <string name="gnu_gpl">GNU General Public License v3.0</string>
     <string name="dialog_close">Закрыць</string>
-    <string name="use_system_language_to_select_input_method_subtypes">"Выкарыстоўваць мовы сістэмы"</string>
     <string name="text_tap_languages">Націсніце на мову, каб адкрыць наладкі</string>
     <string name="select_input_method">Выберыце метад ўводу</string>
     <string name="hidden_features_title">Апісанне схаваных функцый</string>
@@ -238,7 +236,6 @@
     <string name="theme_name_chocolate" tools:keep="@string/theme_name_chocolate">Шакалад</string>
     <string name="theme_name_cloudy" tools:keep="@string/theme_name_cloudy">Воблачна</string>
     <string name="prefs_long_press_symbol_for_numpad">Доўгі націск клавішы сімвалаў для лічбавай клавіятуры</string>
-    <string name="button_copy_existing_layout">Скапіяваць бягучую раскладку</string>
     <string name="delete_layout">Сапраўды выдаліць карыстацкую раскладку %s?</string>
     <string name="dictionary_load_error">Памылка загрузкі файла слоўніка</string>
     <string name="subtype_xdq">кайтагскі</string>
@@ -266,9 +263,7 @@
     <string name="no_dictionary_dont_show_again_button">Больш не паказваць</string>
     <string name="available_dictionary_experimental">%s (эксперыментальны)</string>
     <string name="dictionary_file_error">Памылка: абраны файл не з\'яўляецца карэктным слоўнікам</string>
-    <string name="dictionary_file_wrong_locale">Выбраны файл прызначаны для %1$s, але чакаўся %2$s. Вы яшчэ карыстаецеся ім для %2$s?</string>
     <string name="dictionary_file_wrong_script">Памылка: скрыпт несумяшчальны з гэтай клавіятурай</string>
-    <string name="dictionary_file_wrong_locale_ok">Ўсё яшчэ выкарыстоўваецца</string>
     <string name="user_dict_add_word_button">Дадаць слова</string>
     <string name="theme_name_holo_white" tools:keep="@string/theme_name_holo_white">Holo Белая</string>
     <string name="theme_name_dynamic" tools:keep="@string/theme_name_dynamic">Дынамічныя колеры</string>
@@ -350,12 +345,10 @@
     <string name="split" tools:keep="@string/split">Раздзельная клавіятура</string>
     <string name="vibrate_in_dnd_mode">Вібрацыя ў рэжыме «Не турбаваць»</string>
     <string name="enable_split_keyboard_landscape">Уключыць падзеленую клавіятуру (альбомная)</string>
-    <string name="split_spacer_scale_landscape">Адлегласць падзелу (альбомная)</string>
     <string name="gesture_floating_preview_dynamic_summary">Перамяшчаць прадпрагляд падчас набору жэстамі</string>
     <string name="gesture_trail_fadeout_duration">Час жыцця следа жэста</string>
     <string name="auto_correct_shortcuts">Аўтакарэкцыя спалучэнняў клавіш</string>
     <string name="auto_correct_shortcuts_summary">Калі ўключана, спалучэнні клавіш могуць быць пашыраны з дапамогай аўтакарэкцыі</string>
-    <string name="prefs_bottom_padding_scale_landscape">Маштаб ніжняга водступу (альбомная)</string>
     <string name="prefs_side_padding_scale">Маштаб бакавога водступу</string>
     <string name="number_row_hints">Паказваць падказкі ў шэрагу з лічбамі</string>
     <string name="locales_with_dict">Мовы са слоўнікамі</string>
@@ -388,7 +381,6 @@
     <string name="label_shift_key_shifted" tools:keep="@string/label_shift_key_shifted">Shift (націснута)</string>
     <string name="prefs_font_scale">Маштаб шрыфта клавіятуры</string>
     <string name="prefs_emoji_font_scale">Маштаб шрыфта адлюстравання эмодзі</string>
-    <string name="prefs_side_padding_scale_landscape">Маштаб бакавога водступу (альбомная)</string>
     <string name="long_press_code">Код доўгага націску</string>
     <string name="prefs_language_swipe_distance">Адлегласць змахвання для пераключэння мовы</string>
     <string name="customize_toolbar_key_codes">Наладзіць коды клавіш панэлі інструментаў</string>

@@ -81,7 +81,6 @@
     <string name="show_setup_wizard_icon_summary">"Prikazivanje ikone aplikacije u pokretaču"</string>
     <string name="dictionary_category_title">"Rječnici kao dodaci"</string>
     <string name="dictionary_available">"Dostupan je rječnik"</string>
-    <string name="last_update">"Zadnje ažuriranje"</string>
     <string name="settings">"Postavke"</string>
     <string name="delete">"Izbriši"</string>
     <string name="version_text">Verzija %1$s</string>
@@ -128,7 +127,6 @@
     <string name="day_night_mode">Automatski danji/noćni način rada</string>
     <string name="day_night_mode_summary">Izgled će slijediti postavke sustava</string>
     <string name="number_row">Broj retka</string>
-    <string name="use_system_language_to_select_input_method_subtypes">"Upotrijebi jezike sustava"</string>
     <string name="auto_correction_confidence">Pouzdanje u automatsko ispravljanje</string>
     <string name="select_input_method">"Odabir načina unosa"</string>
     <string name="undo">"Poništi"</string>

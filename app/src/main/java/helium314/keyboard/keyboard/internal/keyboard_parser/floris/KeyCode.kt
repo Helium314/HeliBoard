@@ -24,11 +24,11 @@ object KeyCode {
     const val UNSPECIFIED =                    0
 
     const val CTRL =                          -1
-    //const val CTRL_LOCK =                     -2
+    const val CTRL_LOCK =                     -2
     const val ALT =                           -3
-    //const val ALT_LOCK =                      -4
+    const val ALT_LOCK =                      -4
     const val FN =                            -5
-    //const val FN_LOCK =                       -6
+    const val FN_LOCK =                       -6
     const val DELETE =                        -7
     //const val DELETE_WORD =                   -8
     //const val FORWARD_DELETE =                -9
@@ -131,13 +131,15 @@ object KeyCode {
     const val SHIFT_ENTER =               -10005
     const val ACTION_NEXT =               -10006
     const val ACTION_PREVIOUS =           -10007
-    // Code value representing the code is not specified.
-    const val NOT_SPECIFIED =             -10008 // todo: not sure if there is need to have the "old" unspecified keyCode different, just test it and maybe merge
+    // Code value representing the code is not specified. This is "old", and treated different than UNSPECIFIED.
+    // A main difference is that such a NOT_SPECIFIED code results in the key being disabled (see Key.mEnabled).
+    // Used for Key.Spacer and Key.OptionalAttributes and as dummy KeyCode in some places
+    const val NOT_SPECIFIED =             -10008
     const val CLIPBOARD_COPY_ALL =        -10009
     const val PAGE_UP =                   -10010
     const val PAGE_DOWN =                 -10011
     const val META =                      -10012
-    //const val META_LOCK =                 -10013 // to be consistent with the CTRL/ALT/FN LOCK codes, not sure whether this will be used
+    const val META_LOCK =                 -10013
     const val TAB =                       -10014
     const val WORD_LEFT =                 -10015
     const val WORD_RIGHT =                -10016
@@ -174,6 +176,7 @@ object KeyCode {
     const val ALT_RIGHT =                 -10047
     const val META_LEFT =                 -10048
     const val META_RIGHT =                -10049
+    const val INLINE_EMOJI_SEARCH_DONE =  -10051
 
 
     // Intents
@@ -189,14 +192,15 @@ object KeyCode {
         REDO, ARROW_DOWN, ARROW_UP, ARROW_RIGHT, ARROW_LEFT, CLIPBOARD_COPY, CLIPBOARD_PASTE, CLIPBOARD_SELECT_ALL,
         CLIPBOARD_SELECT_WORD, TOGGLE_INCOGNITO_MODE, TOGGLE_AUTOCORRECT, MOVE_START_OF_LINE, MOVE_END_OF_LINE,
         MOVE_START_OF_PAGE, MOVE_END_OF_PAGE, SHIFT, CAPS_LOCK, MULTIPLE_CODE_POINTS, UNSPECIFIED, CTRL, ALT,
-        FN, CLIPBOARD_CLEAR_HISTORY, NUMPAD, IME_HIDE_UI,
+        FN, CLIPBOARD_CLEAR_HISTORY, NUMPAD, IME_HIDE_UI, CTRL_LOCK, ALT_LOCK, FN_LOCK,
 
         // heliboard only
         SYMBOL_ALPHA, TOGGLE_ONE_HANDED_MODE, SWITCH_ONE_HANDED_MODE, SPLIT_LAYOUT, SHIFT_ENTER,
         ACTION_NEXT, ACTION_PREVIOUS, NOT_SPECIFIED, CLIPBOARD_COPY_ALL, WORD_LEFT, WORD_RIGHT, PAGE_UP,
         PAGE_DOWN, META, TAB, ESCAPE, INSERT, SLEEP, MEDIA_PLAY, MEDIA_PAUSE, MEDIA_PLAY_PAUSE, MEDIA_NEXT,
         MEDIA_PREVIOUS, VOL_UP, VOL_DOWN, MUTE, F1, F2, F3, F4, F5, F6, F7, F8, F9, F10, F11, F12, BACK,
-        TIMESTAMP, CTRL_LEFT, CTRL_RIGHT, ALT_LEFT, ALT_RIGHT, META_LEFT, META_RIGHT, SEND_INTENT_ONE, SEND_INTENT_TWO, SEND_INTENT_THREE,
+        TIMESTAMP, CTRL_LEFT, CTRL_RIGHT, ALT_LEFT, ALT_RIGHT, META_LEFT, META_RIGHT, SEND_INTENT_ONE, SEND_INTENT_TWO,
+        SEND_INTENT_THREE, INLINE_EMOJI_SEARCH_DONE, META_LOCK
         -> this
 
         // conversion
@@ -209,8 +213,8 @@ object KeyCode {
     }
 
     fun Int.isModifier() = when (this) {
-        SHIFT, SYMBOL_ALPHA, ALPHA, SYMBOL, NUMPAD, FN, CTRL, CTRL_LEFT, CTRL_RIGHT, ALT, ALT_LEFT, ALT_RIGHT,
-        META, META_LEFT, META_RIGHT -> true
+        SHIFT, SYMBOL_ALPHA, ALPHA, SYMBOL, NUMPAD, FN, CTRL, CTRL_LEFT, CTRL_RIGHT, CTRL_LOCK, ALT, ALT_LEFT, ALT_RIGHT,
+        ALT_LOCK, META, META_LEFT, META_RIGHT, META_LOCK, -> true
         else -> false
     }
 
@@ -274,11 +278,16 @@ object KeyCode {
         '*' -> KeyEvent.KEYCODE_STAR
         ']' -> KeyEvent.KEYCODE_RIGHT_BRACKET
         '[' -> KeyEvent.KEYCODE_LEFT_BRACKET
+        ')' -> KeyEvent.KEYCODE_NUMPAD_RIGHT_PAREN
+        '(' -> KeyEvent.KEYCODE_NUMPAD_LEFT_PAREN
         '+' -> KeyEvent.KEYCODE_PLUS
         '-' -> KeyEvent.KEYCODE_MINUS
         '=' -> KeyEvent.KEYCODE_EQUALS
+        '@' -> KeyEvent.KEYCODE_AT
+        '#' -> KeyEvent.KEYCODE_POUND
         '\n' -> KeyEvent.KEYCODE_ENTER
         '\t' -> KeyEvent.KEYCODE_TAB
+        ' ' -> KeyEvent.KEYCODE_SPACE
         '0' -> KeyEvent.KEYCODE_0
         '1' -> KeyEvent.KEYCODE_1
         '2' -> KeyEvent.KEYCODE_2

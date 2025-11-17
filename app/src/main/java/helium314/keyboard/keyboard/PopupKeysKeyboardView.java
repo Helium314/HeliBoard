@@ -6,6 +6,7 @@
 
 package helium314.keyboard.keyboard;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
@@ -137,6 +138,7 @@ public class PopupKeysKeyboardView extends KeyboardView implements PopupKeysPane
         showPopupKeysPanelInternal(parentView, controller, pointX, pointY);
     }
 
+    @SuppressLint("RtlHardcoded") // a key on the left is on the left, independent of layout direction
     private void showPopupKeysPanelInternal(final View parentView, final Controller controller,
             final int pointX, final int pointY) {
         mController = controller;
@@ -296,6 +298,7 @@ public class PopupKeysKeyboardView extends KeyboardView implements PopupKeysPane
         return y - mOriginY;
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     public boolean onTouchEvent(final MotionEvent me) {
         final int action = me.getActionMasked();

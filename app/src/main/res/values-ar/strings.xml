@@ -54,7 +54,7 @@
     <string name="subtype_no_language">"بدون لغة"</string>
     <string name="subtype_emoji">"الرموز التعبيرية"</string>
     <string name="add">أضف</string>
-    <string name="remove">"إزالة"</string>
+    <string name="remove">أزِل</string>
     <string name="save">"حفظ"</string>
     <string name="subtype_locale">"اللغة"</string>
     <string name="keyboard_layout_set">"التخطيط"</string>
@@ -81,9 +81,8 @@
     <string name="show_setup_wizard_icon_summary">اعرض رمز التطبيق في المشغل</string>
     <string name="dictionary_category_title">"القواميس الإضافية"</string>
     <string name="dictionary_available">"القاموس متاح"</string>
-    <string name="last_update">"تاريخ آخر تحديث"</string>
     <string name="settings">"إعدادات"</string>
-    <string name="delete">"حذف"</string>
+    <string name="delete">احذف</string>
     <string name="version_text">الإصدار %s</string>
     <string name="user_dict_settings_add_dialog_title">أضف إلى القاموس</string>
     <string name="user_dict_settings_add_shortcut_option_name">"الاختصار:"</string>
@@ -121,7 +120,6 @@
     <string name="key_borders">الحدود الرئيسة</string>
     <string name="delete_swipe_summary">أجرِ سحبًا سريعًا على مفتاح الحذف لتُحدِّد وتُزيل أجزاءً كبيرة من النص دفعةً واحدة</string>
     <string name="show_hints">أظهِر تلميحات المفاتيح</string>
-    <string name="use_system_language_to_select_input_method_subtypes">"استخدام لغات النظام"</string>
     <string name="select_input_method">"اختيار أسلوب الإدخال"</string>
     <string name="show_hints_summary">أظهِر تلميحات المفاتيح عند الضغط لفترة طويلة</string>
     <string name="prefs_long_press_keyboard_to_change_lang_summary">سيقوم الضغط المطول على مفتاح المسافة بإظهار قائمة اختيار أساليب الإدخال</string>
@@ -145,7 +143,6 @@
     <string name="theme_colors">الألوان</string>
     <string name="popup_keys_number" tools:keep="@string/popup_keys_number">صف الأرقام</string>
     <string name="available_dictionary_experimental">%s (تجريبي)</string>
-    <string name="dictionary_file_wrong_locale_ok">استخدمه على أي حال</string>
     <string name="theme_style">النمط</string>
     <string name="style_name_Rounded" tools:keep="@string/style_name_Rounded">دائري</string>
     <string name="localized_number_row">صف الأرقام باللغة المحلية</string>
@@ -181,7 +178,7 @@
     <string name="button_restore">استرجاع</string>
     <string name="secondary_locale">الكتابة متعددة اللغات</string>
     <string name="load_gesture_library_button_load">تحميل المكتبة</string>
-    <string name="load_gesture_library_button_delete">حذف المكتبة</string>
+    <string name="load_gesture_library_button_delete">احذف المكتبة</string>
     <string name="load_gesture_library">حمّل مكتبة الإيماءة</string>
     <string name="popup_keys_symbols" tools:keep="@string/popup_keys_symbols">الرموز</string>
     <string name="clipboard" tools:keep="@string/clipboard">الحافظة</string>
@@ -259,9 +256,8 @@
     <string name="show_popup_hints_summary">أظهِر تلميحات إذا كان الضغط لفترة طويلة على المفتاح يؤدي إلى تشغيل وظائف إضافية</string>
     <string name="day_or_night_image">تعيين الصورة لوضع النهار أو الليل؟</string>
     <string name="day_or_night_day">صباح</string>
-    <string name="subtype_generic_sebeolsik_final">%s (Sebeolsik Final)</string>
+    <string name="subtype_generic_sebeolsik_final">%s (سيبولسيك النهائي)</string>
     <string name="message_add_custom_layout">حدد ملفًا بتنسيق متوافق. المعلومات حول التنسيقات متاحة %s.</string>
-    <string name="button_copy_existing_layout">انسخ التخطيط الموجود</string>
     <string name="delete_layout">هل تريد حقًا حذف التخطيط المخصص %s؟</string>
     <string name="layout_error">خطأ في التخطيط: %s</string>
     <string name="edit_layout">انقر لتحرير التخطيط الأولي</string>
@@ -275,7 +271,6 @@
 \nقاموس جديد:
 \n%3$s</string>
     <string name="dictionary_load_error">حدث خطأ أثناء تحميل ملف القاموس</string>
-    <string name="dictionary_file_wrong_locale">الملف المحدد مخصص لـ %1$s، لكن %2$s كان متوقعًا. هل مازلت تستخدمه لـ %2$s؟</string>
     <string name="theme_colors_night">الألوان (الليل)</string>
     <string name="select_color_accent">اللون الثانوي</string>
     <string name="select_color_functional_key_background">الخلفية الرئيسية الوظيفية</string>
@@ -302,8 +297,8 @@
     <string name="localized_number_row_summary">تفضيل المحلية على الأرقام اللاتينية</string>
     <string name="select_user_colors_summary">حدد الألوان للنص والخلفيات</string>
     <string name="no_dictionary_message">"بدون قاموس، ستحصل فقط على اقتراحات للنص الذي أدخلته من قبل.&lt;br&gt;\n         يمكنك تنزيل القواميس %1$s، أو التحقق مما إذا كان يمكن تنزيل قاموس لـ \"%2$s\" مباشرةً %3$s."</string>
-    <string name="subtype_probhat_bn_BD">%s (Probhat)</string>
-    <string name="subtype_generic_sebeolsik_390">%s (Sebeolsik 390)</string>
+    <string name="subtype_probhat_bn_BD">%s (بروبهات)</string>
+    <string name="subtype_generic_sebeolsik_390">%s (سيبولسيك 390)</string>
     <string name="popup_order">اختر ترتيب المفاتيح المنبثقه</string>
     <string name="prefs_long_press_symbol_for_numpad">اضغط لفترة طويلة على مفتاح الرموز للوحة الرقمية</string>
     <string name="cut" tools:keep="@string/cut">قصّ</string>
@@ -363,7 +358,7 @@
     <string name="layout_clip_bottom_row" tools:keep="@string/layout_clip_bottom_row">الصف السفلي للحافظة</string>
     <string name="layout_emoji_bottom_row" tools:keep="@string/layout_emoji_bottom_row">الصف السفلي من الرموز التعبيرية</string>
     <string name="label_tab_key" tools:keep="@string/label_tab_key">تبويب</string>
-    <string name="label_delete_key" tools:keep="@string/label_delete_key">حذف</string>
+    <string name="label_delete_key" tools:keep="@string/label_delete_key">احذف</string>
     <string name="label_shift_key" tools:keep="@string/label_shift_key">تحويل</string>
     <string name="label_shift_key_shifted" tools:keep="@string/label_shift_key_shifted">تحويل (تحول)</string>
     <string name="label_shift_key_locked" tools:keep="@string/label_shift_key_locked">حرف كبير</string>
@@ -392,15 +387,12 @@
     <string name="summary_customize_background_image_landscape">إذا لم يتم تعيينها، سيتم استخدام الصورة العمودية</string>
     <string name="customize_toolbar_key_code_reset_message">هل تريد مسح جميع رموز المفاتيح المخصصة؟</string>
     <string name="label_bin" tools:keep="@string/label_bin">سلة</string>
-    <string name="prefs_bottom_padding_scale_landscape">مقياس الحشوة السفلية (أفقي)</string>
     <string name="prefs_font_scale">مقياس الخط في لوحة المفاتيح</string>
     <string name="prefs_emoji_font_scale">مقياس الخط لعرض الرموز التعبيرية</string>
-    <string name="prefs_side_padding_scale_landscape">مقياس الحشو الجانبي (أفقي)</string>
     <string name="prefs_side_padding_scale">مقياس الحشو الجانبي</string>
     <string name="enable_split_keyboard_landscape">فعّل تقسيم لوحة المفاتيح (أفقي)</string>
     <string name="delete_confirmation">هل تريد حذف %s حقًا؟</string>
     <string name="split" tools:keep="@string/split">تقسيم لوحة المفاتيح</string>
-    <string name="split_spacer_scale_landscape">مسافة التقسيم (أفقي)</string>
     <string name="number_row_hints">أظهِر التلميحات على صف الأرقام</string>
     <string name="prefs_language_swipe_distance">بدّل مسافة التمرير للغة</string>
     <string name="layout_functional_keys_tablet" tools:keep="@string/layout_functional_keys_tablet">المفاتيح الوظيفية (شاشة كبيرة)</string>
@@ -445,7 +437,6 @@
     <string name="popup_order_and_hint_source">ترتيب مفاتيح النوافذ المنبثقة ومصدر التلميحات</string>
     <string name="landscape">أفقي</string>
     <string name="show_emoji_descriptions">أظهر وصف الرموز التعبيرية عند الضغط مطولاً</string>
-    <string name="show_emoji_descriptions_summary">يتطلب قاموسًا للرموز التعبيرية</string>
     <string name="suggest_emojis">اقتراح رموز التعبيرية</string>
     <string name="suggest_emojis_summary">استخدم قاموس الرموز التعبيرية في الاقتراحات العادية</string>
     <string name="suggest_punctuation">اقتراحات علامات الترقيم</string>
@@ -453,4 +444,11 @@
     <string name="space_swipe_hide_keyboard_entry">أخفِ لوحة مفاتيح</string>
     <string name="about_wiki_link">اذهب إلى الويكي</string>
     <string name="about_wiki_link_description">يمكن تحسين الويكي من خلال أي مستخدم Github!</string>
+    <string name="save_subtype_per_app">تذكر اللغة لكل تطبيق</string>
+    <string name="subtype_khipro_bn">%s (خيبرو)</string>
+    <string name="clipboard_history_pinned_first">أظهر العناصر المثبتة في الأعلى</string>
+    <string name="inline_emoji_search">البحث عن الرموز التعبيرية المضمنة</string>
+    <string name="inline_emoji_search_summary">اقترح رموزًا تعبيرية فقط عندما تسبق الكلمة نقطتان رأسيتان</string>
+    <string name="emoji_dictionary_required">مطلوب قاموس رموز تعبيرية لكي تعمل هذه الميزة. يمكن تنزيل القواميس بتنسيق .dict %s.</string>
+    <string name="subtype_mhr">ماري (شرقي)</string>
 </resources>

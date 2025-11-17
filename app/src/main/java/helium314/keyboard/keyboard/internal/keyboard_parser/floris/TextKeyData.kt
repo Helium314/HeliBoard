@@ -27,9 +27,7 @@ import helium314.keyboard.latin.spellcheck.AndroidSpellCheckerService
 import helium314.keyboard.latin.utils.LayoutType
 import helium314.keyboard.latin.utils.Log
 import helium314.keyboard.latin.utils.ToolbarKey
-import helium314.keyboard.latin.utils.getCodeForToolbarKey
 import helium314.keyboard.latin.utils.toolbarKeyStrings
-import java.util.Locale
 
 // taken from FlorisBoard, modified (see also KeyData)
 
@@ -207,8 +205,9 @@ sealed interface KeyData : AbstractKeyData {
                 }
             }
             // remove emoji shortcut on enter in tablet mode (like original, because bottom row always has an emoji key)
-            // (probably not necessary, but whatever)
-            if (Settings.getInstance().isTablet && popupKeys.remove("!icon/emoji_action_key|!code/key_emoji")) {
+            // (probably not necessary, but whatever) and in emoji mode
+            if ((Settings.getInstance().isTablet || params.mId.mElementId == KeyboardId.ELEMENT_EMOJI_BOTTOM_ROW)
+                && popupKeys.remove("!icon/emoji_action_key|!code/key_emoji")) {
                 val i = popupKeys.indexOfFirst { it.startsWith(Key.POPUP_KEYS_FIXED_COLUMN_ORDER) }
                 if (i > -1) {
                     val n = popupKeys[i].substringAfter(Key.POPUP_KEYS_FIXED_COLUMN_ORDER).toIntOrNull()
@@ -216,6 +215,8 @@ sealed interface KeyData : AbstractKeyData {
                         popupKeys[i] = popupKeys[i].replace(n.toString(), (n - 1).toString())
                 }
             }
+            if (params.mId.mElementId == KeyboardId.ELEMENT_CLIPBOARD_BOTTOM_ROW)
+                popupKeys.remove("!icon/clipboard_action_key|!code/key_clipboard")
             return SimplePopups(popupKeys)
         }
 
@@ -235,12 +236,6 @@ sealed interface KeyData : AbstractKeyData {
             }
             return getStringInLocale(id, params)
         }
-
-        fun processLabel(label: String, params: KeyboardParams): String =
-            KeyLabel.keyLabelToActualLabel(label, params)
-                ?: if (label in toolbarKeyStrings.values)
-                    "!icon/$label|!code/${getCodeForToolbarKey(ToolbarKey.valueOf(label.uppercase(Locale.US)))}"
-                else label
 
         private fun shouldShowTldPopups(params: KeyboardParams): Boolean =
             (Settings.getInstance().current.mShowTldPopupKeys
@@ -263,14 +258,12 @@ sealed interface KeyData : AbstractKeyData {
     // so better only do it in case the popup stuff needs more improvements
     // idea: directly create PopupKeySpec, but need to deal with needsToUpcase and popupKeysColumnAndFlags
     fun getPopupLabel(params: KeyboardParams): String {
-        val newLabel = processLabel(label, params)
+        var newLabel = KeyLabel.keyLabelToActualLabel(label, params)
         if (code == KeyCode.UNSPECIFIED) {
-            if (newLabel == label || newLabel.contains(KeyboardCodesSet.PREFIX_CODE))
-                return newLabel
-            val newCode = processCode()
-            if (newLabel.endsWith("|")) return "${newLabel}${KeyboardCodesSet.PREFIX_CODE}$newCode" // maybe not used any more
-            return if (newCode == code) newLabel else "${newLabel}|${KeyboardCodesSet.PREFIX_CODE}$newCode"
+            return newLabel
         }
+        if (newLabel.contains(KeyboardCodesSet.PREFIX_CODE))
+            newLabel =  newLabel.substringBefore("|!code/") // explicit code goes first
         if (code >= 32) {
             if (newLabel.startsWith(KeyboardIconsSet.PREFIX_ICON)) {
                 // we ignore everything after the first |
@@ -287,12 +280,12 @@ sealed interface KeyData : AbstractKeyData {
             val outputText = String(codePoints, 0, codePoints.size)
             return "${newLabel}|$outputText"
         }
-        return if (newLabel.endsWith("|")) "$newLabel${KeyboardCodesSet.PREFIX_CODE}${processCode()}" // for toolbar keys
-        else "$newLabel|${KeyboardCodesSet.PREFIX_CODE}${processCode()}"
+        return if (newLabel.endsWith("|")) "$newLabel${KeyboardCodesSet.PREFIX_CODE}$code" // for toolbar keys
+        else "$newLabel|${KeyboardCodesSet.PREFIX_CODE}$code"
     }
 
     fun getCurrencyLabel(params: KeyboardParams): String {
-        val newLabel = processLabel(label, params)
+        val newLabel = KeyLabel.keyLabelToActualLabel(label, params)
         return when (code) {
             // consider currency codes for label
             KeyCode.CURRENCY_SLOT_1 -> "$newLabel|${params.mLocaleKeyboardInfos.currencyKey.first}"
@@ -313,6 +306,13 @@ sealed interface KeyData : AbstractKeyData {
         if (newLabel == KeyLabel.SHIFT && params.mId.isAlphabetKeyboard
                 && params.mId.mSubtype.hasExtraValue(Constants.Subtype.ExtraValue.NO_SHIFT_KEY)) {
             return null
+        }
+        // Replace shift with semicolon for Khipro layout (alphabet mode only)
+        if (newLabel == KeyLabel.SHIFT && params.mId.isAlphabetKeyboard) {
+            val combiningRules = params.mId.mSubtype.getExtraValueOf(Constants.Subtype.ExtraValue.COMBINING_RULES)
+            if (combiningRules == "bn_khipro") {
+                return copy(newCode = ';'.code, newLabel = ";", newPopup = SimplePopups(listOf("/")))
+            }
         }
         val newCode = code.checkAndConvertCode()
         val newLabelFlags = if (labelFlags == 0 && params.mId.isNumberLayout) {
@@ -347,11 +347,11 @@ sealed interface KeyData : AbstractKeyData {
         if (code in KeyCode.Spec.CURRENCY) {
             // special treatment necessary, because we may need to encode it in the label
             // (currency is a string, so might have more than 1 codepoint, e.g. for Nepal)
-            newCode = 0
+            newCode = KeyCode.UNSPECIFIED
             newLabel = getCurrencyLabel(params)
         } else {
-            newCode = processCode()
-            newLabel = processLabel(label, params)
+            newCode = code
+            newLabel = KeyLabel.keyLabelToActualLabel(label, params)
         }
         var newLabelFlags = labelFlags or additionalLabelFlags or getAdditionalLabelFlags(params)
         val newPopupKeys = popup.merge(getAdditionalPopupKeys(params))
@@ -362,11 +362,10 @@ sealed interface KeyData : AbstractKeyData {
             KeyType.PLACEHOLDER, KeyType.UNSPECIFIED -> Key.BACKGROUND_TYPE_EMPTY
             KeyType.NAVIGATION -> Key.BACKGROUND_TYPE_SPACEBAR
             KeyType.ENTER_EDITING -> Key.BACKGROUND_TYPE_ACTION
-            KeyType.LOCK -> getShiftBackground(params)
+            KeyType.LOCK -> Key.BACKGROUND_TYPE_FUNCTIONAL
             null -> getDefaultBackground(params)
         }
-        if (background == Key.BACKGROUND_TYPE_FUNCTIONAL
-            || background == Key.BACKGROUND_TYPE_STICKY_ON || background == Key.BACKGROUND_TYPE_STICKY_OFF)
+        if (background == Key.BACKGROUND_TYPE_FUNCTIONAL)
             newLabelFlags = newLabelFlags or Key.LABEL_FLAGS_FOLLOW_FUNCTIONAL_TEXT_COLOR
 
         return if (newCode == KeyCode.UNSPECIFIED || newCode == KeyCode.MULTIPLE_CODE_POINTS) {
@@ -394,6 +393,7 @@ sealed interface KeyData : AbstractKeyData {
                 )
             }
         } else {
+            // there might be a code encoded in the label, but it's ignored due to the explicit code
             Key.KeyParams(
                 newLabel.ifEmpty { StringUtils.newSingleCodePointString(newCode) },
                 newCode,
@@ -414,7 +414,7 @@ sealed interface KeyData : AbstractKeyData {
             KeyLabel.FN, KeyLabel.META, toolbarKeyStrings[ToolbarKey.EMOJI] -> return Key.BACKGROUND_TYPE_FUNCTIONAL
             KeyLabel.SPACE, KeyLabel.ZWNJ -> return Key.BACKGROUND_TYPE_SPACEBAR
             KeyLabel.ACTION -> return Key.BACKGROUND_TYPE_ACTION
-            KeyLabel.SHIFT -> return getShiftBackground(params)
+            KeyLabel.SHIFT -> return Key.BACKGROUND_TYPE_FUNCTIONAL
         }
         if (type == KeyType.PLACEHOLDER) return Key.BACKGROUND_TYPE_EMPTY
         if ((params.mId.mElementId == KeyboardId.ELEMENT_SYMBOLS || params.mId.mElementId == KeyboardId.ELEMENT_SYMBOLS_SHIFTED)
@@ -423,39 +423,10 @@ sealed interface KeyData : AbstractKeyData {
         return Key.BACKGROUND_TYPE_NORMAL
     }
 
-    // todo (later): possibly the whole stickyOn/Off stuff can be removed, currently it should only have a very slight effect in holo
-    //  but iirc there is some attempt in reviving the sticky thing, right?
-    private fun getShiftBackground(params: KeyboardParams): Int {
-        return if (params.mId.mElementId == KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCK_SHIFTED
-            || params.mId.mElementId == KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCKED) Key.BACKGROUND_TYPE_STICKY_ON
-        else Key.BACKGROUND_TYPE_STICKY_OFF
-    }
-
     private fun getDefaultWidth(params: KeyboardParams): Float {
         return if (label == KeyLabel.SPACE && params.mId.isAlphaOrSymbolKeyboard) -1f
         else if (type == KeyType.NUMERIC && params.mId.isNumberLayout) -1f
         else params.mDefaultKeyWidth
-    }
-
-    private fun processCode(): Int {
-        if (code != KeyCode.UNSPECIFIED) return code
-        return when (label) {
-            KeyLabel.SYMBOL_ALPHA -> KeyCode.SYMBOL_ALPHA
-            KeyLabel.SYMBOL -> KeyCode.SYMBOL
-            KeyLabel.ALPHA -> KeyCode.ALPHA
-            KeyLabel.CTRL -> KeyCode.CTRL
-            KeyLabel.ALT -> KeyCode.ALT
-            KeyLabel.FN -> KeyCode.FN
-            KeyLabel.META -> KeyCode.META
-            KeyLabel.TAB -> KeyCode.TAB
-            KeyLabel.ESCAPE -> KeyCode.ESCAPE
-            KeyLabel.TIMESTAMP -> KeyCode.TIMESTAMP
-            else -> {
-                if (label in toolbarKeyStrings.values) {
-                    getCodeForToolbarKey(ToolbarKey.valueOf(label.uppercase(Locale.US)))
-                } else code
-            }
-        }
     }
 
     // todo (later): add explanations / reasoning, often this is just taken from conversion from OpenBoard / AOSP layouts

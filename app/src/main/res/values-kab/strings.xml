@@ -84,7 +84,6 @@
     <string name="subtype_no_language">War tutlayt</string>
     <string name="user_dict_settings_add_dialog_title">Rnu ɣer umawal</string>
     <string name="more_colors">Sken ugar n yiniten</string>
-    <string name="use_system_language_to_select_input_method_subtypes">Seqdec tutlayin n unagraw</string>
     <string name="label_delete_key" tools:keep="@string/label_delete_key">Kkes</string>
     <string name="voice" tools:keep="@string/voice">Anekcam n taɣect</string>
     <string name="language_and_layouts_title">Tutlayin akked tneɣrufin</string>
@@ -99,7 +98,6 @@
     <string name="left" tools:keep="@string/left">Zelmaḍ</string>
     <string name="right" tools:keep="@string/right">Yeffus</string>
     <string name="down" tools:keep="@string/down">Adda</string>
-    <string name="last_update">Lqem aneggaru</string>
     <string name="load">Sali</string>
     <string name="settings_category_experimental">Armitan</string>
     <string name="label_wait_key" tools:keep="@string/label_wait_key">Ṛǧu</string>

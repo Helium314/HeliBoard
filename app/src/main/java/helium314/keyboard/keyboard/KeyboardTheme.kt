@@ -30,6 +30,7 @@ import helium314.keyboard.settings.SettingsActivity
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
 import java.util.EnumMap
+import androidx.core.graphics.toColorInt
 
 class KeyboardTheme // Note: The themeId should be aligned with "themeId" attribute of Keyboard style in values/themes-<style>.xml.
 private constructor(val themeId: Int, @JvmField val mStyleId: Int) {
@@ -166,10 +167,10 @@ private constructor(val themeId: Int, @JvmField val mStyleId: Int) {
                     themeStyle,
                     hasBorders,
                     ContextCompat.getColor(context, R.color.gesture_trail_color_lxx_dark),
-                    Color.parseColor("#263238"),
-                    Color.parseColor("#364248"),
-                    Color.parseColor("#2d393f"),
-                    Color.parseColor("#364248"),
+                    "#263238".toColorInt(),
+                    "#364248".toColorInt(),
+                    "#2d393f".toColorInt(),
+                    "#364248".toColorInt(),
                     ContextCompat.getColor(context, R.color.key_text_color_lxx_dark),
                     ContextCompat.getColor(context, R.color.key_hint_letter_color_lxx_dark),
                     keyboardBackground = backgroundImage
@@ -178,14 +179,14 @@ private constructor(val themeId: Int, @JvmField val mStyleId: Int) {
                     themeStyle,
                     hasBorders,
                     Color.WHITE,
-                    Color.parseColor("#282828"),
+                    "#282828".toColorInt(),
                     Color.WHITE, // drawable is transparent
-                    Color.parseColor("#444444"), // should be 222222, but the key drawable is already grey
+                    "#444444".toColorInt(), // should be 222222, but the key drawable is already grey
                     Color.WHITE,
                     Color.WHITE,
-                    Color.parseColor("#282828"),
+                    "#282828".toColorInt(),
                     Color.WHITE,
-                    Color.parseColor("#80FFFFFF"),
+                    "#80FFFFFF".toColorInt(),
                     keyboardBackground = backgroundImage
                 )
                 THEME_DARKER -> DefaultColors(
@@ -362,7 +363,7 @@ private constructor(val themeId: Int, @JvmField val mStyleId: Int) {
         fun writeUserColors(prefs: SharedPreferences, themeName: String, colors: List<ColorSetting>) {
             val key = Settings.PREF_USER_COLORS_PREFIX + themeName
             val value = Json.encodeToString(colors.filter { it.color != null || it.auto == false })
-            prefs.edit().putString(key, value).apply()
+            prefs.edit { putString(key, value) }
             KeyboardSwitcher.getInstance().setThemeNeedsReload()
         }
 
@@ -373,7 +374,7 @@ private constructor(val themeId: Int, @JvmField val mStyleId: Int) {
 
         fun writeUserMoreColors(prefs: SharedPreferences, themeName: String, value: Int) {
             val key = Settings.PREF_USER_MORE_COLORS_PREFIX + themeName
-            prefs.edit().putInt(key, value).apply()
+            prefs.edit { putInt(key, value) }
             KeyboardSwitcher.getInstance().setThemeNeedsReload()
         }
 
@@ -384,7 +385,7 @@ private constructor(val themeId: Int, @JvmField val mStyleId: Int) {
 
         fun writeUserAllColors(prefs: SharedPreferences, themeName: String, colorMap: EnumMap<ColorType, Int>) {
             val key = Settings.PREF_USER_ALL_COLORS_PREFIX + themeName
-            prefs.edit().putString(key, colorMap.map { "${it.key},${it.value}" }.joinToString(";")).apply()
+            prefs.edit { putString(key, colorMap.map { "${it.key},${it.value}" }.joinToString(";")) }
             KeyboardSwitcher.getInstance().setThemeNeedsReload()
         }
 

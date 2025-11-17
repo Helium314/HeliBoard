@@ -27,7 +27,7 @@ final class GestureTrailDrawingParams {
     public final float mTrailStartWidth;
     public final float mTrailEndWidth;
     public final float mTrailBodyRatio;
-    public boolean mTrailShadowEnabled;
+    public final boolean mTrailShadowEnabled;
     public final float mTrailShadowRatio;
     public final int mFadeoutStartDelay;
     public final int mFadeoutDuration;

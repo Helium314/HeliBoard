@@ -7,9 +7,10 @@
 package helium314.keyboard.compat
 
 import android.os.Build
+import android.text.InputType
 import android.view.inputmethod.EditorInfo
+import helium314.keyboard.latin.utils.Log
 import java.util.*
-import kotlin.collections.ArrayList
 
 object EditorInfoCompatUtils {
 
@@ -28,12 +29,27 @@ object EditorInfoCompatUtils {
         }
     }
 
-    @JvmStatic
-    fun getHintLocales(editorInfo: EditorInfo?): List<Locale>? {
-        if (editorInfo == null || Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
-            return null
+    fun debugLog(editorInfo: EditorInfo, tag: String) {
+        val format = HexFormat {
+            upperCase = true
+            number {
+                prefix = "0x"
+                minLength = 8
+            }
         }
-        val localeList = editorInfo.hintLocales ?: return null
+        Log.d(tag, "editorInfo: inputType: ${editorInfo.inputType.toHexString(format)}, imeOptions: ${editorInfo.imeOptions.toHexString(format)}")
+        val allCaps = (editorInfo.inputType and InputType.TYPE_TEXT_FLAG_CAP_CHARACTERS) != 0
+        val sentenceCaps = (editorInfo.inputType and InputType.TYPE_TEXT_FLAG_CAP_SENTENCES) != 0
+        val wordCaps = (editorInfo.inputType and InputType.TYPE_TEXT_FLAG_CAP_WORDS) != 0
+        Log.d(tag, ("All caps: $allCaps, sentence caps: $sentenceCaps, word caps: $wordCaps"))
+    }
+
+    @JvmStatic
+    fun getHintLocales(editorInfo: EditorInfo?): List<Locale> {
+        if (editorInfo == null || Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
+            return listOf()
+        }
+        val localeList = editorInfo.hintLocales ?: return listOf()
         val locales = ArrayList<Locale>(localeList.size())
         for (i in 0 until localeList.size()) {
             locales.add(localeList.get(i))

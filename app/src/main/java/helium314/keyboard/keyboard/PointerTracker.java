@@ -16,6 +16,7 @@ import android.view.MotionEvent;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import helium314.keyboard.event.HapticEvent;
 import helium314.keyboard.keyboard.internal.BatchInputArbiter;
 import helium314.keyboard.keyboard.internal.BatchInputArbiter.BatchInputArbiterListener;
 import helium314.keyboard.keyboard.internal.BogusMoveEventDetector;
@@ -87,12 +88,13 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
 
     public static void switchTo(DrawingProxy drawingProxy) {
         sDrawingProxy = drawingProxy;
-        Object[] thatArray = sProxyMap.get(drawingProxy); // if it's null, the view we're switching to should not exist
+        final Object[] thatArray = sProxyMap.get(drawingProxy); // if it's null, the view we're switching to should not exist
         sParams = (PointerTrackerParams) thatArray[0];
         sGestureStrokeRecognitionParams = (GestureStrokeRecognitionParams) thatArray[1];
         sGestureStrokeDrawingParams = (GestureStrokeDrawingParams) thatArray[2];
         sTypingTimeRecorder = (TypingTimeRecorder) thatArray[3];
         sTimerProxy = (TimerProxy) thatArray[4];
+        //noinspection unchecked
         sTrackers = (ArrayList<PointerTracker>) thatArray[5];
     }
 
@@ -126,7 +128,7 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
     // The position and time at which first down event occurred.
     private long mDownTime;
     @NonNull
-    private int[] mDownCoordinates = CoordinateUtils.newInstance();
+    private final int[] mDownCoordinates = CoordinateUtils.newInstance();
     private long mUpTime;
 
     // The current key where this pointer is.
@@ -267,8 +269,7 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
     }
 
     // Returns true if keyboard has been changed by this callback.
-    private boolean callListenerOnPressAndCheckKeyboardLayoutChange(final Key key,
-            final int repeatCount) {
+    private boolean callListenerOnPressAndCheckKeyboardLayoutChange(@NonNull final Key key, final int repeatCount) {
         // While gesture input is going on, this method should be a no-operation. But when gesture
         // input has been canceled, <code>sInGesture</code> and <code>mIsDetectingGesture</code>
         // are set to false. To keep this method is a no-operation,
@@ -279,16 +280,17 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
         final boolean ignoreModifierKey = mIsInDraggingFinger && key.isModifier();
         if (DEBUG_LISTENER) {
             Log.d(TAG, String.format(Locale.US, "[%d] onPress    : %s%s%s%s", mPointerId,
-                    (key == null ? "none" : Constants.printableCode(key.getCode())),
-                    ignoreModifierKey ? " ignoreModifier" : "",
-                    key.isEnabled() ? "" : " disabled",
-                    repeatCount > 0 ? " repeatCount=" + repeatCount : ""));
+                Constants.printableCode(key.getCode()),
+                ignoreModifierKey ? " ignoreModifier" : "",
+                key.isEnabled() ? "" : " disabled",
+                repeatCount > 0 ? " repeatCount=" + repeatCount : "")
+            );
         }
         if (ignoreModifierKey) {
             return false;
         }
         if (key.isEnabled()) {
-            sListener.onPressKey(key.getCode(), repeatCount, getActivePointerTrackerCount() == 1);
+            sListener.onPressKey(key.getCode(), repeatCount, getActivePointerTrackerCount() == 1, HapticEvent.KEY_PRESS);
             final boolean keyboardLayoutHasBeenChanged = mKeyboardLayoutHasBeenChanged;
             mKeyboardLayoutHasBeenChanged = false;
             sTimerProxy.startTypingStateTimer(key);
@@ -732,8 +734,10 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
 
     private void startKeySelectionByDraggingFinger(final Key key) {
         if (!mIsInDraggingFinger) {
-            final int code = key.getCode(); // todo: no sliding input yet for those keys, but it would be really useful
-            mIsInSlidingKeyInput = key.isModifier() && code != KeyCode.CTRL && code != KeyCode.ALT && code != KeyCode.FN && code != KeyCode.META;
+            // the meta lock keys stay enabled after sliding input, but should not
+            // (even without sliding input they actually behave the same... this is just about the graphics)
+            final int code = key.getCode();
+            mIsInSlidingKeyInput = key.isModifier() && code != KeyCode.CTRL_LOCK && code != KeyCode.ALT_LOCK && code != KeyCode.FN_LOCK && code != KeyCode.META_LOCK;
         }
         mIsInDraggingFinger = true;
     }
@@ -819,8 +823,7 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
         onMoveEventInternal(x, y, eventTime);
     }
 
-    private void processDraggingFingerInToNewKey(final Key newKey, final int x, final int y,
-            final long eventTime) {
+    private void processDraggingFingerInToNewKey(final Key newKey, final int x, final int y, final long eventTime) {
         // This onPress call may have changed keyboard layout. Those cases are detected
         // at {@link #setKeyboard}. In those cases, we should update key according
         // to the new keyboard layout.
@@ -1128,10 +1131,11 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
         if (key == null) {
             return;
         }
+        sListener.onLongPressKey(key.getCode());
         if (key.hasNoPanelAutoPopupKey()) {
             cancelKeyTracking();
             final int popupKeyCode = key.getPopupKeys()[0].mCode;
-            sListener.onPressKey(popupKeyCode, 0, true);
+            sListener.onPressKey(popupKeyCode, 0, true, HapticEvent.NO_HAPTICS);
             sListener.onCodeInput(popupKeyCode, Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE, false);
             sListener.onReleaseKey(popupKeyCode, false);
             return;
@@ -1157,10 +1161,6 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
         final PopupKeysPanel popupKeysPanel = sDrawingProxy.showPopupKeysKeyboard(key, this);
         if (popupKeysPanel == null) {
             return;
-        }
-        if (code == KeyCode.CTRL || code == KeyCode.ALT || code == KeyCode.FN || code == KeyCode.META) {
-            // avoid metaState getting stuck
-            sListener.onReleaseKey(code, false);
         }
         final int translatedX = popupKeysPanel.translateX(mLastX);
         final int translatedY = popupKeysPanel.translateY(mLastY);
@@ -1307,8 +1307,7 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
     }
 
     private void startKeyRepeatTimer(final int repeatCount) {
-        final int delay =
-                (repeatCount == 1) ? sParams.mKeyRepeatStartTimeout : sParams.mKeyRepeatInterval;
+        final int delay = (repeatCount == 1) ? sParams.mKeyRepeatStartTimeout : sParams.mKeyRepeatInterval;
         sTimerProxy.startKeyRepeatTimerOf(this, repeatCount, delay);
     }
 

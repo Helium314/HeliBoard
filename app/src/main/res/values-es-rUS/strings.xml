@@ -81,7 +81,6 @@
     <string name="show_setup_wizard_icon_summary">"Mostrar ícono de aplicación en el selector"</string>
     <string name="dictionary_category_title">"Diccionarios complementarios"</string>
     <string name="dictionary_available">"Diccionario disponible"</string>
-    <string name="last_update">"Última actualización"</string>
     <string name="settings">"Configuración"</string>
     <string name="delete">"Eliminar"</string>
     <string name="version_text">"Versión %1$s"</string>
@@ -127,7 +126,6 @@
     <string name="settings_category_input">Entrada</string>
     <string name="settings_category_additional_keys">Teclas adicionales</string>
     <string name="settings_category_correction">Correcciones</string>
-    <string name="use_system_language_to_select_input_method_subtypes">"Usar idiomas del sistema"</string>
     <string name="select_input_method">"Selecciona el método de entrada"</string>
     <string name="undo">"Deshacer"</string>
     <string name="redo">"Rehacer"</string>
@@ -222,7 +220,6 @@
     <string name="button_load_custom">Cargar archivo</string>
     <string name="file_read_error">No se puede leer el archivo</string>
     <string name="message_add_custom_layout">Seleccione un archivo en un formato compatible. La información sobre los formatos está disponible %s.</string>
-    <string name="button_copy_existing_layout">Copiar diseño existente</string>
     <string name="delete_layout">¿Borrar realmente el diseño personalizado %s?</string>
     <string name="layout_error">Error de diseño: %s</string>
     <string name="edit_layout">Pulse para editar el diseño sin procesar</string>
@@ -249,9 +246,7 @@
     <string name="dictionary_link_text">aquí</string>
     <string name="available_dictionary_experimental">%s (experimental)</string>
     <string name="dictionary_file_error">Error: El archivo seleccionado no es un archivo de diccionario válido</string>
-    <string name="dictionary_file_wrong_locale">El fichero seleccionado es para %1$s, pero se esperaba %2$s. ¿Seguir utilizándolo para %2$s?</string>
     <string name="dictionary_file_wrong_script">Error: script no compatible con este teclado</string>
-    <string name="dictionary_file_wrong_locale_ok">Seguir usando</string>
     <string name="dictionary_load_error">Error al cargar el archivo del diccionario</string>
     <string name="theme_style">Estilo</string>
     <string name="user_dict_word_already_present">Esta palabra ya está presente en el diccionario del usuario %s. Por favor, escriba otra.</string>

@@ -81,7 +81,6 @@
     <string name="show_setup_wizard_icon_summary">"აპის ხატულის ჩვენება გამშვებში"</string>
     <string name="dictionary_category_title">"დამატებითი ლექსიკონები"</string>
     <string name="dictionary_available">"ხელმისაწვდომია ლექსიკონი"</string>
-    <string name="last_update">"ბოლო განახლება"</string>
     <string name="settings">"პარამეტრები"</string>
     <string name="delete">"წაშლა"</string>
     <string name="version_text">ვერსია %1$s</string>
@@ -97,7 +96,6 @@
     <string name="auto_correction_confidence">ავტოკორექციის სანდოობა</string>
     <string name="enable_clipboard_history">ბუფერის ისტორიის ჩართვა</string>
     <string name="enable_clipboard_history_summary">თუ გამორთულია, ბუფერის ღილაკი ბუფერის შემცველობას ჩასვამს, თუ ის არსებობს</string>
-    <string name="use_system_language_to_select_input_method_subtypes">"სისტემის ენების გამოყენება"</string>
     <string name="select_input_method">"აირჩიეთ შეყვანის მეთოდი"</string>
     <string name="settings_screen_appearance">"იერსახე"</string>
     <string name="autospace_after_punctuation">პუნქტუაციის შემდეგ ადგილის ავტომტური გამოტოვება</string>

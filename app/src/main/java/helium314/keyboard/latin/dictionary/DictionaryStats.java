@@ -4,18 +4,17 @@
  * SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
  */
 
-package helium314.keyboard.latin;
+package helium314.keyboard.latin.dictionary;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import java.io.File;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Locale;
 
 public class DictionaryStats {
-    public static final int NOT_AN_ENTRY_COUNT = -1;
-
     public final Locale mLocale;
     public final String mDictType;
     public final String mDictFileName;
@@ -51,15 +50,15 @@ public class DictionaryStats {
 
     public String getFileSizeString() {
         BigDecimal bytes = new BigDecimal(mDictFileSize);
-        BigDecimal kb = bytes.divide(new BigDecimal(1024), 2, BigDecimal.ROUND_HALF_UP);
+        BigDecimal kb = bytes.divide(new BigDecimal(1024), 2, RoundingMode.HALF_UP);
         if (kb.longValue() == 0) {
-            return bytes.toString() + " bytes";
+            return bytes + " bytes";
         }
-        BigDecimal mb = kb.divide(new BigDecimal(1024), 2, BigDecimal.ROUND_HALF_UP);
+        BigDecimal mb = kb.divide(new BigDecimal(1024), 2, RoundingMode.HALF_UP);
         if (mb.longValue() == 0) {
-            return kb.toString() + " kb";
+            return kb + " kb";
         }
-        return mb.toString() + " Mb";
+        return mb + " Mb";
     }
 
     @Override

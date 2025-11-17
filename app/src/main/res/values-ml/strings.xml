@@ -81,7 +81,6 @@
     <string name="show_setup_wizard_icon_summary">"ലോഞ്ചറിൽ അപ്ലിക്കേഷൻ ഐക്കൺ പ്രദർശിപ്പിക്കുക"</string>
     <string name="dictionary_category_title">"ആഡ്-ഓൺ നിഘണ്ടുക്കൾ"</string>
     <string name="dictionary_available">"നിഘണ്ടു ലഭ്യമാണ്"</string>
-    <string name="last_update">"അവസാനം അപ്ഡേറ്റുചെയ്തത്"</string>
     <string name="settings">"ക്രമീകരണം"</string>
     <string name="delete">"ഇല്ലാതാക്കുക"</string>
     <string name="version_text">വേർഷൻ %1$s</string>
@@ -129,7 +128,6 @@
     <string name="settings_category_additional_keys">അധിക കീകൾ</string>
     <string name="settings_category_correction">തിരുത്തലുകൾ</string>
     <string name="auto_correction_confidence">യാന്ത്രിക-തിരുത്തൽ ആത്മവിശ്വാസം</string>
-    <string name="use_system_language_to_select_input_method_subtypes">"സിസ്റ്റം ഭാഷകൾ ഉപയോഗിക്കുക"</string>
     <string name="select_input_method">"ഇൻപുട്ട് രീതി തിരഞ്ഞെടുക്കുക"</string>
     <string name="undo">"പഴയപടിയാക്കുക"</string>
     <string name="redo">"വീണ്ടും ചെയ്യുക"</string>

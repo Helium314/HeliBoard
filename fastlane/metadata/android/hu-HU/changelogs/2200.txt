@@ -4,8 +4,5 @@
 * Beillesztés billentyű hozzáadása
 * Billentyűcsúsztatás viselkedésének javítása
 * Szóközön csúsztatás beállítás hozzáadása a számbillentyűzet váltásához
-* Vágólapjavaslat hozzáadása a nemrég másolt szöveghez
-* Kijelölés megszüntetése a kijelölő billentyűk ismételt megnyomásakor
-* Néhány szín finomhangolása a beállításokban Android 12+ esetén
-* Nyelvfüggő felugró billentyűk módosítása
-* Kisebb javítások és fejlesztések
+
+* És még több hibajavítás - további részletek a bejelentésben

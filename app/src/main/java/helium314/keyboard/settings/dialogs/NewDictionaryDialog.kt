@@ -18,9 +18,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import helium314.keyboard.compat.locale
 import helium314.keyboard.dictionarypack.DictionaryPackConstants
-import helium314.keyboard.latin.Dictionary
+import helium314.keyboard.latin.dictionary.Dictionary
 import helium314.keyboard.latin.R
-import helium314.keyboard.latin.ReadOnlyBinaryDictionary
+import helium314.keyboard.latin.dictionary.ReadOnlyBinaryDictionary
 import helium314.keyboard.latin.common.LocaleUtils.constructLocale
 import helium314.keyboard.latin.common.LocaleUtils.localizedDisplayName
 import helium314.keyboard.latin.makedict.DictionaryHeader
@@ -33,6 +33,7 @@ import helium314.keyboard.settings.WithSmallTitle
 import java.io.File
 import java.util.Locale
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalResources
 import helium314.keyboard.latin.RichInputMethodManager
 
 @Composable
@@ -86,7 +87,7 @@ fun NewDictionaryDialog(
                             selectedItem = locale,
                             onSelected = { locale = it },
                             items = locales
-                        ) { Text(it.localizedDisplayName(ctx.resources)) }
+                        ) { Text(it.localizedDisplayName(LocalResources.current)) }
                     }
                     if (locale.script() != dictLocale.script()) {
                         // whatever, still allow it if the user wants
@@ -98,7 +99,7 @@ fun NewDictionaryDialog(
                         )
                     }
                     if (dictFile.exists()) {
-                        val oldInfo = DictionaryInfoUtils.getDictionaryFileHeaderOrNull(dictFile, 0, dictFile.length())?.info(LocalConfiguration.current.locale())
+                        val oldInfo = DictionaryInfoUtils.getDictionaryFileHeaderOrNull(dictFile)?.info(LocalConfiguration.current.locale())
                         HorizontalDivider()
                         Text(
                             stringResource(R.string.replace_dictionary_message, type, oldInfo ?: "(no info)", info),
@@ -113,7 +114,7 @@ fun NewDictionaryDialog(
 }
 
 private fun checkDict(file: File): Pair<Int?, DictionaryHeader?> {
-    val newHeader = DictionaryInfoUtils.getDictionaryFileHeaderOrNull(file, 0, file.length())
+    val newHeader = DictionaryInfoUtils.getDictionaryFileHeaderOrNull(file)
         ?: return R.string.dictionary_file_error to null
 
     val locale = newHeader.mLocaleString.constructLocale()

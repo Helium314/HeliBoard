@@ -42,8 +42,7 @@ public final class WeightedString {
     @Override
     public boolean equals(Object o) {
         if (o == this) return true;
-        if (!(o instanceof WeightedString)) return false;
-        final WeightedString w = (WeightedString)o;
+        if (!(o instanceof WeightedString w)) return false;
         return mWord.equals(w.mWord) && mProbabilityInfo.equals(w.mProbabilityInfo);
     }
 }

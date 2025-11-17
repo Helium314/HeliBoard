@@ -81,7 +81,6 @@
     <string name="show_setup_wizard_icon_summary">"Başlatma panelində tətbiq ikonasını göstər"</string>
     <string name="dictionary_category_title">"Əlavə lüğətlər"</string>
     <string name="dictionary_available">"Lüğət mövcuddur"</string>
-    <string name="last_update">"Son yeniləmə"</string>
     <string name="settings">"Ayarlar"</string>
     <string name="delete">"Sil"</string>
     <string name="version_text">"%1$s nömrəli versiya"</string>
@@ -97,7 +96,6 @@
     <string name="settings_category_clipboard_history">Pano keçmişi</string>
     <string name="spell_checker_service_name">HeliBoard Yazı Yoxlayıcısı</string>
     <string name="android_spell_checker_settings">HeliBoard Yazı Yoxlayıcısı Parametrləri</string>
-    <string name="use_system_language_to_select_input_method_subtypes">"Sistem dillərini istifadə edin"</string>
     <string name="select_input_method">"Daxiletmə metodunu seçin"</string>
     <string name="settings_screen_appearance">"Görünüş"</string>
     <string name="ime_settings">HeliBoard Tənzimləmələri</string>

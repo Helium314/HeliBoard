@@ -1,0 +1,3 @@
+- Összeomlási javítások
+- A 3.4-es verzióban bevezetett hibás automatikus-javítás javítása
+- Rezgés a szóköz lenyomására és törlés csúsztatással, ha engedélyezve van

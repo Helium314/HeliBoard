@@ -81,7 +81,6 @@
     <string name="show_setup_wizard_icon_summary">"ランチャーにアプリアイコンを表示します"</string>
     <string name="dictionary_category_title">"アドオン辞書"</string>
     <string name="dictionary_available">"辞書を利用できます"</string>
-    <string name="last_update">"最終更新"</string>
     <string name="settings">"設定"</string>
     <string name="delete">"削除"</string>
     <string name="version_text">バージョン %s</string>
@@ -94,7 +93,6 @@
     <string name="user_dict_settings_all_languages">"すべての言語用"</string>
     <string name="user_dict_settings_more_languages">"その他の言語…"</string>
     <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
-    <string name="use_system_language_to_select_input_method_subtypes">"システム言語を使用"</string>
     <string name="select_input_method">"入力方法の選択"</string>
     <string name="undo">"元に戻す"</string>
     <string name="redo">"やり直し"</string>

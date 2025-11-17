@@ -29,7 +29,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
 import helium314.keyboard.compat.locale
-import helium314.keyboard.latin.Dictionary
+import helium314.keyboard.latin.dictionary.Dictionary
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.common.LocaleUtils.localizedDisplayName
 import helium314.keyboard.latin.utils.DictionaryInfoUtils
@@ -43,6 +43,7 @@ import helium314.keyboard.settings.screens.getUserAndInternalDictionaries
 import java.io.File
 import java.util.Locale
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalResources
 
 @Composable
 fun DictionaryDialog(
@@ -59,7 +60,7 @@ fun DictionaryDialog(
         onConfirmed = {},
         confirmButtonText = null,
         cancelButtonText = stringResource(R.string.dialog_close),
-        title = { Text(locale.localizedDisplayName(ctx.resources)) },
+        title = { Text(locale.localizedDisplayName(LocalResources.current)) },
         content = {
             val state = rememberScrollState()
             Column(Modifier.verticalScroll(state)) {

@@ -21,10 +21,14 @@
     <string name="suggest_emojis">Suggest emojis</string>
     <!-- Description for option to suggest emojis -->
     <string name="suggest_emojis_summary">Use emoji dictionary in normal suggestions</string>
+    <!-- Option to perform inline emoji search -->
+    <string name="inline_emoji_search">Inline emoji search</string>
+    <!-- Description for option to perform inline emoji search -->
+    <string name="inline_emoji_search_summary">Suggest only emojis when a word is preceded by a colon</string>
+    <!-- Warning text for when enabling inline emoji search with no emoji dictionary. The %s will be replaced by dictionary_link_text. -->
+    <string name="emoji_dictionary_required">An emoji dictionary is required for this feature to work. Dictionaries in .dict format can be downloaded %s.</string>
     <!-- Option to show emoji descriptions on long press -->
     <string name="show_emoji_descriptions">Show emoji description on long press</string>
-    <!-- Description for option to show emoji descriptions on long press -->
-    <string name="show_emoji_descriptions_summary">Requires an emoji dictionary</string>
     <!-- Option to control whether or not to show a popup with a larger font on each key press. -->
     <string name="popup_on_keypress">Popup on keypress</string>
     <!-- Settings screen title for preferences-->
@@ -59,8 +63,6 @@
     <string name="enable_split_keyboard_landscape">Enable split keyboard (landscape)</string>
     <!--  Option for setting distance for split keyboard in portrait mode -->
     <string name="split_spacer_scale">Split distance</string>
-    <!--  Option for setting distance for split keyboard in landscape mode, todo: remove after merge -->
-    <string name="split_spacer_scale_landscape">Split distance (landscape)</string>
     <!-- Option name for including other IMEs in the language key switch list -->
     <string name="language_switch_key_switch_input_method">Switch to other input methods</string>
     <!-- Option name for switching language / subtype only -->
@@ -142,7 +144,7 @@
     <!-- Option to undo auto correction with backspace -->
     <string name="backspace_reverts_autocorrect">Backspace reverts autocorrect</string>
     <!-- Option to disable auto correction. -->
-    <string name="auto_correction_threshold_mode_off">Off</string>
+    <string name="auto_correction_threshold_mode_off">Off</string> <!-- todo: use it or remove it -->
     <!-- Option to suggest auto correction suggestions modestly. Auto-corrects only to a word which has small edit distance from typed word. -->
     <string name="auto_correction_threshold_mode_modest">Modest</string>
     <!-- Option to suggest auto correction suggestions aggressively. Auto-corrects to a word which has even large edit distance from typed word. -->
@@ -193,8 +195,10 @@
     <string name="enable_clipboard_history">Enable clipboard history</string>
     <!-- Description for enabling/disabling clipboard history mentioning that if disabled, clipboard content is pasted -->
     <string name="enable_clipboard_history_summary">If disabled, clipboard key will paste clipboard content if any</string>
-    <!-- Preferences item for enabling clipboard history -->
+    <!-- Preferences item for controlling clipboard history retention time -->
     <string name="clipboard_history_retention_time">History retention time</string>
+    <!-- Preferences item for showing pinned clipboard items first -->
+    <string name="clipboard_history_pinned_first">Show pinned items on top</string>
     <!-- Preferences item for enabling swipe deletion -->
     <string name="delete_swipe">Delete swipe</string>
     <!-- Description for "delete_swipe" option. -->
@@ -278,6 +282,8 @@
     <string name="localized_number_row_summary">Prefer localized over latin numbers</string>
     <!-- Title of the setting to enable number row hints -->
     <string name="number_row_hints">Show hints on number row</string>
+    <!-- Title of the setting to save subtype per app -->
+    <string name="save_subtype_per_app">Remember language per app</string>
     <!-- Title of the setting to show key hints -->
     <string name="show_hints">Show key hints</string>
     <!-- Description of the settings to show hints -->
@@ -301,13 +307,13 @@
     <!-- Title of the setting to set the toolbar mode -->
     <string name="toolbar_mode">Toolbar mode</string>
     <!-- Option to set the toolbar mode to show an expandable toolbar -->
-    <string name="toolbar_mode_expandable">Toolbar keys and suggestions</string>
+    <string name="toolbar_mode_expandable" tools:keep="@string/toolbar_mode_expandable">Toolbar keys and suggestions</string>
     <!-- Option to set the toolbar mode to show the toolbar keys only -->
-    <string name="toolbar_mode_toolbar_keys">Toolbar keys only</string>
+    <string name="toolbar_mode_toolbar_keys" tools:keep="@string/toolbar_mode_toolbar_keys">Toolbar keys only</string>
     <!-- Option to set the toolbar mode to show the suggestions strip only -->
-    <string name="toolbar_mode_suggestion_strip">Suggestions only</string>
+    <string name="toolbar_mode_suggestion_strip" tools:keep="@string/toolbar_mode_suggestion_strip">Suggestions only</string>
     <!-- Option to set the toolbar mode to hidden -->
-    <string name="toolbar_mode_hidden">Hidden</string>
+    <string name="toolbar_mode_hidden" tools:keep="@string/toolbar_mode_hidden">Hidden</string>
     <!-- Option to hide clipboard and emoji toolbars when main toolbar is hidden -->
     <string name="toolbar_hiding_global">Hide clipboard and emoji toolbars too</string>
     <!-- Title of the setting to set toolbar keys -->
@@ -369,13 +375,9 @@
     <string name="prefs_keyboard_height_scale">Keyboard height scale</string>
     <!-- Title of the setting for setting bottom padding height -->
     <string name="prefs_bottom_padding_scale">Bottom padding scale</string>
-    <!-- Title of the setting for setting bottom padding height in landscape mode, todo: remove after merge -->
-    <string name="prefs_bottom_padding_scale_landscape">Bottom padding scale (landscape)</string>
-    <!-- Title of the setting for adjusting font size on the keyboard -->
     <!-- Title of the setting for setting side padding -->
     <string name="prefs_side_padding_scale">Side padding scale</string>
-    <!-- Title of the setting for setting side padding in landscape mode, todo: remove after merge -->
-    <string name="prefs_side_padding_scale_landscape">Side padding scale (landscape)</string>
+    <!-- Title of the setting for adjusting font size on the keyboard -->
     <string name="prefs_font_scale">Keyboard font scale</string>
     <!-- Title of the setting for adjusting font size in emoji view -->
     <string name="prefs_emoji_font_scale">Emoji view font scale</string>
@@ -410,7 +412,10 @@
     <string name="subtype_dag">Dagbani</string>
     <!-- Description for Sesotho (https://en.wikipedia.org/wiki/Sesotho_language) keyboard subtype -->
     <string name="subtype_st">Sesotho</string>
+    <!-- Name for Dargwa (https://en.wikipedia.org/wiki/Dargwa_language) keyboard subtype -->
     <string name="subtype_dru">Dargwa (Urakhi)</string>
+    <!-- Name for Eastern Mari (https://en.wikipedia.org/wiki/Meadow_Mari_language) keyboard subtype -->
+    <string name="subtype_mhr">Mari (Eastern)</string>
     <!-- Description for a generic language / layout combination. %1$s is the language, %2$s is the layout -->
     <string name="subtype_with_layout_generic">%1$s (%2$s)</string>
     <!-- Description for "LANGUAGE_NAME" (Extended) keyboard subtype -->
@@ -423,6 +428,8 @@
     <string name="subtype_probhat_bn_BD">%s (Probhat)</string>
     <!-- Description for "LANGUAGE_NAME" (Baishakhi) keyboard subtype with explicit keyboard layout -->
     <string name="subtype_baishakhi_bn_IN">%s (Baishakhi)</string>
+    <!-- Description for "LANGUAGE_NAME" (Khipro) keyboard subtype with explicit keyboard layout -->
+    <string name="subtype_khipro_bn">%s (Khipro)</string>
     <!-- Description for "LANGUAGE_NAME" (Compact) keyboard subtype with explicit keyboard layout -->
     <string name="subtype_generic_compact">%s (Compact)</string>
     <!-- Description for "LANGUAGE_NAME" (Phonetic) keyboard subtype with explicit keyboard layout -->
@@ -463,8 +470,6 @@ language, hence "No language". -->
     <string name="copy_to_clipboard">Copy to Clipboard</string>
     <!-- Error message when file cannot be read -->
     <string name="file_read_error">Cannot read file</string>
-    <!-- (currently not used) Button text for copying an existing layout -->
-    <string name="button_copy_existing_layout">Copy existing layout</string> <!-- todo: use it or remove it -->
     <!-- Message when deleting a layout -->
     <string name="delete_layout">Really delete custom layout %s?</string>
     <!-- Message when layout to be deleted is in use -->
@@ -505,8 +510,12 @@ language, hence "No language". -->
     <string name="layout_number_row_basic" tools:keep="@string/layout_number_row_basic">Number row (basic)</string>
     <!-- Name for bottom row layout in emoji view -->
     <string name="layout_emoji_bottom_row" tools:keep="@string/layout_emoji_bottom_row">Emoji bottom row</string>
+    <!-- Name for bottom row layout with action key in emoji view -->
+    <string name="layout_emoji_bottom_row_with_action" tools:keep="@string/layout_emoji_bottom_row_with_action">Emoji bottom row with action key</string>
     <!-- Name for bottom row layout in clipboard view -->
     <string name="layout_clip_bottom_row" tools:keep="@string/layout_clip_bottom_row">Clipboard bottom row</string>
+    <!-- Name for bottom row layout with action key in clipboard view -->
+    <string name="layout_clip_bottom_row_with_action" tools:keep="@string/layout_clip_bottom_row_with_action">Clipboard bottom row with action key</string>
     <!-- Title for customizing background image -->
     <string name="customize_background_image">Set background image</string>
     <!-- Title for customizing background image in landscape mode -->
@@ -614,24 +623,19 @@ New dictionary:
     <string name="available_dictionary_experimental">"%s (experimental)"</string>
     <!-- Text shown when dictionary file could not be read -->
     <string name="dictionary_file_error">"Error: Selected file is not a valid dictionary file"</string>
-    <!-- (currently not used) Text shown when dictionary file is not for the selected locale -->
-    <string name="dictionary_file_wrong_locale">"The selected file is for %1$s, but %2$s was expected. Still use it for %2$s?"</string> <!-- todo: use it or remove it -->
     <!-- Text shown when dictionary file is has incompatible script with the keyboard -->
     <string name="dictionary_file_wrong_script">"Error: script not compatible with this keyboard"</string>
-    <!-- (currently not used) Button text for confirm / yes to the dictionary_file_wrong_locale message (above) -->
-    <string name="dictionary_file_wrong_locale_ok">"Still use"</string> <!-- todo: use it or remove it -->
     <!-- Text shown on other errors when loading dictionary file -->
     <string name="dictionary_load_error">"Error loading dictionary file"</string>
     <!-- Message about some dictionary indicating it can be downloaded, but hasn't been yet -->
     <string name="dictionary_available">Dictionary available</string>
     <!-- Hint to tell when the data was last updated. Usage : "Last updated [date]", may contain a : or so. -->
-    <string name="last_update">Last updated</string>
     <!-- Action to delete (a file) -->
     <string name="delete">Delete</string>
     <!-- Text for application version -->
     <string name="version_text">Version %s</string>
     <!-- User dictionary settings. The title of the dialog to add a new word to the user dictionary. -->
-    <string name="user_dict_settings_add_dialog_title">Add to dictionary</string>
+    <string name="user_dict_settings_add_dialog_title">Add to dictionary</string> <!-- todo: use it or remove it -->
     <!-- User dictionary settings. Label to put before the shortcut field (once a shortcut is registered, the user can type the shortcut and get the word it points to in the suggestions). -->
     <string name="user_dict_settings_add_shortcut_option_name">Shortcut:</string>
     <!-- User dictionary settings. Label to put before the weight field -->
@@ -639,7 +643,7 @@ New dictionary:
     <!-- User dictionary settings. Label to put before the language field. -->
     <string name="user_dict_settings_add_locale_option_name">Language:</string>
     <!-- User dictionary settings. Hint for the text field to type the word to add to the user dictionary. -->
-    <string name="user_dict_settings_add_word_hint">Type a word</string>
+    <string name="user_dict_settings_add_word_hint">Type a word</string> <!-- todo: use it or remove it -->
     <!-- User dictionary settings. Hint for the text field to type the optional shortcut to add to the user dictionary. -->
     <string name="user_dict_settings_add_shortcut_hint">Optional shortcut</string>
     <!-- User dictionary settings. The title of the dialog to edit an existing word in the user dictionary. -->
@@ -647,10 +651,10 @@ New dictionary:
     <!-- User dictionary settings. The list item to choose to insert a word into the user dictionary for all languages -->
     <string name="user_dict_settings_all_languages">For all languages</string>
     <!-- User dictionary settings. The text to show for the option that shows the entire list of supported locales to choose one -->
-    <string name="user_dict_settings_more_languages">More languages…</string>
+    <string name="user_dict_settings_more_languages">More languages…</string> <!-- todo: use it or remove it -->
     <!-- User dictionary settings. Index of the user dictionary
          This resource is copied from packages/apps/Settings/res/values/strings.xml -->
-    <string name="user_dict_fast_scroll_alphabet">\u0020ABCDEFGHIJKLMNOPQRSTUVWXYZ</string>
+    <string name="user_dict_fast_scroll_alphabet">\u0020ABCDEFGHIJKLMNOPQRSTUVWXYZ</string> <!-- todo: use it or remove it -->
     <!-- Message in user dictionary dialog -->
     <string name="user_dict_word_already_present">This word is already present in the %s user dictionary. Please type another one.</string>
     <!-- User dictionary settings. Text button to add a word -->
@@ -765,8 +769,6 @@ New dictionary:
     <string name="gnu_gpl">GNU General Public License v3.0</string>
     <!-- Button to close a dialog where neither "ok" nor "cancel" are suitable. Preferably 10 characters or less. -->
     <string name="dialog_close">Close</string>
-    <!-- (currently not used) Preference for selecting system locales -->
-    <string name="use_system_language_to_select_input_method_subtypes">"Use system languages"</string> <!--todo: use it (again) or remove it -->
     <!-- Hint for users to tap the languages for settings -->
     <string name="text_tap_languages">Tap the language to open settings</string>
     <!-- Title of internal InputMethodPicker, strings should be same as the ones from Android system -->

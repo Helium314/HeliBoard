@@ -82,7 +82,6 @@
     <string name="show_setup_wizard_icon_summary">"Εμφάνιση εικονιδίου εφαρμογής στο πρόγραμμα εκκίνησης"</string>
     <string name="dictionary_category_title">"Πρόσθετα λεξικά"</string>
     <string name="dictionary_available">"Διαθέσιμο λεξικό"</string>
-    <string name="last_update">"Τελευταία ενημέρωση"</string>
     <string name="settings">"Ρυθμίσεις"</string>
     <string name="delete">"Διαγραφή"</string>
     <string name="version_text">"Έκδοση %1$s"</string>
@@ -129,7 +128,6 @@
     <string name="prefs_force_incognito_mode_summary">Απενεργοποιήστε την εκμάθηση νέων λέξεων</string>
     <string name="show_hints">Εμφάνιση βασικών υποδείξεων</string>
     <string name="show_hints_summary">Εμφάνιση υποδείξεων με παρατεταμένο πάτημα</string>
-    <string name="use_system_language_to_select_input_method_subtypes">"Χρήση γλωσσών συστήματος"</string>
     <string name="auto_correction_confidence">Εμπιστοσύνη αυτόματης διόρθωσης</string>
     <string name="select_input_method">"Επιλογή μεθόδου εισόδου"</string>
     <string name="undo">"Αναίρεση"</string>

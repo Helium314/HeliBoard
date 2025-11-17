@@ -39,6 +39,7 @@ import helium314.keyboard.settings.Theme
 import helium314.keyboard.settings.WithSmallTitle
 import helium314.keyboard.settings.dialogs.ThreeButtonAlertDialog
 import helium314.keyboard.settings.previewDark
+import androidx.core.content.edit
 
 // too specialized for using a more generic dialog
 // actual key for each setting is baseKey with one _true/_false appended per dimension (need to keep order!)
@@ -124,9 +125,9 @@ private fun MultiSliderDialog(
                         if (!done.contains(variant))
                             done[variant] = {
                                 if (sliderPosition == defaultValues[i])
-                                    prefs.edit().remove(key).apply()
+                                    prefs.edit { remove(key) }
                                 else
-                                    prefs.edit().putFloat(key, sliderPosition).apply()
+                                    prefs.edit { putFloat(key, sliderPosition) }
                             }
                         val forbiddenDimensions = dimensions.filterIndexed { index, _ -> !checked[index] }
                         val visible = variant.split(SPLIT).none { it in forbiddenDimensions }
