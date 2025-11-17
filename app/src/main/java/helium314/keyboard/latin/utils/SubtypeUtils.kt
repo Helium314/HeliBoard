@@ -183,7 +183,7 @@ class SubtypeState(private val switchToSubtype: (InputMethodSubtype?) -> Unit) {
 
     fun switchSubtype(richImm: RichInputMethodManager) {
         val currentSubtype = richImm.currentSubtype.rawSubtype
-        val lastActiveSubtype: InputMethodSubtype = lastActiveSubtype!!
+        val lastActiveSubtype = lastActiveSubtype
         val oldCurrentSubtypeHasBeenUsed = currentSubtypeHasBeenUsed
         if (oldCurrentSubtypeHasBeenUsed) {
             this@SubtypeState.lastActiveSubtype = currentSubtype
