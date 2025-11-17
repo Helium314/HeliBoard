@@ -21,7 +21,7 @@ open class PopupSet<T : AbstractKeyData>(
         if (main == null && relevant == null) return null
         val popupKeys = mutableListOf<String>()
         main?.compute(params)?.getPopupLabel(params)?.let { popupKeys.add(it) }
-        relevant?.let { popupKeys.addAll(it.mapNotNull { it.compute(params)?.getPopupLabel(params) }) }
+        relevant?.let { keys -> popupKeys.addAll(keys.mapNotNull { it.compute(params)?.getPopupLabel(params) }) }
         if (popupKeys.isEmpty()) return null
         return popupKeys
     }
@@ -49,6 +49,6 @@ open class PopupSet<T : AbstractKeyData>(
 }
 
 class SimplePopups(val popupKeys: Collection<String>?) :  PopupSet<AbstractKeyData>() {
-    override fun getPopupKeyLabels(params: KeyboardParams) = popupKeys?.map { KeyData.processLabel(it, params) }
+    override fun getPopupKeyLabels(params: KeyboardParams) = popupKeys?.map { KeyLabel.keyLabelToActualLabel(it, params) }
     override fun isEmpty(): Boolean = popupKeys.isNullOrEmpty()
 }

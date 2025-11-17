@@ -103,7 +103,7 @@ fun SettingsNavHost(
             AppearanceScreen(onClickBack = ::goBack)
         }
         composable(SettingsDestination.PersonalDictionary + "{locale}") {
-            val locale = it.arguments?.getString("locale")?.takeIf { it.isNotBlank() }?.constructLocale()
+            val locale = it.arguments?.getString("locale")?.takeIf { loc -> loc.isNotBlank() }?.constructLocale()
             PersonalDictionaryScreen(
                 onClickBack = ::goBack,
                 locale = locale

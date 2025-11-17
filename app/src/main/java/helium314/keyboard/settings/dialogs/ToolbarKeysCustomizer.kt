@@ -37,6 +37,7 @@ import helium314.keyboard.settings.Theme
 import helium314.keyboard.settings.initPreview
 import helium314.keyboard.settings.previewDark
 import helium314.keyboard.settings.screens.GetIcon
+import androidx.core.content.edit
 
 @Composable
 fun ToolbarKeysCustomizer(
@@ -82,7 +83,7 @@ fun ToolbarKeysCustomizer(
             onConfirmed = {
                 showDeletePrefConfirmDialog = false
                 onDismissRequest()
-                prefs.edit().remove(key).apply()
+                prefs.edit { remove(key) }
             },
             content = { Text(stringResource(R.string.customize_toolbar_key_code_reset_message)) }
         )

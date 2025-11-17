@@ -8,6 +8,7 @@ import helium314.keyboard.latin.common.LocaleUtils.constructLocale
 import helium314.keyboard.latin.utils.getKnownDictionariesForLocale
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
+import java.io.File
 import java.net.HttpURLConnection
 import java.net.URL
 import kotlin.test.Test
@@ -32,6 +33,35 @@ class XLinkTest { // Without the X, SubtypeTests fail with ClassCastException. W
         }
     }
 
+    @Test fun readmeLinks() {
+        val file = File("../README.md")
+        val linkRegex = "(?:https?:\\/\\/.)?(?:www\\.)?[-a-zA-Z0-9@%._\\+~#=]{2,256}\\.[a-z]{2,6}\\b(?:[-a-zA-Z0-9@:%_\\+.~#?&\\/\\/=]*)".toRegex()
+        val links = linkRegex.findAll(file.readText())
+        links.forEach {
+            if (it.value.contains("heli", true))
+                checkLink(it.value.trim('.'))
+        }
+    }
+
+    @Test fun layoutsLinks() {
+        val file = File("../layouts.md")
+        val linkRegex = "(?:https?:\\/\\/.)?(?:www\\.)?[-a-zA-Z0-9@%._\\+~#=]{2,256}\\.[a-z]{2,6}\\b(?:[-a-zA-Z0-9@:%_\\+.~#?&\\/\\/=]*)".toRegex()
+        val links = linkRegex.findAll(file.readText())
+        links.forEach {
+            if (it.value.contains("heli", true))
+                checkLink(it.value)
+        }
+    }
+
+    @Test fun layoutsLinksInternal() {
+        val file = File("../layouts.md")
+        val internalLinkRegex = "app/src/\\b(?:[-a-zA-Z0-9@:%_\\+.~#?&\\/\\/=]*)".toRegex()
+        val links = internalLinkRegex.findAll(file.readText())
+        links.forEach {
+            checkLink(it.value.replace("app/src", Links.GITHUB + "/blob/main/app/src"))
+        }
+    }
+
     @Test fun otherLinks() {
         listOf(Links.LICENSE, Links.LAYOUT_WIKI_URL, Links.WIKI_URL, Links.CUSTOM_LAYOUTS, Links.CUSTOM_COLORS).forEach {
             checkLink(it)
@@ -39,10 +69,21 @@ class XLinkTest { // Without the X, SubtypeTests fail with ClassCastException. W
     }
 
     private fun checkLink(link: String) {
+        if (link.contains("wiki/"))
+            return checkWikiLink(link)
         println("checking $link")
         val url = URL(link)
         val connection = url.openConnection() as HttpURLConnection
         connection.requestMethod = "HEAD"
         assertEquals(200, connection.responseCode)
+    }
+
+    private fun checkWikiLink(link: String) {
+        println("checking wiki $link")
+        val url = URL(link)
+        val connection = url.openConnection() as HttpURLConnection
+        assertEquals(200, connection.responseCode)
+        val text = connection.getInputStream().reader().readText()
+        assert("Create new page" !in text)
     }
 }

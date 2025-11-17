@@ -22,6 +22,7 @@ import helium314.keyboard.latin.utils.prefs
 import helium314.keyboard.settings.Setting
 import helium314.keyboard.settings.dialogs.ReorderDialog
 import helium314.keyboard.settings.screens.GetIcon
+import androidx.core.content.edit
 
 @Composable
 fun ReorderSwitchPreference(setting: Setting, default: String) {
@@ -41,11 +42,11 @@ fun ReorderSwitchPreference(setting: Setting, default: String) {
         ReorderDialog(
             onConfirmed = { reorderedItems ->
                 val value = reorderedItems.joinToString(Separators.ENTRY) { it.name + Separators.KV + it.state }
-                prefs.edit().putString(setting.key, value).apply()
+                prefs.edit { putString(setting.key, value) }
                 KeyboardSwitcher.getInstance().setThemeNeedsReload()
             },
             onDismissRequest = { showDialog = false },
-            onNeutral = { prefs.edit().remove(setting.key).apply() },
+            onNeutral = { prefs.edit { remove(setting.key)} },
             neutralButtonText = if (prefs.contains(setting.key)) stringResource(R.string.button_default) else null,
             items = items,
             title = { Text(setting.title) },

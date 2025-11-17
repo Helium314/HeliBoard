@@ -81,7 +81,6 @@
     <string name="show_setup_wizard_icon_summary">"Prikaz ikone aplikacije v zaganjalniku"</string>
     <string name="dictionary_category_title">"Dodatni slovarji"</string>
     <string name="dictionary_available">"Slovar je na voljo"</string>
-    <string name="last_update">"Nazadnje posodobljeno"</string>
     <string name="settings">"Nastavitve"</string>
     <string name="delete">"Izbriši"</string>
     <string name="version_text">"Različica %1$s"</string>
@@ -94,7 +93,6 @@
     <string name="user_dict_settings_all_languages">"Za vse jezike"</string>
     <string name="user_dict_settings_more_languages">"Več jezikov …"</string>
     <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
-    <string name="use_system_language_to_select_input_method_subtypes">"Uporaba sistemskih jezikov"</string>
     <string name="select_input_method">"Izberite način vnosa"</string>
     <string name="auto_correction_confidence">Interval zaupanja samodejnih popravkov</string>
     <string name="delete_swipe_summary">Podrsaj z vračalke, da izbereš in izbrišeš večje dele besedila naenkrat</string>

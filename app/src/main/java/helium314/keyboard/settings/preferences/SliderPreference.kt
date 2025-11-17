@@ -14,8 +14,9 @@ import helium314.keyboard.latin.utils.getActivity
 import helium314.keyboard.latin.utils.prefs
 import helium314.keyboard.settings.SettingsActivity
 import helium314.keyboard.settings.dialogs.SliderDialog
-import kotlin.math.roundToInt
+import androidx.core.content.edit
 
+@Suppress("UNCHECKED_CAST") // it's sort of checked
 @Composable
 /** Slider preference for Int or Float (weird casting stuff, but should be fine) */
 fun <T: Number> SliderPreference(
@@ -50,10 +51,10 @@ fun <T: Number> SliderPreference(
             onDismissRequest = { showDialog = false },
             onDone = {
                 if (default is Int) {
-                    prefs.edit().putInt(key, it.toInt()).apply()
+                    prefs.edit { putInt(key, it.toInt()) }
                     onConfirmed(it.toInt() as T)
                 } else {
-                    prefs.edit().putFloat(key, it).apply()
+                    prefs.edit { putFloat(key, it) }
                     onConfirmed(it as T)
                 }
             },
@@ -65,7 +66,7 @@ fun <T: Number> SliderPreference(
             },
             onValueChanged = onValueChanged,
             showDefault = true,
-            onDefault = { prefs.edit().remove(key).apply(); onConfirmed(default) },
+            onDefault = { prefs.edit { remove(key) }; onConfirmed(default) },
             intermediateSteps = stepSize?.let {
                 // this is not nice, but slider wants it like this...
                 ((range.endInclusive - range.start) / it - 1).toInt()

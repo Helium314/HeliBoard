@@ -271,7 +271,7 @@ class SuggestTest {
     }
 
     @Test fun `quotes are added to suggestions when needed`() {
-        val result = Suggest.Companion.getTransformedSuggestedWordInfo(suggestion("word", 1, Locale.ENGLISH, true),
+        val result = Suggest.getTransformedSuggestedWordInfo(suggestion("word", 1, Locale.ENGLISH, true),
             Locale.ENGLISH, false, false, 1)
         assertEquals("word'", result.mWord)
     }

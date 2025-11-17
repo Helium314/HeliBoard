@@ -81,7 +81,6 @@
     <string name="show_setup_wizard_icon_summary">Afișează pictograma aplicației în lansator</string>
     <string name="dictionary_category_title">"Dicționare suplimentare"</string>
     <string name="dictionary_available">"Dicționar disponibil"</string>
-    <string name="last_update">"Data ultimei modificări"</string>
     <string name="settings">"Setări"</string>
     <string name="delete">Șterge</string>
     <string name="version_text">Versiune %s</string>
@@ -94,7 +93,6 @@
     <string name="user_dict_settings_all_languages">"Pentru toate limbile"</string>
     <string name="user_dict_settings_more_languages">"Mai multe limbi…"</string>
     <string name="user_dict_fast_scroll_alphabet">" AĂÂBCDEFGHIÎJKLMNOPQRSȘTȚUVWXYZ"</string>
-    <string name="use_system_language_to_select_input_method_subtypes">"Folosește limbile sistemului"</string>
     <string name="select_input_method">"Alege metoda de introducere de text"</string>
     <string name="settings_screen_appearance">"Aspect"</string>
     <string name="undo">Anulează</string>
@@ -206,7 +204,6 @@
     <string name="no_dictionary_dont_show_again_button">Nu mai afișa din nou</string>
     <string name="dictionary_link_text">aici</string>
     <string name="dictionary_file_error">Eroare: fișierul selectat nu este un fișier de dicționar valid</string>
-    <string name="dictionary_file_wrong_locale">Fișierul selectat este pentru %1$s, dar se aștepta %2$s. Îl mai folosești pentru %2$s?</string>
     <string name="theme_name_black" tools:keep="@string/theme_name_black">Neagră</string>
     <string name="theme_name_dynamic" tools:keep="@string/theme_name_dynamic">Culori dinamice</string>
     <string name="theme_name_blue_gray" tools:keep="@string/theme_name_blue_gray">Gri albastru</string>
@@ -222,7 +219,6 @@
     <string name="show_horizontal_space_swipe">Gest de glisare pe bara de spațiu orizontală</string>
     <string name="subtype_xdq">Kaitag</string>
     <string name="available_dictionary_experimental">%s (experimental)</string>
-    <string name="dictionary_file_wrong_locale_ok">Folosește oricum</string>
     <string name="dictionary_load_error">Eroare la încărcarea fișierului dicționar</string>
     <string name="dictionary_file_wrong_script">Eroare: scriptul nu este compatibil cu această tastatură</string>
     <string name="user_dict_add_word_button">Adaugă un cuvânt</string>
@@ -248,7 +244,6 @@
     <string name="no_dictionary_message">"Fără un dicționar, vei primi doar sugestii pentru textele introduse anterior.&lt;br&gt;\n        Poți descărca dicționare %1$s sau poți verifica dacă un dicționar pentru \"%2$s\" poate fi descărcat direct %3$s."</string>
     <string name="user_dict_settings_add_weight_value">Greutate:</string>
     <string name="theme_name_user" tools:keep="@string/theme_name_user">Definită de utilizator</string>
-    <string name="button_copy_existing_layout">Copiază aspectul existent</string>
     <string name="dictionary_settings_category">Dicționare</string>
     <string name="internal_dictionary_summary">Dicționar principal intern</string>
     <string name="theme_name_ocean" tools:keep="@string/theme_name_ocean">Ocean</string>
@@ -384,7 +379,6 @@
     <string name="get_layouts_message">Poți găsi și împărtăși aspecte în %s.</string>
     <string name="label_zwj_key" tools:keep="@string/label_zwj_key">Îmbinare fără spațiu</string>
     <string name="customize_toolbar_key_code_reset_message">Ștergi cu adevărat toate codurile cheie personalizate?</string>
-    <string name="split_spacer_scale_landscape">Distanța divizării (peisaj)</string>
     <string name="enable_split_keyboard_landscape">Activează tastatura divizată (peisaj)</string>
     <string name="gesture_fast_typing_cooldown">Timp de restabilire a tastării rapide</string>
     <string name="auto_correct_shortcuts">Comenzi rapide corectare automată</string>
@@ -394,11 +388,9 @@
     <string name="remove_redundant_popups_summary">Suprimă tastele pop-up care sunt deja prezente pe aspectul de bază</string>
     <string name="layout_functional_keys_tablet" tools:keep="@string/layout_functional_keys_tablet">Taste funcționale (ecran mare)</string>
     <string name="settings_screen_secondary_layouts">Aspecte secundare</string>
-    <string name="prefs_bottom_padding_scale_landscape">Scală umplutură inferioară (peisaj)</string>
     <string name="prefs_font_scale">Scală font tastatură</string>
     <string name="prefs_emoji_font_scale">Scală font vizualizare emoji</string>
     <string name="label_bin" tools:keep="@string/label_bin">Coș</string>
-    <string name="prefs_side_padding_scale_landscape">Scală umplutură laterală (peisaj)</string>
     <string name="prefs_side_padding_scale">Scală umplutură laterală</string>
     <string name="number_row_hints">Afișează indicii pe rândul cu numere</string>
     <string name="prefs_language_swipe_distance">Distanța de deplasare pentru comutarea limbii</string>
@@ -427,7 +419,6 @@
     <string name="show_tld_popup_keys_summary">Înlocuiește pop-up-urile tastei punct cu domenii de nivel superior atunci când scrii URL-uri și adrese de e-mail</string>
     <string name="suggest_emojis">Sugerează emoji-uri</string>
     <string name="show_emoji_descriptions">Afișează descrierea emoji-urilor la apăsare lungă</string>
-    <string name="show_emoji_descriptions_summary">Necesită un dicționar de emoji-uri</string>
     <string name="suggest_emojis_summary">Utilizează dicționarul de emoji-uri în sugestiile normale</string>
     <string name="suggest_punctuation">Sugestii de punctuație</string>
     <string name="suggest_punctuation_summary">Afișează semnele de punctuație când nu sunt disponibile alte sugestii</string>

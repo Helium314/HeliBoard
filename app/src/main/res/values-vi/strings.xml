@@ -81,7 +81,6 @@
     <string name="show_setup_wizard_icon_summary">"Hiển thị biểu tượng ứng dụng trong trình chạy"</string>
     <string name="dictionary_category_title">"Từ điển bổ sung"</string>
     <string name="dictionary_available">"Từ điển có sẵn"</string>
-    <string name="last_update">"Cập nhật lần cuối"</string>
     <string name="settings">"Cài đặt"</string>
     <string name="delete">"Xóa"</string>
     <string name="version_text">"Phiên bản %1$s"</string>
@@ -94,7 +93,6 @@
     <string name="user_dict_settings_all_languages">"Cho tất cả ngôn ngữ"</string>
     <string name="user_dict_settings_more_languages">"Ngôn ngữ khác…"</string>
     <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
-    <string name="use_system_language_to_select_input_method_subtypes">"Sử dụng ngôn ngữ hệ thống"</string>
     <string name="select_input_method">"Chọn phương thức nhập"</string>
     <string name="undo">"Hoàn tác"</string>
     <string name="redo">"Làm lại"</string>
@@ -220,7 +218,6 @@
     <string name="layout_number" tools:keep="@string/layout_number">Chữ số</string>
     <string name="no_dictionary_dont_show_again_button">Đừng hiển thị lại</string>
     <string name="dictionary_file_error">Lỗi: File đã chọn không phải là file từ điển</string>
-    <string name="dictionary_file_wrong_locale_ok">Vẫn muốn sử dụng</string>
     <string name="user_dict_word_already_present">Từ này đã có ở từ điển người dùng %s. Xin hãy nhập từ khác.</string>
     <string name="user_dict_add_word_button">Thêm một từ</string>
     <string name="theme_name_black" tools:keep="@string/theme_name_black">Đen</string>

@@ -73,7 +73,6 @@
     <string name="setup_step3_title">Parabéns, está tudo pronto!</string>
     <string name="show_setup_wizard_icon">Mostrar ícone do app</string>
     <string name="dictionary_category_title">Adicionar dicionários</string>
-    <string name="last_update">Última atualização em</string>
     <string name="settings">Configurações</string>
     <string name="delete">Excluir</string>
     <string name="user_dict_settings_add_shortcut_option_name">Atalho:</string>
@@ -129,7 +128,6 @@
     <string name="autospace_after_punctuation">Espaço automático após pontuação</string>
     <string name="autospace_after_punctuation_summary">Inserir um espaço automaticamente após a pontuação ao digitar uma nova palavra</string>
     <string name="auto_correction_confidence">Confiança da correção automática</string>
-    <string name="use_system_language_to_select_input_method_subtypes">Usar idiomas do sistema</string>
     <string name="select_input_method">Selecionar método de entrada</string>
     <string name="undo">"Desfazer"</string>
     <string name="redo">"Refazer"</string>
@@ -220,7 +218,6 @@
     <string name="subtype_generic_sebeolsik_final">%s (Sebeolsik Final)</string>
     <string name="button_title_add_custom_layout">Adicionar layout customizado</string>
     <string name="message_add_custom_layout">Selecionar um arquivo num formato compatível. Infomações sobre os formatos estão disponíveis em %s.</string>
-    <string name="button_copy_existing_layout">Copiar layout existente</string>
     <string name="edit_layout">Toque para editar o layout bruto</string>
     <string name="layout_symbols" tools:keep="@string/layout_symbols">Símbolos</string>
     <string name="layout_symbols_arabic" tools:keep="@string/layout_symbols_arabic">Símbolos (Árabe)</string>
@@ -246,9 +243,7 @@
     <string name="dictionary_link_text">aqui</string>
     <string name="available_dictionary_experimental">%s (experimental)</string>
     <string name="dictionary_file_error">Erro: Arquivo selecionado não é um arquivo de dicionário válido</string>
-    <string name="dictionary_file_wrong_locale">O arquivo selecionado é para %1$s, mas %2$s era esperado. Deseja ainda usar ele para %2$s?</string>
     <string name="dictionary_file_wrong_script">Erro: script não compatível com esse teclado</string>
-    <string name="dictionary_file_wrong_locale_ok">Ainda usar</string>
     <string name="dictionary_load_error">Erro carregando o arquivo de dicionário</string>
     <string name="user_dict_settings_add_weight_value">Peso:</string>
     <string name="user_dict_add_word_button">Adicionar palavra</string>
@@ -392,14 +387,11 @@
     <string name="customize_background_image_landscape">Definir imagem de fundo (paisagem)</string>
     <string name="summary_customize_background_image_landscape">Se não definido, a imagem de retrato será usada</string>
     <string name="subtype_dru">Dargínico (Urakhi)</string>
-    <string name="prefs_bottom_padding_scale_landscape">Escala do espaço inferior (paisagem)</string>
     <string name="prefs_font_scale">Escala da fonte do teclado</string>
     <string name="prefs_emoji_font_scale">Escala da fonte na visualização de emoji</string>
     <string name="prefs_side_padding_scale">Escala do espaço lateral</string>
-    <string name="prefs_side_padding_scale_landscape">Escala do espaço lateral (paisagem)</string>
     <string name="number_row_hints">Mostrar dicas na linha de números</string>
     <string name="prefs_language_swipe_distance">Distância do deslize para alterar idioma</string>
-    <string name="split_spacer_scale_landscape">Distancia da separação (paisagem)</string>
     <string name="split" tools:keep="@string/split">Teclado separado</string>
     <string name="enable_split_keyboard_landscape">Ativar teclado separado (paisagem)</string>
     <string name="delete_confirmation">Realmente excluir %s?</string>
@@ -445,7 +437,6 @@
     <string name="landscape">Paisagem</string>
     <string name="popup_order_and_hint_source">Ordem das teclas de pop-up e fonte de dicas</string>
     <string name="show_emoji_descriptions">Mostrar descrição do emoji ao pressionar</string>
-    <string name="show_emoji_descriptions_summary">Requer um dicionário de emoji</string>
     <string name="suggest_emojis">Sugerir emojis</string>
     <string name="suggest_emojis_summary">Usar dicionário de emojis em sugestões normais</string>
     <string name="space_swipe_hide_keyboard_entry">Ocultar teclado</string>
@@ -453,4 +444,11 @@
     <string name="suggest_punctuation_summary">Mostrar pontuação quando não há outras sugestões</string>
     <string name="about_wiki_link">Ir para a Wiki</string>
     <string name="about_wiki_link_description">A wiki pode ser melhorada por qualquer usuário do GitHub!</string>
+    <string name="save_subtype_per_app">Lembrar idioma por app</string>
+    <string name="clipboard_history_pinned_first">Mostrar itens fixados no topo</string>
+    <string name="subtype_khipro_bn">%s (Khipro)</string>
+    <string name="inline_emoji_search">Busca por emojis embutida</string>
+    <string name="inline_emoji_search_summary">Sugerir apenas emojis quando uma palavra for precedida por dois pontos</string>
+    <string name="emoji_dictionary_required">Um dicionário de emoji é necessário para esta funcionalidade. Dicionários no formato .dict podem ser baixados %s.</string>
+    <string name="subtype_mhr">Mari (Oriental)</string>
 </resources>

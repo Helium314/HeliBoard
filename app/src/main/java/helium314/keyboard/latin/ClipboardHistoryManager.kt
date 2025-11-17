@@ -11,33 +11,29 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import androidx.core.view.isGone
-import kotlinx.serialization.json.Json
 import helium314.keyboard.compat.ClipboardManagerCompat
+import helium314.keyboard.event.HapticEvent
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode
 import helium314.keyboard.latin.common.ColorType
 import helium314.keyboard.latin.common.isValidNumber
+import helium314.keyboard.latin.database.ClipboardDao
 import helium314.keyboard.latin.databinding.ClipboardSuggestionBinding
-import helium314.keyboard.latin.settings.Defaults
-import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.utils.InputTypeUtils
 import helium314.keyboard.latin.utils.ToolbarKey
-import helium314.keyboard.latin.utils.prefs
-import kotlin.collections.ArrayList
 
 class ClipboardHistoryManager(
         private val latinIME: LatinIME
 ) : ClipboardManager.OnPrimaryClipChangedListener {
 
     private lateinit var clipboardManager: ClipboardManager
-    private var onHistoryChangeListener: OnHistoryChangeListener? = null
     private var clipboardSuggestionView: View? = null
+    private var clipboardDao: ClipboardDao? = null
 
     fun onCreate() {
         clipboardManager = latinIME.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
         clipboardManager.addPrimaryClipChangedListener(this)
-        if (historyEntries.isEmpty())
-            loadPinnedClips()
-        if (latinIME.prefs().getBoolean(Settings.PREF_ENABLE_CLIPBOARD_HISTORY, Defaults.PREF_ENABLE_CLIPBOARD_HISTORY))
+        clipboardDao = ClipboardDao.getInstance(latinIME)
+        if (latinIME.mSettings.current.mClipboardHistoryEnabled)
             fetchPrimaryClip()
     }
 
@@ -47,7 +43,7 @@ class ClipboardHistoryManager(
 
     override fun onPrimaryClipChanged() {
         // Make sure we read clipboard content only if history settings is set
-        if (latinIME.mSettings.current?.mClipboardHistoryEnabled == true) {
+        if (latinIME.mSettings.current.mClipboardHistoryEnabled) {
             fetchPrimaryClip()
             dontShowCurrentSuggestion = false
         }
@@ -57,87 +53,46 @@ class ClipboardHistoryManager(
         val clipData = clipboardManager.primaryClip ?: return
         if (clipData.itemCount == 0 || clipData.description?.hasMimeType("text/*") == false) return
         clipData.getItemAt(0)?.let { clipItem ->
-            val timeStamp = ClipboardManagerCompat.getClipTimestamp(clipData) ?: System.currentTimeMillis()
+            val timeStamp = ClipboardManagerCompat.getClipTimestamp(clipData)
             val content = clipItem.coerceToText(latinIME)
             if (TextUtils.isEmpty(content)) return
-
-            val duplicateEntryIndex = historyEntries.indexOfFirst { it.content == content.toString() }
-            if (duplicateEntryIndex != -1) {
-                val existingEntry = historyEntries[duplicateEntryIndex]
-                if (existingEntry.timeStamp == timeStamp) return // nothing to change (may occur frequently starting with API 30)
-                // older entry with the same text already exists, update the timestamp and re-sort the list
-                existingEntry.timeStamp = timeStamp
-                historyEntries.removeAt(duplicateEntryIndex)
-                historyEntries.add(0, existingEntry)
-                sortHistoryEntries()
-                val newIndex = historyEntries.indexOf(existingEntry)
-                onHistoryChangeListener?.onClipboardHistoryEntryMoved(duplicateEntryIndex, newIndex)
-                return
-            }
-            if (historyEntries.any { it.content == content.toString() }) return
-
-            val entry = ClipboardHistoryEntry(timeStamp, content.toString())
-            historyEntries.add(entry)
-            sortHistoryEntries()
-            val at = historyEntries.indexOf(entry)
-            onHistoryChangeListener?.onClipboardHistoryEntryAdded(at)
+            clipboardDao?.addClip(timeStamp, false, content.toString())
         }
     }
 
-    fun toggleClipPinned(ts: Long) {
-        val from = historyEntries.indexOfFirst { it.timeStamp == ts }
-        val historyEntry = historyEntries[from].apply {
-            timeStamp = System.currentTimeMillis()
-            isPinned = !isPinned
-        }
-        sortHistoryEntries()
-        val to = historyEntries.indexOf(historyEntry)
-        onHistoryChangeListener?.onClipboardHistoryEntryMoved(from, to)
-        savePinnedClips()
+    fun toggleClipPinned(id: Long) {
+        clipboardDao?.togglePinned(id)
     }
 
     fun clearHistory() {
+        clipboardDao?.clearNonPinned()
         ClipboardManagerCompat.clearPrimaryClip(clipboardManager)
-        val pos = historyEntries.indexOfFirst { !it.isPinned }
-        val count = historyEntries.count { !it.isPinned }
-        historyEntries.removeAll { !it.isPinned }
-        if (onHistoryChangeListener != null) {
-            onHistoryChangeListener?.onClipboardHistoryEntriesRemoved(pos, count)
-        }
         removeClipboardSuggestion()
     }
 
-    fun canRemove(index: Int) = historyEntries.getOrNull(index)?.isPinned != true
+    fun canRemove(index: Int) = clipboardDao?.isPinned(index) == false
 
     fun removeEntry(index: Int) {
         if (canRemove(index))
-            historyEntries.removeAt(index)
+            clipboardDao?.deleteClipAt(index)
     }
 
     fun sortHistoryEntries() {
-        historyEntries.sort()
-    }
-
-    private fun checkClipRetentionElapsed() {
-        val mins = latinIME.mSettings.current.mClipboardHistoryRetentionTime
-        if (mins > 120) return // No retention limit, changed from <= 0 because we want it to be larger than all other choices
-        val maxClipRetentionTime = mins * 60 * 1000L
-        val now = System.currentTimeMillis()
-        historyEntries.removeAll { !it.isPinned && (now - it.timeStamp) > maxClipRetentionTime }
+        clipboardDao?.sort()
     }
 
     // We do not want to update history while user is visualizing it, so we check retention only
     // when history is about to be shown
-    fun prepareClipboardHistory() = checkClipRetentionElapsed()
+    fun prepareClipboardHistory() = clipboardDao?.clearOldClips(true)
 
-    fun getHistorySize() = historyEntries.size
+    fun getHistorySize() = clipboardDao?.count() ?: 0
 
-    fun getHistoryEntry(position: Int) = historyEntries[position]
+    fun getHistoryEntry(position: Int) = clipboardDao?.getAt(position)
 
-    fun getHistoryEntryContent(timeStamp: Long) = historyEntries.first { it.timeStamp == timeStamp }
+    fun getHistoryEntryContent(id: Long) = clipboardDao?.get(id)
 
-    fun setHistoryChangeListener(l: OnHistoryChangeListener?) {
-        onHistoryChangeListener = l
+    fun setHistoryChangeListener(listener: ClipboardDao.Listener?) {
+        clipboardDao?.listener = listener
     }
 
     fun retrieveClipboardContent(): CharSequence {
@@ -149,30 +104,6 @@ class ClipboardHistoryManager(
     private fun isClipSensitive(inputType: Int): Boolean {
         ClipboardManagerCompat.getClipSensitivity(clipboardManager.primaryClip?.description)?.let { return it }
         return InputTypeUtils.isPasswordInputType(inputType)
-    }
-
-    // pinned clips are stored in default shared preferences, not in device protected preferences!
-    private fun loadPinnedClips() {
-        val pinnedClipString = Settings.readPinnedClipString(latinIME)
-        if (pinnedClipString.isEmpty()) return
-        val pinnedClips: List<ClipboardHistoryEntry> = Json.decodeFromString(pinnedClipString)
-        historyEntries.addAll(pinnedClips)
-        if (onHistoryChangeListener != null) {
-            pinnedClips.forEach {
-                onHistoryChangeListener?.onClipboardHistoryEntryAdded(historyEntries.indexOf(it))
-            }
-        }
-    }
-
-    private fun savePinnedClips() {
-        val pinnedClips = Json.encodeToString(historyEntries.filter { it.isPinned })
-        Settings.writePinnedClipString(latinIME, pinnedClips)
-    }
-
-    interface OnHistoryChangeListener {
-        fun onClipboardHistoryEntryAdded(at: Int)
-        fun onClipboardHistoryEntriesRemoved(pos: Int, count: Int)
-        fun onClipboardHistoryEntryMoved(from: Int, to: Int)
     }
 
     fun getClipboardSuggestionView(editorInfo: EditorInfo?, parent: ViewGroup?): View? {
@@ -187,7 +118,7 @@ class ClipboardHistoryManager(
         val clipData = clipboardManager.primaryClip ?: return null
         if (clipData.itemCount == 0 || clipData.description?.hasMimeType("text/*") == false) return null
         val clipItem = clipData.getItemAt(0) ?: return null
-        val timeStamp = ClipboardManagerCompat.getClipTimestamp(clipData) ?: System.currentTimeMillis()
+        val timeStamp = ClipboardManagerCompat.getClipTimestamp(clipData)
         if (System.currentTimeMillis() - timeStamp > RECENT_TIME_MILLIS) return null
         val content = clipItem.coerceToText(latinIME)
         if (TextUtils.isEmpty(content)) return null
@@ -205,7 +136,7 @@ class ClipboardHistoryManager(
         textView.setOnClickListener {
             dontShowCurrentSuggestion = true
             latinIME.onTextInput(content.toString())
-            AudioAndHapticFeedbackManager.getInstance().performHapticAndAudioFeedback(KeyCode.NOT_SPECIFIED, it)
+            AudioAndHapticFeedbackManager.getInstance().performHapticAndAudioFeedback(KeyCode.NOT_SPECIFIED, it, HapticEvent.KEY_PRESS)
             binding.root.isGone = true
         }
         val closeButton = binding.clipboardSuggestionClose
@@ -234,8 +165,6 @@ class ClipboardHistoryManager(
     }
 
     companion object {
-        // store pinned clips in companion object so they survive a keyboard switch (which destroys the current instance)
-        private val historyEntries: MutableList<ClipboardHistoryEntry> = ArrayList()
         private var dontShowCurrentSuggestion: Boolean = false
         const val RECENT_TIME_MILLIS = 3 * 60 * 1000L // 3 minutes (for clipboard suggestions)
     }

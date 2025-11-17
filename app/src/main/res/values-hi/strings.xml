@@ -81,7 +81,6 @@
     <string name="show_setup_wizard_icon_summary">"लॉन्चर में ऐप आइकॉन दिखाएं"</string>
     <string name="dictionary_category_title">"अन्य शब्दकोष"</string>
     <string name="dictionary_available">"शब्दकोश उपलब्‍ध"</string>
-    <string name="last_update">"आख़री बार अपडेट किया गया"</string>
     <string name="settings">"सेटिंग"</string>
     <string name="delete">"मिटाएं"</string>
     <string name="version_text">"वर्शन %1$s"</string>
@@ -94,7 +93,6 @@
     <string name="user_dict_settings_all_languages">"सभी भाषाओं के लिए"</string>
     <string name="user_dict_settings_more_languages">"ज़्यादा भाषाएं…"</string>
     <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
-    <string name="use_system_language_to_select_input_method_subtypes">"सिस्टम की भाषाओं का इस्तेमाल करें"</string>
     <string name="select_input_method">"इनपुट का तरीका चुनें"</string>
     <string name="undo">"वापस लाएं"</string>
     <string name="redo">"फिर से करें"</string>

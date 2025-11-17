@@ -6,6 +6,7 @@
 
 package helium314.keyboard.latin;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Rect;
 import android.util.AttributeSet;
@@ -89,6 +90,7 @@ public final class InputView extends FrameLayout {
         return false;
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     public boolean onTouchEvent(final MotionEvent me) {
         if (mActiveForwarder == null) {

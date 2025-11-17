@@ -3,7 +3,6 @@ package helium314.keyboard.keyboard.emoji
 import android.content.Context
 import helium314.keyboard.latin.settings.Defaults
 import helium314.keyboard.latin.settings.Settings
-import helium314.keyboard.latin.utils.Log
 import helium314.keyboard.latin.utils.prefs
 
 object SupportedEmojis {

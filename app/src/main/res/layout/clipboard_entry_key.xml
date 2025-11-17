@@ -10,6 +10,7 @@
 
     <ImageView
             android:id="@+id/clipboard_entry_pinned_icon"
+            android:contentDescription="@string/clipboard_history_pinned_first"
             android:layout_width="@dimen/config_clipboard_pinned_icon_size"
             android:layout_height="@dimen/config_clipboard_pinned_icon_size"
             android:layout_marginVertical="8dp"

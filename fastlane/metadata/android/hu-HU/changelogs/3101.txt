@@ -4,6 +4,5 @@
 * Vessző elérhetővé tétele a felugró ablakokban TLD felugró ablakok megjelenítésekor
 * Beállítás hozzáadása az alapértelmezett emodzsi bőrszínhez
 * Billentyűkódok hozzáadása a bal és jobb alt és ctrl billentyűkhöz
-* „időbélyeg” billentyűfelirat hozzáadása a könnyebben elérhető időbélyeg-billentyűhöz
-* Speciális billentyűfeliratok értelmezése a felugró ablakokban egyszerű elrendezéseknél
-* Kisebb javítások és fejlesztések
+
+* És még több hibajavítás - további részletek a bejelentésben

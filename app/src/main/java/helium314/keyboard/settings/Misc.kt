@@ -27,6 +27,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextDirection
@@ -73,7 +74,7 @@ fun IconOrImage(@DrawableRes resId: Int, name: String?, sizeDp: Int) {
     if (drawable is VectorDrawable)
         Icon(painterResource(resId), name, Modifier.size(sizeDp.dp))
     else {
-        val px = sizeDp.dpToPx(ctx.resources)
+        val px = sizeDp.dpToPx(LocalResources.current)
         Image(drawable!!.toBitmap(px, px).asImageBitmap(), name)
     }
 }

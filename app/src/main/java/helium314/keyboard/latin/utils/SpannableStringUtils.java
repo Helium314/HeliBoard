@@ -29,7 +29,7 @@ public final class SpannableStringUtils {
      * or end after <code>end</code> but overlap this range are trimmed
      * as if they began at <code>start</code> or ended at <code>end</code>.
      * Only SuggestionSpans that don't have the SPAN_PARAGRAPH span are copied.
-     *
+     * <p>
      * This code is almost entirely taken from {@link TextUtils#copySpansFrom}, except for the
      * kind of span that is copied.
      *
@@ -64,7 +64,7 @@ public final class SpannableStringUtils {
     /**
      * Returns a CharSequence concatenating the specified CharSequences, retaining their
      * SuggestionSpans that don't have the PARAGRAPH flag, but not other spans.
-     *
+     * <p>
      * This code is almost entirely taken from {@link TextUtils#concat(CharSequence...)}, except
      * it calls copyNonParagraphSuggestionSpansFrom instead of {@link TextUtils#copySpansFrom}.
      */
@@ -118,10 +118,9 @@ public final class SpannableStringUtils {
 
     public static boolean hasUrlSpans(final CharSequence text,
             final int startIndex, final int endIndex) {
-        if (!(text instanceof Spanned)) {
+        if (!(text instanceof Spanned spanned)) {
             return false; // Not spanned, so no link
         }
-        final Spanned spanned = (Spanned)text;
         // getSpans(x, y) does not return spans that start on x or end on y. x-1, y+1 does the
         // trick, and works in all cases even if startIndex <= 0 or endIndex >= text.length().
         final URLSpan[] spans = spanned.getSpans(startIndex - 1, endIndex + 1, URLSpan.class);

@@ -5,7 +5,5 @@
 - „billentyűzet elrejtése” beállítás hozzáadása a függőleges csúsztatáshoz
 - latin altípus hozzáadása
 - emodzsiszótár hozzáadásakor az emodzisjavaslatok kikapcsolásának engedélyezése
-- hiányzó emodzsik javítása osztott billentyűzeten
-- olyan emodzsik eltávolítása, amelyeket nem szabad önmagukban használni
-- tiltólista problémáinak javítása
-- egyes emodzsik backspace viselkedésének javítása
+
+- És még több hibajavítás - további részletek a bejelentésben

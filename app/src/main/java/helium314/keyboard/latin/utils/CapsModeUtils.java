@@ -24,7 +24,7 @@ public final class CapsModeUtils {
 
     /**
      * Apply an auto-caps mode to a string.
-     *
+     * <p>
      * This intentionally does NOT apply manual caps mode. It only changes the capitalization if
      * the mode is one of the auto-caps modes.
      * @param s The string to capitalize.
@@ -55,7 +55,7 @@ public final class CapsModeUtils {
 
     /**
      * Helper method to find out if a code point is starting punctuation.
-     *
+     * <p>
      * This include the Unicode START_PUNCTUATION category, but also some other symbols that are
      * starting, like the inverted question mark or the double quote.
      *
@@ -74,7 +74,7 @@ public final class CapsModeUtils {
      * the text. Only the mode bits set in <var>reqModes</var> will be
      * checked. Note that the caps mode flags here are explicitly defined
      * to match those in {@link InputType}.
-     *
+     * <p>
      * This code is a straight copy of TextUtils.getCapsMode (modulo namespace and formatting
      * issues). This will change in the future as we simplify the code for our use and fix bugs.
      *

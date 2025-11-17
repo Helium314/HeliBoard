@@ -1,0 +1,3 @@
+- Correcció de bloquejos
+- Correcció de la correcció automàtica incorrecta introduïda a la versió 3.4
+- Vibració en espaiar i eliminació del lliscament si està activat

@@ -82,7 +82,6 @@
     <string name="show_setup_wizard_icon_summary">Mostrar ícone da app no iniciador</string>
     <string name="dictionary_category_title">Dicionários extras</string>
     <string name="dictionary_available">"Dicionário disponível"</string>
-    <string name="last_update">"Última atualização"</string>
     <string name="settings">"Definições"</string>
     <string name="delete">Eliminar</string>
     <string name="version_text">Versão %1$s</string>
@@ -122,7 +121,6 @@
     <string name="android_spell_checker_settings">Definições do corretor ortográfico HeliBoard</string>
     <string name="auto_correction_confidence">Confiança da correção automática</string>
     <string name="enable_clipboard_history_summary">Se desativado, a tecla da área de transferência colará o conteúdo disponível</string>
-    <string name="use_system_language_to_select_input_method_subtypes">Usar idiomas do sistema</string>
     <string name="select_input_method">"Escolher o método de entrada"</string>
     <string name="clipboard_history_retention_time">Tempo de retenção de histórico</string>
     <string name="autospace_after_punctuation">Espaço automático depois de pontuação</string>
@@ -211,11 +209,9 @@
     <string name="toast_msg_clipboard_copy">Conteúdo copiado</string>
     <string name="label_switch_onehanded_key" tools:keep="@string/label_switch_onehanded_key">Mudar o lado do modo de uma mão</string>
     <string name="file_read_error">Não foi possível ler o ficheiro</string>
-    <string name="button_copy_existing_layout">Copiar esquema existente</string>
     <string name="prefs_space_bar_text">Texto personalizado na barra de espaço</string>
     <string name="subtype_mns">Mansi</string>
     <string name="customize_currencies">Personalizar moedas</string>
-    <string name="dictionary_file_wrong_locale">O ficheiro selecionado é para %1$s, mas %2$s era esperado. Ainda o usar para %2$s?</string>
     <string name="dictionary_file_wrong_script">Erro: escrita não compatível com este teclado</string>
     <string name="theme_name_holo_white" tools:keep="@string/theme_name_holo_white">Branco Holo</string>
     <string name="theme_name_darker" tools:keep="@string/theme_name_darker">Mais escuro</string>
@@ -254,7 +250,6 @@
     <string name="customize_background_image">Definir imagem de fundo</string>
     <string name="label_zwnj_key" tools:keep="@string/label_zwnj_key">Não-conector de zero largura</string>
     <string name="close_history" tools:keep="@string/close_history">Fechar histórico da área de transferência</string>
-    <string name="dictionary_file_wrong_locale_ok">Ainda usar</string>
     <string name="theme_name_light" tools:keep="@string/theme_name_light">Claro</string>
     <string name="select_color_accent">Destaque</string>
     <string name="button_title_add_custom_layout">Adicionar esquema personalizado</string>
@@ -292,7 +287,6 @@
     <string name="theme_name_chocolate" tools:keep="@string/theme_name_chocolate">Chocolate</string>
     <string name="theme_name_cloudy" tools:keep="@string/theme_name_cloudy">Nublado</string>
     <string name="enable_split_keyboard_landscape">Ativar teclado dividido (horizontal)</string>
-    <string name="split_spacer_scale_landscape">Distância de separação (horizontal)</string>
     <string name="prefs_long_press_symbol_for_numpad">Prima continuamente a tecla de símbolos para o teclado numérico</string>
     <string name="load">Carregar</string>
     <string name="settings_category_space">Espaço</string>
@@ -396,7 +390,6 @@
     <string name="label_shortcut_key_disabled" tools:keep="@string/label_shortcut_key_disabled">Entrada de voz desativada</string>
     <string name="label_toolbar_key" tools:keep="@string/label_toolbar_key">Mostrar / ocultar barra de ferramentas</string>
     <string name="icon_style">Estilo do ícone</string>
-    <string name="prefs_bottom_padding_scale_landscape">Escala do espaço inferior (horizontal)</string>
     <string name="prefs_font_scale">Escala da fonte do teclado</string>
     <string name="prefs_emoji_font_scale">Escala da fonte na visualização de emoji</string>
     <string name="replace_dictionary">Substituir dicionário</string>
@@ -404,7 +397,6 @@
     <string name="label_space_key_for_number_layout" tools:keep="@string/label_space_key_for_number_layout">Espaço (teclado numérico)</string>
     <string name="label_zwj_key" tools:keep="@string/label_zwj_key">Conector de zero largura</string>
     <string name="prefs_side_padding_scale">Escala do espaço lateral</string>
-    <string name="prefs_side_padding_scale_landscape">Escala do espaço lateral (horizontal)</string>
     <string name="label_bin" tools:keep="@string/label_bin">Reciclagem</string>
     <string name="language_and_layouts_title">Idiomas e esquemas</string>
     <string name="localized_number_row">Localizar linha de números</string>
@@ -426,7 +418,6 @@
     <string name="about_wiki_link">Ir para a Wiki</string>
     <string name="about_wiki_link_description">Qualquer pessoa pode melhorar a wiki no Github!</string>
     <string name="landscape">Horizontal</string>
-    <string name="show_emoji_descriptions_summary">Requer um dicionário de emojis</string>
     <string name="suggest_emojis">Sujerir emojis</string>
     <string name="use_apps_dict">Procurar nomes de apps instaladas</string>
     <string name="use_apps_dict_summary">Usar nomes de apps instaladas para sugestões e correções</string>

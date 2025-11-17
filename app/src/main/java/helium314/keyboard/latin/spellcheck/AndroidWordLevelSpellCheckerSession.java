@@ -57,8 +57,7 @@ public abstract class AndroidWordLevelSpellCheckerSession extends Session {
     protected final SuggestionsCache mSuggestionsCache = new SuggestionsCache();
     private final ContentObserver mObserver;
 
-    private static final String quotesRegexp =
-            "(\\u0022|\\u0027|\\u0060|\\u00B4|\\u2018|\\u2018|\\u201C|\\u201D)";
+    private static final String quotesRegexp = "([\\u0022\\u0027\\u0060\\u00B4\\u2018\\u2018\\u201C\\u201D])";
 
     private static final Map<String, String> scriptToPunctuationRegexMap = new TreeMap<>();
 
@@ -85,10 +84,10 @@ public abstract class AndroidWordLevelSpellCheckerSession extends Session {
                 new LruCache<>(MAX_CACHE_SIZE);
 
         private static String generateKey(final String query) {
-            return query + "";
+            return query;
         }
 
-        public SuggestionsParams getSuggestionsFromCache(final String query) {
+        SuggestionsParams getSuggestionsFromCache(final String query) {
             return mUnigramSuggestionsInfoCache.get(query);
         }
 
@@ -97,9 +96,7 @@ public abstract class AndroidWordLevelSpellCheckerSession extends Session {
             if (suggestions == null || TextUtils.isEmpty(query)) {
                 return;
             }
-            mUnigramSuggestionsInfoCache.put(
-                    generateKey(query),
-                    new SuggestionsParams(suggestions, flags));
+            mUnigramSuggestionsInfoCache.put(generateKey(query), new SuggestionsParams(suggestions, flags));
         }
 
         public void clearCache() {
@@ -328,12 +325,6 @@ public abstract class AndroidWordLevelSpellCheckerSession extends Session {
             }
 
             final Keyboard keyboard = mService.getKeyboardForLocale(mLocale);
-            if (null == keyboard) {
-                Log.w(TAG, "onGetSuggestionsInternal() : No keyboard for locale: " + mLocale);
-                // If there is no keyboard for this locale, don't do any spell-checking.
-                return AndroidSpellCheckerService.getNotInDictEmptySuggestions(false);
-            }
-
             final WordComposer composer = new WordComposer();
             if (mLocale.getLanguage().equals("ko"))
                 composer.restartCombining("hangul");

@@ -1,10 +1,9 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!--
     Copyright (C) 2008 The Android Open Source Project
     modified
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
--->
-<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+--><resources xmlns:tools="http://schemas.android.com/tools">
     <string name="use_contacts_dict">"Cari nama kenalan"</string>
     <string name="vibrate_on_keypress">"Getar pada tekanan kekunci"</string>
     <string name="sound_on_keypress">"Bunyi pada tekanan kekunci"</string>
@@ -82,10 +81,9 @@
     <string name="show_setup_wizard_icon_summary">"Paparkan ikon apl dalam pelancar"</string>
     <string name="dictionary_category_title">"Kamus tambahan"</string>
     <string name="dictionary_available">"Kamus tersedia"</string>
-    <string name="last_update">"Kali terakhir dikemas kini"</string>
     <string name="settings">"Tetapan"</string>
     <string name="delete">"Padam"</string>
-    <string name="version_text">"Versi %1$s"</string>
+    <string name="version_text">Versi %s</string>
     <string name="user_dict_settings_add_dialog_title">"Tambah ke kamus"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"Pintasan:"</string>
     <string name="user_dict_settings_add_locale_option_name">"Bahasa:"</string>
@@ -95,7 +93,6 @@
     <string name="user_dict_settings_all_languages">"Untuk semua bahasa"</string>
     <string name="user_dict_settings_more_languages">"Lebih banyak bahasa…"</string>
     <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
-    <string name="use_system_language_to_select_input_method_subtypes">"Gunakan bahasa sistem"</string>
     <string name="select_input_method">"Pilih kaedah input"</string>
     <string name="settings_screen_appearance">"Tampilan"</string>
     <string name="undo">"Buat asal"</string>
@@ -109,4 +106,95 @@
     <string name="label_search_key">"Carian"</string>
     <string name="label_pause_key">"Jeda"</string>
     <string name="label_wait_key">"Tggu"</string>
+    <string name="spell_checker_service_name">Pemeriksa Ejaan HeliBoard</string>
+    <string name="ime_settings">Tetapan HeliBoard</string>
+    <string name="android_spell_checker_settings">Tetapan Pemeriksa Ejaan HeliBoard</string>
+    <string name="vibrate_in_dnd_mode">Getar dalam mod Jangan Kacau</string>
+    <string name="suggest_emojis">Cadangkan emoji</string>
+    <string name="suggest_emojis_summary">Gunakan kamus emoji dalam cadangan normal</string>
+    <string name="show_emoji_descriptions">Tunjukkan deskripsi emoji jika ditekan lama</string>
+    <string name="settings_category_input">Input</string>
+    <string name="settings_category_additional_keys">Kekunci tambahan</string>
+    <string name="settings_category_clipboard_history">Sejarah papan klip</string>
+    <string name="settings_category_correction">Pembetulan</string>
+    <string name="settings_category_space">Ruang</string>
+    <string name="settings_category_suggestions">Cadangan</string>
+    <string name="settings_category_experimental">Dalam ujikaji</string>
+    <string name="settings_category_miscellaneous">Lain-lain</string>
+    <string name="enable_split_keyboard_landscape">Hidupkan papan kekunci terpisah (landskap)</string>
+    <string name="split_spacer_scale">Jarak pisahan</string>
+    <string name="switch_language">Tukar bahasa</string>
+    <string name="language_switch_key_switch_both">Tukar kedua-duanya</string>
+    <string name="language_switch_key_behavior">Fungsi kekunci tukar bahasa</string>
+    <string name="show_emoji_key">Kekunci emoji</string>
+    <string name="abbreviation_unit_minutes">%s min</string>
+    <string name="settings_no_limit">Tiada had</string>
+    <string name="use_apps_dict">Rujuk nama aplikasi</string>
+    <string name="use_apps_dict_summary">Guna nama aplikasi dipasang untuk cadangan dan pembetulan</string>
+    <string name="disable_personalized_dicts_message">Amaran: Menyahdayakan tetapan ini akan mengosongkan data yang telah dipelajari</string>
+    <string name="delete_swipe_summary">Sapu daripada kekunci padam untuk memilih dan membuang teks yang lebih banyak sekaligus</string>
+    <string name="backup_restore_title">Sandarkan dan pulihkan</string>
+    <string name="backup_restore_message">Simpan atau muat daripada fail. Amaran: pemulihan akan menimpa data sedia ada</string>
+    <string name="backup_error">Ralat sandaran: %s</string>
+    <string name="restore_error">Ralat memulihkan sandaran: %s</string>
+    <string name="button_backup">Sandarkan</string>
+    <string name="button_restore">Pulihkan</string>
+    <string name="backup_restored">Sandaran dipulihkan</string>
+    <string name="timestamp_format_title">Format kekunci cap masa</string>
+    <string name="secondary_locale">Penaipan pelbagai bahasa</string>
+    <string name="locales_with_dict">Bahasa dengan kamus</string>
+    <string name="load_gesture_library">Muatkan pustaka penaipan gerak isyarat</string>
+    <string name="load_gesture_library_summary">Sediakan pustaka asli untuk mendayakan penaipan gerak isyarat</string>
+    <string name="delete_swipe">Padam sapuan</string>
+    <string name="load_gesture_library_message">Anda memerlukan pustaka untuk \'%s\'. Pustaka yang tidak serasi mungkin akan ranap ketika menggunakan penaipan gerak isyarat. \n\nAmaran: kod luaran mungkin mempunyai risiko keselamatan. Hanya gunakan pustaka dari sumber yang anda percayai.</string>
+    <string name="checksum_mismatch_message">Fail pustaka tidak diketahui. Adakah anda pasti anda mendapatinya dari sumber yang dipercayai dan ianya untuk \'%s\'?</string>
+    <string name="load_gesture_library_button_load">Muatkan pustaka</string>
+    <string name="load_gesture_library_button_delete">Padam pustaka</string>
+    <string name="autospace_after_punctuation">Masukkan ruang selepas tanda baca</string>
+    <string name="autospace_after_punctuation_summary">Masukkan ruang secara automatik selepas tanda baca ketika menaip perkataan baru</string>
+    <string name="autospace_after_suggestion">Masukkan ruang selepas memilih cadangan</string>
+    <string name="autospace_before_gesture_typing">Masukkan ruang sebelum menaip perkataan menggunakan gerak isyarat</string>
+    <string name="autospace_after_gesture_typing">Masukkan ruang selepas menaip perkataan menggunakan gerak isyarat</string>
+    <string name="shift_removes_autospace">Tidak memasukkan ruang ketika menekan Shift</string>
+    <string name="shift_removes_autospace_summary">Shift membuang ruang yang belum selesai dimasukkan</string>
+    <string name="show_popup_keys_title">Tunjukkan lebih huruf dengan diakritik dalam popup</string>
+    <string name="show_popup_keys_normal">Tunjukkan varian digunakan dalam bahasa papan kekunci</string>
+    <string name="show_popup_keys_main">Masukkan varian yang sangat biasa (lalai)</string>
+    <string name="show_popup_keys_more">Masukkan varian biasa</string>
+    <string name="show_popup_keys_all">Masukkan semua varian tersedia</string>
+    <string name="url_detection_title">Pengesanan URL</string>
+    <string name="url_detection_summary">Cuma mengesan URL dan sepertinya sebagai satu perkataan</string>
+    <string name="incognito">Paksa mod penyamaran</string>
+    <string name="prefs_force_incognito_mode_summary">Nyahdayakan pembelajaran perkataan baru</string>
+    <string name="more_keys_strip_description">Kekunci lagi</string>
+    <string name="language_and_layouts_title">Bahasa &amp; Susunatur</string>
+    <string name="number_row">Baris nombor</string>
+    <string name="number_row_summary">Sentiasa tunjukkan baris nombor</string>
+    <string name="localized_number_row">Setempatkan baris nombor</string>
+    <string name="localized_number_row_summary">Pilih nombor setempat daripada nombor Latin</string>
+    <string name="number_row_hints">Tunjukkan pembayang pada baris nombor</string>
+    <string name="show_hints">Tunjukkan pembayang kekunci</string>
+    <string name="show_hints_summary">Tunjukkan pembayang jika ditekan lama</string>
+    <string name="popup_order_and_hint_source">Susunan kekunci popup dan sumber pembayang</string>
+    <string name="hint_source">Pilih sumber pembayang</string>
+    <string name="popup_order">Pilih susunan kekunci popup</string>
+    <string name="show_tld_popup_keys">Tunjukkan popup kekunci TLD</string>
+    <string name="show_tld_popup_keys_summary">Tukar popup kekunci noktah dengan domain peringkat teratas ketika menaip URL dan alamat emel</string>
+    <string name="popup_keys_number" tools:keep="@string/popup_keys_number">Baris nombor</string>
+    <string name="popup_keys_language_priority" tools:keep="@string/popup_keys_language_priority">Bahasa (keutamaan)</string>
+    <string name="popup_keys_layout" tools:keep="@string/popup_keys_layout">Susunatur</string>
+    <string name="popup_keys_symbols" tools:keep="@string/popup_keys_symbols">Simbol</string>
+    <string name="toolbar_mode">Mod bar alat</string>
+    <string name="toolbar_mode_expandable">Kekunci bar alat dan cadangan</string>
+    <string name="toolbar_mode_toolbar_keys">Kekunci bar alat sahaja</string>
+    <string name="toolbar_mode_suggestion_strip">Cadangan sahaja</string>
+    <string name="toolbar_mode_hidden">Tersembunyi</string>
+    <string name="toolbar_hiding_global">Sembunyi papan klip dan bar alat emoji juga</string>
+    <string name="toolbar_keys">Pilih kekunci bar alat</string>
+    <string name="clipboard" tools:keep="@string/clipboard">Papan klip</string>
+    <string name="clear_clipboard" tools:keep="@string/clear_clipboard">Kosongkan papan klip</string>
+    <string name="voice" tools:keep="@string/voice">Input suara</string>
+    <string name="select_word" tools:keep="@string/select_word">Pilih perkataan</string>
+    <string name="one_handed" tools:keep="@string/one_handed">Mod sebelah tangan</string>
+    <string name="split" tools:keep="@string/split">Pisahkan papan kekunci</string>
 </resources>

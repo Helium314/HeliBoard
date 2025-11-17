@@ -11,6 +11,7 @@ import android.text.style.RelativeSizeSpan
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodInfo
 import android.view.inputmethod.InputMethodSubtype
+import helium314.keyboard.compat.ImeCompat.switchInputMethodAndSubtype
 import helium314.keyboard.latin.LatinIME
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.RichInputMethodManager

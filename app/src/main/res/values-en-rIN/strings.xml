@@ -83,7 +83,6 @@
     <string name="show_setup_wizard_icon_summary">"Display application icon in the launcher"</string>
     <string name="dictionary_category_title">"Add-on dictionaries"</string>
     <string name="dictionary_available">"Dictionary available"</string>
-    <string name="last_update">"Last updated"</string>
     <string name="settings">"Settings"</string>
     <string name="delete">"Delete"</string>
     <string name="version_text">"Version %1$s"</string>
@@ -96,7 +95,6 @@
     <string name="user_dict_settings_all_languages">"For all languages"</string>
     <string name="user_dict_settings_more_languages">"More languages…"</string>
     <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
-    <string name="use_system_language_to_select_input_method_subtypes">"Use system languages"</string>
     <string name="select_input_method">"Choose input method"</string>
     <string name="settings_screen_appearance">"Appearance"</string>
     <string name="undo">"Undo"</string>

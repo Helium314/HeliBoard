@@ -8,12 +8,12 @@ import helium314.keyboard.latin.utils.Log.i
 
 object IntentUtils {
     val TAG: String = InputLogic::class.java.simpleName
-    private val ACTION_SEND_INTENT = "helium314.keyboard.latin.ACTION_SEND_INTENT"
-    private val EXTRA_NUMBER = "EXTRA_NUMBER"
+    private const val ACTION_SEND_INTENT = "helium314.keyboard.latin.ACTION_SEND_INTENT"
+    private const val EXTRA_NUMBER = "EXTRA_NUMBER"
 
     @JvmStatic
     fun handleSendIntentKey(context: Context, mKeyCode: Int) {
-        val intentNumber = (KeyCode.SEND_INTENT_ONE + 1) - mKeyCode;
+        val intentNumber = (KeyCode.SEND_INTENT_ONE + 1) - mKeyCode
 
         val intent: Intent = Intent(ACTION_SEND_INTENT).apply {
             putExtra(EXTRA_NUMBER, intentNumber)

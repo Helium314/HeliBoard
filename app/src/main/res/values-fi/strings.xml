@@ -81,7 +81,6 @@
     <string name="show_setup_wizard_icon_summary">Näytä sovelluskuvake käynnistysohjelmassa</string>
     <string name="dictionary_category_title">"Sanakirjalisäosat"</string>
     <string name="dictionary_available">"Sanakirja saatavilla"</string>
-    <string name="last_update">"Päivitetty viimeksi"</string>
     <string name="settings">"Asetukset"</string>
     <string name="delete">"Poista"</string>
     <string name="version_text">"Versio %1$s"</string>
@@ -94,7 +93,6 @@
     <string name="user_dict_settings_all_languages">"Kaikille kielille"</string>
     <string name="user_dict_settings_more_languages">"Lisää kieliä…"</string>
     <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSTUVWXYZÅÄÖ"</string>
-    <string name="use_system_language_to_select_input_method_subtypes">"Käytä järjestelmän kieliä"</string>
     <string name="select_input_method">"Valitse syöttötapa"</string>
     <string name="settings_screen_appearance">Ulkoasu</string>
     <string name="undo">"Kumoa"</string>
@@ -158,7 +156,6 @@
     <string name="enable_clipboard_history">Ota leikepöydän historia käyttöön</string>
     <string name="backup_restore_title">Varmuuskopioi ja palauta</string>
     <string name="backup_restore_message">Tallenna tai lataa tiedosto. Varoitus: palauttaminen ylikirjoittaa olemassa olevan datan</string>
-    <string name="button_copy_existing_layout">Kopioi olemassa oleva asettelu</string>
     <string name="theme_name_user_night" tools:keep="@string/theme_name_user_night">Käyttäjän määrittämä (yö)</string>
     <string name="license">Avoimen lähdekoodin lisenssi</string>
     <string name="prefs_keyboard_height_scale">Näppäimistön korkeusskaalaus</string>

@@ -22,7 +22,7 @@ public class ContactsDictionaryUtils {
     public static int getWordEndPosition(final String string, final int len,
             final int startIndex) {
         int end;
-        int cp = 0;
+        int cp;
         for (end = startIndex + 1; end < len; end += Character.charCount(cp)) {
             cp = string.codePointAt(end);
             if (cp != Constants.CODE_DASH && cp != Constants.CODE_SINGLE_QUOTE

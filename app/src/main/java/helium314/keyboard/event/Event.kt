@@ -23,61 +23,66 @@ import helium314.keyboard.latin.common.StringUtils
  * The combiner should figure out what to do with this.
  */
 class Event private constructor(
-        // The type of event - one of the constants above
-        private val mEventType: Int,
-        // If applicable, this contains the string that should be input.
-        val mText: CharSequence?,
-        // The code point associated with the event, if relevant. This is a unicode code point, and
-        // has nothing to do with other representations of the key. It is only relevant if this event
-        // is of KEYPRESS type, but for a mode key like hankaku/zenkaku or ctrl, there is no code point
-        // associated so this should be NOT_A_CODE_POINT to avoid unintentional use of its value when
-        // it's not relevant.
-        val mCodePoint: Int,
-        // The key code associated with the event, if relevant. This is relevant whenever this event
-        // has been triggered by a key press, but not for a gesture for example. This has conceptually
-        // no link to the code point, although keys that enter a straight code point may often set
-        // this to be equal to mCodePoint for convenience. If this is not a key, this must contain
-        // NOT_A_KEY_CODE.
-        val mKeyCode: Int,
-        // State of meta keys (currently ctrl, alt, fn, meta)
-        // same value as https://developer.android.com/reference/android/view/KeyEvent#getMetaState()
-        val mMetaState: Int,
-        // Coordinates of the touch event, if relevant. If useful, we may want to replace this with
-        // a MotionEvent or something in the future. This is only relevant when the keypress is from
-        // a software keyboard obviously, unless there are touch-sensitive hardware keyboards in the
-        // future or some other awesome sauce.
-        val mX: Int, val mY: Int,
-        // If this is of type EVENT_TYPE_SUGGESTION_PICKED, this must not be null (and must be null in
-        // other cases).
-        val mSuggestedWordInfo: SuggestedWordInfo?,
-        // Some flags that can't go into the key code. It's a bit field of FLAG_*
-        private val mFlags: Int,
-        // The next event, if any. Null if there is no next event yet.
-        val mNextEvent: Event?
-        // This logic may need to be refined in the future
+    // The type of event - one of the constants above
+    private val eventType: Int,
+    // If applicable, this contains the string that should be input.
+    val text: CharSequence? = null,
+    // The code point associated with the event, if relevant. This is a unicode code point, and
+    // has nothing to do with other representations of the key. It is only relevant if this event
+    // is of KEYPRESS type, but for a mode key like hankaku/zenkaku or ctrl, there is no code point
+    // associated so this should be NOT_A_CODE_POINT to avoid unintentional use of its value when
+    // it's not relevant.
+    val codePoint: Int = NOT_A_CODE_POINT,
+    // The key code associated with the event, if relevant. This is relevant whenever this event
+    // has been triggered by a key press, but not for a gesture for example. This has conceptually
+    // no link to the code point, although keys that enter a straight code point may often set
+    // this to be equal to mCodePoint for convenience. If this is not a key, this must contain
+    // NOT_A_KEY_CODE.
+    val keyCode: Int = NOT_A_KEY_CODE,
+    // State of meta keys (currently ctrl, alt, fn, meta)
+    // same value as https://developer.android.com/reference/android/view/KeyEvent#getMetaState()
+    val metaState: Int = 0,
+    // Coordinates of the touch event, if relevant. If useful, we may want to replace this with
+    // a MotionEvent or something in the future. This is only relevant when the keypress is from
+    // a software keyboard obviously, unless there are touch-sensitive hardware keyboards in the
+    // future or some other awesome sauce.
+    val x: Int = Constants.NOT_A_COORDINATE,
+    val y: Int = Constants.NOT_A_COORDINATE,
+    // If this is of type EVENT_TYPE_SUGGESTION_PICKED, this must not be null (and must be null in
+    // other cases).
+    val suggestedWordInfo: SuggestedWordInfo? = null,
+    // Some flags that can't go into the key code. It's a bit field of FLAG_*
+    private val flags: Int = FLAG_NONE,
+    // The next event, if any. Null if there is no next event yet.
+    val nextEvent: Event? = null
+    // This logic may need to be refined in the future
 ) {
+    init {
+        if ((EVENT_TYPE_SUGGESTION_PICKED == eventType) != (suggestedWordInfo != null))
+            throw RuntimeException("Wrong event: SUGGESTION_PICKED event must have a non-null SuggestedWordInfo, other events may not")
+    }
 
     // Returns whether this is a function key like backspace, ctrl, settings... as opposed to keys
     // that result in input like letters or space.
     val isFunctionalKeyEvent: Boolean
-        get() = NOT_A_CODE_POINT == mCodePoint || mMetaState != 0 // This logic may need to be refined in the future
+        get() = NOT_A_CODE_POINT == codePoint || metaState != 0 // This logic may need to be refined in the future
 
     // Returns whether this event is for a dead character. @see {@link #FLAG_DEAD}
-    val isDead: Boolean get() = 0 != FLAG_DEAD and mFlags
+    val isDead: Boolean get() = 0 != FLAG_DEAD and flags
 
-    val isKeyRepeat: Boolean get() = 0 != FLAG_REPEAT and mFlags
+    val isKeyRepeat: Boolean get() = 0 != FLAG_REPEAT and flags
 
-    val isConsumed: Boolean get() = 0 != FLAG_CONSUMED and mFlags
+    val isConsumed: Boolean get() = 0 != FLAG_CONSUMED and flags
 
-    val isCombining: Boolean get() = 0 != FLAG_COMBINING and mFlags
+    val isCombining: Boolean get() = 0 != FLAG_COMBINING and flags
 
-    val isGesture: Boolean get() = EVENT_TYPE_GESTURE == mEventType
+    val isGesture: Boolean get() = EVENT_TYPE_GESTURE == eventType
 
     // Returns whether this is a fake key press from the suggestion strip. This happens with
     // punctuation signs selected from the suggestion strip.
-    val isSuggestionStripPress: Boolean get() = EVENT_TYPE_SUGGESTION_PICKED == mEventType
+    val isSuggestionStripPress: Boolean get() = EVENT_TYPE_SUGGESTION_PICKED == eventType
 
-    val isHandled: Boolean get() = EVENT_TYPE_NOT_HANDLED != mEventType
+    val isHandled: Boolean get() = EVENT_TYPE_NOT_HANDLED != eventType
 
     // A consumed event should input no text.
     val textToCommit: CharSequence?
@@ -85,12 +90,12 @@ class Event private constructor(
             if (isConsumed) {
                 return "" // A consumed event should input no text.
             }
-            when (mEventType) {
-                EVENT_TYPE_MODE_KEY, EVENT_TYPE_NOT_HANDLED, EVENT_TYPE_TOGGLE, EVENT_TYPE_CURSOR_MOVE -> return ""
-                EVENT_TYPE_INPUT_KEYPRESS -> return StringUtils.newSingleCodePointString(mCodePoint)
-                EVENT_TYPE_GESTURE, EVENT_TYPE_SOFTWARE_GENERATED_STRING, EVENT_TYPE_SUGGESTION_PICKED -> return mText
+            return when (eventType) {
+                EVENT_TYPE_MODE_KEY, EVENT_TYPE_NOT_HANDLED, EVENT_TYPE_TOGGLE, EVENT_TYPE_CURSOR_MOVE -> ""
+                EVENT_TYPE_INPUT_KEYPRESS -> StringUtils.newSingleCodePointString(codePoint)
+                EVENT_TYPE_GESTURE, EVENT_TYPE_SOFTWARE_GENERATED_STRING, EVENT_TYPE_SUGGESTION_PICKED -> text
+                else -> throw RuntimeException("Unknown event type: $eventType")
             }
-            throw RuntimeException("Unknown event type: $mEventType")
         }
 
     companion object {
@@ -118,13 +123,14 @@ class Event private constructor(
         const val EVENT_TYPE_SOFTWARE_GENERATED_STRING = 6
         // An event corresponding to a cursor move
         const val EVENT_TYPE_CURSOR_MOVE = 7
+
         // 0 is a valid code point, so we use -1 here.
         const val NOT_A_CODE_POINT = -1
         // -1 is a valid key code, so we use 0 here.
         const val NOT_A_KEY_CODE = 0
+
         private const val FLAG_NONE = 0
-        // This event is a dead character, usually input by a dead key. Examples include dead-acute
-        // or dead-abovering.
+        // This event is a dead character, usually input by a dead key. Examples include dead-acute or dead-abovering.
         private const val FLAG_DEAD = 0x1
         // This event is coming from a key repeat, software or hardware.
         private const val FLAG_REPEAT = 0x2
@@ -134,10 +140,16 @@ class Event private constructor(
         private const val FLAG_COMBINING = 0x8
 
         @JvmStatic
-        fun createSoftwareKeypressEvent(codePoint: Int, keyCode: Int, metaState: Int, x: Int, y: Int, isKeyRepeat: Boolean): Event {
-            return Event(EVENT_TYPE_INPUT_KEYPRESS, null, codePoint, keyCode, metaState, x, y,
-                    null, if (isKeyRepeat) FLAG_REPEAT else FLAG_NONE, null)
-        }
+        fun createSoftwareKeypressEvent(codePoint: Int, keyCode: Int, metaState: Int, x: Int, y: Int, isKeyRepeat: Boolean) =
+            Event(
+                eventType = EVENT_TYPE_INPUT_KEYPRESS,
+                codePoint = codePoint,
+                keyCode = keyCode,
+                metaState = metaState,
+                x = x,
+                y = y,
+                flags = if (isKeyRepeat) FLAG_REPEAT else FLAG_NONE
+            )
 
         // A helper method to split the code point and the key code.
         // todo: Ultimately, they should not be squashed into the same variable, and this method should be removed.
@@ -149,25 +161,43 @@ class Event private constructor(
                 createSoftwareKeypressEvent(keyCodeOrCodePoint, NOT_A_KEY_CODE, metaState, keyX, keyY, isKeyRepeat)
             }
 
-        fun createHardwareKeypressEvent(codePoint: Int, keyCode: Int, metaState: Int, next: Event?, isKeyRepeat: Boolean): Event {
-            return Event(EVENT_TYPE_INPUT_KEYPRESS, null, codePoint, keyCode, metaState,
-                    Constants.EXTERNAL_KEYBOARD_COORDINATE, Constants.EXTERNAL_KEYBOARD_COORDINATE,
-                    null, if (isKeyRepeat) FLAG_REPEAT else FLAG_NONE, next)
-        }
+        fun createHardwareKeypressEvent(codePoint: Int, keyCode: Int, metaState: Int, next: Event?, isKeyRepeat: Boolean) =
+            Event(
+                eventType = EVENT_TYPE_INPUT_KEYPRESS,
+                codePoint = codePoint,
+                keyCode = keyCode,
+                metaState = metaState,
+                x = Constants.EXTERNAL_KEYBOARD_COORDINATE,
+                y = Constants.EXTERNAL_KEYBOARD_COORDINATE,
+                flags = if (isKeyRepeat) FLAG_REPEAT else FLAG_NONE,
+                nextEvent = next
+            )
 
-        // This creates an input event for a dead character. @see {@link #FLAG_DEAD}
-        fun createDeadEvent(codePoint: Int, keyCode: Int, metaState: Int, next: Event?): Event {
-            return Event(EVENT_TYPE_INPUT_KEYPRESS, null, codePoint, keyCode, metaState,
-                    Constants.EXTERNAL_KEYBOARD_COORDINATE, Constants.EXTERNAL_KEYBOARD_COORDINATE,
-                    null, FLAG_DEAD, next)
-        }
+        // This creates an input event for a dead character. see FLAG_DEAD
+        fun createDeadEvent(codePoint: Int, keyCode: Int, metaState: Int, next: Event?) =
+            Event(
+                eventType = EVENT_TYPE_INPUT_KEYPRESS,
+                codePoint = codePoint,
+                keyCode = keyCode,
+                metaState = metaState,
+                x = Constants.EXTERNAL_KEYBOARD_COORDINATE,
+                y = Constants.EXTERNAL_KEYBOARD_COORDINATE,
+                flags = FLAG_DEAD,
+                nextEvent = next
+            )
 
-        // This creates an input event for a dead character. @see {@link #FLAG_DEAD}
-        @JvmStatic
-        fun createSoftwareDeadEvent(codePoint: Int, keyCode: Int, metaState: Int, x: Int, y: Int, next: Event?): Event {
-            return Event(EVENT_TYPE_INPUT_KEYPRESS, null, codePoint, keyCode, metaState, x, y,
-                null, FLAG_DEAD, next)
-        }
+        // This creates an input event for a dead character. see FLAG_DEAD
+        fun createSoftwareDeadEvent(codePoint: Int, keyCode: Int, metaState: Int, x: Int, y: Int, next: Event?) =
+            Event(
+                eventType = EVENT_TYPE_INPUT_KEYPRESS,
+                codePoint = codePoint,
+                keyCode = keyCode,
+                metaState = metaState,
+                x = x,
+                y = y,
+                flags = FLAG_DEAD,
+                nextEvent = next
+            )
 
         /**
          * Create an input event with nothing but a code point. This is the most basic possible input
@@ -177,10 +207,8 @@ class Event private constructor(
          * @return an event for this code point.
          */
         @JvmStatic
-        fun createEventForCodePointFromUnknownSource(codePoint: Int): Event { // TODO: should we have a different type of event for this? After all, it's not a key press.
-            return Event(EVENT_TYPE_INPUT_KEYPRESS, null, codePoint, NOT_A_KEY_CODE, 0,
-                    Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE, null, FLAG_NONE, null)
-        }
+        // TODO: should we have a different type of event for this? After all, it's not a key press.
+        fun createEventForCodePointFromUnknownSource(codePoint: Int) = Event(eventType = EVENT_TYPE_INPUT_KEYPRESS, codePoint = codePoint)
 
         /**
          * Creates an input event with a code point and x, y coordinates. This is typically used when
@@ -191,23 +219,23 @@ class Event private constructor(
          * @return an event for this code point and coordinates.
          */
         @JvmStatic
-        fun createEventForCodePointFromAlreadyTypedText(codePoint: Int,
-                                                        x: Int, y: Int): Event { // TODO: should we have a different type of event for this? After all, it's not a key press.
-            return Event(EVENT_TYPE_INPUT_KEYPRESS, null, codePoint, NOT_A_KEY_CODE, 0,
-                    x, y, null, FLAG_NONE, null)
-        }
+        // TODO: should we have a different type of event for this? After all, it's not a key press.
+        fun createEventForCodePointFromAlreadyTypedText(codePoint: Int, x: Int, y: Int) =
+            Event(eventType = EVENT_TYPE_INPUT_KEYPRESS, codePoint = codePoint, x = x, y = y)
 
         /**
          * Creates an input event representing the manual pick of a suggestion.
          * @return an event for this suggestion pick.
          */
         @JvmStatic
-        fun createSuggestionPickedEvent(suggestedWordInfo: SuggestedWordInfo): Event {
-            return Event(EVENT_TYPE_SUGGESTION_PICKED, suggestedWordInfo.mWord,
-                    NOT_A_CODE_POINT, NOT_A_KEY_CODE, 0,
-                    Constants.SUGGESTION_STRIP_COORDINATE, Constants.SUGGESTION_STRIP_COORDINATE,
-                    suggestedWordInfo, FLAG_NONE, null)
-        }
+        fun createSuggestionPickedEvent(suggestedWordInfo: SuggestedWordInfo) =
+            Event(
+                eventType = EVENT_TYPE_SUGGESTION_PICKED,
+                text = suggestedWordInfo.mWord,
+                x = Constants.SUGGESTION_STRIP_COORDINATE,
+                y = Constants.SUGGESTION_STRIP_COORDINATE,
+                suggestedWordInfo = suggestedWordInfo
+            )
 
         /**
          * Creates an input event with a CharSequence. This is used by some software processes whose
@@ -215,29 +243,27 @@ class Event private constructor(
          * or combination that outputs a string.
          * @param text the CharSequence associated with this event.
          * @param keyCode the key code, or NOT_A_KEYCODE if not applicable.
-         * @param next the next event, or null if not applicable.
+         * @param nextEvent the next event, or null if not applicable.
          * @return an event for this text.
          */
         @JvmStatic
-        fun createSoftwareTextEvent(text: CharSequence?, keyCode: Int, next: Event?): Event {
-            return Event(EVENT_TYPE_SOFTWARE_GENERATED_STRING, text, NOT_A_CODE_POINT, keyCode, 0,
-                Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE,null, FLAG_NONE, next)
-        }
-
-        @JvmStatic
-        fun createSoftwareTextEvent(text: CharSequence?, keyCode: Int) =
-            createSoftwareTextEvent(text, keyCode, null)
+        fun createSoftwareTextEvent(text: CharSequence?, keyCode: Int, nextEvent: Event? = null) =
+            Event(eventType = EVENT_TYPE_SOFTWARE_GENERATED_STRING, text = text, keyCode = keyCode, nextEvent = nextEvent)
 
         /**
          * Creates an input event representing the manual pick of a punctuation suggestion.
          * @return an event for this suggestion pick.
          */
         @JvmStatic
-        fun createPunctuationSuggestionPickedEvent(suggestedWordInfo: SuggestedWordInfo): Event {
-            val primaryCode = suggestedWordInfo.mWord[0].code
-            return Event(EVENT_TYPE_SUGGESTION_PICKED, suggestedWordInfo.mWord, primaryCode, NOT_A_KEY_CODE, 0,
-                Constants.SUGGESTION_STRIP_COORDINATE, Constants.SUGGESTION_STRIP_COORDINATE, suggestedWordInfo, FLAG_NONE,null)
-        }
+        fun createPunctuationSuggestionPickedEvent(suggestedWordInfo: SuggestedWordInfo) =
+            Event(
+                eventType = EVENT_TYPE_SUGGESTION_PICKED,
+                text = suggestedWordInfo.mWord,
+                codePoint = suggestedWordInfo.mWord[0].code,
+                x = Constants.SUGGESTION_STRIP_COORDINATE,
+                y = Constants.SUGGESTION_STRIP_COORDINATE,
+                suggestedWordInfo = suggestedWordInfo
+            )
 
         /**
          * Creates an input event representing moving the cursor. The relative move amount is stored
@@ -246,44 +272,22 @@ class Event private constructor(
          * @return an event for this cursor move.
          */
         @JvmStatic
-        fun createCursorMovedEvent(moveAmount: Int): Event {
-            return Event(EVENT_TYPE_CURSOR_MOVE, null, NOT_A_CODE_POINT, NOT_A_KEY_CODE, 0,
-                    moveAmount, Constants.NOT_A_COORDINATE, null, FLAG_NONE, null)
-        }
+        fun createCursorMovedEvent(moveAmount: Int) = Event(eventType = EVENT_TYPE_CURSOR_MOVE, x = moveAmount)
 
         /**
          * Creates an event identical to the passed event, but that has already been consumed.
          * @param source the event to copy the properties of.
          * @return an identical event marked as consumed.
          */
-        fun createConsumedEvent(source: Event): Event { // A consumed event should not input any text at all, so we pass the empty string as text.
-            return Event(source.mEventType, source.mText, source.mCodePoint, source.mKeyCode, source.mMetaState,
-                    source.mX, source.mY, source.mSuggestedWordInfo, source.mFlags or FLAG_CONSUMED, source.mNextEvent)
-        }
+        // A consumed event should not input any text at all, so we pass the empty string as text.
+        fun createConsumedEvent(source: Event) =
+             Event(source.eventType, source.text, source.codePoint, source.keyCode, source.metaState,
+                    source.x, source.y, source.suggestedWordInfo, source.flags or FLAG_CONSUMED, source.nextEvent)
 
-        fun createCombiningEvent(source: Event): Event {
-            return Event(source.mEventType, source.mText, source.mCodePoint, source.mKeyCode, source.mMetaState,
-                    source.mX, source.mY, source.mSuggestedWordInfo, source.mFlags or FLAG_COMBINING, source.mNextEvent)
-        }
+        fun createCombiningEvent(source: Event) =
+            Event(source.eventType, source.text, source.codePoint, source.keyCode, source.metaState,
+                    source.x, source.y, source.suggestedWordInfo, source.flags or FLAG_COMBINING, source.nextEvent)
 
-        val notHandledEvent = Event(EVENT_TYPE_NOT_HANDLED, null, NOT_A_CODE_POINT, NOT_A_KEY_CODE, 0,
-                    Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE, null, FLAG_NONE, null)
-    }
-
-    // This method is private - to create a new event, use one of the create* utility methods.
-    init {
-        // Sanity checks
-        // mSuggestedWordInfo is non-null if and only if the type is SUGGESTION_PICKED
-        if (EVENT_TYPE_SUGGESTION_PICKED == mEventType) {
-            if (null == mSuggestedWordInfo) {
-                throw RuntimeException("Wrong event: SUGGESTION_PICKED event must have a "
-                        + "non-null SuggestedWordInfo")
-            }
-        } else {
-            if (null != mSuggestedWordInfo) {
-                throw RuntimeException("Wrong event: only SUGGESTION_PICKED events may have " +
-                        "a non-null SuggestedWordInfo")
-            }
-        }
+        val notHandledEvent = Event(eventType = EVENT_TYPE_NOT_HANDLED)
     }
 }

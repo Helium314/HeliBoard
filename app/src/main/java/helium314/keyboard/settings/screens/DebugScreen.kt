@@ -26,6 +26,7 @@ import helium314.keyboard.settings.Theme
 import helium314.keyboard.settings.initPreview
 import helium314.keyboard.settings.preferences.PreferenceCategory
 import helium314.keyboard.settings.previewDark
+import androidx.core.content.edit
 
 @Composable
 fun DebugScreen(
@@ -70,7 +71,7 @@ private fun createDebugSettings(context: Context) = listOf(
     Setting(context, DebugSettings.PREF_SHOW_DEBUG_SETTINGS, R.string.prefs_show_debug_settings) { setting ->
         val prefs = LocalContext.current.prefs()
         SwitchPreference(setting, false)
-        { if (!it) prefs.edit().putBoolean(DebugSettings.PREF_DEBUG_MODE, false).apply() }
+        { if (!it) prefs.edit { putBoolean(DebugSettings.PREF_DEBUG_MODE, false) } }
     },
     Setting(context, DebugSettings.PREF_DEBUG_MODE, R.string.prefs_debug_mode) { setting ->
         val prefs = LocalContext.current.prefs()
@@ -80,7 +81,7 @@ private fun createDebugSettings(context: Context) = listOf(
             description = stringResource(R.string.version_text, BuildConfig.VERSION_NAME),
             default = Defaults.PREF_DEBUG_MODE,
         ) {
-            if (!it) prefs.edit().putBoolean(DebugSettings.PREF_SHOW_SUGGESTION_INFOS, false).apply()
+            if (!it) prefs.edit { putBoolean(DebugSettings.PREF_SHOW_SUGGESTION_INFOS, false) }
             needsRestart = true
         }
     },
@@ -100,6 +101,7 @@ private fun createDebugSettings(context: Context) = listOf(
             name = "Dump $type dictionary",
             onClick = {
                 val intent = Intent(DictionaryDumpBroadcastReceiver.DICTIONARY_DUMP_INTENT_ACTION)
+                intent.setPackage(context.packageName)
                 intent.putExtra(DictionaryDumpBroadcastReceiver.DICTIONARY_NAME_KEY, type)
                 ctx.sendBroadcast(intent)
             }
