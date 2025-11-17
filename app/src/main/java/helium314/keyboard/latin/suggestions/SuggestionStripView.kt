@@ -22,6 +22,7 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.View.OnLongClickListener
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.view.accessibility.AccessibilityEvent
 import android.widget.ImageButton
 import android.widget.LinearLayout
@@ -246,23 +247,12 @@ class SuggestionStripView(context: Context, attrs: AttributeSet?, defStyle: Int)
         clear()
         isExternalSuggestionVisible = true
 
-        if (addCloseButton) {
-            val wrapper = LinearLayout(context)
-            wrapper.layoutParams =
-                LinearLayout.LayoutParams(suggestionsStrip.width - toolbarKeyLayoutParams.width, LayoutParams.MATCH_PARENT)
-            wrapper.addView(view)
-            suggestionsStrip.addView(wrapper)
-
-            val closeButton = createToolbarKey(context, ToolbarKey.CLOSE_HISTORY)
-            closeButton.layoutParams = toolbarKeyLayoutParams
-            setupKey(closeButton, Settings.getValues().mColors)
-            closeButton.setOnClickListener {
-                listener.removeExternalSuggestions()
-            }
-            suggestionsStrip.addView(closeButton)
-        } else {
-            suggestionsStrip.addView(view)
-        }
+        Log.d(TAG, "Display width: ${context.getSystemService(WindowManager::class.java).defaultDisplay.width}, " +
+            "suggestion strip view width: $width, " +
+            "suggestions strip wrapper width: ${findViewById<View>(R.id.suggestions_strip_wrapper).width}, " +
+            "toolbarExpandKey width: ${toolbarExpandKey.width}, pinnedKeys width: ${pinnedKeys.width}, " +
+            "suggestionsStrip width: ${suggestionsStrip.width}, toolbarKeyLayoutParams.width: ${toolbarKeyLayoutParams.width}")
+        suggestionsStrip.addView(view)
 
         if (Settings.getValues().mAutoHideToolbar) setToolbarVisibility(false)
     }
