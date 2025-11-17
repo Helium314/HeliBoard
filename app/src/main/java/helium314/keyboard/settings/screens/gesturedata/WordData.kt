@@ -13,7 +13,7 @@ import helium314.keyboard.latin.common.InputPointers
 import helium314.keyboard.latin.dictionary.ReadOnlyBinaryDictionary
 import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.utils.SuggestionResults
-import helium314.keyboard.latin.utils.prefs
+import helium314.keyboard.latin.utils.protectedPrefs
 import kotlinx.serialization.Serializable
 import java.util.Locale
 
@@ -58,7 +58,7 @@ class WordData(
         )
         val data = GestureData(
             BuildConfig.VERSION_CODE,
-            context.prefs().getString(Settings.PREF_LIBRARY_CHECKSUM, "")!!,
+            context.protectedPrefs().getString(Settings.PREF_LIBRARY_CHECKSUM, "")!!,
             targetWord,
             listOf(), // todo: this is annoying to create... and currently not relevant
             dictionariesInSuggestions.map {
@@ -87,7 +87,7 @@ class WordData(
     }
 }
 
-data class GestureDataInfo(val id: Long, val timestamp: Long, val exported: Boolean)
+data class GestureDataInfo(val id: Long, val targetWord: String, val timestamp: Long, val exported: Boolean)
 
 @Serializable
 data class GestureData(

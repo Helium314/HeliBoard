@@ -31,12 +31,11 @@ import java.util.Locale
 import java.util.zip.ZipEntry
 import java.util.zip.ZipOutputStream
 
-// todo: find "best" ways, maybe 2 or 3 that work everywhere
 @Composable
 fun ShareGestureData() {
     val ctx = LocalContext.current
     val dao = GestureDataDao.getInstance(ctx)!!
-    val hasData = !dao.isEmpty()
+    val hasData = !dao.isEmpty() // todo: should be properly updated, currently it's necessary to exit the screen
     val getDataPicker = getData()
 
     // get file

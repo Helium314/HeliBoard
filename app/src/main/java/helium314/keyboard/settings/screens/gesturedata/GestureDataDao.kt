@@ -22,13 +22,13 @@ class GestureDataDao(val db: Database) {
     fun filterInfos(word: String?, begin: Long?, end: Long?, exported: Boolean?): List<GestureDataInfo> {
         val result = mutableListOf<GestureDataInfo>()
         val query = mutableListOf<String>()
-        if (word != null) query.add("LOWER($COLUMN_WORD) like '%?%'")
+        if (word != null) query.add("LOWER($COLUMN_WORD) like '%'||?||'%'")
         if (begin != null) query.add("TIMESTAMP >= $begin")
         if (end != null) query.add("TIMESTAMP <= $end")
         if (exported != null) query.add("EXPORTED = ${if (exported) 1 else 0}")
         db.readableDatabase.query(
             TABLE,
-            arrayOf(COLUMN_ID, COLUMN_TIMESTAMP, COLUMN_EXPORTED),
+            arrayOf(COLUMN_ID, COLUMN_WORD, COLUMN_TIMESTAMP, COLUMN_EXPORTED),
             query.joinToString(" AND "),
             word?.let { arrayOf(it.lowercase()) },
             null,
@@ -36,7 +36,7 @@ class GestureDataDao(val db: Database) {
             null
         ).use {
             while (it.moveToNext()) {
-                result.add(GestureDataInfo(it.getLong(0), it.getLong(1), it.getInt(2) != 0))
+                result.add(GestureDataInfo(it.getLong(0), it.getString(1), it.getLong(2), it.getInt(3) != 0))
             }
         }
         return result
@@ -100,6 +100,11 @@ class GestureDataDao(val db: Database) {
         }
     }
 
+    init {
+        // for now just do it here instead of using the proper upgrade thing
+        db.writableDatabase.execSQL(CREATE_TABLE)
+    }
+
     companion object {
         private const val TAG = "GestureDataDao"
 
@@ -111,8 +116,9 @@ class GestureDataDao(val db: Database) {
         private const val COLUMN_DATA = "DATA"
 
         // todo: TEXT or BLOB? we could zip-compress the gesture data
+        // todo: active / passive column, we'll want to use it for filtering
         const val CREATE_TABLE = """
-            CREATE TABLE $TABLE (
+            CREATE TABLE IF NOT EXISTS $TABLE (
                 $COLUMN_ID INTEGER PRIMARY KEY,
                 $COLUMN_TIMESTAMP INTEGER NOT NULL,
                 $COLUMN_WORD TEXT NOT NULL,

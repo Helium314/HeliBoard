@@ -120,18 +120,21 @@ fun ReviewScreen(
             var includeActive by rememberSaveable { mutableStateOf(true) }
             var includePassive by rememberSaveable { mutableStateOf(true) }
             var includeExported by rememberSaveable { mutableStateOf(false) }
-            var gestureData by remember { mutableStateOf(listOf<GestureData>()) }
+            var startDate: Long? by rememberSaveable { mutableStateOf(null) }
+            var endDate: Long? by rememberSaveable { mutableStateOf(null) }
+            var gestureDataInfos by remember { mutableStateOf(listOf<GestureDataInfo>()) }
             val ctx = LocalContext.current
-            LaunchedEffect(filter) {
-                gestureData = Json.decodeFromString("["+getGestureDataFile(ctx).readText().dropLast(2)+"]")
+            LaunchedEffect(filter, startDate, endDate, includeExported) {
+                // todo: should be some background stuff, this could be slow
+                // also we could somehow return a cursor?
+                // and show how many results are currently displayed?
+                gestureDataInfos = dao.filterInfos(
+                    filter.text.takeIf { it.isNotEmpty() },
+                    startDate,
+                    endDate,
+                    if (includeExported) null else false
+                )
             }
-            val filteredData = if (includeActive && includePassive && !includeExported && filter.text.isBlank()) gestureData
-                else gestureData.filter {
-                    // todo: active
-                    // todo: passive
-                    // todo: exported
-                    it.targetWord.contains(filter.text, true)
-                }
             TopAppBar(
                 title = { Text("Review & export gesture data") },
                 navigationIcon = {
@@ -194,9 +197,8 @@ fun ReviewScreen(
                     }
                 }
             }
+            // todo: option to clear date
             var showDateRangePicker by remember { mutableStateOf(false) }
-            var startDate: Long? by rememberSaveable { mutableStateOf(null) }
-            var endDate: Long? by rememberSaveable { mutableStateOf(null) }
             val df = DateFormat.getDateFormat(ctx)
             Row(verticalAlignment = Alignment.CenterVertically) {
                 //  word text field (allow regex?)
@@ -220,7 +222,7 @@ fun ReviewScreen(
             //  if filter changes -> unselect all
 
             LazyColumn {
-                items(filteredData, { it.hashCode() }) { item -> // todo: need the code, but the sha256(?) one
+                items(gestureDataInfos, { it.hashCode() }) { item -> // todo: need the code, but the sha256(?) one
                     //   each entry consists of word, time, active/passive, whether it's already exported
                     //    click shows raw data?
                     //    long click selects
@@ -235,7 +237,7 @@ fun ReviewScreen(
 }
 
 @Composable
-private fun GestureDataEntry(gestureData: GestureData, selected: Boolean, anythingSelected: Boolean, onSelect: (Boolean) -> Unit) {
+private fun GestureDataEntry(gestureDataInfo: GestureDataInfo, selected: Boolean, anythingSelected: Boolean, onSelect: (Boolean) -> Unit) {
     val startModifier = if (!anythingSelected) Modifier.combinedClickable(
         onClick = { },
         onLongClick = { onSelect(true) },
@@ -248,7 +250,7 @@ private fun GestureDataEntry(gestureData: GestureData, selected: Boolean, anythi
         //indication = ripple()
     )
     Text(
-        text = gestureData.targetWord,
+        text = gestureDataInfo.targetWord,
         modifier = startModifier.fillMaxWidth().padding(vertical = 10.dp, horizontal = 12.dp),
         color = if (selected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface
     )
