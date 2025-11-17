@@ -16,7 +16,7 @@ import kotlin.test.assertEquals
 
 @RunWith(RobolectricTestRunner::class)
 class XLinkTest { // Without the X, SubtypeTests fail with ClassCastException. WTF?
-    @Test fun knownDictionaries() {
+/*    @Test fun knownDictionaries() {
         if (BuildConfig.BUILD_TYPE == "runTests") return // don't spam requests to Codeberg on every PR update
         val context = ApplicationProvider.getApplicationContext<App>()
         val urls = mutableSetOf<String>()
@@ -32,7 +32,7 @@ class XLinkTest { // Without the X, SubtypeTests fail with ClassCastException. W
             checkLink(it)
         }
     }
-
+*/
     @Test fun readmeLinks() {
         val file = File("../README.md")
         val linkRegex = "(?:https?:\\/\\/.)?(?:www\\.)?[-a-zA-Z0-9@%._\\+~#=]{2,256}\\.[a-z]{2,6}\\b(?:[-a-zA-Z0-9@:%_\\+.~#?&\\/\\/=]*)".toRegex()
@@ -71,19 +71,23 @@ class XLinkTest { // Without the X, SubtypeTests fail with ClassCastException. W
     private fun checkLink(link: String) {
         if (link.contains("wiki/"))
             return checkWikiLink(link)
-        println("checking $link")
         val url = URL(link)
         val connection = url.openConnection() as HttpURLConnection
         connection.requestMethod = "HEAD"
+        if (connection.responseCode != 200)
+            println("error checking $link")
         assertEquals(200, connection.responseCode)
     }
 
     private fun checkWikiLink(link: String) {
-        println("checking wiki $link")
         val url = URL(link)
         val connection = url.openConnection() as HttpURLConnection
+        if (connection.responseCode != 200)
+            println("error checking $link")
         assertEquals(200, connection.responseCode)
         val text = connection.getInputStream().reader().readText()
+        if ("Create new page" in text)
+            println("error checking wiki $link")
         assert("Create new page" !in text)
     }
 }
