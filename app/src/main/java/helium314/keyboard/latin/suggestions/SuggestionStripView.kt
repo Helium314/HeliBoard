@@ -248,7 +248,8 @@ class SuggestionStripView(context: Context, attrs: AttributeSet?, defStyle: Int)
 
         if (addCloseButton) {
             val wrapper = LinearLayout(context)
-            wrapper.layoutParams = LinearLayout.LayoutParams(suggestionsStrip.width - 30.dpToPx(resources), LayoutParams.MATCH_PARENT)
+            wrapper.layoutParams =
+                LinearLayout.LayoutParams(suggestionsStrip.width - toolbarKeyLayoutParams.width, LayoutParams.MATCH_PARENT)
             wrapper.addView(view)
             suggestionsStrip.addView(wrapper)
 
