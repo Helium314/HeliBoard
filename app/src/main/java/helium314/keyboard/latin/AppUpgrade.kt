@@ -3,6 +3,8 @@ package helium314.keyboard.latin
 import android.annotation.SuppressLint
 import android.content.Context
 import androidx.core.content.edit
+import helium314.keyboard.compat.isDeviceLocked
+import helium314.keyboard.compat.isUserLocked
 import helium314.keyboard.keyboard.ColorSetting
 import helium314.keyboard.keyboard.KeyboardTheme
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode.checkAndConvertCode
@@ -609,6 +611,7 @@ object AppUpgrade {
             val content: String,
             var isPinned: Boolean = false
         )
+        if (isUserLocked(context) || isDeviceLocked(context)) return
         try {
             val pinnedClipString = context.protectedPrefs().getString("pinned_clips", "")
             if (pinnedClipString.isNullOrBlank())
