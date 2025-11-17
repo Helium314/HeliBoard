@@ -15,7 +15,6 @@ import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.utils.SuggestionResults
 import helium314.keyboard.latin.utils.prefs
 import kotlinx.serialization.Serializable
-import kotlinx.serialization.json.Json
 import java.util.Locale
 
 class WordData(
@@ -50,8 +49,8 @@ class WordData(
     fun save(context: Context) {
         if (!isSavingOk())
             return
+        val dao = GestureDataDao.getInstance(context) ?: return
 
-        // todo: guid / hash per gesture (could be hash of all other data)
         val keyboardInfo = KeyboardInfo(
             width, // baseHeight is without padding, but coordinates include padding
             height,
@@ -70,12 +69,9 @@ class WordData(
             PointerData.fromPointers(composedData.mInputPointers),
             keyboardInfo,
             activeMode,
+            null
         )
-        val string = Json.encodeToString(data)
-        // todo: use a database, we might end up with a lot of data!
-        //  store full json, word, and time (latter 2 for filtering)
-        //  and whether the word / data set was already exported (maybe when?)
-        getGestureDataFile(context).appendText("$string,\n") // just need to remove trailing ,\n and put inside [ and ] to have an array
+        dao.add(data, System.currentTimeMillis()) // todo: in background, but careful about synchronization
     }
 
     // find when we should NOT save
@@ -91,6 +87,8 @@ class WordData(
     }
 }
 
+data class GestureDataInfo(val id: Long, val timestamp: Long, val exported: Boolean)
+
 @Serializable
 data class GestureData(
     val appVersionCode: Int,
@@ -101,7 +99,8 @@ data class GestureData(
     val suggestions: List<Suggestion>,
     val gesture: List<PointerData>,
     val keyboardInfo: KeyboardInfo,
-    val activeMode: Boolean
+    val activeMode: Boolean,
+    val hash: String?
 )
 // todo: locales, which / how to save?
 

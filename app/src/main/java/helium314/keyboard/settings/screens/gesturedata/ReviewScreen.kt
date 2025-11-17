@@ -63,6 +63,8 @@ import java.util.Date
 fun ReviewScreen(
     onClickBack: () -> Unit,
 ) {
+    val ctx = LocalContext.current
+    val dao = GestureDataDao.getInstance(ctx)!!
     val buttonColors = ButtonColors(
         containerColor = Color.Transparent,
         contentColor = MaterialTheme.colorScheme.onSurface,

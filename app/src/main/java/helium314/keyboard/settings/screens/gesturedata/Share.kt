@@ -35,11 +35,12 @@ import java.util.zip.ZipOutputStream
 @Composable
 fun ShareGestureData() {
     val ctx = LocalContext.current
-    val dataFile = getGestureDataFile(ctx)
+    val dao = GestureDataDao.getInstance(ctx)!!
+    val hasData = !dao.isEmpty()
     val getDataPicker = getData()
 
     // get file
-    TextButton({ getDataPicker.launch(getDataIntent) }, enabled = dataFile.length() > 0) {
+    TextButton({ getDataPicker.launch(getDataIntent) }, enabled = hasData) {
         Text(stringResource(R.string.gesture_data_get_data))
     }
 
@@ -50,7 +51,7 @@ fun ShareGestureData() {
             if (zippedDataPath.isNotEmpty())
                 ctx.startActivity(createSendIntentChooser(ctx))
         },
-        enabled = dataFile.length() > 0 && Intent(Intent.ACTION_SENDTO)
+        enabled = hasData && Intent(Intent.ACTION_SENDTO)
             .apply { data = "mailto:".toUri() }.resolveActivity(ctx.packageManager) != null
     ) {
         Text("share file to mail")
@@ -64,7 +65,7 @@ fun ShareGestureData() {
     }
 
     // delete data (not sharing, but afterwards)
-    TextButton({ dataFile.delete() }, enabled = dataFile.length() > 0) { Text(stringResource(R.string.gesture_data_delete_data)) }
+    TextButton({ dao.deleteAll() }, enabled = hasData) { Text(stringResource(R.string.gesture_data_delete_data)) }
 }
 
 private val getDataIntent = Intent(Intent.ACTION_CREATE_DOCUMENT)
@@ -123,6 +124,8 @@ private fun getData(): ManagedActivityResultLauncher<Intent, ActivityResult> {
     // check if file exists and not size 0, otherwise don't even offer the button
     return filePicker { uri ->
         val file = getGestureDataFile(ctx)
+        val dao = GestureDataDao.getInstance(ctx) ?: return@filePicker
+        file.writeText("[${dao.getAllJsonData().joinToString(",")}]")
         ctx.getActivity()?.contentResolver?.openOutputStream(uri)?.use { os ->
             val zipStream = ZipOutputStream(os)
             zipStream.setLevel(9)
@@ -139,6 +142,8 @@ private fun getData(): ManagedActivityResultLauncher<Intent, ActivityResult> {
 private fun createZipFile(context: Context) : File {
     zippedDataPath = ""
     val jsonFile = getGestureDataFile(context)
+    val dao = GestureDataDao.getInstance(context)!!
+    jsonFile.writeText("[${dao.getAllJsonData().joinToString(",")}]")
     val zipFile = getGestureZipFile(context)
     zipFile.delete()
     zipFile.outputStream().use { os ->
