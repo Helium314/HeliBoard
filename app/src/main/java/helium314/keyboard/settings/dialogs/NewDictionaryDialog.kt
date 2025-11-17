@@ -34,6 +34,7 @@ import java.io.File
 import java.util.Locale
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalResources
+import helium314.keyboard.latin.RichInputMethodManager
 
 @Composable
 fun NewDictionaryDialog(
@@ -48,12 +49,24 @@ fun NewDictionaryDialog(
     } else if (header != null) {
         val ctx = LocalContext.current
         val dictLocale = header.mLocaleString.constructLocale()
-        val enabledLanguages = SubtypeSettings.getEnabledSubtypes().map { it.locale().language }
-        val comparer = compareBy<Locale>({ it != mainLocale }, { it != dictLocale }, { it.language !in enabledLanguages }, { it.script() != dictLocale.script() })
+        val enabledLocales = SubtypeSettings.getEnabledSubtypes().map { it.locale() }
+        val enabledLanguages = enabledLocales.map { it.language }
+        val comparer = compareBy<Locale>(
+            { it != mainLocale },
+            { it !in enabledLocales },
+            { it != dictLocale },
+            { it.language !in enabledLanguages },
+            { it.script() != dictLocale.script() }
+        )
         val locales = SubtypeSettings.getAvailableSubtypeLocales()
             .filter { it.script() == dictLocale.script() || it.script() == mainLocale?.script() }
             .sortedWith(comparer)
-        var locale by remember { mutableStateOf(mainLocale ?: dictLocale.takeIf { it in locales } ?: locales.first()) }
+        var locale by remember {
+            mutableStateOf(mainLocale
+                ?: RichInputMethodManager.getInstance().findSubtypeForHintLocale(dictLocale)?.locale()
+                ?: dictLocale.takeIf { it in locales }
+                ?: locales.first())
+        }
         val cacheDir = DictionaryInfoUtils.getCacheDirectoryForLocale(locale, ctx)
         val dictFile = File(cacheDir, header.mIdString.substringBefore(":") + "_" + DictionaryInfoUtils.USER_DICTIONARY_SUFFIX)
         val type = header.mIdString.substringBefore(":")
