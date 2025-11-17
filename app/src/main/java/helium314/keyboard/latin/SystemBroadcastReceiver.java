@@ -12,13 +12,20 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.icu.util.Calendar;
 import android.os.Build;
 import android.os.Process;
 
+import helium314.keyboard.latin.utils.DeviceProtectedUtils;
 import helium314.keyboard.latin.utils.KtxKt;
 import helium314.keyboard.latin.utils.Log;
 import android.view.inputmethod.InputMethodManager;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Locale;
 import helium314.keyboard.keyboard.KeyboardLayoutSet;
 import helium314.keyboard.latin.settings.Settings;
 import helium314.keyboard.latin.utils.UncachedInputMethodManagerUtils;
@@ -79,6 +86,22 @@ public final class SystemBroadcastReceiver extends BroadcastReceiver {
                 && UncachedInputMethodManagerUtils.isThisImeCurrent(context, imm);
         if (!isCurrentImeOfCurrentUser) {
             final int myPid = Process.myPid();
+            try
+            {
+                String date = null;
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                    date = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss", Locale.US).format(Calendar.getInstance().getTime());
+                }
+                File dir = DeviceProtectedUtils.getFilesDir(context);
+                String filename = new File(dir, "crash_report_startup.txt").getAbsolutePath();
+                FileWriter fw = new FileWriter(filename, true);
+                fw.write(date+": killing on intent "+intentAction+"\n");
+                fw.close();
+            }
+            catch(IOException ioe)
+            {
+                System.err.println("IOException: " + ioe.getMessage());
+            }
             Log.i(TAG, "Killing my process: pid=" + myPid);
             Process.killProcess(myPid);
         }

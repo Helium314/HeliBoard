@@ -6,12 +6,30 @@ import helium314.keyboard.keyboard.emoji.SupportedEmojis
 import helium314.keyboard.latin.define.DebugFlags
 import helium314.keyboard.latin.settings.Defaults
 import helium314.keyboard.latin.settings.Settings
+import helium314.keyboard.latin.utils.DeviceProtectedUtils
 import helium314.keyboard.latin.utils.LayoutUtilsCustom
 import helium314.keyboard.latin.utils.Log
 import helium314.keyboard.latin.utils.SubtypeSettings
+import java.io.File
+import java.io.FileWriter
+import java.io.IOException
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Locale
 
 class App : Application() {
     override fun onCreate() {
+        try {
+            val date = SimpleDateFormat("yyyy-MM-dd_HH-mm-ss", Locale.US).format(Calendar.getInstance().time)
+            val dir = DeviceProtectedUtils.getFilesDir(this)
+            val filename = File(dir, "crash_report_startup.txt").absolutePath
+            val fw = FileWriter(filename, true)
+            fw.write("$date: app starting\n")
+            fw.close()
+        } catch (ioe: IOException) {
+            System.err.println("IOException: " + ioe.message)
+        }
+
         super.onCreate()
         DebugFlags.init(this)
         Settings.init(this)

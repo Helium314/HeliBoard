@@ -67,6 +67,7 @@ import helium314.keyboard.latin.suggestions.SuggestionStripView;
 import helium314.keyboard.latin.suggestions.SuggestionStripViewAccessor;
 import helium314.keyboard.latin.touchinputconsumer.GestureConsumer;
 import helium314.keyboard.latin.utils.ColorUtilKt;
+import helium314.keyboard.latin.utils.DeviceProtectedUtils;
 import helium314.keyboard.latin.utils.InlineAutofillUtils;
 import helium314.keyboard.latin.utils.InputMethodPickerKt;
 import helium314.keyboard.latin.utils.JniUtils;
@@ -82,9 +83,14 @@ import helium314.keyboard.latin.utils.ToolbarMode;
 import helium314.keyboard.settings.SettingsActivity2;
 import kotlin.Unit;
 
+import java.io.File;
 import java.io.FileDescriptor;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
@@ -159,6 +165,19 @@ public class LatinIME extends InputMethodService implements
             // method).
             if (Intent.ACTION_USER_UNLOCKED.equals(action)) {
                 final int myPid = Process.myPid();
+                try
+                {
+                    String date = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss", Locale.US).format(Calendar.getInstance().getTime());
+                    File dir = DeviceProtectedUtils.getFilesDir(context);
+                    String filename = new File(dir, "crash_report_startup.txt").getAbsolutePath();
+                    FileWriter fw = new FileWriter(filename,true);
+                    fw.write(date+": killing on unlock\n");
+                    fw.close();
+                }
+                catch(IOException ioe)
+                {
+                    System.err.println("IOException: " + ioe.getMessage());
+                }
                 Log.i(TAG, "Killing my process: pid=" + myPid);
                 Process.killProcess(myPid);
             } else {
