@@ -31,11 +31,13 @@ import java.util.Locale
 import java.util.zip.ZipEntry
 import java.util.zip.ZipOutputStream
 
+// todo: nicer looking buttons...
+//  and the copy doesn't quite fit
 @Composable
 fun ShareGestureData() {
     val ctx = LocalContext.current
     val dao = GestureDataDao.getInstance(ctx)!!
-    val hasData = !dao.isEmpty() // todo: should be properly updated, currently it's necessary to exit the screen
+    val hasData = !dao.isEmpty() // no need to update if we have it in a dialog
     val getDataPicker = getData()
 
     // get file

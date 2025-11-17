@@ -1,8 +1,11 @@
 package helium314.keyboard.settings.screens.gesturedata
 
+import android.annotation.SuppressLint
 import android.text.format.DateFormat
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.combinedClickable
+import androidx.compose.foundation.gestures.Orientation
+import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -16,7 +19,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.selection.selectable
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonColors
@@ -27,6 +32,7 @@ import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Switch
@@ -36,6 +42,7 @@ import androidx.compose.material3.TextField
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.rememberDateRangePickerState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -52,10 +59,12 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.DialogProperties
 import helium314.keyboard.latin.R
+import helium314.keyboard.settings.DeleteButton
 import helium314.keyboard.settings.Theme
+import helium314.keyboard.settings.dialogs.ThreeButtonAlertDialog
 import helium314.keyboard.settings.previewDark
-import kotlinx.serialization.json.Json
 import java.util.Date
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -73,7 +82,7 @@ fun ReviewScreen(
     )
     var showIgnoreListDialog by remember { mutableStateOf(false) }
     var showExportDialog by remember { mutableStateOf(false) }
-    var selected by rememberSaveable { mutableStateOf(listOf<Int>()) } // index? hashCode?
+    var selected by rememberSaveable { mutableStateOf(listOf<Long>()) }
     var filter by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue()) }
     Scaffold(
         contentWindowInsets = WindowInsets.safeDrawing.only(WindowInsetsSides.Bottom),
@@ -205,7 +214,9 @@ fun ReviewScreen(
                 // todo: supportingText makes it look misaligned...
                 TextField(value = filter, onValueChange = { filter = it}, supportingText = { Text("filter") }, modifier = Modifier.weight(0.7f))
                 //  time from-to button (set time range in dialog)
-                Column(Modifier.clickable { showDateRangePicker = true }.weight(0.3f), horizontalAlignment = Alignment.CenterHorizontally) {
+                Column(Modifier
+                    .clickable { showDateRangePicker = true }
+                    .weight(0.3f), horizontalAlignment = Alignment.CenterHorizontally) {
                     Text("date", style = MaterialTheme.typography.bodyLarge)
                     Text(startDate?.let { df.format(Date(it)) }.toString(), style = MaterialTheme.typography.bodyMedium)
                     Text(endDate?.let { df.format(Date(it)) }.toString(), style = MaterialTheme.typography.bodyMedium)
@@ -222,16 +233,71 @@ fun ReviewScreen(
             //  if filter changes -> unselect all
 
             LazyColumn {
-                items(gestureDataInfos, { it.hashCode() }) { item -> // todo: need the code, but the sha256(?) one
+                items(gestureDataInfos, { it.id }) { item ->
                     //   each entry consists of word, time, active/passive, whether it's already exported
                     //    click shows raw data?
                     //    long click selects
-                    GestureDataEntry(item, item.hashCode() in selected, selected.isNotEmpty()) { sel ->
-                        selected = if (!sel) selected.filterNot { it == item.hashCode() }
-                        else selected + item.hashCode()
+                    GestureDataEntry(item, item.id in selected, selected.isNotEmpty()) { sel ->
+                        selected = if (!sel) selected.filterNot { it == item.id }
+                        else selected + item.id
                     }
                 }
             }
+        }
+        if (showExportDialog) {
+            ThreeButtonAlertDialog(
+                onDismissRequest = { showExportDialog = false },
+                content = { Column { ShareGestureData() } },
+                cancelButtonText = stringResource(android.R.string.ok),
+                onConfirmed = { },
+                confirmButtonText = null
+            )
+        }
+        if (showIgnoreListDialog) {
+            @SuppressLint("MutableCollectionMutableState") // if they had an immutable sorted set...
+            var ignoreWords by remember { mutableStateOf(sortedSetOf("a", "b", "c").toSortedSet()) } // wtf TreeSet <-> SortedSet?
+            var newWord by remember { mutableStateOf(TextFieldValue()) }
+            val scroll = rememberScrollState()
+            ThreeButtonAlertDialog(
+                onDismissRequest = { showIgnoreListDialog = false },
+                content = { Column(Modifier.verticalScroll(scroll)) {
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        TextField(
+                            value = newWord,
+                            onValueChange = { newWord = it},
+                            Modifier.weight(1f)
+                        )
+                        IconButton(
+                            {
+                                if (newWord.text.isNotBlank())
+                                    ignoreWords += newWord.text.trim()
+                                newWord = TextFieldValue()
+                            },
+                            Modifier.weight(0.2f)) {
+                            Icon(painterResource(R.drawable.ic_plus), stringResource(R.string.add))
+                        }
+                    }
+                    ignoreWords.map { word ->
+                        CompositionLocalProvider(
+                            LocalTextStyle provides MaterialTheme.typography.bodyLarge
+                        ) {
+                            Row(
+                                verticalAlignment = Alignment.CenterVertically,
+                                horizontalArrangement = Arrangement.SpaceBetween,
+                                modifier = Modifier.fillMaxWidth()
+                            ) {
+                                Text(word)
+                                DeleteButton { ignoreWords = ignoreWords.filterNot { word == it }.toSortedSet() }
+                            }
+                        }
+                    }
+                } },
+                onConfirmed = {
+                    // todo: save the words!
+                },
+                confirmButtonText = stringResource(android.R.string.ok),
+                properties = DialogProperties(dismissOnClickOutside = false)
+            )
         }
     }
 }
@@ -251,7 +317,9 @@ private fun GestureDataEntry(gestureDataInfo: GestureDataInfo, selected: Boolean
     )
     Text(
         text = gestureDataInfo.targetWord,
-        modifier = startModifier.fillMaxWidth().padding(vertical = 10.dp, horizontal = 12.dp),
+        modifier = startModifier
+            .fillMaxWidth()
+            .padding(vertical = 10.dp, horizontal = 12.dp),
         color = if (selected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface
     )
 }
