@@ -8,14 +8,13 @@ import helium314.keyboard.latin.InputAttributes
 import helium314.keyboard.latin.NgramContext
 import helium314.keyboard.latin.SuggestedWords
 import helium314.keyboard.latin.common.ComposedData
-import helium314.keyboard.latin.common.Constants
 import helium314.keyboard.latin.common.InputPointers
+import helium314.keyboard.latin.dictionary.Dictionary
 import helium314.keyboard.latin.dictionary.ReadOnlyBinaryDictionary
 import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.utils.SuggestionResults
 import helium314.keyboard.latin.utils.protectedPrefs
 import kotlinx.serialization.Serializable
-import java.util.Locale
 
 class WordData(
     val targetWord: String,
@@ -24,7 +23,6 @@ class WordData(
     val ngramContext: NgramContext,
     val keyboard: Keyboard,
     val inputStyle: Int,
-    val currentLocale: Locale, // for multilingual typing, for a single language it's obvious
     val activeMode: Boolean,
 ) {
     // keyboard is not immutable, so better store potentially relevant information immediately
@@ -33,18 +31,8 @@ class WordData(
     private val width = keyboard.mOccupiedWidth
 
     private val proxInfo = keyboard.proximityInfo // todo: is there any use?
-    private val elementId = keyboard.mId.mElementId // alpha, symbol, alpha shifted, ...
-    private val mode = keyboard.mId.mMode // text, url, mail, ...
-    private val inputType = keyboard.mId.mEditorInfo.inputType // should very much correlate to mode, see KeyboardLayoutSet.getKeyboardMode
-    private val oneHandedMode = keyboard.mId.mOneHandedModeEnabled // todo: we should see it in the coordinates, right?
-    private val split = keyboard.mId.mIsSplitLayout // todo: we should see it in the coordinates, right?
 
-    private val locale = keyboard.mId.locale.toLanguageTag()
-    private val secondaryLocales = keyboard.mId.mSubtype.getExtraValueOf(Constants.Subtype.ExtraValue.SECONDARY_LOCALES)
-    private val dictionariesInSuggestions = suggestions.map { it.mSourceDict }.toSet() // contains locales
-
-    // todo: what could we additionally need for passive gathering?
-    //  selected word (would be the target, needs to consider manual suggestion pick)
+    private val dictionariesInSuggestions = suggestions.map { it.mSourceDict }.toSet()
 
     fun save(context: Context) {
         if (!isSavingOk())
@@ -60,12 +48,16 @@ class WordData(
             BuildConfig.VERSION_CODE,
             context.protectedPrefs().getString(Settings.PREF_LIBRARY_CHECKSUM, "")!!,
             targetWord,
-            listOf(), // todo: this is annoying to create... and currently not relevant
             dictionariesInSuggestions.map {
                 val hash = (it as? BinaryDictionary)?.hash ?: (it as? ReadOnlyBinaryDictionary)?.hash
-                Dictionary(hash, it.mDictType, it.mLocale?.toLanguageTag())
+                DictInfo(hash, it.mDictType, it.mLocale?.toLanguageTag())
             },
-            suggestions.filter { it.mScore > 0 }.map { Suggestion(it.mWord, it.mScore) }, // todo: there is much more information available
+            suggestions
+                .filter { it.mScore > 0 } // even when there are few suggestions we don't want atrocious matches
+                .filterNot { it.mSourceDict.mDictType == Dictionary.TYPE_CONTACTS } // too sensitive
+                .distinctBy { it.mWord } // there are often duplicates, especially with user history
+                .take(12) // should be enough
+                .map { Suggestion(it.mWord, it.mScore) },
             PointerData.fromPointers(composedData.mInputPointers),
             keyboardInfo,
             activeMode,
@@ -83,6 +75,8 @@ class WordData(
             return false // probably some more inputAttributes to consider
         // todo: check exclusion list
         // todo: don't save if the word is coming from personal or contacts dict?
+        if (suggestions.first().mSourceDict.mDictType == Dictionary.TYPE_CONTACTS)
+            return false
         return true
     }
 }
@@ -93,21 +87,20 @@ data class GestureDataInfo(val id: Long, val targetWord: String, val timestamp: 
 data class GestureData(
     val appVersionCode: Int,
     val libraryHash: String,
-    val targetWord: String, // this will be tricky for active gathering
-    val precedingWords: List<String>, // todo: should we? might be a privacy issue
-    val dictionaries: List<Dictionary>,
+    val targetWord: String, // this will be tricky for active gathering if user corrects the word
+    //val precedingWords: List<String>, // useful, but too sensitive
+    val dictionaries: List<DictInfo>,
     val suggestions: List<Suggestion>,
     val gesture: List<PointerData>,
     val keyboardInfo: KeyboardInfo,
     val activeMode: Boolean,
     val hash: String?
 )
-// todo: locales, which / how to save?
 
 // hash is only available for dictionaries from .dict files
 // language can be null (but should not be)
 @Serializable
-data class Dictionary(val hash: String?, val type: String, val language: String?)
+data class DictInfo(val hash: String?, val type: String, val language: String?)
 
 @Serializable
 data class Suggestion(val word: String, val score: Int) // todo: do we want a source dictionary?

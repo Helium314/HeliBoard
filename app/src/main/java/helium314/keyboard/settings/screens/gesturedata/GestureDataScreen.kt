@@ -117,7 +117,7 @@ fun GestureDataScreen(
                 val target = wordFromDict ?: return
                 // todo: do we want to store intermediate suggestions?
                 //  currently they are overwritten by the next ones, but stored if the user presses next-word while typing
-                lastData = WordData(target, suggestions, composedData, ngramContext, keyboard, inputStyle, dict?.locale ?: Locale.CANADA, true)
+                lastData = WordData(target, suggestions, composedData, ngramContext, keyboard, inputStyle, true)
                 // todo: call nextWord immediately if target has a good score in suggestions?
             }
         }
