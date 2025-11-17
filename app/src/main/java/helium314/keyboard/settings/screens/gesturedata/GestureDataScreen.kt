@@ -113,22 +113,19 @@ fun GestureDataScreen(
                 keyboard: Keyboard,
                 inputStyle: Int
             ) {
-                if (!composedData.mIsBatchMode) return
+                if (!composedData.mIsBatchMode || inputStyle != SuggestedWords.INPUT_STYLE_TAIL_BATCH) return
                 val target = wordFromDict ?: return
                 // todo: do we want to store intermediate suggestions?
                 //  currently they are overwritten by the next ones, but stored if the user presses next-word while typing
-                lastData = WordData(target, suggestions, composedData, ngramContext, keyboard, inputStyle)
-                if (inputStyle == SuggestedWords.INPUT_STYLE_TAIL_BATCH) {
-                    // todo: call nextWord immediately if target has a good score in suggestions?
-                }
+                lastData = WordData(target, suggestions, composedData, ngramContext, keyboard, inputStyle, dict?.locale ?: Locale.CANADA, true)
+                // todo: call nextWord immediately if target has a good score in suggestions?
             }
         }
     }
     fun nextWord(save: Boolean) {
-        val dict = dict ?: return
         if (!save)
             lastData = null
-        lastData?.save(listOf(dict), ctx)
+        lastData?.save(ctx)
         typed = TextFieldValue()
         wordFromDict = words.ifEmpty { null }?.random() // randomly choose from dict
         lastData = null
