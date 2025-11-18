@@ -252,7 +252,24 @@ class SuggestionStripView(context: Context, attrs: AttributeSet?, defStyle: Int)
             "suggestions strip wrapper width: ${findViewById<View>(R.id.suggestions_strip_wrapper).width}, " +
             "toolbarExpandKey width: ${toolbarExpandKey.width}, pinnedKeys width: ${pinnedKeys.width}, " +
             "suggestionsStrip width: ${suggestionsStrip.width}, toolbarKeyLayoutParams.width: ${toolbarKeyLayoutParams.width}")
-        suggestionsStrip.addView(view)
+        if (addCloseButton) {
+            val wrapper = LinearLayout(context)
+            val layoutParams = LinearLayout.LayoutParams(suggestionsStrip.width - toolbarKeyLayoutParams.width, LayoutParams.MATCH_PARENT)
+            layoutParams.weight = 0f
+            wrapper.layoutParams = layoutParams
+            wrapper.addView(view)
+            suggestionsStrip.addView(wrapper)
+
+            val closeButton = createToolbarKey(context, ToolbarKey.CLOSE_HISTORY)
+            closeButton.layoutParams = toolbarKeyLayoutParams
+            setupKey(closeButton, Settings.getValues().mColors)
+            closeButton.setOnClickListener {
+                listener.removeExternalSuggestions()
+            }
+            suggestionsStrip.addView(closeButton)
+        } else {
+            suggestionsStrip.addView(view)
+        }
 
         if (Settings.getValues().mAutoHideToolbar) setToolbarVisibility(false)
     }
