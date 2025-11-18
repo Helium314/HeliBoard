@@ -464,7 +464,7 @@ public final class EmojiPalettesView extends LinearLayout
         }
     }
 
-    private static void closeDictionaryFacilitator() {
+    public static void closeDictionaryFacilitator() {
         if (sDictionaryFacilitator != null) {
             sDictionaryFacilitator.closeDictionaries();
             sDictionaryFacilitator = null;
