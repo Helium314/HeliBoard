@@ -52,6 +52,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -87,10 +88,13 @@ fun ReviewScreen(
     var showExportDialog by remember { mutableStateOf(false) }
     var selected by rememberSaveable { mutableStateOf(listOf<Long>()) }
     var filter by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue()) }
+    val width = LocalConfiguration.current.screenWidthDp
+    val height = LocalConfiguration.current.screenHeightDp
+    val useWideLayout = height < 500 && width > height
     Scaffold(
         contentWindowInsets = WindowInsets.safeDrawing.only(WindowInsetsSides.Bottom),
         bottomBar = {
-            BottomAppBar( // todo: make sure it doesn't block anything (last entry, scrolling, landscape mode, ...
+            BottomAppBar( // todo: should it rather be in the controlColumn? for more space in landscape mode
                 actions = {
                     // todo: spread evenly, consistent icon size, enable / disable if necessary
                     Button({}, colors = buttonColors) {
@@ -110,7 +114,7 @@ fun ReviewScreen(
                             else "share all")
                         }
                     }
-                    // todo: only show it if passive gathering is implemented
+                    // todo: only show it once passive gathering is implemented
                     Button({ showIgnoreListDialog = true }, colors = buttonColors) {
                         Column {
                             Icon(painterResource(R.drawable.ic_autocorrect), "exclude", Modifier.align(Alignment.CenterHorizontally)) // block icon (strike through)
@@ -121,119 +125,8 @@ fun ReviewScreen(
             )
         }
     ) { innerPadding ->
-        Column(
-            modifier = Modifier
-                .padding(horizontal = 12.dp)
-                .then(Modifier.padding(innerPadding)),
-        ) {
-            var includeActive by rememberSaveable { mutableStateOf(true) }
-            var includePassive by rememberSaveable { mutableStateOf(true) }
-            var includeExported by rememberSaveable { mutableStateOf(false) }
-            var startDate: Long? by rememberSaveable { mutableStateOf(null) }
-            var endDate: Long? by rememberSaveable { mutableStateOf(null) }
-            var sortByName: Boolean by rememberSaveable { mutableStateOf(false) }
-            var gestureDataInfos by remember { mutableStateOf(listOf<GestureDataInfo>()) }
-            val ctx = LocalContext.current
-            LaunchedEffect(filter, startDate, endDate, includeExported, sortByName) {
-                // todo: should be some background stuff, this could be slow
-                // also we could somehow return a cursor?
-                // and show how many results are currently displayed?
-                gestureDataInfos = dao.filterInfos(
-                    filter.text.takeIf { it.isNotEmpty() },
-                    startDate,
-                    endDate,
-                    if (includeExported) null else false,
-                    sortByName
-                )
-            }
-            TopAppBar(
-                title = { Text("Review & export gesture data") },
-                navigationIcon = {
-                    IconButton(onClick = onClickBack) {
-                        Icon(
-                            painterResource(R.drawable.ic_arrow_back),
-                            stringResource(R.string.spoken_description_action_previous)
-                        )
-                    }
-                },
-                actions = {
-                    Box {
-                        var showMenu by remember { mutableStateOf(false) }
-                        IconButton(
-                            onClick = { showMenu = true }
-                        ) { Icon(painterResource(R.drawable.ic_arrow_left), "menu", Modifier.rotate(-90f)) }
-                        DropdownMenu(
-                            expanded = showMenu,
-                            onDismissRequest = { showMenu = false }
-                        ) {
-                            DropdownMenuItem(
-                                text = { Text("delete all exported") },
-                                onClick = { showMenu = false; /* todo, confirmation dialog */ }
-                            )
-                            DropdownMenuItem(
-                                text = { Text("delete all selected") },
-                                onClick = { showMenu = false; /* todo, confirmation dialog */ }
-                            )
-                            DropdownMenuItem(
-                                text = { Text("sort chronologically") },
-                                onClick = { sortByName = false; showMenu = false; }
-                            )
-                            DropdownMenuItem(
-                                text = { Text("sort alphabetically") },
-                                onClick = { sortByName = true; showMenu = false; }
-                            )
-                            // and i guess the reverse sort order
-                        }
-                    }
-                }
-            )
-            // filter (careful, controls should not be too large, also consider landscape orientation)
-            Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly) { // not spaced evenly due to text length...
-                Button({ includeActive = !includeActive }, colors = buttonColors) {
-                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                        Switch(checked = includeActive, onCheckedChange = { includeActive = it })
-                        Text("active")
-                    }
-                }
-                Button({ includePassive = !includePassive }, colors = buttonColors) {
-                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                        Switch(checked = includePassive, onCheckedChange = { includePassive = it })
-                        Text("passive")
-                    }
-                }
-                Button({ includeExported = !includeExported }, colors = buttonColors) {
-                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                        Switch(checked = includeExported, onCheckedChange = { includeExported = it })
-                        Text("previously exported")
-                    }
-                }
-            }
-            // todo: option to clear date
-            var showDateRangePicker by remember { mutableStateOf(false) }
-            val df = DateFormat.getDateFormat(ctx)
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                //  word text field (allow regex?)
-                // todo: supportingText makes it look misaligned...
-                TextField(value = filter, onValueChange = { filter = it}, supportingText = { Text("filter") }, modifier = Modifier.weight(0.7f))
-                //  time from-to button (set time range in dialog)
-                Column(Modifier
-                    .clickable { showDateRangePicker = true }
-                    .weight(0.3f), horizontalAlignment = Alignment.CenterHorizontally) {
-                    Text("date", style = MaterialTheme.typography.bodyLarge)
-                    Text(startDate?.let { df.format(Date(it)) }.toString(), style = MaterialTheme.typography.bodyMedium)
-                    Text(endDate?.let { df.format(Date(it)) }.toString(), style = MaterialTheme.typography.bodyMedium)
-                }
-            }
-            if (showDateRangePicker)
-                DateRangePickerModal({ startDate = it.first; endDate = it.second }) { showDateRangePicker = false }
-            //  and finally the result list
-            //   user-define sorting? -> menu
-            //   have select-all thing (... menu?)
-            //    yes, we need that menu, also for mass-actions
-            // once sth is selected -> show new buttons to delete and export?
-            //  though for export the export button text could change to "export selected"
-            //  if filter changes -> unselect all
-
+        var gestureDataInfos by remember { mutableStateOf(listOf<GestureDataInfo>()) }
+        @Composable fun dataColumn() {
             LazyColumn {
                 items(gestureDataInfos, { it.id }) { item ->
                     //   each entry consists of word, time, active/passive, whether it's already exported
@@ -244,6 +137,126 @@ fun ReviewScreen(
                         else selected + item.id
                     }
                 }
+            }
+        }
+        @Composable fun controlColumn() {
+            Column(Modifier.padding(horizontal = 12.dp)) {
+                var includeActive by rememberSaveable { mutableStateOf(true) }
+                var includePassive by rememberSaveable { mutableStateOf(true) }
+                var includeExported by rememberSaveable { mutableStateOf(false) }
+                var startDate: Long? by rememberSaveable { mutableStateOf(null) }
+                var endDate: Long? by rememberSaveable { mutableStateOf(null) }
+                var sortByName: Boolean by rememberSaveable { mutableStateOf(false) }
+                val ctx = LocalContext.current
+                LaunchedEffect(filter, startDate, endDate, includeExported, sortByName) {
+                    // todo: should be some background stuff, this could be slow
+                    // also we could somehow return a cursor?
+                    // and show how many results are currently displayed?
+                    gestureDataInfos = dao.filterInfos(
+                        filter.text.takeIf { it.isNotEmpty() },
+                        startDate,
+                        endDate,
+                        if (includeExported) null else false,
+                        sortByName
+                    )
+                    selected = emptyList() // unselect on filter changes
+                }
+                TopAppBar( // todo: should it rather be in the scaffold? for full width
+                    title = { Text("Review & export gesture data") },
+                    navigationIcon = {
+                        IconButton(onClick = onClickBack) {
+                            Icon(
+                                painterResource(R.drawable.ic_arrow_back),
+                                stringResource(R.string.spoken_description_action_previous)
+                            )
+                        }
+                    },
+                    actions = {
+                        Box {
+                            var showMenu by remember { mutableStateOf(false) }
+                            IconButton(
+                                onClick = { showMenu = true }
+                            ) { Icon(painterResource(R.drawable.ic_arrow_left), "menu", Modifier.rotate(-90f)) }
+                            DropdownMenu(
+                                expanded = showMenu,
+                                onDismissRequest = { showMenu = false }
+                            ) {
+                                DropdownMenuItem(
+                                    text = { Text("delete all exported") },
+                                    onClick = { showMenu = false; /* todo, confirmation dialog */ }
+                                )
+                                DropdownMenuItem(
+                                    text = { Text("delete all selected") },
+                                    onClick = { showMenu = false; /* todo, confirmation dialog */ }
+                                )
+                                DropdownMenuItem(
+                                    text = { Text("sort chronologically") },
+                                    onClick = { sortByName = false; showMenu = false; }
+                                )
+                                DropdownMenuItem(
+                                    text = { Text("sort alphabetically") },
+                                    onClick = { sortByName = true; showMenu = false; }
+                                )
+                                // and i guess the reverse sort order
+                            }
+                        }
+                    }
+                )
+                // filter (careful, controls should not be too large, also consider landscape orientation)
+                Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly) { // not spaced evenly due to text length...
+                    Button({ includeActive = !includeActive }, colors = buttonColors) {
+                        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                            Switch(checked = includeActive, onCheckedChange = { includeActive = it })
+                            Text("active")
+                        }
+                    }
+                    Button({ includePassive = !includePassive }, colors = buttonColors) {
+                        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                            Switch(checked = includePassive, onCheckedChange = { includePassive = it })
+                            Text("passive")
+                        }
+                    }
+                    Button({ includeExported = !includeExported }, colors = buttonColors) {
+                        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                            Switch(checked = includeExported, onCheckedChange = { includeExported = it })
+                            Text("previously exported")
+                        }
+                    }
+                }
+                // todo: option to clear date
+                var showDateRangePicker by remember { mutableStateOf(false) }
+                val df = DateFormat.getDateFormat(ctx)
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    //  word text field (allow regex?)
+                    // todo: supportingText makes it look misaligned...
+                    TextField(value = filter, onValueChange = { filter = it}, supportingText = { Text("filter") }, modifier = Modifier.weight(0.7f))
+                    //  time from-to button (set time range in dialog)
+                    Column(Modifier
+                        .clickable { showDateRangePicker = true }
+                        .weight(0.3f), horizontalAlignment = Alignment.CenterHorizontally) {
+                        Text("date", style = MaterialTheme.typography.bodyLarge)
+                        Text(startDate?.let { df.format(Date(it)) }.toString(), style = MaterialTheme.typography.bodyMedium)
+                        Text(endDate?.let { df.format(Date(it)) }.toString(), style = MaterialTheme.typography.bodyMedium)
+                    }
+                }
+                if (showDateRangePicker)
+                    DateRangePickerModal({ startDate = it.first; endDate = it.second }) { showDateRangePicker = false }
+            }
+        }
+
+        if (useWideLayout) {
+            Row(Modifier.padding(innerPadding)) {
+                Box(Modifier.weight(0.5f)) {
+                    controlColumn()
+                }
+                Box(Modifier.weight(0.5f)) {
+                    dataColumn() // todo: first word under the status bar, should stop earlier than that
+                }
+            }
+        } else {
+            Column(Modifier.padding(innerPadding)) {
+                controlColumn()
+                dataColumn()
             }
         }
         if (showExportDialog) {
