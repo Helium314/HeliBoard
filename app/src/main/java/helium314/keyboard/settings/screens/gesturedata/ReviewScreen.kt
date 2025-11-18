@@ -1,11 +1,10 @@
 package helium314.keyboard.settings.screens.gesturedata
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.text.format.DateFormat
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.combinedClickable
-import androidx.compose.foundation.gestures.Orientation
-import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -60,12 +59,16 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.DialogProperties
+import androidx.core.content.edit
 import helium314.keyboard.latin.R
+import helium314.keyboard.latin.utils.prefs
 import helium314.keyboard.settings.DeleteButton
 import helium314.keyboard.settings.Theme
 import helium314.keyboard.settings.dialogs.ThreeButtonAlertDialog
 import helium314.keyboard.settings.previewDark
+import kotlinx.serialization.json.Json
 import java.util.Date
+import java.util.SortedSet
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -107,10 +110,7 @@ fun ReviewScreen(
                             else "share all")
                         }
                     }
-                    // blacklist button (show number of entries)
-                    //  dialog, shows all entries, allows adding, changing and removing
-                    //  mention it's case- and diacritics insensitive
-                    //  update list on ok
+                    // todo: only show it if passive gathering is implemented
                     Button({ showIgnoreListDialog = true }, colors = buttonColors) {
                         Column {
                             Icon(painterResource(R.drawable.ic_autocorrect), "exclude", Modifier.align(Alignment.CenterHorizontally)) // block icon (strike through)
@@ -131,9 +131,10 @@ fun ReviewScreen(
             var includeExported by rememberSaveable { mutableStateOf(false) }
             var startDate: Long? by rememberSaveable { mutableStateOf(null) }
             var endDate: Long? by rememberSaveable { mutableStateOf(null) }
+            var sortByName: Boolean by rememberSaveable { mutableStateOf(false) }
             var gestureDataInfos by remember { mutableStateOf(listOf<GestureDataInfo>()) }
             val ctx = LocalContext.current
-            LaunchedEffect(filter, startDate, endDate, includeExported) {
+            LaunchedEffect(filter, startDate, endDate, includeExported, sortByName) {
                 // todo: should be some background stuff, this could be slow
                 // also we could somehow return a cursor?
                 // and show how many results are currently displayed?
@@ -141,7 +142,8 @@ fun ReviewScreen(
                     filter.text.takeIf { it.isNotEmpty() },
                     startDate,
                     endDate,
-                    if (includeExported) null else false
+                    if (includeExported) null else false,
+                    sortByName
                 )
             }
             TopAppBar(
@@ -174,11 +176,11 @@ fun ReviewScreen(
                             )
                             DropdownMenuItem(
                                 text = { Text("sort chronologically") },
-                                onClick = { showMenu = false; /* todo */ }
+                                onClick = { sortByName = false; showMenu = false; }
                             )
                             DropdownMenuItem(
                                 text = { Text("sort alphabetically") },
-                                onClick = { showMenu = false; /* todo */ }
+                                onClick = { sortByName = true; showMenu = false; }
                             )
                             // and i guess the reverse sort order
                         }
@@ -255,7 +257,7 @@ fun ReviewScreen(
         }
         if (showIgnoreListDialog) {
             @SuppressLint("MutableCollectionMutableState") // if they had an immutable sorted set...
-            var ignoreWords by remember { mutableStateOf(sortedSetOf("a", "b", "c").toSortedSet()) } // wtf TreeSet <-> SortedSet?
+            var ignoreWords by remember { mutableStateOf(getIgnoreList(ctx)) }
             var newWord by remember { mutableStateOf(TextFieldValue()) }
             val scroll = rememberScrollState()
             ThreeButtonAlertDialog(
@@ -293,7 +295,7 @@ fun ReviewScreen(
                     }
                 } },
                 onConfirmed = {
-                    // todo: save the words!
+                    setIgnoreList(ctx, ignoreWords)
                 },
                 confirmButtonText = stringResource(android.R.string.ok),
                 properties = DialogProperties(dismissOnClickOutside = false)
@@ -370,6 +372,17 @@ fun DateRangePickerModal(
                 .padding(16.dp)
         )
     }
+}
+
+fun setIgnoreList(context: Context, list: Collection<String>) {
+    val json = Json.encodeToString(list)
+    context.prefs().edit { putString("gesture_data_exclusions", json) }
+}
+
+fun getIgnoreList(context: Context): SortedSet<String> {
+    val json = context.prefs().getString("gesture_data_exclusions", "") ?: ""
+    if (json.isEmpty()) return sortedSetOf()
+    return Json.decodeFromString(json)
 }
 
 @Preview
