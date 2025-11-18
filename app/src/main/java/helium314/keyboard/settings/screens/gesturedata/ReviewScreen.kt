@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.WindowInsetsSides
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -95,14 +96,18 @@ fun ReviewScreen(
         contentWindowInsets = WindowInsets.safeDrawing.only(WindowInsetsSides.Bottom),
         bottomBar = {
             BottomAppBar( // todo: should it rather be in the controlColumn? for more space in landscape mode
+                // todo: spread evenly, consistent icon size, enable / disable if necessary
                 actions = {
-                    // todo: spread evenly, consistent icon size, enable / disable if necessary
-                    Button({}, colors = buttonColors) {
+                    // dialog: delete all, delete exported (shared), delete selected (if anything selected)
+                    Button({ /* todo: confirm dialog */}, colors = buttonColors) {
                         Column {
                             Icon(painterResource(R.drawable.ic_bin_rounded), "delete", Modifier.align(Alignment.CenterHorizontally))
-                            Text("delete")
+                            Text(if (selected.isNotEmpty()) "delete selected"
+                            else if (filter.text.isNotEmpty()) "delete filtered"
+                            else "delete all")
                         }
                     }
+                    // todo: extra delete for exported, if there are any?
                     // share data (all, filtered, selected, non-exported)
                     //  filter again against blacklist, even though blacklisted words shouldn't make it in the data anyway
                     //  mark entries as exported
@@ -147,8 +152,9 @@ fun ReviewScreen(
                 var startDate: Long? by rememberSaveable { mutableStateOf(null) }
                 var endDate: Long? by rememberSaveable { mutableStateOf(null) }
                 var sortByName: Boolean by rememberSaveable { mutableStateOf(false) }
+                var reverseSort: Boolean by rememberSaveable { mutableStateOf(false) }
                 val ctx = LocalContext.current
-                LaunchedEffect(filter, startDate, endDate, includeExported, sortByName) {
+                LaunchedEffect(filter, startDate, endDate, includeExported, sortByName, reverseSort) {
                     // todo: should be some background stuff, this could be slow
                     // also we could somehow return a cursor?
                     // and show how many results are currently displayed?
@@ -159,6 +165,8 @@ fun ReviewScreen(
                         if (includeExported) null else false,
                         sortByName
                     )
+                    if (reverseSort)
+                        gestureDataInfos = gestureDataInfos.reversed()
                     selected = emptyList() // unselect on filter changes
                 }
                 TopAppBar( // todo: should it rather be in the scaffold? for full width
@@ -182,27 +190,17 @@ fun ReviewScreen(
                                 onDismissRequest = { showMenu = false }
                             ) {
                                 DropdownMenuItem(
-                                    text = { Text("delete all exported") },
-                                    onClick = { showMenu = false; /* todo, confirmation dialog */ }
+                                    text = { Text(if (sortByName) "sort chronologically" else "sort alphabetically") },
+                                    onClick = { sortByName = !sortByName; showMenu = false; }
                                 )
                                 DropdownMenuItem(
-                                    text = { Text("delete all selected") },
-                                    onClick = { showMenu = false; /* todo, confirmation dialog */ }
+                                    text = { Text("reverse order") },
+                                    onClick = { reverseSort = !reverseSort; showMenu = false; }
                                 )
-                                DropdownMenuItem(
-                                    text = { Text("sort chronologically") },
-                                    onClick = { sortByName = false; showMenu = false; }
-                                )
-                                DropdownMenuItem(
-                                    text = { Text("sort alphabetically") },
-                                    onClick = { sortByName = true; showMenu = false; }
-                                )
-                                // and i guess the reverse sort order
                             }
                         }
                     }
                 )
-                // filter (careful, controls should not be too large, also consider landscape orientation)
                 Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly) { // not spaced evenly due to text length...
                     Button({ includeActive = !includeActive }, colors = buttonColors) {
                         Column(horizontalAlignment = Alignment.CenterHorizontally) {
@@ -223,7 +221,6 @@ fun ReviewScreen(
                         }
                     }
                 }
-                // todo: option to clear date
                 var showDateRangePicker by remember { mutableStateOf(false) }
                 val df = DateFormat.getDateFormat(ctx)
                 Row(verticalAlignment = Alignment.CenterVertically) {
@@ -246,11 +243,11 @@ fun ReviewScreen(
 
         if (useWideLayout) {
             Row(Modifier.padding(innerPadding)) {
-                Box(Modifier.weight(0.5f)) {
+                Box(Modifier.weight(0.6f)) {
                     controlColumn()
                 }
-                Box(Modifier.weight(0.5f)) {
-                    dataColumn() // todo: first word under the status bar, should stop earlier than that
+                Box(Modifier.weight(0.4f)) {
+                    dataColumn() // todo: first word is under the status bar, should stop earlier than that
                 }
             }
         } else {
@@ -261,9 +258,10 @@ fun ReviewScreen(
         }
         if (showExportDialog) {
             ThreeButtonAlertDialog(
+                // todo: we need to forward the data to share to ShareGestureData, the text already says it...
                 onDismissRequest = { showExportDialog = false },
                 content = { Column { ShareGestureData() } },
-                cancelButtonText = stringResource(android.R.string.ok),
+                cancelButtonText = stringResource(R.string.dialog_close),
                 onConfirmed = { },
                 confirmButtonText = null
             )
@@ -346,38 +344,34 @@ fun DateRangePickerModal(
     onDateRangeSelected: (Pair<Long?, Long?>) -> Unit,
     onDismiss: () -> Unit
 ) {
-    val dateRangePickerState = rememberDateRangePickerState()
+    val pickerState = rememberDateRangePickerState()
 
     DatePickerDialog(
         onDismissRequest = onDismiss,
         confirmButton = {
             TextButton(
                 onClick = {
-                    onDateRangeSelected(
-                        Pair(
-                            dateRangePickerState.selectedStartDateMillis,
-                            dateRangePickerState.selectedEndDateMillis
-                        )
-                    )
+                    onDateRangeSelected(pickerState.selectedStartDateMillis to pickerState.selectedEndDateMillis)
                     onDismiss()
                 }
             ) {
-                Text("OK")
+                Text(stringResource(android.R.string.ok))
             }
         },
         dismissButton = {
-            TextButton(onClick = onDismiss) {
-                Text("Cancel")
+            Row(horizontalArrangement = Arrangement.Start, modifier = Modifier.fillMaxWidth(0.7f)) {
+                TextButton(onClick = { onDateRangeSelected(null to null); onDismiss() }) {
+                    Text("reset")
+                }
+                TextButton(onClick = onDismiss) {
+                    Text(stringResource(android.R.string.cancel))
+                }
             }
         }
     ) {
         DateRangePicker(
-            state = dateRangePickerState,
-            title = {
-                Text(
-                    text = "Select date range"
-                )
-            },
+            state = pickerState,
+            title = { Text("Select date range") },
             showModeToggle = false,
             modifier = Modifier
                 .fillMaxWidth()
