@@ -313,7 +313,9 @@ class EmojiSearchActivity : ComponentActivity() {
             }
 
             override fun getDescription(emoji: String): String? = if (Settings.getValues().mShowEmojiDescriptions)
-                dictionaryFacilitator?.getWordProperty(getEmojiNeutralVersion(emoji))?.mShortcutTargets[0]?.mWord else null
+                dictionaryFacilitator?.getWordProperty(getEmojiNeutralVersion(emoji))?.let {
+                    if (it.mHasShortcuts) it.mShortcutTargets[0]?.mWord else null
+                } else null
         })
         KeyboardSwitcher.getInstance().setAlphabetKeyboard()
         Log.d("emoji-search", "init end")
@@ -381,6 +383,11 @@ class EmojiSearchActivity : ComponentActivity() {
         fun decodePrivateImeOptions(editorInfo: EditorInfo?): PrivateImeOptions = PrivateImeOptions(
             editorInfo?.privateImeOptions?.takeIf { it.startsWith(PRIVATE_IME_OPTIONS_PREFIX) }
                 ?.let { it.substring(PRIVATE_IME_OPTIONS_PREFIX.length + 1, it.indexOf(',')) }?.toInt() ?: 0)
+
+        fun closeDictionaryFacilitator() {
+            dictionaryFacilitator?.closeDictionaries()
+            dictionaryFacilitator = null
+        }
 
         private fun encodePrivateImeOptions(privateImeOptions: PrivateImeOptions) =
             "$PRIVATE_IME_OPTIONS_PREFIX.${privateImeOptions.height},"
