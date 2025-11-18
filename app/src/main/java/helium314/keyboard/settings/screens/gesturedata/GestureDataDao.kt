@@ -65,7 +65,7 @@ class GestureDataDao(val db: Database) {
         db.readableDatabase.query(
             TABLE,
             arrayOf(COLUMN_DATA),
-            "$COLUMN_ID = id",
+            null,
             null,
             null,
             null,
@@ -91,6 +91,11 @@ class GestureDataDao(val db: Database) {
 
     fun deleteAll() {
         db.writableDatabase.delete(TABLE, null, null)
+    }
+
+    fun deleteWords(words: Collection<String>) {
+        // sort of unexpected, but it really works
+        db.writableDatabase.delete(TABLE, "$COLUMN_WORD in (?)", arrayOf(words.joinToString("','")))
     }
 
     fun isEmpty(): Boolean {

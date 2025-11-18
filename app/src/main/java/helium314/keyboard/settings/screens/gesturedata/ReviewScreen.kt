@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.WindowInsetsSides
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -21,6 +20,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.selection.selectable
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.Button
@@ -154,7 +154,7 @@ fun ReviewScreen(
                 var sortByName: Boolean by rememberSaveable { mutableStateOf(false) }
                 var reverseSort: Boolean by rememberSaveable { mutableStateOf(false) }
                 val ctx = LocalContext.current
-                LaunchedEffect(filter, startDate, endDate, includeExported, sortByName, reverseSort) {
+                LaunchedEffect(filter, startDate, endDate, includeExported, sortByName, reverseSort, showIgnoreListDialog) {
                     // todo: should be some background stuff, this could be slow
                     // also we could somehow return a cursor?
                     // and show how many results are currently displayed?
@@ -288,6 +288,11 @@ fun ReviewScreen(
             var ignoreWords by remember { mutableStateOf(getIgnoreList(ctx)) }
             var newWord by remember { mutableStateOf(TextFieldValue()) }
             val scroll = rememberScrollState()
+            fun addWord() {
+                if (newWord.text.isNotBlank())
+                    ignoreWords += newWord.text.trim()
+                newWord = TextFieldValue()
+            }
             ThreeButtonAlertDialog(
                 onDismissRequest = { showIgnoreListDialog = false },
                 content = { Column(Modifier.verticalScroll(scroll)) {
@@ -295,14 +300,12 @@ fun ReviewScreen(
                         TextField(
                             value = newWord,
                             onValueChange = { newWord = it},
-                            Modifier.weight(1f)
+                            modifier = Modifier.weight(1f),
+                            singleLine = true,
+                            keyboardActions = KeyboardActions { addWord() }
                         )
                         IconButton(
-                            {
-                                if (newWord.text.isNotBlank())
-                                    ignoreWords += newWord.text.trim()
-                                newWord = TextFieldValue()
-                            },
+                            { addWord() },
                             Modifier.weight(0.2f)) {
                             Icon(painterResource(R.drawable.ic_plus), stringResource(R.string.add))
                         }
@@ -324,6 +327,7 @@ fun ReviewScreen(
                 } },
                 onConfirmed = {
                     setIgnoreList(ctx, ignoreWords)
+                    dao.deleteWords(ignoreWords)
                 },
                 confirmButtonText = stringResource(android.R.string.ok),
                 properties = DialogProperties(dismissOnClickOutside = false)
@@ -404,9 +408,9 @@ fun setIgnoreList(context: Context, list: Collection<String>) {
 }
 
 fun getIgnoreList(context: Context): SortedSet<String> {
-    val json = context.prefs().getString("gesture_data_exclusions", "") ?: ""
+    val json = context.prefs().getString("gesture_data_exclusions", "[]") ?: "[]"
     if (json.isEmpty()) return sortedSetOf()
-    return Json.decodeFromString(json)
+    return Json.decodeFromString<List<String>>(json).toSortedSet()
 }
 
 @Preview
