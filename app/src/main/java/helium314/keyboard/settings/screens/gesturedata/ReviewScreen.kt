@@ -66,6 +66,7 @@ import helium314.keyboard.latin.R
 import helium314.keyboard.latin.utils.prefs
 import helium314.keyboard.settings.DeleteButton
 import helium314.keyboard.settings.Theme
+import helium314.keyboard.settings.dialogs.ConfirmationDialog
 import helium314.keyboard.settings.dialogs.ThreeButtonAlertDialog
 import helium314.keyboard.settings.previewDark
 import kotlinx.serialization.json.Json
@@ -87,36 +88,35 @@ fun ReviewScreen(
     )
     var showIgnoreListDialog by remember { mutableStateOf(false) }
     var showExportDialog by remember { mutableStateOf(false) }
+    var showDeleteDialog by remember { mutableStateOf(false) }
     var selected by rememberSaveable { mutableStateOf(listOf<Long>()) }
     var filter by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue()) }
     val width = LocalConfiguration.current.screenWidthDp
     val height = LocalConfiguration.current.screenHeightDp
     val useWideLayout = height < 500 && width > height
+    // show "long-press to select" hint somewhere
     Scaffold(
         contentWindowInsets = WindowInsets.safeDrawing.only(WindowInsetsSides.Bottom),
         bottomBar = {
             BottomAppBar( // todo: should it rather be in the controlColumn? for more space in landscape mode
                 // todo: spread evenly, consistent icon size, enable / disable if necessary
                 actions = {
-                    // dialog: delete all, delete exported (shared), delete selected (if anything selected)
-                    Button({ /* todo: confirm dialog */}, colors = buttonColors) {
+                    Button({ showDeleteDialog = true}, colors = buttonColors) {
                         Column {
                             Icon(painterResource(R.drawable.ic_bin_rounded), "delete", Modifier.align(Alignment.CenterHorizontally))
                             Text(if (selected.isNotEmpty()) "delete selected"
                             else if (filter.text.isNotEmpty()) "delete filtered"
-                            else "delete all")
+                            else "delete all") // actually it's all displayed, right?
                         }
                     }
                     // todo: extra delete for exported, if there are any?
-                    // share data (all, filtered, selected, non-exported)
-                    //  filter again against blacklist, even though blacklisted words shouldn't make it in the data anyway
-                    //  mark entries as exported
+
                     Button({ showExportDialog = true }, colors = buttonColors) {
                         Column {
                             Icon(painterResource(R.drawable.sym_keyboard_language_switch), "share", Modifier.align(Alignment.CenterHorizontally)) // share icon
                             Text(if (selected.isNotEmpty()) "share selected"
                             else if (filter.text.isNotEmpty()) "share filtered"
-                            else "share all")
+                            else "share all") // actually it's all displayed, right?
                         }
                     }
                     // todo: only show it once passive gathering is implemented
@@ -260,10 +260,27 @@ fun ReviewScreen(
             ThreeButtonAlertDialog(
                 // todo: we need to forward the data to share to ShareGestureData, the text already says it...
                 onDismissRequest = { showExportDialog = false },
-                content = { Column { ShareGestureData() } },
+                content = {
+                    val toShare = if (selected.isEmpty()) gestureDataInfos else gestureDataInfos.filter { it.id in selected }
+                    val toIgnore = getIgnoreList(ctx).mapTo(hashSetOf()) { it.lowercase() }
+                    Column { ShareGestureData(toShare.filterNot { it.targetWord in toIgnore }.map { it.id }) }
+                },
                 cancelButtonText = stringResource(R.string.dialog_close),
                 onConfirmed = { },
                 confirmButtonText = null
+            )
+        }
+        if (showDeleteDialog) {
+            ConfirmationDialog(
+                onDismissRequest = { showDeleteDialog = false },
+                onConfirmed = {
+                    val ids = selected.ifEmpty { gestureDataInfos.map { it.id } }
+                    dao.delete(ids)
+                },
+                content = {
+                    val count = if (selected.isNotEmpty()) selected.size else gestureDataInfos.size
+                    Text("are you sure? will delete $count words")
+                }
             )
         }
         if (showIgnoreListDialog) {

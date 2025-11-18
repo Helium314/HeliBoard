@@ -34,11 +34,11 @@ import java.util.zip.ZipOutputStream
 // todo: nicer looking buttons...
 //  and the copy doesn't quite fit
 @Composable
-fun ShareGestureData() {
+fun ShareGestureData(ids: List<Long>? = null) {
     val ctx = LocalContext.current
     val dao = GestureDataDao.getInstance(ctx)!!
     val hasData = !dao.isEmpty() // no need to update if we have it in a dialog
-    val getDataPicker = getData()
+    val getDataPicker = getData(ids)
 
     // get file
     TextButton({ getDataPicker.launch(getDataIntent) }, enabled = hasData) {
@@ -48,7 +48,7 @@ fun ShareGestureData() {
     // share file, but only to mail apps
     TextButton(
         onClick = {
-            createZipFile(ctx)
+            createZipFile(ctx, ids)
             if (zippedDataPath.isNotEmpty())
                 ctx.startActivity(createSendIntentChooser(ctx))
         },
@@ -120,13 +120,14 @@ private fun getZipFileUri(context: Context) : Uri =
         getGestureZipFile(context))
 
 @Composable
-private fun getData(): ManagedActivityResultLauncher<Intent, ActivityResult> {
+private fun getData(ids: List<Long>?): ManagedActivityResultLauncher<Intent, ActivityResult> {
     val ctx = LocalContext.current
     // check if file exists and not size 0, otherwise don't even offer the button
     return filePicker { uri ->
         val file = getGestureDataFile(ctx)
         val dao = GestureDataDao.getInstance(ctx) ?: return@filePicker
-        file.writeText("[${dao.getAllJsonData().joinToString(",")}]")
+        val data = ids?.let { dao.getJsonData(it) } ?: dao.getAllJsonData()
+        file.writeText("[${data.joinToString(",")}]")
         ctx.getActivity()?.contentResolver?.openOutputStream(uri)?.use { os ->
             val zipStream = ZipOutputStream(os)
             zipStream.setLevel(9)
@@ -140,11 +141,12 @@ private fun getData(): ManagedActivityResultLauncher<Intent, ActivityResult> {
     }
 }
 
-private fun createZipFile(context: Context) : File {
+private fun createZipFile(context: Context, ids: List<Long>?) : File {
     zippedDataPath = ""
     val jsonFile = getGestureDataFile(context)
     val dao = GestureDataDao.getInstance(context)!!
-    jsonFile.writeText("[${dao.getAllJsonData().joinToString(",")}]")
+    val data = ids?.let { dao.getJsonData(it) } ?: dao.getAllJsonData()
+    jsonFile.writeText("[${data.joinToString(",")}]")
     val zipFile = getGestureZipFile(context)
     zipFile.delete()
     zipFile.outputStream().use { os ->
