@@ -35,7 +35,7 @@ class WordData(
     private val dictionariesInSuggestions = suggestions.map { it.mSourceDict }.toSet()
 
     fun save(context: Context) {
-        if (!isSavingOk())
+        if (!isSavingOk(context))
             return
         val dao = GestureDataDao.getInstance(context) ?: return
 
@@ -67,13 +67,17 @@ class WordData(
     }
 
     // find when we should NOT save
-    private fun isSavingOk(): Boolean {
+    private fun isSavingOk(context: Context): Boolean {
         if (inputStyle != SuggestedWords.INPUT_STYLE_TAIL_BATCH) // todo: check whether this is correct
             return false
         val inputAttributes = InputAttributes(keyboard.mId.mEditorInfo, false, "")
         if (inputAttributes.mIsPasswordField || inputAttributes.mNoLearning)
             return false // probably some more inputAttributes to consider
-        // todo: check exclusion list
+        val ignoreWords = getIgnoreList(context)
+        // how to deal with the ignore list?
+        // check targetWord and first 5 suggestions?
+        // or check only what is in the actually saved suggestions?
+        if (targetWord in ignoreWords || suggestions.take(5).any { it.word in ignoreWords })
         // todo: don't save if the word is coming from personal or contacts dict?
         if (suggestions.first().mSourceDict.mDictType == Dictionary.TYPE_CONTACTS)
             return false
@@ -88,7 +92,6 @@ data class GestureData(
     val appVersionCode: Int,
     val libraryHash: String,
     val targetWord: String, // this will be tricky for active gathering if user corrects the word
-    //val precedingWords: List<String>, // useful, but too sensitive
     val dictionaries: List<DictInfo>,
     val suggestions: List<Suggestion>,
     val gesture: List<PointerData>,
@@ -103,7 +106,7 @@ data class GestureData(
 data class DictInfo(val hash: String?, val type: String, val language: String?)
 
 @Serializable
-data class Suggestion(val word: String, val score: Int) // todo: do we want a source dictionary?
+data class Suggestion(val word: String, val score: Int)
 
 @Serializable
 data class PointerData(val id: Int, val x: Int, val y: Int, val millis: Int) {

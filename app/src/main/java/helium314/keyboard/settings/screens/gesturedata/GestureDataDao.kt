@@ -11,6 +11,7 @@ class GestureDataDao(val db: Database) {
     fun add(data: GestureData, timestamp: Long) {
         require(data.hash == null)
         val jsonString = Json.encodeToString(data)
+        // todo: order is important for the hash -> how to do it?
         val dataWithHash = data.copy(hash = ChecksumCalculator.checksum(jsonString.byteInputStream()))
         val cv = ContentValues(3)
         cv.put(COLUMN_TIMESTAMP, timestamp)
@@ -103,8 +104,9 @@ class GestureDataDao(val db: Database) {
     }
 
     fun deleteWords(words: Collection<String>) {
+        val wordsString = words.joinToString("','") { it.lowercase() }
         // sort of unexpected, but it really works
-        db.writableDatabase.delete(TABLE, "$COLUMN_WORD in (?)", arrayOf(words.joinToString("','")))
+        db.writableDatabase.delete(TABLE, "LOWER($COLUMN_WORD) in (?)", arrayOf(wordsString))
     }
 
     fun isEmpty(): Boolean {

@@ -64,6 +64,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.DialogProperties
 import androidx.core.content.edit
 import helium314.keyboard.latin.R
+import helium314.keyboard.latin.utils.Log
 import helium314.keyboard.latin.utils.prefs
 import helium314.keyboard.settings.DeleteButton
 import helium314.keyboard.settings.Theme
@@ -170,7 +171,7 @@ fun ReviewScreen(
                 val ctx = LocalContext.current
                 fun sortWords() {
                     gestureDataInfos = if (sortByName) {
-                        gestureDataInfos.sortedBy { it.targetWord.lowercase() }
+                        gestureDataInfos.sortedWith(compareBy(String.CASE_INSENSITIVE_ORDER) { it.targetWord })
                     } else {
                         gestureDataInfos.sortedBy { it.timestamp }
                     }
@@ -297,7 +298,7 @@ fun ReviewScreen(
                 onDismissRequest = { showExportDialog = false },
                 content = {
                     val toShare = if (selected.isEmpty()) gestureDataInfos else gestureDataInfos.filter { it.id in selected }
-                    val toIgnore = getIgnoreList(ctx).mapTo(hashSetOf()) { it.lowercase() }
+                    val toIgnore = getIgnoreList(ctx)
                     Column { ShareGestureData(toShare.filterNot { it.targetWord in toIgnore }.map { it.id }) }
                 },
                 cancelButtonText = stringResource(R.string.dialog_close),
@@ -444,7 +445,7 @@ fun setIgnoreList(context: Context, list: Collection<String>) {
 fun getIgnoreList(context: Context): SortedSet<String> {
     val json = context.prefs().getString("gesture_data_exclusions", "[]") ?: "[]"
     if (json.isEmpty()) return sortedSetOf()
-    return Json.decodeFromString<List<String>>(json).toSortedSet()
+    return Json.decodeFromString<List<String>>(json).toSortedSet(compareBy(String.CASE_INSENSITIVE_ORDER) { it })
 }
 
 @Preview
