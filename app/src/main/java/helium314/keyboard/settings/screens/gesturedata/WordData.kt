@@ -110,7 +110,7 @@ data class PointerData(val id: Int, val x: Int, val y: Int, val millis: Int) {
     companion object {
         fun fromPointers(pointers: InputPointers): List<PointerData> {
             val result = mutableListOf<PointerData>()
-            for (i in 0..pointers.pointerSize) {
+            for (i in 0..<pointers.pointerSize) {
                 result.add(PointerData(
                     pointers.pointerIds[i],
                     pointers.xCoordinates[i],

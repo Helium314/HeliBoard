@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.WindowInsetsSides
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.only
@@ -18,14 +17,12 @@ import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -45,6 +42,7 @@ import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
@@ -99,7 +97,6 @@ fun GestureDataScreen(
     onClickBack: () -> Unit,
 ) {
     val ctx = LocalContext.current
-    val prefs = ctx.prefs()
     val scope = rememberCoroutineScope()
     val availableDicts = remember { getAvailableDictionaries(ctx) }
     val currentLocale = Settings.getValues().mLocale
@@ -108,10 +105,20 @@ fun GestureDataScreen(
     ) }
     val words = remember { mutableListOf<String>() }
     var wordFromDict by remember { mutableStateOf<String?>(null) } // some word from the dictionary
-    var typed by remember { mutableStateOf(TextFieldValue()) }
     var lastData by remember { mutableStateOf<WordData?>(null) }
     val focusRequester = remember { FocusRequester() }
     LaunchedEffect(wordFromDict) { focusRequester.requestFocus() }
+    val keyboard = LocalSoftwareKeyboardController.current
+    fun nextWord(save: Boolean) {
+        if (!save)
+            lastData = null
+        lastData?.save(ctx)
+        wordFromDict = words.ifEmpty { null }?.random() // randomly choose from dict
+        lastData = null
+        // reset the data
+        focusRequester.requestFocus()
+        keyboard?.show()
+    }
     val suggestionLogger = remember {
         object : SingleDictionaryFacilitator.Companion.SuggestionLogger {
             override fun onNewSuggestions(
@@ -123,20 +130,16 @@ fun GestureDataScreen(
             ) {
                 if (!composedData.mIsBatchMode || inputStyle != SuggestedWords.INPUT_STYLE_TAIL_BATCH) return
                 val target = wordFromDict ?: return
-                lastData = WordData(target, suggestions, composedData, ngramContext, keyboard, inputStyle, true)
-                // todo: call nextWord immediately if target has a good score in suggestions?
+                // todo: should we ask to try again? give user ability to confirm they were gesturing correctly?
+                val newData = WordData(target, suggestions, composedData, ngramContext, keyboard, inputStyle, true)
+                if (suggestions.any { it.mWord == target && it.mScore > 0 }) { // todo: higher min score?
+                    newData.save(ctx)
+                    nextWord(false)
+                } else {
+                    lastData = newData // use the old flow with button
+                }
             }
         }
-    }
-    fun nextWord(save: Boolean) {
-        if (!save)
-            lastData = null
-        lastData?.save(ctx)
-        typed = TextFieldValue()
-        wordFromDict = words.ifEmpty { null }?.random() // randomly choose from dict
-        lastData = null
-        // reset the data
-        focusRequester.requestFocus()
     }
     LaunchedEffect(dict) {
         val dict = dict ?: return@LaunchedEffect
@@ -198,9 +201,9 @@ fun GestureDataScreen(
                         modifier = Modifier.alpha(if (wordFromDict == null) 0.5f else 1f))
                     Box(Modifier.size(1.dp)) { // box hides the field, but we can still interact with it
                         TextField(
-                            value = typed,
+                            value = TextFieldValue(),
                             enabled = wordFromDict != null,
-                            onValueChange = { typed = it },
+                            onValueChange = { },
                             keyboardOptions = KeyboardOptions(
                                 platformImeOptions = PlatformImeOptions(privateImeOptions = dictTestImeOption),
                                 imeAction = ImeAction.Next
@@ -218,12 +221,14 @@ fun GestureDataScreen(
     if (lastData != null)
         ExtendedFloatingActionButton(
             onClick = { nextWord(true) },
-            text = { Text(stringResource(R.string.gesture_data_next_save) + "\n" + lastData?.suggestions?.firstOrNull()) },
+            // doesn't look good with the long text
+            text = { Text(stringResource(R.string.gesture_data_next_save, lastData?.suggestions?.firstOrNull()?.word.toString())) },
             icon = { NextScreenIcon() },
             modifier = Modifier
                 .wrapContentSize(Alignment.BottomEnd)
                 .padding(all = 12.dp)
                 .then(Modifier.safeDrawingPadding())
+                .fillMaxWidth(0.5f)
         )
     if (wordFromDict != null)
         ExtendedFloatingActionButton(

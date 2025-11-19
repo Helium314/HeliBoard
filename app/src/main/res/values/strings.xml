@@ -933,8 +933,8 @@ New dictionary:
     <string name="gesture_data_please_type">Please gesture type: %s</string>
     <!-- Information that fully loading a dictionary may take several seconds -->
     <string name="gesture_data_please_wait">Loading dictionary, please wait…</string>
-    <!-- Button for saving data and go to next word -->
-    <string name="gesture_data_next_save">Save and next</string>
+    <!-- Button for saving data and go to next word (now only shows up when the word is not in suggestions -->
+    <string name="gesture_data_next_save">Got \"%s\". Click if you\'re sure you gestured correctly</string>
     <!-- Button for next word without saving data -->
     <string name="gesture_data_next">Skip word</string>
 </resources>
