@@ -795,6 +795,15 @@ public final class InputLogic {
             case KeyCode.TIMESTAMP:
                 mLatinIME.onTextInput(TimestampKt.getTimestamp(mLatinIME));
                 break;
+            case KeyCode.SEARCH:
+                if (DictionaryInfoUtils.getLocalesWithEmojiDicts(mLatinIME).isEmpty()) {
+                    // todo: open dictionary settings?
+                    onSettingsKeyPressed();
+                } else {
+                    commitTyped(Settings.getValues(), LastComposedWord.NOT_A_SEPARATOR);
+                    mLatinIME.launchEmojiSearch();
+                }
+                break;
             case KeyCode.SEND_INTENT_ONE, KeyCode.SEND_INTENT_TWO, KeyCode.SEND_INTENT_THREE:
                 IntentUtils.handleSendIntentKey(mLatinIME, event.getKeyCode());
             case KeyCode.IME_HIDE_UI:
@@ -2705,8 +2714,7 @@ public final class InputLogic {
     }
 
     public void updateEmojiDictionary(Locale locale) {
-        //todo: disable if in full emoji search mode
-        if (Settings.getValues().mInlineEmojiSearch && Settings.getValues().needsToLookupSuggestions()) {
+        if (Settings.getValues().mInlineEmojiSearch && Settings.getValues().needsToLookupSuggestions() && ! mLatinIME.isEmojiSearch()) {
             if (mEmojiDictionaryFacilitator == null || ! mEmojiDictionaryFacilitator.isForLocale(locale)) {
                 closeEmojiDictionary();
                 var dictFile = DictionaryInfoUtils.getCachedDictForLocaleAndType(locale, "emoji", mLatinIME);
