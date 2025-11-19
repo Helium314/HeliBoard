@@ -1,6 +1,7 @@
 package helium314.keyboard.settings.screens.gesturedata
 
 import android.content.Context
+import android.view.inputmethod.InputMethodManager
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -65,7 +66,7 @@ import helium314.keyboard.latin.utils.ChecksumCalculator
 import helium314.keyboard.latin.utils.DictionaryInfoUtils
 import helium314.keyboard.latin.utils.SubtypeLocaleUtils
 import helium314.keyboard.latin.utils.SuggestionResults
-import helium314.keyboard.latin.utils.prefs
+import helium314.keyboard.latin.utils.UncachedInputMethodManagerUtils
 import helium314.keyboard.settings.DropDownField
 import helium314.keyboard.settings.NextScreenIcon
 import helium314.keyboard.settings.Theme
@@ -130,7 +131,6 @@ fun GestureDataScreen(
             ) {
                 if (!composedData.mIsBatchMode || inputStyle != SuggestedWords.INPUT_STYLE_TAIL_BATCH) return
                 val target = wordFromDict ?: return
-                // todo: should we ask to try again? give user ability to confirm they were gesturing correctly?
                 val newData = WordData(target, suggestions, composedData, ngramContext, keyboard, inputStyle, true)
                 if (suggestions.any { it.mWord == target && it.mScore > 0 }) { // todo: higher min score?
                     newData.save(ctx)
@@ -195,9 +195,15 @@ fun GestureDataScreen(
                 horizontalArrangement = Arrangement.Center
             ) {
                 Column {
+                    val imm = ctx.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                    val text = if (UncachedInputMethodManagerUtils.isThisImeCurrent(ctx, imm)) {
+                        wordFromDict?.let { stringResource(R.string.gesture_data_please_type, it) }
+                            ?: stringResource(R.string.gesture_data_please_wait)
+                    } else {
+                        "please switch to HeliBoard"
+                    }
                     Text(
-                        text = wordFromDict?.let { stringResource(R.string.gesture_data_please_type, it) }
-                            ?: stringResource(R.string.gesture_data_please_wait),
+                        text = text,
                         modifier = Modifier.alpha(if (wordFromDict == null) 0.5f else 1f))
                     Box(Modifier.size(1.dp)) { // box hides the field, but we can still interact with it
                         TextField(
@@ -231,6 +237,7 @@ fun GestureDataScreen(
                 .fillMaxWidth(0.5f)
         )
     if (wordFromDict != null)
+        // todo: add some indication that this will bring up the keyboard?
         ExtendedFloatingActionButton(
             onClick = { nextWord(false) },
             text = { Text(stringResource(R.string.gesture_data_next)) },
