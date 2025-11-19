@@ -233,10 +233,16 @@ fun GestureDataScreen(
                     }
                 },
             )
+            // explain the project, add a link
+            // why do we need data, how can you contribute
+            // how to submit, and what is in gesture data: keyboard layout, used dictionaries, gesture track, app version, library hash, target word, suggestions by the current library, active / passive
             Text(stringResource(R.string.gesture_data_description))
             Spacer(Modifier.height(12.dp))
             HorizontalDivider()
-            Text("active gathering description") // full description in a popup?
+            // full description in a popup?
+            // use only built-in dictionaries and what is available on dicts repo (so we can fully reproduce things)
+            // choose a dictionary, get a random word, swipe it and the next word will come immediately
+            Text("active gathering description")
             TextButton({
                 activeGathering = !activeGathering
                 if (!activeGathering) {
@@ -246,7 +252,7 @@ fun GestureDataScreen(
             }) {
                 Text(if (activeGathering) "stop active gathering" else "start active gathering")
             }
-            if (activeGathering) // todo: starting is slow
+            if (activeGathering) // todo: starting is slow, possibly because of hashing
                 activeGathering()
             Spacer(Modifier.height(12.dp))
             HorizontalDivider()
@@ -265,6 +271,7 @@ fun GestureDataScreen(
             TextButton(onClick = { SettingsDestination.navigateTo(SettingsDestination.DataReview) }) {
                 Text("review & share gesture data")
             }
+            // maybe show how many words are in the db (active, passive, exported, not exported)
         }
     }
     // showing at top left in preview, but correctly on device
@@ -340,9 +347,12 @@ private fun BinaryDictionary.addWords(words: MutableList<String>) {
     do {
         val result = getNextWordProperty(token)
         if (!result.mWordProperty.mIsNotAWord
-            && result.mWordProperty.mWord.length > 1
-            && !(result.mWordProperty.mIsPossiblyOffensive && Settings.getValues().mBlockPotentiallyOffensive)
+                && result.mWordProperty.mWord.length > 1
+                && !(result.mWordProperty.mIsPossiblyOffensive && Settings.getValues().mBlockPotentiallyOffensive)
             )
+            // todo: filter the words?
+            //  e.g. min frequency (mWordProperty.probability), "'s" ending words in english, maybe names, ...
+            //  we could also show more frequent words more often
             words.add(result.mWordProperty.mWord)
         token = result.mNextToken
     } while (token != 0)
