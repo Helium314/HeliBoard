@@ -22,7 +22,7 @@ class GestureDataDao(val db: Database) {
     fun filterInfos(word: String?, begin: Long?, end: Long?, exported: Boolean?): List<GestureDataInfo> {
         val result = mutableListOf<GestureDataInfo>()
         val query = mutableListOf<String>()
-        if (word != null) query.add("LOWER($COLUMN_WORD) like '%'||?||'%'")
+        if (word != null) query.add("LOWER($COLUMN_WORD) like ?||'%'")
         if (begin != null) query.add("$COLUMN_TIMESTAMP >= $begin")
         if (end != null) query.add("$COLUMN_TIMESTAMP <= $end")
         if (exported != null) query.add("EXPORTED = ${if (exported) 1 else 0}")
