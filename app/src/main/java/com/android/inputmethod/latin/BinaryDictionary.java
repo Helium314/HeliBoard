@@ -31,8 +31,6 @@ import helium314.keyboard.latin.utils.JniUtils;
 import com.android.inputmethod.latin.utils.WordInputEventForPersonalization;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -654,13 +652,9 @@ public final class BinaryDictionary extends Dictionary {
             mDictFileHash = "";
             return mDictFileHash;
         }
-        try {
-            final FileInputStream stream = new FileInputStream(dict);
-            mDictFileHash = ChecksumCalculator.INSTANCE.checksum(stream);
-            stream.close();
-        } catch (IOException e) {
+        mDictFileHash = ChecksumCalculator.INSTANCE.checksum(dict);
+        if (mDictFileHash == null)
             mDictFileHash = "";
-        }
         return mDictFileHash;
     }
 

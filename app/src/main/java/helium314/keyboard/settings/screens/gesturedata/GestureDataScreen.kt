@@ -268,7 +268,7 @@ private interface DictWithInfo {
 private class CacheDictWithInfo(private val file: File): DictWithInfo {
     override val locale = (DictionaryInfoUtils.getDictionaryFileHeaderOrNull(file)?.mLocaleString ?: SubtypeLocaleUtils.NO_LANGUAGE)
         .constructLocale()
-    override val hash = file.inputStream().use { ChecksumCalculator.checksum(it) } ?: ""
+    override val hash = ChecksumCalculator.checksum(file) ?: ""
     override val internal = !file.name.endsWith(DictionaryInfoUtils.USER_DICTIONARY_SUFFIX)
     override fun getDictionary(context: Context) =
         BinaryDictionary(file.absolutePath, 0, file.length(), false, locale, Dictionary.TYPE_MAIN, false)
