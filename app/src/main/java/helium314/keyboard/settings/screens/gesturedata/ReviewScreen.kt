@@ -171,20 +171,30 @@ fun ReviewScreen(
                 var sortByName: Boolean by rememberSaveable { mutableStateOf(false) }
                 var reverseSort: Boolean by rememberSaveable { mutableStateOf(false) }
                 val ctx = LocalContext.current
-                LaunchedEffect(filter, startDate, endDate, includeExported, sortByName, reverseSort, showIgnoreListDialog) {
-                    // todo: should be some background stuff, this could be slow
-                    // also we could somehow return a cursor?
-                    // and show how many results are currently displayed?
+                fun sortWords() {
+                    gestureDataInfos = if (sortByName) {
+                        gestureDataInfos.sortedBy { it.targetWord.lowercase() }
+                    } else {
+                        gestureDataInfos.sortedBy { it.timestamp }
+                    }
+                    if (reverseSort)
+                        gestureDataInfos = gestureDataInfos.reversed()
+                }
+                LaunchedEffect(filter, startDate, endDate, includeExported, reverseSort, showIgnoreListDialog) {
+                    // todo: should be some background stuff, this could be slow if we have a lot of data (not tested)
+                    //  maybe we could somehow return a cursor?
+                    // show result count? maybe as delete / share text
                     gestureDataInfos = dao.filterInfos(
                         filter.text.takeIf { it.isNotEmpty() },
                         startDate,
                         endDate,
                         if (includeExported) null else false,
-                        sortByName
                     )
-                    if (reverseSort)
-                        gestureDataInfos = gestureDataInfos.reversed()
                     selected = emptyList() // unselect on filter changes
+                    sortWords()
+                }
+                LaunchedEffect(reverseSort, sortByName) {
+                    sortWords()
                 }
                 TopAppBar( // not in the scaffold, thus will not cover data column in wide screen layout
                     title = { Text("Review & export gesture data") },

@@ -19,12 +19,12 @@ class GestureDataDao(val db: Database) {
         db.writableDatabase.insert(TABLE, null, cv)
     }
 
-    fun filterInfos(word: String?, begin: Long?, end: Long?, exported: Boolean?, sortByName: Boolean): List<GestureDataInfo> {
+    fun filterInfos(word: String?, begin: Long?, end: Long?, exported: Boolean?): List<GestureDataInfo> {
         val result = mutableListOf<GestureDataInfo>()
         val query = mutableListOf<String>()
         if (word != null) query.add("LOWER($COLUMN_WORD) like '%'||?||'%'")
-        if (begin != null) query.add("TIMESTAMP >= $begin")
-        if (end != null) query.add("TIMESTAMP <= $end")
+        if (begin != null) query.add("$COLUMN_TIMESTAMP >= $begin")
+        if (end != null) query.add("$COLUMN_TIMESTAMP <= $end")
         if (exported != null) query.add("EXPORTED = ${if (exported) 1 else 0}")
         db.readableDatabase.query(
             TABLE,
@@ -33,7 +33,7 @@ class GestureDataDao(val db: Database) {
             word?.let { arrayOf(it.lowercase()) },
             null,
             null,
-            if (sortByName) COLUMN_WORD else COLUMN_TIMESTAMP
+            null
         ).use {
             while (it.moveToNext()) {
                 result.add(GestureDataInfo(it.getLong(0), it.getString(1), it.getLong(2), it.getInt(3) != 0))
