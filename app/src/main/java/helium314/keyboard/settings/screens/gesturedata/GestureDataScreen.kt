@@ -2,6 +2,7 @@ package helium314.keyboard.settings.screens.gesturedata
 
 import android.content.Context
 import android.view.inputmethod.InputMethodManager
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -22,10 +23,12 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExtendedFloatingActionButton
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
+import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TextField
@@ -100,18 +103,15 @@ fun GestureDataScreen(
     onClickBack: () -> Unit,
 ) {
     val ctx = LocalContext.current
-    val scope = rememberCoroutineScope()
-    val availableDicts = remember { getAvailableDictionaries(ctx) }
-    val currentLocale = Settings.getValues().mLocale
-    var dict by remember { mutableStateOf(
-        availableDicts.firstOrNull { it.locale == currentLocale } ?: availableDicts.firstOrNull { it.locale.language == "en" }
-    ) }
-    val words = remember { mutableListOf<String>() }
+
+    // ideally we'd move all the active gathering stuff into a separate function,
+    // but either it has issues with the floating button positioning (if they are in the function)
+    // or the keyboard flashes (during recomposition)
     var wordFromDict by remember { mutableStateOf<String?>(null) } // some word from the dictionary
     var lastData by remember { mutableStateOf<WordData?>(null) }
     val focusRequester = remember { FocusRequester() }
-    LaunchedEffect(wordFromDict) { focusRequester.requestFocus() }
     val keyboard = LocalSoftwareKeyboardController.current
+    val words = remember { mutableListOf<String>() }
     fun nextWord(save: Boolean) {
         if (!save)
             lastData = null
@@ -122,47 +122,94 @@ fun GestureDataScreen(
         focusRequester.requestFocus()
         keyboard?.show()
     }
-    val suggestionLogger = remember {
-        object : SingleDictionaryFacilitator.Companion.SuggestionLogger {
-            override fun onNewSuggestions(
-                suggestions: SuggestionResults,
-                composedData: ComposedData,
-                ngramContext: NgramContext,
-                keyboard: Keyboard,
-                inputStyle: Int
-            ) {
-                if (!composedData.mIsBatchMode || inputStyle != SuggestedWords.INPUT_STYLE_TAIL_BATCH) return
-                val target = wordFromDict ?: return
-                val newData = WordData(target, suggestions, composedData, ngramContext, keyboard, inputStyle, true)
-                if (suggestions.any { it.mWord == target && it.mScore > 0 }) { // todo: higher min score?
-                    newData.save(ctx)
-                    nextWord(false)
+    @Composable fun activeGathering() {
+        val scope = rememberCoroutineScope()
+        val availableDicts = remember { getAvailableDictionaries(ctx) }
+        val currentLocale = Settings.getValues().mLocale
+        var dict by remember { mutableStateOf(
+            availableDicts.firstOrNull { it.locale == currentLocale } ?: availableDicts.firstOrNull { it.locale.language == "en" }
+        ) }
+        LaunchedEffect(wordFromDict) { focusRequester.requestFocus() }
+        val suggestionLogger = remember {
+            object : SingleDictionaryFacilitator.Companion.SuggestionLogger {
+                override fun onNewSuggestions(
+                    suggestions: SuggestionResults,
+                    composedData: ComposedData,
+                    ngramContext: NgramContext,
+                    keyboard: Keyboard,
+                    inputStyle: Int
+                ) {
+                    if (!composedData.mIsBatchMode || inputStyle != SuggestedWords.INPUT_STYLE_TAIL_BATCH) return
+                    val target = wordFromDict ?: return
+                    val newData = WordData(target, suggestions, composedData, ngramContext, keyboard, inputStyle, true)
+                    if (suggestions.any { it.mWord == target && it.mScore > 0 }) { // todo: higher min score?
+                        newData.save(ctx)
+                        nextWord(false)
+                    } else {
+                        lastData = newData // use the old flow with button
+                    }
+                }
+            }
+        }
+        LaunchedEffect(dict) {
+            val dict = dict ?: return@LaunchedEffect
+            facilitator?.closeDictionaries()
+            facilitator = SingleDictionaryFacilitator(dict.getDictionary(ctx))
+            facilitator?.suggestionLogger = suggestionLogger
+            lastData = null
+            wordFromDict = null
+            scope.launch(Dispatchers.Default) {
+                words.clear()
+                dict.addWords(ctx, words)
+            }
+            scope.launch(Dispatchers.Default) {
+                delay(500)
+                var i = 0
+                while (words.isEmpty() && i++ < 20)
+                    delay(50)
+                // at least a few words should be loaded now
+                nextWord(false)
+            }
+        }
+
+        // todo: show data for how many words are actually prepared / stored? currently we don't keep track
+        DropDownField(availableDicts, dict, { dict = it }) {
+            val locale = it?.locale?.getDisplayName(LocalConfiguration.current.locale())
+            val internal = if (it?.internal == true) "(internal)" else "(downloaded)"
+            Text(locale?.let { loc -> "$loc $internal" } ?: "no dictionary")
+        }
+        Row(
+            Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.Center
+        ) {
+            Column {
+                val imm = ctx.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                val text = if (UncachedInputMethodManagerUtils.isThisImeCurrent(ctx, imm)) {
+                    wordFromDict?.let { stringResource(R.string.gesture_data_please_type, it) }
+                        ?: stringResource(R.string.gesture_data_please_wait)
                 } else {
-                    lastData = newData // use the old flow with button
+                    "please switch to HeliBoard"
+                }
+                Text(
+                    text = text,
+                    modifier = Modifier.alpha(if (wordFromDict == null) 0.5f else 1f))
+                Box(Modifier.size(1.dp)) { // box hides the field, but we can still interact with it
+                    TextField(
+                        value = TextFieldValue(),
+                        enabled = wordFromDict != null,
+                        onValueChange = { },
+                        keyboardOptions = KeyboardOptions(
+                            platformImeOptions = PlatformImeOptions(privateImeOptions = dictTestImeOption),
+                            imeAction = ImeAction.Next
+                        ),
+                        //keyboardActions = KeyboardActions { nextWord(true) },
+                        modifier = Modifier.focusRequester(focusRequester),
+                    )
                 }
             }
         }
     }
-    LaunchedEffect(dict) {
-        val dict = dict ?: return@LaunchedEffect
-        facilitator?.closeDictionaries()
-        facilitator = SingleDictionaryFacilitator(dict.getDictionary(ctx))
-        facilitator?.suggestionLogger = suggestionLogger
-        lastData = null
-        wordFromDict = null
-        scope.launch(Dispatchers.Default) {
-            words.clear()
-            dict.addWords(ctx, words)
-        }
-        scope.launch(Dispatchers.Default) {
-            delay(500)
-            var i = 0
-            while (words.isEmpty() && i++ < 20)
-                delay(50)
-            // at least a few words should be loaded now
-            nextWord(false)
-        }
-    }
+
     val scrollState = rememberScrollState()
     Scaffold(
         contentWindowInsets = WindowInsets.safeDrawing.only(WindowInsetsSides.Bottom)
@@ -173,6 +220,8 @@ fun GestureDataScreen(
                 .padding(horizontal = 12.dp)
                 .then(Modifier.padding(innerPadding)),
         ) {
+            var activeGathering by remember { mutableStateOf(false) }
+            var passiveGathering by remember { mutableStateOf(false) } // todo: read from setting
             TopAppBar(
                 title = { Text(stringResource(R.string.gesture_data_screen)) },
                 navigationIcon = {
@@ -186,42 +235,33 @@ fun GestureDataScreen(
             )
             Text(stringResource(R.string.gesture_data_description))
             Spacer(Modifier.height(12.dp))
-            // todo: show data for how many words are actually prepared / stored? currently we don't keep track
-            DropDownField(availableDicts, dict, { dict = it }) {
-                val locale = it?.locale?.getDisplayName(LocalConfiguration.current.locale())
-                val internal = if (it?.internal == true) "(internal)" else "(downloaded)"
-                Text(locale?.let { loc -> "$loc $internal" } ?: "no dictionary")
-            }
-            Row(
-                Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.Center
-            ) {
-                Column {
-                    val imm = ctx.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-                    val text = if (UncachedInputMethodManagerUtils.isThisImeCurrent(ctx, imm)) {
-                        wordFromDict?.let { stringResource(R.string.gesture_data_please_type, it) }
-                            ?: stringResource(R.string.gesture_data_please_wait)
-                    } else {
-                        "please switch to HeliBoard"
-                    }
-                    Text(
-                        text = text,
-                        modifier = Modifier.alpha(if (wordFromDict == null) 0.5f else 1f))
-                    Box(Modifier.size(1.dp)) { // box hides the field, but we can still interact with it
-                        TextField(
-                            value = TextFieldValue(),
-                            enabled = wordFromDict != null,
-                            onValueChange = { },
-                            keyboardOptions = KeyboardOptions(
-                                platformImeOptions = PlatformImeOptions(privateImeOptions = dictTestImeOption),
-                                imeAction = ImeAction.Next
-                            ),
-                            //keyboardActions = KeyboardActions { nextWord(true) },
-                            modifier = Modifier.focusRequester(focusRequester),
-                        )
-                    }
+            HorizontalDivider()
+            Text("active gathering description") // full description in a popup?
+            TextButton({
+                activeGathering = !activeGathering
+                if (!activeGathering) {
+                    lastData = null
+                    wordFromDict = null
                 }
+            }) {
+                Text(if (activeGathering) "stop active gathering" else "start active gathering")
             }
+            if (activeGathering) // todo: starting is slow
+                activeGathering()
+            Spacer(Modifier.height(12.dp))
+            HorizontalDivider()
+            Text("passive gathering description") // full description in a popup?
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceBetween,
+                modifier = Modifier.clickable { passiveGathering = !passiveGathering }.fillMaxWidth()
+            ) {
+                Text("passive gathering")
+                Switch(passiveGathering, { passiveGathering = it })
+            }
+            Spacer(Modifier.height(12.dp))
+            HorizontalDivider()
+            // maybe move the review screen content in here if we have enough space (but landscape mode will be bad)
             TextButton(onClick = { SettingsDestination.navigateTo(SettingsDestination.DataReview) }) {
                 Text("review & share gesture data")
             }
