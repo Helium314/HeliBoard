@@ -92,6 +92,8 @@ fun ReviewScreen(
     var showDeleteDialog by remember { mutableStateOf(false) }
     var selected by rememberSaveable { mutableStateOf(listOf<Long>()) }
     var filter by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue()) }
+    var gestureDataInfos by remember { mutableStateOf(listOf<GestureDataInfo>()) }
+    val wordcount = if (selected.isNotEmpty()) selected.size else gestureDataInfos.size
     val width = LocalConfiguration.current.screenWidthDp
     val height = LocalConfiguration.current.screenHeightDp
     val useWideLayout = height < 500 && width > height
@@ -113,9 +115,7 @@ fun ReviewScreen(
                                     "delete",
                                     Modifier.align(Alignment.CenterHorizontally)
                                 )
-                                Text(if (selected.isNotEmpty()) "delete selected"
-                                else if (filter.text.isNotEmpty()) "delete filtered"
-                                else "delete all") // not really "all" because of the switches
+                                Text("delete $wordcount words")
                             }
                         }
                         // todo: extra delete for exported, if there are any?
@@ -126,9 +126,7 @@ fun ReviewScreen(
                                     "share",
                                     Modifier.align(Alignment.CenterHorizontally)
                                 )
-                                Text(if (selected.isNotEmpty()) "share selected"
-                                else if (filter.text.isNotEmpty()) "share filtered"
-                                else "share all") // not really "all" because of the switches
+                                Text("share $wordcount words")
                             }
                         }
                         // todo: only show it once passive gathering is implemented, because for active it makes no sense
@@ -147,7 +145,6 @@ fun ReviewScreen(
             )
         }
     ) { innerPadding ->
-        var gestureDataInfos by remember { mutableStateOf(listOf<GestureDataInfo>()) }
         @Composable fun dataColumn() {
             LazyColumn {
                 items(gestureDataInfos, { it.id }) { item ->
@@ -280,7 +277,7 @@ fun ReviewScreen(
                     controlColumn()
                 }
                 Box(Modifier.weight(0.4f)) {
-                    dataColumn() // todo: first word is under the status bar, should stop earlier than that
+                    dataColumn()
                 }
             }
         } else {
@@ -291,7 +288,6 @@ fun ReviewScreen(
         }
         if (showExportDialog) {
             ThreeButtonAlertDialog(
-                // todo: we need to forward the data to share to ShareGestureData, the text already says it...
                 onDismissRequest = { showExportDialog = false },
                 content = {
                     val toShare = if (selected.isEmpty()) gestureDataInfos else gestureDataInfos.filter { it.id in selected }
@@ -311,8 +307,7 @@ fun ReviewScreen(
                     dao.delete(ids)
                 },
                 content = {
-                    val count = if (selected.isNotEmpty()) selected.size else gestureDataInfos.size
-                    Text("are you sure? will delete $count words")
+                    Text("are you sure? will delete $wordcount words")
                 }
             )
         }
