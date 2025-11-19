@@ -442,4 +442,11 @@
     <string name="subtype_generic_phonetic">%s (Fonetik)</string>
     <string name="label_switch_onehanded_key" tools:keep="@string/label_switch_onehanded_key">Tek elle kullanım tarafını değiştir</string>
     <string name="label_zwj_key" tools:keep="@string/label_zwj_key">Sıfır genişlikli bağlantı elemanı</string>
+    <string name="inline_emoji_search">Satır içi emoji araması</string>
+    <string name="inline_emoji_search_summary">Yalnızca sözcüğün önünde iki nokta üst üste varsa emoji öner</string>
+    <string name="emoji_dictionary_required">Bu özelliğin çalışması için bir emoji sözlüğü gereklidir. %s\'den .dict biçimindeki sözlükler indirilebilir.</string>
+    <string name="clipboard_history_pinned_first">İğnelenmiş öğeleri üstte göster</string>
+    <string name="save_subtype_per_app">Her uygulama için dili hatırla</string>
+    <string name="subtype_mhr">Mari (Doğu)</string>
+    <string name="label_shift_key_shifted" tools:keep="@string/label_shift_key_shifted">Shift (kaydırılmış)</string>
 </resources>

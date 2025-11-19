@@ -300,7 +300,7 @@
     <string name="show_popup_keys_main">添加非常常见的变体（默认）</string>
     <string name="copy_to_clipboard">复制到剪贴板</string>
     <string name="button_select_language">选择语言</string>
-    <string name="no_dictionary_message">"没有词典，您只能得到之前输入的文本的建议。&lt;br&gt;\n\n        您可以下载词典 %1$s，或检查是否可以直接下载“%2$s”的词典 %3$s。"</string>
+    <string name="no_dictionary_message">"没有词典，您只能得到之前输入的文本的建议。&lt;br&gt;\n        您可以下载词典 %1$s，或检查是否可以直接下载“%2$s”的词典 %3$s。"</string>
     <string name="user_dict_add_word_button">添加一个单词</string>
     <string name="remove_redundant_popups_summary">移除基础布局上已存在的弹出键</string>
     <string name="remove_redundant_popups">移除多余弹出</string>
@@ -423,10 +423,10 @@
     <string name="prefs_emoji_skin_tone">默认表情符号肤色</string>
     <string name="subtype_with_layout_generic">%1$s（%2$s）</string>
     <string name="toolbar_mode">工具栏模式</string>
-    <string name="toolbar_mode_expandable">‌工具栏键与建议</string>
-    <string name="toolbar_mode_toolbar_keys">‌仅工具栏键</string>
-    <string name="toolbar_mode_suggestion_strip">‌仅建议</string>
-    <string name="toolbar_mode_hidden">‌隐藏</string>
+    <string name="toolbar_mode_expandable">工具栏键与建议</string>
+    <string name="toolbar_mode_toolbar_keys">仅工具栏键</string>
+    <string name="toolbar_mode_suggestion_strip">仅建议</string>
+    <string name="toolbar_mode_hidden">隐藏</string>
     <string name="toolbar_hiding_global">同时隐藏剪贴板和表情符号工具栏</string>
     <string name="popup_order_and_hint_source">弹出键顺序和提示源</string>
     <string name="landscape">横屏</string>
@@ -445,4 +445,6 @@
     <string name="inline_emoji_search">内联表情符号搜索</string>
     <string name="inline_emoji_search_summary">仅当单词以冒号开头时建议表情符号</string>
     <string name="emoji_dictionary_required">此功能需要表情符号词典才能使用。可以下载 .dict 格式的词典 %s。</string>
+    <string name="layout_emoji_bottom_row_with_action" tools:keep="@string/layout_emoji_bottom_row_with_action">带操作键的表情符号底行</string>
+    <string name="layout_clip_bottom_row_with_action" tools:keep="@string/layout_clip_bottom_row_with_action">带操作键的剪贴板底行</string>
 </resources>

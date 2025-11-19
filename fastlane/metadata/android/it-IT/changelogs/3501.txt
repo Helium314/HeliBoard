@@ -1,0 +1,3 @@
+- Corretti alcuni errori che causavano crash
+- Fix del correttore difettoso introdotto alla versione 3.4
+- Vibrazione su spazio e gesto su backspace (con vibrazione generale attiva)

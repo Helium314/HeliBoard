@@ -11,6 +11,7 @@ import android.text.InputType;
 import android.view.inputmethod.EditorInfo;
 
 import helium314.keyboard.latin.common.StringUtilsKt;
+import helium314.keyboard.compat.AppWorkarounds;
 import helium314.keyboard.latin.utils.Log;
 import helium314.keyboard.latin.utils.InputTypeUtils;
 
@@ -53,11 +54,10 @@ public final class InputAttributes {
         mEditorInfo = editorInfo;
         mPackageNameForPrivateImeOptions = packageNameForPrivateImeOptions;
         mTargetApplicationPackageName = null != editorInfo ? editorInfo.packageName : null;
-        final int inputType = null != editorInfo ? editorInfo.inputType : 0;
-        final int inputClass = inputType & InputType.TYPE_MASK_CLASS;
-        mInputType = inputType;
-        mIsPasswordField = InputTypeUtils.isPasswordInputType(inputType)
-                || InputTypeUtils.isVisiblePasswordInputType(inputType);
+        mInputType = AppWorkarounds.INSTANCE.adjustInputType(null != editorInfo ? editorInfo.inputType : 0, mTargetApplicationPackageName);
+        final int inputClass = mInputType & InputType.TYPE_MASK_CLASS;
+        mIsPasswordField = InputTypeUtils.isPasswordInputType(mInputType)
+                || InputTypeUtils.isVisiblePasswordInputType(mInputType);
         if (inputClass != InputType.TYPE_CLASS_TEXT) {
             // If we are not looking at a TYPE_CLASS_TEXT field, the following strange
             // cases may arise, so we do a couple sanity checks for them. If it's a
@@ -65,13 +65,13 @@ public final class InputAttributes {
             // of the flags.
             if (null == editorInfo) {
                 Log.w(TAG, "No editor info for this field. Bug?");
-            } else if (InputType.TYPE_NULL == inputType) {
+            } else if (InputType.TYPE_NULL == mInputType) {
                 // TODO: We should honor TYPE_NULL specification.
                 Log.i(TAG, "InputType.TYPE_NULL is specified");
             } else if (inputClass == 0) {
                 // TODO: is this check still necessary?
                 Log.w(TAG, String.format("Unexpected input class: inputType=0x%08x"
-                        + " imeOptions=0x%08x", inputType, editorInfo.imeOptions));
+                        + " imeOptions=0x%08x", mInputType, editorInfo.imeOptions));
             }
             mShouldShowSuggestions = false;
             mMayOverrideShowingSuggestions = false;
@@ -85,19 +85,18 @@ public final class InputAttributes {
             return;
         }
 
-        // inputClass == InputType.TYPE_CLASS_TEXT
-        final int variation = inputType & InputType.TYPE_MASK_VARIATION;
-        final boolean flagNoSuggestions = 0 != (inputType & InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
-        final boolean flagMultiLine = 0 != (inputType & InputType.TYPE_TEXT_FLAG_MULTI_LINE);
-        final boolean flagAutoCorrect = 0 != (inputType & InputType.TYPE_TEXT_FLAG_AUTO_CORRECT);
-        final boolean flagAutoComplete = 0 != (inputType & InputType.TYPE_TEXT_FLAG_AUTO_COMPLETE);
+        final int variation = mInputType & InputType.TYPE_MASK_VARIATION;
+        final boolean flagNoSuggestions = 0 != (mInputType & InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
+        final boolean flagMultiLine = 0 != (mInputType & InputType.TYPE_TEXT_FLAG_MULTI_LINE);
+        final boolean flagAutoCorrect = 0 != (mInputType & InputType.TYPE_TEXT_FLAG_AUTO_CORRECT);
+        final boolean flagAutoComplete = 0 != (mInputType & InputType.TYPE_TEXT_FLAG_AUTO_COMPLETE);
 
         // TODO: Have a helper method in InputTypeUtils
         // Make sure that passwords are not displayed in {@link SuggestionStripView}.
         mShouldShowSuggestions = !mIsPasswordField && !flagNoSuggestions;
         mMayOverrideShowingSuggestions = !mIsPasswordField;
 
-        mShouldInsertSpacesAutomatically = InputTypeUtils.isAutoSpaceFriendlyType(inputType);
+        mShouldInsertSpacesAutomatically = InputTypeUtils.isAutoSpaceFriendlyType(mInputType);
 
         final boolean noMicrophone = mIsPasswordField
                 || InputTypeUtils.isEmailVariation(variation)
