@@ -2,17 +2,20 @@ package helium314.keyboard.settings.screens.gesturedata
 
 import android.content.Context
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.WindowInsetsSides
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.only
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.safeDrawingPadding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardActions
@@ -26,6 +29,7 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -37,6 +41,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
@@ -104,6 +110,8 @@ fun GestureDataScreen(
     var wordFromDict by remember { mutableStateOf<String?>(null) } // some word from the dictionary
     var typed by remember { mutableStateOf(TextFieldValue()) }
     var lastData by remember { mutableStateOf<WordData?>(null) }
+    val focusRequester = remember { FocusRequester() }
+    LaunchedEffect(wordFromDict) { focusRequester.requestFocus() }
     val suggestionLogger = remember {
         object : SingleDictionaryFacilitator.Companion.SuggestionLogger {
             override fun onNewSuggestions(
@@ -115,8 +123,6 @@ fun GestureDataScreen(
             ) {
                 if (!composedData.mIsBatchMode || inputStyle != SuggestedWords.INPUT_STYLE_TAIL_BATCH) return
                 val target = wordFromDict ?: return
-                // todo: do we want to store intermediate suggestions?
-                //  currently they are overwritten by the next ones, but stored if the user presses next-word while typing
                 lastData = WordData(target, suggestions, composedData, ngramContext, keyboard, inputStyle, true)
                 // todo: call nextWord immediately if target has a good score in suggestions?
             }
@@ -130,6 +136,7 @@ fun GestureDataScreen(
         wordFromDict = words.ifEmpty { null }?.random() // randomly choose from dict
         lastData = null
         // reset the data
+        focusRequester.requestFocus()
     }
     LaunchedEffect(dict) {
         val dict = dict ?: return@LaunchedEffect
@@ -189,20 +196,19 @@ fun GestureDataScreen(
                         text = wordFromDict?.let { stringResource(R.string.gesture_data_please_type, it) }
                             ?: stringResource(R.string.gesture_data_please_wait),
                         modifier = Modifier.alpha(if (wordFromDict == null) 0.5f else 1f))
-                    // todo: don't show typed text, or better don't show text field
-                    //  not setting the value is simple
-                    //  hiding / not having a field could be tricky because we want the keyboard to work!
-                    //  anyway, there should be an explanation why this is done
-                    OutlinedTextField(
-                        value = typed,
-                        enabled = wordFromDict != null,
-                        onValueChange = { typed = it },
-                        keyboardOptions = KeyboardOptions(
-                            platformImeOptions = PlatformImeOptions(privateImeOptions = dictTestImeOption),
-                            imeAction = ImeAction.Next
-                        ),
-                        keyboardActions = KeyboardActions { nextWord(true) },
-                    )
+                    Box(Modifier.size(1.dp)) { // box hides the field, but we can still interact with it
+                        TextField(
+                            value = typed,
+                            enabled = wordFromDict != null,
+                            onValueChange = { typed = it },
+                            keyboardOptions = KeyboardOptions(
+                                platformImeOptions = PlatformImeOptions(privateImeOptions = dictTestImeOption),
+                                imeAction = ImeAction.Next
+                            ),
+                            //keyboardActions = KeyboardActions { nextWord(true) },
+                            modifier = Modifier.focusRequester(focusRequester),
+                        )
+                    }
                 }
             }
             ShareGestureData()

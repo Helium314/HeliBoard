@@ -936,5 +936,5 @@ New dictionary:
     <!-- Button for saving data and go to next word -->
     <string name="gesture_data_next_save">Save and next</string>
     <!-- Button for next word without saving data -->
-    <string name="gesture_data_next">Next word</string>
+    <string name="gesture_data_next">Skip word</string>
 </resources>
