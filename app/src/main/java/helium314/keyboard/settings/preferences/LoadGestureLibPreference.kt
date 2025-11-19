@@ -59,7 +59,7 @@ fun LoadGestureLibPreference(setting: Setting) {
             }
             otherTemporaryFile.delete()
 
-            val checksum = ChecksumCalculator.checksum(tmpfile.inputStream()) ?: ""
+            val checksum = ChecksumCalculator.checksum(tmpfile) ?: ""
             if (checksum == JniUtils.expectedDefaultChecksum()) {
                 renameToLibFileAndRestart(tmpfile, checksum)
             } else {
@@ -104,7 +104,7 @@ fun LoadGestureLibPreference(setting: Setting) {
             content = { Text(stringResource(R.string.checksum_mismatch_message, abi)) },
             onConfirmed = {
                 val tempFile = File(tempFilePath!!)
-                renameToLibFileAndRestart(tempFile, ChecksumCalculator.checksum(tempFile.inputStream()) ?: "")
+                renameToLibFileAndRestart(tempFile, ChecksumCalculator.checksum(tempFile) ?: "")
             }
         )
 }
