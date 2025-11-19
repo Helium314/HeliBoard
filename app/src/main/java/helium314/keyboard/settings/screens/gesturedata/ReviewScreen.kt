@@ -30,6 +30,7 @@ import androidx.compose.material3.DateRangePicker
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.LocalTextStyle
@@ -98,32 +99,48 @@ fun ReviewScreen(
     Scaffold(
         contentWindowInsets = WindowInsets.safeDrawing.only(WindowInsetsSides.Bottom),
         bottomBar = {
-            BottomAppBar( // todo: should it rather be in the controlColumn? for more space in landscape mode
-                // todo: spread evenly, consistent icon size, enable / disable if necessary
+            BottomAppBar(
+                // todo: consistent icon size, enable / disable when appropriate
+                // todo: now buttons are spread evenly, but long text in 2 lines does not work
+                //  maybe text is not necessary?
+                //  or maybe ignorelist could be moved to the menu
                 actions = {
-                    Button({ showDeleteDialog = true}, colors = buttonColors) {
-                        Column {
-                            Icon(painterResource(R.drawable.ic_bin_rounded), "delete", Modifier.align(Alignment.CenterHorizontally))
-                            Text(if (selected.isNotEmpty()) "delete selected"
-                            else if (filter.text.isNotEmpty()) "delete filtered"
-                            else "delete all") // actually it's all displayed, right?
+                    Row(horizontalArrangement = Arrangement.SpaceEvenly, modifier = Modifier.fillMaxWidth()) {
+                        Button({ showDeleteDialog = true}, colors = buttonColors, modifier = Modifier.weight(1f)) {
+                            Column {
+                                Icon(
+                                    painterResource(R.drawable.ic_bin_rounded),
+                                    "delete",
+                                    Modifier.align(Alignment.CenterHorizontally)
+                                )
+                                Text(if (selected.isNotEmpty()) "delete selected"
+                                else if (filter.text.isNotEmpty()) "delete filtered"
+                                else "delete all") // not really "all" because of the switches
+                            }
                         }
-                    }
-                    // todo: extra delete for exported, if there are any?
-
-                    Button({ showExportDialog = true }, colors = buttonColors) {
-                        Column {
-                            Icon(painterResource(R.drawable.sym_keyboard_language_switch), "share", Modifier.align(Alignment.CenterHorizontally)) // share icon
-                            Text(if (selected.isNotEmpty()) "share selected"
-                            else if (filter.text.isNotEmpty()) "share filtered"
-                            else "share all") // actually it's all displayed, right?
+                        // todo: extra delete for exported, if there are any?
+                        Button({ showExportDialog = true }, colors = buttonColors, modifier = Modifier.weight(1f)) {
+                            Column {
+                                Icon(
+                                    painterResource(android.R.drawable.ic_menu_share), // todo: looks weirdly grey due to transparency, maybe use different one
+                                    "share",
+                                    Modifier.align(Alignment.CenterHorizontally)
+                                )
+                                Text(if (selected.isNotEmpty()) "share selected"
+                                else if (filter.text.isNotEmpty()) "share filtered"
+                                else "share all") // not really "all" because of the switches
+                            }
                         }
-                    }
-                    // todo: only show it once passive gathering is implemented
-                    Button({ showIgnoreListDialog = true }, colors = buttonColors) {
-                        Column {
-                            Icon(painterResource(R.drawable.ic_autocorrect), "exclude", Modifier.align(Alignment.CenterHorizontally)) // block icon (strike through)
-                            Text("exclude")
+                        // todo: only show it once passive gathering is implemented, because for active it makes no sense
+                        Button({ showIgnoreListDialog = true }, colors = buttonColors, modifier = Modifier.weight(1f)) {
+                            Column {
+                                Icon(
+                                    painterResource(R.drawable.ic_autocorrect), // todo: icon
+                                    "exclude",
+                                    Modifier.align(Alignment.CenterHorizontally)
+                                )
+                                Text("exclude")
+                            }
                         }
                     }
                 }
@@ -169,7 +186,7 @@ fun ReviewScreen(
                         gestureDataInfos = gestureDataInfos.reversed()
                     selected = emptyList() // unselect on filter changes
                 }
-                TopAppBar( // todo: should it rather be in the scaffold? for full width
+                TopAppBar( // not in the scaffold, thus will not cover data column in wide screen layout
                     title = { Text("Review & export gesture data") },
                     navigationIcon = {
                         IconButton(onClick = onClickBack) {
@@ -201,20 +218,21 @@ fun ReviewScreen(
                         }
                     }
                 )
-                Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly) { // not spaced evenly due to text length...
-                    Button({ includeActive = !includeActive }, colors = buttonColors) {
+                // todo: this is ugly
+                Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly) {
+                    Button({ includeActive = !includeActive }, colors = buttonColors, modifier = Modifier.weight(1f)) {
                         Column(horizontalAlignment = Alignment.CenterHorizontally) {
                             Switch(checked = includeActive, onCheckedChange = { includeActive = it })
                             Text("active")
                         }
                     }
-                    Button({ includePassive = !includePassive }, colors = buttonColors) {
+                    Button({ includePassive = !includePassive }, colors = buttonColors, modifier = Modifier.weight(1f)) {
                         Column(horizontalAlignment = Alignment.CenterHorizontally) {
                             Switch(checked = includePassive, onCheckedChange = { includePassive = it })
                             Text("passive")
                         }
                     }
-                    Button({ includeExported = !includeExported }, colors = buttonColors) {
+                    Button({ includeExported = !includeExported }, colors = buttonColors, modifier = Modifier.weight(1f)) {
                         Column(horizontalAlignment = Alignment.CenterHorizontally) {
                             Switch(checked = includeExported, onCheckedChange = { includeExported = it })
                             Text("previously exported")
@@ -223,19 +241,24 @@ fun ReviewScreen(
                 }
                 var showDateRangePicker by remember { mutableStateOf(false) }
                 val df = DateFormat.getDateFormat(ctx)
+                HorizontalDivider()
+                Text("filter")
                 Row(verticalAlignment = Alignment.CenterVertically) {
-                    //  word text field (allow regex?)
-                    // todo: supportingText makes it look misaligned...
-                    TextField(value = filter, onValueChange = { filter = it}, supportingText = { Text("filter") }, modifier = Modifier.weight(0.7f))
-                    //  time from-to button (set time range in dialog)
+                    // allow regex in the filter?
+                    TextField(value = filter, onValueChange = { filter = it}, modifier = Modifier.weight(0.7f))
                     Column(Modifier
-                        .clickable { showDateRangePicker = true }
-                        .weight(0.3f), horizontalAlignment = Alignment.CenterHorizontally) {
+                            .clickable { showDateRangePicker = true }
+                            .weight(0.3f), horizontalAlignment = Alignment.CenterHorizontally) {
                         Text("date", style = MaterialTheme.typography.bodyLarge)
-                        Text(startDate?.let { df.format(Date(it)) }.toString(), style = MaterialTheme.typography.bodyMedium)
-                        Text(endDate?.let { df.format(Date(it)) }.toString(), style = MaterialTheme.typography.bodyMedium)
+                        if (startDate == null && endDate == null)
+                            Text("not set", style = MaterialTheme.typography.bodyMedium)
+                        else {
+                            Text(startDate?.let { df.format(Date(it)) }.toString(), style = MaterialTheme.typography.bodyMedium)
+                            Text(endDate?.let { df.format(Date(it)) }.toString(), style = MaterialTheme.typography.bodyMedium)
+                        }
                     }
                 }
+                HorizontalDivider()
                 if (showDateRangePicker)
                     DateRangePickerModal({ startDate = it.first; endDate = it.second }) { showDateRangePicker = false }
             }
