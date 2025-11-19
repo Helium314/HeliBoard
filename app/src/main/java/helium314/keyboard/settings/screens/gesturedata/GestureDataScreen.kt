@@ -27,6 +27,7 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
@@ -69,6 +70,7 @@ import helium314.keyboard.latin.utils.SuggestionResults
 import helium314.keyboard.latin.utils.UncachedInputMethodManagerUtils
 import helium314.keyboard.settings.DropDownField
 import helium314.keyboard.settings.NextScreenIcon
+import helium314.keyboard.settings.SettingsDestination
 import helium314.keyboard.settings.Theme
 import helium314.keyboard.settings.initPreview
 import helium314.keyboard.settings.previewDark
@@ -220,7 +222,9 @@ fun GestureDataScreen(
                     }
                 }
             }
-            ShareGestureData()
+            TextButton(onClick = { SettingsDestination.navigateTo(SettingsDestination.DataReview) }) {
+                Text("review & share gesture data")
+            }
         }
     }
     // showing at top left in preview, but correctly on device
