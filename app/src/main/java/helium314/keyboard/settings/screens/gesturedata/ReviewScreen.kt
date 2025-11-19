@@ -186,6 +186,7 @@ fun ReviewScreen(
                         startDate,
                         endDate,
                         if (includeExported) null else false,
+                        if (includeActive && includePassive) null else includeActive
                     )
                     selected = emptyList() // unselect on filter changes
                     sortWords()
@@ -225,7 +226,8 @@ fun ReviewScreen(
                         }
                     }
                 )
-                // todo: this is ugly
+                // todo: this is ugly, rather user checkboxes or some other UI?
+                // todo: user can switch off both active and passive, which doesn't make sense
                 Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly) {
                     Button({ includeActive = !includeActive }, colors = buttonColors, modifier = Modifier.weight(1f)) {
                         Column(horizontalAlignment = Alignment.CenterHorizontally) {

@@ -81,7 +81,7 @@ class WordData(
     }
 }
 
-data class GestureDataInfo(val id: Long, val targetWord: String, val timestamp: Long, val exported: Boolean)
+data class GestureDataInfo(val id: Long, val targetWord: String, val timestamp: Long, val exported: Boolean, val activeMode: Boolean)
 
 @Serializable
 data class GestureData(

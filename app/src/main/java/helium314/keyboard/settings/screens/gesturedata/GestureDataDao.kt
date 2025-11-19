@@ -15,20 +15,23 @@ class GestureDataDao(val db: Database) {
         val cv = ContentValues(3)
         cv.put(COLUMN_TIMESTAMP, timestamp)
         cv.put(COLUMN_WORD, data.targetWord)
+        if (data.activeMode)
+            cv.put(COLUMN_SOURCE_ACTIVE, 1)
         cv.put(COLUMN_DATA, Json.encodeToString(dataWithHash))
         db.writableDatabase.insert(TABLE, null, cv)
     }
 
-    fun filterInfos(word: String?, begin: Long?, end: Long?, exported: Boolean?): List<GestureDataInfo> {
+    fun filterInfos(word: String?, begin: Long?, end: Long?, exported: Boolean?, activeMode: Boolean?): List<GestureDataInfo> {
         val result = mutableListOf<GestureDataInfo>()
         val query = mutableListOf<String>()
         if (word != null) query.add("LOWER($COLUMN_WORD) like ?||'%'")
         if (begin != null) query.add("$COLUMN_TIMESTAMP >= $begin")
         if (end != null) query.add("$COLUMN_TIMESTAMP <= $end")
-        if (exported != null) query.add("EXPORTED = ${if (exported) 1 else 0}")
+        if (exported != null) query.add("$COLUMN_EXPORTED = ${if (exported) 1 else 0}")
+        if (activeMode != null) query.add("$COLUMN_SOURCE_ACTIVE = ${if (activeMode) 1 else 0}")
         db.readableDatabase.query(
             TABLE,
-            arrayOf(COLUMN_ID, COLUMN_WORD, COLUMN_TIMESTAMP, COLUMN_EXPORTED),
+            arrayOf(COLUMN_ID, COLUMN_WORD, COLUMN_TIMESTAMP, COLUMN_EXPORTED, COLUMN_SOURCE_ACTIVE),
             query.joinToString(" AND "),
             word?.let { arrayOf(it.lowercase()) },
             null,
@@ -36,7 +39,13 @@ class GestureDataDao(val db: Database) {
             null
         ).use {
             while (it.moveToNext()) {
-                result.add(GestureDataInfo(it.getLong(0), it.getString(1), it.getLong(2), it.getInt(3) != 0))
+                result.add(GestureDataInfo(
+                    it.getLong(0),
+                    it.getString(1),
+                    it.getLong(2),
+                    it.getInt(3) != 0,
+                    it.getInt(4) != 0
+                ))
             }
         }
         return result
@@ -106,7 +115,7 @@ class GestureDataDao(val db: Database) {
     }
 
     init {
-        // for now just do it here instead of using the proper upgrade thing
+        // todo: switch to proper db upgrade before merging
         db.writableDatabase.execSQL(CREATE_TABLE)
     }
 
@@ -118,6 +127,7 @@ class GestureDataDao(val db: Database) {
         private const val COLUMN_TIMESTAMP = "TIMESTAMP"
         private const val COLUMN_WORD = "WORD"
         private const val COLUMN_EXPORTED = "EXPORTED"
+        private const val COLUMN_SOURCE_ACTIVE = "SOURCE_ACTIVE"
         private const val COLUMN_DATA = "DATA"
 
         // todo: TEXT or BLOB? we could zip-compress the gesture data
@@ -128,6 +138,7 @@ class GestureDataDao(val db: Database) {
                 $COLUMN_TIMESTAMP INTEGER NOT NULL,
                 $COLUMN_WORD TEXT NOT NULL,
                 $COLUMN_EXPORTED TINYINT NOT NULL DEFAULT 0,
+                $COLUMN_SOURCE_ACTIVE TINYINT NOT NULL DEFAULT 0,
                 $COLUMN_DATA TEXT
             )
         """
