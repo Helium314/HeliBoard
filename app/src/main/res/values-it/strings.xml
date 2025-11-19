@@ -443,4 +443,13 @@
     <string name="show_emoji_descriptions">Tocca a lungo un\'emoji per visualizzare la descrizione</string>
     <string name="suggest_punctuation">Suggerisci punteggiatura</string>
     <string name="suggest_punctuation_summary">Mostra segni di interpunzione quando non sono disponibili altri suggerimenti</string>
+    <string name="inline_emoji_search">Ricerca emoji inline</string>
+    <string name="inline_emoji_search_summary">Suggerisce solo emoji se una parola è preceduta da : (due punti)</string>
+    <string name="emoji_dictionary_required">Per questa funzionalità è necessario un dizionario emoji. I dizionari in formato .dict possono essere scaricati %s.</string>
+    <string name="clipboard_history_pinned_first">Mostra gli elementi bloccati in cima</string>
+    <string name="save_subtype_per_app">Ricorda lingua/sottotipo di input per ogni applicazione</string>
+    <string name="subtype_mhr">Mari orientale</string>
+    <string name="subtype_khipro_bn">%s (Khipro)</string>
+    <string name="layout_emoji_bottom_row_with_action" tools:keep="@string/layout_emoji_bottom_row_with_action">Riga emoji inferiore con tasto azione</string>
+    <string name="layout_clip_bottom_row_with_action" tools:keep="@string/layout_clip_bottom_row_with_action">Riga appunti inferiore con tasto azione</string>
 </resources>

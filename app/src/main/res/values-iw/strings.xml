@@ -446,4 +446,10 @@
     <string name="subtype_khipro_bn">%s (כיפרו)</string>
     <string name="save_subtype_per_app">שיוך שפה ליישום</string>
     <string name="clipboard_history_pinned_first">הצגת פריטים נעוצים תחילה</string>
+    <string name="layout_clip_bottom_row_with_action" tools:keep="@string/layout_clip_bottom_row_with_action">שורה תחתונה בלוח עם פקד פעולה</string>
+    <string name="layout_emoji_bottom_row_with_action" tools:keep="@string/layout_emoji_bottom_row_with_action">שורת אמוג\'י תחתונה עם פקד פעולה</string>
+    <string name="subtype_mhr">מארי (מזרח אורל)</string>
+    <string name="emoji_dictionary_required">דרוש מילון אמוג\'י כדי שתכולה זו תפעל. מילונים בפורמט .dict ניתן להוריד ב %s.</string>
+    <string name="inline_emoji_search_summary">הצעת אמוג\'י בלבד כאשר לפני המילה מופיעות נקודתיים</string>
+    <string name="inline_emoji_search">חיפוש אמוג\'י מוטמע</string>
 </resources>
