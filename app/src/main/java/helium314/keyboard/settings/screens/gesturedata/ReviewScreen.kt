@@ -249,14 +249,18 @@ fun ReviewScreen(
                 var showDateRangePicker by remember { mutableStateOf(false) }
                 val df = DateFormat.getDateFormat(ctx)
                 HorizontalDivider()
-                Text("filter")
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     // allow regex in the filter?
-                    TextField(value = filter, onValueChange = { filter = it}, modifier = Modifier.weight(0.7f))
+                    TextField(
+                        value = filter,
+                        onValueChange = { filter = it},
+                        modifier = Modifier.weight(0.7f),
+                        label = { Text("filter") }
+                    )
                     Column(Modifier
                             .clickable { showDateRangePicker = true }
                             .weight(0.3f), horizontalAlignment = Alignment.CenterHorizontally) {
-                        Text("date", style = MaterialTheme.typography.bodyLarge)
+                        Text("date range", style = MaterialTheme.typography.bodyLarge)
                         if (startDate == null && endDate == null)
                             Text("not set", style = MaterialTheme.typography.bodyMedium)
                         else {
@@ -265,7 +269,6 @@ fun ReviewScreen(
                         }
                     }
                 }
-                HorizontalDivider()
                 if (showDateRangePicker)
                     DateRangePickerModal({ startDate = it.first; endDate = it.second }) { showDateRangePicker = false }
             }
@@ -283,6 +286,7 @@ fun ReviewScreen(
         } else {
             Column(Modifier.padding(innerPadding)) {
                 controlColumn()
+                HorizontalDivider()
                 dataColumn()
             }
         }
@@ -410,7 +414,7 @@ fun DateRangePickerModal(
         dismissButton = {
             Row(horizontalArrangement = Arrangement.Start, modifier = Modifier.fillMaxWidth(0.7f)) {
                 TextButton(onClick = { onDateRangeSelected(null to null); onDismiss() }) {
-                    Text("reset")
+                    Text("clear")
                 }
                 TextButton(onClick = onDismiss) {
                     Text(stringResource(android.R.string.cancel))
