@@ -186,8 +186,13 @@ fun GestureDataScreen(
             ) {
                 Column {
                     Text(
-                        text = wordFromDict?.let { stringResource(R.string.gesture_data_please_type, it) } ?: stringResource(R.string.gesture_data_please_wait),
+                        text = wordFromDict?.let { stringResource(R.string.gesture_data_please_type, it) }
+                            ?: stringResource(R.string.gesture_data_please_wait),
                         modifier = Modifier.alpha(if (wordFromDict == null) 0.5f else 1f))
+                    // todo: don't show typed text, or better don't show text field
+                    //  not setting the value is simple
+                    //  hiding / not having a field could be tricky because we want the keyboard to work!
+                    //  anyway, there should be an explanation why this is done
                     OutlinedTextField(
                         value = typed,
                         enabled = wordFromDict != null,
@@ -226,20 +231,21 @@ fun GestureDataScreen(
         )
 }
 
-private fun getAvailableDictionaries(context: Context): List<Dict> {
+private fun getAvailableDictionaries(context: Context): List<DictWithInfo> {
+    // todo: update hashes using the release upgrade script, and never remove an entry!
     val allowedHashes = context.assets.open("known_dict_hashes.txt")
         .use { it.reader().readLines() }.filter { it.isNotBlank() }
     val cached = DictionaryInfoUtils.getCacheDirectories(context)
         .mapNotNull { dir -> dir.listFiles()?.filter {
             it.name.startsWith(DictionaryInfoUtils.DEFAULT_MAIN_DICT)
-        } }.flatten().map { CacheDict(it) }.filter { it.hash in allowedHashes }
+        } }.flatten().map { CacheDictWithInfo(it) }.filter { it.hash in allowedHashes }
     val assets = DictionaryInfoUtils.getAssetsDictionaryList(context).orEmpty()
-        .map { AssetsDict(it, context) }
+        .map { AssetsDictWithInfo(it, context) }
         .filter { dict -> cached.none { it.hash == dict.hash } && dict.hash in allowedHashes }
     return cached + assets
 }
 
-interface Dict {
+private interface DictWithInfo {
     val hash: String
     val locale: Locale
     val internal: Boolean
@@ -248,7 +254,7 @@ interface Dict {
     suspend fun addWords(context: Context, words: MutableList<String>) = getDictionary(context).addWords(words)
 }
 
-private class CacheDict(private val file: File): Dict {
+private class CacheDictWithInfo(private val file: File): DictWithInfo {
     override val locale = (DictionaryInfoUtils.getDictionaryFileHeaderOrNull(file)?.mLocaleString ?: SubtypeLocaleUtils.NO_LANGUAGE)
         .constructLocale()
     override val hash = file.inputStream().use { ChecksumCalculator.checksum(it) } ?: ""
@@ -257,7 +263,7 @@ private class CacheDict(private val file: File): Dict {
         BinaryDictionary(file.absolutePath, 0, file.length(), false, locale, Dictionary.TYPE_MAIN, false)
 }
 
-private class AssetsDict(private val name: String, context: Context): Dict {
+private class AssetsDictWithInfo(private val name: String, context: Context): DictWithInfo {
     override val internal = true
     override val locale = DictionaryInfoUtils.extractLocaleFromAssetsDictionaryFile(name)
     override val hash = context.assets.open("dicts${File.separator}$name").use { ChecksumCalculator.checksum(it) } ?: ""
