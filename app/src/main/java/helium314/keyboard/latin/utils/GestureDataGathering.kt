@@ -190,7 +190,13 @@ class GestureDataDao(val db: Database) {
         db.writableDatabase.insert(TABLE, null, cv)
     }
 
-    fun filterInfos(word: String?, begin: Long?, end: Long?, exported: Boolean?, activeMode: Boolean?): List<GestureDataInfo> {
+    fun filterInfos(
+        word: String? = null,
+        begin: Long? = null,
+        end: Long? = null,
+        exported: Boolean? = null,
+        activeMode: Boolean? = null
+    ): List<GestureDataInfo> {
         val result = mutableListOf<GestureDataInfo>()
         val query = mutableListOf<String>()
         if (word != null) query.add("LOWER($COLUMN_WORD) like ?||'%'")

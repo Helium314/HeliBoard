@@ -36,6 +36,7 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -69,6 +70,7 @@ import helium314.keyboard.latin.dictionary.Dictionary
 import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.utils.ChecksumCalculator
 import helium314.keyboard.latin.utils.DictionaryInfoUtils
+import helium314.keyboard.latin.utils.GestureDataDao
 import helium314.keyboard.latin.utils.SubtypeLocaleUtils
 import helium314.keyboard.latin.utils.SubtypeSettings
 import helium314.keyboard.latin.utils.SuggestionResults
@@ -116,15 +118,19 @@ fun GestureDataScreen(
     // or the keyboard flashes (during recomposition)
     var wordFromDict by remember { mutableStateOf<String?>(null) } // some word from the dictionary
     var lastData by remember { mutableStateOf<WordData?>(null) }
+    var activeWordCount by remember { mutableIntStateOf(0) }
     val focusRequester = remember { FocusRequester() }
     val keyboard = LocalSoftwareKeyboardController.current
     val words = remember { mutableListOf<String>() }
     val scope = rememberCoroutineScope()
     fun nextWord(save: Boolean) {
-        if (!save)
+        if (!save) {
             lastData = null
-
-        lastData?.let { scope.launch { it.save(ctx) } }
+        }
+        lastData?.let { scope.launch {
+            ++activeWordCount
+            it.save(ctx)
+        } }
         wordFromDict = words.ifEmpty { null }?.random() // randomly choose from dict
         lastData = null
         // reset the data
@@ -151,7 +157,10 @@ fun GestureDataScreen(
                     val target = wordFromDict ?: return
                     val newData = WordData(target, suggestions, composedData, ngramContext, keyboard, inputStyle, true)
                     if (suggestions.any { it.mWord == target && it.mScore >= 0 }) { // just not negative should be fine
-                        scope.launch { newData.save(ctx) }
+                        scope.launch {
+                            ++activeWordCount
+                            newData.save(ctx)
+                        }
                         nextWord(false)
                     } else {
                         lastData = newData // use the old flow with button
@@ -180,7 +189,7 @@ fun GestureDataScreen(
             }
         }
 
-        // todo: show data for how many words are actually prepared / stored? currently we don't keep track
+        // todo: dropdown is weirdly positioned
         DropDownField(availableDicts, dict, { dict = it }) {
             val locale = it?.locale?.getDisplayName(LocalConfiguration.current.locale())
             val internal = if (it?.internal == true) "(internal)" else "(downloaded)"
@@ -200,7 +209,14 @@ fun GestureDataScreen(
                 }
                 Text(
                     text = text,
-                    modifier = Modifier.alpha(if (wordFromDict == null) 0.5f else 1f))
+                    modifier = Modifier.alpha(if (wordFromDict == null) 0.5f else 1f)
+                )
+                val activeWordsInDb by remember {
+                    activeWordCount = 0
+                    val dbCount = GestureDataDao.getInstance(ctx)?.filterInfos(exported = false, activeMode = true)?.size ?: 0
+                    mutableIntStateOf(dbCount)
+                }
+                Text("${activeWordCount + activeWordsInDb} words, $activeWordCount in this session")
                 Box(Modifier.size(1.dp)) { // box hides the field, but we can still interact with it
                     TextField(
                         value = TextFieldValue(),
@@ -365,6 +381,7 @@ private fun BinaryDictionary.addWords(words: MutableList<String>) {
         if (!result.mWordProperty.mIsNotAWord
                 && result.mWordProperty.mWord.length > 1
                 && !(result.mWordProperty.mIsPossiblyOffensive && Settings.getValues().mBlockPotentiallyOffensive)
+                && result.mWordProperty.probability > 15 // some minimum value, as there are too many unknown / rare words down there
             )
             // todo: filter the words?
             //  e.g. min frequency (mWordProperty.probability), "'s" ending words in english, maybe names, ...
