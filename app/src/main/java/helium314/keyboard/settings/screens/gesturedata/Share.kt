@@ -32,21 +32,21 @@ import java.util.Locale
 import java.util.zip.ZipEntry
 import java.util.zip.ZipOutputStream
 
-// todo: nicer looking buttons...
-//  and the copy doesn't quite fit
+// todo: nicer looking buttons
 @Composable
-fun ShareGestureData(ids: List<Long>? = null) {
+fun ShareGestureData(ids: List<Long>? = null) { // should we really use null here? from where this is called we have all ids anyway
     val ctx = LocalContext.current
     val dao = GestureDataDao.getInstance(ctx)!!
     val hasData = !dao.isEmpty() // no need to update if we have it in a dialog
     val getDataPicker = getData(ids)
 
-    // get file
-    TextButton({ getDataPicker.launch(getDataIntent) }, enabled = hasData) {
-        Text(stringResource(R.string.gesture_data_get_data))
-    }
-
     // share file, but only to mail apps
+    // todo: mark exported data as exported!
+    //  can we check whether the stream has been read?
+    //   we could at least override the openFile in GestureFileProvider to check whether it was called
+    //  alternatively there is the intentSender for createChoose
+    //   PendingIntent.getBroadcast(context, 0, receiver, PendingIntent.FLAG_UPDATE_CURRENT).getIntentSender()
+    //   receiver is an intent
     TextButton(
         onClick = {
             createZipFile(ctx, ids)
@@ -56,7 +56,12 @@ fun ShareGestureData(ids: List<Long>? = null) {
         enabled = hasData && Intent(Intent.ACTION_SENDTO)
             .apply { data = "mailto:".toUri() }.resolveActivity(ctx.packageManager) != null
     ) {
-        Text("share file to mail")
+        Text("share via mail")
+    }
+
+    // get file
+    TextButton({ getDataPicker.launch(getDataIntent) }, enabled = hasData) {
+        Text(stringResource(R.string.gesture_data_get_data))
     }
 
     // copy mail address to clipboard, in case user doesn't use the mail intent
@@ -66,8 +71,11 @@ fun ShareGestureData(ids: List<Long>? = null) {
         Text("copy mail address")
     }
 
-    // delete data (not sharing, but afterwards)
-    TextButton({ dao.deleteAll() }, enabled = hasData) { Text(stringResource(R.string.gesture_data_delete_data)) }
+    // this deletes the data in the dialog, but we should also have a way of deleting previously exported data
+    // todo: does the dialog stay / list stay after exporting?
+    TextButton({ if (ids == null) dao.deleteAll() else dao.delete(ids) }, enabled = hasData) {
+        Text("delete exported data (only do this after mail has been sent)") // todo: consistent & clear naming (export / share)
+    }
 }
 
 private val getDataIntent = Intent(Intent.ACTION_CREATE_DOCUMENT)
@@ -139,6 +147,8 @@ private fun getData(ids: List<Long>?): ManagedActivityResultLauncher<Intent, Act
             zipStream.closeEntry()
             zipStream.close()
         }
+        if (ids != null)
+            dao.markAsExported(ids)
     }
 }
 

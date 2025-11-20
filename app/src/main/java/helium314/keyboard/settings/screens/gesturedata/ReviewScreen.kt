@@ -393,6 +393,7 @@ private fun GestureDataEntry(gestureDataInfo: GestureDataInfo, selected: Boolean
             .padding(vertical = 10.dp, horizontal = 12.dp),
         color = if (selected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface
     )
+    // todo: more info (at least time and active / passive)
 }
 
 // copied from https://developer.android.com/develop/ui/compose/components/datepickers

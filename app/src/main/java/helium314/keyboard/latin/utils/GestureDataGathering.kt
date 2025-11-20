@@ -257,10 +257,11 @@ class GestureDataDao(val db: Database) {
         return result
     }
 
-    fun markAllAsExported() {
+    fun markAsExported(ids: List<Long>) {
+        if (ids.isEmpty()) return
         val cv = ContentValues(1)
         cv.put(COLUMN_EXPORTED, 1)
-        db.writableDatabase.update(TABLE, cv, null, null)
+        db.writableDatabase.update(TABLE, cv, "$COLUMN_ID IN (${ids.joinToString(",")})", null)
     }
 
     fun delete(ids: List<Long>) {
