@@ -166,6 +166,7 @@ public final class InputLogic {
         cancelDoubleSpacePeriodCountdown();
         mInputLogicHandler.reset();
         mConnection.requestCursorUpdates(true, true);
+        setInlineEmojiSearchAction(false);
     }
 
     /**
@@ -2659,7 +2660,12 @@ public final class InputLogic {
 
     private void deleteTextReplacedByEmoji() {
         mConnection.finishComposingText();
-        mConnection.deleteTextBeforeCursor(getInlineEmojiSearchString().length() + 1);
+        var inlineEmojiSearchString = getInlineEmojiSearchString();
+        if (inlineEmojiSearchString != null) {
+            mConnection.deleteTextBeforeCursor(inlineEmojiSearchString.length() + 1);
+        } else {
+            Log.e("inlineEmojiSearch", "Inconsistent state - inlineEmojiSearchString is null");
+        }
     }
 
     private String getInlineEmojiSearchString() {
