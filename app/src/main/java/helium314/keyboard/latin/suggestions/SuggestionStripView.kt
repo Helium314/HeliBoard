@@ -262,6 +262,7 @@ class SuggestionStripView(context: Context, attrs: AttributeSet?, defStyle: Int)
             setupKey(closeButton, Settings.getValues().mColors)
             closeButton.setOnClickListener { listener.removeExternalSuggestions() }
             suggestionsStrip.addView(closeButton)
+            requestLayout()
         } else {
             suggestionsStrip.addView(view)
         }
