@@ -72,7 +72,7 @@ fun ShareGestureData(ids: List<Long>? = null) { // should we really use null her
     }
 
     // this deletes the data in the dialog, but we should also have a way of deleting previously exported data
-    // todo: does the dialog stay / list stay after exporting?
+    // todo: does the dialog stay / list stay after exporting? -> yes
     TextButton({ if (ids == null) dao.deleteAll() else dao.delete(ids) }, enabled = hasData) {
         Text("delete exported data (only do this after mail has been sent)") // todo: consistent & clear naming (export / share)
     }

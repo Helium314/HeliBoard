@@ -1,7 +1,5 @@
 package helium314.keyboard.settings.screens.gesturedata
 
-import android.content.Context
-import android.text.format.DateFormat
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Arrangement
@@ -32,6 +30,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -51,29 +50,29 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.DialogProperties
-import androidx.core.content.edit
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.utils.GestureDataDao
 import helium314.keyboard.latin.utils.GestureDataInfo
 import helium314.keyboard.latin.utils.getIgnoreList
-import helium314.keyboard.latin.utils.prefs
 import helium314.keyboard.latin.utils.setIgnoreList
 import helium314.keyboard.settings.DeleteButton
 import helium314.keyboard.settings.Theme
 import helium314.keyboard.settings.dialogs.ConfirmationDialog
 import helium314.keyboard.settings.dialogs.ThreeButtonAlertDialog
 import helium314.keyboard.settings.previewDark
-import kotlinx.serialization.json.Json
+import java.text.DateFormat
 import java.util.Date
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -184,7 +183,6 @@ fun ReviewScreen(
                 LaunchedEffect(filter, startDate, endDate, includeExported, reverseSort, showIgnoreListDialog) {
                     // todo: should be some background stuff, this could be slow if we have a lot of data (not tested)
                     //  maybe we could somehow return a cursor?
-                    // show result count? maybe as delete / share text
                     gestureDataInfos = dao.filterInfos(
                         filter.text.takeIf { it.isNotEmpty() },
                         startDate,
@@ -253,7 +251,7 @@ fun ReviewScreen(
                     }
                 }
                 var showDateRangePicker by remember { mutableStateOf(false) }
-                val df = DateFormat.getDateFormat(ctx)
+                val df = DateFormat.getDateInstance(DateFormat.SHORT)
                 HorizontalDivider()
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     // allow regex in the filter?
@@ -375,25 +373,38 @@ fun ReviewScreen(
 
 @Composable
 private fun GestureDataEntry(gestureDataInfo: GestureDataInfo, selected: Boolean, anythingSelected: Boolean, onSelect: (Boolean) -> Unit) {
-    val startModifier = if (!anythingSelected) Modifier.combinedClickable(
-        onClick = { },
-        onLongClick = { onSelect(true) },
-    )
+    val modifier = if (!anythingSelected)
+        Modifier.combinedClickable(
+            onClick = { }, // todo: what should happen? more info?`delete?
+            onLongClick = { onSelect(true) },
+        )
     else Modifier.selectable(
         selected = selected,
         onClick = { onSelect(!selected) },
-        // how to use? -> looks like the color change is enough, without those 2 lines
-        //interactionSource = remember { MutableInteractionSource() },
-        //indication = ripple()
     )
-    Text(
-        text = gestureDataInfo.targetWord,
-        modifier = startModifier
-            .fillMaxWidth()
-            .padding(vertical = 10.dp, horizontal = 12.dp),
-        color = if (selected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface
-    )
-    // todo: more info (at least time and active / passive)
+    Column(modifier
+        .fillMaxWidth()
+        .padding(vertical = 6.dp, horizontal = 12.dp)
+    ) {
+        Text(
+            text = gestureDataInfo.targetWord,
+            color = if (selected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface
+        )
+        val time = DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.MEDIUM)
+            .format(Date(gestureDataInfo.timestamp))
+        val mode = if (gestureDataInfo.activeMode) "active" else "passive"
+        val exportedExtra = if (gestureDataInfo.exported) ", exported" else ""
+        // CompositionLocalProvider vs setting style?
+        CompositionLocalProvider(
+            LocalTextStyle provides MaterialTheme.typography.bodySmall,
+            LocalContentColor provides if (selected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant
+        ) {
+            Text(
+                text = "$time, $mode$exportedExtra",
+                modifier = Modifier.padding(top = 2.dp)
+            )
+        }
+    }
 }
 
 // copied from https://developer.android.com/develop/ui/compose/components/datepickers
