@@ -19,6 +19,7 @@ import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -71,6 +72,7 @@ import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.utils.ChecksumCalculator
 import helium314.keyboard.latin.utils.DictionaryInfoUtils
 import helium314.keyboard.latin.utils.GestureDataDao
+import helium314.keyboard.latin.utils.ScriptUtils
 import helium314.keyboard.latin.utils.SubtypeLocaleUtils
 import helium314.keyboard.latin.utils.SubtypeSettings
 import helium314.keyboard.latin.utils.SuggestionResults
@@ -189,11 +191,12 @@ fun GestureDataScreen(
             }
         }
 
-        // todo: dropdown is weirdly positioned
-        DropDownField(availableDicts, dict, { dict = it }) {
-            val locale = it?.locale?.getDisplayName(LocalConfiguration.current.locale())
-            val internal = if (it?.internal == true) "(internal)" else "(downloaded)"
-            Text(locale?.let { loc -> "$loc $internal" } ?: "no dictionary")
+        Box { // without the box the menu appears at the wrong position
+            DropDownField(availableDicts, dict, { dict = it }) {
+                val locale = it?.locale?.getDisplayName(LocalConfiguration.current.locale())
+                val internal = if (it?.internal == true) "(internal)" else "(downloaded)"
+                Text(locale?.let { loc -> "$loc $internal" } ?: "no dictionary")
+            }
         }
         Row(
             Modifier.fillMaxWidth(),
@@ -227,7 +230,7 @@ fun GestureDataScreen(
                             imeAction = ImeAction.Next,
                             hintLocales = dict?.let { LocaleList(it.locale.toLanguageTag()) }
                         ),
-                        //keyboardActions = KeyboardActions { nextWord(true) },
+                        keyboardActions = KeyboardActions { nextWord(false) },
                         modifier = Modifier.focusRequester(focusRequester),
                     )
                 }
@@ -246,7 +249,7 @@ fun GestureDataScreen(
                 .then(Modifier.padding(innerPadding)),
         ) {
             var activeGathering by remember { mutableStateOf(false) }
-            var passiveGathering by remember { mutableStateOf(false) } // todo: read from setting
+            var passiveGathering by remember { mutableStateOf(false) } // todo (when implemented): read from setting
             TopAppBar(
                 title = { Text(stringResource(R.string.gesture_data_screen)) },
                 navigationIcon = {
@@ -277,7 +280,7 @@ fun GestureDataScreen(
             }) {
                 Text(if (activeGathering) "stop active gathering" else "start active gathering")
             }
-            if (activeGathering) // todo: starting is slow, possibly because of hashing
+            if (activeGathering)
                 activeGathering()
             Spacer(Modifier.height(12.dp))
             HorizontalDivider()
@@ -313,11 +316,10 @@ fun GestureDataScreen(
                 .fillMaxWidth(0.5f)
         )
     if (wordFromDict != null)
-        // todo: add some indication that this will bring up the keyboard?
         ExtendedFloatingActionButton(
             onClick = { nextWord(false) },
             text = { Text(stringResource(R.string.gesture_data_next)) },
-            icon = { Icon(painter = painterResource(R.drawable.ic_close), stringResource(R.string.gesture_data_next)) },
+            icon = { Icon(painter = painterResource(R.drawable.ic_ime_switcher), stringResource(R.string.gesture_data_next)) },
             modifier = Modifier
                 .wrapContentSize(Alignment.BottomStart)
                 .padding(all = 12.dp)
@@ -376,17 +378,19 @@ private class AssetsDictWithInfo(private val name: String, context: Context): Di
 
 private fun BinaryDictionary.addWords(words: MutableList<String>) {
     var token = 0
+    val hasCases = mLocale?.let { ScriptUtils.scriptSupportsUppercase(it) } ?: true
     do {
         val result = getNextWordProperty(token)
+        val word = result.mWordProperty.mWord
         if (!result.mWordProperty.mIsNotAWord
-                && result.mWordProperty.mWord.length > 1
+                && word.length > 1
                 && !(result.mWordProperty.mIsPossiblyOffensive && Settings.getValues().mBlockPotentiallyOffensive)
                 && result.mWordProperty.probability > 15 // some minimum value, as there are too many unknown / rare words down there
+                && (!hasCases || word.uppercase() != word)
             )
-            // todo: filter the words?
-            //  e.g. min frequency (mWordProperty.probability), "'s" ending words in english, maybe names, ...
-            //  we could also show more frequent words more often
-            words.add(result.mWordProperty.mWord)
+            // todo: more filters?
+            //  we could also try showing more frequent words more often
+            words.add(word)
         token = result.mNextToken
     } while (token != 0)
 }
