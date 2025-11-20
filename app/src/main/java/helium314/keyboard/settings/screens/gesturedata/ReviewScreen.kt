@@ -1,6 +1,5 @@
 package helium314.keyboard.settings.screens.gesturedata
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.text.format.DateFormat
 import androidx.compose.foundation.clickable
@@ -64,7 +63,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.DialogProperties
 import androidx.core.content.edit
 import helium314.keyboard.latin.R
-import helium314.keyboard.latin.utils.Log
 import helium314.keyboard.latin.utils.prefs
 import helium314.keyboard.settings.DeleteButton
 import helium314.keyboard.settings.Theme
@@ -73,7 +71,6 @@ import helium314.keyboard.settings.dialogs.ThreeButtonAlertDialog
 import helium314.keyboard.settings.previewDark
 import kotlinx.serialization.json.Json
 import java.util.Date
-import java.util.SortedSet
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -131,6 +128,8 @@ fun ReviewScreen(
                             }
                         }
                         // todo: only show it once passive gathering is implemented, because for active it makes no sense
+                        // todo: make clear it's only used for passive mode
+                        // todo: also add an app-exclusion list?
                         Button({ showIgnoreListDialog = true }, colors = buttonColors, modifier = Modifier.weight(1f)) {
                             Column {
                                 Icon(
@@ -319,7 +318,6 @@ fun ReviewScreen(
             )
         }
         if (showIgnoreListDialog) {
-            @SuppressLint("MutableCollectionMutableState") // if they had an immutable sorted set...
             var ignoreWords by remember { mutableStateOf(getIgnoreList(ctx)) }
             var newWord by remember { mutableStateOf(TextFieldValue()) }
             val scroll = rememberScrollState()
@@ -442,7 +440,7 @@ fun setIgnoreList(context: Context, list: Collection<String>) {
     context.prefs().edit { putString("gesture_data_exclusions", json) }
 }
 
-fun getIgnoreList(context: Context): SortedSet<String> {
+fun getIgnoreList(context: Context): Set<String> {
     val json = context.prefs().getString("gesture_data_exclusions", "[]") ?: "[]"
     if (json.isEmpty()) return sortedSetOf()
     return Json.decodeFromString<List<String>>(json).toSortedSet(compareBy(String.CASE_INSENSITIVE_ORDER) { it })

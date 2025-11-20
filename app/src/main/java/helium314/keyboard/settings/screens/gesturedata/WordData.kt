@@ -1,6 +1,7 @@
 package helium314.keyboard.settings.screens.gesturedata
 
 import android.content.Context
+import android.text.InputType
 import com.android.inputmethod.latin.BinaryDictionary
 import helium314.keyboard.keyboard.Keyboard
 import helium314.keyboard.latin.BuildConfig
@@ -12,6 +13,7 @@ import helium314.keyboard.latin.common.InputPointers
 import helium314.keyboard.latin.dictionary.Dictionary
 import helium314.keyboard.latin.dictionary.ReadOnlyBinaryDictionary
 import helium314.keyboard.latin.settings.Settings
+import helium314.keyboard.latin.utils.InputTypeUtils
 import helium314.keyboard.latin.utils.SuggestionResults
 import helium314.keyboard.latin.utils.protectedPrefs
 import kotlinx.serialization.Serializable
@@ -32,8 +34,12 @@ class WordData(
 
     private val proxInfo = keyboard.proximityInfo // todo: is there any use?
 
+    // if contacts dict is used we keep this information
     private val dictionariesInSuggestions = suggestions.map { it.mSourceDict }.toSet()
 
+    private val timestamp = System.currentTimeMillis()
+
+    // todo: in background, but careful because we may need synchronize write access to GestureDataDao (just test it)
     fun save(context: Context) {
         if (!isSavingOk(context))
             return
@@ -44,6 +50,20 @@ class WordData(
             height,
             keys.map { KeyInfo(it.x + it.width / 2, it.y + it.height / 2, it.code) }
         )
+        val filteredSuggestions = mutableListOf<SuggestedWords.SuggestedWordInfo>()
+        for (word in suggestions) { // suggestions are sorted with highest score first
+            if (word.mSourceDict.mDictType == Dictionary.TYPE_CONTACTS
+                    || suggestions.any { it.mWord == word.mWord && it.mSourceDict.mDictType == Dictionary.TYPE_CONTACTS })
+                continue // never store contacts (might be in user history too)
+            // for the personal dictionary we rely on the ignore list
+            if (word.mScore < 0 && filteredSuggestions.size > 5)
+                continue // no need to add bad matches
+            if (filteredSuggestions.any { it.mWord == word.mWord })
+                continue // only one occurrence per word
+            if (filteredSuggestions.size > 12)
+                continue // should be enough
+            filteredSuggestions.add(word)
+        }
         val data = GestureData(
             BuildConfig.VERSION_CODE,
             context.protectedPrefs().getString(Settings.PREF_LIBRARY_CHECKSUM, "")!!,
@@ -52,33 +72,33 @@ class WordData(
                 val hash = (it as? BinaryDictionary)?.hash ?: (it as? ReadOnlyBinaryDictionary)?.hash
                 DictInfo(hash, it.mDictType, it.mLocale?.toLanguageTag())
             },
-            suggestions
-                .filter { it.mScore > 0 } // even when there are few suggestions we don't want atrocious matches
-                .filterNot { it.mSourceDict.mDictType == Dictionary.TYPE_CONTACTS } // too sensitive
-                .distinctBy { it.mWord } // there are often duplicates, especially with user history
-                .take(12) // should be enough
-                .map { Suggestion(it.mWord, it.mScore) },
+            filteredSuggestions.map { Suggestion(it.mWord, it.mScore) },
             PointerData.fromPointers(composedData.mInputPointers),
             keyboardInfo,
             activeMode,
             null
         )
-        dao.add(data, System.currentTimeMillis()) // todo: in background, but careful about synchronization
+        dao.add(data, timestamp)
     }
 
     // find when we should NOT save
     private fun isSavingOk(context: Context): Boolean {
-        if (inputStyle != SuggestedWords.INPUT_STYLE_TAIL_BATCH) // todo: check whether this is correct
+        if (inputStyle != SuggestedWords.INPUT_STYLE_TAIL_BATCH)
             return false
+        if (activeMode && dictionariesInSuggestions.size == 1)
+            return true // active mode should be fine, the size check is just an addition in case there is a bug that sets the wrong mode or dictionary facilitator
+        if (Settings.getValues().mIncognitoModeEnabled)
+            return false // don't save in incognito mode
         val inputAttributes = InputAttributes(keyboard.mId.mEditorInfo, false, "")
-        if (inputAttributes.mIsPasswordField || inputAttributes.mNoLearning)
+        val isEmailField = InputTypeUtils.isEmailVariation(inputAttributes.mInputType and InputType.TYPE_MASK_VARIATION)
+        if (inputAttributes.mIsPasswordField || inputAttributes.mNoLearning || isEmailField)
             return false // probably some more inputAttributes to consider
         val ignoreWords = getIgnoreList(context)
         // how to deal with the ignore list?
         // check targetWord and first 5 suggestions?
         // or check only what is in the actually saved suggestions?
         if (targetWord in ignoreWords || suggestions.take(5).any { it.word in ignoreWords })
-        // todo: don't save if the word is coming from personal or contacts dict?
+            return false
         if (suggestions.first().mSourceDict.mDictType == Dictionary.TYPE_CONTACTS)
             return false
         return true
