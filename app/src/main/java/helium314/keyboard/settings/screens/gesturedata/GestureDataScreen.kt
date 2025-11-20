@@ -115,10 +115,12 @@ fun GestureDataScreen(
     val focusRequester = remember { FocusRequester() }
     val keyboard = LocalSoftwareKeyboardController.current
     val words = remember { mutableListOf<String>() }
+    val scope = rememberCoroutineScope()
     fun nextWord(save: Boolean) {
         if (!save)
             lastData = null
-        lastData?.save(ctx)
+
+        lastData?.let { scope.launch { it.save(ctx) } }
         wordFromDict = words.ifEmpty { null }?.random() // randomly choose from dict
         lastData = null
         // reset the data
@@ -126,7 +128,6 @@ fun GestureDataScreen(
         keyboard?.show()
     }
     @Composable fun activeGathering() {
-        val scope = rememberCoroutineScope()
         val availableDicts = remember { getAvailableDictionaries(ctx) }
         val currentLocale = Settings.getValues().mLocale
         var dict by remember { mutableStateOf(
@@ -146,7 +147,7 @@ fun GestureDataScreen(
                     val target = wordFromDict ?: return
                     val newData = WordData(target, suggestions, composedData, ngramContext, keyboard, inputStyle, true)
                     if (suggestions.any { it.mWord == target && it.mScore >= 0 }) { // just not negative should be fine
-                        newData.save(ctx)
+                        scope.launch { newData.save(ctx) }
                         nextWord(false)
                     } else {
                         lastData = newData // use the old flow with button

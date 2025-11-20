@@ -62,7 +62,6 @@ class WordData(
 
     private val timestamp = System.currentTimeMillis()
 
-    // todo: in background, but careful because we may need synchronize write access to GestureDataDao (just test it)
     fun save(context: Context) {
         if (!isSavingOk(context))
             return
