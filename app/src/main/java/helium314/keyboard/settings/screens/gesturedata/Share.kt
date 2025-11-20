@@ -136,7 +136,7 @@ private fun getData(ids: List<Long>?): ManagedActivityResultLauncher<Intent, Act
         val file = getGestureDataFile(ctx)
         val dao = GestureDataDao.getInstance(ctx) ?: return@filePicker
         val data = ids?.let { dao.getJsonData(it) } ?: dao.getAllJsonData()
-        file.writeText("[${data.joinToString(",")}]")
+        file.writeText("[${data.joinToString(",\n")}]")
         ctx.getActivity()?.contentResolver?.openOutputStream(uri)?.use { os ->
             val zipStream = ZipOutputStream(os)
             zipStream.setLevel(9)
@@ -157,7 +157,7 @@ private fun createZipFile(context: Context, ids: List<Long>?) : File {
     val jsonFile = getGestureDataFile(context)
     val dao = GestureDataDao.getInstance(context)!!
     val data = ids?.let { dao.getJsonData(it) } ?: dao.getAllJsonData()
-    jsonFile.writeText("[${data.joinToString(",")}]")
+    jsonFile.writeText("[${data.joinToString(",\n")}]")
     val zipFile = getGestureZipFile(context)
     zipFile.delete()
     zipFile.outputStream().use { os ->
