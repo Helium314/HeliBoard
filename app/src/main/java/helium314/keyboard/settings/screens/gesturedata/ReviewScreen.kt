@@ -63,7 +63,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.DialogProperties
 import androidx.core.content.edit
 import helium314.keyboard.latin.R
+import helium314.keyboard.latin.utils.GestureDataDao
+import helium314.keyboard.latin.utils.GestureDataInfo
+import helium314.keyboard.latin.utils.getIgnoreList
 import helium314.keyboard.latin.utils.prefs
+import helium314.keyboard.latin.utils.setIgnoreList
 import helium314.keyboard.settings.DeleteButton
 import helium314.keyboard.settings.Theme
 import helium314.keyboard.settings.dialogs.ConfirmationDialog
@@ -394,7 +398,7 @@ private fun GestureDataEntry(gestureDataInfo: GestureDataInfo, selected: Boolean
 // copied from https://developer.android.com/develop/ui/compose/components/datepickers
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun DateRangePickerModal(
+private fun DateRangePickerModal(
     onDateRangeSelected: (Pair<Long?, Long?>) -> Unit,
     onDismiss: () -> Unit
 ) {
@@ -433,17 +437,6 @@ fun DateRangePickerModal(
                 .padding(16.dp)
         )
     }
-}
-
-fun setIgnoreList(context: Context, list: Collection<String>) {
-    val json = Json.encodeToString(list)
-    context.prefs().edit { putString("gesture_data_exclusions", json) }
-}
-
-fun getIgnoreList(context: Context): Set<String> {
-    val json = context.prefs().getString("gesture_data_exclusions", "[]") ?: "[]"
-    if (json.isEmpty()) return sortedSetOf()
-    return Json.decodeFromString<List<String>>(json).toSortedSet(compareBy(String.CASE_INSENSITIVE_ORDER) { it })
 }
 
 @Preview

@@ -58,13 +58,11 @@ import androidx.compose.ui.unit.dp
 import com.android.inputmethod.latin.BinaryDictionary
 import helium314.keyboard.compat.locale
 import helium314.keyboard.keyboard.Keyboard
-import helium314.keyboard.latin.BuildConfig
 import helium314.keyboard.latin.NgramContext
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.SingleDictionaryFacilitator
 import helium314.keyboard.latin.SuggestedWords
 import helium314.keyboard.latin.common.ComposedData
-import helium314.keyboard.latin.common.Constants
 import helium314.keyboard.latin.common.LocaleUtils.constructLocale
 import helium314.keyboard.latin.dictionary.Dictionary
 import helium314.keyboard.latin.settings.Settings
@@ -73,6 +71,9 @@ import helium314.keyboard.latin.utils.DictionaryInfoUtils
 import helium314.keyboard.latin.utils.SubtypeLocaleUtils
 import helium314.keyboard.latin.utils.SuggestionResults
 import helium314.keyboard.latin.utils.UncachedInputMethodManagerUtils
+import helium314.keyboard.latin.utils.WordData
+import helium314.keyboard.latin.utils.dictTestImeOption
+import helium314.keyboard.latin.utils.gestureDataActiveFacilitator
 import helium314.keyboard.settings.DropDownField
 import helium314.keyboard.settings.NextScreenIcon
 import helium314.keyboard.settings.SettingsDestination
@@ -155,9 +156,9 @@ fun GestureDataScreen(
         }
         LaunchedEffect(dict) {
             val dict = dict ?: return@LaunchedEffect
-            facilitator?.closeDictionaries()
-            facilitator = SingleDictionaryFacilitator(dict.getDictionary(ctx))
-            facilitator?.suggestionLogger = suggestionLogger
+            gestureDataActiveFacilitator?.closeDictionaries()
+            gestureDataActiveFacilitator = SingleDictionaryFacilitator(dict.getDictionary(ctx))
+            gestureDataActiveFacilitator?.suggestionLogger = suggestionLogger
             lastData = null
             wordFromDict = null
             scope.launch(Dispatchers.Default) {
@@ -358,22 +359,6 @@ private fun BinaryDictionary.addWords(words: MutableList<String>) {
             words.add(result.mWordProperty.mWord)
         token = result.mNextToken
     } while (token != 0)
-}
-
-const val dictTestImeOption = "useTestDictionaryFacilitator,${BuildConfig.APPLICATION_ID}.${Constants.ImeOption.NO_FLOATING_GESTURE_PREVIEW}"
-
-var facilitator: SingleDictionaryFacilitator? = null
-
-fun getGestureDataFile(context: Context): File = fileGetDelegate(context, context.getString(R.string.gesture_data_json))
-
-fun fileGetDelegate(context: Context, filename: String): File {
-    // ensure folder exists
-    val dir = File(context.filesDir, context.getString(R.string.gesture_data_directory))
-    if (!dir.exists()) {
-        dir.mkdirs()
-    }
-
-    return File(dir, filename)
 }
 
 @Preview

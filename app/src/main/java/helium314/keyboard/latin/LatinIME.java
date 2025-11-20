@@ -67,6 +67,7 @@ import helium314.keyboard.latin.suggestions.SuggestionStripView;
 import helium314.keyboard.latin.suggestions.SuggestionStripViewAccessor;
 import helium314.keyboard.latin.touchinputconsumer.GestureConsumer;
 import helium314.keyboard.latin.utils.ColorUtilKt;
+import helium314.keyboard.latin.utils.GestureDataGatheringKt;
 import helium314.keyboard.latin.utils.InlineAutofillUtils;
 import helium314.keyboard.latin.utils.InputMethodPickerKt;
 import helium314.keyboard.latin.utils.JniUtils;
@@ -80,8 +81,6 @@ import helium314.keyboard.latin.utils.SubtypeSettings;
 import helium314.keyboard.latin.utils.SubtypeState;
 import helium314.keyboard.latin.utils.ToolbarMode;
 import helium314.keyboard.settings.SettingsActivity2;
-import helium314.keyboard.settings.screens.gesturedata.GestureDataScreenKt;
-import kotlin.collections.CollectionsKt;
 import kotlin.Unit;
 
 import java.io.FileDescriptor;
@@ -124,7 +123,7 @@ public class LatinIME extends InputMethodService implements
 
     // UIHandler is needed when creating InputLogic
     public final UIHandler mHandler = new UIHandler(this);
-    private DictionaryFacilitator mDictionaryFacilitator =
+    private DictionaryFacilitator mDictionaryFacilitator = // non-final for active gesture data gathering, revert when not needed any more
             DictionaryFacilitatorProvider.getDictionaryFacilitator(false);
     private final DictionaryFacilitator mOriginalDictionaryFacilitator = mDictionaryFacilitator;
     final InputLogic mInputLogic = new InputLogic(this, this, mDictionaryFacilitator);
@@ -829,10 +828,9 @@ public class LatinIME extends InputMethodService implements
     void onStartInputViewInternal(final EditorInfo editorInfo, final boolean restarting) {
         super.onStartInputView(editorInfo, restarting);
 
-        if (GestureDataScreenKt.dictTestImeOption.equals(editorInfo.privateImeOptions)
-                && GestureDataScreenKt.getFacilitator() != null
-        ) {
-            mDictionaryFacilitator = GestureDataScreenKt.getFacilitator();
+        // only for active gesture data gathering, revert when not needed any more
+        if (GestureDataGatheringKt.isInActiveGatheringMode(editorInfo)) {
+            mDictionaryFacilitator = GestureDataGatheringKt.getGestureDataActiveFacilitator();
         } else {
             mDictionaryFacilitator = mOriginalDictionaryFacilitator;
         }

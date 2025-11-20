@@ -20,6 +20,7 @@ import androidx.core.content.FileProvider
 import androidx.core.net.toUri
 import helium314.keyboard.latin.BuildConfig
 import helium314.keyboard.latin.R
+import helium314.keyboard.latin.utils.GestureDataDao
 import helium314.keyboard.latin.utils.getActivity
 import helium314.keyboard.settings.filePicker
 import kotlinx.coroutines.launch
@@ -61,7 +62,7 @@ fun ShareGestureData(ids: List<Long>? = null) {
     // copy mail address to clipboard, in case user doesn't use the mail intent
     val clip = LocalClipboard.current
     val scope = rememberCoroutineScope()
-    TextButton({ scope.launch { clip.setClipEntry(ClipEntry(ClipData.newPlainText("mail address", MAIL_ADDRESS))) } }) {
+    TextButton({ scope.launch { clip.setClipEntry(ClipEntry(ClipData.newPlainText("mail address", ctx.getString(R.string.gesture_data_mail)))) } }) {
         Text("copy mail address")
     }
 
@@ -71,7 +72,7 @@ fun ShareGestureData(ids: List<Long>? = null) {
 
 private val getDataIntent = Intent(Intent.ACTION_CREATE_DOCUMENT)
     .addCategory(Intent.CATEGORY_OPENABLE)
-    .putExtra(Intent.EXTRA_TITLE, "gesture_data_${SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Calendar.getInstance().time)}.zip")
+    .putExtra(Intent.EXTRA_TITLE, "gesture_data_${SimpleDateFormat("yyyy-MM-dd", Locale.US).format(Calendar.getInstance().time)}.zip")
     .setType("application/zip")
 
 // the straightforward way would be to just put the extras in the sendMailIntent and return that,
@@ -81,7 +82,7 @@ private fun createSendIntentChooser(context: Context): Intent {
     // targets all apps that accept this kind of intent
     val shareFileIntent = Intent(Intent.ACTION_SEND).apply {
         type = "application/zip"
-        putExtra(Intent.EXTRA_EMAIL, arrayOf(MAIL_ADDRESS))
+        putExtra(Intent.EXTRA_EMAIL, arrayOf(context.getString(R.string.gesture_data_mail)))
         putExtra(Intent.EXTRA_SUBJECT, MAIL_SUBJECT)
         putExtra(Intent.EXTRA_TEXT, MAIL_TEXT)
         putExtra(Intent.EXTRA_STREAM, getZipFileUri(context))
@@ -99,7 +100,7 @@ private fun createSendIntentChooser(context: Context): Intent {
     return chooser
 }
 
-fun Intent.filterIntentToOnlyIncludeEmailApps(context: Context, intentToFilter: Intent) {
+private fun Intent.filterIntentToOnlyIncludeEmailApps(context: Context, intentToFilter: Intent) {
     val sendMailIntent = Intent(Intent.ACTION_SENDTO).apply { data = "mailto:".toUri() }
     val mailTargets = context.packageManager.queryIntentActivities(sendMailIntent, 0)
     val shareTargets = context.packageManager.queryIntentActivities(intentToFilter, 0)
@@ -163,13 +164,24 @@ private fun createZipFile(context: Context, ids: List<Long>?) : File {
     return zipFile
 }
 
-fun getGestureZipFile(context: Context): File = fileGetDelegate(context, context.getString(R.string.gesture_data_zip))
+private fun getGestureZipFile(context: Context): File = fileGetDelegate(context, context.getString(R.string.gesture_data_zip))
+
+private fun getGestureDataFile(context: Context): File = fileGetDelegate(context, context.getString(R.string.gesture_data_json))
+
+private fun fileGetDelegate(context: Context, filename: String): File {
+    // ensure folder exists
+    val dir = File(context.filesDir, context.getString(R.string.gesture_data_directory))
+    if (!dir.exists()) {
+        dir.mkdirs()
+    }
+
+    return File(dir, filename)
+}
 
 // necessary for giving the mail app access to an internal file
 class GestureFileProvider : FileProvider()
 
 private var zippedDataPath = "" // set after writing the file
 
-private const val MAIL_ADDRESS = "insert mail here"
 private const val MAIL_SUBJECT = "Heliboard ${BuildConfig.VERSION_NAME} gesture data"
 private const val MAIL_TEXT = "here is gesture data"
