@@ -179,7 +179,7 @@ class GestureDataDao(val db: Database) {
     fun add(data: GestureData, timestamp: Long) {
         require(data.hash == null)
         val jsonString = Json.encodeToString(data)
-        // todo: order is important for the hash -> how to do it?
+        // if hash in the resulting string is replaced with null, we should be able to reproduce it
         val dataWithHash = data.copy(hash = ChecksumCalculator.checksum(jsonString.byteInputStream()))
         val cv = ContentValues(3)
         cv.put(COLUMN_TIMESTAMP, timestamp)
@@ -287,6 +287,7 @@ class GestureDataDao(val db: Database) {
 
     init {
         // todo: switch to proper db upgrade before merging
+//        db.writableDatabase.execSQL("DROP TABLE $TABLE")
         db.writableDatabase.execSQL(CREATE_TABLE)
     }
 
@@ -299,10 +300,8 @@ class GestureDataDao(val db: Database) {
         private const val COLUMN_WORD = "WORD"
         private const val COLUMN_EXPORTED = "EXPORTED"
         private const val COLUMN_SOURCE_ACTIVE = "SOURCE_ACTIVE"
-        private const val COLUMN_DATA = "DATA"
+        private const val COLUMN_DATA = "DATA" // data is text, blob actually is slower to store, and probably not worth the saved space
 
-        // todo: TEXT or BLOB? we could zip-compress the gesture data
-        // todo: active / passive column, we'll want to use it for filtering
         const val CREATE_TABLE = """
             CREATE TABLE IF NOT EXISTS $TABLE (
                 $COLUMN_ID INTEGER PRIMARY KEY,
