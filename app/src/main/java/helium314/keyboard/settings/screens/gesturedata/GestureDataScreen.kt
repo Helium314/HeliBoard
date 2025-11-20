@@ -53,6 +53,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.PlatformImeOptions
 import androidx.compose.ui.text.input.TextFieldValue
+import androidx.compose.ui.text.intl.LocaleList
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.android.inputmethod.latin.BinaryDictionary
@@ -69,11 +70,14 @@ import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.utils.ChecksumCalculator
 import helium314.keyboard.latin.utils.DictionaryInfoUtils
 import helium314.keyboard.latin.utils.SubtypeLocaleUtils
+import helium314.keyboard.latin.utils.SubtypeSettings
 import helium314.keyboard.latin.utils.SuggestionResults
 import helium314.keyboard.latin.utils.UncachedInputMethodManagerUtils
 import helium314.keyboard.latin.utils.WordData
 import helium314.keyboard.latin.utils.dictTestImeOption
 import helium314.keyboard.latin.utils.gestureDataActiveFacilitator
+import helium314.keyboard.latin.utils.getSecondaryLocales
+import helium314.keyboard.latin.utils.locale
 import helium314.keyboard.settings.DropDownField
 import helium314.keyboard.settings.NextScreenIcon
 import helium314.keyboard.settings.SettingsDestination
@@ -204,7 +208,8 @@ fun GestureDataScreen(
                         onValueChange = { },
                         keyboardOptions = KeyboardOptions(
                             platformImeOptions = PlatformImeOptions(privateImeOptions = dictTestImeOption),
-                            imeAction = ImeAction.Next
+                            imeAction = ImeAction.Next,
+                            hintLocales = dict?.let { LocaleList(it.locale.toLanguageTag()) }
                         ),
                         //keyboardActions = KeyboardActions { nextWord(true) },
                         modifier = Modifier.focusRequester(focusRequester),
@@ -304,15 +309,22 @@ fun GestureDataScreen(
         )
 }
 
+// we only check dictionaries for enabled locales (main + secondary)
 private fun getAvailableDictionaries(context: Context): List<DictWithInfo> {
     // todo: update hashes using the release upgrade script, and never remove an entry!
     val allowedHashes = context.assets.open("known_dict_hashes.txt")
         .use { it.reader().readLines() }.filter { it.isNotBlank() }
+    val locales = SubtypeSettings.getEnabledSubtypes(true).flatMap {
+        getSecondaryLocales(it.extraValue) + it.locale()
+    }
+    val languages = locales.mapTo(hashSetOf()) { it.language }
     val cached = DictionaryInfoUtils.getCacheDirectories(context)
+        .filter { it.name.constructLocale().language in languages }
         .mapNotNull { dir -> dir.listFiles()?.filter {
             it.name.startsWith(DictionaryInfoUtils.DEFAULT_MAIN_DICT)
         } }.flatten().map { CacheDictWithInfo(it) }.filter { it.hash in allowedHashes }
     val assets = DictionaryInfoUtils.getAssetsDictionaryList(context).orEmpty()
+        .filter { it.substringAfter("_").substringBefore(".dict").constructLocale().language in languages }
         .map { AssetsDictWithInfo(it, context) }
         .filter { dict -> cached.none { it.hash == dict.hash } && dict.hash in allowedHashes }
     return cached + assets
