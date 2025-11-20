@@ -51,14 +51,12 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -124,7 +122,7 @@ fun ReviewScreen(
                         Button({ showExportDialog = true }, colors = buttonColors, modifier = Modifier.weight(1f)) {
                             Column {
                                 Icon(
-                                    painterResource(android.R.drawable.ic_menu_share), // todo: looks weirdly grey due to transparency, maybe use different one
+                                    painterResource(R.drawable.share),
                                     "share",
                                     Modifier.align(Alignment.CenterHorizontally)
                                 )
@@ -137,7 +135,7 @@ fun ReviewScreen(
                         Button({ showIgnoreListDialog = true }, colors = buttonColors, modifier = Modifier.weight(1f)) {
                             Column {
                                 Icon(
-                                    painterResource(R.drawable.ic_autocorrect), // todo: icon
+                                    painterResource(R.drawable.ic_autocorrect), // todo: icon, but maybe we'll move it to GestureDataScreen anyway?
                                     "exclude",
                                     Modifier.align(Alignment.CenterHorizontally)
                                 )
@@ -182,8 +180,7 @@ fun ReviewScreen(
                         gestureDataInfos = gestureDataInfos.reversed()
                 }
                 LaunchedEffect(filter, startDate, endDate, includeExported, reverseSort, showIgnoreListDialog) {
-                    // todo: should be some background stuff, this could be slow if we have a lot of data (not tested)
-                    //  maybe we could somehow return a cursor?
+                    // todo: if slow, do in background or try returning a cursor (then sorting needs to be done by db)
                     gestureDataInfos = dao.filterInfos(
                         filter.text.takeIf { it.isNotEmpty() },
                         startDate,
@@ -229,16 +226,31 @@ fun ReviewScreen(
                         }
                     }
                 )
-                // todo: this is ugly, rather user checkboxes or some other UI?
-                // todo: user can switch off both active and passive, which doesn't make sense
+                // todo: this is ugly, rather use checkboxes or some other UI?
                 Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly) {
-                    Button({ includeActive = !includeActive }, colors = buttonColors, modifier = Modifier.weight(1f)) {
+                    Button(
+                        {
+                            includeActive = !includeActive
+                            if (!includePassive && !includeActive)
+                                includePassive = true
+                        },
+                        colors = buttonColors,
+                        modifier = Modifier.weight(1f)
+                    ) {
                         Column(horizontalAlignment = Alignment.CenterHorizontally) {
                             Switch(checked = includeActive, onCheckedChange = { includeActive = it })
                             Text("active")
                         }
                     }
-                    Button({ includePassive = !includePassive }, colors = buttonColors, modifier = Modifier.weight(1f)) {
+                    Button(
+                        {
+                            includePassive = !includePassive
+                            if (!includePassive && !includeActive)
+                                includeActive = true
+                        },
+                        colors = buttonColors,
+                        modifier = Modifier.weight(1f)
+                    ) {
                         Column(horizontalAlignment = Alignment.CenterHorizontally) {
                             Switch(checked = includePassive, onCheckedChange = { includePassive = it })
                             Text("passive")
@@ -376,7 +388,7 @@ fun ReviewScreen(
 private fun GestureDataEntry(gestureDataInfo: GestureDataInfo, selected: Boolean, anythingSelected: Boolean, onSelect: (Boolean) -> Unit) {
     val modifier = if (!anythingSelected)
         Modifier.combinedClickable(
-            onClick = { }, // todo: what should happen? more info?`delete?
+            onClick = { }, // todo: what should happen? more info? delete?
             onLongClick = { onSelect(true) },
         )
     else Modifier.selectable(
