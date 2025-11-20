@@ -58,11 +58,13 @@ import androidx.compose.ui.unit.dp
 import com.android.inputmethod.latin.BinaryDictionary
 import helium314.keyboard.compat.locale
 import helium314.keyboard.keyboard.Keyboard
+import helium314.keyboard.latin.BuildConfig
 import helium314.keyboard.latin.NgramContext
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.SingleDictionaryFacilitator
 import helium314.keyboard.latin.SuggestedWords
 import helium314.keyboard.latin.common.ComposedData
+import helium314.keyboard.latin.common.Constants
 import helium314.keyboard.latin.common.LocaleUtils.constructLocale
 import helium314.keyboard.latin.dictionary.Dictionary
 import helium314.keyboard.latin.settings.Settings
@@ -142,7 +144,7 @@ fun GestureDataScreen(
                     if (!composedData.mIsBatchMode || inputStyle != SuggestedWords.INPUT_STYLE_TAIL_BATCH) return
                     val target = wordFromDict ?: return
                     val newData = WordData(target, suggestions, composedData, ngramContext, keyboard, inputStyle, true)
-                    if (suggestions.any { it.mWord == target && it.mScore > 0 }) { // todo: higher min score?
+                    if (suggestions.any { it.mWord == target && it.mScore >= 0 }) { // just not negative should be fine
                         newData.save(ctx)
                         nextWord(false)
                     } else {
@@ -358,7 +360,7 @@ private fun BinaryDictionary.addWords(words: MutableList<String>) {
     } while (token != 0)
 }
 
-const val dictTestImeOption = "useTestDictionaryFacilitator"
+const val dictTestImeOption = "useTestDictionaryFacilitator,${BuildConfig.APPLICATION_ID}.${Constants.ImeOption.NO_FLOATING_GESTURE_PREVIEW}"
 
 var facilitator: SingleDictionaryFacilitator? = null
 
