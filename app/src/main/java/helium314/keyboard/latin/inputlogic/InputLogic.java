@@ -2676,7 +2676,15 @@ public final class InputLogic {
         return getInlineEmojiSearchString(mConnection.getTextBeforeCursor(50, 0));
     }
 
-    // public for testing
+    /**
+     * Gets the inline emoji search string. Rules:
+     * - string starts with last colon before the cursor
+     * - the character before the colon has to be non-word, non-digit
+     * - the character after the colon has to be non-space
+     * - the string cannot contain newlines
+     * <p>
+     * Public for testing.
+     */
     public static String getInlineEmojiSearchString(CharSequence textBeforeCursor) {
         if (textBeforeCursor == null) {
             return null;
@@ -2693,6 +2701,10 @@ public final class InputLogic {
         }
 
         if (Character.isWhitespace(text.codePointAt(markerIndex + 1))) {
+            return null;
+        }
+
+        if (text.indexOf('\n', markerIndex + 2) >= 0) {
             return null;
         }
 

@@ -715,6 +715,7 @@ class InputLogicTest {
         assertEquals(null, InputLogic.getInlineEmojiSearchString("6:test"))
         assertEquals("test", InputLogic.getInlineEmojiSearchString("🌍:test"))
         assertEquals("test", InputLogic.getInlineEmojiSearchString(",:test"))
+        assertEquals(null, InputLogic.getInlineEmojiSearchString(":test\nt"))
     }
 
     // ------- helper functions ---------
