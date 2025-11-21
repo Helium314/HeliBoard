@@ -328,7 +328,7 @@ fun ReviewScreen(
 private fun GestureDataEntry(gestureDataInfo: GestureDataInfo, selected: Boolean, anythingSelected: Boolean, onSelect: (Boolean) -> Unit) {
     val modifier = if (!anythingSelected)
         Modifier.combinedClickable(
-            onClick = { }, // todo: what should happen? more info? delete?
+            onClick = { }, // todo: what should happen? more info? delete? show full data in a dialog?
             onLongClick = { onSelect(true) },
         )
     else Modifier.selectable(
