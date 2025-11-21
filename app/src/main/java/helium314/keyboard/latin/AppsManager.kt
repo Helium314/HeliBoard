@@ -27,4 +27,11 @@ class AppsManager(context: Context) {
 
         return names
     }
+
+    fun getPackagesAndNames(): Collection<Pair<String, String>> {
+        val filter = Intent(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_LAUNCHER)
+        return mPackageManager.queryIntentActivities(filter, 0).distinctBy { it.activityInfo.packageName }.map {
+            it.activityInfo.packageName to it.activityInfo.loadLabel(mPackageManager).toString()
+        }
+    }
 }

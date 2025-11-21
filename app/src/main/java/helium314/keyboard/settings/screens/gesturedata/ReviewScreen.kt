@@ -60,7 +60,7 @@ import androidx.compose.ui.unit.dp
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.utils.GestureDataDao
 import helium314.keyboard.latin.utils.GestureDataInfo
-import helium314.keyboard.latin.utils.getIgnoreList
+import helium314.keyboard.latin.utils.getWordIgnoreList
 import helium314.keyboard.settings.Theme
 import helium314.keyboard.settings.dialogs.ConfirmationDialog
 import helium314.keyboard.settings.dialogs.ThreeButtonAlertDialog
@@ -292,7 +292,7 @@ fun ReviewScreen(
                 onDismissRequest = { showExportDialog = false },
                 content = {
                     val toShare = if (selected.isEmpty()) gestureDataInfos else gestureDataInfos.filter { it.id in selected }
-                    val toIgnore = getIgnoreList(ctx)
+                    val toIgnore = getWordIgnoreList(ctx)
                     Column { ShareGestureData(toShare.filterNot { it.targetWord in toIgnore }.map { it.id }) }
                 },
                 cancelButtonText = stringResource(R.string.dialog_close),

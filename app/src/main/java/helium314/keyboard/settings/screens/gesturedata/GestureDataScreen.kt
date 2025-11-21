@@ -66,6 +66,7 @@ import androidx.compose.ui.window.DialogProperties
 import com.android.inputmethod.latin.BinaryDictionary
 import helium314.keyboard.compat.locale
 import helium314.keyboard.keyboard.Keyboard
+import helium314.keyboard.latin.AppsManager
 import helium314.keyboard.latin.NgramContext
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.SingleDictionaryFacilitator
@@ -85,10 +86,12 @@ import helium314.keyboard.latin.utils.UncachedInputMethodManagerUtils
 import helium314.keyboard.latin.utils.WordData
 import helium314.keyboard.latin.utils.dictTestImeOption
 import helium314.keyboard.latin.utils.gestureDataActiveFacilitator
-import helium314.keyboard.latin.utils.getIgnoreList
+import helium314.keyboard.latin.utils.getAppIgnoreList
+import helium314.keyboard.latin.utils.getWordIgnoreList
 import helium314.keyboard.latin.utils.getSecondaryLocales
 import helium314.keyboard.latin.utils.locale
-import helium314.keyboard.latin.utils.setIgnoreList
+import helium314.keyboard.latin.utils.setAppIgnoreList
+import helium314.keyboard.latin.utils.setWordIgnoreList
 import helium314.keyboard.settings.DeleteButton
 import helium314.keyboard.settings.DropDownField
 import helium314.keyboard.settings.NextScreenIcon
@@ -352,13 +355,57 @@ private fun PassiveGathering() {
         Text("manage excluded applications")
     }
     if (showExcludedAppsDialog) {
-        // todo
-        //  load apps
-        //  allow to filter by package and display name
-        //  tap to toggle add/remove
+        var ignorePackages by remember { mutableStateOf(getAppIgnoreList(ctx)) }
+        var packagesAndNames by remember { mutableStateOf(
+            AppsManager(ctx).getPackagesAndNames()
+                .sortedWith( compareBy({ it.first !in ignorePackages }, { it.second.lowercase() }))
+        ) }
+        val scroll = rememberScrollState()
+        // todo: filter
+        // todo: load app list in background on entering the screen (just show nothing / please wait until loaded)
+        ThreeButtonAlertDialog(
+            title = { Text("select apps to exclude from passive gathering") },
+            onDismissRequest = { showExcludedAppsDialog = false },
+            // lazy column?
+            content = { Column(
+                modifier = Modifier.verticalScroll(scroll),
+                verticalArrangement = Arrangement.spacedBy(10.dp)
+            ) {
+                packagesAndNames.map { (packag, name) ->
+                    val ignored = packag in ignorePackages
+                    Column(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .clickable {
+                                ignorePackages = if (ignored) ignorePackages - packag
+                                else ignorePackages + packag
+                            }
+                    ) {
+                        CompositionLocalProvider(
+                            LocalTextStyle provides MaterialTheme.typography.bodyLarge
+                        ) {
+                            Text(name)
+                        }
+                        CompositionLocalProvider(
+                            LocalTextStyle provides MaterialTheme.typography.bodyMedium
+                        ) {
+                            Text(
+                                packag + ", ${if (ignored) "ignored" else "used"}",
+                                color = if (ignored) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.primary
+                            )
+                        }
+                    }
+                }
+            } },
+            onConfirmed = {
+                setAppIgnoreList(ctx, ignorePackages)
+            },
+            confirmButtonText = stringResource(android.R.string.ok),
+            properties = DialogProperties(dismissOnClickOutside = false)
+        )
     }
     if (showExcludedWordsDialog) {
-        var ignoreWords by remember { mutableStateOf(getIgnoreList(ctx)) }
+        var ignoreWords by remember { mutableStateOf(getWordIgnoreList(ctx)) }
         var newWord by remember { mutableStateOf(TextFieldValue()) }
         val scroll = rememberScrollState()
         fun addWord() {
@@ -384,10 +431,10 @@ private fun PassiveGathering() {
                         Icon(painterResource(R.drawable.ic_plus), stringResource(R.string.add))
                     }
                 }
-                ignoreWords.map { word ->
-                    CompositionLocalProvider(
-                        LocalTextStyle provides MaterialTheme.typography.bodyLarge
-                    ) {
+                CompositionLocalProvider(
+                    LocalTextStyle provides MaterialTheme.typography.bodyLarge
+                ) {
+                    ignoreWords.map { word ->
                         Row(
                             verticalAlignment = Alignment.CenterVertically,
                             horizontalArrangement = Arrangement.SpaceBetween,
@@ -401,8 +448,8 @@ private fun PassiveGathering() {
             } },
             onConfirmed = {
                 addWord()
-                setIgnoreList(ctx, ignoreWords)
-                GestureDataDao.getInstance(ctx)?.deleteWords(ignoreWords)
+                setWordIgnoreList(ctx, ignoreWords)
+                GestureDataDao.getInstance(ctx)?.deletePassiveWords(ignoreWords)
             },
             confirmButtonText = stringResource(android.R.string.ok),
             properties = DialogProperties(dismissOnClickOutside = false)

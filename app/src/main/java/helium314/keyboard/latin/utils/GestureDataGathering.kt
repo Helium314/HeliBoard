@@ -26,15 +26,25 @@ import kotlinx.serialization.json.Json
 fun isInActiveGatheringMode(editorInfo: EditorInfo) =
     dictTestImeOption == editorInfo.privateImeOptions && gestureDataActiveFacilitator != null
 
-fun setIgnoreList(context: Context, list: Collection<String>) {
+fun setWordIgnoreList(context: Context, list: Collection<String>) {
     val json = Json.encodeToString(list)
-    context.prefs().edit { putString("gesture_data_exclusions", json) }
+    context.prefs().edit { putString("gesture_data_word_exclusions", json) }
 }
 
-fun getIgnoreList(context: Context): Set<String> {
-    val json = context.prefs().getString("gesture_data_exclusions", "[]") ?: "[]"
+fun getWordIgnoreList(context: Context): Set<String> {
+    val json = context.prefs().getString("gesture_data_word_exclusions", "[]") ?: "[]"
     if (json.isEmpty()) return sortedSetOf()
     return Json.decodeFromString<List<String>>(json).toSortedSet(compareBy(String.CASE_INSENSITIVE_ORDER) { it })
+}
+
+fun setAppIgnoreList(context: Context, list: Collection<String>) {
+    val json = Json.encodeToString(list)
+    context.prefs().edit { putString("gesture_data_app_exclusions", list.joinToString(",")) }
+}
+
+fun getAppIgnoreList(context: Context): List<String> {
+    val string = context.prefs().getString("gesture_data_app_exclusions", "") ?: ""
+    return string.split(",").filterNot { it.isEmpty() }
 }
 
 const val dictTestImeOption = "useTestDictionaryFacilitator,${BuildConfig.APPLICATION_ID}.${Constants.ImeOption.NO_FLOATING_GESTURE_PREVIEW}"
@@ -60,6 +70,7 @@ class WordData(
 
     // if contacts dict is used we keep this information
     private val dictionariesInSuggestions = suggestions.map { it.mSourceDict }.toSet()
+    private val packageName = keyboard.mId.mEditorInfo.packageName
 
     private val timestamp = System.currentTimeMillis()
 
@@ -112,11 +123,13 @@ class WordData(
             return true // active mode should be fine, the size check is just an addition in case there is a bug that sets the wrong mode or dictionary facilitator
         if (Settings.getValues().mIncognitoModeEnabled)
             return false // don't save in incognito mode
+        if (packageName in getAppIgnoreList(context))
+            return false // package ignored
         val inputAttributes = InputAttributes(keyboard.mId.mEditorInfo, false, "")
         val isEmailField = InputTypeUtils.isEmailVariation(inputAttributes.mInputType and InputType.TYPE_MASK_VARIATION)
         if (inputAttributes.mIsPasswordField || inputAttributes.mNoLearning || isEmailField)
             return false // probably some more inputAttributes to consider
-        val ignoreWords = getIgnoreList(context)
+        val ignoreWords = getWordIgnoreList(context)
         // how to deal with the ignore list?
         // check targetWord and first 5 suggestions?
         // or check only what is in the actually saved suggestions?
@@ -279,10 +292,13 @@ class GestureDataDao(val db: Database) {
         db.writableDatabase.delete(TABLE, null, null)
     }
 
-    fun deleteWords(words: Collection<String>) {
+    fun deletePassiveWords(words: Collection<String>) {
         val wordsString = words.joinToString("','") { it.lowercase() }
-        // sort of unexpected, but it really works
-        db.writableDatabase.delete(TABLE, "LOWER($COLUMN_WORD) in (?)", arrayOf(wordsString))
+        db.writableDatabase.delete(
+            TABLE,
+            "$COLUMN_SOURCE_ACTIVE <> 0 AND LOWER($COLUMN_WORD) in (?)",
+            arrayOf(wordsString)
+        )
     }
 
     fun isEmpty(): Boolean {
