@@ -95,6 +95,12 @@ public final class EmojiPalettesView extends LinearLayout
             });
         }
 
+        public RecyclerView getRecyclerViewForCurrent() {
+            if (mPager == null) return null;
+            final int pos = mPager.getCurrentItem();
+            return mViews.get(pos);
+        }
+
         @Override
         public void onAttachedToRecyclerView(@NonNull RecyclerView recyclerView) {
             recyclerView.setItemViewCacheSize(mEmojiCategory.getShownCategories().size());
@@ -129,8 +135,28 @@ public final class EmojiPalettesView extends LinearLayout
             holder.mCategoryId = getItemId(position);
             var recyclerView = getRecyclerView(holder.itemView);
             mViews.put(position, recyclerView);
-            recyclerView.setAdapter(new EmojiPalettesAdapter(mEmojiCategory, (int) holder.mCategoryId,
-                                                                  EmojiPalettesView.this));
+            EmojiPalettesAdapter.FocusRequestHandler focusHandler = new EmojiPalettesAdapter.FocusRequestHandler() {
+                @Override
+                public boolean requestFocusOnTab(int tabIndex) {
+                    return EmojiPalettesView.this.requestFocusOnTab(tabIndex);
+                }
+
+                @Override
+                public boolean requestFocusOnBottomRow() {
+                    return EmojiPalettesView.this.requestFocusOnBottomRow();
+                }
+            };
+
+            recyclerView.setAdapter(new EmojiPalettesAdapter(
+                mEmojiCategory,
+                (int) holder.mCategoryId,
+                EmojiPalettesView.this,
+                focusHandler
+            ));
+
+            recyclerView.setFocusable(true);
+            recyclerView.setFocusableInTouchMode(true);
+            recyclerView.setDescendantFocusability(ViewGroup.FOCUS_AFTER_DESCENDANTS);
 
             if (! mInitialized) {
                 recyclerView.scrollToPosition(mEmojiCategory.getCurrentCategoryPageId());
@@ -242,7 +268,64 @@ public final class EmojiPalettesView extends LinearLayout
         host.addView(iconView);
         iconView.setLayoutParams(new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT, 1f));
         iconView.setOnClickListener(this);
+
+        // -------- NEW: make tab focusable and handle DPAD_DOWN ----------
+        iconView.setFocusable(true);
+        iconView.setFocusableInTouchMode(true);
+        iconView.setOnKeyListener((v, keyCode, event) -> {
+            if (event.getAction() == android.view.KeyEvent.ACTION_DOWN) {
+                if (keyCode == android.view.KeyEvent.KEYCODE_DPAD_DOWN) {
+                    // when user presses down on a tab -> go to grid
+                    requestFocusOnGrid();
+                    return true;
+                }
+                // allow left/right on the tab strip itself (system will move focus to adjacent tab)
+            }
+            return false;
+        });
     }
+
+    public boolean requestFocusOnTab(final int tabIndex) {
+        if (mTabStrip == null || tabIndex < 0 || tabIndex >= mTabStrip.getChildCount()) return false;
+        View tab = mTabStrip.getChildAt(tabIndex);
+        if (tab == null) return false;
+        return tab.requestFocus();
+    }
+
+    public boolean requestFocusOnGrid() {
+        if (mPager == null || mPager.getAdapter() == null) return false;
+        PagerAdapter adapter = (PagerAdapter) mPager.getAdapter();
+        RecyclerView rv = adapter.getRecyclerViewForCurrent();
+        if (rv == null) return false;
+
+        // try to focus the first completely visible child; fallback to recyclerView itself
+        RecyclerView.LayoutManager lm = rv.getLayoutManager();
+        if (lm instanceof LinearLayoutManager) {
+            LinearLayoutManager llm = (LinearLayoutManager) lm;
+            int pos = llm.findFirstCompletelyVisibleItemPosition();
+            if (pos == RecyclerView.NO_POSITION) pos = llm.findFirstVisibleItemPosition();
+            if (pos != RecyclerView.NO_POSITION) {
+                View child = llm.findViewByPosition(pos);
+                if (child != null && child.isFocusable()) {
+                    child.requestFocus();
+                    return true;
+                }
+            }
+        }
+
+        // fallback
+        rv.requestFocus();
+        return true;
+    }
+
+    public boolean requestFocusOnBottomRow() {
+        MainKeyboardView keyboardView = findViewById(R.id.bottom_row_keyboard);
+        if (keyboardView == null) return false;
+        keyboardView.setFocusable(true);
+        keyboardView.setFocusableInTouchMode(true);
+        return keyboardView.requestFocus();
+    }
+
 
     @SuppressLint("ClickableViewAccessibility")
     public void initialize() { // needs to be delayed for access to EmojiTabStrip, which is not a child of this view
@@ -333,15 +416,48 @@ public final class EmojiPalettesView extends LinearLayout
     }
 
     public void startEmojiPalettes(final KeyVisualAttributes keyVisualAttr,
-               final EditorInfo editorInfo, final KeyboardActionListener keyboardActionListener) {
+                                   final EditorInfo editorInfo,
+                                   final KeyboardActionListener keyboardActionListener) {
         initialize();
-
         setupBottomRowKeyboard(editorInfo, keyboardActionListener);
         final KeyDrawParams params = new KeyDrawParams();
         params.updateParams(mEmojiLayoutParams.getBottomRowKeyboardHeight(), keyVisualAttr);
         setupSidePadding();
         initDictionaryFacilitator();
+        post(() -> {
+            boolean focused = false;
+
+            if (mTabStrip != null && mTabStrip.getChildCount() > 0) {
+                focused = requestFocusOnTab(0);
+            }
+
+            if (!focused) {
+                focused = requestFocusOnGrid();
+            }
+
+            if (!focused) {
+                requestFocusOnBottomRow();
+            }
+        });
+
+        if (mTabStrip != null) {
+            for (int i = 0; i < mTabStrip.getChildCount(); i++) {
+                View tab = mTabStrip.getChildAt(i);
+                if (tab != null) {
+                    tab.setFocusable(true);
+                    tab.setFocusableInTouchMode(true);
+                    tab.setOnKeyListener((v, keyCode, event) -> {
+                        if (event.getAction() == android.view.KeyEvent.ACTION_DOWN
+                            && keyCode == android.view.KeyEvent.KEYCODE_DPAD_DOWN) {
+                            return requestFocusOnGrid();
+                        }
+                        return false;
+                    });
+                }
+            }
+        }
     }
+
 
     private void addRecentKey(final Key key) {
         if (Settings.getValues().mIncognitoModeEnabled) {
@@ -363,6 +479,16 @@ public final class EmojiPalettesView extends LinearLayout
         final KeyboardLayoutSet kls = KeyboardLayoutSet.Builder.buildEmojiClipBottomRow(getContext(), editorInfo);
         final Keyboard keyboard = kls.getKeyboard(KeyboardId.ELEMENT_EMOJI_BOTTOM_ROW);
         keyboardView.setKeyboard(keyboard);
+        keyboardView.setOnKeyListener((v, keyCode, event) -> {
+            if (event.getAction() == android.view.KeyEvent.ACTION_DOWN) {
+                if (keyCode == android.view.KeyEvent.KEYCODE_DPAD_UP) {
+                    requestFocusOnGrid();
+                    return true;
+                }
+            }
+            return false;
+        });
+
     }
 
     private void setupSidePadding() {

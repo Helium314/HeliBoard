@@ -41,6 +41,7 @@ import helium314.keyboard.compat.ImeCompat;
 import helium314.keyboard.event.HapticEvent;
 import helium314.keyboard.keyboard.KeyboardActionListener;
 import helium314.keyboard.keyboard.KeyboardActionListenerImpl;
+import helium314.keyboard.keyboard.KeyboardView;
 import helium314.keyboard.keyboard.internal.KeyboardIconsSet;
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode;
 import helium314.keyboard.latin.common.InsetsOutlineProvider;
@@ -130,6 +131,10 @@ public class LatinIME extends InputMethodService implements
     private View mInputView;
     private InsetsOutlineProvider mInsetsUpdater;
     private SuggestionStripView mSuggestionStripView;
+
+    public enum Direction {
+        UP, DOWN, LEFT, RIGHT
+    }
 
     private RichInputMethodManager mRichImm;
     final KeyboardSwitcher mKeyboardSwitcher;
@@ -1627,11 +1632,54 @@ public class LatinIME extends InputMethodService implements
 
     // Hooks for hardware keyboard
     @Override
-    public boolean onKeyDown(final int keyCode, final KeyEvent keyEvent) {
-        if (mKeyboardActionListener.onKeyDown(keyCode, keyEvent))
+    public boolean onKeyDown(final int keyCode, final KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            if (isInputViewShown()) {
+                final MainKeyboardView mkv = KeyboardSwitcher.getInstance().getMainKeyboardView();
+                if (mkv != null && mkv.isShowingPopupKeysPanel()) {
+                    mkv.onCancelPopupKeysPanel();
+                } else {
+                    requestHideSelf(0);
+                }
+                return true;
+            }
+            return super.onKeyDown(keyCode, event);
+        }
+
+        if (!isInputViewShown()) {
+            return super.onKeyDown(keyCode, event);
+        }
+
+        final View kv =
+            KeyboardSwitcher.getInstance().getVisibleKeyboardView();
+        final boolean canHandle = (kv != null && kv.isShown());
+
+        if (canHandle) {
+            switch (keyCode) {
+                case KeyEvent.KEYCODE_DPAD_LEFT:
+                    mKeyboardActionListener.onMoveFocus(KeyboardActionListener.Direction.LEFT);
+                    return true;
+                case KeyEvent.KEYCODE_DPAD_RIGHT:
+                    mKeyboardActionListener.onMoveFocus(KeyboardActionListener.Direction.RIGHT);
+                    return true;
+                case KeyEvent.KEYCODE_DPAD_UP:
+                    mKeyboardActionListener.onMoveFocus(KeyboardActionListener.Direction.UP);
+                    return true;
+                case KeyEvent.KEYCODE_DPAD_DOWN:
+                    mKeyboardActionListener.onMoveFocus(KeyboardActionListener.Direction.DOWN);
+                    return true;
+                case KeyEvent.KEYCODE_DPAD_CENTER:
+                case KeyEvent.KEYCODE_ENTER:
+                    mKeyboardActionListener.onPressFocusedKey();
+                    return true;
+            }
+        }
+
+        if (mKeyboardActionListener.onKeyDown(keyCode, event))
             return true;
-        return super.onKeyDown(keyCode, keyEvent);
+        return super.onKeyDown(keyCode, event);
     }
+
 
     @Override
     public boolean onKeyUp(final int keyCode, final KeyEvent keyEvent) {

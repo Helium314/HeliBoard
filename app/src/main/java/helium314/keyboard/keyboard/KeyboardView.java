@@ -27,6 +27,7 @@ import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import helium314.keyboard.event.HapticEvent;
 import helium314.keyboard.keyboard.emoji.EmojiPageKeyboardView;
 import helium314.keyboard.keyboard.internal.KeyDrawParams;
 import helium314.keyboard.keyboard.internal.KeyVisualAttributes;
@@ -40,8 +41,12 @@ import helium314.keyboard.latin.settings.Settings;
 import helium314.keyboard.latin.suggestions.MoreSuggestions;
 import helium314.keyboard.latin.suggestions.MoreSuggestionsView;
 import helium314.keyboard.latin.utils.TypefaceUtils;
+import helium314.keyboard.keyboard.KeyboardActionListener.Direction;
 
 import java.util.HashSet;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Collections;
 
 /** A view that renders a virtual {@link Keyboard}. */
 // todo: this ThemeStyle-dependent stuff really should not be in here!
@@ -68,6 +73,11 @@ public class KeyboardView extends View {
     private float mKeyScaleForText;
     protected float mFontSizeMultiplier;
 
+    @Nullable
+    protected Key mFocusedKey;
+    @Nullable
+    protected static KeyboardActionListener sGlobalKeyboardActionListener;
+
     // The maximum key label width in the proportion to the key width.
     private static final float MAX_LABEL_RATIO = 0.90f;
 
@@ -75,8 +85,21 @@ public class KeyboardView extends View {
     // TODO: Consider having a dummy keyboard object to make this @NonNull
     @Nullable
     private Keyboard mKeyboard;
+
+    @Nullable
+    private static KeyboardView sActiveKeyboardView;
+
+    @Nullable
+    public static KeyboardView getActiveKeyboardView() {
+        return sActiveKeyboardView;
+    }
+
     @NonNull
     private final KeyDrawParams mKeyDrawParams = new KeyDrawParams();
+
+    public static void setGlobalKeyboardActionListener(@Nullable KeyboardActionListener listener) {
+        sGlobalKeyboardActionListener = listener;
+    }
 
     // Drawing
     /** True if all keys should be drawn */
@@ -181,7 +204,6 @@ public class KeyboardView extends View {
         } else if (keyboard instanceof PopupKeysKeyboard) {
             mColors.setBackground(this, ColorType.POPUP_KEYS_BACKGROUND);
         } else {
-            // actual background color/drawable is applied to main_keyboard_frame
             setBackgroundColor(Color.TRANSPARENT);
         }
 
@@ -193,11 +215,21 @@ public class KeyboardView extends View {
         invalidateAllKeys();
         requestLayout();
         mFontSizeMultiplier = mKeyboard.mId.isEmojiKeyboard()
-                // In the case of EmojiKeyFit, the size of emojis is taken care of by the size of the keys
-                ? (Settings.getValues().mEmojiKeyFit? 1 : Settings.getValues().mFontSizeMultiplierEmoji)
-                : Settings.getValues().mFontSizeMultiplier;
+            ? (Settings.getValues().mEmojiKeyFit ? 1 : Settings.getValues().mFontSizeMultiplierEmoji)
+            : Settings.getValues().mFontSizeMultiplier;
     }
 
+    @Override
+    protected void onVisibilityChanged(@NonNull View changedView, int visibility) {
+        super.onVisibilityChanged(changedView, visibility);
+        if (changedView == this) {
+            if (visibility == VISIBLE) {
+                sActiveKeyboardView = this;
+            } else if (sActiveKeyboardView == this) {
+                sActiveKeyboardView = null;
+            }
+        }
+    }
     /**
      * Returns the current keyboard being displayed by this view.
      * @return the currently attached keyboard
@@ -344,6 +376,14 @@ public class KeyboardView extends View {
             onDrawKeyBackground(key, canvas, background);
         }
         onDrawKeyTopVisuals(key, canvas, paint, params);
+
+        if (key == mFocusedKey) {
+            Paint highlightPaint = new Paint(paint);
+            highlightPaint.setStyle(Paint.Style.STROKE);
+            highlightPaint.setStrokeWidth(3.0f);
+            highlightPaint.setColor(Color.YELLOW);
+            canvas.drawRect(0, 0, key.getDrawWidth(), key.getHeight(), highlightPaint);
+        }
 
         canvas.translate(-keyDrawX, -keyDrawY);
     }
@@ -606,6 +646,137 @@ public class KeyboardView extends View {
         invalidate(x, y, x + key.getWidth(), y + key.getHeight());
     }
 
+    public void pressFocusedKey() {
+        if (mFocusedKey == null) return;
+
+        int code = mFocusedKey.getCode();
+        if (code == 0) return;
+
+        int x = mFocusedKey.getX() + mFocusedKey.getWidth() / 2;
+        int y = mFocusedKey.getY() + mFocusedKey.getHeight() / 2;
+
+        if (sGlobalKeyboardActionListener != null) {
+            sGlobalKeyboardActionListener.onPressKey(code, 0, true, HapticEvent.KEY_PRESS);
+            sGlobalKeyboardActionListener.onCodeInput(code, x, y, false);
+            sGlobalKeyboardActionListener.onReleaseKey(code, false);
+        }
+    }
+
+    public void moveFocus(final Direction direction) {
+        final Keyboard keyboard = getKeyboard();
+        if (keyboard == null) {
+            return;
+        }
+
+        final List<Key> allKeys = keyboard.getSortedKeys();
+        if (allKeys.isEmpty()) return;
+
+        final ArrayList<ArrayList<Key>> rows = new ArrayList<>();
+        final int rowTolerance = keyboard.mMostCommonKeyHeight / 2;
+
+        for (Key k : allKeys) {
+            if (k.isSpacer()) continue;
+            if (!k.isEnabled()) continue;
+
+            final int cy = k.getY() + k.getHeight() / 2;
+
+            ArrayList<Key> targetRow = null;
+            for (ArrayList<Key> row : rows) {
+                Key rowKey = row.get(0);
+                int rowCy = rowKey.getY() + rowKey.getHeight() / 2;
+                if (Math.abs(cy - rowCy) <= rowTolerance) {
+                    targetRow = row;
+                    break;
+                }
+            }
+            if (targetRow == null) {
+                targetRow = new ArrayList<>();
+                rows.add(targetRow);
+            }
+            targetRow.add(k);
+        }
+
+        if (rows.isEmpty()) return;
+
+        Collections.sort(rows, (r1, r2) -> {
+            int y1 = r1.get(0).getY();
+            int y2 = r2.get(0).getY();
+            return Integer.compare(y1, y2);
+        });
+        for (ArrayList<Key> row : rows) {
+            Collections.sort(row, (k1, k2) -> Integer.compare(k1.getX(), k2.getX()));
+        }
+
+        if (mFocusedKey == null || !allKeys.contains(mFocusedKey)) {
+            mFocusedKey = rows.get(0).get(0);
+            invalidateAllKeys();
+            return;
+        }
+
+        int currentRow = -1;
+        int currentCol = -1;
+        for (int r = 0; r < rows.size(); r++) {
+            ArrayList<Key> row = rows.get(r);
+            int col = row.indexOf(mFocusedKey);
+            if (col != -1) {
+                currentRow = r;
+                currentCol = col;
+                break;
+            }
+        }
+
+        if (currentRow == -1) {
+            mFocusedKey = rows.get(0).get(0);
+            invalidateAllKeys();
+            return;
+        }
+
+        int newRow = currentRow;
+        int newCol = currentCol;
+
+        switch (direction) {
+            case LEFT:
+                newCol = Math.max(0, currentCol - 1);
+                break;
+            case RIGHT:
+                newCol = Math.min(rows.get(currentRow).size() - 1, currentCol + 1);
+                break;
+            case UP:
+                newRow = Math.max(0, currentRow - 1);
+                newCol = findClosestColumn(rows.get(newRow), mFocusedKey);
+                break;
+            case DOWN:
+                newRow = Math.min(rows.size() - 1, currentRow + 1);
+                newCol = findClosestColumn(rows.get(newRow), mFocusedKey);
+                break;
+        }
+
+        Key newKey = rows.get(newRow).get(newCol);
+        if (newKey != mFocusedKey) {
+            invalidateKey(mFocusedKey);
+            mFocusedKey = newKey;
+            invalidateKey(mFocusedKey);
+        }
+    }
+
+    private int findClosestColumn(ArrayList<Key> row, Key reference) {
+        int refCx = reference.getX() + reference.getWidth() / 2;
+        int bestIndex = 0;
+        int bestDist = Integer.MAX_VALUE;
+
+        for (int i = 0; i < row.size(); i++) {
+            Key k = row.get(i);
+            int cx = k.getX() + k.getWidth() / 2;
+            int dist = Math.abs(cx - refCx);
+            if (dist < bestDist) {
+                bestDist = dist;
+                bestIndex = i;
+            }
+        }
+        return bestIndex;
+    }
+
+
     @Override
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
@@ -639,5 +810,4 @@ public class KeyboardView extends View {
             mColors.setColor(icon, ColorType.KEY_TEXT);
         }
     }
-
 }

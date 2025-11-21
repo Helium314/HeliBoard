@@ -31,6 +31,7 @@ import androidx.annotation.Nullable;
 import helium314.keyboard.accessibility.AccessibilityUtils;
 import helium314.keyboard.accessibility.MainKeyboardAccessibilityDelegate;
 import helium314.keyboard.compat.ConfigurationCompatKt;
+import helium314.keyboard.event.HapticEvent;
 import helium314.keyboard.keyboard.internal.DrawingPreviewPlacerView;
 import helium314.keyboard.keyboard.internal.DrawingProxy;
 import helium314.keyboard.keyboard.internal.GestureFloatingTextDrawingPreview;
@@ -282,7 +283,9 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
     public void setKeyboardActionListener(final KeyboardActionListener listener) {
         mKeyboardActionListener = listener;
         PointerTracker.setKeyboardActionListener(listener);
+        KeyboardView.setGlobalKeyboardActionListener(listener);
     }
+
 
     // TODO: We should reconsider which coordinate system should be used to represent keyboard event.
     public int getKeyX(final int x) {
@@ -841,6 +844,29 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
         paint.clearShadowLayer();
         paint.setTextScaleX(1.0f);
     }
+
+    @Override
+    public void pressFocusedKey() {
+        if (mFocusedKey == null || mKeyboardActionListener == null) {
+            return;
+        }
+
+        final Key key = mFocusedKey;
+        final int code = key.getCode();
+        if (code == 0) return;
+
+        final int centerX = key.getX() + key.getWidth() / 2;
+        final int centerY = key.getY() + key.getHeight() / 2;
+        final int keyX = getKeyX(centerX);
+        final int keyY = getKeyY(centerY);
+
+        mKeyboardActionListener.onPressKey(code, 0, true, HapticEvent.KEY_PRESS);
+        mKeyboardActionListener.onCodeInput(code, keyX, keyY, false);
+        mKeyboardActionListener.onReleaseKey(code, false);
+
+        invalidateKey(key);
+    }
+
 
     @Override
     public void deallocateMemory() {

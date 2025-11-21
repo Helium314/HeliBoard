@@ -60,7 +60,18 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
 
     override fun onReleaseKey(primaryCode: Int, withSliding: Boolean) {
         metaOnReleaseKey(primaryCode)
-        keyboardSwitcher.onReleaseKey(primaryCode, withSliding, latinIME.currentAutoCapsState, latinIME.currentRecapitalizeState)
+        keyboardSwitcher.onReleaseKey(primaryCode, withSliding,
+            latinIME.currentAutoCapsState, latinIME.currentRecapitalizeState)
+    }
+
+    override fun onMoveFocus(direction: KeyboardActionListener.Direction) {
+        val kv = KeyboardView.getActiveKeyboardView() ?: return
+        kv.moveFocus(direction)
+    }
+
+    override fun onPressFocusedKey() {
+        val kv = KeyboardView.getActiveKeyboardView() ?: return
+        kv.pressFocusedKey()
     }
 
     override fun onKeyUp(keyCode: Int, keyEvent: KeyEvent): Boolean {
