@@ -360,39 +360,53 @@ private fun PassiveGathering() {
             AppsManager(ctx).getPackagesAndNames()
                 .sortedWith( compareBy({ it.first !in ignorePackages }, { it.second.lowercase() }))
         ) }
+        var filter by remember { mutableStateOf(TextFieldValue()) }
         val scroll = rememberScrollState()
-        // todo: filter
         // todo: load app list in background on entering the screen (just show nothing / please wait until loaded)
         ThreeButtonAlertDialog(
             title = { Text("select apps to exclude from passive gathering") },
             onDismissRequest = { showExcludedAppsDialog = false },
-            // lazy column?
-            content = { Column(
-                modifier = Modifier.verticalScroll(scroll),
-                verticalArrangement = Arrangement.spacedBy(10.dp)
-            ) {
-                packagesAndNames.map { (packag, name) ->
-                    val ignored = packag in ignorePackages
-                    Column(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .clickable {
-                                ignorePackages = if (ignored) ignorePackages - packag
-                                else ignorePackages + packag
+            content = { Column {
+                TextField(
+                    value = filter,
+                    onValueChange = { filter = it },
+                    singleLine = true,
+                    label = { Text("filter") },
+                    keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search)
+                )
+                Spacer(Modifier.height(10.dp))
+                Column(
+                    modifier = Modifier.verticalScroll(scroll),
+                    verticalArrangement = Arrangement.spacedBy(10.dp)
+                ) {
+                    packagesAndNames.filter {
+                        if (filter.text.lowercase() == filter.text)
+                            filter.text in it.first || filter.text in it.second.lowercase()
+                        else
+                            filter.text in it.second
+                    }.map { (packag, name) ->
+                        val ignored = packag in ignorePackages
+                        Column(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .clickable {
+                                    ignorePackages = if (ignored) ignorePackages - packag
+                                    else ignorePackages + packag
+                                }
+                        ) {
+                            CompositionLocalProvider(
+                                LocalTextStyle provides MaterialTheme.typography.bodyLarge
+                            ) {
+                                Text(name)
                             }
-                    ) {
-                        CompositionLocalProvider(
-                            LocalTextStyle provides MaterialTheme.typography.bodyLarge
-                        ) {
-                            Text(name)
-                        }
-                        CompositionLocalProvider(
-                            LocalTextStyle provides MaterialTheme.typography.bodyMedium
-                        ) {
-                            Text(
-                                packag + ", ${if (ignored) "ignored" else "used"}",
-                                color = if (ignored) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.primary
-                            )
+                            CompositionLocalProvider(
+                                LocalTextStyle provides MaterialTheme.typography.bodyMedium
+                            ) {
+                                Text(
+                                    packag + ", ${if (ignored) "ignored" else "used"}",
+                                    color = if (ignored) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.primary
+                                )
+                            }
                         }
                     }
                 }
