@@ -16,10 +16,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.selection.selectable
-import androidx.compose.foundation.text.KeyboardActions
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonColors
@@ -60,13 +57,10 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.window.DialogProperties
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.utils.GestureDataDao
 import helium314.keyboard.latin.utils.GestureDataInfo
 import helium314.keyboard.latin.utils.getIgnoreList
-import helium314.keyboard.latin.utils.setIgnoreList
-import helium314.keyboard.settings.DeleteButton
 import helium314.keyboard.settings.Theme
 import helium314.keyboard.settings.dialogs.ConfirmationDialog
 import helium314.keyboard.settings.dialogs.ThreeButtonAlertDialog
@@ -87,7 +81,6 @@ fun ReviewScreen(
         disabledContainerColor = Color.Transparent,
         disabledContentColor = MaterialTheme.colorScheme.surfaceVariant
     )
-    var showIgnoreListDialog by remember { mutableStateOf(false) }
     var showExportDialog by remember { mutableStateOf(false) }
     var showDeleteDialog by remember { mutableStateOf(false) }
     var selected by rememberSaveable { mutableStateOf(listOf<Long>()) }
@@ -129,19 +122,6 @@ fun ReviewScreen(
                                 Text("share $wordcount words")
                             }
                         }
-                        // todo: only show it once passive gathering is implemented, because for active it makes no sense
-                        // todo: make clear it's only used for passive mode
-                        // todo: also add an app-exclusion list?
-                        Button({ showIgnoreListDialog = true }, colors = buttonColors, modifier = Modifier.weight(1f)) {
-                            Column {
-                                Icon(
-                                    painterResource(R.drawable.ic_autocorrect), // todo: icon, but maybe we'll move it to GestureDataScreen anyway?
-                                    "exclude",
-                                    Modifier.align(Alignment.CenterHorizontally)
-                                )
-                                Text("exclude")
-                            }
-                        }
                     }
                 }
             )
@@ -179,7 +159,7 @@ fun ReviewScreen(
                     if (reverseSort)
                         gestureDataInfos = gestureDataInfos.reversed()
                 }
-                LaunchedEffect(filter, startDate, endDate, includeExported, reverseSort, showIgnoreListDialog) {
+                LaunchedEffect(filter, startDate, endDate, includeExported, reverseSort) {
                     // todo: if slow, do in background or try returning a cursor (then sorting needs to be done by db)
                     gestureDataInfos = dao.filterInfos(
                         filter.text.takeIf { it.isNotEmpty() },
@@ -330,55 +310,6 @@ fun ReviewScreen(
                 content = {
                     Text("are you sure? will delete $wordcount words")
                 }
-            )
-        }
-        if (showIgnoreListDialog) {
-            var ignoreWords by remember { mutableStateOf(getIgnoreList(ctx)) }
-            var newWord by remember { mutableStateOf(TextFieldValue()) }
-            val scroll = rememberScrollState()
-            fun addWord() {
-                if (newWord.text.isNotBlank())
-                    ignoreWords += newWord.text.trim()
-                newWord = TextFieldValue()
-            }
-            ThreeButtonAlertDialog(
-                onDismissRequest = { showIgnoreListDialog = false },
-                content = { Column(Modifier.verticalScroll(scroll)) {
-                    Row(verticalAlignment = Alignment.CenterVertically) {
-                        TextField(
-                            value = newWord,
-                            onValueChange = { newWord = it},
-                            modifier = Modifier.weight(1f),
-                            singleLine = true,
-                            keyboardActions = KeyboardActions { addWord() }
-                        )
-                        IconButton(
-                            { addWord() },
-                            Modifier.weight(0.2f)) {
-                            Icon(painterResource(R.drawable.ic_plus), stringResource(R.string.add))
-                        }
-                    }
-                    ignoreWords.map { word ->
-                        CompositionLocalProvider(
-                            LocalTextStyle provides MaterialTheme.typography.bodyLarge
-                        ) {
-                            Row(
-                                verticalAlignment = Alignment.CenterVertically,
-                                horizontalArrangement = Arrangement.SpaceBetween,
-                                modifier = Modifier.fillMaxWidth()
-                            ) {
-                                Text(word)
-                                DeleteButton { ignoreWords = ignoreWords.filterNot { word == it }.toSortedSet() }
-                            }
-                        }
-                    }
-                } },
-                onConfirmed = {
-                    setIgnoreList(ctx, ignoreWords)
-                    dao.deleteWords(ignoreWords)
-                },
-                confirmButtonText = stringResource(android.R.string.ok),
-                properties = DialogProperties(dismissOnClickOutside = false)
             )
         }
     }
