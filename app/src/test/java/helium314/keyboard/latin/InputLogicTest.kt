@@ -701,13 +701,16 @@ class InputLogicTest {
             getTimestampFormatter(latinIME).parse(text.substring(5))!!.time.toDouble(), 1000.0)
     }
 
-    @Test fun inlineEmojiSearch() {
+    @Test fun inlineEmojiSearchStart() {
         assertEquals(true, InputLogic.isStartOfInlineEmojiSearch('t'.code, ':'.code, ' '.code, settingsValues))
         assertEquals(false, InputLogic.isStartOfInlineEmojiSearch(' '.code, ':'.code, ' '.code, settingsValues))
         assertEquals(true, InputLogic.isStartOfInlineEmojiSearch('t'.code, ':'.code, '.'.code, settingsValues))
         assertEquals(true, InputLogic.isStartOfInlineEmojiSearch('t'.code, ':'.code, "🌍".codePoints().asSequence().last(), settingsValues))
         assertEquals(false, InputLogic.isStartOfInlineEmojiSearch('t'.code, ':'.code, 't'.code, settingsValues))
         assertEquals(false, InputLogic.isStartOfInlineEmojiSearch('t'.code, ':'.code, '3'.code, settingsValues))
+    }
+
+    @Test fun inlineEmojiSearchString() {
         assertEquals("test", InputLogic.getInlineEmojiSearchString(":test"))
         assertEquals(null, InputLogic.getInlineEmojiSearchString("test"))
         assertEquals("test", InputLogic.getInlineEmojiSearchString(" :test"))
@@ -716,6 +719,7 @@ class InputLogicTest {
         assertEquals("test", InputLogic.getInlineEmojiSearchString("🌍:test"))
         assertEquals("test", InputLogic.getInlineEmojiSearchString(",:test"))
         assertEquals(null, InputLogic.getInlineEmojiSearchString(":test\nt"))
+        assertEquals("/48", InputLogic.getInlineEmojiSearchString("2606:127.0.0.1::/48")) // do we want this?
     }
 
     // ------- helper functions ---------
