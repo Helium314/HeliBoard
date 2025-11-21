@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.only
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.selection.selectable
@@ -95,29 +96,38 @@ fun ReviewScreen(
         contentWindowInsets = WindowInsets.safeDrawing.only(WindowInsetsSides.Bottom),
         bottomBar = {
             BottomAppBar(
-                // todo: consistent icon size, enable / disable when appropriate
-                // todo: now buttons are spread evenly, but long text in 2 lines does not work
-                //  maybe text is not necessary?
-                //  or maybe ignorelist could be moved to the menu
                 actions = {
-                    Row(horizontalArrangement = Arrangement.SpaceEvenly, modifier = Modifier.fillMaxWidth()) {
-                        Button({ showDeleteDialog = true}, colors = buttonColors, modifier = Modifier.weight(1f)) {
+                    Row(
+                        horizontalArrangement = Arrangement.SpaceEvenly,
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        Button(
+                            { showDeleteDialog = true},
+                            colors = buttonColors,
+                            modifier = Modifier.weight(1f),
+                            enabled = wordcount > 0
+                        ) {
                             Column {
                                 Icon(
                                     painterResource(R.drawable.ic_bin_rounded),
                                     "delete",
-                                    Modifier.align(Alignment.CenterHorizontally)
+                                    Modifier.align(Alignment.CenterHorizontally).size(30.dp)
                                 )
                                 Text("delete $wordcount words")
                             }
                         }
                         // todo: extra delete for exported, if there are any?
-                        Button({ showExportDialog = true }, colors = buttonColors, modifier = Modifier.weight(1f)) {
+                        Button(
+                            { showExportDialog = true},
+                            colors = buttonColors,
+                            modifier = Modifier.weight(1f),
+                            enabled = wordcount > 0
+                        ) {
                             Column {
                                 Icon(
                                     painterResource(R.drawable.share),
                                     "share",
-                                    Modifier.align(Alignment.CenterHorizontally)
+                                    Modifier.align(Alignment.CenterHorizontally).size(30.dp)
                                 )
                                 Text("share $wordcount words")
                             }
@@ -149,7 +159,6 @@ fun ReviewScreen(
                 var endDate: Long? by rememberSaveable { mutableStateOf(null) }
                 var sortByName: Boolean by rememberSaveable { mutableStateOf(false) }
                 var reverseSort: Boolean by rememberSaveable { mutableStateOf(false) }
-                val ctx = LocalContext.current
                 fun sortWords() {
                     gestureDataInfos = if (sortByName) {
                         gestureDataInfos.sortedWith(compareBy(String.CASE_INSENSITIVE_ORDER) { it.targetWord })
@@ -159,7 +168,7 @@ fun ReviewScreen(
                     if (reverseSort)
                         gestureDataInfos = gestureDataInfos.reversed()
                 }
-                LaunchedEffect(filter, startDate, endDate, includeExported, reverseSort) {
+                LaunchedEffect(filter, startDate, endDate, includeExported, reverseSort, includeActive, includePassive) {
                     // todo: if slow, do in background or try returning a cursor (then sorting needs to be done by db)
                     gestureDataInfos = dao.filterInfos(
                         filter.text.takeIf { it.isNotEmpty() },
