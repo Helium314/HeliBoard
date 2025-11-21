@@ -499,6 +499,27 @@ class DictionaryFacilitatorImpl : DictionaryFacilitator {
         )
         waitForOtherDicts?.await()
 
+        // Filter out suggestions from other languages if we have an exact match in one language
+        val typedWord = composedData.mTypedWord
+        if (typedWord.isNotEmpty()) {
+            val groupsWithExactMatch = ArrayList<Int>()
+            for (i in suggestionsArray.indices) {
+                val suggestions = suggestionsArray[i] ?: continue
+                // Check if any suggestion in this group matches the typed word exactly (case-insensitive)
+                if (suggestions.any { it.word.equals(typedWord, ignoreCase = true) }) {
+                    groupsWithExactMatch.add(i)
+                }
+            }
+            // If exact matches exist in some languages but not all, discard the results from the non-matching languages
+            if (groupsWithExactMatch.isNotEmpty() && groupsWithExactMatch.size < suggestionsArray.size) {
+                for (i in suggestionsArray.indices) {
+                    if (!groupsWithExactMatch.contains(i)) {
+                        suggestionsArray[i] = null
+                    }
+                }
+            }
+        }
+
         suggestionsArray.forEach {
             if (it == null) return@forEach
             suggestionResults.addAll(it)
