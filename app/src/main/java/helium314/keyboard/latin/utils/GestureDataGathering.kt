@@ -82,7 +82,7 @@ class WordData(
         val keyboardInfo = KeyboardInfo(
             width, // baseHeight is without padding, but coordinates include padding
             height,
-            keys.map { KeyInfo(it.x + it.width / 2, it.y + it.height / 2, it.code) }
+            keys.map { KeyInfo(it.x, it.width, it.y, it.height, it.code) }
         )
         val filteredSuggestions = mutableListOf<SuggestedWords.SuggestedWordInfo>()
         for (word in suggestions) { // suggestions are sorted with highest score first
@@ -184,7 +184,7 @@ data class PointerData(val id: Int, val x: Int, val y: Int, val millis: Int) {
 
 // gesture typing only works with code, not with arbitrary labels
 @Serializable
-data class KeyInfo(val centerX: Int, val centerY: Int, val codePoint: Int)
+data class KeyInfo(val left: Int, val width: Int, val top: Int, val height: Int, val codePoint: Int)
 
 @Serializable
 data class KeyboardInfo(val width: Int, val height: Int, val keys: List<KeyInfo>)
