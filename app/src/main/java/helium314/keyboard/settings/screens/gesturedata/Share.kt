@@ -14,7 +14,12 @@ import androidx.activity.result.ActivityResult
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.ClipEntry
 import androidx.compose.ui.platform.LocalClipboard
 import androidx.compose.ui.platform.LocalContext
@@ -26,6 +31,7 @@ import helium314.keyboard.latin.R
 import helium314.keyboard.latin.utils.GestureDataDao
 import helium314.keyboard.latin.utils.getActivity
 import helium314.keyboard.settings.filePicker
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.io.File
 import java.io.FileInputStream
@@ -42,14 +48,28 @@ fun ShareGestureData(ids: List<Long>) { // should we really use null here? from 
     val dao = GestureDataDao.getInstance(ctx)!!
     val hasData = !dao.isEmpty() // no need to update if we have it in a dialog
     val getDataPicker = getData(ids)
-    gestureIdsBeingExported = null
+    var exportStarted by remember { mutableStateOf(false) }
+    var showDelete by remember { mutableStateOf(false) }
+    val scope = rememberCoroutineScope()
+    LaunchedEffect(exportStarted) {
+        if (exportStarted) {
+            // wait until exported data is marked, then offer to delete
+            gestureIdsBeingExported = ids
+            scope.launch {
+                while (gestureIdsBeingExported != null) {
+                    delay(50)
+                }
+                showDelete = true
+            }
+        }
+    }
 
     // share file, but only to mail apps
     TextButton(
         onClick = {
             createZipFile(ctx, ids)
             if (zippedDataPath.isNotEmpty()) {
-                gestureIdsBeingExported = ids
+                exportStarted = true
                 ctx.startActivity(createSendIntentChooser(ctx))
             }
         },
@@ -60,21 +80,26 @@ fun ShareGestureData(ids: List<Long>) { // should we really use null here? from 
     }
 
     // get file
-    TextButton({ getDataPicker.launch(getDataIntent) }, enabled = hasData) {
+    TextButton(
+        onClick = {
+            getDataPicker.launch(getDataIntent)
+            exportStarted = true
+        },
+        enabled = hasData
+    ) {
         Text(stringResource(R.string.gesture_data_get_data))
     }
 
     // copy mail address to clipboard, in case user doesn't use the mail intent
     val clip = LocalClipboard.current
-    val scope = rememberCoroutineScope()
     TextButton({ scope.launch { clip.setClipEntry(ClipEntry(ClipData.newPlainText("mail address", ctx.getString(R.string.gesture_data_mail)))) } }) {
         Text("copy mail address")
     }
 
     // this deletes the data in the dialog, but we should also have a way of deleting previously exported data
-    // todo: does the dialog stay / list stay after exporting? -> yes
-    TextButton({ if (ids == null) dao.deleteAll() else dao.delete(ids) }, enabled = hasData) {
-        Text("delete exported data (only do this after mail has been sent)") // todo: consistent & clear naming (export / share)
+    if (showDelete)
+        TextButton({ dao.delete(ids) }, enabled = hasData) {
+            Text("delete exported data (only do this after mail has been sent)") // todo: consistent & clear naming (export / share)
     }
 }
 
@@ -148,6 +173,7 @@ private fun getData(ids: List<Long>): ManagedActivityResultLauncher<Intent, Acti
             zipStream.close()
         }
         dao.markAsExported(ids)
+        gestureIdsBeingExported = null
     }
 }
 
@@ -199,6 +225,7 @@ class GestureFileProvider : FileProvider() {
             if (ctx != null && ids != null) {
                 GestureDataDao.getInstance(ctx)?.markAsExported(ids)
             }
+            gestureIdsBeingExported = null
         }
     }
 
@@ -211,6 +238,7 @@ class GestureFileProvider : FileProvider() {
             if (ctx != null && ids != null) {
                 GestureDataDao.getInstance(ctx)?.markAsExported(ids)
             }
+            gestureIdsBeingExported = null
         }
     }
 }
