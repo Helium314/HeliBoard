@@ -233,18 +233,22 @@ final class DynamicGridKeyboard extends Keyboard {
         final String str = mPrefs.getString(Settings.PREF_EMOJI_RECENT_KEYS, Defaults.PREF_EMOJI_RECENT_KEYS);
         final List<Object> keys = JsonUtils.jsonStrToList(str);
         for (final Object o : keys) {
-            final Key key;
-            if (o instanceof Integer) {
-                final int code = (Integer)o;
-                key = getKeyByCode(keyboards, code);
-            } else if (o instanceof final String outputText) {
-                key = getKeyByOutputText(keyboards, outputText);
-            } else {
-                Log.w(TAG, "Invalid object: " + o);
-                continue;
+            final Key key = getKey(keyboards, o);
+            if (key != null) {
+                addKeyLast(key);
             }
-            addKeyLast(key);
         }
+    }
+
+    Key getKey(Collection<DynamicGridKeyboard> keyboards, Object o) {
+        if (o instanceof Integer code) {
+            return getKeyByCode(keyboards, code);
+        }
+        if (o instanceof final String outputText) {
+            return getKeyByOutputText(keyboards, outputText);
+        }
+        Log.w(TAG, "Invalid object: " + o);
+        return null;
     }
 
     private int getKeyX0(final int index) {
