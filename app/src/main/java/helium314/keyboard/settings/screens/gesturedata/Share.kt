@@ -76,7 +76,7 @@ fun ShareGestureData(ids: List<Long>) { // should we really use null here? from 
         enabled = hasData && Intent(Intent.ACTION_SENDTO)
             .apply { data = "mailto:".toUri() }.resolveActivity(ctx.packageManager) != null
     ) {
-        Text("share via mail")
+        Text(stringResource(R.string.gesture_data_send_mail))
     }
 
     // get file
@@ -93,13 +93,13 @@ fun ShareGestureData(ids: List<Long>) { // should we really use null here? from 
     // copy mail address to clipboard, in case user doesn't use the mail intent
     val clip = LocalClipboard.current
     TextButton({ scope.launch { clip.setClipEntry(ClipEntry(ClipData.newPlainText("mail address", ctx.getString(R.string.gesture_data_mail)))) } }) {
-        Text("copy mail address")
+        Text(stringResource(R.string.gesture_data_copy_mail))
     }
 
     // this deletes the data in the dialog, but we should also have a way of deleting previously exported data
     if (showDelete)
         TextButton({ dao.delete(ids) }, enabled = hasData) {
-            Text("delete exported data (only do this after mail has been sent)") // todo: consistent & clear naming (export / share)
+            Text(stringResource(R.string.gesture_data_delete_exported))
     }
 }
 

@@ -929,10 +929,17 @@ New dictionary:
     <string name="gesture_data_delete_data">Clear gesture data</string>
     <!-- Button for sending the data file via mail -->
     <string name="gesture_data_send_mail">Send data via mail</string>
+    <!-- Button for copying the target mail address -->
+    <string name="gesture_data_copy_mail">Copy mail address</string>
     <!-- Text requesting the user to gesture a word -->
     <string name="gesture_data_please_type">Please gesture type:</string>
     <!-- Button for saving data and go to next word (now only shows up when the word is not in suggestions -->
     <string name="gesture_data_next_save">Got \"%s\". Click if you\'re sure you gestured correctly</string>
     <!-- Button for next word without saving data -->
     <string name="gesture_data_next">Skip word</string>
+    <!-- Text stating how many words were written using active data gathering -->
+    <string name="gesture_data_active_count">%1$s words in this session, %2$s words total</string>
+    <!-- Text offering deletion after exporting data -->
+    <!-- todo: consistent and clear naming for export / share / submit (and others) -->
+    <string name="gesture_data_delete_exported">Delete the exported data (make sure the data is submitted!)</string>
 </resources>

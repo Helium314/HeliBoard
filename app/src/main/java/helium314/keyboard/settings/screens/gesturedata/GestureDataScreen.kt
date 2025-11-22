@@ -104,6 +104,7 @@ import kotlin.collections.plus
 // todo: use resource strings (also in share and review)
 // todo: write the proper texts / info dialogs to explain what's going on and privacy infos
 // todo: we need a mail address and a gpg key
+// todo: activeWordsInDb should also consider deleted words
 /**
  *  Simple "settings" screen that shows up when gesture typing is enabled.
  *  Allows "active data gathering", which is input of gesture typing data,
@@ -205,8 +206,10 @@ fun GestureDataScreen(
             Box { // without the box the menu appears at the wrong position
                 DropDownField(availableDicts, dict, { dict = it }) {
                     val locale = it?.locale?.getDisplayName(LocalConfiguration.current.locale())
-                    val internal = if (it?.internal == true) "(internal)" else "(downloaded)"
-                    Text(locale?.let { loc -> "$loc $internal" } ?: "no dictionary")
+                    val internal = if (it?.internal == true)
+                            " (${stringResource(R.string.internal_dictionary_summary)})"
+                        else ""
+                    Text(locale?.let { loc -> "$loc$internal" } ?: stringResource(R.string.dictionary_load_error))
                 }
             }
         }
@@ -261,7 +264,7 @@ fun GestureDataScreen(
                     val dbCount = GestureDataDao.getInstance(ctx)?.filterInfos(exported = false, activeMode = true)?.size ?: 0
                     mutableIntStateOf(dbCount)
                 }
-                Text("${activeWordCount + activeWordsInDb} words, $activeWordCount in this session")
+                Text(stringResource(R.string.gesture_data_active_count, activeWordCount, activeWordCount + activeWordsInDb))
                 Box(Modifier.size(1.dp)) { // box hides the field, but we can still interact with it
                     TextField(
                         value = TextFieldValue(),
