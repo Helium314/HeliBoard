@@ -7,6 +7,8 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Build
+import android.os.CancellationSignal
+import android.os.ParcelFileDescriptor
 import androidx.activity.compose.ManagedActivityResultLauncher
 import androidx.activity.result.ActivityResult
 import androidx.compose.material3.Text
@@ -35,24 +37,21 @@ import java.util.zip.ZipOutputStream
 
 // todo: nicer looking buttons
 @Composable
-fun ShareGestureData(ids: List<Long>? = null) { // should we really use null here? from where this is called we have all ids anyway
+fun ShareGestureData(ids: List<Long>) { // should we really use null here? from where this is called we have all ids anyway
     val ctx = LocalContext.current
     val dao = GestureDataDao.getInstance(ctx)!!
     val hasData = !dao.isEmpty() // no need to update if we have it in a dialog
     val getDataPicker = getData(ids)
+    gestureIdsBeingExported = null
 
     // share file, but only to mail apps
-    // todo: mark exported data as exported!
-    //  can we check whether the stream has been read?
-    //   we could at least override the openFile in GestureFileProvider to check whether it was called
-    //  alternatively there is the intentSender for createChoose
-    //   PendingIntent.getBroadcast(context, 0, receiver, PendingIntent.FLAG_UPDATE_CURRENT).getIntentSender()
-    //   receiver is an intent
     TextButton(
         onClick = {
             createZipFile(ctx, ids)
-            if (zippedDataPath.isNotEmpty())
+            if (zippedDataPath.isNotEmpty()) {
+                gestureIdsBeingExported = ids
                 ctx.startActivity(createSendIntentChooser(ctx))
+            }
         },
         enabled = hasData && Intent(Intent.ACTION_SENDTO)
             .apply { data = "mailto:".toUri() }.resolveActivity(ctx.packageManager) != null
@@ -130,13 +129,13 @@ private fun getZipFileUri(context: Context) : Uri =
         getGestureZipFile(context))
 
 @Composable
-private fun getData(ids: List<Long>?): ManagedActivityResultLauncher<Intent, ActivityResult> {
+private fun getData(ids: List<Long>): ManagedActivityResultLauncher<Intent, ActivityResult> {
     val ctx = LocalContext.current
     // check if file exists and not size 0, otherwise don't even offer the button
     return filePicker { uri ->
         val file = getGestureDataFile(ctx)
         val dao = GestureDataDao.getInstance(ctx) ?: return@filePicker
-        val data = ids?.let { dao.getJsonData(it) } ?: dao.getAllJsonData()
+        val data = dao.getJsonData(ids)
         file.writeText("[${data.joinToString(",\n")}]")
         ctx.getActivity()?.contentResolver?.openOutputStream(uri)?.use { os ->
             val zipStream = ZipOutputStream(os)
@@ -148,16 +147,15 @@ private fun getData(ids: List<Long>?): ManagedActivityResultLauncher<Intent, Act
             zipStream.closeEntry()
             zipStream.close()
         }
-        if (ids != null)
-            dao.markAsExported(ids)
+        dao.markAsExported(ids)
     }
 }
 
-private fun createZipFile(context: Context, ids: List<Long>?) : File {
+private fun createZipFile(context: Context, ids: List<Long>) : File {
     zippedDataPath = ""
     val jsonFile = getGestureDataFile(context)
     val dao = GestureDataDao.getInstance(context)!!
-    val data = ids?.let { dao.getJsonData(it) } ?: dao.getAllJsonData()
+    val data = dao.getJsonData(ids)
     jsonFile.writeText("[${data.joinToString(",\n")}]")
     val zipFile = getGestureZipFile(context)
     zipFile.delete()
@@ -190,7 +188,34 @@ private fun fileGetDelegate(context: Context, filename: String): File {
 }
 
 // necessary for giving the mail app access to an internal file
-class GestureFileProvider : FileProvider()
+// overrides to check when data is actually read (i.e. chooser not cancelled)
+class GestureFileProvider : FileProvider() {
+    override fun openFile(uri: Uri, mode: String, signal: CancellationSignal?): ParcelFileDescriptor? {
+        try {
+            return super.openFile(uri, mode, signal)
+        } finally {
+            val ctx = context
+            val ids = gestureIdsBeingExported
+            if (ctx != null && ids != null) {
+                GestureDataDao.getInstance(ctx)?.markAsExported(ids)
+            }
+        }
+    }
+
+    override fun openFile(uri: Uri, mode: String): ParcelFileDescriptor? {
+        try {
+            return super.openFile(uri, mode)
+        } finally {
+            val ctx = context
+            val ids = gestureIdsBeingExported
+            if (ctx != null && ids != null) {
+                GestureDataDao.getInstance(ctx)?.markAsExported(ids)
+            }
+        }
+    }
+}
+
+private var gestureIdsBeingExported: List<Long>? = null
 
 private var zippedDataPath = "" // set after writing the file
 

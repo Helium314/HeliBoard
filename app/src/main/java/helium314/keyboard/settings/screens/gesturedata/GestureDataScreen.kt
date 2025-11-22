@@ -100,8 +100,10 @@ import kotlinx.coroutines.launch
 import java.io.File
 import java.util.Locale
 import kotlin.collections.plus
-import kotlin.uuid.ExperimentalUuidApi
 
+// todo: use resource strings (also in share and review)
+// todo: write the proper texts / info dialogs to explain what's going on and privacy infos
+// todo: we need a mail address and a gpg key
 /**
  *  Simple "settings" screen that shows up when gesture typing is enabled.
  *  Allows "active data gathering", which is input of gesture typing data,
@@ -115,7 +117,7 @@ import kotlin.uuid.ExperimentalUuidApi
  *  review and redact the data before sending, and additionally exclude some
  *  words and apps from passive gathering.
  */
-@OptIn(ExperimentalMaterial3Api::class, ExperimentalUuidApi::class)
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun GestureDataScreen(
     onClickBack: () -> Unit,
