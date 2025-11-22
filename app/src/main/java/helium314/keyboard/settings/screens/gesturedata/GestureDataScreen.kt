@@ -109,18 +109,19 @@ import kotlin.collections.plus
 import kotlin.uuid.ExperimentalUuidApi
 
 /**
- *  Simple "settings" screen that shows up when glide typing is enabled.
- *  Allows input of glide typing data, and getting results in a file / sending as mail.
+ *  Simple "settings" screen that shows up when gesture typing is enabled.
+ *  Allows "active data gathering", which is input of gesture typing data,
+ *  and getting results in a file / sending as mail.
+ *  This mode is rather simple: the user chooses a dictionary, and get a
+ *  random word. After swiping this word it gets stored along with necessary
+ *  information to recreate the input and some additional data.
  *
- *  For the start, only single words are requested (randomly chosen from the selected dictionary). The user
- *  should type the word using gesture typing.
- *
- *  Possible extensions:
- *  * ngram / sentence data (how to generate?)
- *  * settings and other inputs (relevant when typing sentences because user might correct it)
- *  * multiple languages / dictionaries
- *  * allow user to provide real data? very risky regarding sensitive data, maybe ask for review of all data?
+ *  Will allow enabling "passive data gathering" later, which stores most of
+ *  the words entered using gesture typing. Here the user needs the ability
+ *  review and redact the data before sending, and additionally exclude some
+ *  words and apps from passive gathering.
  */
+// todo: disable stuff related to passive gathering only and finish active part + export for now
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalUuidApi::class)
 @Composable
 fun GestureDataScreen(
@@ -297,9 +298,10 @@ fun GestureDataScreen(
             if (activeGathering)
                 useActiveGathering()
             Spacer(Modifier.height(12.dp))
-            HorizontalDivider()
-            PassiveGathering()
-            Spacer(Modifier.height(12.dp))
+            // PassiveGathering is not finished and will be completed + enabled later
+//            HorizontalDivider()
+//            PassiveGathering()
+//            Spacer(Modifier.height(12.dp))
             HorizontalDivider()
             // maybe move the review screen content in here if we have enough space (but landscape mode will be bad)
             TextButton(onClick = { SettingsDestination.navigateTo(SettingsDestination.DataReview) }) {
@@ -332,7 +334,7 @@ fun GestureDataScreen(
                 .then(Modifier.safeDrawingPadding())
         )
 }
-
+/*
 @Composable
 private fun PassiveGathering() {
     val ctx = LocalContext.current
@@ -357,6 +359,7 @@ private fun PassiveGathering() {
         Text("manage excluded applications")
     }
     if (showExcludedAppsDialog) {
+        // todo: inverted mode where apps explicitly need to be enabled?
         var ignorePackages by remember { mutableStateOf(getAppIgnoreList(ctx)) }
         var packagesAndNames by remember { mutableStateOf(
             AppsManager(ctx).getPackagesAndNames()
@@ -472,7 +475,7 @@ private fun PassiveGathering() {
         )
     }
 }
-
+*/
 // we only check dictionaries for enabled locales (main + secondary)
 private fun getAvailableDictionaries(context: Context): List<DictWithInfo> {
     // todo: update hashes using the release upgrade script, and never remove an entry!
