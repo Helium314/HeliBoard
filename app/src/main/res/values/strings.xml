@@ -930,9 +930,7 @@ New dictionary:
     <!-- Button for sending the data file via mail -->
     <string name="gesture_data_send_mail">Send data via mail</string>
     <!-- Text requesting the user to gesture a word -->
-    <string name="gesture_data_please_type">Please gesture type: %s</string>
-    <!-- Information that fully loading a dictionary may take several seconds -->
-    <string name="gesture_data_please_wait">Loading dictionary, please wait…</string>
+    <string name="gesture_data_please_type">Please gesture type:</string>
     <!-- Button for saving data and go to next word (now only shows up when the word is not in suggestions -->
     <string name="gesture_data_next_save">Got \"%s\". Click if you\'re sure you gestured correctly</string>
     <!-- Button for next word without saving data -->

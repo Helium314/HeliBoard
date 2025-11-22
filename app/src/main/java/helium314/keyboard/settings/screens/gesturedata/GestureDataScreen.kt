@@ -3,7 +3,7 @@ package helium314.keyboard.settings.screens.gesturedata
 
 import android.content.Context
 import android.view.inputmethod.InputMethodManager
-import androidx.compose.foundation.clickable
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -32,7 +32,6 @@ import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TextField
@@ -60,13 +59,12 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.PlatformImeOptions
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.intl.LocaleList
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.window.DialogProperties
 import com.android.inputmethod.latin.BinaryDictionary
 import helium314.keyboard.compat.locale
 import helium314.keyboard.keyboard.Keyboard
-import helium314.keyboard.latin.AppsManager
 import helium314.keyboard.latin.NgramContext
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.SingleDictionaryFacilitator
@@ -86,18 +84,12 @@ import helium314.keyboard.latin.utils.UncachedInputMethodManagerUtils
 import helium314.keyboard.latin.utils.WordData
 import helium314.keyboard.latin.utils.dictTestImeOption
 import helium314.keyboard.latin.utils.gestureDataActiveFacilitator
-import helium314.keyboard.latin.utils.getAppIgnoreList
-import helium314.keyboard.latin.utils.getWordIgnoreList
 import helium314.keyboard.latin.utils.getSecondaryLocales
 import helium314.keyboard.latin.utils.locale
-import helium314.keyboard.latin.utils.setAppIgnoreList
-import helium314.keyboard.latin.utils.setWordIgnoreList
-import helium314.keyboard.settings.DeleteButton
 import helium314.keyboard.settings.DropDownField
 import helium314.keyboard.settings.NextScreenIcon
 import helium314.keyboard.settings.SettingsDestination
 import helium314.keyboard.settings.Theme
-import helium314.keyboard.settings.dialogs.ThreeButtonAlertDialog
 import helium314.keyboard.settings.initPreview
 import helium314.keyboard.settings.previewDark
 import kotlinx.coroutines.Dispatchers
@@ -218,18 +210,23 @@ fun GestureDataScreen(
         ) {
             Column {
                 val imm = ctx.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-                val text = if (UncachedInputMethodManagerUtils.isThisImeCurrent(ctx, imm)) {
-                    wordFromDict?.let { stringResource(R.string.gesture_data_please_type, it) }
-                        ?: stringResource(R.string.gesture_data_please_wait)
-                } else {
-                    "please switch to HeliBoard"
+                val text = when {
+                    !UncachedInputMethodManagerUtils.isThisImeCurrent(ctx, imm) -> "please switch to HeliBoard"
+                    else -> stringResource(R.string.gesture_data_please_type)
                 }
-                // todo: make the word bigger
-                //  means it needs to be in a separate text
                 Text(
                     text = text,
                     modifier = Modifier.alpha(if (wordFromDict == null) 0.5f else 1f)
                 )
+                CompositionLocalProvider(
+                    LocalTextStyle provides MaterialTheme.typography.titleLarge
+                ) {
+                    Text(
+                        text = wordFromDict ?: "",
+                        modifier = Modifier.fillMaxWidth().padding(vertical = 10.dp),
+                        textAlign = TextAlign.Center
+                    )
+                }
                 val activeWordsInDb by remember {
                     activeWordCount = 0
                     val dbCount = GestureDataDao.getInstance(ctx)?.filterInfos(exported = false, activeMode = true)?.size ?: 0
@@ -279,13 +276,17 @@ fun GestureDataScreen(
             // explain the project, add a link
             // why do we need data, how can you contribute
             // how to submit, and what is in gesture data: keyboard layout, used dictionaries, gesture track, app version, library hash, target word, suggestions by the current library, active / passive
-            Text(stringResource(R.string.gesture_data_description))
-            Spacer(Modifier.height(12.dp))
-            HorizontalDivider()
+            AnimatedVisibility(!activeGathering) {
+                // this part is hidden in active gathering mode because in active mode
+                // neither the keyboard nor the floating buttons (!) should cover any text
+                Text(stringResource(R.string.gesture_data_description))
+                Spacer(Modifier.height(12.dp))
+                HorizontalDivider()
+            }
             // full description in a popup?
             // use only built-in dictionaries and what is available on dicts repo (so we can fully reproduce things)
             // choose a dictionary, get a random word, swipe it and the next word will come immediately
-            Text("active gathering description")
+            Text("active gathering description") // todo: if this is more than 1-2 lines it should disappear when active mode is enabled
             TextButton({
                 activeGathering = !activeGathering
                 if (!activeGathering) {
@@ -295,8 +296,9 @@ fun GestureDataScreen(
             }) {
                 Text(if (activeGathering) "stop active gathering" else "start active gathering")
             }
-            if (activeGathering)
+            if (activeGathering) { // AnimatedVisibility results in buggy UI -> try again with newer Compose version
                 useActiveGathering()
+            }
             Spacer(Modifier.height(12.dp))
             // PassiveGathering is not finished and will be completed + enabled later
 //            HorizontalDivider()
@@ -550,7 +552,7 @@ private fun Preview() {
     initPreview(LocalContext.current)
     Theme(previewDark) {
         Surface {
-            GestureDataScreen {  }
+            GestureDataScreen { }
         }
     }
 }
