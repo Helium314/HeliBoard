@@ -92,6 +92,7 @@ import helium314.keyboard.settings.NextScreenIcon
 import helium314.keyboard.settings.SettingsDestination
 import helium314.keyboard.settings.Theme
 import helium314.keyboard.settings.initPreview
+import helium314.keyboard.settings.isWideScreen
 import helium314.keyboard.settings.previewDark
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -120,9 +121,7 @@ fun GestureDataScreen(
     onClickBack: () -> Unit,
 ) {
     val ctx = LocalContext.current
-    val width = LocalConfiguration.current.screenWidthDp
-    val height = LocalConfiguration.current.screenHeightDp
-    val useWideLayout = height < 500 && width > height
+    val useWideLayout = isWideScreen()
 
     // ideally we'd move all the active gathering stuff into a separate (non-local) function,
     // but either it has issues with the floating button positioning (if they are in the function)

@@ -51,7 +51,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -65,6 +64,7 @@ import helium314.keyboard.latin.utils.getWordIgnoreList
 import helium314.keyboard.settings.Theme
 import helium314.keyboard.settings.dialogs.ConfirmationDialog
 import helium314.keyboard.settings.dialogs.ThreeButtonAlertDialog
+import helium314.keyboard.settings.isWideScreen
 import helium314.keyboard.settings.previewDark
 import java.text.DateFormat
 import java.util.Date
@@ -88,9 +88,7 @@ fun ReviewScreen(
     var filter by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue()) }
     var gestureDataInfos by remember { mutableStateOf(listOf<GestureDataInfo>()) }
     val wordcount = if (selected.isNotEmpty()) selected.size else gestureDataInfos.size
-    val width = LocalConfiguration.current.screenWidthDp
-    val height = LocalConfiguration.current.screenHeightDp
-    val useWideLayout = height < 500 && width > height
+    val useWideLayout = isWideScreen()
     // show "long-press to select" hint somewhere
     Scaffold(
         contentWindowInsets = WindowInsets.safeDrawing.only(WindowInsetsSides.Bottom),
