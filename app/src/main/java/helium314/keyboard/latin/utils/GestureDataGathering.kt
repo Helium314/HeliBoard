@@ -38,7 +38,6 @@ fun getWordIgnoreList(context: Context): Set<String> {
 }
 
 fun setAppIgnoreList(context: Context, list: Collection<String>) {
-    val json = Json.encodeToString(list)
     context.prefs().edit { putString("gesture_data_app_exclusions", list.joinToString(",")) }
 }
 
