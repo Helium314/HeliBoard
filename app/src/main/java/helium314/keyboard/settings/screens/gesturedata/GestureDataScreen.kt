@@ -7,6 +7,7 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
@@ -119,6 +120,9 @@ fun GestureDataScreen(
     onClickBack: () -> Unit,
 ) {
     val ctx = LocalContext.current
+    val width = LocalConfiguration.current.screenWidthDp
+    val height = LocalConfiguration.current.screenHeightDp
+    val useWideLayout = height < 500 && width > height
 
     // ideally we'd move all the active gathering stuff into a separate (non-local) function,
     // but either it has issues with the floating button positioning (if they are in the function)
@@ -196,23 +200,38 @@ fun GestureDataScreen(
             }
         }
 
-        Box { // without the box the menu appears at the wrong position
-            DropDownField(availableDicts, dict, { dict = it }) {
-                val locale = it?.locale?.getDisplayName(LocalConfiguration.current.locale())
-                val internal = if (it?.internal == true) "(internal)" else "(downloaded)"
-                Text(locale?.let { loc -> "$loc $internal" } ?: "no dictionary")
+        @Composable fun dictsBox() {
+            Box { // without the box the menu appears at the wrong position
+                DropDownField(availableDicts, dict, { dict = it }) {
+                    val locale = it?.locale?.getDisplayName(LocalConfiguration.current.locale())
+                    val internal = if (it?.internal == true) "(internal)" else "(downloaded)"
+                    Text(locale?.let { loc -> "$loc $internal" } ?: "no dictionary")
+                }
             }
         }
-        Row(
-            Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.Center
-        ) {
-            Column {
-                val imm = ctx.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-                val text = when {
-                    !UncachedInputMethodManagerUtils.isThisImeCurrent(ctx, imm) -> "please switch to HeliBoard"
-                    else -> stringResource(R.string.gesture_data_please_type)
+        @Composable fun ColumnScope.texts() {
+            val imm = ctx.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            val text = when {
+                !UncachedInputMethodManagerUtils.isThisImeCurrent(ctx, imm) -> "please switch to HeliBoard"
+                else -> stringResource(R.string.gesture_data_please_type)
+            }
+            if (useWideLayout) {
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Text(
+                        text = text,
+                        modifier = Modifier.alpha(if (wordFromDict == null) 0.5f else 1f)
+                    )
+                    CompositionLocalProvider(
+                        LocalTextStyle provides MaterialTheme.typography.titleLarge
+                    ) {
+                        Text(
+                            text = wordFromDict ?: "",
+                            modifier = Modifier.fillMaxWidth(0.4f).padding(vertical = 10.dp),
+                            textAlign = TextAlign.Center
+                        )
+                    }
                 }
+            } else {
                 Text(
                     text = text,
                     modifier = Modifier.alpha(if (wordFromDict == null) 0.5f else 1f)
@@ -226,6 +245,16 @@ fun GestureDataScreen(
                         textAlign = TextAlign.Center
                     )
                 }
+            }
+        }
+        if (!useWideLayout)
+            dictsBox()
+        Row(
+            Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.Center
+        ) {
+            Column {
+                texts()
                 val activeWordsInDb by remember {
                     activeWordCount = 0
                     val dbCount = GestureDataDao.getInstance(ctx)?.filterInfos(exported = false, activeMode = true)?.size ?: 0
@@ -248,6 +277,8 @@ fun GestureDataScreen(
                 }
             }
         }
+        if (useWideLayout)
+            dictsBox()
     }
 
     val scrollState = rememberScrollState()
@@ -285,7 +316,8 @@ fun GestureDataScreen(
             // full description in a popup?
             // use only built-in dictionaries and what is available on dicts repo (so we can fully reproduce things)
             // choose a dictionary, get a random word, swipe it and the next word will come immediately
-            Text("active gathering description") // todo: if this is more than 1-2 lines it should disappear when active mode is enabled
+            if (!useWideLayout || !activeGathering)
+                Text("active gathering description") // todo: if this is more than 1-2 lines it should disappear when active mode is enabled
             TextButton({
                 activeGathering = !activeGathering
                 if (!activeGathering) {
@@ -322,7 +354,7 @@ fun GestureDataScreen(
                 .wrapContentSize(Alignment.BottomEnd)
                 .padding(all = 12.dp)
                 .then(Modifier.safeDrawingPadding())
-                .fillMaxWidth(0.5f)
+                .fillMaxWidth(if (useWideLayout) 0.3f else 0.5f)
         )
     if (wordFromDict != null)
         ExtendedFloatingActionButton(
