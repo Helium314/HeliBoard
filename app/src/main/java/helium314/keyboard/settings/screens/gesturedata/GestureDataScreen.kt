@@ -510,7 +510,6 @@ private fun PassiveGathering() {
 */
 // we only check dictionaries for enabled locales (main + secondary)
 private fun getAvailableDictionaries(context: Context): List<DictWithInfo> {
-    // todo: update hashes using the release upgrade script, and never remove an entry!
     val allowedHashes = context.assets.open("known_dict_hashes.txt")
         .use { it.reader().readLines() }.filter { it.isNotBlank() }
     val locales = SubtypeSettings.getEnabledSubtypes(true).flatMap {
