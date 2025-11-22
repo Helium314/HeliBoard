@@ -113,7 +113,6 @@ import kotlin.uuid.ExperimentalUuidApi
  *  review and redact the data before sending, and additionally exclude some
  *  words and apps from passive gathering.
  */
-// todo: disable stuff related to passive gathering only and finish active part + export for now
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalUuidApi::class)
 @Composable
 fun GestureDataScreen(
@@ -121,9 +120,9 @@ fun GestureDataScreen(
 ) {
     val ctx = LocalContext.current
 
-    // ideally we'd move all the active gathering stuff into a separate function,
+    // ideally we'd move all the active gathering stuff into a separate (non-local) function,
     // but either it has issues with the floating button positioning (if they are in the function)
-    // or the keyboard flashes (during recomposition)
+    // or the keyboard flashes during recomposition if they are outside the function
     var wordFromDict by remember { mutableStateOf<String?>(null) } // some word from the dictionary
     var lastData by remember { mutableStateOf<WordData?>(null) }
     var activeWordCount by remember { mutableIntStateOf(0) }
