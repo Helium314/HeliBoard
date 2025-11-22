@@ -223,6 +223,8 @@ fun GestureDataScreen(
                 } else {
                     "please switch to HeliBoard"
                 }
+                // todo: make the word bigger
+                //  means it needs to be in a separate text
                 Text(
                     text = text,
                     modifier = Modifier.alpha(if (wordFromDict == null) 0.5f else 1f)

@@ -328,7 +328,8 @@ fun ReviewScreen(
 private fun GestureDataEntry(gestureDataInfo: GestureDataInfo, selected: Boolean, anythingSelected: Boolean, onSelect: (Boolean) -> Unit) {
     val modifier = if (!anythingSelected)
         Modifier.combinedClickable(
-            onClick = { }, // todo: what should happen? more info? delete? show full data in a dialog?
+            onClick = { }, // todo: what should happen? more info in a dialog? option to delete / add to exclusions?
+            // todo: swipe? could delete or add to exclusions (with undo bar, don't apply immediately)
             onLongClick = { onSelect(true) },
         )
     else Modifier.selectable(
