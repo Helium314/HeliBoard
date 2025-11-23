@@ -85,6 +85,7 @@ import helium314.keyboard.latin.utils.UncachedInputMethodManagerUtils
 import helium314.keyboard.latin.utils.WordData
 import helium314.keyboard.latin.utils.dictTestImeOption
 import helium314.keyboard.latin.utils.gestureDataActiveFacilitator
+import helium314.keyboard.latin.utils.getExportedActiveDeletionCount
 import helium314.keyboard.latin.utils.getSecondaryLocales
 import helium314.keyboard.latin.utils.locale
 import helium314.keyboard.settings.DropDownField
@@ -101,10 +102,8 @@ import java.io.File
 import java.util.Locale
 import kotlin.collections.plus
 
-// todo: use resource strings (also in share and review)
 // todo: write the proper texts / info dialogs to explain what's going on and privacy infos
 // todo: we need a mail address and a gpg key
-// todo: activeWordsInDb should also consider deleted words
 /**
  *  Simple "settings" screen that shows up when gesture typing is enabled.
  *  Allows "active data gathering", which is input of gesture typing data,
@@ -259,12 +258,13 @@ fun GestureDataScreen(
         ) {
             Column {
                 texts()
-                val activeWordsInDb by remember {
+                val oldActiveWords by remember {
                     activeWordCount = 0
-                    val dbCount = GestureDataDao.getInstance(ctx)?.filterInfos(exported = false, activeMode = true)?.size ?: 0
-                    mutableIntStateOf(dbCount)
+                    val dbCount = GestureDataDao.getInstance(ctx)?.filterInfos(activeMode = true)?.size ?: 0
+                    val exportedAndDeletedCount = getExportedActiveDeletionCount(ctx)
+                    mutableIntStateOf(dbCount + exportedAndDeletedCount)
                 }
-                Text(stringResource(R.string.gesture_data_active_count, activeWordCount, activeWordCount + activeWordsInDb))
+                Text(stringResource(R.string.gesture_data_active_count, activeWordCount, activeWordCount + oldActiveWords))
                 Box(Modifier.size(1.dp)) { // box hides the field, but we can still interact with it
                     TextField(
                         value = TextFieldValue(),

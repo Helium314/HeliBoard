@@ -28,23 +28,34 @@ fun isInActiveGatheringMode(editorInfo: EditorInfo) =
 
 fun setWordIgnoreList(context: Context, list: Collection<String>) {
     val json = Json.encodeToString(list)
-    context.prefs().edit { putString("gesture_data_word_exclusions", json) }
+    context.prefs().edit { putString(PREF_WORD_EXCLUSIONS, json) }
 }
 
 fun getWordIgnoreList(context: Context): Set<String> {
-    val json = context.prefs().getString("gesture_data_word_exclusions", "[]") ?: "[]"
+    val json = context.prefs().getString(PREF_WORD_EXCLUSIONS, "[]") ?: "[]"
     if (json.isEmpty()) return sortedSetOf()
     return Json.decodeFromString<List<String>>(json).toSortedSet(compareBy(String.CASE_INSENSITIVE_ORDER) { it })
 }
 
 fun setAppIgnoreList(context: Context, list: Collection<String>) {
-    context.prefs().edit { putString("gesture_data_app_exclusions", list.joinToString(",")) }
+    context.prefs().edit { putString(PREF_APP_EXCLUSIONS, list.joinToString(",")) }
 }
 
 fun getAppIgnoreList(context: Context): List<String> {
-    val string = context.prefs().getString("gesture_data_app_exclusions", "") ?: ""
+    val string = context.prefs().getString(PREF_APP_EXCLUSIONS, "") ?: ""
     return string.split(",").filterNot { it.isEmpty() }
 }
+
+fun addExportedActiveDeletionCount(context: Context, count: Int) {
+    val oldCount = getExportedActiveDeletionCount(context)
+    context.prefs().edit { putInt(PREF_DELETED_ACTIVE, oldCount + count) }
+}
+
+fun getExportedActiveDeletionCount(context: Context) = context.prefs().getInt(PREF_DELETED_ACTIVE, 0)
+
+private const val PREF_WORD_EXCLUSIONS = "gesture_data_word_exclusions"
+private const val PREF_APP_EXCLUSIONS = "gesture_data_app_exclusions"
+private const val PREF_DELETED_ACTIVE = "gesture_data_deleted_active_words"
 
 const val dictTestImeOption = "useTestDictionaryFacilitator,${BuildConfig.APPLICATION_ID}.${Constants.ImeOption.NO_FLOATING_GESTURE_PREVIEW}"
 
@@ -282,12 +293,23 @@ class GestureDataDao(val db: Database) {
         db.writableDatabase.update(TABLE, cv, "$COLUMN_ID IN (${ids.joinToString(",")})", null)
     }
 
-    fun delete(ids: List<Long>, onlyExported: Boolean): Int {
+    fun delete(ids: List<Long>, onlyExported: Boolean, context: Context): Int {
         if (ids.isEmpty()) return 0
-        var where = "$COLUMN_ID IN (${ids.joinToString(",")})"
-        if (onlyExported)
-            where += " AND $COLUMN_EXPORTED <> 0"
-        return db.writableDatabase.delete(TABLE, where, null)
+        val where = "$COLUMN_ID IN (${ids.joinToString(",")})"
+        val whereExported = " AND $COLUMN_EXPORTED <> 0"
+        val count: Int
+        if (onlyExported) {
+            count = db.writableDatabase.delete(TABLE, where + whereExported, null)
+            addExportedActiveDeletionCount(context, count) // actually we could also have a counter in the db
+        } else {
+            val exportedCount = db.readableDatabase.rawQuery("SELECT COUNT(1) FROM $TABLE WHERE $where$whereExported", null).use {
+                it.moveToFirst()
+                it.getInt(0)
+            }
+            count = db.writableDatabase.delete(TABLE, where, null)
+            addExportedActiveDeletionCount(context, exportedCount)
+        }
+        return count
     }
 
     fun deleteAll() {
