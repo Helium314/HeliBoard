@@ -16,7 +16,6 @@ import helium314.keyboard.latin.BuildConfig;
 import helium314.keyboard.latin.settings.Settings;
 
 import java.io.File;
-import java.io.FileInputStream;
 
 @SuppressLint("PrivateApi") // it's a fallback in try/catch
 public final class JniUtils {
@@ -73,9 +72,7 @@ public final class JniUtils {
                     // if device is locked, this will throw an IllegalStateException
                     wantedChecksum = KtxKt.protectedPrefs(app).getString(Settings.PREF_LIBRARY_CHECKSUM, expectedDefaultChecksum());
                 }
-                final FileInputStream libStream = new FileInputStream(userSuppliedLibrary);
-                final String checksum = ChecksumCalculator.INSTANCE.checksum(libStream);
-                libStream.close();
+                final String checksum = ChecksumCalculator.INSTANCE.checksum(userSuppliedLibrary);
                 if (TextUtils.equals(wantedChecksum, checksum)) {
                     // try loading the library
                     System.load(userSuppliedLibrary.getAbsolutePath());

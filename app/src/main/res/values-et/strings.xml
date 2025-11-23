@@ -479,4 +479,6 @@
     <string name="inline_emoji_search">Emojide lõimitud otsing</string>
     <string name="inline_emoji_search_summary">Soovita emojisid vaid siis, kui sõna ees on koolon</string>
     <string name="emoji_dictionary_required">Et see funktsionaalsus toimiks, vajada emojide sõnastikku. Nõutavas .dict vormingus sõnastikke saad alla laadida siit: %s.</string>
+    <string name="layout_emoji_bottom_row_with_action" tools:keep="@string/layout_emoji_bottom_row_with_action">Alumine emojide rida tegevusnupu vajutamisel</string>
+    <string name="layout_clip_bottom_row_with_action" tools:keep="@string/layout_clip_bottom_row_with_action">Lõikelaua kirjete alumine rida tegevusnupu vajutamisel</string>
 </resources>

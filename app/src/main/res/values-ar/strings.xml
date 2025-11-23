@@ -262,7 +262,7 @@
     <string name="layout_error">خطأ في التخطيط: %s</string>
     <string name="edit_layout">انقر لتحرير التخطيط الأولي</string>
     <string name="day_or_night_night">ليل</string>
-    <string name="customize_background_image">تعيين صورة الخلفية</string>
+    <string name="customize_background_image">عيّن صورة الخلفية</string>
     <string name="replace_dictionary_message">هل تريد حقًا استبدال القاموس الذي أضافه المستخدم \"%1$s\"؟
 \n
 \nالقاموس الحالي:
@@ -383,7 +383,7 @@
     <string name="subtype_generic_phonetic">%s (صوتي)</string>
     <string name="customize_icons_reset_message">هل تريد إعادة تعيين جميع الأيقونات المخصصة؟</string>
     <string name="prefs_key_emoji_max_sdk">تجاوز إصدار الرموز التعبيرية</string>
-    <string name="customize_background_image_landscape">تعيين صورة الخلفية (أفقي)</string>
+    <string name="customize_background_image_landscape">عيّن صورة الخلفية (أفقي)</string>
     <string name="summary_customize_background_image_landscape">إذا لم يتم تعيينها، سيتم استخدام الصورة العمودية</string>
     <string name="customize_toolbar_key_code_reset_message">هل تريد مسح جميع رموز المفاتيح المخصصة؟</string>
     <string name="label_bin" tools:keep="@string/label_bin">سلة</string>
@@ -451,4 +451,6 @@
     <string name="inline_emoji_search_summary">اقترح رموزًا تعبيرية فقط عندما تسبق الكلمة نقطتان رأسيتان</string>
     <string name="emoji_dictionary_required">مطلوب قاموس رموز تعبيرية لكي تعمل هذه الميزة. يمكن تنزيل القواميس بتنسيق .dict %s.</string>
     <string name="subtype_mhr">ماري (شرقي)</string>
+    <string name="layout_clip_bottom_row_with_action" tools:keep="@string/layout_clip_bottom_row_with_action">الصف السفلي للحافظة مع مفتاح الإجراء</string>
+    <string name="layout_emoji_bottom_row_with_action" tools:keep="@string/layout_emoji_bottom_row_with_action">صف الرموز التعبيرية السفلي مع مفتاح الإجراء</string>
 </resources>
