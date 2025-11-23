@@ -16,6 +16,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.material.icons.Icons
@@ -46,6 +47,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -66,6 +68,7 @@ import helium314.keyboard.settings.dialogs.ConfirmationDialog
 import helium314.keyboard.settings.dialogs.ThreeButtonAlertDialog
 import helium314.keyboard.settings.isWideScreen
 import helium314.keyboard.settings.previewDark
+import kotlinx.coroutines.launch
 import java.text.DateFormat
 import java.util.Date
 
@@ -91,7 +94,7 @@ fun ReviewScreen(
     val useWideLayout = isWideScreen()
     var sortByName: Boolean by rememberSaveable { mutableStateOf(false) }
     var reverseSort: Boolean by rememberSaveable { mutableStateOf(false) }
-    // show "long-press to select" hint somewhere
+    // todo: show "long-press to select" hint somewhere
     Scaffold(
         contentWindowInsets = WindowInsets.safeDrawing.only(WindowInsetsSides.Bottom),
         bottomBar = {
@@ -132,7 +135,6 @@ fun ReviewScreen(
                                 Text(stringResource(R.string.gesture_data_words_selected, wordcount))
                             }
                         }
-                        // todo: sorting with these buttons should probably scroll to top
                         IconButton(
                             onClick = {
                                 if (sortByName) reverseSort = !reverseSort
@@ -161,7 +163,15 @@ fun ReviewScreen(
         }
     ) { innerPadding ->
         @Composable fun dataColumn() {
-            LazyColumn {
+            val wordListState = LazyListState()
+            val scope = rememberCoroutineScope()
+            LaunchedEffect(reverseSort, sortByName) {
+                scope.launch {
+                    if (gestureDataInfos.isNotEmpty())
+                        wordListState.scrollToItem(0)
+                }
+            }
+            LazyColumn(state = wordListState) {
                 items(gestureDataInfos, { it.id }) { item ->
                     //   each entry consists of word, time, active/passive, whether it's already exported
                     //    click shows raw data?

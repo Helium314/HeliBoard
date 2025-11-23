@@ -942,7 +942,7 @@ New dictionary:
     <!-- Title for the screen to review and submit gesture data -->
     <string name="gesture_data_review_screen_title">Review &amp; share gesture data</string>
     <!-- Short text on how many words are selected -->
-    <string name="gesture_data_words_selected">$s words</string>
+    <string name="gesture_data_words_selected">%s words</string>
     <!-- Short title for date range display -->
     <string name="gesture_data_date_range">Date range</string>
     <!-- Text offering deletion after exporting data -->
