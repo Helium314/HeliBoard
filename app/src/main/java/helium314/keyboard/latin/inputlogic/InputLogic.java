@@ -1255,6 +1255,7 @@ public final class InputLogic {
             } else {
                 mConnection.commitText("", 1);
             }
+            updateInlineEmojiSearch();
             inputTransaction.setRequiresUpdateSuggestions();
         } else {
             if (mLastComposedWord.canRevertCommit() && inputTransaction.getSettingsValues().mBackspaceRevertsAutocorrect) {
@@ -2611,7 +2612,7 @@ public final class InputLogic {
         if (on != isInlineEmojiSearchAction()) {
             KeyboardSwitcher.getInstance().loadKeyboard(mLatinIME.getCurrentInputEditorInfo(), Settings.getValues(),
                             mLatinIME.getCurrentAutoCapsState(), mLatinIME.getCurrentRecapitalizeState(),
-                            on? new KeyboardLayoutSet.InternalAction(KeyCode.INLINE_EMOJI_SEARCH_DONE,"⏹️") : null);
+                            on? new KeyboardLayoutSet.InternalAction(KeyCode.INLINE_EMOJI_SEARCH_DONE,"!icon/close_history") : null);
         }
     }
 
