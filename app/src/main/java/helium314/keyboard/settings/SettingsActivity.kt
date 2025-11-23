@@ -1,7 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0-only
 package helium314.keyboard.settings
 
-import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.net.Uri
@@ -15,8 +14,6 @@ import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -28,7 +25,6 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ComposeView
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import helium314.keyboard.compat.locale
 import helium314.keyboard.keyboard.KeyboardSwitcher
@@ -101,12 +97,7 @@ open class SettingsActivity : ComponentActivity(), SharedPreferences.OnSharedPre
                                     title = { Text(stringResource(R.string.android_spell_checker_settings)) },
                                     windowInsets = WindowInsets(0),
                                     navigationIcon = {
-                                        IconButton(onClick = { this@SettingsActivity.finish() }) {
-                                            Icon(
-                                                painterResource(R.drawable.ic_arrow_back),
-                                                stringResource(R.string.spoken_description_action_previous)
-                                            )
-                                        }
+                                        BackButton { this@SettingsActivity.finish() }
                                     },
                                 )
                                 settingsContainer[Settings.PREF_USE_CONTACTS]!!.Preference()
