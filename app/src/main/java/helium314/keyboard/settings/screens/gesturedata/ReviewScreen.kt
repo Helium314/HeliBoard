@@ -18,13 +18,14 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.selection.selectable
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.Share
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.DatePickerDialog
 import androidx.compose.material3.DateRangePicker
-import androidx.compose.material3.DropdownMenu
-import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
@@ -49,7 +50,6 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
@@ -89,6 +89,8 @@ fun ReviewScreen(
     var gestureDataInfos by remember { mutableStateOf(listOf<GestureDataInfo>()) }
     val wordcount = if (selected.isNotEmpty()) selected.size else gestureDataInfos.size
     val useWideLayout = isWideScreen()
+    var sortByName: Boolean by rememberSaveable { mutableStateOf(false) }
+    var reverseSort: Boolean by rememberSaveable { mutableStateOf(false) }
     // show "long-press to select" hint somewhere
     Scaffold(
         contentWindowInsets = WindowInsets.safeDrawing.only(WindowInsetsSides.Bottom),
@@ -107,11 +109,11 @@ fun ReviewScreen(
                         ) {
                             Column {
                                 Icon(
-                                    painterResource(R.drawable.ic_bin_rounded),
-                                    "delete",
+                                    Icons.Default.Delete,
+                                    stringResource(R.string.delete),
                                     Modifier.align(Alignment.CenterHorizontally).size(30.dp)
                                 )
-                                Text("delete $wordcount words")
+                                Text(stringResource(R.string.gesture_data_words_selected, wordcount))
                             }
                         }
                         // todo: extra delete for exported, if there are any?
@@ -123,12 +125,35 @@ fun ReviewScreen(
                         ) {
                             Column {
                                 Icon(
-                                    painterResource(R.drawable.share),
+                                    Icons.Default.Share,
                                     "share",
                                     Modifier.align(Alignment.CenterHorizontally).size(30.dp)
                                 )
-                                Text("share $wordcount words")
+                                Text(stringResource(R.string.gesture_data_words_selected, wordcount))
                             }
+                        }
+                        // todo: sorting with these buttons should probably scroll to top
+                        IconButton(
+                            onClick = {
+                                if (sortByName) reverseSort = !reverseSort
+                                else sortByName = true
+                            }
+                        ) {
+                            Icon(
+                                painterResource(R.drawable.ic_sort_alphabetically),
+                                "sort alphabetically"
+                            )
+                        }
+                        IconButton(
+                            onClick = {
+                                if (!sortByName) reverseSort = !reverseSort
+                                else sortByName = false
+                            }
+                        ) {
+                            Icon(
+                                painterResource(R.drawable.ic_sort_chronologically),
+                                "sort chronologically"
+                            )
                         }
                     }
                 }
@@ -155,8 +180,6 @@ fun ReviewScreen(
                 var includeExported by rememberSaveable { mutableStateOf(false) }
                 var startDate: Long? by rememberSaveable { mutableStateOf(null) }
                 var endDate: Long? by rememberSaveable { mutableStateOf(null) }
-                var sortByName: Boolean by rememberSaveable { mutableStateOf(false) }
-                var reverseSort: Boolean by rememberSaveable { mutableStateOf(false) }
                 fun sortWords() {
                     gestureDataInfos = if (sortByName) {
                         gestureDataInfos.sortedWith(compareBy(String.CASE_INSENSITIVE_ORDER) { it.targetWord })
@@ -182,7 +205,7 @@ fun ReviewScreen(
                     sortWords()
                 }
                 TopAppBar( // not in the scaffold, thus will not cover data column in wide screen layout
-                    title = { Text("Review & export gesture data") },
+                    title = { Text(stringResource(R.string.gesture_data_review_screen_title)) },
                     navigationIcon = {
                         IconButton(onClick = onClickBack) {
                             Icon(
@@ -191,27 +214,6 @@ fun ReviewScreen(
                             )
                         }
                     },
-                    actions = {
-                        Box {
-                            var showMenu by remember { mutableStateOf(false) }
-                            IconButton(
-                                onClick = { showMenu = true }
-                            ) { Icon(painterResource(R.drawable.ic_arrow_left), "menu", Modifier.rotate(-90f)) }
-                            DropdownMenu(
-                                expanded = showMenu,
-                                onDismissRequest = { showMenu = false }
-                            ) {
-                                DropdownMenuItem(
-                                    text = { Text(if (sortByName) "sort chronologically" else "sort alphabetically") },
-                                    onClick = { sortByName = !sortByName; showMenu = false; }
-                                )
-                                DropdownMenuItem(
-                                    text = { Text("reverse order") },
-                                    onClick = { reverseSort = !reverseSort; showMenu = false; }
-                                )
-                            }
-                        }
-                    }
                 )
                 // todo: this is ugly, rather use checkboxes or some other UI?
                 Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly) {
@@ -259,14 +261,14 @@ fun ReviewScreen(
                         value = filter,
                         onValueChange = { filter = it},
                         modifier = Modifier.weight(0.7f),
-                        label = { Text("filter") }
+                        label = { Text(stringResource(R.string.label_search_key)) }
                     )
                     Column(Modifier
                             .clickable { showDateRangePicker = true }
                             .weight(0.3f), horizontalAlignment = Alignment.CenterHorizontally) {
-                        Text("date range", style = MaterialTheme.typography.bodyLarge)
+                        Text(stringResource(R.string.gesture_data_date_range), style = MaterialTheme.typography.bodyLarge)
                         if (startDate == null && endDate == null)
-                            Text("not set", style = MaterialTheme.typography.bodyMedium)
+                            Text("-", style = MaterialTheme.typography.bodyMedium)
                         else {
                             Text(startDate?.let { df.format(Date(it)) }.toString(), style = MaterialTheme.typography.bodyMedium)
                             Text(endDate?.let { df.format(Date(it)) }.toString(), style = MaterialTheme.typography.bodyMedium)
@@ -383,7 +385,7 @@ private fun DateRangePickerModal(
         dismissButton = {
             Row(horizontalArrangement = Arrangement.Start, modifier = Modifier.fillMaxWidth(0.7f)) {
                 TextButton(onClick = { onDateRangeSelected(null to null); onDismiss() }) {
-                    Text("clear")
+                    Text(stringResource(R.string.delete))
                 }
                 TextButton(onClick = onDismiss) {
                     Text(stringResource(android.R.string.cancel))
@@ -393,7 +395,7 @@ private fun DateRangePickerModal(
     ) {
         DateRangePicker(
             state = pickerState,
-            title = { Text("Select date range") },
+            title = { Text(stringResource(R.string.gesture_data_date_range)) },
             showModeToggle = false,
             modifier = Modifier
                 .fillMaxWidth()

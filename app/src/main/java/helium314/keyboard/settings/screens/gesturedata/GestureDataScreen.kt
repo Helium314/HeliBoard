@@ -342,7 +342,7 @@ fun GestureDataScreen(
             HorizontalDivider()
             // maybe move the review screen content in here if we have enough space (but landscape mode will be bad)
             TextButton(onClick = { SettingsDestination.navigateTo(SettingsDestination.DataReview) }) {
-                Text("review & share gesture data")
+                Text(stringResource(R.string.gesture_data_review_screen_title))
             }
             // maybe show how many words are in the db (active, passive, exported, not exported)
         }

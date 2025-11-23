@@ -939,6 +939,12 @@ New dictionary:
     <string name="gesture_data_next">Skip word</string>
     <!-- Text stating how many words were written using active data gathering -->
     <string name="gesture_data_active_count">%1$s words in this session, %2$s words total</string>
+    <!-- Title for the screen to review and submit gesture data -->
+    <string name="gesture_data_review_screen_title">Review &amp; share gesture data</string>
+    <!-- Short text on how many words are selected -->
+    <string name="gesture_data_words_selected">$s words</string>
+    <!-- Short title for date range display -->
+    <string name="gesture_data_date_range">Date range</string>
     <!-- Text offering deletion after exporting data -->
     <!-- todo: consistent and clear naming for export / share / submit (and others) -->
     <string name="gesture_data_delete_exported">Delete the exported data (make sure the data is submitted!)</string>
