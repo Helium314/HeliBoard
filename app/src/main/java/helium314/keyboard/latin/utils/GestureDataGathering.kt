@@ -157,7 +157,7 @@ data class GestureDataInfo(val id: Long, val targetWord: String, val timestamp: 
 data class GestureData(
     val appVersionCode: Int,
     val libraryHash: String,
-    val targetWord: String, // this will be tricky for active gathering if user corrects the word
+    val targetWord: String?, // this will be tricky for active gathering if user corrects the word
     val dictionaries: List<DictInfo>,
     val suggestions: List<Suggestion>,
     val gesture: List<PointerData>,

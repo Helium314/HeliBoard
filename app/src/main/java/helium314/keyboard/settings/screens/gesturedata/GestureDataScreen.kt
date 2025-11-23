@@ -105,11 +105,14 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.io.File
 import java.util.Locale
-import kotlin.collections.ifEmpty
 import kotlin.collections.plus
+import kotlin.random.Random
 
 // todo: write the proper texts / info dialogs to explain what's going on and privacy infos
 // todo: we need a mail address and a gpg key
+// todo: ask user to upload if data is growing too much
+// todo: have max amount of data per file (aim for 25 MB, though could be sth like 10k or 20k entries)
+// todo: we'll want to stop gathering at some time -> ask the user to upload when it's close, and maybe block gathering at that point
 /**
  *  Simple "settings" screen that shows up when gesture typing is enabled.
  *  Allows "active data gathering", which is input of gesture typing data,
@@ -141,7 +144,7 @@ fun GestureDataScreen(
     var dbActiveWordCount by remember { mutableIntStateOf(dao.filterInfos(activeMode = true).size) }
     val focusRequester = remember { FocusRequester() }
     val keyboard = LocalSoftwareKeyboardController.current
-    val words = remember { mutableListOf<String>() }
+    val words = remember { mutableListOf<Pair<String, Int>>() }
     val scope = rememberCoroutineScope()
     fun nextWord(save: Boolean) {
         if (!save) {
@@ -151,7 +154,7 @@ fun GestureDataScreen(
             ++sessionWordCount
             it.save(ctx)
         } }
-        wordFromDict = words.ifEmpty { null }?.random() // randomly choose from dict
+        wordFromDict = getRandomWord(words)
         lastData = null
         // reset the data
         focusRequester.requestFocus()
@@ -639,7 +642,7 @@ private interface DictWithInfo {
     val internal: Boolean
     fun getDictionary(context: Context): BinaryDictionary
     // not actually suspending, but makes clear that it shouldn't be called on UI thread (because it's slow)
-    suspend fun addWords(context: Context, words: MutableList<String>) = getDictionary(context).addWords(words)
+    suspend fun addWords(context: Context, words: MutableList<Pair<String, Int>>) = getDictionary(context).addWords(words)
 }
 
 private class CacheDictWithInfo(private val file: File): DictWithInfo {
@@ -661,9 +664,10 @@ private class AssetsDictWithInfo(private val name: String, context: Context): Di
     }
 }
 
-private fun BinaryDictionary.addWords(words: MutableList<String>) {
+private fun BinaryDictionary.addWords(words: MutableList<Pair<String, Int>>) {
     var token = 0
     val hasCases = mLocale?.let { ScriptUtils.scriptSupportsUppercase(it) } ?: true
+    var cumulativeWeight = words.lastOrNull()?.second ?: 0
     do {
         val result = getNextWordProperty(token)
         val word = result.mWordProperty.mWord
@@ -673,11 +677,42 @@ private fun BinaryDictionary.addWords(words: MutableList<String>) {
                 && result.mWordProperty.probability > 15 // some minimum value, as there are too many unknown / rare words down there
                 && (!hasCases || word.uppercase() != word)
             )
-            // todo: more filters?
-            //  we could also try showing more frequent words more often
-            words.add(word)
+            cumulativeWeight += result.mWordProperty.probability
+            words.add(word to cumulativeWeight)
         token = result.mNextToken
     } while (token != 0)
+}
+
+// words will be added to the list while we're choosing -> ignore the new words
+// list may get cleared while we're choosing -> return null in that case
+private fun getRandomWord(words: MutableList<Pair<String, Int>>): String? {
+    if (words.isEmpty()) return null
+    val maxIndex = words.lastIndex
+    val lastCumWeight = words.getOrNull(maxIndex)?.second ?: return null
+    val random = Random.nextInt(lastCumWeight + 1)
+    return words.searchFirstExceedingScore(random)
+}
+
+// modified Kotlin binary search for cumulative weights
+private fun <T> List<Pair<T, Int>>.searchFirstExceedingScore(scoreToExceed: Int, fromIndex: Int = 0, toIndex: Int = lastIndex): T? {
+    var low = fromIndex
+    var high = toIndex
+
+    while (low <= high) {
+        val mid = (low + high).ushr(1) // safe from overflows
+        val midVal = getOrNull(mid) ?: return null
+        val scoreBeforeMid = getOrNull(mid - 1)?.second ?: 0
+
+        // we want midVal to be the lowest value larger than scoreToExceed, i.e. scoreBeforeMid <= scoreToExceed < midVal.score
+        if (scoreBeforeMid <= scoreToExceed) {
+            if (midVal.second > scoreToExceed)
+                return midVal.first
+            low = mid + 1
+        } else {
+            high = mid - 1
+        }
+    }
+    return null
 }
 
 @Preview
