@@ -28,6 +28,7 @@ import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import android.widget.TextView
+import androidx.core.view.doOnNextLayout
 import androidx.core.view.isVisible
 import helium314.keyboard.compat.isDeviceLocked
 import helium314.keyboard.event.HapticEvent
@@ -254,28 +255,19 @@ class SuggestionStripView(context: Context, attrs: AttributeSet?, defStyle: Int)
             "suggestionsStrip width: ${suggestionsStrip.width}, toolbarKeyLayoutParams.width: ${toolbarKeyLayoutParams.width}")
 
         if (addCloseButton) {
-            view.id = R.id.external_suggestions_view
             view.layoutParams = getExternalSuggestionsLayoutParams()
             suggestionsStrip.addView(view)
-
             val closeButton = createToolbarKey(context, ToolbarKey.CLOSE_HISTORY)
             closeButton.layoutParams = toolbarKeyLayoutParams
             setupKey(closeButton, Settings.getValues().mColors)
             closeButton.setOnClickListener { listener.removeExternalSuggestions() }
             suggestionsStrip.addView(closeButton)
+            doOnNextLayout { view.layoutParams = getExternalSuggestionsLayoutParams() }
         } else {
             suggestionsStrip.addView(view)
         }
 
         if (Settings.getValues().mAutoHideToolbar) setToolbarVisibility(false)
-    }
-
-    override fun onLayout(changed: Boolean, l: Int, t: Int, r: Int, b: Int) {
-        super.onLayout(changed, l, t, r, b)
-        findViewById<View>(R.id.external_suggestions_view)?.let {
-            it.layoutParams = getExternalSuggestionsLayoutParams()
-            it.requestLayout()
-        }
     }
 
     private fun getExternalSuggestionsLayoutParams(): LinearLayout.LayoutParams =
