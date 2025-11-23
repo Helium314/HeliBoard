@@ -10,16 +10,11 @@ import android.text.InputType;
 import android.view.inputmethod.EditorInfo;
 
 public final class InputTypeUtils implements InputType {
-    private static final int WEB_TEXT_PASSWORD_INPUT_TYPE =
-            TYPE_CLASS_TEXT | TYPE_TEXT_VARIATION_WEB_PASSWORD;
-    private static final int NUMBER_PASSWORD_INPUT_TYPE =
-            TYPE_CLASS_NUMBER | TYPE_NUMBER_VARIATION_PASSWORD;
-    private static final int TEXT_PASSWORD_INPUT_TYPE =
-            TYPE_CLASS_TEXT | TYPE_TEXT_VARIATION_PASSWORD;
-    private static final int TEXT_VISIBLE_PASSWORD_INPUT_TYPE =
-            TYPE_CLASS_TEXT | TYPE_TEXT_VARIATION_VISIBLE_PASSWORD;
-    private static final int TEXT_NUMBER_INPUT_TYPE =
-            TYPE_CLASS_NUMBER | TYPE_NUMBER_FLAG_DECIMAL;
+    private static final int WEB_TEXT_PASSWORD_INPUT_TYPE = TYPE_CLASS_TEXT | TYPE_TEXT_VARIATION_WEB_PASSWORD;
+    private static final int NUMBER_PASSWORD_INPUT_TYPE = TYPE_CLASS_NUMBER | TYPE_NUMBER_VARIATION_PASSWORD;
+    private static final int TEXT_PASSWORD_INPUT_TYPE = TYPE_CLASS_TEXT | TYPE_TEXT_VARIATION_PASSWORD;
+    private static final int TEXT_VISIBLE_PASSWORD_INPUT_TYPE = TYPE_CLASS_TEXT | TYPE_TEXT_VARIATION_VISIBLE_PASSWORD;
+    private static final int TEXT_NUMBER_INPUT_TYPE = TYPE_CLASS_NUMBER | TYPE_NUMBER_FLAG_DECIMAL;
     private static final int[] SUPPRESSING_AUTO_SPACES_FIELD_VARIATION = {
         InputType.TYPE_TEXT_VARIATION_WEB_EMAIL_ADDRESS,
         InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS,
@@ -32,29 +27,12 @@ public final class InputTypeUtils implements InputType {
         // This utility class is not publicly instantiable.
     }
 
-    private static boolean isWebPasswordInputType(final int inputType) {
-        return inputType == WEB_TEXT_PASSWORD_INPUT_TYPE;
-    }
-
-    private static boolean isNumberPasswordInputType(final int inputType) {
-        return inputType == NUMBER_PASSWORD_INPUT_TYPE;
-    }
-
-    private static boolean isTextPasswordInputType(final int inputType) {
-        return inputType == TEXT_PASSWORD_INPUT_TYPE;
-    }
-
-    private static boolean isWebEmailAddressVariation(int variation) {
-        return variation == TYPE_TEXT_VARIATION_WEB_EMAIL_ADDRESS;
-    }
-
     public static boolean isNumberInputType(final int inputType) {
         return (inputType & TEXT_NUMBER_INPUT_TYPE) != 0;
     }
 
     public static boolean isEmailVariation(final int variation) {
-        return variation == TYPE_TEXT_VARIATION_EMAIL_ADDRESS
-                || isWebEmailAddressVariation(variation);
+        return variation == TYPE_TEXT_VARIATION_EMAIL_ADDRESS || variation == TYPE_TEXT_VARIATION_WEB_EMAIL_ADDRESS;
     }
 
     public static boolean isUriOrEmailType(final int inputType) {
@@ -66,14 +44,18 @@ public final class InputTypeUtils implements InputType {
     // Please refer to TextView.isPasswordInputType
     public static boolean isPasswordInputType(final int inputType) {
         final int maskedInputType = inputType & (TYPE_MASK_CLASS | TYPE_MASK_VARIATION);
-        return isTextPasswordInputType(maskedInputType) || isWebPasswordInputType(maskedInputType)
-                || isNumberPasswordInputType(maskedInputType);
+        return maskedInputType == WEB_TEXT_PASSWORD_INPUT_TYPE || maskedInputType == TEXT_PASSWORD_INPUT_TYPE
+                || maskedInputType == NUMBER_PASSWORD_INPUT_TYPE;
     }
 
     // Please refer to TextView.isVisiblePasswordInputType
     public static boolean isVisiblePasswordInputType(final int inputType) {
         final int maskedInputType = inputType & (TYPE_MASK_CLASS | TYPE_MASK_VARIATION);
         return maskedInputType == TEXT_VISIBLE_PASSWORD_INPUT_TYPE;
+    }
+
+    public static boolean isAnyPasswordInputType(final int inputType) {
+        return isPasswordInputType(inputType) || isVisiblePasswordInputType(inputType);
     }
 
     public static boolean isAutoSpaceFriendlyType(final int inputType) {

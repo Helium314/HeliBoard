@@ -83,7 +83,6 @@ public final class KeyboardLayoutSet {
         boolean mDisableTouchPositionCorrectionDataForTest; // remove
         // TODO: Use {@link InputAttributes} instead of these variables.
         EditorInfo mEditorInfo;
-        boolean mIsPasswordField;
         boolean mVoiceInputKeyEnabled;
         boolean mDeviceLocked;
         boolean mNumberRowEnabled;
@@ -213,7 +212,6 @@ public final class KeyboardLayoutSet {
             params.mMode = getKeyboardMode(editorInfo);
             // TODO: Consolidate those with {@link InputAttributes}.
             params.mEditorInfo = editorInfo;
-            params.mIsPasswordField = InputTypeUtils.isPasswordInputType(editorInfo.inputType);
 
             // When the device is still locked, features like showing the IME setting app need to be locked down.
             params.mDeviceLocked = IsLockedCompatKt.isDeviceLocked(context);

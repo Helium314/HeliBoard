@@ -177,8 +177,7 @@ public final class KeyboardId {
 
     public boolean passwordInput() {
         final int inputType = mEditorInfo.inputType;
-        return InputTypeUtils.isPasswordInputType(inputType)
-                || InputTypeUtils.isVisiblePasswordInputType(inputType);
+        return InputTypeUtils.isAnyPasswordInputType(inputType);
     }
 
     public boolean isMultiLine() {
