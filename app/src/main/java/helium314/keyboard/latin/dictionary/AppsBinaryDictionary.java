@@ -3,19 +3,18 @@
 package helium314.keyboard.latin.dictionary;
 
 import android.content.Context;
-
 import com.android.inputmethod.latin.BinaryDictionary;
-
 import java.io.File;
 import java.util.Locale;
-
 import helium314.keyboard.latin.AppsManager;
 import helium314.keyboard.latin.NgramContext;
 import helium314.keyboard.latin.common.StringUtils;
 import helium314.keyboard.latin.utils.Log;
 import helium314.keyboard.latin.utils.SpacedTokens;
 
-public class AppsBinaryDictionary extends ExpandableBinaryDictionary {
+// todo: actually we only need a single AppsBinaryDictionary, but currently
+//  have one for each language, and may even have multiple instances in multilingual typing
+public class AppsBinaryDictionary extends ExpandableBinaryDictionary implements AppsManager.AppsChangedListener {
     private static final String TAG = AppsBinaryDictionary.class.getSimpleName();
     private static final String NAME = "apps";
 
@@ -31,12 +30,24 @@ public class AppsBinaryDictionary extends ExpandableBinaryDictionary {
             final File dictFile, final String name) {
         super(ctx, getDictName(name, locale, dictFile), locale, Dictionary.TYPE_APPS, dictFile);
         mAppsManager = new AppsManager(ctx);
+        mAppsManager.registerForUpdates(this);
         reloadDictionaryIfRequired();
     }
 
     public static AppsBinaryDictionary getDictionary(final Context context, final Locale locale,
             final File dictFile, final String dictNamePrefix) {
         return new AppsBinaryDictionary(context, locale, dictFile, dictNamePrefix + NAME);
+    }
+
+    @Override
+    public synchronized void close() {
+        mAppsManager.close();
+        super.close();
+    }
+
+    @Override
+    public void onAppsChanged() {
+        setNeedsToRecreate();
     }
 
     /**
