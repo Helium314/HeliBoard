@@ -282,9 +282,12 @@ class GestureDataDao(val db: Database) {
         db.writableDatabase.update(TABLE, cv, "$COLUMN_ID IN (${ids.joinToString(",")})", null)
     }
 
-    fun delete(ids: List<Long>) {
-        if (ids.isEmpty()) return
-        db.writableDatabase.delete(TABLE, "$COLUMN_ID IN (${ids.joinToString(",")})", null)
+    fun delete(ids: List<Long>, onlyExported: Boolean): Int {
+        if (ids.isEmpty()) return 0
+        var where = "$COLUMN_ID IN (${ids.joinToString(",")})"
+        if (onlyExported)
+            where += " AND $COLUMN_EXPORTED <> 0"
+        return db.writableDatabase.delete(TABLE, where, null)
     }
 
     fun deleteAll() {

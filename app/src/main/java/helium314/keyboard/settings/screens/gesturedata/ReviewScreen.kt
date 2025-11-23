@@ -324,7 +324,7 @@ fun ReviewScreen(
                 onDismissRequest = { showDeleteDialog = false },
                 onConfirmed = {
                     val ids = selected.ifEmpty { gestureDataInfos.map { it.id } }
-                    dao.delete(ids)
+                    dao.delete(ids, false)
                 },
                 content = {
                     Text("are you sure? will delete $wordcount words")

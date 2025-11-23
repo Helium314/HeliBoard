@@ -98,7 +98,7 @@ fun ShareGestureData(ids: List<Long>) { // should we really use null here? from 
 
     // this deletes the data in the dialog, but we should also have a way of deleting previously exported data
     if (showDelete)
-        TextButton({ dao.delete(ids) }, enabled = hasData) {
+        TextButton({ dao.delete(ids, true) }, enabled = hasData) {
             Text(stringResource(R.string.gesture_data_delete_exported))
     }
 }
