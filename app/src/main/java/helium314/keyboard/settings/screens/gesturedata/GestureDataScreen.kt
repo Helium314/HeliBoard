@@ -24,6 +24,10 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.Share
+import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.HorizontalDivider
@@ -90,8 +94,9 @@ import helium314.keyboard.latin.utils.getSecondaryLocales
 import helium314.keyboard.latin.utils.locale
 import helium314.keyboard.settings.DropDownField
 import helium314.keyboard.settings.NextScreenIcon
-import helium314.keyboard.settings.SettingsDestination
 import helium314.keyboard.settings.Theme
+import helium314.keyboard.settings.dialogs.ConfirmationDialog
+import helium314.keyboard.settings.dialogs.ThreeButtonAlertDialog
 import helium314.keyboard.settings.initPreview
 import helium314.keyboard.settings.isWideScreen
 import helium314.keyboard.settings.previewDark
@@ -100,6 +105,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.io.File
 import java.util.Locale
+import kotlin.collections.ifEmpty
 import kotlin.collections.plus
 
 // todo: write the proper texts / info dialogs to explain what's going on and privacy infos
@@ -124,13 +130,15 @@ fun GestureDataScreen(
 ) {
     val ctx = LocalContext.current
     val useWideLayout = isWideScreen()
+    val dao = GestureDataDao.getInstance(ctx)!!
 
     // ideally we'd move all the active gathering stuff into a separate (non-local) function,
     // but either it has issues with the floating button positioning (if they are in the function)
     // or the keyboard flashes during recomposition if they are outside the function
     var wordFromDict by remember { mutableStateOf<String?>(null) } // some word from the dictionary
     var lastData by remember { mutableStateOf<WordData?>(null) }
-    var activeWordCount by remember { mutableIntStateOf(0) }
+    var sessionWordCount by remember { mutableIntStateOf(0) }
+    var dbActiveWordCount by remember { mutableIntStateOf(dao.filterInfos(activeMode = true).size) }
     val focusRequester = remember { FocusRequester() }
     val keyboard = LocalSoftwareKeyboardController.current
     val words = remember { mutableListOf<String>() }
@@ -140,7 +148,7 @@ fun GestureDataScreen(
             lastData = null
         }
         lastData?.let { scope.launch {
-            ++activeWordCount
+            ++sessionWordCount
             it.save(ctx)
         } }
         wordFromDict = words.ifEmpty { null }?.random() // randomly choose from dict
@@ -170,7 +178,7 @@ fun GestureDataScreen(
                     val newData = WordData(target, suggestions, composedData, ngramContext, keyboard, inputStyle, true)
                     if (suggestions.any { it.mWord == target && it.mScore >= 0 }) { // just not negative should be fine
                         scope.launch {
-                            ++activeWordCount
+                            ++sessionWordCount
                             newData.save(ctx)
                         }
                         nextWord(false)
@@ -259,12 +267,12 @@ fun GestureDataScreen(
             Column {
                 texts()
                 val oldActiveWords by remember {
-                    activeWordCount = 0
-                    val dbCount = GestureDataDao.getInstance(ctx)?.filterInfos(activeMode = true)?.size ?: 0
+                    sessionWordCount = 0
+                    dbActiveWordCount = dao.filterInfos(activeMode = true).size
                     val exportedAndDeletedCount = getExportedActiveDeletionCount(ctx)
-                    mutableIntStateOf(dbCount + exportedAndDeletedCount)
+                    mutableIntStateOf(dbActiveWordCount + exportedAndDeletedCount)
                 }
-                Text(stringResource(R.string.gesture_data_active_count, activeWordCount, activeWordCount + oldActiveWords))
+                Text(stringResource(R.string.gesture_data_active_count, sessionWordCount, sessionWordCount + oldActiveWords))
                 Box(Modifier.size(1.dp)) { // box hides the field, but we can still interact with it
                     TextField(
                         value = TextFieldValue(),
@@ -287,7 +295,8 @@ fun GestureDataScreen(
 
     val scrollState = rememberScrollState()
     Scaffold(
-        contentWindowInsets = WindowInsets.safeDrawing.only(WindowInsetsSides.Bottom)
+        contentWindowInsets = WindowInsets.safeDrawing.only(WindowInsetsSides.Bottom),
+        bottomBar = { BottomBar(sessionWordCount + dbActiveWordCount > 0) }
     ) { innerPadding ->
         Column(
             modifier = Modifier
@@ -335,19 +344,21 @@ fun GestureDataScreen(
                 useActiveGathering()
             }
             Spacer(Modifier.height(12.dp))
-            // PassiveGathering is not finished and will be completed + enabled later
-//            HorizontalDivider()
-//            PassiveGathering()
-//            Spacer(Modifier.height(12.dp))
+            // PassiveGathering & Review are not finished and will be completed + enabled later
+/*
+            HorizontalDivider()
+            PassiveGathering()
+            Spacer(Modifier.height(12.dp))
             HorizontalDivider()
             // maybe move the review screen content in here if we have enough space (but landscape mode will be bad)
             TextButton(onClick = { SettingsDestination.navigateTo(SettingsDestination.DataReview) }) {
                 Text(stringResource(R.string.gesture_data_review_screen_title))
             }
-            // maybe show how many words are in the db (active, passive, exported, not exported)
+ */
         }
     }
     // showing at top left in preview, but correctly on device
+    // todo: buttons should not obscure bottom bar
     if (lastData != null)
         ExtendedFloatingActionButton(
             onClick = { nextWord(true) },
@@ -370,6 +381,95 @@ fun GestureDataScreen(
                 .padding(all = 12.dp)
                 .then(Modifier.safeDrawingPadding())
         )
+}
+
+@Composable
+private fun BottomBar(hasWords: Boolean) {
+    var showExportDialog by remember { mutableStateOf(false) }
+    var showDeleteDialog by remember { mutableStateOf(false) }
+    val dao = GestureDataDao.getInstance(LocalContext.current)!!
+    BottomAppBar(
+        actions = {
+            Row(
+                horizontalArrangement = Arrangement.SpaceEvenly,
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                IconButton(
+                    onClick = { showDeleteDialog = true},
+                    enabled = hasWords
+                ) {
+                    Icon(
+                        Icons.Default.Delete,
+                        stringResource(R.string.delete),
+                        Modifier.size(30.dp)
+                    )
+                }
+                IconButton(
+                    onClick = { showExportDialog = true},
+                    enabled = hasWords
+                ) {
+                    Icon(
+                        Icons.Default.Share,
+                        "share",
+                        Modifier.size(30.dp)
+                    )
+                }
+            }
+        }
+    )
+    if (showExportDialog) {
+        val exportedCount = dao.filterInfos(activeMode = true, exported = true).size
+        var shareAll by remember { mutableStateOf(if (exportedCount == 0) false else null) }
+        ThreeButtonAlertDialog(
+            onDismissRequest = { showExportDialog = false },
+            content = {
+                if (shareAll == null) {
+                    TextButton({ shareAll = true }) {
+                        Text("share all")
+                    }
+                    TextButton({ shareAll = false }) {
+                        Text("share non-exported")
+                    }
+                } else {
+                    val toShare = dao.filterInfos(activeMode = true, exported = if (shareAll == true) null else false)
+                    Column { ShareGestureData(toShare.map { it.id }) }
+                }
+            },
+            cancelButtonText = stringResource(R.string.dialog_close),
+            onConfirmed = { },
+            confirmButtonText = null
+        )
+    }
+    if (showDeleteDialog) {
+        val infos = dao.filterInfos(activeMode = true)
+        val exportedCount = infos.count { it.exported }
+        val nonExportedCount = infos.size - exportedCount
+        var showConfirmDialog by remember { mutableStateOf<String?>(null) }
+        ThreeButtonAlertDialog(
+            onDismissRequest = { showDeleteDialog = false },
+            content = {
+                Text("you have $nonExportedCount not exported words and, $exportedCount exported")
+            },
+            cancelButtonText = stringResource(R.string.dialog_close),
+            onConfirmed = { showConfirmDialog = "exported" },
+            confirmButtonText = "delete exported",
+            onNeutral = { showConfirmDialog = "all" },
+            neutralButtonText = "delete all"
+        )
+        if (showConfirmDialog != null) {
+            val ctx = LocalContext.current
+            ConfirmationDialog(
+                onDismissRequest = { showDeleteDialog = false },
+                onConfirmed = {
+                    val ids = dao.filterInfos(activeMode = true).map { it.id }
+                    dao.delete(ids, showConfirmDialog != "all", ctx)
+                },
+                content = {
+                    Text("are you sure? will delete ${if (showConfirmDialog == "all") (exportedCount + nonExportedCount) else exportedCount} words")
+                }
+            )
+        }
+    }
 }
 /*
 @Composable
