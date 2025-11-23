@@ -2,6 +2,7 @@
 package helium314.keyboard.compat
 
 import android.text.InputType
+import android.view.inputmethod.EditorInfo
 import helium314.keyboard.latin.utils.InputTypeUtils
 
 object AppWorkarounds {
@@ -16,6 +17,16 @@ object AppWorkarounds {
             "org.mozilla.klar", "org.mozilla.firefox", "org.ironfoxoss.ironfox", "net.waterfox.android.release",
             "io.github.forkmaintainers.iceraven", "com.zen.web.tools.browser" -> inputType or InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS or InputType.TYPE_TEXT_VARIATION_WEB_EDIT_TEXT
             else -> inputType
+        }
+    }
+
+    fun adjustImeOptions(imeOptions: Int, packageName: String?): Int {
+        return when (packageName) {
+            // Looks like Google decided to set inputType multiline and imeOptions no_enter_action
+            // on their search bar in Pixel launcher, and all keyboards ignore the flags because otherwise
+            // they would actually not perform the search action on action key. See https://github.com/Helium314/HeliBoard/issues/1989
+            "com.google.android.apps.nexuslauncher" -> if (imeOptions and EditorInfo.IME_FLAG_NO_ENTER_ACTION != 0) imeOptions - EditorInfo.IME_FLAG_NO_ENTER_ACTION else imeOptions
+            else -> imeOptions
         }
     }
 }

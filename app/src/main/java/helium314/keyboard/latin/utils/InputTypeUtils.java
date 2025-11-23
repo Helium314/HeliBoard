@@ -8,6 +8,7 @@ package helium314.keyboard.latin.utils;
 
 import android.text.InputType;
 import android.view.inputmethod.EditorInfo;
+import helium314.keyboard.compat.AppWorkarounds;
 
 public final class InputTypeUtils implements InputType {
     private static final int WEB_TEXT_PASSWORD_INPUT_TYPE = TYPE_CLASS_TEXT | TYPE_TEXT_VARIATION_WEB_PASSWORD;
@@ -68,13 +69,14 @@ public final class InputTypeUtils implements InputType {
     }
 
     public static int getImeOptionsActionIdFromEditorInfo(final EditorInfo editorInfo) {
-        if ((editorInfo.imeOptions & EditorInfo.IME_FLAG_NO_ENTER_ACTION) != 0) {
+        final int imeOptions = AppWorkarounds.INSTANCE.adjustImeOptions(editorInfo.imeOptions, editorInfo.packageName);
+        if ((imeOptions & EditorInfo.IME_FLAG_NO_ENTER_ACTION) != 0) {
             return EditorInfo.IME_ACTION_NONE;
         } else if (editorInfo.actionLabel != null) {
             return IME_ACTION_CUSTOM_LABEL;
         } else {
             // Note: this is different from editorInfo.actionId, hence "ImeOptionsActionId"
-            return editorInfo.imeOptions & EditorInfo.IME_MASK_ACTION;
+            return imeOptions & EditorInfo.IME_MASK_ACTION;
         }
     }
 }
