@@ -21,11 +21,11 @@ import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.WindowInsets
-import androidx.compose.foundation.layout.exclude
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.layout.wrapContentHeight
@@ -87,16 +87,15 @@ import helium314.keyboard.keyboard.internal.keyboard_parser.getEmojiDefaultVersi
 import helium314.keyboard.keyboard.internal.keyboard_parser.getEmojiKeyDimensions
 import helium314.keyboard.keyboard.internal.keyboard_parser.getEmojiNeutralVersion
 import helium314.keyboard.keyboard.internal.keyboard_parser.getEmojiPopupSpec
-import helium314.keyboard.latin.dictionary.Dictionary
-import helium314.keyboard.latin.dictionary.DictionaryFactory
 import helium314.keyboard.latin.LatinIME
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.RichInputMethodManager
 import helium314.keyboard.latin.RichInputMethodSubtype
 import helium314.keyboard.latin.SingleDictionaryFacilitator
 import helium314.keyboard.latin.common.ColorType
-import helium314.keyboard.latin.common.isEmoji
 import helium314.keyboard.latin.common.splitOnWhitespace
+import helium314.keyboard.latin.dictionary.Dictionary
+import helium314.keyboard.latin.dictionary.DictionaryFactory
 import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.utils.DictionaryInfoUtils
 import helium314.keyboard.latin.utils.Log
@@ -105,6 +104,8 @@ import helium314.keyboard.latin.utils.prefs
 import helium314.keyboard.settings.CloseIcon
 import helium314.keyboard.settings.SearchIcon
 import kotlin.properties.Delegates
+
+private const val TAG = "emoji-search"
 
 /**
  * This activity is displayed in a gap created for it above the keyboard and below the host app, and disables the host app.
@@ -126,7 +127,7 @@ class EmojiSearchActivity : ComponentActivity() {
 
     private val closer = Runnable {
         if (!imeVisible) {
-            Log.d("emoji-search", "IME closed")
+            Log.d(TAG, "IME closed")
             imeClosed = true
             cancel()
         }
@@ -142,7 +143,7 @@ class EmojiSearchActivity : ComponentActivity() {
             Surface(modifier = Modifier.fillMaxSize(), color = Color(0x80000000)) {
                 var heightDp by remember { mutableStateOf(0.dp) }
                 Column(modifier = Modifier.fillMaxSize().clickable(onClick = { cancel() })
-                    .windowInsetsPadding(WindowInsets.safeDrawing.exclude(WindowInsets(bottom = heightDp))),
+                    .windowInsetsPadding(WindowInsets.safeDrawing).offset(0.dp, heightDp),
                     verticalArrangement = Arrangement.Bottom
                 ) {
                     val localDensity = LocalDensity.current
@@ -151,7 +152,7 @@ class EmojiSearchActivity : ComponentActivity() {
                         .clickable(false) {}.onGloballyPositioned {
                             val bottom = it.localToScreen(Offset(0f, it.size.height.toFloat())).y.toInt()
                             imeVisible = bottom < screenHeight - 100
-                            Log.d("emoji-search", "imeVisible: $imeVisible, firstSearchDone: $firstSearchDone, imeOpened: $imeOpened, " +
+                            Log.d(TAG, "imeVisible: $imeVisible, firstSearchDone: $firstSearchDone, imeOpened: $imeOpened, " +
                                 "bottom: $bottom, keyboardState: ${KeyboardSwitcher.getInstance().keyboardSwitchState}")
                             if (imeOpened && !imeVisible) {
                                 Handler(this@EmojiSearchActivity.mainLooper).postDelayed(closer, 200)
@@ -161,7 +162,7 @@ class EmojiSearchActivity : ComponentActivity() {
                                 return@onGloballyPositioned
                             }
                             if (imeVisible && firstSearchDone && isAlphaKeyboard()) {
-                                Log.d("emoji-search", "IME opened in onGloballyPositioned")
+                                Log.d(TAG, "IME opened in onGloballyPositioned")
                                 imeOpened = true
                                 Handler(this@EmojiSearchActivity.mainLooper).removeCallbacks(closer)
                             }
@@ -244,9 +245,9 @@ class EmojiSearchActivity : ComponentActivity() {
     }
 
     override fun onEnterAnimationComplete() {
-        Log.d("emoji-search", "onEnterAnimationComplete")
+        Log.d(TAG, "onEnterAnimationComplete")
         search(searchText)
-        Log.d("emoji-search", "initial search done")
+        Log.d(TAG, "initial search done")
     }
 
     override fun onConfigurationChanged(newConfig: Configuration) {
@@ -274,10 +275,10 @@ class EmojiSearchActivity : ComponentActivity() {
     }
 
     private fun init() {
-        Log.d("emoji-search", "init start")
+        Log.d(TAG, "init start")
         @Suppress("DEPRECATION")
         screenHeight = windowManager.defaultDisplay.height
-        Log.d("emoji-search", "screenHeight: $screenHeight")
+        Log.d(TAG, "screenHeight: $screenHeight")
         hintLocales = LocaleList(DictionaryInfoUtils.getLocalesWithEmojiDicts(this).map { Locale(it.toLanguageTag()) })
         val keyboardWidth = ResourceUtils.getKeyboardWidth(this, Settings.getValues())
         val layoutSet = KeyboardLayoutSet.Builder(this, null).setSubtype(RichInputMethodSubtype.emojiSubtype)
@@ -318,7 +319,7 @@ class EmojiSearchActivity : ComponentActivity() {
                 } else null
         })
         KeyboardSwitcher.getInstance().setAlphabetKeyboard()
-        Log.d("emoji-search", "init end")
+        Log.d(TAG, "init end")
     }
 
     private fun isAlphaKeyboard() = KeyboardSwitcher.getInstance().keyboardSwitchState !in
@@ -360,7 +361,7 @@ class EmojiSearchActivity : ComponentActivity() {
         searchText = text
         firstSearchDone = true
         if (imeVisible && !imeOpened) {
-            Log.d("emoji-search", "IME opened in search")
+            Log.d(TAG, "IME opened in search")
             imeOpened = true
         }
     }
