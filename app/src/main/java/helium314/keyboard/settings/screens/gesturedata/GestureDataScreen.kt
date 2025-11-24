@@ -570,9 +570,10 @@ private fun BinaryDictionary.addWords(words: MutableList<Pair<String, Int>>) {
                 && !(result.mWordProperty.mIsPossiblyOffensive && Settings.getValues().mBlockPotentiallyOffensive)
                 && result.mWordProperty.probability > 15 // some minimum value, as there are too many unknown / rare words down there
                 && (!hasCases || word.uppercase() != word)
-            )
+            ) {
             cumulativeWeight += result.mWordProperty.probability
             words.add(word to cumulativeWeight)
+        }
         token = result.mNextToken
     } while (token != 0)
 }
