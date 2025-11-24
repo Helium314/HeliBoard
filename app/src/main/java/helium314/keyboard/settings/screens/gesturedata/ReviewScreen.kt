@@ -1,6 +1,8 @@
 // SPDX-License-Identifier: GPL-3.0-only
 package helium314.keyboard.settings.screens.gesturedata
 
+// not actually on use, unfinished
+/*
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Arrangement
@@ -72,7 +74,6 @@ import kotlinx.coroutines.launch
 import java.text.DateFormat
 import java.util.Date
 
-// not actually on use, unfinished
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ReviewScreen(
@@ -423,3 +424,4 @@ private fun Preview() {
         ReviewScreen { }
     }
 }
+*/

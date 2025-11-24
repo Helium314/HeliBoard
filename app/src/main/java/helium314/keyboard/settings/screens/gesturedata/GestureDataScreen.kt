@@ -509,6 +509,120 @@ private fun BottomBar(hasWords: Boolean) {
         }
     }
 }
+
+// we only check dictionaries for enabled locales (main + secondary)
+private fun getAvailableDictionaries(context: Context): List<DictWithInfo> {
+    val allowedHashes = context.assets.open("known_dict_hashes.txt")
+        .use { it.reader().readLines() }.filter { it.isNotBlank() }
+    val locales = SubtypeSettings.getEnabledSubtypes(true).flatMap {
+        getSecondaryLocales(it.extraValue) + it.locale()
+    }
+    val languages = locales.mapTo(hashSetOf()) { it.language }
+    val cached = DictionaryInfoUtils.getCacheDirectories(context)
+        .filter { it.name.constructLocale().language in languages }
+        .mapNotNull { dir -> dir.listFiles()?.filter {
+            it.name.startsWith(DictionaryInfoUtils.DEFAULT_MAIN_DICT)
+        } }.flatten().map { CacheDictWithInfo(it) }.filter { it.hash in allowedHashes }
+    val assets = DictionaryInfoUtils.getAssetsDictionaryList(context).orEmpty()
+        .filter { it.substringAfter("_").substringBefore(".dict").constructLocale().language in languages }
+        .map { AssetsDictWithInfo(it, context) }
+        .filter { dict -> cached.none { it.hash == dict.hash } && dict.hash in allowedHashes }
+    return cached + assets
+}
+
+private interface DictWithInfo {
+    val hash: String
+    val locale: Locale
+    val internal: Boolean
+    fun getDictionary(context: Context): BinaryDictionary
+    // not actually suspending, but makes clear that it shouldn't be called on UI thread (because it's slow)
+    suspend fun addWords(context: Context, words: MutableList<Pair<String, Int>>) = getDictionary(context).addWords(words)
+}
+
+private class CacheDictWithInfo(private val file: File): DictWithInfo {
+    override val locale = (DictionaryInfoUtils.getDictionaryFileHeaderOrNull(file)?.mLocaleString ?: SubtypeLocaleUtils.NO_LANGUAGE)
+        .constructLocale()
+    override val hash = ChecksumCalculator.checksum(file) ?: ""
+    override val internal = !file.name.endsWith(DictionaryInfoUtils.USER_DICTIONARY_SUFFIX)
+    override fun getDictionary(context: Context) =
+        BinaryDictionary(file.absolutePath, 0, file.length(), false, locale, Dictionary.TYPE_MAIN, false)
+}
+
+private class AssetsDictWithInfo(private val name: String, context: Context): DictWithInfo {
+    override val internal = true
+    override val locale = DictionaryInfoUtils.extractLocaleFromAssetsDictionaryFile(name)
+    override val hash = context.assets.open("dicts${File.separator}$name").use { ChecksumCalculator.checksum(it) } ?: ""
+    override fun getDictionary(context: Context): BinaryDictionary {
+        val file = DictionaryInfoUtils.extractAssetsDictionary(name, locale, context)!!
+        return BinaryDictionary(file.absolutePath, 0, file.length(), false, locale, Dictionary.TYPE_MAIN, false)
+    }
+}
+
+private fun BinaryDictionary.addWords(words: MutableList<Pair<String, Int>>) {
+    var token = 0
+    val hasCases = mLocale?.let { ScriptUtils.scriptSupportsUppercase(it) } ?: true
+    var cumulativeWeight = words.lastOrNull()?.second ?: 0
+    do {
+        val result = getNextWordProperty(token)
+        val word = result.mWordProperty.mWord
+        if (!result.mWordProperty.mIsNotAWord
+                && word.length > 1
+                && !(result.mWordProperty.mIsPossiblyOffensive && Settings.getValues().mBlockPotentiallyOffensive)
+                && result.mWordProperty.probability > 15 // some minimum value, as there are too many unknown / rare words down there
+                && (!hasCases || word.uppercase() != word)
+            )
+            cumulativeWeight += result.mWordProperty.probability
+            words.add(word to cumulativeWeight)
+        token = result.mNextToken
+    } while (token != 0)
+}
+
+// words will be added to the list while we're choosing -> ignore the new words
+// list may get cleared while we're choosing -> return null in that case
+private fun getRandomWord(words: MutableList<Pair<String, Int>>): String? {
+    if (words.isEmpty()) return null
+    val maxIndex = words.lastIndex
+    val lastCumWeight = words.getOrNull(maxIndex)?.second ?: return null
+    val random = Random.nextInt(lastCumWeight + 1)
+    return words.searchFirstExceedingScore(random)
+}
+
+// modified Kotlin binary search for cumulative weights
+private fun <T> List<Pair<T, Int>>.searchFirstExceedingScore(scoreToExceed: Int, fromIndex: Int = 0, toIndex: Int = lastIndex): T? {
+    var low = fromIndex
+    var high = toIndex
+
+    while (low <= high) {
+        val mid = (low + high).ushr(1) // safe from overflows
+        val midVal = getOrNull(mid) ?: return null
+        val scoreBeforeMid = getOrNull(mid - 1)?.second ?: 0
+
+        // we want midVal to be the lowest value larger than scoreToExceed, i.e. scoreBeforeMid <= scoreToExceed < midVal.score
+        if (scoreBeforeMid <= scoreToExceed) {
+            if (midVal.second > scoreToExceed)
+                return midVal.first
+            low = mid + 1
+        } else {
+            high = mid - 1
+        }
+    }
+    return null
+}
+
+private const val END_DATE_EPOCH_MILLIS = 1772321496000L // Feb 28th 2026, todo: replace with some real end date
+private const val TWO_WEEKS_IN_MILLIS = 14L * 24 * 3600 * 1000
+
+@Preview
+@Composable
+private fun Preview() {
+    initPreview(LocalContext.current)
+    Theme(previewDark) {
+        Surface {
+            GestureDataScreen { }
+        }
+    }
+}
+
 /*
 @Composable
 private fun PassiveGathering() {
@@ -651,115 +765,3 @@ private fun PassiveGathering() {
     }
 }
 */
-// we only check dictionaries for enabled locales (main + secondary)
-private fun getAvailableDictionaries(context: Context): List<DictWithInfo> {
-    val allowedHashes = context.assets.open("known_dict_hashes.txt")
-        .use { it.reader().readLines() }.filter { it.isNotBlank() }
-    val locales = SubtypeSettings.getEnabledSubtypes(true).flatMap {
-        getSecondaryLocales(it.extraValue) + it.locale()
-    }
-    val languages = locales.mapTo(hashSetOf()) { it.language }
-    val cached = DictionaryInfoUtils.getCacheDirectories(context)
-        .filter { it.name.constructLocale().language in languages }
-        .mapNotNull { dir -> dir.listFiles()?.filter {
-            it.name.startsWith(DictionaryInfoUtils.DEFAULT_MAIN_DICT)
-        } }.flatten().map { CacheDictWithInfo(it) }.filter { it.hash in allowedHashes }
-    val assets = DictionaryInfoUtils.getAssetsDictionaryList(context).orEmpty()
-        .filter { it.substringAfter("_").substringBefore(".dict").constructLocale().language in languages }
-        .map { AssetsDictWithInfo(it, context) }
-        .filter { dict -> cached.none { it.hash == dict.hash } && dict.hash in allowedHashes }
-    return cached + assets
-}
-
-private interface DictWithInfo {
-    val hash: String
-    val locale: Locale
-    val internal: Boolean
-    fun getDictionary(context: Context): BinaryDictionary
-    // not actually suspending, but makes clear that it shouldn't be called on UI thread (because it's slow)
-    suspend fun addWords(context: Context, words: MutableList<Pair<String, Int>>) = getDictionary(context).addWords(words)
-}
-
-private class CacheDictWithInfo(private val file: File): DictWithInfo {
-    override val locale = (DictionaryInfoUtils.getDictionaryFileHeaderOrNull(file)?.mLocaleString ?: SubtypeLocaleUtils.NO_LANGUAGE)
-        .constructLocale()
-    override val hash = ChecksumCalculator.checksum(file) ?: ""
-    override val internal = !file.name.endsWith(DictionaryInfoUtils.USER_DICTIONARY_SUFFIX)
-    override fun getDictionary(context: Context) =
-        BinaryDictionary(file.absolutePath, 0, file.length(), false, locale, Dictionary.TYPE_MAIN, false)
-}
-
-private class AssetsDictWithInfo(private val name: String, context: Context): DictWithInfo {
-    override val internal = true
-    override val locale = DictionaryInfoUtils.extractLocaleFromAssetsDictionaryFile(name)
-    override val hash = context.assets.open("dicts${File.separator}$name").use { ChecksumCalculator.checksum(it) } ?: ""
-    override fun getDictionary(context: Context): BinaryDictionary {
-        val file = DictionaryInfoUtils.extractAssetsDictionary(name, locale, context)!!
-        return BinaryDictionary(file.absolutePath, 0, file.length(), false, locale, Dictionary.TYPE_MAIN, false)
-    }
-}
-
-private fun BinaryDictionary.addWords(words: MutableList<Pair<String, Int>>) {
-    var token = 0
-    val hasCases = mLocale?.let { ScriptUtils.scriptSupportsUppercase(it) } ?: true
-    var cumulativeWeight = words.lastOrNull()?.second ?: 0
-    do {
-        val result = getNextWordProperty(token)
-        val word = result.mWordProperty.mWord
-        if (!result.mWordProperty.mIsNotAWord
-                && word.length > 1
-                && !(result.mWordProperty.mIsPossiblyOffensive && Settings.getValues().mBlockPotentiallyOffensive)
-                && result.mWordProperty.probability > 15 // some minimum value, as there are too many unknown / rare words down there
-                && (!hasCases || word.uppercase() != word)
-            )
-            cumulativeWeight += result.mWordProperty.probability
-            words.add(word to cumulativeWeight)
-        token = result.mNextToken
-    } while (token != 0)
-}
-
-// words will be added to the list while we're choosing -> ignore the new words
-// list may get cleared while we're choosing -> return null in that case
-private fun getRandomWord(words: MutableList<Pair<String, Int>>): String? {
-    if (words.isEmpty()) return null
-    val maxIndex = words.lastIndex
-    val lastCumWeight = words.getOrNull(maxIndex)?.second ?: return null
-    val random = Random.nextInt(lastCumWeight + 1)
-    return words.searchFirstExceedingScore(random)
-}
-
-// modified Kotlin binary search for cumulative weights
-private fun <T> List<Pair<T, Int>>.searchFirstExceedingScore(scoreToExceed: Int, fromIndex: Int = 0, toIndex: Int = lastIndex): T? {
-    var low = fromIndex
-    var high = toIndex
-
-    while (low <= high) {
-        val mid = (low + high).ushr(1) // safe from overflows
-        val midVal = getOrNull(mid) ?: return null
-        val scoreBeforeMid = getOrNull(mid - 1)?.second ?: 0
-
-        // we want midVal to be the lowest value larger than scoreToExceed, i.e. scoreBeforeMid <= scoreToExceed < midVal.score
-        if (scoreBeforeMid <= scoreToExceed) {
-            if (midVal.second > scoreToExceed)
-                return midVal.first
-            low = mid + 1
-        } else {
-            high = mid - 1
-        }
-    }
-    return null
-}
-
-private const val END_DATE_EPOCH_MILLIS = 1772321496000L // Feb 28th 2026, todo: replace with some real end date
-private const val TWO_WEEKS_IN_MILLIS = 14L * 24 * 3600 * 1000
-
-@Preview
-@Composable
-private fun Preview() {
-    initPreview(LocalContext.current)
-    Theme(previewDark) {
-        Surface {
-            GestureDataScreen { }
-        }
-    }
-}
