@@ -143,14 +143,9 @@ fun <T: Any?> SearchScreen(
                         title = title,
                         windowInsets = WindowInsets(0),
                         navigationIcon = {
-                            IconButton(onClick = {
+                            BackButton {
                                 if (showSearch) setShowSearch(false)
                                 else onClickBack()
-                            }) {
-                                Icon(
-                                    painterResource(R.drawable.ic_arrow_back),
-                                    stringResource(R.string.spoken_description_action_previous)
-                                )
                             }
                         },
                         actions = {

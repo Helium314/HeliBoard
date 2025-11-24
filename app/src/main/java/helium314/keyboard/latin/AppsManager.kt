@@ -2,14 +2,16 @@
 
 package helium314.keyboard.latin
 
+import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import android.content.pm.PackageManager
 import android.content.pm.ResolveInfo
-import java.util.HashSet
 
-class AppsManager(context: Context) {
+class AppsManager(val context: Context) : BroadcastReceiver() {
     private val mPackageManager: PackageManager = context.packageManager
+    private var listener: AppsChangedListener? = null
 
     /**
      * Returns all app labels associated with a launcher icon, sorted arbitrarily.
@@ -19,13 +21,32 @@ class AppsManager(context: Context) {
         // activities with an entry/icon for the launcher
         val launcherApps: List<ResolveInfo> = mPackageManager.queryIntentActivities(filter, 0)
 
-        val names = HashSet<String>(launcherApps.size)
-        for (info in launcherApps) {
-            val name = info.activityInfo.loadLabel(mPackageManager).toString()
-            names.add(name)
+        return launcherApps.mapTo(HashSet(launcherApps.size)) {
+            it.activityInfo.loadLabel(mPackageManager).toString()
         }
+    }
 
-        return names
+    fun registerForUpdates(listener: AppsChangedListener) {
+        this.listener = listener
+        val packageFilter = IntentFilter()
+        packageFilter.addAction(Intent.ACTION_PACKAGE_ADDED)
+        packageFilter.addAction(Intent.ACTION_PACKAGE_REMOVED)
+        packageFilter.addDataScheme("package")
+        context.registerReceiver(this, packageFilter)
+    }
+
+    fun close() {
+        context.unregisterReceiver(this)
+        listener = null
+    }
+
+    override fun onReceive(context: Context, intent: Intent) {
+        if (!intent.getBooleanExtra(Intent.EXTRA_REPLACING, false))
+            listener?.onAppsChanged()
+    }
+
+    interface AppsChangedListener {
+        fun onAppsChanged()
     }
 
     fun getPackagesAndNames(): Collection<Pair<String, String>> {

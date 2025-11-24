@@ -435,4 +435,13 @@
     <string name="subtype_generic_sebeolsik_390">%s (Sebeolsik 390)</string>
     <string name="subtype_generic_sebeolsik_final">%s (Sebeolsik Final)</string>
     <string name="subtype_generic_student">%s (Estudante)</string>
+    <string name="inline_emoji_search">Pesquisa de emoji embutida</string>
+    <string name="inline_emoji_search_summary">Sugerir somente emojis quando uma palavra for precedida por dois pontos</string>
+    <string name="emoji_dictionary_required">Um dicionário de emoijs é necessário para isto funcionar. Dicionários no formato .dict podem ser descarregados %s.</string>
+    <string name="clipboard_history_pinned_first">Mostrar items afixados no topo</string>
+    <string name="save_subtype_per_app">Lembrar idioma por app</string>
+    <string name="subtype_mhr">Mai (Oriental)</string>
+    <string name="subtype_khipro_bn">%s (Khipro)</string>
+    <string name="layout_emoji_bottom_row_with_action" tools:keep="@string/layout_emoji_bottom_row_with_action">Fila inferior de emoji com tecla de ação</string>
+    <string name="layout_clip_bottom_row_with_action" tools:keep="@string/layout_clip_bottom_row_with_action">Fila inferior da área de transferência com tecla de ação</string>
 </resources>
