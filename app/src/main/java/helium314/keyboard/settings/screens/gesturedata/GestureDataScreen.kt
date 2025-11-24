@@ -106,13 +106,15 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.io.File
+import java.text.DateFormat
+import java.util.Date
 import java.util.Locale
 import kotlin.collections.plus
 import kotlin.random.Random
 
+// todo: string resources
 // todo: write the proper texts / info dialogs to explain what's going on and privacy infos
 // todo: we need a mail address and a gpg key
-// todo: we'll want to stop gathering at some time -> ask the user to upload when it's close, and maybe block gathering at that point
 /**
  *  Simple "settings" screen that shows up when gesture typing is enabled.
  *  Allows "active data gathering", which is input of gesture typing data,
@@ -143,6 +145,7 @@ fun GestureDataScreen(
     var sessionWordCount by remember { mutableIntStateOf(0) }
     var dbActiveWordCount by remember { mutableIntStateOf(dao.count(activeMode = true)) }
     var showUploadDialog by rememberSaveable { mutableStateOf(true) }
+    var showEndDialog by rememberSaveable { mutableStateOf(true) }
     val focusRequester = remember { FocusRequester() }
     val keyboard = LocalSoftwareKeyboardController.current
     val words = remember { mutableListOf<Pair<String, Int>>() }
@@ -160,6 +163,32 @@ fun GestureDataScreen(
         // reset the data
         focusRequester.requestFocus()
         keyboard?.show()
+    }
+    if (showEndDialog) {
+        if (System.currentTimeMillis() < END_DATE_EPOCH_MILLIS - TWO_WEEKS_IN_MILLIS)
+            showEndDialog = false
+        val endDate = DateFormat.getDateInstance(DateFormat.MEDIUM).format(Date(END_DATE_EPOCH_MILLIS))
+        if (System.currentTimeMillis() > END_DATE_EPOCH_MILLIS) {
+            val message = "gesture data gathering phase ended at $endDate. You can export remaining data, but not add anything new"
+            val infos = dao.filterInfos()
+            ThreeButtonAlertDialog(
+                onDismissRequest = onClickBack,
+                content = {
+                    Column {
+                        Text(message)
+                        if (infos.isNotEmpty())
+                            ShareGestureData(infos.map { it.id })
+                    }
+                },
+                cancelButtonText = stringResource(android.R.string.ok),
+                onConfirmed = { },
+                confirmButtonText = null
+            )
+        } else {
+            val message = "gesture data gathering phase will end at $endDate, please make sure to submit your data before that time"
+            InfoDialog(message) { showEndDialog = false }
+        }
+
     }
     if (showUploadDialog) {
         if (dao.count() < 10000)
@@ -720,6 +749,9 @@ private fun <T> List<Pair<T, Int>>.searchFirstExceedingScore(scoreToExceed: Int,
     }
     return null
 }
+
+private const val END_DATE_EPOCH_MILLIS = 1772321496000L // Feb 28th 2026, todo: replace with some real end date
+private const val TWO_WEEKS_IN_MILLIS = 14L * 24 * 3600 * 1000
 
 @Preview
 @Composable
