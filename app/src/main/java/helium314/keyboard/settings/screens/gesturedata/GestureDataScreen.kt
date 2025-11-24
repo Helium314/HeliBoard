@@ -49,6 +49,7 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -96,6 +97,7 @@ import helium314.keyboard.settings.DropDownField
 import helium314.keyboard.settings.NextScreenIcon
 import helium314.keyboard.settings.Theme
 import helium314.keyboard.settings.dialogs.ConfirmationDialog
+import helium314.keyboard.settings.dialogs.InfoDialog
 import helium314.keyboard.settings.dialogs.ThreeButtonAlertDialog
 import helium314.keyboard.settings.initPreview
 import helium314.keyboard.settings.isWideScreen
@@ -110,8 +112,6 @@ import kotlin.random.Random
 
 // todo: write the proper texts / info dialogs to explain what's going on and privacy infos
 // todo: we need a mail address and a gpg key
-// todo: ask user to upload if data is growing too much
-// todo: have max amount of data per file (aim for 25 MB, though could be sth like 10k or 20k entries)
 // todo: we'll want to stop gathering at some time -> ask the user to upload when it's close, and maybe block gathering at that point
 /**
  *  Simple "settings" screen that shows up when gesture typing is enabled.
@@ -141,7 +141,8 @@ fun GestureDataScreen(
     var wordFromDict by remember { mutableStateOf<String?>(null) } // some word from the dictionary
     var lastData by remember { mutableStateOf<WordData?>(null) }
     var sessionWordCount by remember { mutableIntStateOf(0) }
-    var dbActiveWordCount by remember { mutableIntStateOf(dao.filterInfos(activeMode = true).size) }
+    var dbActiveWordCount by remember { mutableIntStateOf(dao.count(activeMode = true)) }
+    var showUploadDialog by rememberSaveable { mutableStateOf(true) }
     val focusRequester = remember { FocusRequester() }
     val keyboard = LocalSoftwareKeyboardController.current
     val words = remember { mutableListOf<Pair<String, Int>>() }
@@ -159,6 +160,11 @@ fun GestureDataScreen(
         // reset the data
         focusRequester.requestFocus()
         keyboard?.show()
+    }
+    if (showUploadDialog) {
+        if (dao.count() < 10000)
+            showUploadDialog = false
+        InfoDialog("you have a lot of data in your db. Please share and then remove exported") { showUploadDialog = false }
     }
     @Composable fun useActiveGathering() {
         val availableDicts = remember { getAvailableDictionaries(ctx) }
@@ -271,7 +277,7 @@ fun GestureDataScreen(
                 texts()
                 val oldActiveWords by remember {
                     sessionWordCount = 0
-                    dbActiveWordCount = dao.filterInfos(activeMode = true).size
+                    dbActiveWordCount = dao.count(activeMode = true)
                     val exportedAndDeletedCount = getExportedActiveDeletionCount(ctx)
                     mutableIntStateOf(dbActiveWordCount + exportedAndDeletedCount)
                 }
@@ -421,7 +427,7 @@ private fun BottomBar(hasWords: Boolean) {
         }
     )
     if (showExportDialog) {
-        val exportedCount = dao.filterInfos(activeMode = true, exported = true).size
+        val exportedCount = dao.count(activeMode = true, exported = true)
         var shareAll by remember { mutableStateOf(if (exportedCount == 0) false else null) }
         ThreeButtonAlertDialog(
             onDismissRequest = { showExportDialog = false },

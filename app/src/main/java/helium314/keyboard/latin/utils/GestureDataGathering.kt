@@ -156,7 +156,7 @@ data class GestureDataInfo(val id: Long, val targetWord: String, val timestamp: 
 @Serializable
 data class GestureData(
     val appVersionCode: Int,
-    val libraryHash: String,
+    val libraryHash: String, // todo: just a bool whether it's one of our 4 known hashes
     val targetWord: String?, // this will be tricky for active gathering if user corrects the word
     val dictionaries: List<DictInfo>,
     val suggestions: List<Suggestion>,
@@ -323,6 +323,19 @@ class GestureDataDao(val db: Database) {
             "$COLUMN_SOURCE_ACTIVE <> 0 AND LOWER($COLUMN_WORD) in (?)",
             arrayOf(wordsString)
         )
+    }
+
+    fun count(exported: Boolean? = null, activeMode: Boolean? = null): Int {
+        val where = mutableListOf<String>()
+        if (exported != null)
+            where.add("$COLUMN_EXPORTED ${if (exported) "<>" else "="} 0")
+        if (activeMode != null)
+            where.add("$COLUMN_SOURCE_ACTIVE ${if (activeMode) "<>" else "="} 0")
+        val whereString = if (where.isEmpty()) "" else "WHERE ${where.joinToString(" AND ")}"
+        return db.readableDatabase.rawQuery("SELECT COUNT(1) FROM $TABLE $whereString", null).use {
+            it.moveToFirst()
+            it.getInt(0)
+        }
     }
 
     fun isEmpty(): Boolean {
