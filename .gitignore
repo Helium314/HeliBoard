@@ -12,4 +12,3 @@ app/.cxx
 app/.attach_*
 fastlane/Appfile
 tools/*.txt
-app/src/test/java/helium314/keyboard/latin/DictionaryFacilitatorImplTest.kt

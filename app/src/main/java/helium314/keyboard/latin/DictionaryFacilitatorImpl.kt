@@ -511,7 +511,7 @@ class DictionaryFacilitatorImpl : DictionaryFacilitator {
                 // Check main dictionary of this group for the previous word
                 val mainDict = group.getDict(Dictionary.TYPE_MAIN)
                 // We check if the word is valid in this language
-                if (mainDict?.isValidWord(prevWord) == true) {
+                if (mainDict?.isValidWord(prevWord) == true || mainDict?.isValidWord(prevWord.lowercase()) == true) {
                     validContextIndices.add(i)
                 }
             }
