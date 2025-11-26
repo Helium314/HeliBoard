@@ -287,7 +287,7 @@ class EmojiSearchActivity : ComponentActivity() {
         // Initialize default versions and popup specs
         layoutSet.getKeyboard(KeyboardId.ELEMENT_EMOJI_CATEGORY2)
 
-        val keyboard = DynamicGridKeyboard(prefs(), layoutSet.getKeyboard(KeyboardId.ELEMENT_EMOJI_RECENTS),
+        val keyboard = DynamicGridKeyboard.ofRowCount(prefs(), layoutSet.getKeyboard(KeyboardId.ELEMENT_EMOJI_RECENTS),
             if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) 1 else 2,
             KeyboardId.ELEMENT_EMOJI_CATEGORY16, keyboardWidth)
         val builder = KeyboardBuilder(this, KeyboardParams())
