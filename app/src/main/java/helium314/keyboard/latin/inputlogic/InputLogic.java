@@ -806,7 +806,7 @@ public final class InputLogic {
                 inputTransaction.setRequiresUpdateSuggestions();
                 break;
             case KeyCode.PASSWORD_MANAGER:
-                mLatinIME.openPasswordManager();
+                mLatinIME.refreshKeyboard();
                 break;
             case KeyCode.VOICE_INPUT:
                 // switching to shortcut IME, shift state, keyboard,... is handled by LatinIME,

@@ -1267,21 +1267,18 @@ public class LatinIME extends InputMethodService implements
     @Override
     @RequiresApi(api = Build.VERSION_CODES.R)
     public boolean onInlineSuggestionsResponse(InlineSuggestionsResponse response) {
-        Log.i(TAG,"onInlineSuggestionsResponse called");
+        Log.d(TAG,"onInlineSuggestionsResponse called");
         if (Settings.getValues().mSuggestionStripHiddenPerUserSettings) {
             Log.w(TAG, "Inline suggestions hidden by user settings");
             return false;
         }
 
         final List<InlineSuggestion> inlineSuggestions = response.getInlineSuggestions();
-        Log.i(TAG, "Received " + inlineSuggestions.size() + " inline suggestions");
         
         if (inlineSuggestions.isEmpty()) {
-            Log.w(TAG, "No inline suggestions provided by autofill service");
             return false;
         }
 
-        Log.i(TAG, "Displaying " + inlineSuggestions.size() + " inline autofill suggestions");
         final View inlineSuggestionView = InlineAutofillUtils.createView(inlineSuggestions, mDisplayContext);
 
         // Without this function the inline autofill suggestions will not be visible
@@ -1317,7 +1314,7 @@ public class LatinIME extends InputMethodService implements
         launchSettings();
     }
 
-    public void openPasswordManager() {
+    public void refreshKeyboard() {
         // Hide keyboard temporarily
         hideWindow();
         // Post with delay to allow the hide to complete, then request to show again
