@@ -87,9 +87,14 @@ public final class InputLogic {
     private int mSpaceState;
     // Never null
     public SuggestedWords mSuggestedWords = SuggestedWords.getEmptyInstance();
-    public final Suggest mSuggest;
-    private final DictionaryFacilitator mDictionaryFacilitator;
+    public Suggest mSuggest; // non-final for active gesture data gathering, revert when not needed any more
+    public DictionaryFacilitator mDictionaryFacilitator; // non-final for active gesture data gathering, revert when not needed any more
     private SingleDictionaryFacilitator mEmojiDictionaryFacilitator;
+    public void setFacilitator(DictionaryFacilitator facilitator) { // only for active gesture data gathering, revert when not needed any more
+        if (mDictionaryFacilitator == facilitator) return;
+        mDictionaryFacilitator = facilitator;
+        mSuggest = new Suggest(mDictionaryFacilitator);
+    }
 
     public LastComposedWord mLastComposedWord = LastComposedWord.NOT_A_COMPOSED_WORD;
     // This has package visibility so it can be accessed from InputLogicHandler.
