@@ -797,13 +797,8 @@ public final class InputLogic {
                 mLatinIME.onTextInput(TimestampKt.getTimestamp(mLatinIME));
                 break;
             case KeyCode.SEARCH:
-                if (DictionaryInfoUtils.getLocalesWithEmojiDicts(mLatinIME).isEmpty()) {
-                    // todo: open dictionary settings?
-                    onSettingsKeyPressed();
-                } else {
-                    commitTyped(Settings.getValues(), LastComposedWord.NOT_A_SEPARATOR);
-                    mLatinIME.launchEmojiSearch();
-                }
+                commitTyped(Settings.getValues(), LastComposedWord.NOT_A_SEPARATOR);
+                mLatinIME.launchEmojiSearch();
                 break;
             case KeyCode.SEND_INTENT_ONE, KeyCode.SEND_INTENT_TWO, KeyCode.SEND_INTENT_THREE:
                 IntentUtils.handleSendIntentKey(mLatinIME, event.getKeyCode());
