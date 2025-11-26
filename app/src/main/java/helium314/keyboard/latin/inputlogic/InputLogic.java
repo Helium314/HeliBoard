@@ -805,7 +805,7 @@ public final class InputLogic {
                 setInlineEmojiSearchAction(false);
                 inputTransaction.setRequiresUpdateSuggestions();
                 break;
-            case KeyCode.PASSWORD_MANAGER:
+            case KeyCode.REFRESH:
                 mLatinIME.refreshKeyboard();
                 break;
             case KeyCode.VOICE_INPUT:
