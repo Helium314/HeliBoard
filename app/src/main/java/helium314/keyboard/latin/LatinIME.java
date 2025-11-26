@@ -1316,111 +1316,24 @@ public class LatinIME extends InputMethodService implements
         launchSettings();
     }
 
-    private boolean mWaitingForPasswordPaste = false;
-    private String mLastClipboardText = "";
-    
     public void requestAutofill() {
-        Log.i(TAG, "Launch Password Manager button pressed");
-        
-        // Get the configured password manager package
         final SharedPreferences prefs = getSharedPreferences(getPackageName() + "_preferences", MODE_PRIVATE);
         final String configuredPackage = prefs.getString(
             Settings.PREF_PASSWORD_MANAGER_PACKAGE, 
             Defaults.PREF_PASSWORD_MANAGER_PACKAGE
         );
         
-        if (mWaitingForPasswordPaste) {
-            // User returned from password manager - paste from clipboard
-            Log.i(TAG, "Checking for password in clipboard");
-            final android.view.inputmethod.InputConnection ic = getCurrentInputConnection();
-            if (ic != null) {
-                android.content.ClipboardManager clipboard = (android.content.ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-                if (clipboard != null && clipboard.hasPrimaryClip()) {
-                    android.content.ClipData clipData = clipboard.getPrimaryClip();
-                    if (clipData != null && clipData.getItemCount() > 0) {
-                        CharSequence text = clipData.getItemAt(0).getText();
-                        if (text != null && text.length() > 0) {
-                            String clipText = text.toString();
-                            // Check if clipboard changed (new password copied)
-                            if (!clipText.equals(mLastClipboardText)) {
-                                ic.commitText(text, 1);
-                                android.widget.Toast.makeText(this, "Password pasted! ✓", android.widget.Toast.LENGTH_SHORT).show();
-                                mWaitingForPasswordPaste = false;
-                                mLastClipboardText = "";
-                                Log.i(TAG, "Password pasted successfully");
-                                return;
-                            } else {
-                                Log.i(TAG, "Clipboard unchanged - no new password");
-                            }
-                        }
-                    }
-                }
-                android.widget.Toast.makeText(this, "No new password copied. Tap button to open enPass again.", android.widget.Toast.LENGTH_SHORT).show();
-                Log.w(TAG, "No new password in clipboard");
-            }
-            mWaitingForPasswordPaste = false;
-            return;
-        }
-        
-        // Save current clipboard state
         try {
-            android.content.ClipboardManager clipboard = (android.content.ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-            if (clipboard != null && clipboard.hasPrimaryClip()) {
-                android.content.ClipData clipData = clipboard.getPrimaryClip();
-                if (clipData != null && clipData.getItemCount() > 0) {
-                    CharSequence text = clipData.getItemAt(0).getText();
-                    if (text != null) {
-                        mLastClipboardText = text.toString();
-                    }
-                }
+            Intent intent = getPackageManager().getLaunchIntentForPackage(configuredPackage);
+            if (intent != null) {
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+            } else {
+                android.widget.Toast.makeText(this, 
+                    "Could not open password manager. Please check settings.",
+                    android.widget.Toast.LENGTH_LONG).show();
             }
         } catch (Exception e) {
-            Log.w(TAG, "Could not read clipboard: " + e.getMessage());
-        }
-        
-        // Launch the password manager
-        try {
-            Intent intent = null;
-            
-            // Launch main activity directly for enPass (goes to password list)
-            if (configuredPackage.equals("io.enpass.app")) {
-                try {
-                    intent = new Intent();
-                    intent.setClassName("io.enpass.app", "io.enpass.app.SplashScreenActivity");
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    startActivity(intent);
-                    mWaitingForPasswordPaste = true;
-                    Log.i(TAG, "Launched enPass main activity");
-                } catch (Exception e) {
-                    Log.w(TAG, "Direct activity launch failed: " + e.getMessage());
-                    intent = null;
-                }
-            }
-            
-            // Fallback to regular app launch for other password managers
-            if (intent == null) {
-                intent = getPackageManager().getLaunchIntentForPackage(configuredPackage);
-                if (intent != null) {
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    startActivity(intent);
-                    mWaitingForPasswordPaste = true;
-                    Log.i(TAG, "Launched " + configuredPackage + " via package manager");
-                } else {
-                    Log.w(TAG, "Could not find package: " + configuredPackage);
-                    android.widget.Toast.makeText(this, 
-                        "Could not open password manager. Please check settings.",
-                        android.widget.Toast.LENGTH_LONG).show();
-                    return;
-                }
-            }
-            
-            // Show instructions
-            android.widget.Toast.makeText(this, 
-                "Copy password, then return here and tap button again to paste",
-                android.widget.Toast.LENGTH_LONG).show();
-                
-        } catch (Exception e) {
-            Log.e(TAG, "Failed to launch password manager: " + e.getMessage());
             android.widget.Toast.makeText(this, 
                 "Error opening password manager",
                 android.widget.Toast.LENGTH_SHORT).show();
