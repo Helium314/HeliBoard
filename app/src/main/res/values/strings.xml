@@ -347,6 +347,7 @@
     <string name="redo" tools:keep="@string/redo">Redo</string>
     <string name="close_history" tools:keep="@string/close_history">Close clipboard history</string>
     <string name="emoji" tools:keep="@string/emoji">Emoji</string>
+    <string name="password_manager" tools:keep="@string/password_manager">Launch Password Manager</string>
     <!-- Title of the setting to set clipboard toolbar keys -->
     <string name="clipboard_toolbar_keys">Select clipboard toolbar keys</string>
     <!-- Title of the setting to set pinned toolbar keys -->
@@ -891,6 +892,10 @@ New dictionary:
     <string name="customize_toolbar_key_codes">Customize toolbar key codes</string>
     <!-- Confirmation message when resetting all custom toolbar key codes -->
     <string name="customize_toolbar_key_code_reset_message">Really clear all customized key codes?</string>
+    <!-- Title for password manager app selection setting -->
+    <string name="password_manager_app">Password manager app</string>
+    <!-- Summary for password manager app selection -->
+    <string name="password_manager_app_summary">Choose which app opens when you tap the Manager button</string>
     <!-- Text for showing / setting key code -->
     <string name="key_code">Key code</string>
     <!-- Text for showing / setting long press code -->

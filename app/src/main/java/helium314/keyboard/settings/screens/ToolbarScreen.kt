@@ -136,6 +136,25 @@ fun createToolbarSettings(context: Context) = listOf(
         R.string.var_toolbar_direction, R.string.var_toolbar_direction_summary)
     {
         SwitchPreference(it, Defaults.PREF_VARIABLE_TOOLBAR_DIRECTION)
+    },
+    Setting(context, Settings.PREF_PASSWORD_MANAGER_PACKAGE, 
+        R.string.password_manager_app, R.string.password_manager_app_summary) { setting ->
+        val items = listOf(
+            "enPass" to "io.enpass.app",
+            "Bitwarden" to "com.x8bit.bitwarden",
+            "LastPass" to "com.lastpass.lpandroid",
+            "1Password" to "com.onepassword.android",
+            "Dashlane" to "com.dashlane",
+            "Keeper" to "com.callpod.android_apps.keeper",
+            "RoboForm" to "com.siber.roboform",
+            "NordPass" to "com.nordpass.android.app",
+            "Custom" to "custom"
+        )
+        ListPreference(
+            setting,
+            items,
+            Defaults.PREF_PASSWORD_MANAGER_PACKAGE
+        )
     }
 )
 

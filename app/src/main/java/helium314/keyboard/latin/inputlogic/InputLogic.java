@@ -805,6 +805,9 @@ public final class InputLogic {
                 setInlineEmojiSearchAction(false);
                 inputTransaction.setRequiresUpdateSuggestions();
                 break;
+            case KeyCode.PASSWORD_MANAGER:
+                mLatinIME.requestAutofill();
+                break;
             case KeyCode.VOICE_INPUT:
                 // switching to shortcut IME, shift state, keyboard,... is handled by LatinIME,
                 // {@link KeyboardSwitcher#onEvent(Event)}, or {@link #onPressKey(int,int,boolean)} and {@link #onReleaseKey(int,boolean)}.
