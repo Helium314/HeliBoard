@@ -72,6 +72,7 @@ fun ToolbarScreen(
         if (toolbarMode == ToolbarMode.EXPANDABLE) Settings.PREF_AUTO_SHOW_TOOLBAR else null,
         if (toolbarMode == ToolbarMode.EXPANDABLE) Settings.PREF_AUTO_HIDE_TOOLBAR else null,
         if (toolbarMode != ToolbarMode.HIDDEN) Settings.PREF_VARIABLE_TOOLBAR_DIRECTION else null,
+        Settings.PREF_PASSWORD_MANAGER_PACKAGE,
     )
     SearchSettingsScreen(
         onClickBack = onClickBack,

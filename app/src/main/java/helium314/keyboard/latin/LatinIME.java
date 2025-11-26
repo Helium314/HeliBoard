@@ -1316,12 +1316,19 @@ public class LatinIME extends InputMethodService implements
         launchSettings();
     }
 
-    public void requestAutofill() {
+    public void openPasswordManager() {
         final SharedPreferences prefs = getSharedPreferences(getPackageName() + "_preferences", MODE_PRIVATE);
         final String configuredPackage = prefs.getString(
             Settings.PREF_PASSWORD_MANAGER_PACKAGE, 
             Defaults.PREF_PASSWORD_MANAGER_PACKAGE
         );
+        
+        if (configuredPackage.isEmpty()) {
+            android.widget.Toast.makeText(this, 
+                "Please configure a password manager in keyboard settings",
+                android.widget.Toast.LENGTH_LONG).show();
+            return;
+        }
         
         try {
             Intent intent = getPackageManager().getLaunchIntentForPackage(configuredPackage);
