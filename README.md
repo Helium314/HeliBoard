@@ -45,7 +45,7 @@ Does not use internet permission, and thus is 100% offline.
   <li>Backup and restore your settings and learned word / history data</li>
 </ul>
 
-For [FAQ](https://github.com/Helium314/HeliBoard/wiki/FAQ) and more information about the app and features, please visit the [wiki](https://github.com/Helium314/HeliBoard/wiki)
+For [FAQ](https://github.com/Helium314/HeliBoard/wiki/FAQ), [hidden features](https://github.com/Helium314/HeliBoard/wiki/9.-Hidden-features) and more information about the app and features, please visit the [wiki](https://github.com/Helium314/HeliBoard/wiki)
 
 # Contributing ❤
 
@@ -54,7 +54,7 @@ For [FAQ](https://github.com/Helium314/HeliBoard/wiki/FAQ) and more information 
 Whether you encountered a bug, or want to see a new feature in HeliBoard, you can contribute to the project by opening a new issue [here](https://github.com/Helium314/HeliBoard/issues). Your help is always welcome!
 
 Before opening a new issue, be sure to check the following:
- - **Does the issue already exist?** Make sure a similar issue has not been reported by browsing [existing issues](https://github.com/Helium314/HeliBoard/issues?q=). Please search open and closed issues.
+ - **Does the issue already exist?** Make sure a similar issue has not been reported by browsing [existing issues](https://github.com/Helium314/HeliBoard/issues?q=). Please search open and closed issues. In case of feature requests you could also check the [FAQ](https://github.com/Helium314/HeliBoard/wiki/FAQ) and [hidden features](https://github.com/Helium314/HeliBoard/wiki/9.-Hidden-features).
  - **Is the issue still relevant?** Make sure your issue is not already fixed in the latest version of HeliBoard.
  - **Is it a single topic?** If you want to suggest multiple things, open multiple issues.
  - **Did you use the issue template?** It is important to make life of our kind contributors easier by avoiding issues that miss key information to their resolution.
