@@ -113,6 +113,7 @@ import kotlin.collections.plus
 import kotlin.random.Random
 
 // todo: string resources
+// todo: better behavior + text at / near the end of gathering phase
 // todo: write the proper texts / info dialogs to explain what's going on and privacy infos
 // todo: we need a mail address and a gpg key
 /**
@@ -193,7 +194,7 @@ fun GestureDataScreen(
     if (showUploadDialog) {
         if (dao.count() < 10000)
             showUploadDialog = false
-        InfoDialog("you have a lot of data in your db. Please share and then remove exported") { showUploadDialog = false }
+        InfoDialog(stringResource(R.string.gesture_data_much_data)) { showUploadDialog = false }
     }
     @Composable fun useActiveGathering() {
         val availableDicts = remember { getAvailableDictionaries(ctx) }
@@ -368,7 +369,7 @@ fun GestureDataScreen(
             // use only built-in dictionaries and what is available on dicts repo (so we can fully reproduce things)
             // choose a dictionary, get a random word, swipe it and the next word will come immediately
             if (!useWideLayout || !activeGathering)
-                Text("active gathering description") // todo: if this is more than 1-2 lines it should disappear when active mode is enabled
+                Text(stringResource(R.string.gesture_data_active_description)) // todo: if this is more than 1-2 lines it should disappear when active mode is enabled
             TextButton({
                 activeGathering = !activeGathering
                 if (!activeGathering) {
@@ -376,7 +377,7 @@ fun GestureDataScreen(
                     wordFromDict = null
                 }
             }) {
-                Text(if (activeGathering) "stop active gathering" else "start active gathering")
+                Text(stringResource(if (activeGathering) R.string.gesture_data_active_start else R.string.gesture_data_active_stop))
             }
             if (activeGathering) { // AnimatedVisibility results in buggy UI -> try again with newer Compose version
                 useActiveGathering()
@@ -455,7 +456,7 @@ private fun BottomBar(hasWords: Boolean) {
             }
         }
     )
-    if (showExportDialog) {
+    if (showExportDialog) { // todo: go through flow again
         val exportedCount = dao.count(activeMode = true, exported = true)
         var shareAll by remember { mutableStateOf(if (exportedCount == 0) false else null) }
         ThreeButtonAlertDialog(
@@ -463,10 +464,10 @@ private fun BottomBar(hasWords: Boolean) {
             content = {
                 if (shareAll == null) {
                     TextButton({ shareAll = true }) {
-                        Text("share all")
+                        Text("share all") // todo
                     }
                     TextButton({ shareAll = false }) {
-                        Text("share non-exported")
+                        Text("share non-exported") // todo
                     }
                 } else {
                     val toShare = dao.filterInfos(activeMode = true, exported = if (shareAll == true) null else false)
@@ -486,13 +487,13 @@ private fun BottomBar(hasWords: Boolean) {
         ThreeButtonAlertDialog(
             onDismissRequest = { showDeleteDialog = false },
             content = {
-                Text("you have $nonExportedCount not exported words and, $exportedCount exported")
+                Text("you have $nonExportedCount not exported words and, $exportedCount exported") // todo
             },
             cancelButtonText = stringResource(R.string.dialog_close),
             onConfirmed = { showConfirmDialog = "exported" },
-            confirmButtonText = "delete exported",
+            confirmButtonText = "delete exported", // todo
             onNeutral = { showConfirmDialog = "all" },
-            neutralButtonText = "delete all"
+            neutralButtonText = "delete all" // todo
         )
         if (showConfirmDialog != null) {
             val ctx = LocalContext.current
@@ -502,7 +503,7 @@ private fun BottomBar(hasWords: Boolean) {
                     val ids = dao.filterInfos(activeMode = true).map { it.id }
                     dao.delete(ids, showConfirmDialog != "all", ctx)
                 },
-                content = {
+                content = { // todo
                     Text("are you sure? will delete ${if (showConfirmDialog == "all") (exportedCount + nonExportedCount) else exportedCount} words")
                 }
             )

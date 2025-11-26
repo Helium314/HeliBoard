@@ -948,4 +948,12 @@ New dictionary:
     <!-- Text offering deletion after exporting data -->
     <!-- todo: consistent and clear naming for export / share / submit (and others) -->
     <string name="gesture_data_delete_exported">Delete the exported data (make sure the data is submitted!)</string>
+    <!-- Text displayed when the user has more than 10000 gestures waiting for export -->
+    <string name="gesture_data_much_data">You have a lot of unsubmitted data. Please submit and then remove the old data.</string>
+    <!-- Explanatory text about active gesture data gathering -->
+    <string name="gesture_data_active_description">active gathering description</string>
+    <!-- Text for starting active gesture data gathering -->
+    <string name="gesture_data_active_start">start active gathering</string>
+    <!-- Text for stopping active gesture data gathering -->
+    <string name="gesture_data_active_stop">stop active gathering</string>
 </resources>
