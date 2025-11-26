@@ -65,7 +65,6 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
 
     public static final String PREF_CUSTOM_ICON_NAMES = "custom_icon_names";
     public static final String PREF_TOOLBAR_CUSTOM_KEY_CODES = "toolbar_custom_key_codes";
-    public static final String PREF_PASSWORD_MANAGER_PACKAGE = "password_manager_package";
     public static final String PREF_LAYOUT_PREFIX = "layout_";
 
     public static final String PREF_AUTO_CAP = "auto_cap";

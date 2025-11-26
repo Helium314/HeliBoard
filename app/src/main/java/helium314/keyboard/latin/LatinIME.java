@@ -70,6 +70,7 @@ import helium314.keyboard.latin.suggestions.SuggestionStripView;
 import helium314.keyboard.latin.suggestions.SuggestionStripViewAccessor;
 import helium314.keyboard.latin.touchinputconsumer.GestureConsumer;
 import helium314.keyboard.latin.utils.ColorUtilKt;
+import helium314.keyboard.latin.utils.DeviceProtectedUtils;
 import helium314.keyboard.latin.utils.InlineAutofillUtils;
 import helium314.keyboard.latin.utils.InputMethodPickerKt;
 import helium314.keyboard.latin.utils.JniUtils;
@@ -1317,34 +1318,13 @@ public class LatinIME extends InputMethodService implements
     }
 
     public void openPasswordManager() {
-        final SharedPreferences prefs = getSharedPreferences(getPackageName() + "_preferences", MODE_PRIVATE);
-        final String configuredPackage = prefs.getString(
-            Settings.PREF_PASSWORD_MANAGER_PACKAGE, 
-            Defaults.PREF_PASSWORD_MANAGER_PACKAGE
-        );
-        
-        if (configuredPackage.isEmpty()) {
-            android.widget.Toast.makeText(this, 
-                "Please configure a password manager in keyboard settings",
-                android.widget.Toast.LENGTH_LONG).show();
-            return;
-        }
-        
-        try {
-            Intent intent = getPackageManager().getLaunchIntentForPackage(configuredPackage);
-            if (intent != null) {
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(intent);
-            } else {
-                android.widget.Toast.makeText(this, 
-                    "Could not open password manager. Please check settings.",
-                    android.widget.Toast.LENGTH_LONG).show();
-            }
-        } catch (Exception e) {
-            android.widget.Toast.makeText(this, 
-                "Error opening password manager",
-                android.widget.Toast.LENGTH_SHORT).show();
-        }
+        // Hide keyboard temporarily
+        hideWindow();
+        // Post with delay to allow the hide to complete, then request to show again
+        mHandler.postDelayed(() -> {
+            // This will trigger the system to show the keyboard again
+            requestShowSelf(0);
+        }, 300);
     }
 
     public boolean showInputPickerDialog() {
