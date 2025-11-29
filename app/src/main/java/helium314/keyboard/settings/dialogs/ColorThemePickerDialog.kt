@@ -95,11 +95,11 @@ fun ColorThemePickerDialog(
     if (selectedColor !in defaultColors)
         userColors.add(selectedColor) // there are cases where we have no settings for a user theme
 
-    val colors = defaultColors + userColors + ""
+    val colors = listOf("") + userColors + defaultColors
     val state = rememberLazyListState()
     LaunchedEffect(selectedColor) {
         val index = colors.indexOf(selectedColor)
-        if (index != -1) state.scrollToItem(index, -state.layoutInfo.viewportSize.height / 3)
+        if (index >= 5) state.animateScrollToItem(index, -state.layoutInfo.viewportSize.height / 3)
     }
     var showLoadDialog by remember { mutableStateOf(false) }
     val targetScreen = if (isNight) SettingsDestination.ColorsNight else SettingsDestination.Colors

@@ -8,6 +8,7 @@ package helium314.keyboard.keyboard
 import android.content.Context
 import android.content.SharedPreferences
 import android.graphics.Color
+import android.graphics.drawable.Drawable
 import android.os.Build
 import android.util.TypedValue
 import android.view.ContextThemeWrapper
@@ -336,28 +337,33 @@ private constructor(val themeId: Int, @JvmField val mStyleId: Int) {
                     keyboardBackground = backgroundImage
                 )
                 else -> { // user-defined theme
+                    val colorSettings = readUserColors(prefs, themeName)
+                    val colors = readUserColorTheme(themeStyle, hasBorders, colorSettings, context, isNight, backgroundImage)
                     if (readUserMoreColors(prefs, themeName) == 2)
-                        AllColors(readUserAllColors(prefs, themeName), themeStyle, hasBorders, backgroundImage)
+                        AllColors(readUserAllColors(prefs, themeName, colors), themeStyle, hasBorders, backgroundImage)
                     else {
-                        val colors = readUserColors(prefs, themeName)
-                        DefaultColors(
-                            themeStyle,
-                            hasBorders,
-                            determineUserColor(colors, context, COLOR_ACCENT, isNight),
-                            determineUserColor(colors, context, COLOR_BACKGROUND, isNight),
-                            determineUserColor(colors, context, COLOR_KEYS, isNight),
-                            determineUserColor(colors, context, COLOR_FUNCTIONAL_KEYS, isNight),
-                            determineUserColor(colors, context, COLOR_SPACEBAR, isNight),
-                            determineUserColor(colors, context, COLOR_TEXT, isNight),
-                            determineUserColor(colors, context, COLOR_HINT_TEXT, isNight),
-                            determineUserColor(colors, context, COLOR_SUGGESTION_TEXT, isNight),
-                            determineUserColor(colors, context, COLOR_SPACEBAR_TEXT, isNight),
-                            determineUserColor(colors, context, COLOR_GESTURE, isNight),
-                            backgroundImage,
-                        )
+                        colors
                     }
                 }
             }
+        }
+
+        fun readUserColorTheme(themeStyle: String, hasBorders: Boolean, colorSettings: List<ColorSetting>, context: Context, isNight: Boolean, backgroundImage: Drawable?): Colors {
+            return DefaultColors(
+                themeStyle,
+                hasBorders,
+                determineUserColor(colorSettings, context, COLOR_ACCENT, isNight),
+                determineUserColor(colorSettings, context, COLOR_BACKGROUND, isNight),
+                determineUserColor(colorSettings, context, COLOR_KEYS, isNight),
+                determineUserColor(colorSettings, context, COLOR_FUNCTIONAL_KEYS, isNight),
+                determineUserColor(colorSettings, context, COLOR_SPACEBAR, isNight),
+                determineUserColor(colorSettings, context, COLOR_TEXT, isNight),
+                determineUserColor(colorSettings, context, COLOR_HINT_TEXT, isNight),
+                determineUserColor(colorSettings, context, COLOR_SUGGESTION_TEXT, isNight),
+                determineUserColor(colorSettings, context, COLOR_SPACEBAR_TEXT, isNight),
+                determineUserColor(colorSettings, context, COLOR_GESTURE, isNight),
+                backgroundImage,
+            )
         }
 
         fun writeUserColors(prefs: SharedPreferences, themeName: String, colors: List<ColorSetting>) {
@@ -389,7 +395,7 @@ private constructor(val themeId: Int, @JvmField val mStyleId: Int) {
             KeyboardSwitcher.getInstance().setThemeNeedsReload()
         }
 
-        fun readUserAllColors(prefs: SharedPreferences, themeName: String): EnumMap<ColorType, Int> {
+        fun readUserAllColors(prefs: SharedPreferences, themeName: String, fallback: Colors?): EnumMap<ColorType, Int> {
             val key = Settings.PREF_USER_ALL_COLORS_PREFIX + themeName
             val colorsString = prefs.getString(key, Defaults.PREF_USER_ALL_COLORS)!!
             val colorMap = EnumMap<ColorType, Int>(ColorType::class.java)
@@ -401,6 +407,12 @@ private constructor(val themeId: Int, @JvmField val mStyleId: Int) {
                 }
                 val i = it.substringAfter(",").toIntOrNull() ?: return@forEach
                 colorMap[ct] = i
+            }
+            if (fallback != null && colorMap.size < ColorType.entries.size) {
+                ColorType.entries.forEach {
+                    if (it in colorMap) return@forEach
+                    colorMap[it] = fallback.get(it)
+                }
             }
             return colorMap
         }
