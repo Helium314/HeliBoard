@@ -11,6 +11,7 @@ import android.os.CancellationSignal
 import android.os.ParcelFileDescriptor
 import androidx.activity.compose.ManagedActivityResultLauncher
 import androidx.activity.result.ActivityResult
+import androidx.annotation.RequiresApi
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
@@ -35,6 +36,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.io.File
 import java.io.FileInputStream
+import java.io.OutputStream
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
@@ -108,9 +110,6 @@ private val getDataIntent = Intent(Intent.ACTION_CREATE_DOCUMENT)
     .putExtra(Intent.EXTRA_TITLE, "gesture_data_${SimpleDateFormat("yyyy-MM-dd", Locale.US).format(Calendar.getInstance().time)}.zip")
     .setType("application/zip")
 
-// the straightforward way would be to just put the extras in the sendMailIntent and return that,
-// but this doesn't attach the file in K9 and Proton
-
 private fun createSendIntentChooser(context: Context): Intent {
     // targets all apps that accept this kind of intent
     val shareFileIntent = Intent(Intent.ACTION_SEND).apply {
@@ -133,6 +132,7 @@ private fun createSendIntentChooser(context: Context): Intent {
     return chooser
 }
 
+@RequiresApi(Build.VERSION_CODES.N)
 private fun Intent.filterIntentToOnlyIncludeEmailApps(context: Context, intentToFilter: Intent) {
     val sendMailIntent = Intent(Intent.ACTION_SENDTO).apply { data = "mailto:".toUri() }
     val mailTargets = context.packageManager.queryIntentActivities(sendMailIntent, 0)
@@ -161,42 +161,52 @@ private fun getData(ids: List<Long>): ManagedActivityResultLauncher<Intent, Acti
         val file = getGestureDataFile(ctx)
         val dao = GestureDataDao.getInstance(ctx) ?: return@filePicker
         val data = dao.getJsonData(ids)
-        file.writeText("[${data.joinToString(",\n")}]")
-        ctx.getActivity()?.contentResolver?.openOutputStream(uri)?.use { os ->
-            val zipStream = ZipOutputStream(os)
-            zipStream.setLevel(9)
-            val fileStream = FileInputStream(file).buffered()
-            zipStream.putNextEntry(ZipEntry(file.name))
-            fileStream.copyTo(zipStream, 1024)
-            fileStream.close()
-            zipStream.closeEntry()
-            zipStream.close()
+        file.writeText(makeJsonArrayFromEntries(data))
+        ctx.getActivity()?.contentResolver?.openOutputStream(uri)?.use {
+            os -> writeOutputToZipStream(file, os)
         }
         dao.markAsExported(ids)
         gestureIdsBeingExported = null
     }
 }
 
-private fun createZipFile(context: Context, ids: List<Long>) : File {
+private fun createZipFile(ctx: Context, ids: List<Long>) : File {
     zippedDataPath = ""
-    val jsonFile = getGestureDataFile(context)
-    val dao = GestureDataDao.getInstance(context)!!
+    val jsonFile = getGestureDataFile(ctx)
+    val dao = GestureDataDao.getInstance(ctx)!!
     val data = dao.getJsonData(ids)
-    jsonFile.writeText("[${data.joinToString(",\n")}]")
-    val zipFile = getGestureZipFile(context)
+    jsonFile.writeText(makeJsonArrayFromEntries(data))
+    val zipFile = getGestureZipFile(ctx)
     zipFile.delete()
-    zipFile.outputStream().use { os ->
-        val zipStream = ZipOutputStream(os)
-        zipStream.setLevel(9)
-        val fileStream = FileInputStream(jsonFile).buffered()
-        zipStream.putNextEntry(ZipEntry(jsonFile.name))
-        fileStream.copyTo(zipStream, 1024)
-        fileStream.close()
-        zipStream.closeEntry()
-        zipStream.close()
+    zipFile.outputStream().use {
+        os -> writeOutputToZipStream(jsonFile, os)
     }
     zippedDataPath = zipFile.absolutePath
     return zipFile
+}
+
+private fun writeOutputToZipStream(jsonFile: File, os: OutputStream) {
+    val zipStream = ZipOutputStream(os)
+    zipStream.setLevel(9)
+    val fileStream = FileInputStream(jsonFile).buffered()
+    zipStream.putNextEntry(ZipEntry(jsonFile.name))
+    fileStream.copyTo(zipStream, 1024)
+    fileStream.close()
+    zipStream.closeEntry()
+    zipStream.close()
+}
+
+private fun makeJsonArrayFromEntries(entries: List<String>): String
+    = buildString {
+    val allButLast = entries.subList(0, entries.lastIndex)
+
+    append("[\n")
+    allButLast.forEach {
+        append(it)
+        append(",\n")
+    }
+    append(entries.last())
+    append("\n]")
 }
 
 private fun getGestureZipFile(context: Context): File = fileGetDelegate(context, context.getString(R.string.gesture_data_zip))
@@ -220,12 +230,7 @@ class GestureFileProvider : FileProvider() {
         try {
             return super.openFile(uri, mode, signal)
         } finally {
-            val ctx = context
-            val ids = gestureIdsBeingExported
-            if (ctx != null && ids != null) {
-                GestureDataDao.getInstance(ctx)?.markAsExported(ids)
-            }
-            gestureIdsBeingExported = null
+            onFileOpened()
         }
     }
 
@@ -233,13 +238,17 @@ class GestureFileProvider : FileProvider() {
         try {
             return super.openFile(uri, mode)
         } finally {
-            val ctx = context
-            val ids = gestureIdsBeingExported
-            if (ctx != null && ids != null) {
-                GestureDataDao.getInstance(ctx)?.markAsExported(ids)
-            }
-            gestureIdsBeingExported = null
+            onFileOpened()
         }
+    }
+
+    private fun onFileOpened() {
+        val ctx = context
+        val ids = gestureIdsBeingExported
+        if (ctx != null && ids != null) {
+            GestureDataDao.getInstance(ctx)?.markAsExported(ids)
+        }
+        gestureIdsBeingExported = null
     }
 }
 

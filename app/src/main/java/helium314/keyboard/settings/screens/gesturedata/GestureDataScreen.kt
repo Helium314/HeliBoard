@@ -377,7 +377,7 @@ fun GestureDataScreen(
                     wordFromDict = null
                 }
             }) {
-                Text(stringResource(if (activeGathering) R.string.gesture_data_active_start else R.string.gesture_data_active_stop))
+                Text(stringResource(if (activeGathering) R.string.gesture_data_active_stop else R.string.gesture_data_active_start))
             }
             if (activeGathering) { // AnimatedVisibility results in buggy UI -> try again with newer Compose version
                 useActiveGathering()
@@ -463,11 +463,13 @@ private fun BottomBar(hasWords: Boolean) {
             onDismissRequest = { showExportDialog = false },
             content = {
                 if (shareAll == null) {
-                    TextButton({ shareAll = true }) {
-                        Text("share all") // todo
-                    }
-                    TextButton({ shareAll = false }) {
-                        Text("share non-exported") // todo
+                    Column {
+                        TextButton({ shareAll = true }) {
+                            Text("share all") // todo
+                        }
+                        TextButton({ shareAll = false }) {
+                            Text("share non-exported") // todo
+                        }
                     }
                 } else {
                     val toShare = dao.filterInfos(activeMode = true, exported = if (shareAll == true) null else false)
