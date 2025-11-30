@@ -1,0 +1,13 @@
+[
+    [
+        { "label": "(", "width": 0.12 },
+        { "label": ")", "width": 0.12 },
+        { "label": "1", "width": 0.12 },
+        { "label": "2", "width": 0.12 },
+        { "type": "placeholder", "width": 0.005 },
+        { "label": "3", "width": 0.12 },
+        { "label": "+", "width": 0.12 },
+        { "label": "&", "width": 0.12 },
+        { "label": "?", "width": 0.12 }
+    ]
+]
