@@ -1737,8 +1737,8 @@ public class LatinIME extends InputMethodService implements
         } else {
             // Show symbols in the suggestion strip
             mSymbolsShowing = true;
-            final ArrayList<SuggestedWords.SuggestedWordInfo> symbolsList = new ArrayList<>();
-            final ArrayList<SuggestedWords.SuggestedWordInfo> numbersList = new ArrayList<>();
+            final ArrayList<String> symbolsList = new ArrayList<>();
+            final ArrayList<String> numbersList = new ArrayList<>();
 
             // Get symbols from the actual symbols keyboard
             final Keyboard symbolsKeyboard = mKeyboardSwitcher.mKeyboardLayoutSet.getKeyboard(KeyboardId.ELEMENT_SYMBOLS);
@@ -1749,15 +1749,11 @@ public class LatinIME extends InputMethodService implements
 
                     // Only add keys that have visible labels and represent printable characters
                     if (label != null && !label.isEmpty() && code > 0 && code < 0x10000) {
-                        final SuggestedWords.SuggestedWordInfo wordInfo = new SuggestedWords.SuggestedWordInfo(
-                            label, "", 1, SuggestedWords.SuggestedWordInfo.KIND_TYPED,
-                            null, SuggestedWords.SuggestedWordInfo.NOT_AN_INDEX, 0);
-
                         // Separate numbers from other symbols - put numbers at the end
                         if (code >= '0' && code <= '9') {
-                            numbersList.add(wordInfo);
+                            numbersList.add(label);
                         } else {
-                            symbolsList.add(wordInfo);
+                            symbolsList.add(label);
                         }
                     }
                 }
@@ -1765,10 +1761,9 @@ public class LatinIME extends InputMethodService implements
                 symbolsList.addAll(numbersList);
             }
 
-            final SuggestedWords suggestedWords = new SuggestedWords(
-                symbolsList, null, null, false, false, false,
-                SuggestedWords.INPUT_STYLE_APPLICATION_SPECIFIED,
-                SuggestedWords.NOT_A_SEQUENCE_NUMBER);
+            // Create PunctuationSuggestions instead of SuggestedWords so symbols insert instead of replace
+            final PunctuationSuggestions suggestedWords = PunctuationSuggestions.newPunctuationSuggestions(
+                symbolsList.toArray(new String[0]));
 
             mHandler.setSuggestions(suggestedWords);
         }
