@@ -74,7 +74,7 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
 
     private KeyboardState mState;
 
-    private KeyboardLayoutSet mKeyboardLayoutSet;
+    public KeyboardLayoutSet mKeyboardLayoutSet;
 
     private KeyboardTheme mKeyboardTheme;
     private Context mThemeContext;

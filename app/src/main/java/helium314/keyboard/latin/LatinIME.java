@@ -48,6 +48,7 @@ import helium314.keyboard.latin.common.InsetsOutlineProvider;
 import helium314.keyboard.dictionarypack.DictionaryPackConstants;
 import helium314.keyboard.event.Event;
 import helium314.keyboard.event.InputTransaction;
+import helium314.keyboard.keyboard.Key;
 import helium314.keyboard.keyboard.Keyboard;
 import helium314.keyboard.keyboard.KeyboardId;
 import helium314.keyboard.keyboard.KeyboardLayoutSet;
@@ -1737,18 +1738,31 @@ public class LatinIME extends InputMethodService implements
             // Show symbols in the suggestion strip
             mSymbolsShowing = true;
             final ArrayList<SuggestedWords.SuggestedWordInfo> symbolsList = new ArrayList<>();
+            final ArrayList<SuggestedWords.SuggestedWordInfo> numbersList = new ArrayList<>();
 
-            // Common symbols
-            final String[] symbols = {
-                "!", "@", "#", "$", "%", "^", "&", "*", "(", ")",
-                "-", "_", "=", "+", "[", "]", "{", "}", ";", ":",
-                "'", "\"", ",", ".", "<", ">", "/", "?", "\\", "|"
-            };
+            // Get symbols from the actual symbols keyboard
+            final Keyboard symbolsKeyboard = mKeyboardSwitcher.mKeyboardLayoutSet.getKeyboard(KeyboardId.ELEMENT_SYMBOLS);
+            if (symbolsKeyboard != null) {
+                for (Key key : symbolsKeyboard.getSortedKeys()) {
+                    final String label = key.getLabel();
+                    final int code = key.getCode();
 
-            for (String symbol : symbols) {
-                symbolsList.add(new SuggestedWords.SuggestedWordInfo(
-                    symbol, "", 1, SuggestedWords.SuggestedWordInfo.KIND_TYPED,
-                    null, SuggestedWords.SuggestedWordInfo.NOT_AN_INDEX, 0));
+                    // Only add keys that have visible labels and represent printable characters
+                    if (label != null && !label.isEmpty() && code > 0 && code < 0x10000) {
+                        final SuggestedWords.SuggestedWordInfo wordInfo = new SuggestedWords.SuggestedWordInfo(
+                            label, "", 1, SuggestedWords.SuggestedWordInfo.KIND_TYPED,
+                            null, SuggestedWords.SuggestedWordInfo.NOT_AN_INDEX, 0);
+
+                        // Separate numbers from other symbols - put numbers at the end
+                        if (code >= '0' && code <= '9') {
+                            numbersList.add(wordInfo);
+                        } else {
+                            symbolsList.add(wordInfo);
+                        }
+                    }
+                }
+                // Add numbers at the end
+                symbolsList.addAll(numbersList);
             }
 
             final SuggestedWords suggestedWords = new SuggestedWords(
