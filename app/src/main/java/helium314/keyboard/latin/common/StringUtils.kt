@@ -241,6 +241,23 @@ fun containsValueWhenSplit(string: String?, value: String, split: String): Boole
     return string.split(split).contains(value)
 }
 
+/** converts comma-separates character pairs into a list of codepoint-pair-arrays (sorted by first codepoint) */
+fun toSortedCodepointArrays(string: String): List<IntArray> {
+    val split = string.split(",")
+    val list = split.mapTo(mutableListOf()) {
+        intArrayOf(it[0].code, it[1].code)
+    }
+    list.sortBy { it[0] }
+    return list
+}
+
+/** returns the paired codepoint in the sorted list of pairs, or Constants.NOT_A_CODE */
+fun getSecondInSymbolPair(pairs: List<IntArray>, codePoint: Int): Int {
+    val i = pairs.binarySearch { it[0].compareTo(codePoint) }
+    if (i >= 0) return pairs[i][1]
+    return Constants.NOT_A_CODE
+}
+
 /** returns whether the text contains a codepoint that might be an emoji */
 fun mightBeEmoji(text: CharSequence): Boolean {
     loopOverCodePoints(text) { cp, _ ->

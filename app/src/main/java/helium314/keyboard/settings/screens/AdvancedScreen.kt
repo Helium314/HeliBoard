@@ -221,7 +221,7 @@ fun createAdvancedSettings(context: Context) = listOf(
         SliderPreference(
             name = setting.title,
             key = setting.key,
-            default = Defaults.PREF_EMOJI_MAX_SDK,
+            default = 0,
             range = 21f..35f,
             description = {
                 "Android " + when(it) {

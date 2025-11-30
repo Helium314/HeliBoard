@@ -136,6 +136,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_ONE_HANDED_SCALE_PREFIX = "one_handed_mode_scale";
 
     public static final String PREF_SHOW_NUMBER_ROW = "show_number_row";
+    public static final String PREF_SHOW_NUMBER_ROW_IN_SYMBOLS = "show_number_row_in_symbols";
     public static final String PREF_LOCALIZED_NUMBER_ROW = "localized_number_row";
     public static final String PREF_SHOW_NUMBER_ROW_HINTS = "show_number_row_hints";
     public static final String PREF_CUSTOM_CURRENCY_KEY = "custom_currency_key";
@@ -197,6 +198,8 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     private final static Drawable[] sCachedBackgroundImages = new Drawable[4];
     private static Typeface sCachedTypeface;
     private static boolean sCustomTypefaceLoaded; // to avoid repeatedly checking custom typeface file when there is no custom typeface
+    private static Typeface sCachedEmojiTypeface;
+    private static boolean sCustomEmojiTypefaceLoaded;
 
     private static final Settings sInstance = new Settings();
 
@@ -520,6 +523,10 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
         return new File(DeviceProtectedUtils.getFilesDir(context), "custom_font");
     }
 
+    public static File getCustomEmojiFontFile(final Context context) {
+        return new File(DeviceProtectedUtils.getFilesDir(context), "custom_emoji_font");
+    }
+
     // "default" layout as in this is used if nothing else is specified in the subtype
     public static String readDefaultLayoutName(final LayoutType type, final SharedPreferences prefs) {
         return prefs.getString(PREF_LAYOUT_PREFIX + type.name(), Defaults.INSTANCE.getDefault(type));
@@ -562,8 +569,21 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
         return sCachedTypeface;
     }
 
+    @Nullable
+    public Typeface getCustomEmojiTypeface() {
+        if (!sCustomEmojiTypefaceLoaded) {
+            try {
+                sCachedEmojiTypeface = Typeface.createFromFile(getCustomEmojiFontFile(mContext));
+            } catch (Exception ignored) { }
+        }
+        sCustomEmojiTypefaceLoaded = true;
+        return sCachedEmojiTypeface;
+    }
+
     public static void clearCachedTypeface() {
         sCachedTypeface = null;
         sCustomTypefaceLoaded = false;
+        sCachedEmojiTypeface = null;
+        sCustomEmojiTypefaceLoaded = false;
     }
 }

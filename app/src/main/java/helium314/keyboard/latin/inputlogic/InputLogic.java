@@ -1100,6 +1100,16 @@ public final class InputLogic {
         final boolean shouldAvoidSendingCode = Constants.CODE_SPACE == codePoint
                 && !settingsValues.mSpacingAndPunctuations.mCurrentLanguageHasSpaces
                 && wasComposingWord;
+
+        // wrap / unwrap selected text in codepoint pairs
+        if (!wasComposingWord && mConnection.hasSelection()) { // we should never be composing when something is selected
+            final int pairedCodepoint = settingsValues.mSpacingAndPunctuations.getSecondInSymbolPair(codePoint);
+            if (pairedCodepoint != Constants.NOT_A_CODE) {
+                wrapSelection(codePoint, pairedCodepoint);
+                inputTransaction.requireShiftUpdate(InputTransaction.SHIFT_UPDATE_NOW);
+                return;
+            }
+        }
         if (mWordComposer.isCursorFrontOrMiddleOfComposingWord()) {
             // If we are in the middle of a recorrection, we need to commit the recorrection
             // first so that we can insert the separator at the current cursor position.
@@ -2436,6 +2446,25 @@ public final class InputLogic {
             Log.d(TAG, "commitChosenWord() : " + runTimeMillis + " ms to run "
                     + "WordComposer.commitWord()");
         }
+    }
+
+    /**
+     *  Wraps the selected text into the codepoints. If the same codepoints are
+     *  already present before and after the selection, they are removed instead.
+     *  (unfortunately Android long-press selection may select one of those codepoints, so unwrap may not work well)
+     */
+    private void wrapSelection(final int start, final int end) {
+        final CharSequence selected = mConnection.getSelectedText(0);
+        if (mConnection.getCodePointBeforeCursor() == start) {
+            // maybe we want to revert it
+            final CharSequence afterCursor = mConnection.getTextAfterCursor(1, 0);
+            if (afterCursor.length() > 0 && afterCursor.charAt(0) == end) {
+                mConnection.setSelection(mConnection.getExpectedSelectionStart() - 1, mConnection.getExpectedSelectionEnd() + 1);
+                mConnection.commitText(selected, 1);
+                return;
+            }
+        }
+        mConnection.commitText(StringUtils.newSingleCodePointString(start) + selected + StringUtils.newSingleCodePointString(end), 1);
     }
 
     /**

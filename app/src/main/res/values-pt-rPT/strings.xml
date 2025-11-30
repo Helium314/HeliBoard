@@ -184,7 +184,7 @@
     <string name="auto_correct_shortcuts">Atalhos de correção automática</string>
     <string name="auto_correct_shortcuts_summary">Quando ativado, os atalhos podem ser expandidos pela correção automática</string>
     <string name="customize_background_image_landscape">Definir imagem de fundo (horizontal)</string>
-    <string name="custom_font">Escolher fonte de um ficheiro externo</string>
+    <string name="custom_font">Definir fonte a partir de um ficheiro</string>
     <string name="summary_customize_background_image_landscape">Se não for definido, será usada a imagem vertical</string>
     <string name="customize_toolbar_key_code_reset_message">Limpar mesmo todos os códigos de teclas personalizados?</string>
     <string name="number_row_hints">Mostrar dicas na linha de números</string>
@@ -236,8 +236,8 @@
     <string name="layout_symbols_arabic" tools:keep="@string/layout_symbols_arabic">Símbolos (Árabe)</string>
     <string name="select_user_colors_summary">Selecionar cores para texto e fundos</string>
     <string name="select_color_background">Fundo do teclado</string>
-    <string name="layout_emoji_bottom_row" tools:keep="@string/layout_emoji_bottom_row">Linha inferior de emojis</string>
-    <string name="layout_clip_bottom_row" tools:keep="@string/layout_clip_bottom_row">Linha inferior da área de transferência</string>
+    <string name="layout_emoji_bottom_row" tools:keep="@string/layout_emoji_bottom_row">Fila inferior de emojis</string>
+    <string name="layout_clip_bottom_row" tools:keep="@string/layout_clip_bottom_row">Fila inferior da área de transferência</string>
     <string name="theme_name_violette" tools:keep="@string/theme_name_violette">Violeta</string>
     <string name="prefs_always_show_suggestions_except_web_text">Não mostrar sempre sugestões para campos de edição web</string>
     <string name="prefs_always_show_suggestions_except_web_text_summary">Os campos de edição na Web (encontrados principalmente nos navegadores) são uma causa muito comum de problemas com a configuração de mostrar sempre sugestões</string>
@@ -436,8 +436,8 @@
     <string name="subtype_generic_sebeolsik_final">%s (Sebeolsik Final)</string>
     <string name="subtype_generic_student">%s (Estudante)</string>
     <string name="inline_emoji_search">Pesquisa de emoji embutida</string>
-    <string name="inline_emoji_search_summary">Sugerir somente emojis quando uma palavra for precedida por dois pontos</string>
-    <string name="emoji_dictionary_required">Um dicionário de emoijs é necessário para isto funcionar. Dicionários no formato .dict podem ser descarregados %s.</string>
+    <string name="inline_emoji_search_summary">Apenas sugerir emojis quando uma palavra é precedida por dois pontos</string>
+    <string name="emoji_dictionary_required">É necessário um dicionário de emojis para esta funcionalidade. Os dicionários no formato .dict podem ser descarregados %s.</string>
     <string name="clipboard_history_pinned_first">Mostrar items afixados no topo</string>
     <string name="save_subtype_per_app">Lembrar idioma por app</string>
     <string name="subtype_mhr">Mai (Oriental)</string>
