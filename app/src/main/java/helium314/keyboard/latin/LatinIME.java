@@ -1722,6 +1722,44 @@ public class LatinIME extends InputMethodService implements
         startActivity(intent);
     }
 
+    private boolean mSymbolsShowing = false;
+
+    public void toggleSymbolsInSuggestionStrip() {
+        if (mSuggestionStripView == null) {
+            return;
+        }
+
+        if (mSymbolsShowing) {
+            // Clear symbols and restore normal suggestions
+            mSymbolsShowing = false;
+            mHandler.postUpdateSuggestionStrip(SuggestedWords.INPUT_STYLE_TYPING);
+        } else {
+            // Show symbols in the suggestion strip
+            mSymbolsShowing = true;
+            final ArrayList<SuggestedWords.SuggestedWordInfo> symbolsList = new ArrayList<>();
+
+            // Common symbols
+            final String[] symbols = {
+                "!", "@", "#", "$", "%", "^", "&", "*", "(", ")",
+                "-", "_", "=", "+", "[", "]", "{", "}", ";", ":",
+                "'", "\"", ",", ".", "<", ">", "/", "?", "\\", "|"
+            };
+
+            for (String symbol : symbols) {
+                symbolsList.add(new SuggestedWords.SuggestedWordInfo(
+                    symbol, "", 1, SuggestedWords.SuggestedWordInfo.KIND_TYPED,
+                    null, SuggestedWords.SuggestedWordInfo.NOT_AN_INDEX, 0));
+            }
+
+            final SuggestedWords suggestedWords = new SuggestedWords(
+                symbolsList, null, null, false, false, false,
+                SuggestedWords.INPUT_STYLE_APPLICATION_SPECIFIED,
+                SuggestedWords.NOT_A_SEQUENCE_NUMBER);
+
+            mHandler.setSuggestions(suggestedWords);
+        }
+    }
+
     public void dumpDictionaryForDebug(final String dictName) {
         if (!mDictionaryFacilitator.isActive()) {
             resetDictionaryFacilitatorIfNecessary();
