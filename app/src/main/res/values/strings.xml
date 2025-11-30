@@ -276,6 +276,8 @@
     <string name="number_row">Number row</string>
     <!-- Description of the settings to enable number row -->
     <string name="number_row_summary">Always show number row</string>
+    <!-- Title of the setting to replace the top row in symbols layout with number row -->
+    <string name="number_row_in_symbols">Show number row in symbols view</string>
     <!-- Title of the setting to localize number row -->
     <string name="localized_number_row">Localize number row</string>
     <!-- Description of the settings to localize number row -->
