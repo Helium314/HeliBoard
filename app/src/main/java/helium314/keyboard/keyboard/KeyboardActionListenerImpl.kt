@@ -64,6 +64,12 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
     }
 
     override fun onKeyUp(keyCode: Int, keyEvent: KeyEvent): Boolean {
+        // Handle keycode 63 for symbols toggle
+        if (keyCode == 63) {
+            latinIME.toggleSymbolsInSuggestionStrip()
+            return true
+        }
+
         emojiAltPhysicalKeyDetector.onKeyUp(keyEvent)
         if (!ProductionFlags.IS_HARDWARE_KEYBOARD_SUPPORTED)
             return false
@@ -73,6 +79,11 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
     }
 
     override fun onKeyDown(keyCode: Int, keyEvent: KeyEvent): Boolean {
+        // Handle keycode 63 for symbols toggle - consume the key down event
+        if (keyCode == 63) {
+            return true
+        }
+
         emojiAltPhysicalKeyDetector.onKeyDown(keyEvent)
         if (!ProductionFlags.IS_HARDWARE_KEYBOARD_SUPPORTED)
             return false
