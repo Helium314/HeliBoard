@@ -38,7 +38,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
-import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -58,8 +57,6 @@ fun WelcomeWizard(
     finish: () -> Unit
 ) {
     val ctx = LocalContext.current
-    val width = LocalConfiguration.current.screenWidthDp
-    val height = LocalConfiguration.current.screenHeightDp
     val imm = ctx.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
     fun determineStep(): Int = when {
         !UncachedInputMethodManagerUtils.isThisImeEnabled(ctx, imm) -> 0
@@ -77,7 +74,7 @@ fun WelcomeWizard(
                 step = 3
             }
     }
-    val useWideLayout = height < 500 && width > height
+    val useWideLayout = isWideScreen()
     val stepBackgroundColor = Color(ContextCompat.getColor(ctx, R.color.setup_step_background))
     val textColor = Color(ContextCompat.getColor(ctx, R.color.setup_text_action))
     val textColorDim = textColor.copy(alpha = 0.5f)
@@ -134,7 +131,7 @@ fun WelcomeWizard(
                     actionText = stringResource(R.string.setup_step1_action)
                     action = {
                         val intent = Intent()
-                        intent.setAction(Settings.ACTION_INPUT_METHOD_SETTINGS)
+                        intent.action = Settings.ACTION_INPUT_METHOD_SETTINGS
                         intent.addCategory(Intent.CATEGORY_DEFAULT)
                         launcher.launch(intent)
                     }

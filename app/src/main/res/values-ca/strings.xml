@@ -81,7 +81,6 @@
     <string name="show_setup_wizard_icon_summary">"Mostra la icona de l\'aplicació al menú d\'aplicacions"</string>
     <string name="dictionary_category_title">"Diccionaris complementaris"</string>
     <string name="dictionary_available">"Diccionari disponible"</string>
-    <string name="last_update">"Última actualització"</string>
     <string name="settings">"Configuració"</string>
     <string name="delete">"Suprimeix"</string>
     <string name="version_text">Versió %s</string>
@@ -129,7 +128,6 @@
     <string name="prefs_keyboard_height_scale">Escala de l\'alçada del teclat</string>
     <string name="day_night_mode_summary">L\'aspecte seguirà la configuració del sistema</string>
     <string name="auto_correction_confidence">Confidència d\'autocorrecció</string>
-    <string name="use_system_language_to_select_input_method_subtypes">"Utilitza els idiomes del sistema"</string>
     <string name="select_input_method">Selecciona un mètode d\'entrada</string>
     <string name="undo">"Desfés"</string>
     <string name="redo">"Refés"</string>
@@ -219,7 +217,6 @@
     <string name="subtype_generic_phonetic">%s (Fonètic)</string>
     <string name="button_title_add_custom_layout">Afegeix una disposició personalitzada</string>
     <string name="copy_to_clipboard">Copia al porta-retalls</string>
-    <string name="button_copy_existing_layout">Copia la disposició existent</string>
     <string name="layout_symbols_shifted" tools:keep="@string/layout_symbols_shifted">Més símbols</string>
     <string name="layout_phone" tools:keep="@string/layout_phone">Telefon</string>
     <string name="prefs_key_emoji_max_sdk">Anul·la la versió d\'emojis</string>
@@ -294,14 +291,12 @@
     <string name="auto_show_toolbar">Mostra automàtica de la barra d\'eines</string>
     <string name="auto_show_toolbar_summary">Mostra la barra d\'eines si s\'inicia l\'entrada o si selecciona text</string>
     <string name="var_toolbar_direction_summary">Inverteix la direcció quan es selecciona un subtipus de teclat de dreta a esquerra</string>
-    <string name="dictionary_file_wrong_locale_ok">Encara s\'utilitza</string>
     <string name="dictionary_load_error">Error en carregar el fitxer del diccionari</string>
     <string name="theme_style">Estil</string>
     <string name="select_user_colors_summary">Seleccioneu colors per al text i els fons</string>
     <string name="select_color_background">Fons del teclat</string>
     <string name="select_color_key">Text de la tecla</string>
     <string name="show_horizontal_space_swipe">Gest de lliscar la barra espaiadora horitzontal</string>
-    <string name="dictionary_file_wrong_locale">El fitxer seleccionat és per a %1$s, però s\'esperava %2$s. Encara el feu servir per a %2$s?</string>
     <string name="theme_name_chocolate" tools:keep="@string/theme_name_chocolate">Chocolate</string>
     <string name="theme_name_cloudy" tools:keep="@string/theme_name_cloudy">Ennuvolat</string>
     <string name="theme_name_forest" tools:keep="@string/theme_name_forest">Bosc</string>
@@ -383,14 +378,11 @@
     <string name="hidden_features_message">► Si premeu llargament les tecles de la barra d\'eines fixades, s\'ofereix una funcionalitat addicional:&lt;br&gt;\n\t • porta-retalls &amp;#65515; enganxa &lt;br&gt;\n\t • moure a l\'esquerra/dreta &amp;#65515; paraula esquerra/dreta &lt;br&gt;\n\t • moure amunt/avall &amp;#65515; pàgina amunt/avall&lt;br&gt;\n\t • paraula esquerra/dreta &amp;#65515; inici/final de línia&lt;br&gt;\n\t • pàgina amunt/avall &amp;#65515; inici/final de la pàgina&lt;br&gt;\n\t • còpia &amp;#65515; talla&lt;br&gt;\n\t • selecciona la paraula &amp;#8596; selecciona-ho tot&lt;br&gt;\n\t • desfer &amp;#8596; refer&lt;br&gt;&lt;br&gt;\n► Prémer llargament les tecles de la barra d\'eines de la tira de suggeriments les fixa a la tira de suggeriments.&lt;br&gt;&lt;br&gt;\n► Manteniu premuda la tecla de coma per accedir a la vista del porta-retalls, la vista d\'emoji, el mode d\'una mà, la configuració o canviar l\'idioma:&lt;br&gt;\n\t • La visualització d\'emoji i el canvi d\'idioma desapareixeran si teniu activada la tecla corresponent;&lt;br&gt;\n\t • Per a algunes disposicions no és la tecla de coma, sinó la tecla a la mateixa posició (per exemple, és \'q\' per a la disposició Dvorak).&lt;br&gt;&lt;br&gt;\n► Quan el mode d\'incògnit està activat, no s\'aprendran paraules ni s\'afegiran emojis als recents.&lt;br&gt;&lt;br&gt;\n► Premeu la icona d\'incògnit per accedir a la barra d\'eines.&lt;br&gt;&lt;br&gt;\n► Entrada de tecla lliscant: llisca des de majúscules a una altra tecla per escriure una sola tecla en majúscula:&lt;br&gt;\n\t • Això també funciona per a la tecla \'?123\' per escriure un sol símbol des del teclat de símbols i per a tecles relacionades.&lt;br&gt;&lt;br&gt;\n► Manteniu premuda la tecla majúscules o símbol, premeu una o més tecles i, a continuació, deixeu anar la tecla majúscules o símbol per tornar al teclat anterior.&lt;br&gt;&lt;br&gt;\n► Premeu llargament un suggeriment a la banda de suggeriments per mostrar més suggeriments i un botó d\'eliminació per eliminar aquest suggeriment.&lt;br&gt;&lt;br&gt;\n► Feu lliscar el dit cap amunt des d\'un suggeriment per obrir-ne més i deixeu anar el suggeriment per seleccionar-lo.&lt;br&gt;&lt;br&gt;\n► Premeu llargament una entrada a l\'historial del porta-retalls per fixar-la (mantingueu-la al porta-retalls fins que no la desfixeu).&lt;br&gt;&lt;br&gt;\n► Feu lliscar el dit cap a l\'esquerra a la vista del porta-retalls per eliminar una entrada (excepte quan estigui fixada)&lt;br&gt;&lt;br&gt;\n► Seleccioneu text i premeu majúscules per canviar entre les majúscules, les minúscules i les majúscules.&lt;br&gt;&lt;br&gt;\n► Podeu afegir diccionaris obrint-los en un explorador de fitxers:&lt;br&gt;\n\t • Això només funciona amb &lt;i&gt;URIs de contingut&lt;/i&gt; i no amb &lt;i&gt;URIs d\'arxiu&lt;/i&gt;, el que significa que pot ser que no funcioni amb alguns exploradors de fitxers.&lt;br&gt;&lt;br&gt;\n► Per als usuaris que fan còpies de seguretat manuals amb accés root:&lt;br&gt;\n\t • A partir d\'Android 7, el fitxer de preferències compartides no es troba a la ubicació predeterminada, perquè l\'aplicació utilitza %s. Això és necessari perquè la configuració es pugui llegir abans de desbloquejar el dispositiu, p. a l\'arrencada; br&gt;\n\t • El fitxer es troba a /data/user_de/0/package_id/shared_prefs/ tot i que això pot dependre del dispositiu i de la versió d\'Android.&lt;br&gt;&lt;br&gt;\n&lt;i&gt;&lt;b&gt;Mode de depuració/APK de depuració&lt;/b&gt;&lt;/i&gt; &lt;br&gt;&lt;br&gt;\n► Premeu llargament un suggeriment per mostrar el diccionari d\'origen.&lt;br&gt;&lt;br&gt;\n► Quan utilitzeu l\'APK de depuració, podeu trobar la configuració de depuració a les Preferències avançades, tot i que la utilitat és limitada excepte per abocar diccionaris al registre.&lt;br&gt;\n\t • Per a una versió APK, cal que toqueu la versió a &lt;i&gt;Quant a&lt;/i&gt; diverses vegades i, a continuació, podeu trobar la configuració de depuració a &lt;i&gt;Preferències avançades&lt;/i&gt;.&lt;br&gt;\n\t • Quan activeu &lt;i&gt;Mostra informació de suggeriments&lt;/i&gt;, els suggeriments tindran alguns nombres minúsculs a la part superior que mostren una puntuació interna i un diccionari font.&lt;br&gt;&lt;br&gt;\n► En cas d\'error de l\'aplicació, se us demanarà si voleu els registres d\'error quan obriu la configuració.&lt;br&gt;&lt;br&gt;\n► Quan utilitzeu l\'escriptura multilingüe, la barra espaiadora mostrarà un valor de confiança utilitzat per determinar l\'idioma utilitzat actualment.&lt;br&gt;&lt;br&gt;\n► Els suggeriments tindran alguns nombres minúsculs a la part superior que mostren una puntuació interna i un diccionari font (es pot desactivar).</string>
     <string name="customize_icons_reset_message">Restablir realment totes les icones personalitzades?</string>
     <string name="label_bin" tools:keep="@string/label_bin">Paperera</string>
-    <string name="prefs_bottom_padding_scale_landscape">Escala de farciment inferior (apaïsat)</string>
     <string name="prefs_font_scale">Escala de lletra del teclat</string>
     <string name="prefs_emoji_font_scale">Escala de lletra de visualització d\'emoji</string>
-    <string name="prefs_side_padding_scale_landscape">Escala de farciment lateral (apaïsat)</string>
     <string name="prefs_side_padding_scale">Escala de farciment lateral</string>
     <string name="number_row_hints">Mostra suggeriments a la fila de nombres</string>
     <string name="prefs_language_swipe_distance">Canvia la distància de lliscament d\'idioma</string>
-    <string name="split_spacer_scale_landscape">Distància de separació (apaïsat)</string>
     <string name="enable_split_keyboard_landscape">Activa el teclat dividit (apaïsat)</string>
     <string name="split" tools:keep="@string/split">Teclat dividit</string>
     <string name="delete_confirmation">Voleu suprimir %s?</string>
@@ -435,7 +427,6 @@
     <string name="toolbar_mode_hidden">Amagat</string>
     <string name="popup_order_and_hint_source">Ordre de les tecles emergents i font de pistes</string>
     <string name="landscape">Apaïsat</string>
-    <string name="show_emoji_descriptions_summary">Requereix un diccionari d\'emojis</string>
     <string name="show_emoji_descriptions">Mostra descripció d\'emoji en prémer llarg</string>
     <string name="suggest_emojis_summary">Utilitzar diccionari d\'emojis als suggeriments normals</string>
     <string name="suggest_emojis">Suggerir emojis</string>
@@ -444,4 +435,13 @@
     <string name="suggest_punctuation">Suggeriments de puntuació</string>
     <string name="about_wiki_link">Anar al Wiki</string>
     <string name="about_wiki_link_description">Qualsevol compte de GitHub pot millorar el Wiki!</string>
+    <string name="save_subtype_per_app">Recordar idioma per app</string>
+    <string name="subtype_khipro_bn">%s (Khipro)</string>
+    <string name="clipboard_history_pinned_first">Mostrar els elements fixats a dalt</string>
+    <string name="inline_emoji_search">Cerca d\'emojis en línia</string>
+    <string name="inline_emoji_search_summary">Suggerir emojis només quan una paraula va precedida de dos punts</string>
+    <string name="emoji_dictionary_required">Cal un diccionari d\'emojis per a aquesta funció. Els diccionaris en format .dict es poden descarregar %s.</string>
+    <string name="subtype_mhr">Mari (Oriental)</string>
+    <string name="layout_emoji_bottom_row_with_action" tools:keep="@string/layout_emoji_bottom_row_with_action">Fila inferior d\'emojis amb tecla d\'acció</string>
+    <string name="layout_clip_bottom_row_with_action" tools:keep="@string/layout_clip_bottom_row_with_action">Fila inferior del porta-retalls amb tecla d\'acció</string>
 </resources>

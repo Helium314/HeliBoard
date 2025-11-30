@@ -18,7 +18,6 @@ import helium314.keyboard.keyboard.KeyboardTheme
 import helium314.keyboard.keyboard.internal.KeyboardIconsSet
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.settings.Defaults
-import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.utils.Log
 import helium314.keyboard.latin.utils.getActivity
 import helium314.keyboard.latin.utils.getStringResourceOrName
@@ -40,6 +39,8 @@ import helium314.keyboard.settings.preferences.CustomFontPreference
 import helium314.keyboard.settings.preferences.MultiSliderPreference
 import helium314.keyboard.settings.preferences.TextInputPreference
 import helium314.keyboard.settings.previewDark
+import androidx.core.content.edit
+import helium314.keyboard.latin.settings.Settings
 
 @Composable
 fun AppearanceScreen(
@@ -78,10 +79,11 @@ fun AppearanceScreen(
         Settings.PREF_SPACE_BAR_TEXT,
         SettingsWithoutKey.CUSTOM_FONT,
         Settings.PREF_FONT_SCALE,
+        SettingsWithoutKey.CUSTOM_EMOJI_FONT,
         Settings.PREF_EMOJI_FONT_SCALE,
         if (prefs.getFloat(Settings.PREF_EMOJI_FONT_SCALE, Defaults.PREF_EMOJI_FONT_SCALE) != 1f)
             Settings.PREF_EMOJI_KEY_FIT else null,
-        if (prefs.getInt(Settings.PREF_EMOJI_MAX_SDK, Defaults.PREF_EMOJI_MAX_SDK) >= 24)
+        if (prefs.getInt(Settings.PREF_EMOJI_MAX_SDK, 0) >= 24)
             Settings.PREF_EMOJI_SKIN_TONE else null,
     )
     SearchSettingsScreen(
@@ -105,9 +107,9 @@ fun createAppearanceSettings(context: Context) = listOf(
         ) {
             if (it != KeyboardTheme.STYLE_HOLO) {
                 if (prefs.getString(Settings.PREF_THEME_COLORS, Defaults.PREF_THEME_COLORS) == KeyboardTheme.THEME_HOLO_WHITE)
-                    prefs.edit().remove(Settings.PREF_THEME_COLORS).apply()
+                    prefs.edit { remove(Settings.PREF_THEME_COLORS) }
                 if (prefs.getString(Settings.PREF_THEME_COLORS_NIGHT, Defaults.PREF_THEME_COLORS_NIGHT) == KeyboardTheme.THEME_HOLO_WHITE)
-                    prefs.edit().remove(Settings.PREF_THEME_COLORS_NIGHT).apply()
+                    prefs.edit { remove(Settings.PREF_THEME_COLORS_NIGHT) }
             }
             KeyboardIconsSet.needsReload = true // only relevant for Settings.PREF_CUSTOM_ICON_NAMES
             KeyboardSwitcher.getInstance().setThemeNeedsReload()
@@ -246,7 +248,7 @@ fun createAppearanceSettings(context: Context) = listOf(
         TextInputPreference(it, Defaults.PREF_SPACE_BAR_TEXT)
     },
     Setting(context, SettingsWithoutKey.CUSTOM_FONT, R.string.custom_font) {
-        CustomFontPreference(it)
+        CustomFontPreference(it, Settings.getCustomFontFile(LocalContext.current), R.string.custom_font)
     },
     Setting(context, Settings.PREF_FONT_SCALE, R.string.prefs_font_scale) { def ->
         SliderPreference(
@@ -256,6 +258,9 @@ fun createAppearanceSettings(context: Context) = listOf(
             range = 0.5f..1.5f,
             description = { "${(100 * it).toInt()}%" }
         ) { KeyboardSwitcher.getInstance().setThemeNeedsReload() }
+    },
+    Setting(context, SettingsWithoutKey.CUSTOM_EMOJI_FONT, R.string.custom_emoji_font) {
+        CustomFontPreference(it, Settings.getCustomEmojiFontFile(LocalContext.current), R.string.custom_emoji_font)
     },
     Setting(context, Settings.PREF_EMOJI_FONT_SCALE, R.string.prefs_emoji_font_scale) { setting ->
         SliderPreference(

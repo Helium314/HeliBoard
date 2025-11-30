@@ -55,6 +55,7 @@ object Defaults {
     const val PREF_VIBRATE_IN_DND_MODE = false
     const val PREF_SOUND_ON = false
     const val PREF_SUGGEST_EMOJIS = true
+    const val PREF_INLINE_EMOJI_SEARCH = true
     const val PREF_SHOW_EMOJI_DESCRIPTIONS = true
     @JvmField
     var PREF_POPUP_ON = true
@@ -125,6 +126,7 @@ object Defaults {
     const val PREF_ONE_HANDED_GRAVITY = Gravity.LEFT
     const val PREF_ONE_HANDED_SCALE = 1f
     const val PREF_SHOW_NUMBER_ROW = false
+    const val PREF_SHOW_NUMBER_ROW_IN_SYMBOLS = true
     const val PREF_LOCALIZED_NUMBER_ROW = true
     const val PREF_SHOW_NUMBER_ROW_HINTS = false
     const val PREF_CUSTOM_CURRENCY_KEY = ""
@@ -162,7 +164,6 @@ object Defaults {
     const val PREF_REMOVE_REDUNDANT_POPUPS = false
     const val PREF_SPACE_BAR_TEXT = ""
     const val PREF_TIMESTAMP_FORMAT = "yyyy-MM-dd HH:mm:ss"
-    val PREF_EMOJI_MAX_SDK = Build.VERSION.SDK_INT
     const val PREF_EMOJI_RECENT_KEYS = ""
     const val PREF_LAST_SHOWN_EMOJI_CATEGORY_PAGE_ID = 0
     const val PREF_SHOW_DEBUG_SETTINGS = false

@@ -25,8 +25,7 @@ public class NgramProperty {
     @Override
     public boolean equals(Object o) {
         if (o == this) return true;
-        if (!(o instanceof NgramProperty)) return false;
-        final NgramProperty n = (NgramProperty)o;
+        if (!(o instanceof NgramProperty n)) return false;
         return mTargetWord.equals(n.mTargetWord) && mNgramContext.equals(n.mNgramContext);
     }
 }

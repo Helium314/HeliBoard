@@ -15,15 +15,15 @@ class HangulCombiner : Combiner {
     private val syllable: HangulSyllable? get() = history.lastOrNull()
 
     override fun processEvent(previousEvents: ArrayList<Event>?, event: Event): Event {
-        if (event.mKeyCode == KeyCode.SHIFT) return event
+        if (event.keyCode == KeyCode.SHIFT) return event
         // previously we only used the combiner if codePoint > 0x1100 or codePoint == -1, but looks here it's not necessary
         val event = HangulEventDecoder.decodeSoftwareKeyEvent(event)
-        if (Character.isWhitespace(event.mCodePoint)) {
+        if (Character.isWhitespace(event.codePoint)) {
             val text = combiningStateFeedback
             reset()
             return createEventChainFromSequence(text, event)
         } else if (event.isFunctionalKeyEvent) {
-            if(event.mKeyCode == KeyCode.DELETE) {
+            if(event.keyCode == KeyCode.DELETE) {
                 return when {
                     history.size == 1 && composingWord.isEmpty() || history.isEmpty() && composingWord.length == 1 -> {
                         reset()
@@ -45,7 +45,7 @@ class HangulCombiner : Combiner {
             return createEventChainFromSequence(text, event)
         } else {
             val currentSyllable = syllable ?: HangulSyllable()
-            val jamo = HangulJamo.of(event.mCodePoint)
+            val jamo = HangulJamo.of(event.codePoint)
             if (!event.isCombining || jamo is HangulJamo.NonHangul) {
                 composingWord.append(currentSyllable.string)
                 composingWord.append(jamo.string)

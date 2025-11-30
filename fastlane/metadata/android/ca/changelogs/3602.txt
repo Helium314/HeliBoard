@@ -1,0 +1,12 @@
+* af. cerca emojis en línia
+* opc. recorda l'idioma/subtipus per app
+* corrs. i millores de retroalimentació hàptica
+* manté el porta-retalls no fixat en reiniciar app
+* opc. mostra entrades fixades al porta-retalls al final
+* af. emojis opcs. i files inferiors del porta-retalls
+* af. un botó per descartar suggs. en línia
+* af. bengalí khipro
+* af. mirandès
+* solució alt. per a probs. amb el teclat maqui.
+* els enllaços als diccs. ara van directament al fitxer
+* diverses corrs. i millores menors

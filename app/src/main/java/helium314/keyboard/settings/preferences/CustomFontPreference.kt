@@ -25,11 +25,10 @@ import helium314.keyboard.settings.dialogs.InfoDialog
 import java.io.File
 
 @Composable
-fun CustomFontPreference(setting: Setting) {
+fun CustomFontPreference(setting: Setting, fontFile: File, title: Int) {
     val ctx = LocalContext.current
     var showDialog by rememberSaveable { mutableStateOf(false) }
     var showErrorDialog by rememberSaveable { mutableStateOf(false) }
-    val fontFile = Settings.getCustomFontFile(ctx)
     val launcher = rememberLauncherForActivityResult(ActivityResultContracts.StartActivityForResult()) {
         if (it.resultCode != Activity.RESULT_OK) return@rememberLauncherForActivityResult
         val uri = it.data?.data ?: return@rememberLauncherForActivityResult
@@ -69,7 +68,7 @@ fun CustomFontPreference(setting: Setting) {
             },
             neutralButtonText = stringResource(R.string.delete),
             confirmButtonText = stringResource(R.string.load),
-            title = { Text(stringResource(R.string.custom_font)) }
+            title = { Text(stringResource(title)) }
         )
     if (showErrorDialog)
         InfoDialog(stringResource(R.string.file_read_error)) { showErrorDialog = false }

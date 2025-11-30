@@ -2,6 +2,7 @@
 
 package helium314.keyboard.latin.utils
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.SharedPreferences
 import android.content.res.Resources
@@ -67,7 +68,7 @@ object SubtypeSettings {
 
     /** @return whether subtype was actually removed */
     fun removeEnabledSubtype(context: Context, subtype: InputMethodSubtype): Boolean {
-        val prefs = context.prefs();
+        val prefs = context.prefs()
         if (!removeEnabledSubtype(prefs, subtype.toSettingsSubtype())) {
             if (SubtypeUtilsAdditional.isAdditionalSubtype(subtype))
                 return false
@@ -149,6 +150,7 @@ object SubtypeSettings {
      * Update subtypes that contain the layout. If new name is null (layout deleted) and the
      * subtype is now identical to a resource subtype, remove the subtype from additional subtypes.
      */
+    @SuppressLint("UseKtx") // easier to read
     fun onRenameLayout(type: LayoutType, from: String, to: String?, context: Context) {
         val prefs = context.prefs()
         val editor = prefs.edit() // calling apply for each separate setting would result in an invalid intermediate state
@@ -212,6 +214,7 @@ object SubtypeSettings {
         loadEnabledSubtypes(context)
     }
 
+    @Suppress("SameReturnValue")
     private fun getDefaultEnabledSubtypes(): List<InputMethodSubtype> {
         if (systemSubtypes.isNotEmpty()) return systemSubtypes
         val subtypes = systemLocales.mapNotNull { locale ->

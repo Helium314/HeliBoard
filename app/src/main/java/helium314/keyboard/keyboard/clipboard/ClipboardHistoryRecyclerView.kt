@@ -8,6 +8,8 @@ import android.view.View
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import helium314.keyboard.latin.ClipboardHistoryManager
+import androidx.core.view.isVisible
+import androidx.core.view.isInvisible
 
 class ClipboardHistoryRecyclerView @JvmOverloads constructor(
         context: Context,
@@ -32,7 +34,6 @@ class ClipboardHistoryRecyclerView @JvmOverloads constructor(
     }).attachToRecyclerView(this)
 
     private val adapterDataObserver: AdapterDataObserver = object : AdapterDataObserver() {
-
         override fun onChanged() {
             checkAdapterContentChange()
         }
@@ -41,7 +42,6 @@ class ClipboardHistoryRecyclerView @JvmOverloads constructor(
             checkAdapterContentChange()
         }
 
-
         override fun onItemRangeInserted(positionStart: Int, itemCount: Int) {
             checkAdapterContentChange()
         }
@@ -49,18 +49,17 @@ class ClipboardHistoryRecyclerView @JvmOverloads constructor(
         override fun onItemRangeRemoved(positionStart: Int, itemCount: Int) {
             checkAdapterContentChange()
         }
-
     }
 
     private fun checkAdapterContentChange() {
         if (placeholderView == null) return
         val adapterIsEmpty = adapter == null || adapter?.itemCount == 0
-        if (this@ClipboardHistoryRecyclerView.visibility == VISIBLE && adapterIsEmpty) {
+        if (isVisible && adapterIsEmpty) {
             placeholderView!!.visibility = VISIBLE
-            this@ClipboardHistoryRecyclerView.visibility = INVISIBLE
-        } else if (this@ClipboardHistoryRecyclerView.visibility == INVISIBLE && !adapterIsEmpty) {
+            visibility = INVISIBLE
+        } else if (isInvisible && !adapterIsEmpty) {
             placeholderView!!.visibility = INVISIBLE
-            this@ClipboardHistoryRecyclerView.visibility = VISIBLE
+            visibility = VISIBLE
         }
     }
 

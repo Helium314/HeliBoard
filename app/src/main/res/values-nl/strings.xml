@@ -81,7 +81,6 @@
     <string name="show_setup_wizard_icon_summary">"App-pictogram weergeven in het opstartprogramma"</string>
     <string name="dictionary_category_title">Aanvullende woordenboeken</string>
     <string name="dictionary_available">"Woordenboek beschikbaar"</string>
-    <string name="last_update">"Laatst bijgewerkt"</string>
     <string name="settings">"Instellingen"</string>
     <string name="delete">"Verwijderen"</string>
     <string name="version_text">Versie %s</string>
@@ -95,7 +94,6 @@
     <string name="user_dict_settings_more_languages">"Meer talen…"</string>
     <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
     <string name="autospace_after_punctuation">Automatische spatie na interpunctie</string>
-    <string name="use_system_language_to_select_input_method_subtypes">Systeemtalen gebruiken</string>
     <string name="select_input_method">"Invoermethode selecteren"</string>
     <string name="day_night_mode">Automatische dag/nachtmodus</string>
     <string name="day_night_mode_summary">Het uiterlijk volgt de systeeminstellingen</string>
@@ -251,7 +249,6 @@
     <string name="subtype_generic_student">%s (Student)</string>
     <string name="button_title_add_custom_layout">Aangepaste lay-out toevoegen</string>
     <string name="message_add_custom_layout">Selecteer een bestand in een compatibel formaat. Informatie over de formaten is beschikbaar %s.</string>
-    <string name="button_copy_existing_layout">Bestaande lay-out kopiëren</string>
     <string name="layout_error">Fout bij lay-out: %s</string>
     <string name="edit_layout">Tik om lay-out te bewerken</string>
     <string name="layout_symbols_shifted" tools:keep="@string/layout_symbols_shifted">Meer symbolen</string>
@@ -260,7 +257,6 @@
     <string name="add_new_dictionary_title">Woordenboek toevoegen vanuit bestand</string>
     <string name="no_dictionary_dont_show_again_button">Niet meer laten zien</string>
     <string name="dictionary_link_text">hier</string>
-    <string name="dictionary_file_wrong_locale_ok">Toch gebruiken</string>
     <string name="dictionary_load_error">Fout bij laden van woordenboekbestand</string>
     <string name="theme_style">Stijl</string>
     <string name="style_name_Rounded" tools:keep="@string/style_name_Rounded">Afgerond</string>
@@ -308,7 +304,6 @@
 \nJe kunt woordenboeken %1$s downloaden, of een woordenboek voor \"%2$s\" %3$s direct downloaden.</string>
     <string name="show_popup_keys_normal">Varianten gedefinieerd in toetsenbordtalen weergeven</string>
     <string name="show_popup_hints">Functionele hints weergeven</string>
-    <string name="dictionary_file_wrong_locale">Het geselecteerde bestand is voor %1$s, maar %2$s werd verwacht. Toch gebruiken voor %2$s?</string>
     <string name="restore_error">Fout bij terugzetten van de back-up: %s</string>
     <string name="add_dictionary">Selecteer een woordenboek om toe te voegen. Woordenboeken in .dict-indeling kunnen %s worden gedownload.</string>
     <string name="theme_colors_night">Kleuren (nacht)</string>
@@ -429,13 +424,10 @@
     <string name="customize_toolbar_key_code_reset_message">Alle aangepaste toetscodes wissen?</string>
     <string name="prefs_font_scale">Schaal van toetsenbordlettertype</string>
     <string name="prefs_emoji_font_scale">Schaal van Emoji-weergave</string>
-    <string name="prefs_bottom_padding_scale_landscape">Schaal van vulling onderzijde (liggend)</string>
     <string name="prefs_side_padding_scale">Schaal van vulling zijkanten</string>
-    <string name="prefs_side_padding_scale_landscape">Schaal van vulling zijkanten (liggend)</string>
     <string name="number_row_hints">Hints weergeven bij cijferregel</string>
     <string name="prefs_language_swipe_distance">Veegafstand voor taal wisselen</string>
     <string name="enable_split_keyboard_landscape">Gesplitst toetsenbord inschakelen (liggend)</string>
-    <string name="split_spacer_scale_landscape">Tussenruimte (liggend)</string>
     <string name="split" tools:keep="@string/split">Gesplitst toetsenbord</string>
     <string name="delete_confirmation">%s echt verwijderen?</string>
     <string name="layout_functional_keys_tablet" tools:keep="@string/layout_functional_keys_tablet">Functionele toetsen (groot scherm)</string>
@@ -479,7 +471,6 @@
     <string name="toolbar_hiding_global">Klembord- en emoji-werkbalken ook verbergen</string>
     <string name="popup_order_and_hint_source">Popup toetsvolgorde en bron van hints</string>
     <string name="landscape">Liggend</string>
-    <string name="show_emoji_descriptions_summary">Vereist een emoji-woordenboek</string>
     <string name="show_emoji_descriptions">Toon emoji-beschrijving bij lang indrukken</string>
     <string name="suggest_emojis">Emoji\'s voorstellen</string>
     <string name="suggest_emojis_summary">Emoji-woordenboek gebruiken in normale suggesties</string>

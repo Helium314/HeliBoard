@@ -369,7 +369,7 @@ public class SuggestedWords {
             if (mIsEmoji == null) {
                 mIsEmoji = StringUtilsKt.isEmoji(mWord);
             }
-            return mIsEmoji.booleanValue();
+            return mIsEmoji;
         }
 
         @Deprecated

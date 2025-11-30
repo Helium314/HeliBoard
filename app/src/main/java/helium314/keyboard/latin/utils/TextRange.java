@@ -42,13 +42,12 @@ public final class TextRange {
     /**
      * Gets the suggestion spans that are put squarely on the word, with the exact start
      * and end of the span matching the boundaries of the word.
-     * @return the list of spans.
+     * @return the array of spans.
      */
     public SuggestionSpan[] getSuggestionSpansAtWord() {
-        if (!(mTextAtCursor instanceof Spanned && mWord instanceof Spanned)) {
+        if (!(mTextAtCursor instanceof Spanned text && mWord instanceof Spanned)) {
             return new SuggestionSpan[0];
         }
-        final Spanned text = (Spanned)mTextAtCursor;
         // Note: it's fine to pass indices negative or greater than the length of the string
         // to the #getSpans() method. The reason we need to get from -1 to +1 is that, the
         // spans were cut at the cursor position, and #getSpans(start, end) does not return

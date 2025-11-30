@@ -81,7 +81,6 @@
     <string name="show_setup_wizard_icon_summary">"Mostrar ícone do app no iniciador"</string>
     <string name="dictionary_category_title">"Dicionários complementares"</string>
     <string name="dictionary_available">"Dicionário disponível"</string>
-    <string name="last_update">"Última atualização"</string>
     <string name="settings">"Configurações"</string>
     <string name="delete">"Excluir"</string>
     <string name="version_text">Versão %s</string>
@@ -119,7 +118,6 @@
     <string name="day_night_mode_summary">Aparência usa as definições do sistema</string>
     <string name="day_night_mode">Modo diurno/noturno automático</string>
     <string name="prefs_long_press_keyboard_to_change_lang">Alterar método de introdução com a tecla Espaço</string>
-    <string name="use_system_language_to_select_input_method_subtypes">"Usa idiomas do sistema"</string>
     <string name="select_input_method">"Selecione o método de entrada"</string>
     <string name="settings_screen_appearance">"Aparência"</string>
     <string name="auto_correction_confidence">Confiança na auto-correção</string>
@@ -164,7 +162,6 @@
     <string name="locales_with_dict">Idiomas com dicionários</string>
     <string name="load_gesture_library">Carregar biblioteca de escrita por gestos</string>
     <string name="load_gesture_library_summary">Fornecer uma biblioteca nativa para permitir a escrita por gestos</string>
-    <string name="show_emoji_descriptions_summary">Requer um dicionário de emoji</string>
     <string name="split_spacer_scale">Distância da divisão</string>
     <string name="language_switch_key_switch_both">Alterar ambos</string>
     <string name="language_switch_key_behavior">Comportamento da tela de mudança de idioma</string>
@@ -183,7 +180,6 @@
     <string name="prefs_always_show_suggestions_except_web_text">Nunca mostrar sugestões para campos de edição de web</string>
     <string name="auto_correct_shortcuts_summary">Quando ativado, atalhos poderão ser expandidos pelo autocorretor</string>
     <string name="suggest_emojis">Sugerir emojis</string>
-    <string name="split_spacer_scale_landscape">Distância da divisão (paisagem)</string>
     <string name="enable_split_keyboard_landscape">Ativar teclado dividido (paisagem)</string>
     <string name="show_emoji_descriptions">Mostrar descrição do emoji ao pressionar</string>
     <string name="center_suggestion_text_to_enter_summary">Ao clicar espaço ou pontuação, a sugestão do meio será inserida</string>
@@ -258,7 +254,6 @@
     <string name="prefs_bottom_padding_scale">Espaçamento em baixo</string>
     <string name="subtype_generic_sebeolsik_final">%s (Sebeolsik Final)</string>
     <string name="subtype_generic_student">%s (Estudante)</string>
-    <string name="prefs_bottom_padding_scale_landscape">Espaçamento em baixo (paisagem)</string>
     <string name="button_load_custom">Carregar ficheiro</string>
     <string name="prefs_side_padding_scale">Espaçamento ao lado</string>
     <string name="subtype_probhat_bn_BD">%s (Bengalí)</string>
@@ -286,7 +281,6 @@
     <string name="button_save_file">Guardar para ficheiro</string>
     <string name="copy_to_clipboard">Copiar para Área de Transferência</string>
     <string name="file_read_error">Impossível ler ficheiro</string>
-    <string name="button_copy_existing_layout">Copiar layout existente</string>
     <string name="delete_layout">Apagar mesmo o layout customizado %s?</string>
     <string name="layout_in_use">Aviso: o layout está a ser usado</string>
     <string name="settings_screen_secondary_layouts">Layouts Secundários</string>
@@ -310,7 +304,6 @@
     <string name="after_symbol_and_space">Pressionando espaço ou enter após outras teclas no modo de símbolos</string>
     <string name="prefs_font_scale">Tamanho da fonte do teclado</string>
     <string name="prefs_emoji_font_scale">Tamanho da fonte dos emojis</string>
-    <string name="prefs_side_padding_scale_landscape">Espaçamento ao lado (paisagem)</string>
     <string name="add_new_dictionary_title">Adicionar dicionário de ficheiro</string>
     <string name="no_dictionary_dont_show_again_button">Não mostrar novamente</string>
     <string name="available_dictionary_experimental">%s (experimental)</string>
@@ -335,9 +328,7 @@
     <string name="add_dictionary">Selecionar um dicionário para adicionar. Dicionários no formato de .dict podem ser descarregado %s.</string>
     <string name="dictionary_link_text">aqui</string>
     <string name="dictionary_file_error">Erro: O ficheiro selecionado não é um ficheiro de dicionário válido</string>
-    <string name="dictionary_file_wrong_locale">O ficheiro selecionado é para %1$s, mas %2$s era esperado. Usar ainda assim para %2$s?</string>
     <string name="dictionary_file_wrong_script">Erro: script não compatível com este teclado</string>
-    <string name="dictionary_file_wrong_locale_ok">Ainda usar</string>
     <string name="dictionary_load_error">Erro ao carregar o ficheiro do dicionário</string>
     <string name="day_or_night_day">Dia</string>
     <string name="show_popup_hints_summary">Mostra dicas se pressionar uma tecla ativa funcionalidade extra</string>
@@ -444,4 +435,13 @@
     <string name="customize_toolbar_key_codes">Personalizar teclas de códigos da barra de ferramentas</string>
     <string name="auto_hide_toolbar">Esconder barra de ferramentas automaticamente</string>
     <string name="hidden_features_message">► Pressionar teclas da barra de ferramentas resulta em funcionalidade adicional: &lt;br&gt; \n\t• área de transferência &amp;#65515; colar &lt;br&gt; \n\t• mover esquerda/direita &amp;#65515; palavra à esquerda/direita &lt;br&gt; \n\t• mover cima/baixo &amp;#65515; página para cima/baixo &lt;br&gt; \n\t• palavra à esquerda/direita &amp;#65515; início/fim da linha &lt;br&gt; \n\t• página para cima/baixo &amp;#65515; início/fim da página &lt;br&gt; \n\t• copiar &amp;#65515; cortar &lt;br&gt; \n\t• selecionar palavra &amp;#8596; selecionar tudo &lt;br&gt; \n\t• desfazer &amp;#8596; refazer &lt;br&gt; &lt;br&gt; \n► Pressionar as teclas na faixa de sugestões afixa-as na faixa de sugestões. &lt;br&gt; &lt;br&gt; \n► Pressiona a tecla de vírgula para aceder ao modo de Área de Transferência, modo de Emoji, modo de Uma Mão, Definições, ou mudar Idioma: &lt;br&gt; \n\t• Modo de Emoji e Mudar Idioma irá desaparecer se a tecla correspondente estiver ativa; &lt;br&gt; \n\t• Em alguns layouts não é a tecla de vírgula, mas a que está na mesma posição (e.g. é \\\'q\\\' para o layout Dvorak). &lt;br&gt; &lt;br&gt; \n► Quando o modo incógnito estiver ativo, nenhuma palavra nova será aprendida, e nenhum emoji será adicionado aos recentes. &lt;br&gt; &lt;br&gt; \n► Pressiona o ícone de Incógnito para aceder à barra de ferramentas. &lt;br&gt; &lt;br&gt; \n► Input por gestos: Desliza do shift para outra tecla para escrever uma única tecla maiúscula: &lt;br&gt; \n\t• Também funciona para as teclas \\\'?123\\\' para escrever um único símbolo do teclado, e para teclas relacionadas. &lt;br&gt; &lt;br&gt; \n► Pressiona shift ou a tecla de símbolos, pressiona uma ou mais teclas, e depois liberta para voltar ao teclado anterior. &lt;br&gt; &lt;br&gt; \n► Pressiona uma sugestão na faixa de sugestões para mostrar mais sugestões, e o botão de apagar para a apagar. &lt;br&gt; &lt;br&gt; \n► Desliza para cima para mostrar mais sugestões, e liberta na sugestão para selecionar. &lt;br&gt; &lt;br&gt; \n► Pressiona um artigo na área de transferência para o afixar (permanece lá até ser desafiado). &lt;br&gt; &lt;br&gt; \n► Deslize para a esquerda no Modo da Área de Transferência para remover um artigo (exceto quando está afixado) &lt;br&gt; &lt;br&gt; \n► Seleciona texto e pressiona shift para alternar entre maiúsculas, minúsculas e palavras capitalizadas. &lt;br&gt; &lt;br&gt; \n► Pode adicionar dicionários ao abri-los no gestor de ficheiros: &lt;br&gt; \n\t• Apenas funciona com &lt;i&gt;content-uris&lt;/i&gt; e não com &lt;i&gt;file-uris&lt;/i&gt;, ou seja, pode não funcionar com alguns gestores de ficheiros. &lt;br&gt; &lt;br&gt; \n► Para utilizadores a fazer backup manual com root: &lt;br&gt; \n\t• Começando no Android 7, o ficheiro de preferências partilhado não está no local padrão, pois a app está a usar %s. Isto é necessário para que as definições sejam acessíveis depois do dispositivo ser desbloqueado, e.g. no boot; &lt;br&gt; \n\t• O ficheiro está normalmente localizado em /data/user_de/0/package_id/shared_prefs/ mas pode variar dependendo da versão de Android. &lt;br&gt; &lt;br&gt; \n&lt;i&gt;&lt;b&gt;Modo de debug / APK de debug&lt;/b&gt;&lt;/i&gt; &lt;br&gt; &lt;br&gt; \n► Pressiona uma sugestão para ver o dicionário de origem. &lt;br&gt; &lt;br&gt; \n► Ao usar o APK de debug, pode encontrar as Definições de Debug nas Definições Avançadas, mas a utilidade é limitada exceto para exportar o dicionário nos logs. &lt;br&gt; \n\t• Para um APK de release, clique a versão no &lt;i&gt;Sobre&lt;/i&gt; várias vezes, e depois pode encontrar as definições de debug nas &lt;i&gt;Definições Avançadas&lt;/i&gt;. &lt;br&gt; \n\t• Ao ativar &lt;i&gt;Show suggestion infos&lt;/i&gt;, sugestões terão pequenos números no topo mostrando a pontuação interna e o dicionário proveniente. &lt;br&gt; &lt;br&gt; \n► No evento de um crash da aplicação, ser-lhe-á perguntado se quer os logs do crash quando abre as Definições. &lt;br&gt; &lt;br&gt; \n► Em escrita multi-idioma, a barra de espaço irá mostrar um valor de confiança usado para determinar o idioma atual. &lt;br&gt; &lt;br&gt; \n► Sugestões terão um pequeno número no topo mostrando a pontuação interna e o dicionário proveniente (pode ser desativado).</string>
+    <string name="inline_emoji_search">Pesquisa por emojis embutida</string>
+    <string name="inline_emoji_search_summary">Sugerir somente emojis para quando uma palavra é precedida por dois pontos</string>
+    <string name="emoji_dictionary_required">Um dicionário de emojis é necessário para esta funcionalidade. Dicionários no formato .dict podem ser descarregados %s.</string>
+    <string name="clipboard_history_pinned_first">Mostrar items afixados no topo</string>
+    <string name="save_subtype_per_app">Lembrar idioma por app</string>
+    <string name="subtype_mhr">Mari (Oriental)</string>
+    <string name="subtype_khipro_bn">%s (Khipro)</string>
+    <string name="layout_emoji_bottom_row_with_action" tools:keep="@string/layout_emoji_bottom_row_with_action">Fila inferior de emojis com tecla de ação</string>
+    <string name="layout_clip_bottom_row_with_action" tools:keep="@string/layout_clip_bottom_row_with_action">Fila inferior da área de transferência com tecla de ação</string>
 </resources>

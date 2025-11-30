@@ -9,7 +9,7 @@ object Links {
     const val DICTIONARY_EMOJI_CLDR_SUFFIX = "emoji_cldr_signal_dictionaries/"
     const val GITHUB = "https://github.com/Helium314/HeliBoard"
     const val LICENSE = "$GITHUB/blob/main/LICENSE"
-    const val LAYOUT_WIKI_URL = "$GITHUB/wiki/Layouts"
+    const val LAYOUT_WIKI_URL = "$GITHUB/wiki/2.-Layouts"
     const val WIKI_URL = "$GITHUB/wiki"
     const val CUSTOM_LAYOUTS = "$GITHUB/discussions/categories/custom-layout"
     const val CUSTOM_COLORS = "$GITHUB/discussions/categories/custom-colors"

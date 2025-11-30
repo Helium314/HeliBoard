@@ -82,7 +82,6 @@
     <string name="show_setup_wizard_icon_summary">"ສະແດງໄອຄອນຂອງແອັບໃນ Launcher"</string>
     <string name="dictionary_category_title">"ໂຕເສີມວັດຈະນານຸກົມ"</string>
     <string name="dictionary_available">"ມີວັດຈະນານຸກົມ"</string>
-    <string name="last_update">"ອັບເດດຫຼ້າສຸດ"</string>
     <string name="settings">"ການຕັ້ງຄ່າ"</string>
     <string name="delete">"ລຶບ"</string>
     <string name="version_text">"ເວີຊັນ %1$s"</string>
@@ -95,7 +94,6 @@
     <string name="user_dict_settings_all_languages">"ສໍາ​ລັບ​ທຸກໆ​ພາ​ສາ"</string>
     <string name="user_dict_settings_more_languages">"ພາສາອື່ນໆ…"</string>
     <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
-    <string name="use_system_language_to_select_input_method_subtypes">"ໃຊ້ພາສາຂອງລະບົບ"</string>
     <string name="select_input_method">"ເລືອກຮູບແບບການປ້ອນ"</string>
     <string name="settings_screen_appearance">"​ຮູບ​ແບບ​ໜ້າ​ຕາ"</string>
     <string name="redo">"ເຮັດໃໝ່"</string>

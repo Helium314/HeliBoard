@@ -72,7 +72,7 @@
     <string name="setup_step1_instruction">Markér \"%s\" i dine indstillinger for sprog og indtastning. Dermed får appen tilladelse til at køre på din enhed.</string>
     <string name="setup_step1_action">"Aktivér i Indstillinger"</string>
     <string name="setup_step2_title">Skift til%s</string>
-    <string name="setup_step2_instruction">Vælg derefter \\%s\" som din aktive tekstinputmetode.\"</string>
+    <string name="setup_step2_instruction">Vælg derefter \"%s\" som din aktive tekstinputmetode.</string>
     <string name="setup_step2_action">Skift inputmetode</string>
     <string name="setup_step3_title">Tillykke, du er klar!</string>
     <string name="setup_step3_instruction">Nu kan du skrive i alle dine favoritapps med %s.</string>
@@ -81,7 +81,6 @@
     <string name="show_setup_wizard_icon_summary">Vis applikationsikon i launcheren</string>
     <string name="dictionary_category_title">"Ekstra ordbøger"</string>
     <string name="dictionary_available">Ordbog tilgængelig</string>
-    <string name="last_update">"Sidst opdateret"</string>
     <string name="settings">"Indstillinger"</string>
     <string name="delete">"Slet"</string>
     <string name="version_text">Version %1$s</string>
@@ -128,7 +127,6 @@
     <string name="prefs_force_incognito_mode_summary">Deaktiver indlæring af nye ord</string>
     <string name="more_keys_strip_description">Flere taster</string>
     <string name="show_hints_summary">Vis hints ved langt tryk</string>
-    <string name="use_system_language_to_select_input_method_subtypes">"Brug systemsprogene"</string>
     <string name="auto_correction_confidence">Tillid til autokorrektion</string>
     <string name="select_input_method">"Vælg inputmetode"</string>
     <string name="undo">"Fortryd"</string>
@@ -166,7 +164,6 @@
     <string name="dictionary_file_wrong_script">Fejl: Scriptet er ikke kompatibelt med dette tastatur</string>
     <string name="customize_currencies">Tilpas valutaer</string>
     <string name="remove_dictionary_message">Fjern brugertilføjet ordbog \"%s\"?</string>
-    <string name="dictionary_file_wrong_locale">Den valgte fil er til %1$s, men forventede %2$s. Brug alligevel til %2$s?</string>
     <string name="dictionary_link_text">her</string>
     <string name="language_switch_key_behavior">Sprogskifte-tastens adfærd</string>
     <string name="backup_restore_title">Backup og gendannelse</string>
@@ -182,7 +179,6 @@
     <string name="customize_background_image">Indstil baggrundsbillede</string>
     <string name="day_or_night_image">Indstil billede til dag- eller nattilstand?</string>
     <string name="close_history" tools:keep="@string/close_history">Luk udklipsholderhistorik</string>
-    <string name="button_copy_existing_layout">Kopiér eksisterende layout</string>
     <string name="layout_phone" tools:keep="@string/layout_phone">Telefon</string>
     <string name="layout_phone_symbols" tools:keep="@string/layout_phone_symbols">Telefonsymboler</string>
     <string name="theme_navbar">Farv navigationslinje</string>
@@ -200,7 +196,6 @@
     <string name="day_or_night_day">Dag</string>
     <string name="enable_split_keyboard_landscape">Aktivér opdelt tastatur (liggende)</string>
     <string name="split_spacer_scale">Opdelt afstand</string>
-    <string name="split_spacer_scale_landscape">Opdelt afstand (liggende)</string>
     <string name="restore_error">Fejl ved gendannelse af sikkerhedskopien: %s</string>
     <string name="show_popup_keys_title">Vis flere bogstaver med diakritiske tegn i pop op</string>
     <string name="language_and_layouts_title">Sprog og layouts</string>
@@ -250,7 +245,6 @@
     <string name="replace_dictionary">Erstat ordbog</string>
     <string name="no_dictionary_dont_show_again_button">Vis ikke igen</string>
     <string name="add_dictionary">Vælg en ordbog at tilføje. Ordbøger i .dict-format kan hentes %s.</string>
-    <string name="dictionary_file_wrong_locale_ok">Brug alligevel</string>
     <string name="dictionary_load_error">Fejl under indlæsning af ordbogsfil</string>
     <string name="backup_error">Backup-fejl: %s</string>
     <string name="select_word" tools:keep="@string/select_word">Vælg ord</string>
@@ -261,7 +255,6 @@
     <string name="theme_name_black" tools:keep="@string/theme_name_black">Sort</string>
     <string name="prefs_font_scale">Tastaturets skriftstørrelse</string>
     <string name="prefs_emoji_font_scale">Skriftstørrelse i emoji-visning</string>
-    <string name="prefs_side_padding_scale_landscape">Skala for padding i siderne (liggende)</string>
     <string name="replace_dictionary_message">Erstat brugertilføjet ordbog \"%1$s\"?\n\nNuværende ordbog:\n%2$s\n\nNy ordbog:\n%3$s</string>
     <string name="number_row_hints">Vis hints på talrækken</string>
     <string name="left" tools:keep="@string/left">Venstre</string>
@@ -272,7 +265,6 @@
     <string name="center_suggestion_text_to_enter_summary">Ved tryk på mellemrum eller skilletegn indsættes det midterste forslag</string>
     <string name="show_popup_keys_more">Tilføj almindelige varianter</string>
     <string name="prefs_side_padding_scale">Skala for padding i siderne</string>
-    <string name="prefs_bottom_padding_scale_landscape">Skala for padding i bunden (liggende)</string>
     <string name="subtype_mns">Mansi</string>
     <string name="subtype_generic_extended">%s (udvidet)</string>
     <string name="switch_keyboard_after">Skift til hovedtastatur efter…</string>

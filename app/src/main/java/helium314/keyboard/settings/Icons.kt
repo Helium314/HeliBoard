@@ -64,6 +64,16 @@ fun ExpandButton(enabled: Boolean = true, onClick: () -> Unit) {
     }
 }
 
+@Composable
+fun BackButton(onClick: () -> Unit) {
+    IconButton(onClick = onClick) {
+        Icon(
+            painterResource(R.drawable.ic_arrow_back),
+            stringResource(R.string.spoken_description_action_previous)
+        )
+    }
+}
+
 @Preview
 @Composable
 private fun Preview() {

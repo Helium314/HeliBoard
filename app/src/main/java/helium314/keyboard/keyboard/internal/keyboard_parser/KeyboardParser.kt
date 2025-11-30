@@ -104,7 +104,7 @@ class KeyboardParser(private val params: KeyboardParams, private val context: Co
             baseKeys.add(0, numberRow.mapTo(mutableListOf()) { it.copy(newLabelFlags = newLabelFlags) })
         }
         if (!params.mAllowRedundantPopupKeys)
-            params.baseKeys = baseKeys.flatMap { it.map { it.toKeyParams(params) } }
+            params.baseKeys = baseKeys.flatMap { row -> row.map { it.toKeyParams(params) } }
 
         val allFunctionalKeys = LayoutParser.parseLayout(LayoutType.FUNCTIONAL, params, context)
         adjustBottomFunctionalRowAndBaseKeys(allFunctionalKeys, baseKeys)
@@ -264,7 +264,7 @@ class KeyboardParser(private val params: KeyboardParams, private val context: Co
     }
 
     private fun addNumberRowOrPopupKeys(baseKeys: MutableList<MutableList<KeyData>>, numberRow: MutableList<KeyData>) {
-        if (!params.mId.mNumberRowEnabled && params.mId.mElementId == KeyboardId.ELEMENT_SYMBOLS) {
+        if (!params.mId.mNumberRowEnabled && params.mId.mNumberRowInSymbols && params.mId.mElementId == KeyboardId.ELEMENT_SYMBOLS) {
             // replace first symbols row with number row, but use the labels as popupKeys
             val numberRowCopy = numberRow.toMutableList()
             numberRowCopy.forEachIndexed { index, keyData -> keyData.popup.symbol = baseKeys[0].getOrNull(index)?.label }

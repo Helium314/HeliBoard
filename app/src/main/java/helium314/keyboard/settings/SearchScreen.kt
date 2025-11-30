@@ -32,7 +32,6 @@ import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldColors
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
@@ -144,14 +143,9 @@ fun <T: Any?> SearchScreen(
                         title = title,
                         windowInsets = WindowInsets(0),
                         navigationIcon = {
-                            IconButton(onClick = {
+                            BackButton {
                                 if (showSearch) setShowSearch(false)
                                 else onClickBack()
-                            }) {
-                                Icon(
-                                    painterResource(R.drawable.ic_arrow_back),
-                                    stringResource(R.string.spoken_description_action_previous)
-                                )
                             }
                         },
                         actions = {

@@ -81,7 +81,6 @@
     <string name="show_setup_wizard_icon_summary">"لانچر میں ایپلیکیشن آئیکن کو ڈسپلے کریں"</string>
     <string name="dictionary_category_title">"اضافی لغات"</string>
     <string name="dictionary_available">"لغت دستیاب ہے"</string>
-    <string name="last_update">"آخری بار اپ ڈیٹ کردہ"</string>
     <string name="settings">"ترتیبات"</string>
     <string name="delete">"حذف کریں"</string>
     <string name="version_text">"ورژن %1$s"</string>
@@ -94,7 +93,6 @@
     <string name="user_dict_settings_all_languages">"سبھی زبانوں کیلئے"</string>
     <string name="user_dict_settings_more_languages">"مزید زبانیں…"</string>
     <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
-    <string name="use_system_language_to_select_input_method_subtypes">"سسٹم زبانیں استعمال کریں"</string>
     <string name="select_input_method">"ان پٹ کا طریقہ منتخب کریں"</string>
     <string name="undo">"کالعدم کریں"</string>
     <string name="redo">"دوبارہ کریں"</string>

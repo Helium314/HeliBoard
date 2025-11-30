@@ -46,7 +46,7 @@
     <string name="gesture_space_aware_summary">"滑行输入时，滑过空格键即可输入空格"</string>
     <string name="subtype_en_GB">英语（英国）</string>
     <string name="subtype_en_US">英语（美国）</string>
-    <string name="subtype_es_US">"西班牙语（美国）"</string>
+    <string name="subtype_es_US">西班牙语（美国）</string>
     <string name="subtype_hi_Latn">"印地英语"</string>
     <string name="subtype_sr_Latn">"塞尔维亚语（拉丁语布局）"</string>
     <string name="subtype_generic_traditional">%s（传统）</string>
@@ -81,7 +81,6 @@
     <string name="show_setup_wizard_icon_summary">"在启动器中显示应用图标"</string>
     <string name="dictionary_category_title">附加词典</string>
     <string name="dictionary_available">词典可供下载</string>
-    <string name="last_update">最后更新时间</string>
     <string name="settings">"设置"</string>
     <string name="delete">"删除"</string>
     <string name="version_text">版本 %s</string>
@@ -129,7 +128,6 @@
     <string name="prefs_long_press_keyboard_to_change_lang">使用空格键更改输入法</string>
     <string name="prefs_keyboard_height_scale">键盘高度比例</string>
     <string name="auto_correction_confidence">自动更正置信度</string>
-    <string name="use_system_language_to_select_input_method_subtypes">"使用系统语言"</string>
     <string name="select_input_method">"选择输入法"</string>
     <string name="undo">撤销</string>
     <string name="redo">恢复</string>
@@ -209,9 +207,7 @@
     <string name="available_dictionary_experimental">%s（实验性）</string>
     <string name="dictionary_link_text">此处</string>
     <string name="dictionary_load_error">加载词典文件时出错</string>
-    <string name="dictionary_file_wrong_locale">所选文件用于 %1$s，但需要 %2$s。是否仍将其用于 %2$s？</string>
     <string name="dictionary_file_wrong_script">错误：脚本与此键盘不兼容</string>
-    <string name="dictionary_file_wrong_locale_ok">仍使用</string>
     <string name="theme_colors">配色</string>
     <string name="theme_colors_night">配色（夜间）</string>
     <string name="close_history" tools:keep="@string/close_history">关闭剪贴板历史</string>
@@ -303,9 +299,8 @@
     <string name="quick_pin_toolbar_keys_summary">这将禁用未固定工具栏键的其他长按操作</string>
     <string name="show_popup_keys_main">添加非常常见的变体（默认）</string>
     <string name="copy_to_clipboard">复制到剪贴板</string>
-    <string name="button_copy_existing_layout">复制现有布局</string>
     <string name="button_select_language">选择语言</string>
-    <string name="no_dictionary_message">"没有词典，您只能得到之前输入的文本的建议。&lt;br&gt;\n\n        您可以下载词典 %1$s，或检查是否可以直接下载“%2$s”的词典 %3$s。"</string>
+    <string name="no_dictionary_message">"没有词典，您只能得到之前输入的文本的建议。&lt;br&gt;\n        您可以下载词典 %1$s，或检查是否可以直接下载“%2$s”的词典 %3$s。"</string>
     <string name="user_dict_add_word_button">添加一个单词</string>
     <string name="remove_redundant_popups_summary">移除基础布局上已存在的弹出键</string>
     <string name="remove_redundant_popups">移除多余弹出</string>
@@ -388,12 +383,9 @@
     <string name="customize_background_image_landscape">设置背景图片（横屏）</string>
     <string name="prefs_font_scale">键盘字体比例</string>
     <string name="prefs_emoji_font_scale">表情符号视图字体比例</string>
-    <string name="prefs_bottom_padding_scale_landscape">底部边距比例（横屏）</string>
-    <string name="prefs_side_padding_scale_landscape">侧边距比例（横屏）</string>
     <string name="prefs_side_padding_scale">侧边距比例</string>
     <string name="number_row_hints">在数字行显示提示</string>
     <string name="prefs_language_swipe_distance">切换语言滑动距离</string>
-    <string name="split_spacer_scale_landscape">分离距离（横屏）</string>
     <string name="split" tools:keep="@string/split">分离式键盘</string>
     <string name="enable_split_keyboard_landscape">启用分离式键盘（横屏）</string>
     <string name="delete_confirmation">确定删除 %s？</string>
@@ -431,14 +423,13 @@
     <string name="prefs_emoji_skin_tone">默认表情符号肤色</string>
     <string name="subtype_with_layout_generic">%1$s（%2$s）</string>
     <string name="toolbar_mode">工具栏模式</string>
-    <string name="toolbar_mode_expandable">‌工具栏键与建议</string>
-    <string name="toolbar_mode_toolbar_keys">‌仅工具栏键</string>
-    <string name="toolbar_mode_suggestion_strip">‌仅建议</string>
-    <string name="toolbar_mode_hidden">‌隐藏</string>
+    <string name="toolbar_mode_expandable">工具栏键与建议</string>
+    <string name="toolbar_mode_toolbar_keys">仅工具栏键</string>
+    <string name="toolbar_mode_suggestion_strip">仅建议</string>
+    <string name="toolbar_mode_hidden">隐藏</string>
     <string name="toolbar_hiding_global">同时隐藏剪贴板和表情符号工具栏</string>
     <string name="popup_order_and_hint_source">弹出键顺序和提示源</string>
     <string name="landscape">横屏</string>
-    <string name="show_emoji_descriptions_summary">需要表情符号词典</string>
     <string name="show_emoji_descriptions">长按时显示表情符号描述</string>
     <string name="suggest_emojis">建议表情符号</string>
     <string name="suggest_emojis_summary">在常规建议中使用表情符号词典</string>
@@ -447,4 +438,13 @@
     <string name="space_swipe_hide_keyboard_entry">隐藏键盘</string>
     <string name="about_wiki_link_description">任何 GitHub 用户都可以改进 Wiki！</string>
     <string name="about_wiki_link">前往 Wiki</string>
+    <string name="save_subtype_per_app">为每个应用记住语言设置</string>
+    <string name="subtype_khipro_bn">%s (Khipro)</string>
+    <string name="clipboard_history_pinned_first">在顶部显示已固定项目</string>
+    <string name="subtype_mhr">东马里语</string>
+    <string name="inline_emoji_search">内联表情符号搜索</string>
+    <string name="inline_emoji_search_summary">仅当单词以冒号开头时建议表情符号</string>
+    <string name="emoji_dictionary_required">此功能需要表情符号词典才能使用。可以下载 .dict 格式的词典 %s。</string>
+    <string name="layout_emoji_bottom_row_with_action" tools:keep="@string/layout_emoji_bottom_row_with_action">带操作键的表情符号底行</string>
+    <string name="layout_clip_bottom_row_with_action" tools:keep="@string/layout_clip_bottom_row_with_action">带操作键的剪贴板底行</string>
 </resources>

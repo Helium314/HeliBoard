@@ -81,7 +81,6 @@
     <string name="show_setup_wizard_icon_summary">"Прикажи икона на апликација во стартувачот"</string>
     <string name="dictionary_category_title">"Додатоци за речници"</string>
     <string name="dictionary_available">"Речникот е достапен"</string>
-    <string name="last_update">"Последен пат ажурирано"</string>
     <string name="settings">"Поставки"</string>
     <string name="delete">"Избриши"</string>
     <string name="version_text">"Верзија %1$s"</string>
@@ -94,7 +93,6 @@
     <string name="user_dict_settings_all_languages">"За сите јазици"</string>
     <string name="user_dict_settings_more_languages">"Повеќе јазици…"</string>
     <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
-    <string name="use_system_language_to_select_input_method_subtypes">"Користи ги системските јазици"</string>
     <string name="select_input_method">"Одбери метод на внес"</string>
     <string name="undo">"Врати"</string>
     <string name="redo">"Повтори"</string>

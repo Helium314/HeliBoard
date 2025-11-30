@@ -15,7 +15,7 @@ enum class EmojiGroup(val rawName: String) {
     FLAGS("Flags");
 
     companion object {
-        fun get(rawName: String) = values().first { it.rawName == rawName }
+        fun get(rawName: String) = entries.first { it.rawName == rawName }
     }
 
 }

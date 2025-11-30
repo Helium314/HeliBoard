@@ -82,7 +82,6 @@
     <string name="show_setup_wizard_icon_summary">"បង្ហាញ​រូប​កម្មវិធី​នៅ​ក្នុង​កម្ម​​វិធី​ចាប់ផ្ដើម"</string>
     <string name="dictionary_category_title">"ផ្នែក​បន្ថែម​វចនានុក្រម​​"</string>
     <string name="dictionary_available">"វចនានុក្រម​​​អាច​ប្រើ​បាន"</string>
-    <string name="last_update">"បាន​ធ្វើ​បច្ចុប្បន្នភាព​ចុងក្រោយ"</string>
     <string name="settings">"ការ​កំណត់"</string>
     <string name="delete">"លុប"</string>
     <string name="version_text">"កំណែ %1$s"</string>
@@ -95,7 +94,6 @@
     <string name="user_dict_settings_all_languages">"សម្រាប់​ភាសា​ទាំងអស់"</string>
     <string name="user_dict_settings_more_languages">"ភាសា​ច្រើន​ទៀត…"</string>
     <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
-    <string name="use_system_language_to_select_input_method_subtypes">"ប្រើភាសាប្រព័ន្ធ"</string>
     <string name="select_input_method">"ជ្រើស​វិធីសាស្ត្រ​បញ្ចូល"</string>
     <string name="settings_screen_appearance">"រូបរាង"</string>
     <string name="undo">"មិនធ្វើវិញ"</string>

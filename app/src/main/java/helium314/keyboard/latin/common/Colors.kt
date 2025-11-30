@@ -9,7 +9,6 @@ import android.content.res.TypedArray
 import android.graphics.Color
 import android.graphics.ColorFilter
 import android.graphics.PorterDuff
-import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable
 import android.os.Build
@@ -34,6 +33,7 @@ import helium314.keyboard.latin.utils.darken
 import helium314.keyboard.latin.utils.isBrightColor
 import helium314.keyboard.latin.utils.isDarkColor
 import java.util.EnumMap
+import androidx.core.graphics.drawable.toDrawable
 
 interface Colors {
     // these theme parameters should no be in here, but are still used
@@ -347,7 +347,7 @@ class DynamicColors(context: Context, override val themeStyle: String, override 
             MAIN_BACKGROUND -> {
                 if (keyboardBackground != null) {
                     if (!backgroundSetupDone) {
-                        keyboardBackground = BitmapDrawable(view.context.resources, keyboardBackground!!.toBitmap(view.width, view.height))
+                        keyboardBackground = keyboardBackground!!.toBitmap(view.width, view.height).toDrawable(view.context.resources)
                         backgroundSetupDone = true
                     }
                     view.background = keyboardBackground
@@ -532,7 +532,7 @@ class DefaultColors (
             MAIN_BACKGROUND -> {
                 if (keyboardBackground != null) {
                     if (!backgroundSetupDone) {
-                        keyboardBackground = BitmapDrawable(view.context.resources, keyboardBackground!!.toBitmap(view.width, view.height))
+                        keyboardBackground = keyboardBackground!!.toBitmap(view.width, view.height).toDrawable(view.context.resources)
                         backgroundSetupDone = true
                     }
                     view.background = keyboardBackground
@@ -583,7 +583,7 @@ class AllColors(private val colorMap: EnumMap<ColorType, Int>, override val them
             MAIN_BACKGROUND -> {
                 if (keyboardBackground != null) {
                     if (!backgroundSetupDone) {
-                        keyboardBackground = BitmapDrawable(view.context.resources, keyboardBackground!!.toBitmap(view.width, view.height))
+                        keyboardBackground = keyboardBackground!!.toBitmap(view.width, view.height).toDrawable(view.context.resources)
                         backgroundSetupDone = true
                     }
                     view.background = keyboardBackground
@@ -657,4 +657,5 @@ enum class ColorType {
     MAIN_BACKGROUND,
 }
 
+// this is not used any more, but we keep in case a colorMap does not get filled for whatever reason
 fun ColorType.default() = ColorUtils.setAlphaComponent(name.hashCode() and 0xffffff, 255)

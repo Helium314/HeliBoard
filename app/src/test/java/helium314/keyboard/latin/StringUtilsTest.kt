@@ -179,9 +179,9 @@ class StringUtilsTest {
     //  though this might be tricky, as some emojis will show as one on new Android versions, and
     //  as two on older versions (also may differ by app)
 
-    private fun checkTextRange(before: String, after: String, sp: SpacingAndPunctuations, script: String, wordStart: Int, WordEnd: Int) {
+    private fun checkTextRange(before: String, after: String, sp: SpacingAndPunctuations, script: String, wordStart: Int, wordEnd: Int) {
         val got = getTouchedWordRange(before, after, script, sp)
-        val wanted = TextRange(before + after, wordStart, WordEnd, before.length, false)
+        val wanted = TextRange(before + after, wordStart, wordEnd, before.length, false)
         assertEquals(wanted, got)
     }
 }

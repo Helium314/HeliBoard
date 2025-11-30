@@ -25,6 +25,7 @@ import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
 import java.io.IOException
+import androidx.core.content.edit
 
 @SuppressLint("ApplySharedPref")
 @Composable
@@ -38,7 +39,7 @@ fun LoadGestureLibPreference(setting: Setting) {
         libFile.setWritable(true)
         libFile.delete()
         // store checksum in default preferences (see JniUtils)
-        prefs.edit().putString(Settings.PREF_LIBRARY_CHECKSUM, checksum).commit()
+        prefs.edit(commit = true) { putString(Settings.PREF_LIBRARY_CHECKSUM, checksum) }
         file.copyTo(libFile)
         libFile.setReadOnly()
         file.delete()
@@ -58,7 +59,7 @@ fun LoadGestureLibPreference(setting: Setting) {
             }
             otherTemporaryFile.delete()
 
-            val checksum = ChecksumCalculator.checksum(tmpfile.inputStream()) ?: ""
+            val checksum = ChecksumCalculator.checksum(tmpfile) ?: ""
             if (checksum == JniUtils.expectedDefaultChecksum()) {
                 renameToLibFileAndRestart(tmpfile, checksum)
             } else {
@@ -89,7 +90,7 @@ fun LoadGestureLibPreference(setting: Setting) {
             neutralButtonText = if (libFile.exists()) stringResource(R.string.load_gesture_library_button_delete) else null,
             onNeutral = {
                 libFile.delete()
-                prefs.edit().remove(Settings.PREF_LIBRARY_CHECKSUM).commit()
+                prefs.edit(commit = true) { remove(Settings.PREF_LIBRARY_CHECKSUM) }
                 Runtime.getRuntime().exit(0)
             }
         )
@@ -103,7 +104,7 @@ fun LoadGestureLibPreference(setting: Setting) {
             content = { Text(stringResource(R.string.checksum_mismatch_message, abi)) },
             onConfirmed = {
                 val tempFile = File(tempFilePath!!)
-                renameToLibFileAndRestart(tempFile, ChecksumCalculator.checksum(tempFile.inputStream()) ?: "")
+                renameToLibFileAndRestart(tempFile, ChecksumCalculator.checksum(tempFile) ?: "")
             }
         )
 }

@@ -81,7 +81,6 @@
     <string name="show_setup_wizard_icon_summary">"Sýna forritstákn í ræsiforritinu"</string>
     <string name="dictionary_category_title">Viðbótarorðasöfn</string>
     <string name="dictionary_available">Orðasafn í boði</string>
-    <string name="last_update">"Síðast uppfært"</string>
     <string name="settings">"Stillingar"</string>
     <string name="delete">"Eyða"</string>
     <string name="version_text">"Útgáfa %1$s"</string>
@@ -94,7 +93,6 @@
     <string name="user_dict_settings_all_languages">"Fyrir öll tungumál"</string>
     <string name="user_dict_settings_more_languages">"Fleiri tungumál…"</string>
     <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
-    <string name="use_system_language_to_select_input_method_subtypes">"Nota kerfistungumál"</string>
     <string name="select_input_method">"Veldu innsláttaraðferð"</string>
     <string name="settings_screen_appearance">"Útlit"</string>
     <string name="undo">"Afturkalla"</string>
@@ -170,7 +168,6 @@
     <string name="language_and_layouts_title">Tungumál og framsetning</string>
     <string name="number_row_summary">Alltaf sýna talnaröð</string>
     <string name="number_row">Talnaröð</string>
-    <string name="button_copy_existing_layout">Afrita fyrirliggjandi framsetningu</string>
     <string name="popup_keys_language_priority" tools:keep="@string/popup_keys_language_priority">Tungumál (forgangs)</string>
     <string name="clipboard" tools:keep="@string/clipboard">Klippispjald</string>
     <string name="clear_clipboard" tools:keep="@string/clear_clipboard">Hreinsa klippispjald</string>
@@ -325,7 +322,6 @@
     <string name="prefs_keyboard_height_scale">Kvarði lyklaborðs í hæð</string>
     <string name="summary_customize_background_image_landscape">Ef þetta er ekki stillt verður lóðrétt mynd notuð</string>
     <string name="dictionary_file_wrong_script">Villa: forskrift er ekki samhæfð þessu lyklaborði</string>
-    <string name="dictionary_file_wrong_locale_ok">Samt nota</string>
     <string name="dictionary_load_error">Villa við að hlaða inn orðasafnsskrá</string>
     <string name="prefs_bottom_padding_scale">Kvarði fyllingar neðst</string>
     <string name="after_clip">Velja færslu í ferilskrá klippispjalds</string>
@@ -338,11 +334,9 @@
     <string name="replace_dictionary_message">Á í alvörunni að skipta út notanda-viðbætta orðasafninu \"%1$s\"?\n\nFyrirliggjandi orðasafn:\n%2$s\n\nNýtt orðasafn:\n%3$s</string>
     <string name="text_tap_languages">Ýttu á tungumálið til að opna stillingar</string>
     <string name="theme_navbar">Lita leiðsagnarstikuna</string>
-    <string name="prefs_bottom_padding_scale_landscape">Kvarði fyllingar neðst (lárétt)</string>
     <string name="prefs_font_scale">Kvarði leturs á lyklaborði</string>
     <string name="prefs_emoji_font_scale">Kvarði leturs í tjáningartáknasýn</string>
     <string name="prefs_side_padding_scale">Kvarði fyllingar til hliðar</string>
-    <string name="prefs_side_padding_scale_landscape">Kvarði fyllingar til hliðar (lárétt)</string>
     <string name="hidden_features_title">Lýsing á földum eiginleikum</string>
     <string name="prefs_force_incognito_mode_summary">Gera óvirkt að læra ný orð</string>
     <string name="quick_pin_toolbar_keys">Festa verkfærastikulykil við að ýta lengi</string>
@@ -370,7 +364,6 @@
     <string name="message_add_custom_layout">Veldu skrá á samhæfðu sniði. Upplýsingar um hvaða snið eru í boði má finna %s.</string>
     <string name="user_dict_word_already_present">Þetta orð er nú þegar í orðasafni notandans %s. Skrifaðu annað orð.</string>
     <string name="select_color_functional_key_background">Bakgrunnur aðgerðalykils</string>
-    <string name="dictionary_file_wrong_locale">Valda skráin er fyrir %1$s, en búist var við %2$s. Samt að nota það fyrir %2$s?</string>
     <string name="hidden_features_text">geymslurými varið af tæki</string>
     <string name="layout_functional_keys" tools:keep="@string/layout_functional_keys">Aðgerðalyklar</string>
     <string name="layout_functional_keys_symbols" tools:keep="@string/layout_functional_keys_symbols">Aðgerðalyklar (tákn)</string>
@@ -384,7 +377,6 @@
     <string name="load_gesture_library_message">Þú munt þurfa aðgerðasafnið fyrir \'%s\'. Ósamhæfð aðgerðasöfn gætu hrunið þegar notaður er innsláttur með bendingum. \n\nAðvörun: Öryggisáhætta getur fylgt því að hlaða inn utanaðkomandi kóða. Notaðu einungis aðgerðasöfn frá aðilum sem þú treystir.</string>
     <string name="var_toolbar_direction_summary">Öfug stefna þegar hægri-til-vinstri undirgerð lyklaborðs er valin</string>
     <string name="enable_split_keyboard_landscape">Virkja skipt lyklaborð (lárétt)</string>
-    <string name="split_spacer_scale_landscape">Lengd skiptingar (lárétt)</string>
     <string name="split" tools:keep="@string/split">Skipt lyklaborð</string>
     <string name="gesture_fast_typing_cooldown">Tafir á hröðum innslætti</string>
     <string name="show_popup_hints_summary">Birtir ábendingar ef það að ýta lengi á lykil vekur upp viðbótaraðgerðir</string>

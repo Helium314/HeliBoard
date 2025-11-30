@@ -81,7 +81,6 @@
     <string name="show_setup_wizard_icon_summary">"Visa appikonen i startprogrammet"</string>
     <string name="dictionary_category_title">"Tilläggsordlistor"</string>
     <string name="dictionary_available">Ordlista tillgänglig</string>
-    <string name="last_update">"Informationen uppdaterades senast"</string>
     <string name="settings">"Inställningar"</string>
     <string name="delete">"Ta bort"</string>
     <string name="version_text">Version %1$s</string>
@@ -129,7 +128,6 @@
     <string name="day_night_mode">Automatiskt dag-/nattläge</string>
     <string name="day_night_mode_summary">Utseendet kommer att följa systeminställningarna</string>
     <string name="auto_correction_confidence">Förtroende för automatisk korrigering</string>
-    <string name="use_system_language_to_select_input_method_subtypes">"Använd systemspråk"</string>
     <string name="select_input_method">"Välj inmatningsmetod"</string>
     <string name="undo">"Ångra"</string>
     <string name="redo">"Gör om"</string>

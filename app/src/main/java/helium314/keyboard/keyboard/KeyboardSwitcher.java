@@ -138,8 +138,8 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
         return false;
     }
 
-    private void loadKeyboard(final EditorInfo editorInfo, final SettingsValues settingsValues,
-            final int currentAutoCapsState, final int currentRecapitalizeState) {
+    public void loadKeyboard(final EditorInfo editorInfo, final SettingsValues settingsValues,
+            final int currentAutoCapsState, final int currentRecapitalizeState, KeyboardLayoutSet.InternalAction internalAction) {
         final KeyboardLayoutSet.Builder builder = new KeyboardLayoutSet.Builder(
                 mThemeContext, editorInfo);
         final int keyboardWidth = ResourceUtils.getKeyboardWidth(mThemeContext, settingsValues);
@@ -149,10 +149,12 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
                 .setSubtype(mRichImm.getCurrentSubtype())
                 .setVoiceInputKeyEnabled(settingsValues.mShowsVoiceInputKey)
                 .setNumberRowEnabled(settingsValues.mShowsNumberRow)
+                .setNumberRowInSymbolsEnabled(settingsValues.mShowsNumberRowInSymbols)
                 .setLanguageSwitchKeyEnabled(settingsValues.isLanguageSwitchKeyEnabled())
                 .setEmojiKeyEnabled(settingsValues.mShowsEmojiKey)
                 .setSplitLayoutEnabled(settingsValues.mIsSplitKeyboardEnabled)
                 .setOneHandedModeEnabled(oneHandedModeEnabled)
+                .setInternalAction(internalAction)
                 .build();
         try {
             mState.onLoadKeyboard(currentAutoCapsState, currentRecapitalizeState, oneHandedModeEnabled);
@@ -164,6 +166,7 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
                         .setSubtype(RichInputMethodSubtype.Companion.get(defaults))
                         .setVoiceInputKeyEnabled(settingsValues.mShowsVoiceInputKey)
                         .setNumberRowEnabled(settingsValues.mShowsNumberRow)
+                        .setNumberRowInSymbolsEnabled(settingsValues.mShowsNumberRowInSymbols)
                         .setLanguageSwitchKeyEnabled(settingsValues.isLanguageSwitchKeyEnabled())
                         .setEmojiKeyEnabled(settingsValues.mShowsEmojiKey)
                         .setSplitLayoutEnabled(settingsValues.mIsSplitKeyboardEnabled)
@@ -190,6 +193,9 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
     }
 
     private void setKeyboard(final int keyboardId, @NonNull final KeyboardSwitchState toggleState) {
+        // with a hardware keyboard we might get here without ever calling onCreateInputView, so don't crash
+        if (mKeyboardView == null) return;
+
         // Make {@link MainKeyboardView} visible and hide {@link EmojiPalettesView}.
         final SettingsValues currentSettingsValues = Settings.getValues();
         setMainKeyboardFrame(currentSettingsValues, toggleState);
@@ -494,16 +500,7 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
         mKeyboardViewWrapper.setOneHandedGravity(settings.getCurrent().mOneHandedModeGravity);
 
         settings.writeOneHandedModeEnabled(enabled);
-
-        // Reload the entire keyboard set with the same parameters, and switch to the previous layout
-        boolean wasEmoji = isShowingEmojiPalettes();
-        boolean wasClipboard = isShowingClipboardHistory();
         reloadKeyboard();
-        if (wasEmoji)
-            setEmojiKeyboard();
-        else if (wasClipboard) {
-            setClipboardKeyboard();
-        }
     }
 
     // Implements {@link KeyboardState.SwitchActions}.
@@ -531,8 +528,16 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
     }
 
     public void reloadMainKeyboard() {
+        // Reload the entire keyboard, and switch to the previous layout
+        final boolean wasEmoji = isShowingEmojiPalettes();
+        final boolean wasClipboard = isShowingClipboardHistory();
         loadKeyboard(mLatinIME.getCurrentInputEditorInfo(), Settings.getValues(),
-                mLatinIME.getCurrentAutoCapsState(), mLatinIME.getCurrentRecapitalizeState());
+                mLatinIME.getCurrentAutoCapsState(), mLatinIME.getCurrentRecapitalizeState(), null);
+        if (wasEmoji) {
+            setEmojiKeyboard();
+        } else if (wasClipboard) {
+            setClipboardKeyboard();
+        }
     }
 
     /**

@@ -81,7 +81,6 @@
     <string name="show_setup_wizard_icon_summary">Bistaratu aplikazioaren ikonoa panelean</string>
     <string name="dictionary_category_title">"Hiztegi gehigarriak"</string>
     <string name="dictionary_available">"Hiztegia erabilgarri"</string>
-    <string name="last_update">"Azken eguneratzea"</string>
     <string name="settings">"Ezarpenak"</string>
     <string name="delete">"Ezabatu"</string>
     <string name="version_text">%1$s bertsioa</string>
@@ -128,7 +127,6 @@
     <string name="autospace_after_punctuation_summary">Sartu automatikoki zuriunea puntuazioen ondoren hitz berri bat idaztean</string>
     <string name="prefs_long_press_keyboard_to_change_lang">Aldatu idazketa-metodoa zuriune teklarekin</string>
     <string name="prefs_keyboard_height_scale">Teklatuaren altuera eskala</string>
-    <string name="use_system_language_to_select_input_method_subtypes">"Erabili sistemaren hizkuntzak"</string>
     <string name="select_input_method">"Aukeratu idazketa-metodoa"</string>
     <string name="undo">"Desegin"</string>
     <string name="redo">"Berregin"</string>
@@ -229,7 +227,6 @@
     <string name="message_add_custom_layout">Hautatu fitxategi bat formatu bateragarri batean. Formatuei buruzko informazioa eskuragarri dago %s.</string>
     <string name="button_load_custom">Kargatu fitxategia</string>
     <string name="file_read_error">Ezin da fitxategia irakurri</string>
-    <string name="button_copy_existing_layout">Kopiatu lehendik dagoen diseinua</string>
     <string name="delete_layout">Benetan ezabatu %s diseinu pertsonalizatua?</string>
     <string name="edit_layout">Sakatu diseinu gordina editatzeko</string>
     <string name="layout_symbols_arabic" tools:keep="@string/layout_symbols_arabic">Ikurrak (Arabiarrak)</string>
@@ -250,9 +247,7 @@
     <string name="dictionary_link_text">hemen</string>
     <string name="available_dictionary_experimental">%s (esperimentala)</string>
     <string name="dictionary_file_error">Errorea: hautatutako fitxategia ez da baliozko hiztegi-fitxategi bat</string>
-    <string name="dictionary_file_wrong_locale">Hautatutako fitxategia %1$srentzat da, baina %2$s espero zen. Oraindik %2$s erabiltzen al duzu?</string>
     <string name="dictionary_file_wrong_script">Errorea: script-a ez da bateragarria teklatu honekin</string>
-    <string name="dictionary_file_wrong_locale_ok">Erabili oraindik</string>
     <string name="dictionary_load_error">Errore bat gertatu da hiztegi-fitxategia kargatzean</string>
     <string name="user_dict_word_already_present">Hitz hau %s erabiltzailearen hiztegian dago jada. Mesedez, idatzi beste bat.</string>
     <string name="user_dict_add_word_button">Gehitu hitz bat</string>
@@ -381,7 +376,6 @@
     <string name="key_code">Tekla-kodea</string>
     <string name="long_press_code">Sakatze luzeko kodea</string>
     <string name="prefs_always_show_suggestions_except_web_text">Ez erakutsi beti iradokizunik web edizioko eremuetarako</string>
-    <string name="split_spacer_scale_landscape">Banatze-tartea (horizontala)</string>
     <string name="settings_category_space">Zuriunea</string>
     <string name="use_apps_dict_summary">Erabili instalatutako aplikazioen izenak iradokizunak eta zuzenketak egiteko</string>
     <string name="enable_split_keyboard_landscape">Gaitu teklatu banatua (horizontala)</string>
@@ -418,8 +412,6 @@
     <string name="settings_screen_secondary_layouts">Bigarren mailako diseinuak</string>
     <string name="layout_in_use">Abisua: hori da une honetan erabiltzen ari den diseinua</string>
     <string name="layout_functional_keys_tablet" tools:keep="@string/layout_functional_keys_tablet">Tekla funtzionalak (pantaila handia)</string>
-    <string name="prefs_bottom_padding_scale_landscape">Beheko betegarriaren eskala (horizontala)</string>
-    <string name="prefs_side_padding_scale_landscape">Alboko betegarriaren eskala (horizontala)</string>
     <string name="prefs_side_padding_scale">Alboko betegarriaren eskala</string>
     <string name="customize_background_image_landscape">Ezarri atzeko planoko irudia (horizontala)</string>
     <string name="summary_customize_background_image_landscape">Ezartzen ez bada, irudia bertikala erabiliko da</string>
@@ -429,11 +421,10 @@
     <string name="prefs_emoji_font_scale">Emojien eskala</string>
     <string name="prefs_emoji_skin_tone_neutral">Neutroa</string>
     <string name="subtype_dru">Dargwa (Urakhi)</string>
-    <string name="get_layouts_message">% s-n diseinuak aurki eta parteka ditzakezu.</string>
+    <string name="get_layouts_message">%s-n diseinuak aurki eta parteka ditzakezu.</string>
     <string name="discussion_section_link">eztabaiden atala</string>
     <string name="name_invalid">Izen baliogabea</string>
     <string name="show_emoji_descriptions">Erakutsi emojiaren deskribapena luze sakatzean</string>
-    <string name="show_emoji_descriptions_summary">Emoji hiztegia eskatzen du</string>
     <string name="suggest_emojis_summary">Erabili emoji hiztegia iradokizun normaletan</string>
     <string name="suggest_emojis">Iradokitako emojiak</string>
     <string name="toolbar_hiding_global">Ezkutatu arbela eta emojien tresna-barrak ere</string>

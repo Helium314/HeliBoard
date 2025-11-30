@@ -1,7 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0-only
 package helium314.keyboard.settings
 
-import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.net.Uri
@@ -15,8 +14,6 @@ import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -28,7 +25,6 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ComposeView
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import helium314.keyboard.compat.locale
 import helium314.keyboard.keyboard.KeyboardSwitcher
@@ -49,7 +45,6 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import java.io.BufferedOutputStream
 import java.io.File
 import java.io.FileInputStream
-import java.io.IOException
 import java.util.zip.ZipEntry
 import java.util.zip.ZipOutputStream
 
@@ -77,7 +72,7 @@ open class SettingsActivity : ComponentActivity(), SharedPreferences.OnSharedPre
         }
         ExecutorUtils.getBackgroundExecutor(ExecutorUtils.KEYBOARD).execute { cleanUnusedMainDicts(this) }
         crashReportFiles.value = findCrashReports(!BuildConfig.DEBUG && !DebugFlags.DEBUG_ENABLED)
-        val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
 
         settingsContainer = SettingsContainer(this)
 
@@ -102,12 +97,7 @@ open class SettingsActivity : ComponentActivity(), SharedPreferences.OnSharedPre
                                     title = { Text(stringResource(R.string.android_spell_checker_settings)) },
                                     windowInsets = WindowInsets(0),
                                     navigationIcon = {
-                                        IconButton(onClick = { this@SettingsActivity.finish() }) {
-                                            Icon(
-                                                painterResource(R.drawable.ic_arrow_back),
-                                                stringResource(R.string.spoken_description_action_previous)
-                                            )
-                                        }
+                                        BackButton { this@SettingsActivity.finish() }
                                     },
                                 )
                                 settingsContainer[Settings.PREF_USE_CONTACTS]!!.Preference()
@@ -130,7 +120,7 @@ open class SettingsActivity : ComponentActivity(), SharedPreferences.OnSharedPre
                                     val intent = Intent(Intent.ACTION_CREATE_DOCUMENT)
                                     intent.addCategory(Intent.CATEGORY_OPENABLE)
                                     intent.putExtra(Intent.EXTRA_TITLE, "crash_reports.zip")
-                                    intent.setType("application/zip")
+                                    intent.type = "application/zip"
                                     crashFilePicker.launch(intent)
                                 },
                                 content = { Text("Crash report files found") },
@@ -203,7 +193,7 @@ open class SettingsActivity : ComponentActivity(), SharedPreferences.OnSharedPre
     private fun saveCrashReports(uri: Uri) {
         val files = findCrashReports(false)
         if (files.isEmpty()) return
-        try {
+        runCatching {
             contentResolver.openOutputStream(uri)?.use {
                 val bos = BufferedOutputStream(it)
                 val z = ZipOutputStream(bos)
@@ -220,7 +210,6 @@ open class SettingsActivity : ComponentActivity(), SharedPreferences.OnSharedPre
                     file.delete()
                 }
             }
-        } catch (ignored: IOException) {
         }
     }
 

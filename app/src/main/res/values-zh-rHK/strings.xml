@@ -82,7 +82,6 @@
     <string name="show_setup_wizard_icon_summary">"在啟動器中顯示圖示"</string>
     <string name="dictionary_category_title">"附加字典"</string>
     <string name="dictionary_available">"可使用字典"</string>
-    <string name="last_update">"上次更新日期"</string>
     <string name="settings">"設定"</string>
     <string name="delete">"刪除"</string>
     <string name="version_text">"版本 %1$s"</string>
@@ -110,7 +109,6 @@
     <string name="ime_settings">設定</string>
     <string name="settings_category_input">輸入</string>
     <string name="settings_category_correction">文字改正</string>
-    <string name="use_system_language_to_select_input_method_subtypes">"使用系統語言"</string>
     <string name="select_input_method">"選擇輸入法"</string>
     <string name="undo">"復原"</string>
     <string name="redo">"取消復原"</string>

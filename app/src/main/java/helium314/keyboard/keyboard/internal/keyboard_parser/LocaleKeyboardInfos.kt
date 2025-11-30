@@ -245,8 +245,8 @@ private const val READER_MODE_TLD = 5
 
 // probably could be improved and extended, currently this is what's done in key_styles_currency.xml
 private fun getCurrencyKey(locale: Locale): Pair<String, List<String>> {
-    Settings.getInstance().readCustomCurrencyKey().takeIf { it.isNotBlank() }?.let {
-        val split = it.trim().splitOnWhitespace()
+    Settings.getInstance().readCustomCurrencyKey().takeIf { it.isNotBlank() }?.let { currency ->
+        val split = currency.trim().splitOnWhitespace()
         if (split.isNotEmpty())
             return split[0] to (split.toSet() + genericCurrencyPopupKeys).filterNot { it == split[0] }.take(6)
     }

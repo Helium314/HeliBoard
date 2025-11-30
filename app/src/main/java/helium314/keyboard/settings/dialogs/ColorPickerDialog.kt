@@ -23,7 +23,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Paint
 import androidx.compose.ui.graphics.PaintingStyle
 import androidx.compose.ui.graphics.toArgb
-import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
@@ -31,18 +31,23 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.DialogProperties
+import androidx.core.graphics.toColorInt
 import com.github.skydoves.colorpicker.compose.AlphaSlider
 import com.github.skydoves.colorpicker.compose.BrightnessSlider
 import com.github.skydoves.colorpicker.compose.HsvColorPicker
 import com.github.skydoves.colorpicker.compose.rememberColorPickerController
+import helium314.keyboard.latin.R
 import helium314.keyboard.settings.Theme
 import helium314.keyboard.settings.previewDark
+import helium314.keyboard.settings.isWideScreen
 
 @Composable
 fun ColorPickerDialog(
     onDismissRequest: () -> Unit,
     initialColor: Int,
     title: String,
+    showDefault: Boolean,
+    onDefault: () -> Unit,
     onConfirmed: (Int) -> Unit,
 ) {
     val controller = rememberColorPickerController()
@@ -57,23 +62,21 @@ fun ColorPickerDialog(
     val initialString = initialColor.toUInt().toString(16)
     var textValue by remember { mutableStateOf(TextFieldValue(initialString, TextRange(initialString.length))) }
     var currentColor by remember { mutableStateOf(Color(initialColor)) }
-    val width = LocalConfiguration.current.screenWidthDp
-    val height = LocalConfiguration.current.screenHeightDp
-    val useWideLayout = height < 500 && width > height
+    val useWideLayout = isWideScreen()
     @Composable fun topBar() {
         Row {
             Surface(
                 color = Color(initialColor),
                 modifier = Modifier.fillMaxWidth(0.5f)
                     .padding(start = 10.dp)
-                    .height(barHeight))
-            {  }
+                    .height(barHeight)
+            ) { }
             Surface(
                 color = currentColor,
                 modifier = Modifier.fillMaxWidth()
                     .padding(end = 10.dp)
-                    .height(barHeight))
-            {  }
+                    .height(barHeight)
+            ) { }
         }
     }
     @Composable fun picker() {
@@ -119,7 +122,7 @@ fun ColorPickerDialog(
             keyboardActions = KeyboardActions(onDone = { onDismissRequest(); onConfirmed(controller.selectedColor.value.toArgb()) }),
             onValueChange = {
                 textValue = it
-                val androidColor = runCatching { android.graphics.Color.parseColor("#${it.text}") }.getOrNull()
+                val androidColor = runCatching { "#${it.text}".toColorInt() }.getOrNull()
                 if (androidColor != null)
                     controller.selectByColor(Color(androidColor), false)
             }
@@ -145,6 +148,8 @@ fun ColorPickerDialog(
                     slidersAndTextField()
                 }
         },
+        neutralButtonText = if (showDefault) stringResource(R.string.button_default) else null,
+        onNeutral = onDefault,
         properties = DialogProperties(usePlatformDefaultWidth = !useWideLayout)
     )
 }
@@ -153,7 +158,7 @@ fun ColorPickerDialog(
 @Composable
 private fun Preview() {
     Theme(previewDark) {
-        ColorPickerDialog({}, -0x0f4488aa, "color name", {})
+        ColorPickerDialog({}, -0x0f4488aa, "color name", true, {}, {})
     }
 }
 
@@ -162,6 +167,6 @@ private fun Preview() {
 @Composable
 private fun WidePreview() {
     Theme(previewDark) {
-        ColorPickerDialog({}, -0x0f4488aa, "color name", {})
+        ColorPickerDialog({}, -0x0f4488aa, "color name", true, {}, {})
     }
 }

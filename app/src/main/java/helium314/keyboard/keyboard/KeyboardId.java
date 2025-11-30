@@ -17,6 +17,7 @@ import helium314.keyboard.latin.utils.InputTypeUtils;
 
 import java.util.Arrays;
 import java.util.Locale;
+import java.util.Objects;
 
 import static helium314.keyboard.latin.common.Constants.Subtype.ExtraValue.KEYBOARD_LAYOUT_SET;
 
@@ -75,12 +76,14 @@ public final class KeyboardId {
     public final EditorInfo mEditorInfo;
     public final boolean mDeviceLocked;
     public final boolean mNumberRowEnabled;
+    public final boolean mNumberRowInSymbols;
     public final boolean mLanguageSwitchKeyEnabled;
     public final boolean mEmojiKeyEnabled;
     public final String mCustomActionLabel;
     public final boolean mHasShortcutKey;
     public final boolean mIsSplitLayout;
     public final boolean mOneHandedModeEnabled;
+    public final KeyboardLayoutSet.InternalAction mInternalAction;
 
     private final int mHashCode;
 
@@ -93,6 +96,7 @@ public final class KeyboardId {
         mEditorInfo = params.mEditorInfo;
         mDeviceLocked = params.mDeviceLocked;
         mNumberRowEnabled = params.mNumberRowEnabled;
+        mNumberRowInSymbols = params.mNumberRowInSymbols;
         mLanguageSwitchKeyEnabled = params.mLanguageSwitchKeyEnabled;
         mEmojiKeyEnabled = params.mEmojiKeyEnabled;
         mCustomActionLabel = (mEditorInfo.actionLabel != null)
@@ -100,6 +104,7 @@ public final class KeyboardId {
         mHasShortcutKey = params.mVoiceInputKeyEnabled;
         mIsSplitLayout = params.mIsSplitLayoutEnabled;
         mOneHandedModeEnabled = params.mOneHandedModeEnabled;
+        mInternalAction = params.mInternalAction;
 
         mHashCode = computeHashCode(this);
     }
@@ -122,7 +127,8 @@ public final class KeyboardId {
                 id.navigateNext(),
                 id.navigatePrevious(),
                 id.mSubtype,
-                id.mIsSplitLayout
+                id.mIsSplitLayout,
+                id.mInternalAction
         });
     }
 
@@ -145,7 +151,8 @@ public final class KeyboardId {
                 && other.navigateNext() == navigateNext()
                 && other.navigatePrevious() == navigatePrevious()
                 && other.mSubtype.equals(mSubtype)
-                && other.mIsSplitLayout == mIsSplitLayout;
+                && other.mIsSplitLayout == mIsSplitLayout
+                && Objects.equals(other.mInternalAction, mInternalAction);
     }
 
     private static boolean isAlphabetKeyboard(final int elementId) {
@@ -172,8 +179,7 @@ public final class KeyboardId {
 
     public boolean passwordInput() {
         final int inputType = mEditorInfo.inputType;
-        return InputTypeUtils.isPasswordInputType(inputType)
-                || InputTypeUtils.isVisiblePasswordInputType(inputType);
+        return InputTypeUtils.isAnyPasswordInputType(inputType);
     }
 
     public boolean isMultiLine() {

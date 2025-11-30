@@ -81,7 +81,6 @@
     <string name="show_setup_wizard_icon_summary">"نمایش نماد برنامه در راه‌انداز"</string>
     <string name="dictionary_category_title">"واژه‌نامه‌های برافزا"</string>
     <string name="dictionary_available">"واژه‌نامه موجود است"</string>
-    <string name="last_update">"آخرین به‌روزرسانی"</string>
     <string name="settings">"تنظیمات"</string>
     <string name="delete">"حذف"</string>
     <string name="version_text">نسخه %1$s</string>
@@ -96,7 +95,6 @@
     <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
     <string name="settings_no_limit">بی‌محدودیت</string>
     <string name="enable_clipboard_history">فعال‌کردن تاریخچهٔ تخته‌گیره</string>
-    <string name="use_system_language_to_select_input_method_subtypes">"استفاده از زبان‌های سیستم"</string>
     <string name="select_input_method">"انتخاب روش ورودی"</string>
     <string name="settings_category_clipboard_history">تاریخچهٔ تخته‌گیره</string>
     <string name="spell_checker_service_name">غلط‌یاب املایی HeliBoard</string>

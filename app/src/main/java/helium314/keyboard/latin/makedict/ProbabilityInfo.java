@@ -64,8 +64,7 @@ public final class ProbabilityInfo {
     @Override
     public boolean equals(Object o) {
         if (o == this) return true;
-        if (!(o instanceof ProbabilityInfo)) return false;
-        final ProbabilityInfo p = (ProbabilityInfo)o;
+        if (!(o instanceof ProbabilityInfo p)) return false;
         if (!hasHistoricalInfo() && !p.hasHistoricalInfo()) {
             return mProbability == p.mProbability;
         }

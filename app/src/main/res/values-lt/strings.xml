@@ -3,7 +3,7 @@
     Copyright (C) 2008 The Android Open Source Project
     modified
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
---><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+--><resources xmlns:tools="http://schemas.android.com/tools">
     <string name="use_contacts_dict">"Kontaktų vardų paieška"</string>
     <string name="vibrate_on_keypress">"Vibruoti, kai paspaudžiami klavišai"</string>
     <string name="sound_on_keypress">"Klavišo paspaudimo garsas"</string>
@@ -14,10 +14,10 @@
     <string name="settings_screen_advanced">"Išplėstiniai"</string>
     <string name="settings_screen_theme">"Tema"</string>
     <string name="enable_split_keyboard">"Įgalinti suskaidytą klaviatūrą"</string>
-    <string name="language_switch_key_switch_input_method">"Perj. į kt. įvesties būd."</string>
+    <string name="language_switch_key_switch_input_method">Perjungti į kitą įvesties metodą</string>
     <string name="show_language_switch_key">"Kalbos keitimo klavišas"</string>
     <string name="abbreviation_unit_milliseconds">"%s ms"</string>
-    <string name="settings_system_default">"Sist. numat. nustat."</string>
+    <string name="settings_system_default">Sistemos numatyta</string>
     <string name="use_contacts_dict_summary">"Siūlant ir taisant naudoti vardus iš „Kontaktų“"</string>
     <string name="use_personalized_dicts">"Suasmeninti pasiūlymai"</string>
     <string name="use_double_space_period">"Tšk. ir tarp. pal. dukart"</string>
@@ -31,7 +31,7 @@
     <string name="prefs_block_potentially_offensive_title">"Blokuoti įžeidžiančius žodžius"</string>
     <string name="prefs_block_potentially_offensive_summary">"Nesiūlyti galimai įžeidžiančių žodžių"</string>
     <string name="autocorrect">"Automatinis taisymas"</string>
-    <string name="auto_correction_summary">"Tarpo kl. ir skyr. ženkl. aut. išt. neteis. įv. žodž."</string>
+    <string name="auto_correction_summary">Tarpas ir skyrybos ženklai automatiškai pataiso kladingus žodžius</string>
     <string name="auto_correction_threshold_mode_off">"Išjungta"</string>
     <string name="auto_correction_threshold_mode_modest">"Vidutinis"</string>
     <string name="auto_correction_threshold_mode_aggressive">"Atkakliai"</string>
@@ -69,24 +69,23 @@
     <string name="setup_start_action">"Pradėti"</string>
     <string name="setup_steps_title">"„%s“ sąranka"</string>
     <string name="setup_step1_title">"Įgalinkite „%s“"</string>
-    <string name="setup_step1_instruction">Skiltyje „Kalbos ir įvesties nustatymai“ žr. %s“. Programa bus įgalinta veikti įrenginyje.\"</string>
+    <string name="setup_step1_instruction">Patikrinkite \"%s\" savo kalbos ir įvesties nustatymuose. Tada leiskite vykdyti savo įrenginyje.</string>
     <string name="setup_step1_action">"Įgalinti nustatymuose"</string>
     <string name="setup_step2_title">"Perjungimas į „%s“"</string>
-    <string name="setup_step2_instruction">Toliau pasirinkite %s“ kaip aktyvų teksto įvesties metodą.\"</string>
+    <string name="setup_step2_instruction">Toliau pasirinkite \"%s“ kaip aktyvų teksto įvesties metodą.</string>
     <string name="setup_step2_action">"Perjungti įvesties metodus"</string>
     <string name="setup_step3_title">"Sveikiname, viską nustatėte!"</string>
-    <string name="setup_step3_instruction">"Dabar galite įvesti visas mėgstamas programas naudodami „%s“."</string>
+    <string name="setup_step3_instruction">Dabar galite rašyti visose mėgstamose programose naudodami „%s“.</string>
     <string name="setup_finish_action">"Baigta"</string>
     <string name="show_setup_wizard_icon">"Rodyti programos piktogramą"</string>
     <string name="show_setup_wizard_icon_summary">"Pateikti programos piktogramą paleidimo priemonėje"</string>
     <string name="dictionary_category_title">"Papildomi žodynai"</string>
     <string name="dictionary_available">"Galimas žodynas"</string>
-    <string name="last_update">"Paskutinį kartą atnaujinta"</string>
     <string name="settings">"Nustatymai"</string>
     <string name="delete">"Ištrinti"</string>
     <!-- syntax error in translation for should_download_over_metered_prompt (6737084685073734292) org.xmlpull.v1.XmlPullParserException: expected: /string read: b (position:END_TAG </b>@1:781 in     <string name="should_download_over_metered_prompt">"Pasiekiamas mobiliajame įrenginyje pasirinktos kalbos žodynas.&lt;br/&gt; Rekomenduojame &lt;b&gt;atsisiųsti&lt;/b&gt; %1$s žodyną, kad pagerintumėte savo teksto vedimo įgūdžius.&lt;br/&gt; &lt;br/&gt; Jei naudojamas 3G ryšys, atsisiuntimas truks kelias minutes. Jei neturite &lt;b&gt;neribotų duomenų plano&lt;/b&gt;, gali būti taikomi mokesčiai.&lt;br/&gt; Jei nežinote, kokį duomenų planą naudojate, rekomenduojame prisijungti prie „Wi-Fi“ ryšio, kad atsisiuntimas būtų pradėtas automatiškai.&lt;br/&gt; &lt;br/&gt; Patarimas: žodynus galite atsisiųsti ir pridėti mobiliajame įrenginyje nuėję į meniu <b>Nustatymai</b> skiltį &lt;b&gt;Kalbos ir įvestis</b>."</string>
 )  -->
-    <string name="version_text">"%1$s versija"</string>
+    <string name="version_text">Versija %s</string>
     <string name="user_dict_settings_add_dialog_title">"Pridėti prie žodyno"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"Spartusis klavišas:"</string>
     <string name="user_dict_settings_add_locale_option_name">"Kalba:"</string>
@@ -96,7 +95,6 @@
     <string name="user_dict_settings_all_languages">"Visos kalbos"</string>
     <string name="user_dict_settings_more_languages">"Daugiau kalbų…"</string>
     <string name="user_dict_fast_scroll_alphabet">" AĄBCČDEĘĖFGHIĮYJKLMNOPRSŠTUŲŪVZŽ"</string>
-    <string name="use_system_language_to_select_input_method_subtypes">"Sistemos kalbų naudojimas"</string>
     <string name="select_input_method">"Pasirinkite įvesties metodą"</string>
     <string name="undo">"Anuliuoti"</string>
     <string name="redo">"Grąžinti"</string>
@@ -107,6 +105,341 @@
     <string name="label_done_key">"Atl."</string>
     <string name="label_send_key">"Siųs."</string>
     <string name="label_search_key">"Paieška"</string>
-    <string name="label_pause_key">"Pris."</string>
+    <string name="label_pause_key">Pristabdyti</string>
     <string name="label_wait_key">"Lauk."</string>
+    <string name="spell_checker_service_name">HeliBoard rašybos tikrinimas</string>
+    <string name="ime_settings">HeliBoard nustatymai</string>
+    <string name="android_spell_checker_settings">HeliBoard rašybos tikrinimo nustatymai</string>
+    <string name="vibrate_in_dnd_mode">Vibruoti netrukdymo režime</string>
+    <string name="suggest_emojis">Siūlyti jaustukus</string>
+    <string name="suggest_emojis_summary">Naudoti jaustukų žodyną įprastuose pasiūlymuose</string>
+    <string name="inline_emoji_search">Jaustukų paieška</string>
+    <string name="inline_emoji_search_summary">Siūlyti jaustuką tik tada kai žodis prasideda kabliataškiu</string>
+    <string name="emoji_dictionary_required">Šiai galimybei reikia jaustukų žodyno. Žodyną .dict formate galite parsisiųsti iš %s.</string>
+    <string name="show_emoji_descriptions">Ilgai paspaudus rodyti jaustuko aprašymą</string>
+    <string name="settings_category_input">Įvestis</string>
+    <string name="settings_category_additional_keys">Papildomi klavišai</string>
+    <string name="settings_category_clipboard_history">Iškarpinės istorija</string>
+    <string name="settings_category_correction">Pataisymai</string>
+    <string name="settings_category_space">Tarpas</string>
+    <string name="settings_category_suggestions">Pasiūlymai</string>
+    <string name="settings_category_experimental">Eksperimentinis</string>
+    <string name="settings_category_miscellaneous">Kita</string>
+    <string name="enable_split_keyboard_landscape">Įgalinti perskirtą klaviatūrą (horizontaliai)</string>
+    <string name="split_spacer_scale">Perskyrimo atstumas</string>
+    <string name="switch_language">Perjungti kalbą</string>
+    <string name="language_switch_key_switch_both">Perjungti abu</string>
+    <string name="language_switch_key_behavior">Kalbos perjungimo elgsena</string>
+    <string name="show_emoji_key">Jaustukų mygtukas</string>
+    <string name="abbreviation_unit_minutes">%s min</string>
+    <string name="settings_no_limit">Be limito</string>
+    <string name="use_apps_dict">Ieškoti pavadinimų</string>
+    <string name="use_apps_dict_summary">Pasiūlymam ir taisymam naudoti įdiegtų programų pavadinimus</string>
+    <string name="disable_personalized_dicts_message">Įspėjimas: Išjungus šią parinktį bus išvalyti išmokti duomenys</string>
+    <string name="add_to_personal_dictionary">Pridėti žodžius į asmeninį žodyną</string>
+    <string name="add_to_personal_dictionary_summary">Išmoktiem žodžiam naudoti asmeninį įrenginio žodyną</string>
+    <string name="prefs_always_show_suggestions">Visada rodyti pasiūlymus</string>
+    <string name="prefs_always_show_suggestions_summary">Ignoruoti kitų programų prašymus išjungti pasiūlymus (gali kilti bėdų)</string>
+    <string name="prefs_always_show_suggestions_except_web_text">Interneto taisymo laukeliam nerodyti pasiūlymų</string>
+    <string name="prefs_always_show_suggestions_except_web_text_summary">Interneto įvedimo laukeliai(paprastai naršyklėje) labai dažnai gali sukelti bėdų</string>
+    <string name="more_autocorrect">Daugiau auto taisymas</string>
+    <string name="more_autocorrect_summary">Taisyti automatiškai net jei to nereikalaujama</string>
+    <string name="auto_correction_confidence">Auto taisymo pasitikėjimo lygis</string>
+    <string name="auto_correct_shortcuts">Auto taisymo nuorodos</string>
+    <string name="auto_correct_shortcuts_summary">Įjungus nuorodos gali būt įjungtos auto taisymo</string>
+    <string name="backspace_reverts_autocorrect">Grįžimo klavišas atšaukia auto taisymą</string>
+    <string name="center_suggestion_text_to_enter">Visada naudoti vidurinį pasiūlymą</string>
+    <string name="center_suggestion_text_to_enter_summary">Paspaudus tarpą arba kablelį bus įvestas vidurinis pasiūlymas</string>
+    <string name="suggest_punctuation">Skyrybos ženklų pasiūlymai</string>
+    <string name="suggest_punctuation_summary">Jei nėra prieinamų kitų pasiūlymų naudoti skyrybos ženklų pasiūlymus</string>
+    <string name="suggest_clipboard_content">Siūlyti iškarpinės turinį</string>
+    <string name="suggest_clipboard_content_summary">Kaip pasiūlymą naudoti nesenai kopijuotą teksta</string>
+    <string name="gesture_floating_preview_static">Plaukiojanti peržiūra</string>
+    <string name="gesture_floating_preview_static_summary">Naudojant gestus matyti siūlomus žodžius</string>
+    <string name="gesture_floating_preview_dynamic_summary">Naudojant gestą perstumti peržiūrą</string>
+    <string name="gesture_fast_typing_cooldown">Greito rašymo laukimo laikas</string>
+    <string name="gesture_fast_typing_cooldown_instant">Visada pradėti iškart</string>
+    <string name="gesture_trail_fadeout_duration">Gesto pėdsako gyvavimo laikas</string>
+    <string name="enable_clipboard_history">Įgalinti iškarpinės istoriją</string>
+    <string name="enable_clipboard_history_summary">Išjungus iškarpinės klavišas įklijuos iškarpinės turinį</string>
+    <string name="clipboard_history_retention_time">Istorijos laikymo trukmė</string>
+    <string name="clipboard_history_pinned_first">Prisegtus įrašus laikyti viršuje</string>
+    <string name="delete_swipe">Trynimas perbraukiant</string>
+    <string name="delete_swipe_summary">Norėdami pašalinti daugiau teksto, naudokite perbraukimą nuo šalinimo klavišo iki pasirinkimo</string>
+    <string name="backup_restore_title">Išsaugoti ir atkurti</string>
+    <string name="backup_restore_message">Išsaugoti ir įkelti iš failo. Įspėjimas: atkuriant bus pašalinti esami duomenys</string>
+    <string name="backup_error">Atkūrimo klaida: %s</string>
+    <string name="restore_error">Klaida atukuriant atsarginę kopiją: %s</string>
+    <string name="button_backup">Atsarginė kopija</string>
+    <string name="button_restore">Atkurti</string>
+    <string name="backup_restored">Atsarginė kopija atstatyta</string>
+    <string name="timestamp_format_title">Laiko žymės formatas</string>
+    <string name="secondary_locale">Kelių kalbų įvedimas</string>
+    <string name="locales_with_dict">Kalbos ir žodynai</string>
+    <string name="load_gesture_library">Įkelti gestų biblioteką</string>
+    <string name="load_gesture_library_summary">Naudoti vidinę biblioteką rašymui gestais</string>
+    <string name="load_gesture_library_message">Jums reikės bibliotekos skirtos \"%s:. Netinkamos bibliotekos gali išjungti programą.\n\nĮspėjimas: išorinio kodo įkėlimas yra saugumo rizika. Naudokite tik patikimus šaltinius.</string>
+    <string name="checksum_mismatch_message">Nežinomas bibliotekos failas. Ar tikrai gavote jį iš patikimo šaltinio ir jis skirtas \"%s\"?</string>
+    <string name="load_gesture_library_button_load">Įkelti biblioteką</string>
+    <string name="load_gesture_library_button_delete">Pašalinti biblioteką</string>
+    <string name="autospace_after_punctuation">Po skyrybos ženklo automatinis tarpas</string>
+    <string name="autospace_after_punctuation_summary">Rašant naują žodį, po skyrybos ženklo automatiškai bus parašytas tarpas</string>
+    <string name="autospace_after_suggestion">Pasirinkus pasiūlymą po jo atsiras tarpas</string>
+    <string name="autospace_before_gesture_typing">Prieš gestu rašant žodį padėti tarpą</string>
+    <string name="autospace_after_gesture_typing">Gestu parašius žodį po jo padėti tarpą</string>
+    <string name="shift_removes_autospace">Laikant \"shift\" jokio automatinio tarpo</string>
+    <string name="shift_removes_autospace_summary">\"Shift\" pašalina laukiantį tarpą</string>
+    <string name="show_popup_keys_title">Iššokančiame lange rodyti daugiau raidžių su diakritikais</string>
+    <string name="show_popup_keys_normal">Rodyti variantus kurie nurodyti klaviatūros kalbose</string>
+    <string name="show_popup_keys_main">Pridėti labai panašius variantus (numatyta)</string>
+    <string name="show_popup_keys_more">Pridėti dažnus variantus</string>
+    <string name="show_popup_keys_all">Pridėti visus variantus</string>
+    <string name="url_detection_title">URL aptikimas</string>
+    <string name="url_detection_summary">Pabandyti aptikti URL viename žodyje</string>
+    <string name="incognito">Priverstinai naudoti \"Incognito\" režimą</string>
+    <string name="prefs_force_incognito_mode_summary">Išjungti naujų žodžių mokymasi</string>
+    <string name="more_keys_strip_description">Daugiau klavišų</string>
+    <string name="language_and_layouts_title">Kalbos ir išdėstymai</string>
+    <string name="number_row">Skaičių eilė</string>
+    <string name="number_row_summary">Visada rodyti skaičių eilę</string>
+    <string name="localized_number_row">Pritaikyti skaičių eilę</string>
+    <string name="localized_number_row_summary">Pirmenybę teikti pritaikytiem skaičiam</string>
+    <string name="number_row_hints">Skaičių eilėje rodyti patarimus</string>
+    <string name="save_subtype_per_app">Prisiminti kalbą programoje</string>
+    <string name="show_hints">Rodyti klavišų patarimus</string>
+    <string name="show_hints_summary">Rodyti ilgo paspaudimo patarimus</string>
+    <string name="popup_order_and_hint_source">Iššokančio lango klavišų eilė ir patarimų šaltinis</string>
+    <string name="hint_source">Pasirinkti patarimų šaltinį</string>
+    <string name="popup_order">Pasirinkti iššokančio lango klavišų eilę</string>
+    <string name="show_tld_popup_keys">Rodyti TLD iššokančius klavišus</string>
+    <string name="popup_keys_number" tools:keep="@string/popup_keys_number">Skaičių eilė</string>
+    <string name="popup_keys_language_priority" tools:keep="@string/popup_keys_language_priority">Kalba (eiliškumas)</string>
+    <string name="popup_keys_layout" tools:keep="@string/popup_keys_layout">Išdėstymas</string>
+    <string name="popup_keys_symbols" tools:keep="@string/popup_keys_symbols">Simboliai</string>
+    <string name="toolbar_mode">Įrankių juostos režimas</string>
+    <string name="toolbar_mode_expandable">Įrankių juostos klavišai ir pasiūlymai</string>
+    <string name="toolbar_mode_toolbar_keys">Tik įrankių juostos mygtukai</string>
+    <string name="toolbar_mode_suggestion_strip">Tik pasiūlymai</string>
+    <string name="toolbar_mode_hidden">Paslėpta</string>
+    <string name="toolbar_hiding_global">Paslėpti iškarpinę ir jaustukų įrankių juostą</string>
+    <string name="toolbar_keys">Pasirinkti įrankių juostos mygtukus</string>
+    <string name="clipboard" tools:keep="@string/clipboard">iškarpinė</string>
+    <string name="clear_clipboard" tools:keep="@string/clear_clipboard">Išvalyti iškarpinę</string>
+    <string name="voice" tools:keep="@string/voice">Balso įvestis</string>
+    <string name="select_word" tools:keep="@string/select_word">Pasirinkti žodį</string>
+    <string name="one_handed" tools:keep="@string/one_handed">Vienos rankos režimas</string>
+    <string name="split" tools:keep="@string/split">Perskirta klaviatūra</string>
+    <string name="full_left" tools:keep="@string/full_left">Pilnai kairėj</string>
+    <string name="full_right" tools:keep="@string/full_right">Pilnai dešinėj</string>
+    <string name="page_start" tools:keep="@string/page_start">Puslapio pradžia</string>
+    <string name="page_end" tools:keep="@string/page_end">Puslapio pabaiga</string>
+    <string name="left" tools:keep="@string/left">Kairė</string>
+    <string name="right" tools:keep="@string/right">Dešinė</string>
+    <string name="up" tools:keep="@string/up">Aukštyn</string>
+    <string name="down" tools:keep="@string/down">Žemyn</string>
+    <string name="word_left" tools:keep="@string/word_left">Žodis kairėj</string>
+    <string name="word_right" tools:keep="@string/word_right">Žodis dešinėj</string>
+    <string name="page_up" tools:keep="@string/page_up">Puslapis aukštyn</string>
+    <string name="page_down" tools:keep="@string/page_down">Puslapis žemyn</string>
+    <string name="close_history" tools:keep="@string/close_history">Užverti iškarpinės istoriją</string>
+    <string name="emoji" tools:keep="@string/emoji">Jaustukai</string>
+    <string name="clipboard_toolbar_keys">Pasirinkti iškarpinės įrankių juostos mygtukus</string>
+    <string name="pinned_toolbar_keys">Pasirinkti prisegtus įrankių juostos mygtukus</string>
+    <string name="quick_pin_toolbar_keys">Ilgai paspaudus prisegti įrankių juostos mygtuką</string>
+    <string name="prefs_long_press_keyboard_to_change_lang">Pakeisti įvesties režimą su tarpo klavišu</string>
+    <string name="prefs_long_press_keyboard_to_change_lang_summary">Ilgai paspaudus tarpą atsiras kalbos pasirinkimo meniu</string>
+    <string name="prefs_narrow_key_gaps">Sumažinti klavišų tarpus</string>
+    <string name="prefs_keyboard_height_scale">Klaviatūros dydžio keitimas</string>
+    <string name="prefs_bottom_padding_scale">Apačios dydžio keitimas</string>
+    <string name="subtype_generic_sebeolsik_390">%s (Sebeolsik 390)</string>
+    <string name="subtype_generic_sebeolsik_final">%s (Sebeolsik paskutinis)</string>
+    <string name="button_title_add_custom_layout">Pridėti pasirinktinį išdėstymą</string>
+    <string name="message_add_custom_layout">Pasirinkite failą suderinamu formatu. Informacija apie formatus prieinama čia %s.</string>
+    <string name="button_load_custom">Įkelti failą</string>
+    <string name="file_read_error">Nepavyko perskaityti failo</string>
+    <string name="delete_layout">Tikrai pašalinti pasirinktinį išdėstymą %s?</string>
+    <string name="layout_error">Išdėstymo klaida: %s</string>
+    <string name="edit_layout">Paspauskite norėdami keisti išdėstymą</string>
+    <string name="customize_background_image">Pasirinkti fono paveikslėlį</string>
+    <string name="day_or_night_image">Pasirinkti paveikslėlį dienos ir nakties režimui?</string>
+    <string name="day_or_night_day">Diena</string>
+    <string name="day_or_night_night">Naktis</string>
+    <string name="setup_step3_action">Konfigūruoti klaviatūrą</string>
+    <string name="landscape">Gulsčias</string>
+    <string name="prefs_font_scale">Klaviatūros šrifto dydis</string>
+    <string name="prefs_emoji_skin_tone_neutral">Neutralūs</string>
+    <string name="subtype_mns">Mansi</string>
+    <string name="subtype_xdq">Kaitag</string>
+    <string name="subtype_dag">Dagbani</string>
+    <string name="subtype_st">Sesotho</string>
+    <string name="subtype_dru">Dargwa (Urakhi)</string>
+    <string name="subtype_mhr">Mari (Eastern)</string>
+    <string name="subtype_with_layout_generic">%1$s (%2$s)</string>
+    <string name="subtype_generic_extended">%s (Išplėstinis)</string>
+    <string name="subtype_akkhor_bn_BD">%s (Akkhor)</string>
+    <string name="subtype_probhat_bn_BD">%s (Probhat)</string>
+    <string name="subtype_baishakhi_bn_IN">%s (Baishakhi)</string>
+    <string name="subtype_khipro_bn">%s (Khipro)</string>
+    <string name="subtype_generic_phonetic">%s (Phonetic)</string>
+    <string name="subtype_generic_student">%s (Studentas)</string>
+    <string name="load">įkelti</string>
+    <string name="button_save_file">Išsaugoti į failą</string>
+    <string name="copy_to_clipboard">Kopijuoti į iškarpinę</string>
+    <string name="layout_in_use">Įspėjimas: išdėstymas naudojamas</string>
+    <string name="settings_screen_secondary_layouts">Papildomi išdėstymai</string>
+    <string name="layout_functional_keys" tools:keep="@string/layout_functional_keys">Funkciniai klavišai</string>
+    <string name="layout_functional_keys_tablet" tools:keep="@string/layout_functional_keys_tablet">Funkciniai klavišai (didelis ekranas)</string>
+    <string name="layout_symbols" tools:keep="@string/layout_symbols">Simboliai</string>
+    <string name="layout_symbols_arabic" tools:keep="@string/layout_symbols_arabic">Simboliai (Arabų)</string>
+    <string name="layout_symbols_shifted" tools:keep="@string/layout_symbols_shifted">Daugiau simbolių</string>
+    <string name="layout_phone" tools:keep="@string/layout_phone">Telefonas</string>
+    <string name="layout_phone_symbols" tools:keep="@string/layout_phone_symbols">Telefono simboliai</string>
+    <string name="layout_number" tools:keep="@string/layout_number">Skaičiai</string>
+    <string name="layout_numpad" tools:keep="@string/layout_numpad">Skaičių įvestis</string>
+    <string name="layout_numpad_landscape" tools:keep="@string/layout_numpad_landscape">Skaičių įvestis (horizontaliai)</string>
+    <string name="layout_number_row" tools:keep="@string/layout_number_row">Skaičių eilė</string>
+    <string name="layout_number_row_basic" tools:keep="@string/layout_number_row_basic">Skaičių eilė (pagrindinis) \\</string>
+    <string name="show_tld_popup_keys_summary">Rašant URL arba el. paštą pakeisti kablelio klavišo iššokantį langą su aukščiausio lygio domenu</string>
+    <string name="quick_pin_toolbar_keys_summary">Bus išjungti kiti(neprisegti) įrankių juostos mygtukai ilgo paspaudimo veiksmai</string>
+    <string name="show_popup_hints">Rodyti funkcinius patarimus</string>
+    <string name="show_popup_hints_summary">Rodyti patarimus jei ilgas paspaudimas iškviečia kitus veiksmus</string>
+    <string name="remove_redundant_popups">Pašalinti pasikartojančius iššokančius langus</string>
+    <string name="remove_redundant_popups_summary">Paslėpti iššokančius mygtukus kurie jau yra</string>
+    <string name="prefs_long_press_symbol_for_numpad">Skaičių įvesčiai ilgai paspausti simbolių mygtuką</string>
+    <string name="prefs_side_padding_scale">Šono dydis</string>
+    <string name="prefs_emoji_font_scale">Jaustukų peržiūros šrifto dydis</string>
+    <string name="prefs_emoji_key_fit">Keisti jaustukų mygtuko dydį kartu su šrifto dydžiu</string>
+    <string name="prefs_emoji_skin_tone">Numatytasis jaustukų temos tonas</string>
+    <string name="prefs_space_bar_text">Pasirinktinis tekstas ant tarpo klavišo</string>
+    <string name="custom_font">Pasirinkti pasirinktinį šriftą iš failo</string>
+    <string name="layout_functional_keys_symbols" tools:keep="@string/layout_functional_keys_symbols">Funkciniai klavišai (Simboliai)</string>
+    <string name="layout_functional_keys_symbols_shifted" tools:keep="@string/layout_functional_keys_symbols_shifted">Funkciniai klavišai (Daugiau simbolių)</string>
+    <string name="layout_emoji_bottom_row" tools:keep="@string/layout_emoji_bottom_row">Jaustukų apatinė eilė</string>
+    <string name="layout_clip_bottom_row" tools:keep="@string/layout_clip_bottom_row">Iškarpinės apatinė eilė</string>
+    <string name="customize_background_image_landscape">Nustatyti fono paveikslėlį (horizontaliai)</string>
+    <string name="summary_customize_background_image_landscape">Jei nenustatyta, bus naudojamas vertikalus paveikslėlis</string>
+    <string name="customize_currencies">Derinti valiutas</string>
+    <string name="customize_currencies_detail">Pasirinkite pagrindinę ir iki 6 papildomų valiutų simbolius, atskirkite tarpu</string>
+    <string name="switch_keyboard_after">Perjungti į pagrindinę klaviatūrą po…</string>
+    <string name="after_emoji">Jaustuko pasirinkimas jaustukų peržiūroje</string>
+    <string name="after_clip">Pasirinkti iškarpinės istorijos elementą</string>
+    <string name="after_symbol_and_space">Paspaudus enter arba tarpą po kitų klavišų simbolių peržiūroje</string>
+    <string name="after_numpad_and_space">Paspaudus enter arba tarpą po kitų klavišų skaičių įvestyje</string>
+    <string name="prefs_key_emoji_max_sdk">Perrašyti Emoji versiją</string>
+    <string name="dictionary_settings_category">Žodynai</string>
+    <string name="internal_dictionary_summary">Vidinis pagrindinis žodynas</string>
+    <string name="add_new_dictionary_title">Pridėti žodyną iš failo</string>
+    <string name="button_select_language">Pasirinkti kalbą</string>
+    <string name="replace_dictionary_message">Tikrai pakeist naudotojo žodyną \"%1$s\"?\n\nDabartinis žodynas:\n%2$s\n\nNaujas žodynas:\n%3$s</string>
+    <string name="replace_dictionary">Pakeisti žodyną</string>
+    <string name="remove_dictionary_message">Tikrai pašalinti naudotojo pridėtą žodyną \"%s\"?</string>
+    <string name="no_dictionary_dont_show_again_button">Daugiau nerodyti</string>
+    <string name="add_dictionary">Pasirinkite žodyną kurį pridėsite. Žodynus .dict formatu galite parsiųsti iš %s.</string>
+    <string name="dictionary_link_text">čia</string>
+    <string name="available_dictionary_experimental">%s (eksperimentinis)</string>
+    <string name="dictionary_file_error">Klaida: pasirinktas failas netinkamas</string>
+    <string name="dictionary_file_wrong_script">Klaida: scenarijus nesuderinamas su šia kalba</string>
+    <string name="dictionary_load_error">Klaida įkeliant žodyno failą</string>
+    <string name="user_dict_settings_add_weight_value">Svoris:</string>
+    <string name="user_dict_word_already_present">Šis žodis jau yra %s naudotojo žodyne. Įrašykite kitą.</string>
+    <string name="user_dict_add_word_button">Pridėti žodį</string>
+    <string name="theme_style">Stilius</string>
+    <string name="icon_style">Piktogramų stilius</string>
+    <string name="style_name_Rounded" tools:keep="@string/style_name_Rounded">Apvalinta</string>
+    <string name="theme_colors">Spalvos</string>
+    <string name="theme_colors_night">Spalvos (nakties)</string>
+    <string name="key_borders">Klavišų ribos</string>
+    <string name="day_night_mode">Auto dienos/nakties režimas</string>
+    <string name="day_night_mode_summary">Bus pritaikoma sistemos nustatymai</string>
+    <string name="theme_navbar">Spalvų keitimo juosta</string>
+    <string name="theme_name_light" tools:keep="@string/theme_name_light">Šviesi</string>
+    <string name="theme_name_holo_white" tools:keep="@string/theme_name_holo_white">Holo balta</string>
+    <string name="theme_name_dark" tools:keep="@string/theme_name_dark">Tamsi</string>
+    <string name="theme_name_darker" tools:keep="@string/theme_name_darker">Tamsesnė</string>
+    <string name="theme_name_black" tools:keep="@string/theme_name_black">Juoda</string>
+    <string name="theme_name_dynamic" tools:keep="@string/theme_name_dynamic">Dinaminės spalvos</string>
+    <string name="theme_name_blue_gray" tools:keep="@string/theme_name_blue_gray">Mėlynai pilka</string>
+    <string name="theme_name_brown" tools:keep="@string/theme_name_brown">Ruda</string>
+    <string name="theme_name_chocolate" tools:keep="@string/theme_name_chocolate">Šokolado</string>
+    <string name="theme_name_cloudy" tools:keep="@string/theme_name_cloudy">Debesuota</string>
+    <string name="theme_name_forest" tools:keep="@string/theme_name_forest">Miškas</string>
+    <string name="theme_name_indigo" tools:keep="@string/theme_name_indigo">indigo</string>
+    <string name="theme_name_ocean" tools:keep="@string/theme_name_ocean">Vandenyno</string>
+    <string name="theme_name_pink" tools:keep="@string/theme_name_pink">Rožinė</string>
+    <string name="theme_name_sand" tools:keep="@string/theme_name_sand">Smėlio</string>
+    <string name="theme_name_violette" tools:keep="@string/theme_name_violette">Violetinė</string>
+    <string name="theme_name_user" tools:keep="@string/theme_name_user">Naudotojo pasirinkta</string>
+    <string name="theme_name_user_night" tools:keep="@string/theme_name_user_night">Naudotojo pasirinkta (naktis)</string>
+    <string name="auto_user_color">Pasirinkti spalvą automatiškai</string>
+    <string name="main_colors">Rodyti tik pagrindines spalvas</string>
+    <string name="more_colors">Rodyti daugiau spalvų</string>
+    <string name="all_colors">Rodyti visas spalvas</string>
+    <string name="all_colors_warning">Šis nustatymas įjungia visas spalvas kurios naudojamos. Spalvų sąrašas gali betkada pasikeisti. Numatytoji spalva yra atsitiktinė ir jų pavadinimai neverčiami.</string>
+    <string name="select_user_colors_summary">Pasirinkti spalvas tekstui ir fonam</string>
+    <string name="select_color_background">Klaviatūros fonas</string>
+    <string name="select_color_key">Klavišo tekstas</string>
+    <string name="select_color_key_hint">Klavišo patarimo tekstas</string>
+    <string name="select_color_suggestion">Pasiūlymo pašalinimo tekstas</string>
+    <string name="select_color_key_background">Klavišo fonas</string>
+    <string name="select_color_functional_key_background">Funkcinio klavišo fonas</string>
+    <string name="select_color_spacebar_background">Tarpo fonas</string>
+    <string name="select_color_spacebar_text">Tarpo tekstas</string>
+    <string name="select_color_accent">Kirtis</string>
+    <string name="select_color_gesture">Gestų įvestis</string>
+    <string name="get_colors_message">Galite pasirinkti ir dalintis spalvomis %s.</string>
+    <string name="get_layouts_message">Galite rasti ir dalintis išdėstymais %s.</string>
+    <string name="discussion_section_link">diskusijų vieta</string>
+    <string name="settings_screen_about">Apie</string>
+    <string name="version">Versija</string>
+    <string name="about_github_link">Peržiūrėti GitHub</string>
+    <string name="about_wiki_link">Eiti į Wiki</string>
+    <string name="about_wiki_link_description">Wiki gali pagerinti betkuris Github naudotojas!</string>
+    <string name="save_log">Išsaugoti žurnalą</string>
+    <string name="license">Atviro kodo licencija</string>
+    <string name="gnu_gpl">GNU General Public License v3.0</string>
+    <string name="dialog_close">Užverti</string>
+    <string name="text_tap_languages">Paspauskite ant kalbos norėdami atidaryti nustatymus</string>
+    <string name="settings_screen_appearance">Išvaizda</string>
+    <string name="settings_screen_toolbar">Įrankių juosta</string>
+    <string name="hidden_features_title">Paslėptų galimybių aprašymas</string>
+    <string name="hidden_features_summary">Parodyti galimybes kurių galėjote nepastebėti</string>
+    <string name="hidden_features_text">įrenginio apsaugota vieta</string>
+    <string name="label_enter_key" tools:keep="@string/label_enter_key">Įvesti</string>
+    <string name="label_tab_key" tools:keep="@string/label_tab_key">Tab</string>
+    <string name="label_delete_key" tools:keep="@string/label_delete_key">Šalinti</string>
+    <string name="label_shift_key" tools:keep="@string/label_shift_key">Shift</string>
+    <string name="label_shift_key_shifted" tools:keep="@string/label_shift_key_shifted">Shift (shifted)</string>
+    <string name="label_shift_key_locked" tools:keep="@string/label_shift_key_locked">Caps lock</string>
+    <string name="label_space_key_for_number_layout" tools:keep="@string/label_space_key_for_number_layout">Space (skaičių išdėstymas)</string>
+    <string name="label_stop_onehanded_mode_key" tools:keep="@string/label_stop_onehanded_mode_key">Išjungti vienos rankos režimą</string>
+    <string name="label_resize_onehanded_key" tools:keep="@string/label_resize_onehanded_key">Pakeisti vienos rankos režimo dydį</string>
+    <string name="label_switch_onehanded_key" tools:keep="@string/label_switch_onehanded_key">Perjungti vienos rankos režimo pusę</string>
+    <string name="label_shortcut_key_disabled" tools:keep="@string/label_shortcut_key_disabled">Įvestis balsu išjungta</string>
+    <string name="label_toolbar_key" tools:keep="@string/label_toolbar_key">Rodyti / slėpti įrankių juostą</string>
+    <string name="label_zwj_key" tools:keep="@string/label_zwj_key">Nulinio ilgio sujungėjas</string>
+    <string name="label_zwnj_key" tools:keep="@string/label_zwnj_key">Nulinio ilgio nesujungėjas</string>
+    <string name="label_bin" tools:keep="@string/label_bin">Šiukšliadėžė</string>
+    <string name="show_horizontal_space_swipe">Horizontalus tarpo perbraukimo gestas</string>
+    <string name="show_vertical_space_swipe">Vertikalus tarpo perbraukimo gestas</string>
+    <string name="action_none">Joks</string>
+    <string name="space_swipe_move_cursor_entry">Perkelti žymeklį</string>
+    <string name="space_swipe_toggle_numpad_entry">Perjungti skaičių įvedimą</string>
+    <string name="space_swipe_hide_keyboard_entry">Slėpti klaviatūrą</string>
+    <string name="var_toolbar_direction">Pasirinktinė įrankių juostos kryptis</string>
+    <string name="customize_toolbar_key_codes">Derinti įrankių juostos kodus</string>
+    <string name="var_toolbar_direction_summary">Pakeisti kryptį kai pasirenkama klaviatūra iš dešinės į kairę</string>
+    <string name="prefs_language_swipe_distance">Kalbos perjungimo perbraukimo ilgis</string>
+    <string name="customize_toolbar_key_code_reset_message">Tikrai pašalinti visus pasirinktinius klavišų kodus?</string>
+    <string name="key_code">Klavišų kodai</string>
+    <string name="long_press_code">Ilgo paspaudimo kodas</string>
+    <string name="auto_show_toolbar">Automatiškai rodyti įrankių juostą</string>
+    <string name="auto_show_toolbar_summary">Rodyti įrankių juostą jei pradedamas rašyti tekstas ar tekstas pasirenkamas</string>
+    <string name="auto_hide_toolbar">Automatiškai slėpti įrankių juostą</string>
+    <string name="auto_hide_toolbar_summary">Paslėpti įrankių juostą kai atsiranda pasiūlymas</string>
+    <string name="toast_msg_clipboard_copy">Turinys nukopijuotas</string>
+    <string name="customize_icons">Derinti piktogramas</string>
+    <string name="customize_icons_reset_message">Tikrai atstatyti visas pasirinktines piktogramas?</string>
+    <string name="delete_confirmation">Tikrai pašalinti %s?</string>
+    <string name="name_invalid">Netinkamas vardas</string>
+    <string name="custom_subtype">Pasirinktinis tipas</string>
 </resources>

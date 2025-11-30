@@ -8,6 +8,7 @@ package helium314.keyboard.keyboard
 import android.content.Context
 import android.content.SharedPreferences
 import android.graphics.Color
+import android.graphics.drawable.Drawable
 import android.os.Build
 import android.util.TypedValue
 import android.view.ContextThemeWrapper
@@ -30,6 +31,7 @@ import helium314.keyboard.settings.SettingsActivity
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
 import java.util.EnumMap
+import androidx.core.graphics.toColorInt
 
 class KeyboardTheme // Note: The themeId should be aligned with "themeId" attribute of Keyboard style in values/themes-<style>.xml.
 private constructor(val themeId: Int, @JvmField val mStyleId: Int) {
@@ -166,10 +168,10 @@ private constructor(val themeId: Int, @JvmField val mStyleId: Int) {
                     themeStyle,
                     hasBorders,
                     ContextCompat.getColor(context, R.color.gesture_trail_color_lxx_dark),
-                    Color.parseColor("#263238"),
-                    Color.parseColor("#364248"),
-                    Color.parseColor("#2d393f"),
-                    Color.parseColor("#364248"),
+                    "#263238".toColorInt(),
+                    "#364248".toColorInt(),
+                    "#2d393f".toColorInt(),
+                    "#364248".toColorInt(),
                     ContextCompat.getColor(context, R.color.key_text_color_lxx_dark),
                     ContextCompat.getColor(context, R.color.key_hint_letter_color_lxx_dark),
                     keyboardBackground = backgroundImage
@@ -178,14 +180,14 @@ private constructor(val themeId: Int, @JvmField val mStyleId: Int) {
                     themeStyle,
                     hasBorders,
                     Color.WHITE,
-                    Color.parseColor("#282828"),
+                    "#282828".toColorInt(),
                     Color.WHITE, // drawable is transparent
-                    Color.parseColor("#444444"), // should be 222222, but the key drawable is already grey
+                    "#444444".toColorInt(), // should be 222222, but the key drawable is already grey
                     Color.WHITE,
                     Color.WHITE,
-                    Color.parseColor("#282828"),
+                    "#282828".toColorInt(),
                     Color.WHITE,
-                    Color.parseColor("#80FFFFFF"),
+                    "#80FFFFFF".toColorInt(),
                     keyboardBackground = backgroundImage
                 )
                 THEME_DARKER -> DefaultColors(
@@ -335,34 +337,39 @@ private constructor(val themeId: Int, @JvmField val mStyleId: Int) {
                     keyboardBackground = backgroundImage
                 )
                 else -> { // user-defined theme
+                    val colorSettings = readUserColors(prefs, themeName)
+                    val colors = readUserColorTheme(themeStyle, hasBorders, colorSettings, context, isNight, backgroundImage)
                     if (readUserMoreColors(prefs, themeName) == 2)
-                        AllColors(readUserAllColors(prefs, themeName), themeStyle, hasBorders, backgroundImage)
+                        AllColors(readUserAllColors(prefs, themeName, colors), themeStyle, hasBorders, backgroundImage)
                     else {
-                        val colors = readUserColors(prefs, themeName)
-                        DefaultColors(
-                            themeStyle,
-                            hasBorders,
-                            determineUserColor(colors, context, COLOR_ACCENT, isNight),
-                            determineUserColor(colors, context, COLOR_BACKGROUND, isNight),
-                            determineUserColor(colors, context, COLOR_KEYS, isNight),
-                            determineUserColor(colors, context, COLOR_FUNCTIONAL_KEYS, isNight),
-                            determineUserColor(colors, context, COLOR_SPACEBAR, isNight),
-                            determineUserColor(colors, context, COLOR_TEXT, isNight),
-                            determineUserColor(colors, context, COLOR_HINT_TEXT, isNight),
-                            determineUserColor(colors, context, COLOR_SUGGESTION_TEXT, isNight),
-                            determineUserColor(colors, context, COLOR_SPACEBAR_TEXT, isNight),
-                            determineUserColor(colors, context, COLOR_GESTURE, isNight),
-                            backgroundImage,
-                        )
+                        colors
                     }
                 }
             }
         }
 
+        fun readUserColorTheme(themeStyle: String, hasBorders: Boolean, colorSettings: List<ColorSetting>, context: Context, isNight: Boolean, backgroundImage: Drawable?): Colors {
+            return DefaultColors(
+                themeStyle,
+                hasBorders,
+                determineUserColor(colorSettings, context, COLOR_ACCENT, isNight),
+                determineUserColor(colorSettings, context, COLOR_BACKGROUND, isNight),
+                determineUserColor(colorSettings, context, COLOR_KEYS, isNight),
+                determineUserColor(colorSettings, context, COLOR_FUNCTIONAL_KEYS, isNight),
+                determineUserColor(colorSettings, context, COLOR_SPACEBAR, isNight),
+                determineUserColor(colorSettings, context, COLOR_TEXT, isNight),
+                determineUserColor(colorSettings, context, COLOR_HINT_TEXT, isNight),
+                determineUserColor(colorSettings, context, COLOR_SUGGESTION_TEXT, isNight),
+                determineUserColor(colorSettings, context, COLOR_SPACEBAR_TEXT, isNight),
+                determineUserColor(colorSettings, context, COLOR_GESTURE, isNight),
+                backgroundImage,
+            )
+        }
+
         fun writeUserColors(prefs: SharedPreferences, themeName: String, colors: List<ColorSetting>) {
             val key = Settings.PREF_USER_COLORS_PREFIX + themeName
             val value = Json.encodeToString(colors.filter { it.color != null || it.auto == false })
-            prefs.edit().putString(key, value).apply()
+            prefs.edit { putString(key, value) }
             KeyboardSwitcher.getInstance().setThemeNeedsReload()
         }
 
@@ -373,7 +380,7 @@ private constructor(val themeId: Int, @JvmField val mStyleId: Int) {
 
         fun writeUserMoreColors(prefs: SharedPreferences, themeName: String, value: Int) {
             val key = Settings.PREF_USER_MORE_COLORS_PREFIX + themeName
-            prefs.edit().putInt(key, value).apply()
+            prefs.edit { putInt(key, value) }
             KeyboardSwitcher.getInstance().setThemeNeedsReload()
         }
 
@@ -384,11 +391,11 @@ private constructor(val themeId: Int, @JvmField val mStyleId: Int) {
 
         fun writeUserAllColors(prefs: SharedPreferences, themeName: String, colorMap: EnumMap<ColorType, Int>) {
             val key = Settings.PREF_USER_ALL_COLORS_PREFIX + themeName
-            prefs.edit().putString(key, colorMap.map { "${it.key},${it.value}" }.joinToString(";")).apply()
+            prefs.edit { putString(key, colorMap.map { "${it.key},${it.value}" }.joinToString(";")) }
             KeyboardSwitcher.getInstance().setThemeNeedsReload()
         }
 
-        fun readUserAllColors(prefs: SharedPreferences, themeName: String): EnumMap<ColorType, Int> {
+        fun readUserAllColors(prefs: SharedPreferences, themeName: String, fallback: Colors?): EnumMap<ColorType, Int> {
             val key = Settings.PREF_USER_ALL_COLORS_PREFIX + themeName
             val colorsString = prefs.getString(key, Defaults.PREF_USER_ALL_COLORS)!!
             val colorMap = EnumMap<ColorType, Int>(ColorType::class.java)
@@ -400,6 +407,12 @@ private constructor(val themeId: Int, @JvmField val mStyleId: Int) {
                 }
                 val i = it.substringAfter(",").toIntOrNull() ?: return@forEach
                 colorMap[ct] = i
+            }
+            if (fallback != null && colorMap.size < ColorType.entries.size) {
+                ColorType.entries.forEach {
+                    if (it in colorMap) return@forEach
+                    colorMap[it] = fallback.get(it)
+                }
             }
             return colorMap
         }

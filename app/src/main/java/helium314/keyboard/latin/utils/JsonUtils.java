@@ -48,7 +48,7 @@ public final class JsonUtils {
             }
             reader.endArray();
             return list;
-        } catch (final IOException e) {
+        } catch (final IOException ignored) {
         } finally {
             close(reader);
         }
@@ -74,7 +74,7 @@ public final class JsonUtils {
             }
             writer.endArray();
             return sw.toString();
-        } catch (final IOException e) {
+        } catch (final IOException ignored) {
         } finally {
             close(writer);
         }

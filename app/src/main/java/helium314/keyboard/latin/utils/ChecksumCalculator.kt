@@ -6,6 +6,7 @@
 
 package helium314.keyboard.latin.utils
 
+import java.io.File
 import java.io.IOException
 import java.io.InputStream
 import java.security.MessageDigest
@@ -16,7 +17,7 @@ object ChecksumCalculator {
     fun checksum(`in`: InputStream): String? { // This code from the Android documentation for MessageDigest. Nearly verbatim.
         val digester: MessageDigest = try {
             MessageDigest.getInstance("SHA-256")
-        } catch (e: NoSuchAlgorithmException) {
+        } catch (_: NoSuchAlgorithmException) {
             return null // Platform does not support SHA-256 : can't check, so return null
         }
         val bytes = ByteArray(8192)
@@ -31,4 +32,6 @@ object ChecksumCalculator {
         }
         return s.toString()
     }
+
+    fun checksum(file: File) = file.inputStream().use { checksum(it) }
 }

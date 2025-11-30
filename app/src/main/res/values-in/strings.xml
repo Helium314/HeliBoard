@@ -81,7 +81,6 @@
     <string name="show_setup_wizard_icon_summary">"Menampillkan ikon aplikasi di peluncur"</string>
     <string name="dictionary_category_title">"Kamus pengaya"</string>
     <string name="dictionary_available">"Kamus yang tersedia"</string>
-    <string name="last_update">"Terakhir diperbarui"</string>
     <string name="settings">"Setelan"</string>
     <string name="delete">"Hapus"</string>
     <string name="version_text">Versi %1$s</string>
@@ -129,7 +128,6 @@
     <string name="autospace_after_punctuation">Spasi otomatis setelah tanda baca</string>
     <string name="autospace_after_punctuation_summary">Otomatis sisipkan spasi setelah tanda baca saat mengetik kata baru</string>
     <string name="auto_correction_confidence">Tingkat ketepercayaan koreksi otomatis</string>
-    <string name="use_system_language_to_select_input_method_subtypes">"Gunakan bahasa sistem"</string>
     <string name="select_input_method">"Pilih metode masukan"</string>
     <string name="undo">"Urungkan"</string>
     <string name="redo">"Ulangi"</string>
@@ -188,7 +186,6 @@
     <string name="subtype_generic_sebeolsik_final">%s (Sebeolsik Final)</string>
     <string name="button_load_custom">Muat file</string>
     <string name="file_read_error">File tidak terbaca</string>
-    <string name="button_copy_existing_layout">Salin tata letak saat ini</string>
     <string name="delete_layout">Yakin ingin menghapus tata letak kustom %s?</string>
     <string name="layout_error">Kesalahan tata letak: %s</string>
     <string name="edit_layout">Tekan untuk mengubah tata letak versi polos</string>
@@ -230,9 +227,7 @@
     <string name="dictionary_link_text">di sini</string>
     <string name="available_dictionary_experimental">%s (eksperimental)</string>
     <string name="dictionary_file_error">Kesalahan: File yang dipilih bukan file kamus yang valid</string>
-    <string name="dictionary_file_wrong_locale">File yang dipilih adalah untuk %1$s, tetapi yang diharapkan adalah %2$s. Apakah Anda masih ingin menggunakannya untuk %2$s?</string>
     <string name="dictionary_file_wrong_script">Kesalahan: skrip tidak kompatibel dengan papan ketik ini</string>
-    <string name="dictionary_file_wrong_locale_ok">Masih digunakan</string>
     <string name="dictionary_load_error">Gagal memuat file kamus</string>
     <string name="user_dict_add_word_button">Tambahkan kata</string>
     <string name="theme_style">Gaya</string>
@@ -399,14 +394,11 @@
     <string name="subtype_baishakhi_bn_IN">%s (Baishakhi)</string>
     <string name="get_layouts_message">Anda dapat menemukan dan berbagi tata letak di %s.</string>
     <string name="enable_split_keyboard_landscape">Aktifkan keyboard terpisah (lanskap)</string>
-    <string name="split_spacer_scale_landscape">Jarak pisah (lanskap)</string>
     <string name="delete_confirmation">Benaran mau dihapus %s?</string>
     <string name="name_invalid">Nama invalid</string>
-    <string name="prefs_bottom_padding_scale_landscape">Skala padding bawah (lanskap)</string>
     <string name="prefs_font_scale">Skala font keyboard</string>
     <string name="prefs_emoji_font_scale">Skala font tampilan emoji</string>
     <string name="prefs_side_padding_scale">Skala bantalan samping</string>
-    <string name="prefs_side_padding_scale_landscape">Skala bantalan samping (lanskap)</string>
     <string name="number_row_hints">Tampilkan petunjuk pada baris nomor</string>
     <string name="prefs_language_swipe_distance">Beralih Jarak Gesek Bahasa</string>
     <string name="locales_with_dict">Bahasa dengan kamus</string>

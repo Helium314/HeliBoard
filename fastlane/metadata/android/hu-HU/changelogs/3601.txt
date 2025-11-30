@@ -1,0 +1,10 @@
+* beágyazott emodzsi keresésének lehetősége
+* nyelv/altípus megjegyzése alkalmazásonként
+* rezgés-visszajelzés javítása és továbbfejlesztése
+* kitűzetlen vágólap megőrzése az alkalmazás újraindításakor
+* rögzített vágólap-bejegyzések utolsóként való megjelenítése
+* emodzsi és vágólap alsó sorainak hozzáadása
+* gomb hozzáadása a beágyazott javaslatok elutasításához
+* bengáli Khipro hozzáadva
+
+* És még több hibajavítás - további részletek a bejelentésben

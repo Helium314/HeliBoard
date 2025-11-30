@@ -1,0 +1,3 @@
+- Absturzbehebungen
+- Behebung der in 3.4 eingeführten fehlerhaften Autokorrektur
+- Vibration bei Leerzeichen und Löschen durch Wischen, wenn aktiviert

@@ -5,12 +5,13 @@
  */
 package helium314.keyboard.latin.common
 
-import android.content.Context
 import android.content.res.Resources
 import helium314.keyboard.compat.locale
 import helium314.keyboard.latin.R
+import helium314.keyboard.latin.RichInputMethodSubtype
 import helium314.keyboard.latin.utils.ScriptUtils.script
 import helium314.keyboard.latin.utils.SubtypeLocaleUtils
+import helium314.keyboard.latin.utils.getSecondaryLocales
 import helium314.keyboard.latin.utils.runInLocale
 import java.util.Locale
 
@@ -115,6 +116,12 @@ object LocaleUtils {
     }
 
     @JvmStatic
+    fun isGoodMatch(subtype: RichInputMethodSubtype, locale: Locale) =
+        getMatchLevel(locale, subtype.locale) >= LOCALE_LANGUAGE_MATCH_COUNTRY_DIFFER
+            || getSecondaryLocales(subtype.rawSubtype.extraValue)
+                .any { getMatchLevel(locale, it) >= LOCALE_LANGUAGE_MATCH_COUNTRY_DIFFER }
+
+    @JvmStatic
     fun <T> getBestMatch(locale: Locale, collection: Collection<T>, toLocale: (T) -> Locale): T? {
         var best: T? = null
         var bestLevel = 0
@@ -184,9 +191,10 @@ object LocaleUtils {
             "sr-Latn" -> R.string.subtype_sr_Latn
             "mns" -> R.string.subtype_mns
             "xdq" -> R.string.subtype_xdq
-            "dru" -> R.string.subtype_xdq
+            "dru" -> R.string.subtype_dru
             "st" -> R.string.subtype_st
             "dag" -> R.string.subtype_dag
+            "mhr" -> R.string.subtype_mhr
             else -> 0
         }
         if (overrideResId != 0) {

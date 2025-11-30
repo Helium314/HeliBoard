@@ -161,6 +161,7 @@ emoji,mt,cldr
 emoji,mni,cldr
 emoji,mr,cldr
 main,mr,
+main,mwl,
 emoji,mn,cldr
 emoji,mi,cldr
 emoji,ne,cldr
@@ -179,6 +180,7 @@ main,or,
 emoji,om,cldr
 emoji,pap,cldr
 emoji,ps,cldr
+main,fa_IR,exp
 emoji,fa,cldr
 main,pms,exp
 emoji,pl,cldr

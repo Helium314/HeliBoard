@@ -70,15 +70,23 @@ public final class KeyboardLayoutSet {
         }
     }
 
+
+    /**
+     * Represents an internal action that overrides the action provided by the input field.
+     * @param code to send on action key press
+     * @param label to display on action key
+     */
+    public record InternalAction(int code, String label) {}
+
     public static final class Params {
         int mMode;
         boolean mDisableTouchPositionCorrectionDataForTest; // remove
         // TODO: Use {@link InputAttributes} instead of these variables.
         EditorInfo mEditorInfo;
-        boolean mIsPasswordField;
         boolean mVoiceInputKeyEnabled;
         boolean mDeviceLocked;
         boolean mNumberRowEnabled;
+        boolean mNumberRowInSymbols;
         boolean mLanguageSwitchKeyEnabled;
         boolean mEmojiKeyEnabled;
         boolean mOneHandedModeEnabled;
@@ -90,6 +98,7 @@ public final class KeyboardLayoutSet {
         // Indicates if the user has enabled the split-layout preference
         // and the required ProductionFlags are enabled.
         boolean mIsSplitLayoutEnabled;
+        InternalAction mInternalAction;
     }
 
     public static void onSystemLocaleChanged() {
@@ -204,7 +213,6 @@ public final class KeyboardLayoutSet {
             params.mMode = getKeyboardMode(editorInfo);
             // TODO: Consolidate those with {@link InputAttributes}.
             params.mEditorInfo = editorInfo;
-            params.mIsPasswordField = InputTypeUtils.isPasswordInputType(editorInfo.inputType);
 
             // When the device is still locked, features like showing the IME setting app need to be locked down.
             params.mDeviceLocked = IsLockedCompatKt.isDeviceLocked(context);
@@ -251,6 +259,11 @@ public final class KeyboardLayoutSet {
             return this;
         }
 
+        public Builder setNumberRowInSymbolsEnabled(final boolean enabled) {
+            mParams.mNumberRowInSymbols = enabled;
+            return this;
+        }
+
         public Builder setLanguageSwitchKeyEnabled(final boolean enabled) {
             mParams.mLanguageSwitchKeyEnabled = enabled;
             return this;
@@ -273,6 +286,11 @@ public final class KeyboardLayoutSet {
 
         public Builder setOneHandedModeEnabled(boolean enabled) {
             mParams.mOneHandedModeEnabled = enabled;
+            return this;
+        }
+
+        public Builder setInternalAction(InternalAction internalAction) {
+            mParams.mInternalAction = internalAction;
             return this;
         }
 

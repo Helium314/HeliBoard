@@ -81,7 +81,6 @@
     <string name="show_setup_wizard_icon_summary">"Alkalmazásikon megjelenítése az indítóban"</string>
     <string name="dictionary_category_title">Szótárbővítmények</string>
     <string name="dictionary_available">"Van rendelkezésre álló szótár"</string>
-    <string name="last_update">"Legutóbb frissítve"</string>
     <string name="settings">"Beállítások"</string>
     <string name="delete">"Törlés"</string>
     <string name="version_text">%s verzió</string>
@@ -190,16 +189,13 @@
     <string name="layout_phone" tools:keep="@string/layout_phone">Telefon</string>
     <string name="setup_step3_action">Billentyűzet testreszabása</string>
     <string name="dictionary_file_error">Hiba: A kiválasztott fájl nem egy érvényes szótárfájl</string>
-    <string name="dictionary_file_wrong_locale">A kiválasztott fájl a következőhöz való: %1$s, de %2$s szabványúnak kellene lennie. Biztosan a következőhöz akarja használni: %2$s?</string>
     <string name="dictionary_file_wrong_script">Hiba: a parancsfájl nem kompatibilis a billentyűzettel</string>
-    <string name="dictionary_file_wrong_locale_ok">Használat</string>
     <string name="dictionary_load_error">Hiba a szótár betöltésekor</string>
     <string name="user_dict_word_already_present">Ez a szó már benne van a(z) %s felhasználói szótárban. Írjon egy másikat.</string>
     <string name="theme_colors">Színek</string>
     <string name="theme_name_light" tools:keep="@string/theme_name_light">Világos</string>
     <string name="settings_screen_about">Névjegy</string>
     <string name="dialog_close">Bezárás</string>
-    <string name="use_system_language_to_select_input_method_subtypes">Rendszer nyelveinek használása</string>
     <string name="text_tap_languages">Koppintson a nyelvre a beállítások megnyitásához</string>
     <string name="hidden_features_title">Rejtett funkciók leírása</string>
     <string name="layout_symbols" tools:keep="@string/layout_symbols">Szimbólumok</string>
@@ -228,7 +224,6 @@
     <string name="message_add_custom_layout">Válasszon ki egy kompatibilis formátumú fájlt. A formátumokkal kapcsolatos információk a(z) %s oldalon találhatók.</string>
     <string name="button_load_custom">Fájl betöltése</string>
     <string name="file_read_error">Fájl nem olvasható</string>
-    <string name="button_copy_existing_layout">Már létező elrendezés másolása</string>
     <string name="delete_layout">Biztosan törli a(z) %s nevű egyéni elrendezést?</string>
     <string name="layout_error">Elrendezési hiba: %s</string>
     <string name="layout_symbols_shifted" tools:keep="@string/layout_symbols_shifted">Több szimbólum</string>
@@ -359,12 +354,10 @@
     <string name="label_shift_key" tools:keep="@string/label_shift_key">Shift</string>
     <string name="vibrate_in_dnd_mode">Rezgés ne zavarjanak módban is</string>
     <string name="show_emoji_descriptions">Emodzsi leírásának megjelenítése nyomva tartáskor</string>
-    <string name="show_emoji_descriptions_summary">Emodzsiszótár szükséges</string>
     <string name="settings_category_space">Szóköz</string>
-    <string name="split_spacer_scale_landscape">Osztott távolság (fekvő)</string>
     <string name="use_apps_dict">Alkalmazásnevek keresése</string>
     <string name="use_apps_dict_summary">Telepített alkalmazások neveinek használata a javaslatokhoz és javításokhoz</string>
-    <string name="suggest_punctuation">Írásjeljavaslatok</string>
+    <string name="suggest_punctuation">Írásjel-javaslatok</string>
     <string name="suggest_punctuation_summary">Ha nincs más javaslat, akkor jelenítse meg az írásjeleket</string>
     <string name="gesture_floating_preview_static">Lebegő előnézet</string>
     <string name="gesture_floating_preview_static_summary">Ajánlott szó megjelenítése kézmozdulat-gépelés közben</string>
@@ -434,7 +427,6 @@
     <string name="subtype_mns">Mansi</string>
     <string name="long_press_code">Nyomva tartott kód</string>
     <string name="gesture_fast_typing_cooldown">Gyorsgépelési szünet</string>
-    <string name="prefs_bottom_padding_scale_landscape">Alsó margó mérete (fekvő)</string>
     <string name="label_zwj_key" tools:keep="@string/label_zwj_key">Nulla szélességű összekötő</string>
     <string name="label_zwnj_key" tools:keep="@string/label_zwnj_key">Nulla szélességű nem-összekötő</string>
     <string name="prefs_side_padding_scale">Oldalsó margó mérete</string>
@@ -443,5 +435,13 @@
     <string name="quick_pin_toolbar_keys_summary">Ez letiltja a többi nyomva tartásos műveletet a nem rögzített eszköztárbillentyűknél</string>
     <string name="layout_emoji_bottom_row" tools:keep="@string/layout_emoji_bottom_row">Emodzsi alsó sorának elrendezése</string>
     <string name="layout_clip_bottom_row" tools:keep="@string/layout_clip_bottom_row">Vágólap alsó sorának elrendezése</string>
-    <string name="prefs_side_padding_scale_landscape">Oldalsó margó mérete (fekvő)</string>
+    <string name="save_subtype_per_app">Emlékezzen a kiválasztott nyelvre alkalmazásonként</string>
+    <string name="subtype_khipro_bn">%s (Khipro)</string>
+    <string name="clipboard_history_pinned_first">Kitűzött elemek megjelenítése felül</string>
+    <string name="inline_emoji_search">Beágyazott emodzsi keresése</string>
+    <string name="inline_emoji_search_summary">Emodzsik javaslása csak akkor, ha a szó kettősponttal kezdődik</string>
+    <string name="emoji_dictionary_required">Ehhez a funkcióhoz emodzsi-szótár szükséges. A .dict formátumú szótárak letölthetők a következő helyről: %s.</string>
+    <string name="subtype_mhr">Mari (keleti)</string>
+    <string name="layout_emoji_bottom_row_with_action" tools:keep="@string/layout_emoji_bottom_row_with_action">Emodzsik alsó sora akciógombbal</string>
+    <string name="layout_clip_bottom_row_with_action" tools:keep="@string/layout_clip_bottom_row_with_action">Vágólap alsó sora akciógombbal</string>
 </resources>

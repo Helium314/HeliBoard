@@ -229,8 +229,7 @@ public final class MoreSuggestions extends Keyboard {
     static final class MoreSuggestionKey extends Key {
         public final int mSuggestedWordIndex;
 
-        public MoreSuggestionKey(final String word, final String info, final int index,
-                final MoreSuggestionsParam params) {
+        MoreSuggestionKey(final String word, final String info, final int index, final MoreSuggestionsParam params) {
             super(word, null, KeyCode.MULTIPLE_CODE_POINTS,
                     word, info, 0, Key.BACKGROUND_TYPE_NORMAL,
                     params.getX(index), params.getY(index), params.getWidth(index),
@@ -253,7 +252,6 @@ public final class MoreSuggestions extends Keyboard {
             // KeyboardIconsSet and alpha are unused. Use the icon that has been passed to the
             // constructor.
             // TODO: Drawable itself should have an alpha value.
-            // todo: replace with shape or vector, or maybe remove it completely
             mIcon.setAlpha(128);
             return mIcon;
         }
