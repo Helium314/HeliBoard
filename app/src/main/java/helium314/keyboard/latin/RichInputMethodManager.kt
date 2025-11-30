@@ -23,7 +23,8 @@ import helium314.keyboard.latin.utils.SubtypeSettings
 import helium314.keyboard.latin.utils.getSecondaryLocales
 import helium314.keyboard.latin.utils.locale
 import helium314.keyboard.latin.utils.prefs
-import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.util.Locale
 
@@ -33,8 +34,7 @@ class RichInputMethodManager private constructor() {
     private lateinit var imm: InputMethodManager
     private lateinit var inputMethodInfoCache: InputMethodInfoCache
     private lateinit var currentRichInputMethodSubtype: RichInputMethodSubtype
-    private var shortcutInputMethodInfo: InputMethodInfo? = null
-    private var shortcutSubtype: InputMethodSubtype? = null
+    private val scope = CoroutineScope(Dispatchers.Default)
 
     private val isInitializedInternal get() = this::imm.isInitialized
 
@@ -52,7 +52,9 @@ class RichInputMethodManager private constructor() {
         return imm
     }
 
-    val isShortcutImeReady get() = shortcutInputMethodInfo != null
+    private var shortcuts = listOf<Shortcut>()
+
+    val isShortcutImeReady get() = shortcuts.isNotEmpty()
 
     fun getEnabledInputMethodSubtypes(imi: InputMethodInfo, allowsImplicitlySelectedSubtypes: Boolean) =
         inputMethodInfoCache.getEnabledInputMethodSubtypeList(imi, allowsImplicitlySelectedSubtypes)
@@ -112,7 +114,7 @@ class RichInputMethodManager private constructor() {
     fun onSubtypeChanged(newSubtype: InputMethodSubtype) {
         SubtypeSettings.setSelectedSubtype(context.prefs(), newSubtype)
         currentRichInputMethodSubtype = RichInputMethodSubtype.get(newSubtype)
-        updateShortcutIme()
+        scope.launch { updateShortcutIme() }
         if (DEBUG) {
             Log.w(TAG, "onSubtypeChanged: $currentRichInputMethodSubtype")
         }
@@ -121,17 +123,16 @@ class RichInputMethodManager private constructor() {
     fun refreshSubtypeCaches() {
         inputMethodInfoCache.clear()
         currentRichInputMethodSubtype = RichInputMethodSubtype.get(SubtypeSettings.getSelectedSubtype(context.prefs()))
-        updateShortcutIme()
+        scope.launch { updateShortcutIme() }
     }
 
-    fun switchToShortcutIme(inputMethodService: InputMethodService) {
-        val imiId = shortcutInputMethodInfo?.id ?: return
-        val token = inputMethodService.window.window?.attributes?.token ?: return
-        GlobalScope.launch {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P)
-                inputMethodService.switchInputMethod(imiId, shortcutSubtype)
-            else
-                @Suppress("Deprecation") imm.setInputMethodAndSubtype(token, imiId, shortcutSubtype)
+    fun switchToShortcutIme(inputMethodService: InputMethodService) = scope.launch {
+        val imiId = shortcuts.firstOrNull()?.imi?.id ?: return@launch
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            inputMethodService.switchInputMethod(imiId, shortcuts.first().subtype)
+        } else {
+            val token = inputMethodService.window.window?.attributes?.token ?: return@launch
+            @Suppress("Deprecation") imm.setInputMethodAndSubtype(token, imiId, shortcuts.first().subtype)
         }
     }
 
@@ -139,8 +140,8 @@ class RichInputMethodManager private constructor() {
     //  if always voice input, rename it and other things like mHasShortcutKey
     private fun updateShortcutIme() {
         if (DEBUG) {
-            val subtype = shortcutSubtype?.let { "${it.locale()}, ${it.mode}" } ?: "<null>"
-            Log.d(TAG, ("Update shortcut IME from: ${shortcutInputMethodInfo?.id ?: "<null>"}, $subtype"))
+            val old = shortcuts.joinToString("; ") { "${it.imi.id}: ${it.subtype.locale()}, ${it.subtype.mode}" }
+            Log.d(TAG, ("Update shortcut IMEs from: $old"))
         }
         val richSubtype = currentRichInputMethodSubtype
         val implicitlyEnabledSubtype = SubtypeSettings.isEnabled(richSubtype.rawSubtype)
@@ -150,20 +151,12 @@ class RichInputMethodManager private constructor() {
         LanguageOnSpacebarUtils.setEnabledSubtypes(SubtypeSettings.getEnabledSubtypes(true))
 
         // TODO: Update an icon for shortcut IME
-        val shortcuts = inputMethodManager.shortcutInputMethodsAndSubtypes
-        shortcutInputMethodInfo = null
-        shortcutSubtype = null
-        for (imi in shortcuts.keys) {
-            val subtypes = shortcuts[imi] ?: continue
-            // TODO: Returns the first found IMI for now. Should handle all shortcuts as appropriate.
-            shortcutInputMethodInfo = imi
-            // TODO: Pick up the first found subtype for now. Should handle all subtypes as appropriate.
-            shortcutSubtype = subtypes.getOrNull(0)
-            break
+        shortcuts = inputMethodManager.shortcutInputMethodsAndSubtypes.entries.flatMap { (imi, subtypes) ->
+            subtypes.map { Shortcut(imi, it) }
         }
         if (DEBUG) {
-            val subtype = shortcutSubtype?.let { "${it.locale()}, ${it.mode}" } ?: "<null>"
-            Log.d(TAG, ("Update shortcut IME to: ${shortcutInputMethodInfo?.id ?: "<null>"}, $subtype"))
+            val new = shortcuts.joinToString("; ") { "${it.imi.id}: ${it.subtype.locale()}, ${it.subtype.mode}" }
+            Log.d(TAG, ("Update shortcut IMEs to: $new"))
         }
     }
 
@@ -298,3 +291,5 @@ private class InputMethodInfoCache(private val imm: InputMethodManager, private 
         cachedSubtypeListOnlyExplicitlySelected.clear()
     }
 }
+
+private class Shortcut(val imi: InputMethodInfo, val subtype: InputMethodSubtype)
