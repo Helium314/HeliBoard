@@ -518,7 +518,14 @@ class SuggestionStripView(context: Context, attrs: AttributeSet?, defStyle: Int)
         // hide pinned keys if device is locked, and avoid expanding toolbar
         val hideToolbarKeys = isDeviceLocked(context)
         toolbarExpandKey.setOnClickListener(if (hideToolbarKeys || !toolbarIsExpandable) null else this)
-        pinnedKeys.visibility = if (hideToolbarKeys) GONE else suggestionsStrip.visibility
+
+        // When hardware keyboard is present, always show pinned keys alongside suggestions
+        if (settingsValues.mHasHardwareKeyboard) {
+            pinnedKeys.visibility = if (hideToolbarKeys) GONE else VISIBLE
+            suggestionsStrip.visibility = VISIBLE
+        } else {
+            pinnedKeys.visibility = if (hideToolbarKeys) GONE else suggestionsStrip.visibility
+        }
         isExternalSuggestionVisible = false
     }
 

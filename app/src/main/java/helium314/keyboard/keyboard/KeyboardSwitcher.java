@@ -312,15 +312,25 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
     private void setMainKeyboardFrame(
             @NonNull final SettingsValues settingsValues,
             @NonNull final KeyboardSwitchState toggleState) {
-        final int visibility = isImeSuppressedByHardwareKeyboard(settingsValues, toggleState) ? View.GONE : View.VISIBLE;
-        final int stripVisibility = settingsValues.mToolbarMode == ToolbarMode.HIDDEN ? View.GONE : View.VISIBLE;
+        // Hide keyboard when hardware keyboard is present, otherwise use standard suppression logic
+        final int visibility = settingsValues.mHasHardwareKeyboard ? View.GONE
+                : (isImeSuppressedByHardwareKeyboard(settingsValues, toggleState) ? View.GONE : View.VISIBLE);
+        // Show suggestion strip when hardware keyboard is present, otherwise respect toolbar mode setting
+        final int stripVisibility = settingsValues.mHasHardwareKeyboard ? View.VISIBLE
+                : (settingsValues.mToolbarMode == ToolbarMode.HIDDEN ? View.GONE : View.VISIBLE);
+        // When hardware keyboard is present, keep main frame visible for strip but hide keyboard
+        final int frameVisibility = settingsValues.mHasHardwareKeyboard ? View.VISIBLE : visibility;
+
+        Log.d(TAG, "setMainKeyboardFrame: hasHardwareKeyboard=" + settingsValues.mHasHardwareKeyboard
+                + " visibility=" + visibility + " stripVisibility=" + stripVisibility
+                + " frameVisibility=" + frameVisibility);
         mStripContainer.setVisibility(stripVisibility);
         PointerTracker.switchTo(mKeyboardView);
         mKeyboardView.setVisibility(visibility);
         // The visibility of {@link #mKeyboardView} must be aligned with {@link #MainKeyboardFrame}.
         // @see #getVisibleKeyboardView() and
         // @see LatinIME#onComputeInset(android.inputmethodservice.InputMethodService.Insets)
-        mMainKeyboardFrame.setVisibility(visibility);
+        mMainKeyboardFrame.setVisibility(frameVisibility);
         mEmojiPalettesView.setVisibility(View.GONE);
         mEmojiPalettesView.stopEmojiPalettes();
         mEmojiTabStripView.setVisibility(View.GONE);

@@ -970,6 +970,18 @@ public class LatinIME extends InputMethodService implements
                 currentSettingsValues.mGestureTrailEnabled,
                 currentSettingsValues.mGestureFloatingPreviewTextEnabled);
 
+        // Ensure suggestion strip is visible when hardware keyboard is present
+        if (currentSettingsValues.mHasHardwareKeyboard) {
+            Log.i(TAG, "Hardware keyboard detected, ensuring strip container is visible");
+            final View stripContainer = switcher.getStripContainer();
+            stripContainer.setVisibility(View.VISIBLE);
+            // Force a layout pass to ensure the strip has proper dimensions
+            stripContainer.post(() -> {
+                stripContainer.requestLayout();
+                Log.i(TAG, "Strip container layout requested, height=" + stripContainer.getHeight());
+            });
+        }
+
         if (TRACE) Debug.startMethodTracing("/data/trace/latinime");
     }
 
@@ -1156,6 +1168,26 @@ public class LatinIME extends InputMethodService implements
             return;
         }
         final int inputHeight = mInputView.getHeight();
+        final boolean hasHardwareKeyboard = mSettings.getCurrent().mHasHardwareKeyboard;
+        final boolean isStripShowing = mKeyboardSwitcher.isShowingStripContainer();
+        final int stripHeight = isStripShowing ? mKeyboardSwitcher.getStripContainer().getHeight() : 0;
+
+        Log.i(TAG, "onComputeInsets: hasHardwareKeyboard=" + hasHardwareKeyboard
+                + " isStripShowing=" + isStripShowing
+                + " stripHeight=" + stripHeight
+                + " visibleKeyboardView.isShown()=" + visibleKeyboardView.isShown()
+                + " inputHeight=" + inputHeight);
+
+        // When hardware keyboard is present, show suggestion strip even though keyboard is hidden
+        if (hasHardwareKeyboard && !visibleKeyboardView.isShown() && stripHeight > 0) {
+            final int visibleTopY = inputHeight - stripHeight;
+            Log.i(TAG, "onComputeInsets: Setting insets for hardware keyboard - visibleTopY=" + visibleTopY);
+            outInsets.contentTopInsets = visibleTopY;
+            outInsets.visibleTopInsets = visibleTopY;
+            mInsetsUpdater.setInsets(outInsets);
+            return;
+        }
+
         if (isImeSuppressedByHardwareKeyboard() && !visibleKeyboardView.isShown()) {
             // If there is a hardware keyboard and a visible software keyboard view has been hidden,
             // no visual element will be shown on the screen.
@@ -1164,7 +1196,6 @@ public class LatinIME extends InputMethodService implements
             mInsetsUpdater.setInsets(outInsets);
             return;
         }
-        final int stripHeight = mKeyboardSwitcher.isShowingStripContainer() ? mKeyboardSwitcher.getStripContainer().getHeight() : 0;
         final int visibleTopY = inputHeight - visibleKeyboardView.getHeight() - stripHeight;
 
         if (hasSuggestionStripView()) {
@@ -1215,7 +1246,11 @@ public class LatinIME extends InputMethodService implements
         if (mIsExecutingStartShowingInputView) {
             return true;
         }
-        return super.onEvaluateInputViewShown();
+        // Always show input view (even with hardware keyboard) to display suggestion strip
+        // The KeyboardSwitcher will hide the actual keyboard and show only the suggestion strip
+        boolean hasHardwareKeyboard = mSettings.getCurrent().mHasHardwareKeyboard;
+        Log.i(TAG, "onEvaluateInputViewShown: hasHardwareKeyboard=" + hasHardwareKeyboard + " returning true");
+        return true;
     }
 
     @Override
