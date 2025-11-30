@@ -43,23 +43,27 @@ object FoldableUtils {
     }
 
     fun checkIt(value: String) {
-        value.split(";").forEach {
-            val matcher = FEATURE_PATTERN.matcher(it)
-            val type = when (val featureType = matcher.group(1)) {
-                FEATURE_TYPE_FOLD -> "type fold (continuous screen)"
-                FEATURE_TYPE_HINGE -> "type hinge (gap)"
-                else -> "unknown type $featureType"
+        try {
+            value.split(";").forEach {
+                val matcher = FEATURE_PATTERN.matcher(it)
+                val type = when (val featureType = matcher.group(1)) {
+                    FEATURE_TYPE_FOLD -> "type fold (continuous screen)"
+                    FEATURE_TYPE_HINGE -> "type hinge (gap)"
+                    else -> "unknown type $featureType"
+                }
+                val left = matcher.group(2)
+                val top = matcher.group(3)
+                val right = matcher.group(4)
+                val bottom = matcher.group(5)
+                val state = when (val stateString = matcher.group(6)) {
+                    PATTERN_STATE_FLAT -> "state flat"
+                    PATTERN_STATE_HALF_OPENED -> "state half opened"
+                    else -> "state other: $stateString"
+                }
+                Log.i("FOLD", "found: type $type, state $state, featureRect $left, $right, $top, $bottom")
             }
-            val left = matcher.group(2)
-            val top = matcher.group(3)
-            val right = matcher.group(4)
-            val bottom = matcher.group(5)
-            val state = when (val stateString = matcher.group(6)) {
-                PATTERN_STATE_FLAT -> "state flat"
-                PATTERN_STATE_HALF_OPENED -> "state half opened"
-                else -> "state other: $stateString"
-            }
-            Log.i("FOLD", "found: type $type, state $state, featureRect $left, $right, $top, $bottom")
+        } catch (e: Exception) {
+            Log.i("FOLD", "error when checking $value", e)
         }
     }
 
