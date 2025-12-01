@@ -13,6 +13,7 @@ import helium314.keyboard.latin.utils.SubtypeSettings
 class App : Application() {
     override fun onCreate() {
         super.onCreate()
+        instance = this
         DebugFlags.init(this)
         Settings.init(this)
         SubtypeSettings.init(this)
@@ -42,5 +43,9 @@ class App : Application() {
             app = null
             return application
         }
+        
+        // For accessing app context
+        lateinit var instance: App
+            private set
     }
 }
