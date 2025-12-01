@@ -84,7 +84,6 @@
     <string name="settings">"Instellings"</string>
     <string name="delete">"Vee uit"</string>
     <string name="version_text">Weergawe %1$s</string>
-    <string name="user_dict_settings_add_dialog_title">"Voeg by woordeboek"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"Kortpad:"</string>
     <string name="user_dict_settings_add_locale_option_name">"Taal:"</string>
     <string name="user_dict_settings_add_word_hint">"Tik \'n woord in"</string>
@@ -92,7 +91,6 @@
     <string name="user_dict_settings_edit_dialog_title">"Redigeer woord"</string>
     <string name="user_dict_settings_all_languages">"Vir alle tale"</string>
     <string name="user_dict_settings_more_languages">"Nog tale…"</string>
-    <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
     <string name="settings_category_clipboard_history">Knipbord geskiedenis</string>
     <string name="settings_category_suggestions">Voorstelle</string>
     <string name="settings_category_experimental">Eksperimenteel</string>

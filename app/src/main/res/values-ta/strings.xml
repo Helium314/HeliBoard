@@ -84,7 +84,6 @@
     <string name="settings">"அமைப்பு"</string>
     <string name="delete">"நீக்கு"</string>
     <string name="version_text">%s பதிப்பு</string>
-    <string name="user_dict_settings_add_dialog_title">"அகராதியில் சேர்"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"ஷார்ட்கட்:"</string>
     <string name="user_dict_settings_add_locale_option_name">"மொழி:"</string>
     <string name="user_dict_settings_add_word_hint">"வார்த்தையை உள்ளிடவும்"</string>
@@ -92,7 +91,6 @@
     <string name="user_dict_settings_edit_dialog_title">"வார்த்தையைத் திருத்து"</string>
     <string name="user_dict_settings_all_languages">"எல்லா மொழிகளுக்கும்"</string>
     <string name="user_dict_settings_more_languages">"மேலும் மொழிகள்…"</string>
-    <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
     <string name="select_input_method">"உள்ளீட்டு முறையைத் தேர்வுசெய்க"</string>
     <string name="undo">"செயல்தவிர்"</string>
     <string name="redo">"மீண்டும்செய்"</string>
@@ -369,13 +367,11 @@
     <string name="theme_name_sand" tools:keep="@string/theme_name_sand">மணல்</string>
     <string name="theme_name_violette" tools:keep="@string/theme_name_violette">வயலட்</string>
     <string name="theme_name_user" tools:keep="@string/theme_name_user">பயனர் வரையறுக்கப்பட்ட</string>
-    <string name="theme_name_user_night" tools:keep="@string/theme_name_user_night">பயனர் வரையறுக்கப்பட்ட (இரவு)</string>
     <string name="auto_user_color">தானாக நிறத்தைத் தேர்ந்தெடுக்கவும்</string>
     <string name="main_colors">முக்கிய வண்ணங்களை மட்டும் காட்டு</string>
     <string name="more_colors">மேலும் வண்ணங்களைக் காட்டு</string>
     <string name="all_colors">அனைத்து வண்ணங்களையும் காட்டு</string>
     <string name="all_colors_warning">இந்த அமைப்பு உள்நாட்டில் பயன்படுத்தப்படும் அனைத்து வண்ணங்களையும் வெளிப்படுத்துகிறது. வண்ணங்களின் பட்டியல் எந்த நேரத்திலும் மாறலாம். இயல்புநிலை நிறம் சீரற்றது, மேலும் பெயர்கள் மொழிபெயர்க்கப்படாது.</string>
-    <string name="select_user_colors_summary">உரை மற்றும் பின்னணிக்கு வண்ணங்களைத் தேர்ந்தெடுக்கவும்</string>
     <string name="select_color_background">விசைப்பலகை பின்னணி</string>
     <string name="select_color_key">முக்கிய உரை</string>
     <string name="select_color_key_hint">முக்கிய குறிப்பு உரை</string>

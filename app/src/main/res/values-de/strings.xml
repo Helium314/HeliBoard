@@ -84,7 +84,6 @@
     <string name="settings">"Einstellungen"</string>
     <string name="delete">"Löschen"</string>
     <string name="version_text">Version %s</string>
-    <string name="user_dict_settings_add_dialog_title">"Zum Wörterbuch hinzufügen"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"Tastaturkürzel:"</string>
     <string name="user_dict_settings_add_locale_option_name">"Sprache:"</string>
     <string name="user_dict_settings_add_word_hint">"Wort eingeben"</string>
@@ -92,7 +91,6 @@
     <string name="user_dict_settings_edit_dialog_title">"Wort bearbeiten"</string>
     <string name="user_dict_settings_all_languages">"Für alle Sprachen"</string>
     <string name="user_dict_settings_more_languages">"Weitere Sprachen…"</string>
-    <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
     <string name="select_input_method">"Eingabemethode wählen"</string>
     <string name="settings_category_clipboard_history">Zwischenablage-Verlauf</string>
     <string name="settings_category_correction">Korrekturen</string>
@@ -235,12 +233,10 @@
     <string name="delete_layout">Benutzerdefiniertes Layout %s wirklich löschen?</string>
     <string name="dictionary_settings_category">Wörterbücher</string>
     <string name="button_title_add_custom_layout">Benutzerdefiniertes Layout hinzufügen</string>
-    <string name="select_user_colors_summary">Farben für Text und Hintergrund wählen</string>
     <string name="select_color_key_hint">Tasten-Hinweistext</string>
     <string name="setup_step3_action">Tastatur konfigurieren</string>
     <string name="popup_keys_symbols" tools:keep="@string/popup_keys_symbols">Symbole</string>
     <string name="add_new_dictionary_title">Wörterbuch aus Datei hinzufügen</string>
-    <string name="theme_name_user_night" tools:keep="@string/theme_name_user_night">Benutzerdefiniert (Nacht)</string>
     <string name="theme_name_brown" tools:keep="@string/theme_name_brown">Braun</string>
     <string name="replace_dictionary_message">Soll das vom Benutzer hinzugefügte Wörterbuch „%1$s“ wirklich ersetzt werden? \n \nAktuelles Wörterbuch: \n%2$s \n \nNeues Wörterbuch: \n%3$s</string>
     <string name="url_detection_title">URL-Erkennung</string>

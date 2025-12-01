@@ -85,7 +85,6 @@
     <string name="settings">"Nastavení"</string>
     <string name="delete">"Smazat"</string>
     <string name="version_text">Verze %s</string>
-    <string name="user_dict_settings_add_dialog_title">"Přidat do slovníku"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"Zkratka:"</string>
     <string name="user_dict_settings_add_locale_option_name">"Jazyk:"</string>
     <string name="user_dict_settings_add_word_hint">"Napište slovo"</string>
@@ -93,7 +92,6 @@
     <string name="user_dict_settings_edit_dialog_title">"Upravit slovo"</string>
     <string name="user_dict_settings_all_languages">"Pro všechny jazyky"</string>
     <string name="user_dict_settings_more_languages">"Další jazyky…"</string>
-    <string name="user_dict_fast_scroll_alphabet">" ABCČDEFGHChIJKLMNOPQRŘSŠTUVWXYZŽ"</string>
     <string name="settings_category_clipboard_history">Historie schránky</string>
     <string name="settings_category_correction">Opravy</string>
     <string name="select_input_method">"Vybrat metodu zadávání"</string>
@@ -293,10 +291,8 @@
     <string name="dialog_close">Zavřít</string>
     <string name="text_tap_languages">Klepnutím na jazyk otevřete nastavení</string>
     <string name="subtype_probhat_bn_BD">%s (Probhat)</string>
-    <string name="select_user_colors_summary">Výběr barev pro text a pozadí</string>
     <string name="theme_name_violette" tools:keep="@string/theme_name_violette">Fialový</string>
     <string name="theme_name_user" tools:keep="@string/theme_name_user">Uživatelsky definovaný</string>
-    <string name="theme_name_user_night" tools:keep="@string/theme_name_user_night">Uživatelsky definovaný (noční)</string>
     <string name="auto_user_color">Vybrat barvu automaticky</string>
     <string name="main_colors">Zobrazit pouze hlavní barvy</string>
     <string name="all_colors">Zobrazit všechny barvy</string>

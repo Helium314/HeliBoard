@@ -84,7 +84,6 @@
     <string name="settings">"Ajustes"</string>
     <string name="delete">"Eliminar"</string>
     <string name="version_text">Versión %1$s</string>
-    <string name="user_dict_settings_add_dialog_title">"Añadir al diccionario"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"Acceso directo:"</string>
     <string name="user_dict_settings_add_locale_option_name">"Idioma:"</string>
     <string name="user_dict_settings_add_word_hint">"Escribe una palabra"</string>
@@ -92,7 +91,6 @@
     <string name="user_dict_settings_edit_dialog_title">"Editar palabra"</string>
     <string name="user_dict_settings_all_languages">"Todos los idiomas"</string>
     <string name="user_dict_settings_more_languages">"Más idiomas…"</string>
-    <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNÑOPQRSTUVWXYZ"</string>
     <string name="day_night_mode_summary">La apariencia seguirá los ajustes del sistema</string>
     <string name="number_row_summary">Mostrar siempre fila de números</string>
     <string name="settings_category_additional_keys">Teclas adicionales</string>
@@ -314,9 +312,7 @@
     <string name="theme_name_ocean" tools:keep="@string/theme_name_ocean">Océano</string>
     <string name="auto_show_toolbar_summary">Mostrar la barra de herramientas si se ingresa o selecciona texto</string>
     <string name="subtype_mns">Mansi</string>
-    <string name="theme_name_user_night" tools:keep="@string/theme_name_user_night">Definido por el usuario (noche)</string>
     <string name="all_colors_warning">Esta configuración muestra todos los colores que se usan internamente. La lista de colores puede cambiar en cualquier momento. El color por defecto es aleatorio y los nombres no serán traducidos.</string>
-    <string name="select_user_colors_summary">Seleccionar colores para el texto y fondos</string>
     <string name="select_color_key_hint">Texto del indicio de tecla</string>
     <string name="select_color_key_background">Fondo de tecla</string>
     <string name="select_color_functional_key_background">Fondo de tecla funcional</string>

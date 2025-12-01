@@ -84,7 +84,6 @@
     <string name="settings">"Inställningar"</string>
     <string name="delete">"Ta bort"</string>
     <string name="version_text">Version %1$s</string>
-    <string name="user_dict_settings_add_dialog_title">"Lägg till i ordlista"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"Genväg:"</string>
     <string name="user_dict_settings_add_locale_option_name">"Språk:"</string>
     <string name="user_dict_settings_add_word_hint">"Skriv ett ord"</string>
@@ -92,7 +91,6 @@
     <string name="user_dict_settings_edit_dialog_title">"Redigera ord"</string>
     <string name="user_dict_settings_all_languages">"För alla språk"</string>
     <string name="user_dict_settings_more_languages">"Fler språk …"</string>
-    <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
     <string name="settings_category_correction">Korrigeringar</string>
     <string name="settings_category_suggestions">Förslag</string>
     <string name="settings_category_experimental">Experimentella</string>
@@ -202,7 +200,6 @@
     <string name="theme_name_user" tools:keep="@string/theme_name_user">Användardefinierat</string>
     <string name="prefs_narrow_key_gaps">Smala tangentmellanrum</string>
     <string name="prefs_bottom_padding_scale">Skala för avstånd till nederkant</string>
-    <string name="select_user_colors_summary">Välj färger på text och bakgrunder</string>
     <string name="split_spacer_scale">Delningsavstånd</string>
     <string name="main_colors">Visa endast huvudfärger</string>
     <string name="theme_navbar">Färga navigeringsfält</string>

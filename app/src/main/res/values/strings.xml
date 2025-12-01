@@ -638,8 +638,6 @@ New dictionary:
     <string name="delete">Delete</string>
     <!-- Text for application version -->
     <string name="version_text">Version %s</string>
-    <!-- User dictionary settings. The title of the dialog to add a new word to the user dictionary. -->
-    <string name="user_dict_settings_add_dialog_title">Add to dictionary</string> <!-- todo: use it or remove it -->
     <!-- User dictionary settings. Label to put before the shortcut field (once a shortcut is registered, the user can type the shortcut and get the word it points to in the suggestions). -->
     <string name="user_dict_settings_add_shortcut_option_name">Shortcut:</string>
     <!-- User dictionary settings. Label to put before the weight field -->
@@ -647,7 +645,7 @@ New dictionary:
     <!-- User dictionary settings. Label to put before the language field. -->
     <string name="user_dict_settings_add_locale_option_name">Language:</string>
     <!-- User dictionary settings. Hint for the text field to type the word to add to the user dictionary. -->
-    <string name="user_dict_settings_add_word_hint">Type a word</string> <!-- todo: use it or remove it -->
+    <string name="user_dict_settings_add_word_hint">Type a word</string>
     <!-- User dictionary settings. Hint for the text field to type the optional shortcut to add to the user dictionary. -->
     <string name="user_dict_settings_add_shortcut_hint">Optional shortcut</string>
     <!-- User dictionary settings. The title of the dialog to edit an existing word in the user dictionary. -->
@@ -656,9 +654,6 @@ New dictionary:
     <string name="user_dict_settings_all_languages">For all languages</string>
     <!-- User dictionary settings. The text to show for the option that shows the entire list of supported locales to choose one -->
     <string name="user_dict_settings_more_languages">More languages…</string> <!-- todo: use it or remove it -->
-    <!-- User dictionary settings. Index of the user dictionary
-         This resource is copied from packages/apps/Settings/res/values/strings.xml -->
-    <string name="user_dict_fast_scroll_alphabet">\u0020ABCDEFGHIJKLMNOPQRSTUVWXYZ</string> <!-- todo: use it or remove it -->
     <!-- Message in user dictionary dialog -->
     <string name="user_dict_word_already_present">This word is already present in the %s user dictionary. Please type another one.</string>
     <!-- User dictionary settings. Text button to add a word -->
@@ -716,7 +711,6 @@ New dictionary:
     <!-- Theme name for user-defined theme -->
     <string name="theme_name_user" tools:keep="@string/theme_name_user">User-Defined</string>
     <!-- Theme name for user-defined theme night mode theme -->
-    <string name="theme_name_user_night" tools:keep="@string/theme_name_user_night">User-Defined (night)</string>
     <!-- Text when determining color automatically -->
     <string name="auto_user_color">Choose color automatically</string>
     <!-- Menu item for showing fewer colors -->
@@ -726,9 +720,7 @@ New dictionary:
     <!-- Menu item for showing all colors -->
     <string name="all_colors">Show all colors</string>
     <!-- Warning message displayed when showing all colors -->
-    <string name="all_colors_warning">This setting exposes all colors that are used internally. The list of colors may change at any time. The default color is random, and the names will not be translated.</string>
-    <!-- (currently not used) Description for selection of user-defined colors. -->
-    <string name="select_user_colors_summary">Select colors for text and backgrounds</string> <!-- todo: use it or remove it -->
+    <string name="all_colors_warning">This setting exposes all colors that are used internally. The list of colors may change at any time. The default is derived from the normal colors, and the names will not be translated.</string>
     <!-- Selection: background color. -->
     <string name="select_color_background">Keyboard background</string>
     <!-- Selection: key text color. -->
