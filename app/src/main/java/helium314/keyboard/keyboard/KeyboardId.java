@@ -83,6 +83,7 @@ public final class KeyboardId {
     public final boolean mIsSplitLayout;
     public final boolean mOneHandedModeEnabled;
     public final KeyboardLayoutSet.InternalAction mInternalAction;
+    public final boolean mEmojiSearchAvailable;
 
     private final int mHashCode;
 
@@ -103,6 +104,7 @@ public final class KeyboardId {
         mIsSplitLayout = params.mIsSplitLayoutEnabled;
         mOneHandedModeEnabled = params.mOneHandedModeEnabled;
         mInternalAction = params.mInternalAction;
+        mEmojiSearchAvailable = params.mEmojiSearchAvailable;
 
         mHashCode = computeHashCode(this);
     }
@@ -228,7 +230,7 @@ public final class KeyboardId {
 
     @Override
     public String toString() {
-        return String.format(Locale.ROOT, "[%s %s:%s %dx%d %s %s%s%s%s%s%s%s%s%s%s%s]",
+        return String.format(Locale.ROOT, "[%s %s:%s %dx%d %s %s%s%s%s%s%s%s%s%s%s%s%s%s]",
                 elementIdToName(mElementId),
                 mSubtype.getLocale(),
                 mSubtype.getExtraValueOf(KEYBOARD_LAYOUT_SET),
@@ -244,7 +246,9 @@ public final class KeyboardId {
                 (mLanguageSwitchKeyEnabled ? " languageSwitchKeyEnabled" : ""),
                 (mEmojiKeyEnabled ? " emojiKeyEnabled" : ""),
                 (isMultiLine() ? " isMultiLine" : ""),
-                (mIsSplitLayout ? " isSplitLayout" : "")
+                (mIsSplitLayout ? " isSplitLayout" : ""),
+                (mInternalAction != null ? " internalAction=" + mInternalAction : ""),
+                (mEmojiSearchAvailable ? " emojiSearchAvailable" : "")
         );
     }
 
