@@ -445,4 +445,6 @@
     <string name="subtype_mhr">মারি (পূর্ব)</string>
     <string name="layout_emoji_bottom_row_with_action" tools:keep="@string/layout_emoji_bottom_row_with_action">অ্যাকশন বোতামসহ ইমোজির নিম্ন সারি</string>
     <string name="layout_clip_bottom_row_with_action" tools:keep="@string/layout_clip_bottom_row_with_action">অ্যাকশন বোতামসহ ক্লিপবোর্ডের নিম্ন সারি</string>
+    <string name="number_row_in_symbols">প্রতীক দর্শনে নম্বর সারি প্রদর্শন</string>
+    <string name="custom_emoji_font">ফাইল থেকে নিজস্বীকৃত ইমোজি ফন্ট নির্ধারণ</string>
 </resources>

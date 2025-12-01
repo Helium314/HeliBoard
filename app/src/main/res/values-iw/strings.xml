@@ -452,4 +452,6 @@
     <string name="emoji_dictionary_required">דרוש מילון אמוג\'י כדי שתכולה זו תפעל. מילונים בפורמט .dict ניתן להוריד ב %s.</string>
     <string name="inline_emoji_search_summary">הצעת אמוג\'י בלבד כאשר לפני המילה מופיעות נקודתיים</string>
     <string name="inline_emoji_search">חיפוש אמוג\'י מוטמע</string>
+    <string name="custom_emoji_font">הגדרת גופן אמוג\'י מותאם מקובץ</string>
+    <string name="number_row_in_symbols">הצגת שורת מספרים בתצוגת הסמלים</string>
 </resources>

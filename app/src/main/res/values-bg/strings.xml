@@ -481,4 +481,6 @@
     <string name="subtype_mhr">Мари (Източен)</string>
     <string name="layout_emoji_bottom_row_with_action" tools:keep="@string/layout_emoji_bottom_row_with_action">Долен ред емотикони с клавиш за действие</string>
     <string name="layout_clip_bottom_row_with_action" tools:keep="@string/layout_clip_bottom_row_with_action">Долен ред на клипборда с клавиш за действие</string>
+    <string name="number_row_in_symbols">Показване на числовия ред в изглед със символи</string>
+    <string name="custom_emoji_font">Задаване на персонализиран шрифт за емтикони от файл</string>
 </resources>

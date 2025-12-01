@@ -453,4 +453,6 @@
     <string name="subtype_mhr">Mari (Oriental)</string>
     <string name="layout_emoji_bottom_row_with_action" tools:keep="@string/layout_emoji_bottom_row_with_action">Fileira inferior de emojis com tecla de ação</string>
     <string name="layout_clip_bottom_row_with_action" tools:keep="@string/layout_clip_bottom_row_with_action">Fileira inferior da área de transferência com tecla de ação</string>
+    <string name="number_row_in_symbols">Mostrar linha de números no modo de símbolos</string>
+    <string name="custom_emoji_font">Definir fonte de emojis personalizada a partir de um arquivo</string>
 </resources>

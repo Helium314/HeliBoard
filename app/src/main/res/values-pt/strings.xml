@@ -444,4 +444,6 @@
     <string name="subtype_khipro_bn">%s (Khipro)</string>
     <string name="layout_emoji_bottom_row_with_action" tools:keep="@string/layout_emoji_bottom_row_with_action">Fila inferior de emojis com tecla de ação</string>
     <string name="layout_clip_bottom_row_with_action" tools:keep="@string/layout_clip_bottom_row_with_action">Fila inferior da área de transferência com tecla de ação</string>
+    <string name="number_row_in_symbols">Mostrar fila de números no modo de símbolos</string>
+    <string name="custom_emoji_font">Definir fonte de emojis personalizada de ficheiro</string>
 </resources>

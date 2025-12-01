@@ -446,4 +446,6 @@
     <string name="subtype_mhr">Mari (východní)</string>
     <string name="layout_emoji_bottom_row_with_action" tools:keep="@string/layout_emoji_bottom_row_with_action">Spodní řádek emodži s akční klávesou</string>
     <string name="layout_clip_bottom_row_with_action" tools:keep="@string/layout_clip_bottom_row_with_action">Spodní řádek schránky s akční klávesou</string>
+    <string name="number_row_in_symbols">Zobrazit číselný řádek na obrazovce znaků</string>
+    <string name="custom_emoji_font">Nastavit vlastní písmo emodži ze souboru</string>
 </resources>

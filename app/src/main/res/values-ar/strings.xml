@@ -453,4 +453,6 @@
     <string name="subtype_mhr">ماري (شرقي)</string>
     <string name="layout_clip_bottom_row_with_action" tools:keep="@string/layout_clip_bottom_row_with_action">الصف السفلي للحافظة مع مفتاح الإجراء</string>
     <string name="layout_emoji_bottom_row_with_action" tools:keep="@string/layout_emoji_bottom_row_with_action">صف الرموز التعبيرية السفلي مع مفتاح الإجراء</string>
+    <string name="custom_emoji_font">عيِّن خط رموز التعبيرية مخصّص من ملف</string>
+    <string name="number_row_in_symbols">أظهر صف الأرقام في عرض الرموز</string>
 </resources>

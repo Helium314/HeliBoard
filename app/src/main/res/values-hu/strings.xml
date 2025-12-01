@@ -444,4 +444,6 @@
     <string name="subtype_mhr">Mari (keleti)</string>
     <string name="layout_emoji_bottom_row_with_action" tools:keep="@string/layout_emoji_bottom_row_with_action">Emodzsik alsó sora akciógombbal</string>
     <string name="layout_clip_bottom_row_with_action" tools:keep="@string/layout_clip_bottom_row_with_action">Vágólap alsó sora akciógombbal</string>
+    <string name="number_row_in_symbols">Számsor megjelenítése a szimbólumnézetben</string>
+    <string name="custom_emoji_font">Egyéni emodzsi-betűtípus beállítása fájlból</string>
 </resources>

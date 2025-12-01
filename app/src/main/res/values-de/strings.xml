@@ -435,4 +435,15 @@
     <string name="suggest_punctuation_summary">Zeige Satzzeichen wenn keine anderen Vorschläge verfügbar sind</string>
     <string name="about_wiki_link_description">Das Wiki kann von jedem Github Nutzer verbessert werden!</string>
     <string name="about_wiki_link">Zum Wiki gehen</string>
+    <string name="inline_emoji_search">Inline Emoji-Suche</string>
+    <string name="inline_emoji_search_summary">Emojis werden nur vorgeschlagen, wenn ein Wort direkt auf einen Doppelpunkt folgt</string>
+    <string name="emoji_dictionary_required">Ein Emoji-Wörterbuch wird für diese Funktion benötigt. Wörterbücher im .dict-Format können %s heruntergeladen werden.</string>
+    <string name="save_subtype_per_app">Sprache pro App merken</string>
+    <string name="layout_emoji_bottom_row_with_action" tools:keep="@string/layout_emoji_bottom_row_with_action">Emoji untere Zeile mit Aktions-Taste</string>
+    <string name="layout_clip_bottom_row_with_action" tools:keep="@string/layout_clip_bottom_row_with_action">Zwischenablage untere Zeile mit Aktions-Taste</string>
+    <string name="custom_emoji_font">Benutzerdefinierte Emoji-Schriftart aus Datei festlegen</string>
+    <string name="number_row_in_symbols">Zeilenzeile in Symbol-Ansicht anzeigen</string>
+    <string name="clipboard_history_pinned_first">Angeheftete Elemente zuerst anzeigen</string>
+    <string name="subtype_mhr">Ostmari</string>
+    <string name="subtype_khipro_bn">%s (Khipro)</string>
 </resources>
