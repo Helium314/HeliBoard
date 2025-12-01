@@ -65,7 +65,7 @@ class BnKhiproCombiner : Combiner {
         private val STATE_GROUP_ORDER = mapOf(
             State.INIT to listOf("diacritic", "ng", "shor", "fkar", "prithayok", "biram", "reph", "byanjon", "juktoborno"),
             State.SHOR_STATE to listOf("diacritic", "ng", "shor", "fkar", "biram", "prithayok", "reph", "byanjon", "juktoborno"),
-            State.REPH_STATE to listOf("prithayok", "ae", "byanjon", "juktoborno", "ng", "kar"),
+            State.REPH_STATE to listOf("prithayok", "ae", "reph", "byanjon", "juktoborno", "ng", "kar"),
             State.BYANJON_STATE to listOf("diacritic", "ng", "prithayok", "biram", "kar", "phola", "byanjon", "juktoborno")
         )
 
@@ -74,6 +74,7 @@ class BnKhiproCombiner : Combiner {
         }
 
 
+        // Find longest matching sequence from current position using greedy algorithm
         private fun findLongest(state: State, text: String, i: Int): Triple<String, String, String> {
             val allowed = STATE_GROUP_ORDER[state] ?: return Triple("", "", "")
 
@@ -93,51 +94,37 @@ class BnKhiproCombiner : Combiner {
         }
 
 
+        // Determine next state based on current state and matched group
         private fun applyTransition(state: State, group: String): State {
             return when (state) {
                 State.INIT -> when (group) {
-                    "diacritic", "shor", "fkar" -> State.SHOR_STATE
-                    "prithayok" -> State.SHOR_STATE
-                    "biram" -> State.SHOR_STATE
+                    "diacritic", "shor", "fkar", "prithayok", "biram", "ng" -> State.SHOR_STATE
                     "reph" -> State.REPH_STATE
-                    "byanjon" -> State.BYANJON_STATE
-                    "juktoborno" -> State.BYANJON_STATE
-                    "ng" -> State.SHOR_STATE
+                    "byanjon", "juktoborno" -> State.BYANJON_STATE
                     else -> state
                 }
                 State.SHOR_STATE -> when (group) {
-                    "diacritic", "shor", "fkar" -> State.SHOR_STATE
-                    "biram" -> State.SHOR_STATE
-                    "prithayok" -> State.SHOR_STATE
+                    "diacritic", "shor", "fkar", "biram", "prithayok", "ng" -> State.SHOR_STATE
                     "reph" -> State.REPH_STATE
-                    "byanjon" -> State.BYANJON_STATE
-                    "juktoborno" -> State.BYANJON_STATE
-                    "ng" -> State.SHOR_STATE
+                    "byanjon", "juktoborno" -> State.BYANJON_STATE
                     else -> state
                 }
                 State.REPH_STATE -> when (group) {
-                    "diacritic" -> State.SHOR_STATE
-                    "prithayok" -> State.SHOR_STATE
-                    "ae" -> State.SHOR_STATE
-                    "byanjon" -> State.BYANJON_STATE
-                    "juktoborno" -> State.BYANJON_STATE
-                    "kar" -> State.SHOR_STATE
-                    "ng" -> State.SHOR_STATE
+                    "prithayok", "diacritic", "ng", "ae", "kar" -> State.SHOR_STATE
+                    "reph" -> State.REPH_STATE
+                    "juktoborno", "byanjon" -> State.BYANJON_STATE
                     else -> state
                 }
                 State.BYANJON_STATE -> when (group) {
-                    "diacritic", "kar" -> State.SHOR_STATE
-                    "prithayok" -> State.SHOR_STATE
-                    "biram" -> State.SHOR_STATE
-                    "byanjon" -> State.BYANJON_STATE
-                    "juktoborno" -> State.BYANJON_STATE
-                    "ng" -> State.SHOR_STATE
+                    "diacritic", "kar", "prithayok", "biram", "ng" -> State.SHOR_STATE
+                    "byanjon", "juktoborno" -> State.BYANJON_STATE
                     else -> state
                 }
             }
         }
 
 
+        // Convert Latin text to Bengali using state machine
         fun convert(text: String): String {
             var i = 0
             val n = text.length
@@ -153,6 +140,7 @@ class BnKhiproCombiner : Combiner {
                     continue
                 }
 
+                // Special case: insert hasant before phola when in byanjon state
                 if (state == State.BYANJON_STATE && group == "phola") {
                     out.add("্")
                     out.add(value)
@@ -172,26 +160,15 @@ class BnKhiproCombiner : Combiner {
         if (event.keyCode == KeyCode.SHIFT) return event
 
         if (Character.isWhitespace(event.codePoint)) {
-            val text = combiningStateFeedback
-            reset()
-            return createEventChainFromSequence(text, event)
+            return commitAndReset(event)
         } else if (event.isFunctionalKeyEvent) {
-            if (event.keyCode == KeyCode.DELETE) {
-                val text = combiningStateFeedback
-                reset()
-                return createEventChainFromSequence(text, event)
-            }
-            val text = combiningStateFeedback
-            reset()
-            return createEventChainFromSequence(text, event)
+            return commitAndReset(event)
         } else {
             composingText.append(Character.toChars(event.codePoint))
 
             val text = composingText.toString()
             if (text.endsWith(".ff")) {
-                val result = combiningStateFeedback
-                reset()
-                return createEventChainFromSequence(result, event)
+                return commitAndReset(event)
             }
 
             return Event.createConsumedEvent(event)
@@ -203,6 +180,12 @@ class BnKhiproCombiner : Combiner {
 
     override fun reset() {
         composingText.setLength(0)
+    }
+
+    private fun commitAndReset(event: Event): Event {
+        val text = combiningStateFeedback
+        reset()
+        return createEventChainFromSequence(text, event)
     }
 
     private fun createEventChainFromSequence(text: CharSequence, originalEvent: Event): Event {
