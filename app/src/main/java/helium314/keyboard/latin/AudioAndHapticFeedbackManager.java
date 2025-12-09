@@ -8,7 +8,10 @@ package helium314.keyboard.latin;
 
 import android.content.Context;
 import android.media.AudioManager;
+import android.os.Build;
+import android.os.VibrationEffect;
 import android.os.Vibrator;
+import android.util.Log;
 import android.view.HapticFeedbackConstants;
 import android.view.View;
 
@@ -64,11 +67,14 @@ public final class AudioAndHapticFeedbackManager {
         return mVibrator != null && mVibrator.hasVibrator();
     }
 
-    public void vibrate(final long milliseconds) {
-        if (mVibrator == null || milliseconds <= 0) {
+    public void vibrate(final long milliseconds, final int amplitude) {
+        if (mVibrator == null || milliseconds <= 0 || amplitude <= 0) {
             return;
         }
-        mVibrator.vibrate(milliseconds);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            mVibrator.vibrate(VibrationEffect.createOneShot(milliseconds, amplitude));
+        } else
+            mVibrator.vibrate(milliseconds);
     }
 
     private boolean reevaluateIfSoundIsOn() {
@@ -99,22 +105,19 @@ public final class AudioAndHapticFeedbackManager {
     }
 
     public void performHapticFeedback(final View viewToPerformHapticFeedbackOn, final HapticEvent hapticEvent) {
-        if (!mSettingsValues.mVibrateOn || (mDoNotDisturb && !mSettingsValues.mVibrateInDndMode)) {
+        if (mDoNotDisturb && !mSettingsValues.mVibrateInDndMode) {
             return;
         }
         if (hapticEvent == HapticEvent.NO_HAPTICS) {
             // Avoid surprises with the handling of HapticFeedbackConstants.NO_HAPTICS
             return;
         }
-        if (hapticEvent.allowCustomDuration && mSettingsValues.mKeypressVibrationDuration >= 0) {
-            vibrate(mSettingsValues.mKeypressVibrationDuration);
-            return;
-        }
-        // Go ahead with the system default
-        if (viewToPerformHapticFeedbackOn != null) {
+        if (mSettingsValues.mVibrationType.equals("custom") && hapticEvent.allowCustomDuration) {
+            vibrate(mSettingsValues.mKeypressVibrationDuration, mSettingsValues.mKeypressVibrationAmplitude);
+        } else if (!mSettingsValues.mVibrationType.equals("off") && viewToPerformHapticFeedbackOn != null) {
             viewToPerformHapticFeedbackOn.performHapticFeedback(
-                    hapticEvent.feedbackConstant,
-                    HapticFeedbackConstants.FLAG_IGNORE_GLOBAL_SETTING);
+                hapticEvent.feedbackConstant,
+                HapticFeedbackConstants.FLAG_IGNORE_GLOBAL_SETTING);
         }
     }
 
