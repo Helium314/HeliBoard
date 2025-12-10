@@ -43,6 +43,7 @@ fun PreferencesScreen(
     if ((b?.value ?: 0) < 0)
         Log.v("irrelevant", "stupid way to trigger recomposition on preference change")
     val clipboardHistoryEnabled = prefs.getBoolean(Settings.PREF_ENABLE_CLIPBOARD_HISTORY, Defaults.PREF_ENABLE_CLIPBOARD_HISTORY)
+    val vibrationType = Settings.readVibrationType(prefs);
     val items = listOf(
         R.string.settings_category_input,
         Settings.PREF_SHOW_HINTS,
@@ -54,12 +55,12 @@ fun PreferencesScreen(
         Settings.PREF_POPUP_ON,
         if (AudioAndHapticFeedbackManager.getInstance().hasVibrator())
             Settings.PREF_VIBRATION_TYPE else null,
-        if (prefs.getString(Settings.PREF_VIBRATION_TYPE, Defaults.PREF_VIBRATION_TYPE) == "custom")
+        if (vibrationType == AudioAndHapticFeedbackManager.VibrationType.CUSTOM)
             Settings.PREF_VIBRATION_DURATION_SETTINGS else null,
-        if (prefs.getString(Settings.PREF_VIBRATION_TYPE, Defaults.PREF_VIBRATION_TYPE) == "custom" &&
+        if (vibrationType == AudioAndHapticFeedbackManager.VibrationType.CUSTOM &&
             Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
             Settings.PREF_VIBRATION_AMPLITUDE_SETTINGS else null,
-        if (prefs.getString(Settings.PREF_VIBRATION_TYPE, Defaults.PREF_VIBRATION_TYPE) != "off")
+        if (vibrationType != AudioAndHapticFeedbackManager.VibrationType.OFF)
             Settings.PREF_VIBRATE_IN_DND_MODE else null,
         Settings.PREF_SOUND_ON,
         if (prefs.getBoolean(Settings.PREF_SOUND_ON, Defaults.PREF_SOUND_ON))
@@ -120,9 +121,9 @@ fun createPreferencesSettings(context: Context) = listOf(
         ListPreference(
             it,
             listOf(
-                stringResource(R.string.prefs_keypress_vibration_mode_off) to "off",
-                stringResource(R.string.prefs_keypress_vibration_mode_system) to "system",
-                stringResource(R.string.prefs_keypress_vibration_mode_custom) to "custom"
+                stringResource(R.string.prefs_keypress_vibration_mode_off) to AudioAndHapticFeedbackManager.VibrationType.OFF.value,
+                stringResource(R.string.prefs_keypress_vibration_mode_system) to AudioAndHapticFeedbackManager.VibrationType.SYSTEM.value,
+                stringResource(R.string.prefs_keypress_vibration_mode_custom) to AudioAndHapticFeedbackManager.VibrationType.CUSTOM.value,
             ),
             Defaults.PREF_VIBRATION_TYPE
         )

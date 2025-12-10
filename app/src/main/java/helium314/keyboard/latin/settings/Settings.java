@@ -234,22 +234,6 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
         mContext = context;
         mPrefs = KtxKt.prefs(context);
         mPrefs.registerOnSharedPreferenceChangeListener(this);
-        migrateLegacyPreferences();
-    }
-
-    private void migrateLegacyPreferences() {
-        final var prefsEditor = mPrefs.edit();
-        if (mPrefs.contains(Settings.PREF_VIBRATE_ON)) {
-            if (mPrefs.getBoolean(Settings.PREF_VIBRATE_ON, false))
-                prefsEditor.putString(PREF_VIBRATION_TYPE,
-                    mPrefs.getInt(Settings.PREF_VIBRATION_DURATION_SETTINGS, Defaults.PREF_VIBRATION_DURATION_SETTINGS) == -1
-                        ? "system"
-                        : "custom");
-            else
-                prefsEditor.putString(PREF_VIBRATION_TYPE, "off");
-            prefsEditor.remove(Settings.PREF_VIBRATE_ON);
-        }
-        prefsEditor.apply();
     }
 
     public void onDestroy() {
@@ -318,10 +302,10 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
         return res.getInteger(R.integer.config_screen_metrics);
     }
 
-    public static String readVibrationType(final SharedPreferences prefs) {
+    public static AudioAndHapticFeedbackManager.VibrationType readVibrationType(final SharedPreferences prefs) {
         return AudioAndHapticFeedbackManager.getInstance().hasVibrator()
-            ? prefs.getString(PREF_VIBRATION_TYPE, Defaults.PREF_VIBRATION_TYPE)
-            : "off";
+            ? AudioAndHapticFeedbackManager.VibrationType.fromString(prefs.getString(PREF_VIBRATION_TYPE, Defaults.PREF_VIBRATION_TYPE))
+            : AudioAndHapticFeedbackManager.VibrationType.OFF;
     }
 
     public void toggleAutoCorrect() {

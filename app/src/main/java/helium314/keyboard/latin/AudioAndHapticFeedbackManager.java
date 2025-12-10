@@ -41,6 +41,30 @@ public final class AudioAndHapticFeedbackManager {
         return sInstance;
     }
 
+    public enum VibrationType {
+        OFF("off"),
+        SYSTEM("system"),
+        CUSTOM("custom");
+
+        private final String value;
+
+        VibrationType(String value) {
+            this.value = value;
+        }
+
+        public String getValue() {
+            return value;
+        }
+
+        public static VibrationType fromString(String value) {
+            try {
+                return VibrationType.valueOf(value.toUpperCase());
+            } catch (IllegalArgumentException e) {
+                return VibrationType.OFF;
+            }
+        }
+    };
+
     private AudioAndHapticFeedbackManager() {
         // Intentional empty constructor for singleton.
     }
@@ -112,9 +136,9 @@ public final class AudioAndHapticFeedbackManager {
             // Avoid surprises with the handling of HapticFeedbackConstants.NO_HAPTICS
             return;
         }
-        if (mSettingsValues.mVibrationType.equals("custom") && hapticEvent.allowCustomDuration) {
+        if (mSettingsValues.mVibrationType == VibrationType.CUSTOM && hapticEvent.allowCustomDuration) {
             vibrate(mSettingsValues.mKeypressVibrationDuration, mSettingsValues.mKeypressVibrationAmplitude);
-        } else if (!mSettingsValues.mVibrationType.equals("off") && viewToPerformHapticFeedbackOn != null) {
+        } else if (mSettingsValues.mVibrationType != VibrationType.OFF && viewToPerformHapticFeedbackOn != null) {
             viewToPerformHapticFeedbackOn.performHapticFeedback(
                 hapticEvent.feedbackConstant,
                 HapticFeedbackConstants.FLAG_IGNORE_GLOBAL_SETTING);

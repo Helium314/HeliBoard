@@ -21,6 +21,7 @@ import androidx.core.util.TypedValueCompat;
 import helium314.keyboard.compat.ConfigurationCompatKt;
 import helium314.keyboard.keyboard.KeyboardTheme;
 import helium314.keyboard.keyboard.internal.keyboard_parser.LocaleKeyboardInfosKt;
+import helium314.keyboard.latin.AudioAndHapticFeedbackManager;
 import helium314.keyboard.latin.InputAttributes;
 import helium314.keyboard.latin.R;
 import helium314.keyboard.latin.RichInputMethodManager;
@@ -51,7 +52,7 @@ public class SettingsValues {
     public final int mDisplayOrientation;
     // From preferences
     public final boolean mAutoCap;
-    public final String mVibrationType;
+    public final AudioAndHapticFeedbackManager.VibrationType mVibrationType;
     public final boolean mVibrateInDndMode;
     public final boolean mSoundOn;
     public final boolean mSuggestEmojis;
