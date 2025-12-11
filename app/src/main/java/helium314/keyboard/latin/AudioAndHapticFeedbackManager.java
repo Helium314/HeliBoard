@@ -55,15 +55,7 @@ public final class AudioAndHapticFeedbackManager {
         public String getValue() {
             return value;
         }
-
-        public static VibrationType fromString(String value) {
-            try {
-                return VibrationType.valueOf(value.toUpperCase());
-            } catch (IllegalArgumentException e) {
-                return VibrationType.OFF;
-            }
-        }
-    };
+    }
 
     private AudioAndHapticFeedbackManager() {
         // Intentional empty constructor for singleton.
