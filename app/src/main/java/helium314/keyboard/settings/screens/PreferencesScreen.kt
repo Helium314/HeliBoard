@@ -121,9 +121,9 @@ fun createPreferencesSettings(context: Context) = listOf(
         ListPreference(
             it,
             listOf(
-                stringResource(R.string.prefs_keypress_vibration_mode_off) to AudioAndHapticFeedbackManager.VibrationType.OFF.value,
-                stringResource(R.string.prefs_keypress_vibration_mode_system) to AudioAndHapticFeedbackManager.VibrationType.SYSTEM.value,
-                stringResource(R.string.prefs_keypress_vibration_mode_custom) to AudioAndHapticFeedbackManager.VibrationType.CUSTOM.value,
+                stringResource(R.string.prefs_keypress_vibration_mode_off) to AudioAndHapticFeedbackManager.VibrationType.OFF.toString(),
+                stringResource(R.string.prefs_keypress_vibration_mode_system) to AudioAndHapticFeedbackManager.VibrationType.SYSTEM.toString(),
+                stringResource(R.string.prefs_keypress_vibration_mode_custom) to AudioAndHapticFeedbackManager.VibrationType.CUSTOM.toString(),
             ),
             Defaults.PREF_VIBRATION_TYPE
         )

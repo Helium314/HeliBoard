@@ -603,12 +603,12 @@ object AppUpgrade {
             prefs.edit {
                 if (prefs.getBoolean(Settings.PREF_VIBRATE_ON, false))
                     if (prefs.getInt(Settings.PREF_VIBRATION_DURATION_SETTINGS, Defaults.PREF_VIBRATION_DURATION_SETTINGS) == -1) {
-                        putString(Settings.PREF_VIBRATION_TYPE, AudioAndHapticFeedbackManager.VibrationType.SYSTEM.value)
+                        putString(Settings.PREF_VIBRATION_TYPE, AudioAndHapticFeedbackManager.VibrationType.SYSTEM.toString())
                         putInt(Settings.PREF_VIBRATION_DURATION_SETTINGS, Defaults.PREF_VIBRATION_DURATION_SETTINGS)
                     }
                     else
-                        putString(Settings.PREF_VIBRATION_TYPE, AudioAndHapticFeedbackManager.VibrationType.CUSTOM.value)
-                else putString(Settings.PREF_VIBRATION_TYPE, AudioAndHapticFeedbackManager.VibrationType.OFF.value)
+                        putString(Settings.PREF_VIBRATION_TYPE, AudioAndHapticFeedbackManager.VibrationType.CUSTOM.toString())
+                else putString(Settings.PREF_VIBRATION_TYPE, AudioAndHapticFeedbackManager.VibrationType.OFF.toString())
                 remove(Settings.PREF_VIBRATE_ON)
             }
         }

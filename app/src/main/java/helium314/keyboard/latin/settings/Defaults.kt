@@ -53,7 +53,7 @@ object Defaults {
     const val PREF_TOOLBAR_CUSTOM_KEY_CODES = ""
     const val PREF_AUTO_CAP = true
     @JvmField
-    val PREF_VIBRATION_TYPE: String = AudioAndHapticFeedbackManager.VibrationType.OFF.value
+    val PREF_VIBRATION_TYPE: String = AudioAndHapticFeedbackManager.VibrationType.OFF.toString()
     const val PREF_VIBRATE_IN_DND_MODE = false
     const val PREF_SOUND_ON = false
     const val PREF_SUGGEST_EMOJIS = true

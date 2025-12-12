@@ -42,19 +42,9 @@ public final class AudioAndHapticFeedbackManager {
     }
 
     public enum VibrationType {
-        OFF("off"),
-        SYSTEM("system"),
-        CUSTOM("custom");
-
-        private final String value;
-
-        VibrationType(String value) {
-            this.value = value;
-        }
-
-        public String getValue() {
-            return value;
-        }
+        OFF,
+        SYSTEM,
+        CUSTOM;
     }
 
     private AudioAndHapticFeedbackManager() {

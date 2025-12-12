@@ -305,7 +305,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static AudioAndHapticFeedbackManager.VibrationType readVibrationType(final SharedPreferences prefs) {
         return AudioAndHapticFeedbackManager.getInstance().hasVibrator()
             ? AudioAndHapticFeedbackManager.VibrationType.valueOf(
-                prefs.getString(PREF_VIBRATION_TYPE, Defaults.PREF_VIBRATION_TYPE).toUpperCase())
+                prefs.getString(PREF_VIBRATION_TYPE, Defaults.PREF_VIBRATION_TYPE))
             : AudioAndHapticFeedbackManager.VibrationType.OFF;
     }
 
