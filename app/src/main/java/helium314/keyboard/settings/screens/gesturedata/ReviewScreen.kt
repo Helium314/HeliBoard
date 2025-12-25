@@ -2,6 +2,7 @@
 package helium314.keyboard.settings.screens.gesturedata
 
 // not actually on use, unfinished
+// will be continued when implementing passive data gathering
 /*
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.combinedClickable
@@ -73,6 +74,9 @@ import helium314.keyboard.settings.previewDark
 import kotlinx.coroutines.launch
 import java.text.DateFormat
 import java.util.Date
+
+// functionality for gesture data gathering as part of the NLNet Project https://nlnet.nl/project/GestureTyping/
+// will be removed once the project is finished
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

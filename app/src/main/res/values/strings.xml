@@ -913,43 +913,61 @@ New dictionary:
     <string name="custom_subtype">Custom subtype</string>
     <!-- Name for landscape orientation, used in various settings -->
     <string name="landscape">Landscape</string>
-    <!-- Title for screen to provide gesture data for library development todo: nicer name? -->
+
+    <!-- Title for screen to provide gesture data for library development todo: nicer name?
+     string will probably be removed once data gathering is finished (end of 2026 latest) -->
     <string name="gesture_data_screen">Gesture data</string>
     <!-- Descriptive text about the gesture data screen
     todo: make it nice, and clarify whether data will be public, and if so (I think yes) what it will look like
-     -->
+    string will probably be removed once data gathering is finished (end of 2026 latest) -->
     <string name="gesture_data_description">Tell the user why this screen exists, what they can do, ...</string>
-    <!-- Button for getting the data file -->
+    <!-- Button for getting the data file
+     string will probably be removed once data gathering is finished (end of 2026 latest) -->
     <string name="gesture_data_get_data">Get gesture data file</string>
-    <!-- Button for deleting the data file -->
+    <!-- Button for deleting the data file
+     string will probably be removed once data gathering is finished (end of 2026 latest) -->
     <string name="gesture_data_delete_data">Clear gesture data</string>
-    <!-- Button for sending the data file via mail -->
+    <!-- Button for sending the data file via mail
+     string will probably be removed once data gathering is finished (end of 2026 latest) -->
     <string name="gesture_data_send_mail">Send data via mail</string>
-    <!-- Button for copying the target mail address -->
+    <!-- Button for copying the target mail address
+     string will probably be removed once data gathering is finished (end of 2026 latest) -->
     <string name="gesture_data_copy_mail">Copy mail address</string>
-    <!-- Text requesting the user to gesture a word -->
+    <!-- Text requesting the user to gesture a word
+     string will probably be removed once data gathering is finished (end of 2026 latest) -->
     <string name="gesture_data_please_type">Please gesture type:</string>
-    <!-- Button for saving data and go to next word (now only shows up when the word is not in suggestions -->
+    <!-- Button for saving data and go to next word (now only shows up when the word is not in suggestions
+     string will probably be removed once data gathering is finished (end of 2026 latest) -->
     <string name="gesture_data_next_save">Got \"%s\". Click if you\'re sure you gestured correctly</string>
-    <!-- Button for next word without saving data -->
+    <!-- Button for next word without saving data
+     string will probably be removed once data gathering is finished (end of 2026 latest) -->
     <string name="gesture_data_next">Skip word</string>
-    <!-- Text stating how many words were written using active data gathering -->
+    <!-- Text stating how many words were written using active data gathering
+     string will probably be removed once data gathering is finished (end of 2026 latest) -->
     <string name="gesture_data_active_count">%1$s words in this session, %2$s words total</string>
-    <!-- Title for the screen to review and submit gesture data -->
+    <!-- Title for the screen to review and submit gesture data
+     string will probably be removed once data gathering is finished (end of 2026 latest) -->
     <string name="gesture_data_review_screen_title">Review &amp; share gesture data</string>
-    <!-- Short text on how many words are selected -->
+    <!-- Short text on how many words are selected
+     string will probably be removed once data gathering is finished (end of 2026 latest) -->
     <string name="gesture_data_words_selected">%s words</string>
-    <!-- Short title for date range display -->
+    <!-- Short title for date range display
+     string will probably be removed once data gathering is finished (end of 2026 latest) -->
     <string name="gesture_data_date_range">Date range</string>
-    <!-- Text offering deletion after exporting data -->
+    <!-- Text offering deletion after exporting data
+     string will probably be removed once data gathering is finished (end of 2026 latest) -->
     <!-- todo: consistent and clear naming for export / share / submit (and others) -->
     <string name="gesture_data_delete_exported">Delete the exported data (make sure the data is submitted!)</string>
-    <!-- Text displayed when the user has more than 10000 gestures waiting for export -->
+    <!-- Text displayed when the user has more than 10000 gestures waiting for export
+     string will probably be removed once data gathering is finished (end of 2026 latest) -->
     <string name="gesture_data_much_data">You have a lot of unsubmitted data. Please submit and then remove the old data.</string>
-    <!-- Explanatory text about active gesture data gathering -->
+    <!-- Explanatory text about active gesture data gathering
+     string will probably be removed once data gathering is finished (end of 2026 latest) -->
     <string name="gesture_data_active_description">active gathering description</string>
-    <!-- Text for starting active gesture data gathering -->
+    <!-- Text for starting active gesture data gathering
+     string will probably be removed once data gathering is finished (end of 2026 latest) -->
     <string name="gesture_data_active_start">start active gathering</string>
-    <!-- Text for stopping active gesture data gathering -->
+    <!-- Text for stopping active gesture data gathering
+     string will probably be removed once data gathering is finished (end of 2026 latest) -->
     <string name="gesture_data_active_stop">stop active gathering</string>
 </resources>

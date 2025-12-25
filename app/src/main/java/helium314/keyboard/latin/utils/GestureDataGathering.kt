@@ -23,6 +23,9 @@ import helium314.keyboard.latin.settings.Settings
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
 
+// functionality for gesture data gathering as part of the NLNet Project https://nlnet.nl/project/GestureTyping/
+// will be removed once the project is finished
+
 fun isInActiveGatheringMode(editorInfo: EditorInfo) =
     dictTestImeOption == editorInfo.privateImeOptions && gestureDataActiveFacilitator != null
 

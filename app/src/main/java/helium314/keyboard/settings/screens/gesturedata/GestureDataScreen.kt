@@ -112,6 +112,9 @@ import java.util.Locale
 import kotlin.collections.plus
 import kotlin.random.Random
 
+// functionality for gesture data gathering as part of the NLNet Project https://nlnet.nl/project/GestureTyping/
+// will be removed once the project is finished
+
 // todo: string resources
 // todo: better behavior + text at / near the end of gathering phase
 // todo: write the proper texts / info dialogs to explain what's going on and privacy infos

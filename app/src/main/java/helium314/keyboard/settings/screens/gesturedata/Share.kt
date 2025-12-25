@@ -43,6 +43,9 @@ import java.util.Locale
 import java.util.zip.ZipEntry
 import java.util.zip.ZipOutputStream
 
+// functionality for gesture data gathering as part of the NLNet Project https://nlnet.nl/project/GestureTyping/
+// will be removed once the project is finished
+
 // todo: nicer looking buttons
 @Composable
 fun ShareGestureData(ids: List<Long>) { // should we really use null here? from where this is called we have all ids anyway
