@@ -87,7 +87,6 @@
     <string name="settings">Настройки</string>
     <string name="delete">Удалить</string>
     <string name="version_text">Версия %s</string>
-    <string name="user_dict_settings_add_dialog_title">Добавление в словарь</string>
     <string name="user_dict_settings_add_shortcut_option_name">"Быстрые клавиши:"</string>
     <string name="user_dict_settings_add_locale_option_name">"Язык:"</string>
     <string name="user_dict_settings_add_word_hint">Введите слово</string>
@@ -95,7 +94,6 @@
     <string name="user_dict_settings_edit_dialog_title">Изменение слова</string>
     <string name="user_dict_settings_all_languages">Для всех языков</string>
     <string name="user_dict_settings_more_languages">Другие языки…</string>
-    <string name="user_dict_fast_scroll_alphabet">" АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ"</string>
     <string name="number_row">Ряд с цифрами</string>
     <string name="number_row_summary">Всегда показывать ряд с цифрами</string>
     <string name="show_hints">Показывать дополнительные символы</string>
@@ -154,9 +152,7 @@
     <string name="theme_name_darker">Серая</string>
     <string name="theme_name_black">Чёрная</string>
     <string name="theme_name_user">Пользовательская</string>
-    <string name="theme_name_user_night">Пользовательская (тёмная тема)</string>
     <string name="auto_user_color">Автоматический выбор цвета</string>
-    <string name="select_user_colors_summary">Выберите цвета для текста и фона</string>
     <string name="select_color_background">Фон клавиатуры</string>
     <string name="select_color_key">Текст клавиш</string>
     <string name="select_color_key_hint">Текст спецсимволов клавиш</string>
@@ -444,4 +440,6 @@
     <string name="subtype_mhr">Луговомарийский (Лугововосточный марийский)</string>
     <string name="layout_emoji_bottom_row_with_action" tools:keep="@string/layout_emoji_bottom_row_with_action">Нижний ряд эмодзи с кнопкой действия</string>
     <string name="layout_clip_bottom_row_with_action" tools:keep="@string/layout_clip_bottom_row_with_action">Панель буфера обмена внизу с кнопкой действия</string>
+    <string name="number_row_in_symbols">Показывать ряд цифр в режиме символов</string>
+    <string name="custom_emoji_font">Указать пользовательский шрифт эмодзи из файла</string>
 </resources>

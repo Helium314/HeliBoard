@@ -84,7 +84,6 @@
     <string name="settings">"إعدادات"</string>
     <string name="delete">احذف</string>
     <string name="version_text">الإصدار %s</string>
-    <string name="user_dict_settings_add_dialog_title">أضف إلى القاموس</string>
     <string name="user_dict_settings_add_shortcut_option_name">"الاختصار:"</string>
     <string name="user_dict_settings_add_locale_option_name">"اللغة:"</string>
     <string name="user_dict_settings_add_word_hint">"اكتب كلمة"</string>
@@ -92,7 +91,6 @@
     <string name="user_dict_settings_edit_dialog_title">"تعديل كلمة"</string>
     <string name="user_dict_settings_all_languages">"لجميع اللغات"</string>
     <string name="user_dict_settings_more_languages">"مزيد من اللغات…"</string>
-    <string name="user_dict_fast_scroll_alphabet">" أ ب ت ث ج ح خ د ذ ر ز س ش ص ض ط ظ ع غ ف ق ك ل م ن ه و ي"</string>
     <string name="show_emoji_key">مفتاح الرموز التعبيرية</string>
     <string name="settings_no_limit">بلا حدود</string>
     <string name="ime_settings">إعدادات HeliBoard</string>
@@ -276,7 +274,6 @@
     <string name="select_color_functional_key_background">الخلفية الرئيسية الوظيفية</string>
     <string name="select_color_suggestion">نص شريط الاقتراح</string>
     <string name="main_colors">أظهِر الألوان الرئيسية فقط</string>
-    <string name="theme_name_user_night" tools:keep="@string/theme_name_user_night">محدد من قبل المستخدم (ليلا)</string>
     <string name="theme_name_violette" tools:keep="@string/theme_name_violette">البنفسج</string>
     <string name="theme_name_chocolate" tools:keep="@string/theme_name_chocolate">شوكولاتة</string>
     <string name="theme_name_holo_white" tools:keep="@string/theme_name_holo_white">هولو الأبيض</string>
@@ -295,7 +292,6 @@
     <string name="gnu_gpl">رخصة جنو العامة v3.0</string>
     <string name="user_dict_word_already_present">هذه الكلمة موجودة بالفعل في قاموس المستخدم %s. الرجاء كتابة واحدة أخرى.</string>
     <string name="localized_number_row_summary">تفضيل المحلية على الأرقام اللاتينية</string>
-    <string name="select_user_colors_summary">حدد الألوان للنص والخلفيات</string>
     <string name="no_dictionary_message">"بدون قاموس، ستحصل فقط على اقتراحات للنص الذي أدخلته من قبل.&lt;br&gt;\n         يمكنك تنزيل القواميس %1$s، أو التحقق مما إذا كان يمكن تنزيل قاموس لـ \"%2$s\" مباشرةً %3$s."</string>
     <string name="subtype_probhat_bn_BD">%s (بروبهات)</string>
     <string name="subtype_generic_sebeolsik_390">%s (سيبولسيك 390)</string>
@@ -453,4 +449,6 @@
     <string name="subtype_mhr">ماري (شرقي)</string>
     <string name="layout_clip_bottom_row_with_action" tools:keep="@string/layout_clip_bottom_row_with_action">الصف السفلي للحافظة مع مفتاح الإجراء</string>
     <string name="layout_emoji_bottom_row_with_action" tools:keep="@string/layout_emoji_bottom_row_with_action">صف الرموز التعبيرية السفلي مع مفتاح الإجراء</string>
+    <string name="custom_emoji_font">عيِّن خط رموز التعبيرية مخصّص من ملف</string>
+    <string name="number_row_in_symbols">أظهر صف الأرقام في عرض الرموز</string>
 </resources>

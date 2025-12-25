@@ -153,7 +153,6 @@
     <string name="settings">সেটিংস</string>
     <string name="delete">বিলোপ করুন</string>
     <string name="version_text">সংস্করণ %s</string>
-    <string name="user_dict_settings_add_dialog_title">অভিধানে যোগ</string>
     <string name="user_dict_settings_add_shortcut_option_name">শর্টকাট:</string>
     <string name="user_dict_settings_add_locale_option_name">ভাষা:</string>
     <string name="user_dict_settings_add_word_hint">শব্দ টাইপ করুন</string>
@@ -161,7 +160,6 @@
     <string name="user_dict_settings_edit_dialog_title">শব্দ সম্পাদনা</string>
     <string name="user_dict_settings_all_languages">সব ভাষার জন্য</string>
     <string name="user_dict_settings_more_languages">আরও ভাষা…</string>
-    <string name="user_dict_fast_scroll_alphabet">\u0020অআইঈউঊঋএঐওঔংঃকখগঘঙচছজঝঞটঠডঢণতথদধনপফবভমযরলশষসহ</string>
     <string name="theme_style">শৈলী</string>
     <string name="theme_colors">রং</string>
     <string name="theme_colors_night">রং (অন্ধকার)</string>
@@ -175,9 +173,7 @@
     <string name="theme_name_darker">বেশি নিষ্প্রভ</string>
     <string name="theme_name_black">কালো</string>
     <string name="theme_name_user">ব্যবহারকারী নির্ধারিত</string>
-    <string name="theme_name_user_night">ব্যবহারকারী নির্ধারিত (অন্ধকার)</string>
     <string name="auto_user_color">স্বয়ংক্রিয় রং নির্বাচন</string>
-    <string name="select_user_colors_summary">লেখা এবং পটভূমির জন্য রং নির্বাচন</string>
     <string name="select_color_background">কিবোর্ডের পটভূমি</string>
     <string name="select_color_key">বোতামের লেখা</string>
     <string name="select_color_key_hint">বোতামের ইঙ্গিতের লেখা</string>
@@ -445,4 +441,6 @@
     <string name="subtype_mhr">মারি (পূর্ব)</string>
     <string name="layout_emoji_bottom_row_with_action" tools:keep="@string/layout_emoji_bottom_row_with_action">অ্যাকশন বোতামসহ ইমোজির নিম্ন সারি</string>
     <string name="layout_clip_bottom_row_with_action" tools:keep="@string/layout_clip_bottom_row_with_action">অ্যাকশন বোতামসহ ক্লিপবোর্ডের নিম্ন সারি</string>
+    <string name="number_row_in_symbols">প্রতীক দর্শনে নম্বর সারি প্রদর্শন</string>
+    <string name="custom_emoji_font">ফাইল থেকে নিজস্বীকৃত ইমোজি ফন্ট নির্ধারণ</string>
 </resources>

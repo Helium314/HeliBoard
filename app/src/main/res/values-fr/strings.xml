@@ -124,7 +124,6 @@ Nouveau dictionnaire:
     <string name="dictionary_available">Dictionnaires disponibles</string>
     <string name="delete">"Supprimer"</string>
     <string name="version_text">Version %s</string>
-    <string name="user_dict_settings_add_dialog_title">"Ajouter au dictionnaire"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"Raccourci :"</string>
     <string name="user_dict_settings_add_weight_value">Poids :</string>
     <string name="user_dict_settings_add_locale_option_name">"Langue :"</string>
@@ -133,7 +132,6 @@ Nouveau dictionnaire:
     <string name="user_dict_settings_edit_dialog_title">"Modifier le mot"</string>
     <string name="user_dict_settings_all_languages">"Pour toutes les langues"</string>
     <string name="user_dict_settings_more_languages">"Plus de langues…"</string>
-    <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
     <string name="user_dict_word_already_present">Ce mot est déjà présent dans le dictionnaire utilisateur %s. Veuillez en saisir un autre.</string>
     <string name="user_dict_add_word_button">Ajouter un mot</string>
     <string name="spell_checker_service_name">Correcteur orthographique HeliBoard</string>
@@ -215,11 +213,9 @@ Nouveau dictionnaire:
     <string name="theme_name_sand">Sable</string>
     <string name="theme_name_violette">Violette</string>
     <string name="theme_name_user">Personnalisé</string>
-    <string name="theme_name_user_night">Personnalisé (mode nuit)</string>
     <string name="auto_user_color">Choix automatique de la couleur</string>
     <string name="main_colors">Afficher les couleurs principales</string>
     <string name="all_colors">Afficher toutes les couleurs</string>
-    <string name="select_user_colors_summary">Sélection des couleurs du texte et de l\'arrière-plan</string>
     <string name="select_color_background">Arrière-plan du clavier</string>
     <string name="select_color_key">Texte des touches</string>
     <string name="select_color_key_hint">Indice des touches</string>
@@ -450,4 +446,6 @@ Nouveau dictionnaire:
     <string name="subtype_mhr">Mari (Eastern)</string>
     <string name="layout_emoji_bottom_row_with_action" tools:keep="@string/layout_emoji_bottom_row_with_action">Rangée inférieure (emoji) avec touche d\'action</string>
     <string name="layout_clip_bottom_row_with_action" tools:keep="@string/layout_clip_bottom_row_with_action">Rangée inférieure du presse-papiers avec touche d\'action</string>
+    <string name="number_row_in_symbols">Afficher la ligne numérique en mode symboles</string>
+    <string name="custom_emoji_font">Définir une police d\'emoji personnalisée à partir d\'un fichier</string>
 </resources>
