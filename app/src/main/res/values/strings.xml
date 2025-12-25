@@ -954,10 +954,6 @@ New dictionary:
     <!-- Short title for date range display
      string will probably be removed once data gathering is finished (end of 2026 latest) -->
     <string name="gesture_data_date_range">Date range</string>
-    <!-- Text offering deletion after exporting data
-     string will probably be removed once data gathering is finished (end of 2026 latest) -->
-    <!-- todo: consistent and clear naming for export / share / submit (and others) -->
-    <string name="gesture_data_delete_exported">Delete the exported data (make sure the data is submitted!)</string>
     <!-- Text displayed when the user has more than 10000 gestures waiting for export
      string will probably be removed once data gathering is finished (end of 2026 latest) -->
     <string name="gesture_data_much_data">You have a lot of unsubmitted data. Please submit and then remove the old data.</string>
@@ -970,4 +966,30 @@ New dictionary:
     <!-- Text for stopping active gesture data gathering
      string will probably be removed once data gathering is finished (end of 2026 latest) -->
     <string name="gesture_data_active_stop">stop active gathering</string>
+    <!-- Message informing the user about coming end of data gathering (shown 2 weeks in advance)
+     string will probably be removed once data gathering is finished (end of 2026 latest) -->
+    <string name="gesture_data_ends_at">Gesture data gathering phase will end at %s. Please submit your data before that date.</string>
+    <!-- Message informing the user that gesture data gathering is over
+     string will probably be removed once data gathering is finished (end of 2026 latest) -->
+    <string name="gesture_data_ended">Gesture data gathering phase ended at %s. You can export your data, but not add anything new.</string>
+    <!-- Short text for exporting all available words
+     string will probably be removed once data gathering is finished (end of 2026 latest) -->
+    <string name="gesture_data_export_all">Share all</string>
+    <!-- Short text for exporting only words that were not exported previously
+     string will probably be removed once data gathering is finished (end of 2026 latest) -->
+    <string name="gesture_data_export_new">Share not previously exported</string>
+    <!-- Text for delete dialog, offering delete all / exported / cancel options
+     string will probably be removed once data gathering is finished (end of 2026 latest) -->
+    <!-- todo: consistent and clear naming for word vs gesture (because user may get the same word multiple times) -->
+    <!-- todo: consistent and clear naming for export / share / submit (and others) -->
+    <string name="gesture_data_delete_dialog">You have data for %1$s new and %2$s already exported words.</string>
+    <!-- Short text for delete all button
+     string will probably be removed once data gathering is finished (end of 2026 latest) -->
+    <string name="gesture_data_delete_dialog_all">Delete all</string>
+    <!-- Delete confirmation message
+     string will probably be removed once data gathering is finished (end of 2026 latest) -->
+    <string name="gesture_data_delete_dialog_confirm">Are you sure? This will delete %s words. Make sure your exported words are submitted!</string>
+    <!-- Short text for delete all button
+     string will probably be removed once data gathering is finished (end of 2026 latest) -->
+    <string name="gesture_data_delete_dialog_exported">Delete exported</string>
 </resources>

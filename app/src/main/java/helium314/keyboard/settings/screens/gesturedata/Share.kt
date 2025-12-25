@@ -31,6 +31,7 @@ import helium314.keyboard.latin.BuildConfig
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.utils.GestureDataDao
 import helium314.keyboard.latin.utils.getActivity
+import helium314.keyboard.settings.dialogs.ConfirmationDialog
 import helium314.keyboard.settings.filePicker
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -102,10 +103,20 @@ fun ShareGestureData(ids: List<Long>) { // should we really use null here? from 
     }
 
     // this deletes the data in the dialog, but we should also have a way of deleting previously exported data
+    var confirmDelete by remember { mutableStateOf(false) }
     if (showDelete)
-        TextButton({ dao.delete(ids, true, ctx) }, enabled = hasData) {
-            Text(stringResource(R.string.gesture_data_delete_exported))
+        TextButton({ confirmDelete = true }, enabled = hasData) {
+            Text(stringResource(R.string.gesture_data_delete_dialog_exported))
     }
+    if (confirmDelete)
+        ConfirmationDialog(
+            onDismissRequest = { confirmDelete = false },
+            onConfirmed = { dao.delete(ids, true, ctx) },
+            content = {
+                Text(stringResource(R.string.delete_confirmation, ids.size))
+            }
+        )
+
 }
 
 private val getDataIntent = Intent(Intent.ACTION_CREATE_DOCUMENT)
@@ -259,5 +270,5 @@ private var gestureIdsBeingExported: List<Long>? = null
 
 private var zippedDataPath = "" // set after writing the file
 
-private const val MAIL_SUBJECT = "Heliboard ${BuildConfig.VERSION_NAME} gesture data"
+private const val MAIL_SUBJECT = "HeliBoard ${BuildConfig.VERSION_NAME} gesture data"
 private const val MAIL_TEXT = "here is gesture data"

@@ -115,7 +115,6 @@ import kotlin.random.Random
 // functionality for gesture data gathering as part of the NLNet Project https://nlnet.nl/project/GestureTyping/
 // will be removed once the project is finished
 
-// todo: string resources
 // todo: better behavior + text at / near the end of gathering phase
 // todo: write the proper texts / info dialogs to explain what's going on and privacy infos
 // todo: we need a mail address and a gpg key
@@ -173,7 +172,7 @@ fun GestureDataScreen(
             showEndDialog = false
         val endDate = DateFormat.getDateInstance(DateFormat.MEDIUM).format(Date(END_DATE_EPOCH_MILLIS))
         if (System.currentTimeMillis() > END_DATE_EPOCH_MILLIS) {
-            val message = "gesture data gathering phase ended at $endDate. You can export remaining data, but not add anything new"
+            val message = stringResource(R.string.gesture_data_ended, endDate)
             val infos = dao.filterInfos()
             ThreeButtonAlertDialog(
                 onDismissRequest = onClickBack,
@@ -189,7 +188,7 @@ fun GestureDataScreen(
                 confirmButtonText = null
             )
         } else {
-            val message = "gesture data gathering phase will end at $endDate, please make sure to submit your data before that time"
+            val message = stringResource(R.string.gesture_data_ends_at, endDate)
             InfoDialog(message) { showEndDialog = false }
         }
 
@@ -382,7 +381,7 @@ fun GestureDataScreen(
             }) {
                 Text(stringResource(if (activeGathering) R.string.gesture_data_active_stop else R.string.gesture_data_active_start))
             }
-            if (activeGathering) { // AnimatedVisibility results in buggy UI -> try again with newer Compose version
+            if (activeGathering) { // AnimatedVisibility results in buggy UI, todo: try again with newer Compose version (alredy available)
                 useActiveGathering()
             }
             Spacer(Modifier.height(12.dp))
@@ -468,10 +467,10 @@ private fun BottomBar(hasWords: Boolean) {
                 if (shareAll == null) {
                     Column {
                         TextButton({ shareAll = true }) {
-                            Text("share all") // todo
+                            Text(stringResource(R.string.gesture_data_export_all))
                         }
                         TextButton({ shareAll = false }) {
-                            Text("share non-exported") // todo
+                            Text(stringResource(R.string.gesture_data_export_new))
                         }
                     }
                 } else {
@@ -492,13 +491,13 @@ private fun BottomBar(hasWords: Boolean) {
         ThreeButtonAlertDialog(
             onDismissRequest = { showDeleteDialog = false },
             content = {
-                Text("you have $nonExportedCount not exported words and, $exportedCount exported") // todo
+                Text(stringResource(R.string.gesture_data_delete_dialog, nonExportedCount, exportedCount))
             },
             cancelButtonText = stringResource(R.string.dialog_close),
             onConfirmed = { showConfirmDialog = "exported" },
-            confirmButtonText = "delete exported", // todo
+            confirmButtonText = stringResource(R.string.gesture_data_delete_dialog_all),
             onNeutral = { showConfirmDialog = "all" },
-            neutralButtonText = "delete all" // todo
+            neutralButtonText = stringResource(R.string.gesture_data_delete_dialog_exported),
         )
         if (showConfirmDialog != null) {
             val ctx = LocalContext.current
@@ -508,8 +507,11 @@ private fun BottomBar(hasWords: Boolean) {
                     val ids = dao.filterInfos(activeMode = true).map { it.id }
                     dao.delete(ids, showConfirmDialog != "all", ctx)
                 },
-                content = { // todo
-                    Text("are you sure? will delete ${if (showConfirmDialog == "all") (exportedCount + nonExportedCount) else exportedCount} words")
+                content = {
+                    Text(stringResource(
+                        R.string.delete_confirmation,
+                        if (showConfirmDialog == "all") (exportedCount + nonExportedCount) else exportedCount
+                    ))
                 }
             )
         }
