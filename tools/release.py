@@ -113,7 +113,7 @@ def check_changelog():
         print("changelog for", version, "does not exist")
 
 
-# this is for active data gathering for gesture typing
+# this is for active data gathering for gesture typing, remove when data gathering phase is done (end of 2026 latest)
 def update_dict_hashes():
     # assumes the dictionaries repository is in the folder below
     dicts_dir = "../dictionaries"

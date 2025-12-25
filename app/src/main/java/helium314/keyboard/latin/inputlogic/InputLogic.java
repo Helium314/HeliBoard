@@ -87,10 +87,10 @@ public final class InputLogic {
     private int mSpaceState;
     // Never null
     public SuggestedWords mSuggestedWords = SuggestedWords.getEmptyInstance();
-    public Suggest mSuggest; // non-final for active gesture data gathering, revert when not needed any more
-    public DictionaryFacilitator mDictionaryFacilitator; // non-final for active gesture data gathering, revert when not needed any more
+    public Suggest mSuggest; // non-final for active gesture data gathering, revert when data gathering phase is done (end of 2026 latest)
+    public DictionaryFacilitator mDictionaryFacilitator; // non-final for active gesture data gathering, revert when data gathering phase is done (end of 2026 latest)
     private SingleDictionaryFacilitator mEmojiDictionaryFacilitator;
-    public void setFacilitator(DictionaryFacilitator facilitator) { // only for active gesture data gathering, revert when not needed any more
+    public void setFacilitator(DictionaryFacilitator facilitator) { // only for active gesture data gathering, remove when data gathering phase is done (end of 2026 latest)
         if (mDictionaryFacilitator == facilitator) return;
         mDictionaryFacilitator = facilitator;
         mSuggest = new Suggest(mDictionaryFacilitator);

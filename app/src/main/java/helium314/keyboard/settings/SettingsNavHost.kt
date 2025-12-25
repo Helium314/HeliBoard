@@ -150,8 +150,8 @@ object SettingsDestination {
     const val Preferences = "preferences"
     const val Toolbar = "toolbar"
     const val GestureTyping = "gesture_typing"
-    const val DataGathering = "data_gathering"
-    const val DataReview = "data_review"
+    const val DataGathering = "data_gathering" // remove when data gathering phase is done (end of 2026 latest)
+    const val DataReview = "data_review" // remove when data gathering phase is done (end of 2026 latest)
     const val Advanced = "advanced"
     const val Debug = "debug"
     const val Appearance = "appearance"
