@@ -618,8 +618,8 @@ private fun <T> List<Pair<T, Int>>.searchFirstExceedingScore(scoreToExceed: Int,
     return null
 }
 
-private const val END_DATE_EPOCH_MILLIS = 1772321496000L // Feb 28th 2026, todo: replace with some real end date
-private const val TWO_WEEKS_IN_MILLIS = 14L * 24 * 3600 * 1000
+const val END_DATE_EPOCH_MILLIS = 1772321496000L // Feb 28th 2026, todo: replace with some real end date
+const val TWO_WEEKS_IN_MILLIS = 14L * 24 * 3600 * 1000
 
 @Preview
 @Composable

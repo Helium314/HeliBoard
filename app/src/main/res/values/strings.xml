@@ -914,13 +914,16 @@ New dictionary:
     <!-- Name for landscape orientation, used in various settings -->
     <string name="landscape">Landscape</string>
 
-    <!-- Title for screen to provide gesture data for library development todo: nicer name?
+    <!-- Title for screen to provide gesture data for library development
      string will probably be removed once data gathering is finished (end of 2026 latest) -->
-    <string name="gesture_data_screen">Gesture data</string>
+    <string name="gesture_data_screen">Gesture data gathering</string>
     <!-- Descriptive text about the gesture data screen
     todo: make it nice, and clarify whether data will be public, and if so (I think yes) what it will look like
     string will probably be removed once data gathering is finished (end of 2026 latest) -->
-    <string name="gesture_data_description">Tell the user why this screen exists, what they can do, ...</string>
+    <string name="gesture_data_description">
+        Tell the user why this screen exists, what they can do, ...
+        
+    </string>
     <!-- Button for getting the data file
      string will probably be removed once data gathering is finished (end of 2026 latest) -->
     <string name="gesture_data_get_data">Get gesture data file</string>

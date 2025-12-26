@@ -26,6 +26,9 @@ import helium314.keyboard.settings.Theme
 import helium314.keyboard.settings.initPreview
 import helium314.keyboard.settings.preferences.Preference
 import helium314.keyboard.settings.previewDark
+import helium314.keyboard.settings.screens.gesturedata.END_DATE_EPOCH_MILLIS
+import helium314.keyboard.settings.screens.gesturedata.TWO_WEEKS_IN_MILLIS
+import kotlin.time.Clock
 
 @Composable
 fun MainSettingsScreen(
@@ -79,7 +82,8 @@ fun MainSettingsScreen(
                         onClick = onClickGestureTyping,
                         icon = R.drawable.ic_settings_gesture
                     ) { NextScreenIcon() }
-                if (JniUtils.sHaveGestureLib)
+                // we don't even show the menu if data gathering phase ended more than 2 weeks ago
+                if (JniUtils.sHaveGestureLib && System.currentTimeMillis() < END_DATE_EPOCH_MILLIS + TWO_WEEKS_IN_MILLIS)
                     Preference(
                         name = stringResource(R.string.gesture_data_screen),
                         onClick = onClickDataGathering,
