@@ -65,7 +65,8 @@ class BnKhiproCombiner : Combiner {
         private val STATE_GROUP_ORDER = mapOf(
             State.INIT to listOf("diacritic", "ng", "shor", "fkar", "prithayok", "biram", "reph", "byanjon", "juktoborno"),
             State.SHOR_STATE to listOf("diacritic", "ng", "shor", "fkar", "biram", "prithayok", "reph", "byanjon", "juktoborno"),
-            State.REPH_STATE to listOf("prithayok", "ae", "reph", "byanjon", "juktoborno", "ng", "kar"),
+            
+            State.REPH_STATE to listOf("prithayok", "diacritic", "ng", "ae", "juktoborno", "byanjon", "reph", "kar"),
             State.BYANJON_STATE to listOf("diacritic", "ng", "prithayok", "biram", "kar", "phola", "byanjon", "juktoborno")
         )
 
@@ -73,11 +74,9 @@ class BnKhiproCombiner : Combiner {
             map.keys.maxOfOrNull { it.length } ?: 0
         }
 
-
         // Find longest matching sequence from current position using greedy algorithm
         private fun findLongest(state: State, text: String, i: Int): Triple<String, String, String> {
             val allowed = STATE_GROUP_ORDER[state] ?: return Triple("", "", "")
-
             val maxlen = allowed.maxOfOrNull { MAXLEN_PER_GROUP[it] ?: 0 } ?: 0
             val end = minOf(text.length, i + maxlen)
 
@@ -92,7 +91,6 @@ class BnKhiproCombiner : Combiner {
             }
             return Triple("", "", "")
         }
-
 
         // Determine next state based on current state and matched group
         private fun applyTransition(state: State, group: String): State {
@@ -122,7 +120,6 @@ class BnKhiproCombiner : Combiner {
                 }
             }
         }
-
 
         // Convert Latin text to Bengali using state machine
         fun convert(text: String): String {
@@ -157,14 +154,20 @@ class BnKhiproCombiner : Combiner {
     }
 
     override fun processEvent(previousEvents: ArrayList<Event>?, event: Event): Event {
+        // Validate code point before processing - 0xFFFFFFFF is invalid
+        val codePoint = event.codePoint
+        val isValidCodePoint = codePoint != Integer.MAX_VALUE && Character.isValidCodePoint(codePoint)
+
         if (event.keyCode == KeyCode.SHIFT) return event
 
-        if (Character.isWhitespace(event.codePoint)) {
+        if (isValidCodePoint && Character.isWhitespace(codePoint)) {
             return commitAndReset(event)
         } else if (event.isFunctionalKeyEvent) {
             return commitAndReset(event)
+        } else if (!isValidCodePoint) {
+            return Event.createConsumedEvent(event)
         } else {
-            composingText.append(Character.toChars(event.codePoint))
+            composingText.append(Character.toChars(codePoint))
 
             val text = composingText.toString()
             if (text.endsWith(".ff")) {
