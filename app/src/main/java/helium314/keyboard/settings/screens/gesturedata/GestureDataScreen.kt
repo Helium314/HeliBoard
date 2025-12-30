@@ -24,9 +24,6 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Delete
-import androidx.compose.material.icons.filled.Share
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExtendedFloatingActionButton
@@ -61,6 +58,8 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.fromHtml
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.PlatformImeOptions
 import androidx.compose.ui.text.input.TextFieldValue
@@ -76,6 +75,7 @@ import helium314.keyboard.latin.R
 import helium314.keyboard.latin.SingleDictionaryFacilitator
 import helium314.keyboard.latin.SuggestedWords
 import helium314.keyboard.latin.common.ComposedData
+import helium314.keyboard.latin.common.Links
 import helium314.keyboard.latin.common.LocaleUtils.constructLocale
 import helium314.keyboard.latin.dictionary.Dictionary
 import helium314.keyboard.latin.settings.Settings
@@ -198,7 +198,7 @@ fun GestureDataScreen(
             showUploadDialog = false
         InfoDialog(stringResource(R.string.gesture_data_much_data)) { showUploadDialog = false }
     }
-    @Composable fun useActiveGathering() {
+    @Composable fun activeGathering() {
         val availableDicts = remember { getAvailableDictionaries(ctx) }
         val currentLocale = Settings.getValues().mLocale
         var dict by remember { mutableStateOf(
@@ -346,6 +346,9 @@ fun GestureDataScreen(
                 .then(Modifier.padding(innerPadding)),
         ) {
             var activeGathering by remember { mutableStateOf(false) }
+            var showActiveInfoDialog by remember { mutableStateOf(false) }
+            var showInfoDialog by remember { mutableStateOf(false) }
+            var showPrivacyDialog by remember { mutableStateOf(false) }
             TopAppBar(
                 title = { Text(stringResource(R.string.gesture_data_screen)) },
                 navigationIcon = {
@@ -357,33 +360,58 @@ fun GestureDataScreen(
                     }
                 },
             )
-            // explain the project, add a link
-            // why do we need data, how can you contribute
-            // how to submit, and what is in gesture data: keyboard layout, used dictionaries, gesture track, app version, library hash, target word, suggestions by the current library, active / passive
+            if (activeGathering) {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    TextButton({ showActiveInfoDialog = true }) {
+                        Text(stringResource(R.string.gesture_data_how_to_use))
+                    }
+                    TextButton({ activeGathering = false }) {
+                        Text(stringResource(R.string.gesture_data_active_stop))
+                    }
+                }
+                activeGathering()
+            }
             AnimatedVisibility(!activeGathering) {
                 // this part is hidden in active gathering mode because in active mode
                 // neither the keyboard nor the floating buttons (!) should cover any text
-                Text(stringResource(R.string.gesture_data_description))
-                Spacer(Modifier.height(12.dp))
-                HorizontalDivider()
-            }
-            // full description in a popup?
-            // use only built-in dictionaries and what is available on dicts repo (so we can fully reproduce things)
-            // choose a dictionary, get a random word, swipe it and the next word will come immediately
-            if (!useWideLayout || !activeGathering)
-                Text(stringResource(R.string.gesture_data_active_description)) // todo: if this is more than 1-2 lines it should disappear when active mode is enabled
-            TextButton({
-                activeGathering = !activeGathering
-                if (!activeGathering) {
-                    lastData = null
-                    wordFromDict = null
+                Column {
+                    TextButton({ showInfoDialog = true }) {
+                        Text("info") // todo
+                    }
+                    TextButton({ showPrivacyDialog = true }) {
+                        Text("Privacy") // todo
+                    }
+                    // todo: consider a short text and "click for more"
+                    //  more could be a link
+                    //  but there should already be a considerable amount of basics
+                    //  the "more text" should be shown on first time opening the screen (maybe with options "show again next time", and "not interested, hide this screen forever")
+                    Spacer(Modifier.height(12.dp))
+                    HorizontalDivider()
+                    TextButton({ showActiveInfoDialog = true }) {
+                        Text(stringResource(R.string.gesture_data_how_to_use))
+                    }
+                    TextButton({
+                        activeGathering = true
+                        lastData = null
+                        wordFromDict = null
+                    }) {
+                        Text(stringResource(R.string.gesture_data_active_start))
+                    }
                 }
-            }) {
-                Text(stringResource(if (activeGathering) R.string.gesture_data_active_stop else R.string.gesture_data_active_start))
             }
-            if (activeGathering) { // AnimatedVisibility results in buggy UI, todo: try again with newer Compose version (alredy available)
-                useActiveGathering()
-            }
+            if (showInfoDialog)
+                InfoDialog(AnnotatedString.fromHtml(
+                    stringResource(R.string.gesture_data_description,
+                        DateFormat.getDateInstance(DateFormat.MEDIUM).format(Date(END_DATE_EPOCH_MILLIS)))
+                )) { showInfoDialog = false }
+            if (showPrivacyDialog)
+                InfoDialog(stringResource(R.string.gesture_data_description_privacy)) { showPrivacyDialog = false }
+            if (showActiveInfoDialog)
+                InfoDialog(AnnotatedString.fromHtml(stringResource(R.string.gesture_data_active_description, Links.DICTIONARY_URL))) { showActiveInfoDialog = false }
             Spacer(Modifier.height(12.dp))
             // PassiveGathering & Review are not finished and will be completed + enabled later
 /*
@@ -440,7 +468,7 @@ private fun BottomBar(hasWords: Boolean) {
                     enabled = hasWords
                 ) {
                     Icon(
-                        Icons.Default.Delete,
+                        painterResource(R.drawable.ic_bin_rounded),
                         stringResource(R.string.delete),
                         Modifier.size(30.dp)
                     )
@@ -450,7 +478,7 @@ private fun BottomBar(hasWords: Boolean) {
                     enabled = hasWords
                 ) {
                     Icon(
-                        Icons.Default.Share,
+                        painterResource(android.R.drawable.ic_menu_share), // todo: icon has alpha, which is not nice...
                         "share",
                         Modifier.size(30.dp)
                     )

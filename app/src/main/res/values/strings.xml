@@ -917,12 +917,44 @@ New dictionary:
     <!-- Title for screen to provide gesture data for library development
      string will probably be removed once data gathering is finished (end of 2026 latest) -->
     <string name="gesture_data_screen">Gesture data gathering</string>
-    <!-- Descriptive text about the gesture data screen
+    <!-- Descriptive text about gesture data gathering (parsed as HTML)
     todo: make it nice, and clarify whether data will be public, and if so (I think yes) what it will look like
+        questions:
+            license of library?
+            license of gesture data?
+            when to stop gathering? (dont "hardcode" the date in the resource string)
+            mail address, pgp?
+            should i normalize coordinates? small improvement so users are less identifiable in the data set
     string will probably be removed once data gathering is finished (end of 2026 latest) -->
     <string name="gesture_data_description">
-        Tell the user why this screen exists, what they can do, ...
-        
+        Welcome to the gesture data gathering screen!&lt;br/&gt;&lt;br/&gt;
+        This is part of an &lt;a href=https://nlnet.nl/project/GestureTyping&gt;NLnet-funded project&lt;/a&gt; striving to produce a fully open source (license?) gesture typing library capable of replacing the closed source Google library.&lt;br/&gt;
+        The result is planned to be a simple replacement for AOSP-based keyboards, but also usable with other keyboards, e.g. FlorisBoard.&lt;br/&gt;&lt;br/&gt;
+        For developing the library, it is tremendously helpful to have detailed gesture data in different languages and by different users available.&lt;br/&gt;
+        By gathering and submitting gesture typing data you can contribute to an open set of gesture data that will used for library development, and that will be published (license?) after the data gathering phase is finished on %s.
+        Once you have collected data, you can submit it using the share icon on the bottom of this screen.
+    </string>
+    <!-- Descriptive text about gesture data gathering modes
+    string will probably be removed once data gathering is finished (end of 2026 latest) -->
+    <string name="gesture_data_description_modes">
+        Currently there is only the "active gathering" mode, where you are shown a specific word, and enter this word using gesture typing.
+
+        Later a "passive gathering" mode will be added, where you can provide samples from your normal gesture typing from other apps.
+        Due to the sensitivity of this approach, this will be opt-in, configurable, and have a review screen for the data you\'re about to submit.
+    </string>
+    <!-- Descriptive text about privacy of gesture data
+    todo: make it nice, and clarify whether data will be public, and if so (I think yes) what it will look like
+    string will probably be removed once data gathering is finished (end of 2026 latest) -->
+    <string name="gesture_data_description_privacy">
+        Privacy (ask Lief to confirm / correct)
+        Submitted data will be downloaded and deleted from the mailbox (daily? is sender mail address stored any longer?)
+        (mail address is only for automated processing, other mails will be ignored)
+        After the gesture data gathering phase has ended, the accumulated data set from all users will be published.
+        The data contains blah.. (target word, keyboard layout and dimensions, gesture (times and coordinates), suggestions by the current library, used dictionary hash, bit more)
+        The words are chosen from built-in dictionaries or dictionaries available on the dictionaries repositories, so no user-defined words will be used..
+
+        In the final data set there is nothing to identify you personally, but it might be possible to determine which gestures were made by the same person.
+        This can be done e.g. from a custom keyboard layout, keyboard dimensions, language, or individual gesturing style.
     </string>
     <!-- Button for getting the data file
      string will probably be removed once data gathering is finished (end of 2026 latest) -->
@@ -941,7 +973,7 @@ New dictionary:
     <string name="gesture_data_please_type">Please gesture type:</string>
     <!-- Button for saving data and go to next word (now only shows up when the word is not in suggestions
      string will probably be removed once data gathering is finished (end of 2026 latest) -->
-    <string name="gesture_data_next_save">Got \"%s\". Click if you\'re sure you gestured correctly</string>
+    <string name="gesture_data_next_save">Got "%s". Click if you\'re sure you gestured correctly</string>
     <!-- Button for next word without saving data
      string will probably be removed once data gathering is finished (end of 2026 latest) -->
     <string name="gesture_data_next">Skip word</string>
@@ -960,15 +992,21 @@ New dictionary:
     <!-- Text displayed when the user has more than 10000 gestures waiting for export
      string will probably be removed once data gathering is finished (end of 2026 latest) -->
     <string name="gesture_data_much_data">You have a lot of unsubmitted data. Please submit and then remove the old data.</string>
-    <!-- Explanatory text about active gesture data gathering
+    <!-- Button text for opening an info dialog containing gesture_data_active_description
      string will probably be removed once data gathering is finished (end of 2026 latest) -->
-    <string name="gesture_data_active_description">active gathering description</string>
+    <string name="gesture_data_how_to_use">How to use</string>
+    <!-- Explanatory text about active gesture data gathering (parsed as HTML, containing a link to the dictionaries repository)
+     string will probably be removed once data gathering is finished (end of 2026 latest) -->
+    <string name="gesture_data_active_description">Tap the "start" text, optionally switch the dictionary, and start gesture typing the displayed word.&lt;br/&gt;
+        If your gesture matches the word, the data is saved and the next word is displayed. Otherwise you can retry, skip the word, or confirm you gestured correctly.&lt;br/&gt;
+        You can only use dictionaries that are built into the app or available in the &lt;a href=%s&gt;dictionaries repository&lt;/a&gt;.
+    </string>
     <!-- Text for starting active gesture data gathering
      string will probably be removed once data gathering is finished (end of 2026 latest) -->
-    <string name="gesture_data_active_start">start active gathering</string>
+    <string name="gesture_data_active_start">Start active gathering</string>
     <!-- Text for stopping active gesture data gathering
      string will probably be removed once data gathering is finished (end of 2026 latest) -->
-    <string name="gesture_data_active_stop">stop active gathering</string>
+    <string name="gesture_data_active_stop">Stop active gathering</string>
     <!-- Message informing the user about coming end of data gathering (shown 2 weeks in advance)
      string will probably be removed once data gathering is finished (end of 2026 latest) -->
     <string name="gesture_data_ends_at">Gesture data gathering phase will end at %s. Please submit your data before that date.</string>
