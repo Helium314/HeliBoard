@@ -114,10 +114,6 @@ import kotlin.random.Random
 
 // functionality for gesture data gathering as part of the NLNet Project https://nlnet.nl/project/GestureTyping/
 // will be removed once the project is finished
-
-// todo: better behavior + text at / near the end of gathering phase
-// todo: write the proper texts / info dialogs to explain what's going on and privacy infos
-// todo: we need a mail address and a gpg key
 /**
  *  Simple "settings" screen that shows up when gesture typing is enabled.
  *  Allows "active data gathering", which is input of gesture typing data,
@@ -360,7 +356,7 @@ fun GestureDataScreen(
                     }
                 },
             )
-            if (activeGathering) {
+            if (activeGathering) { // AnimatedVisibility results in buggy behavior for some reason
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.SpaceBetween,
@@ -380,34 +376,30 @@ fun GestureDataScreen(
                 // neither the keyboard nor the floating buttons (!) should cover any text
                 Column {
                     TextButton({ showInfoDialog = true }) {
-                        Text("info") // todo
+                        Text(stringResource(R.string.gesture_data_info), Modifier.fillMaxWidth())
                     }
                     TextButton({ showPrivacyDialog = true }) {
-                        Text("Privacy") // todo
+                        Text(stringResource(R.string.gesture_data_info), Modifier.fillMaxWidth())
                     }
-                    // todo: consider a short text and "click for more"
-                    //  more could be a link
-                    //  but there should already be a considerable amount of basics
-                    //  the "more text" should be shown on first time opening the screen (maybe with options "show again next time", and "not interested, hide this screen forever")
                     Spacer(Modifier.height(12.dp))
                     HorizontalDivider()
                     TextButton({ showActiveInfoDialog = true }) {
-                        Text(stringResource(R.string.gesture_data_how_to_use))
+                        Text(stringResource(R.string.gesture_data_how_to_use), Modifier.fillMaxWidth())
                     }
                     TextButton({
                         activeGathering = true
                         lastData = null
                         wordFromDict = null
                     }) {
-                        Text(stringResource(R.string.gesture_data_active_start))
+                        Text(stringResource(R.string.gesture_data_active_start), Modifier.fillMaxWidth())
                     }
                 }
             }
             if (showInfoDialog)
                 InfoDialog(AnnotatedString.fromHtml(
                     stringResource(R.string.gesture_data_description,
-                        DateFormat.getDateInstance(DateFormat.MEDIUM).format(Date(END_DATE_EPOCH_MILLIS)))
-                )) { showInfoDialog = false }
+                        DateFormat.getDateInstance(DateFormat.LONG).format(Date(END_DATE_EPOCH_MILLIS)))
+                ) + AnnotatedString("\n\n" + stringResource(R.string.gesture_data_description_modes))) { showInfoDialog = false }
             if (showPrivacyDialog)
                 InfoDialog(stringResource(R.string.gesture_data_description_privacy)) { showPrivacyDialog = false }
             if (showActiveInfoDialog)
@@ -427,7 +419,6 @@ fun GestureDataScreen(
         }
     }
     // showing at top left in preview, but correctly on device
-    // todo: buttons should not obscure bottom bar
     if (lastData != null)
         ExtendedFloatingActionButton(
             onClick = { nextWord(true) },

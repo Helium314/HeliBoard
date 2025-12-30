@@ -934,28 +934,30 @@ New dictionary:
         By gathering and submitting gesture typing data you can contribute to an open set of gesture data that will used for library development, and that will be published (license?) after the data gathering phase is finished on %s.
         Once you have collected data, you can submit it using the share icon on the bottom of this screen.
     </string>
+    <!-- Button text for showing gesture_data_description and gesture_data_description_modes
+     string will probably be removed once data gathering is finished (end of 2026 latest) -->
+    <string name="gesture_data_info">What\'s this?</string>
     <!-- Descriptive text about gesture data gathering modes
     string will probably be removed once data gathering is finished (end of 2026 latest) -->
     <string name="gesture_data_description_modes">
-        Currently there is only the "active gathering" mode, where you are shown a specific word, and enter this word using gesture typing.
-
+        Currently there is only the "active gathering" mode, where you are shown a specific word, and enter this word using gesture typing.\n
         Later a "passive gathering" mode will be added, where you can provide samples from your normal gesture typing from other apps.
         Due to the sensitivity of this approach, this will be opt-in, configurable, and have a review screen for the data you\'re about to submit.
     </string>
     <!-- Descriptive text about privacy of gesture data
-    todo: make it nice, and clarify whether data will be public, and if so (I think yes) what it will look like
     string will probably be removed once data gathering is finished (end of 2026 latest) -->
     <string name="gesture_data_description_privacy">
-        Privacy (ask Lief to confirm / correct)
-        Submitted data will be downloaded and deleted from the mailbox (daily? is sender mail address stored any longer?)
-        (mail address is only for automated processing, other mails will be ignored)
-        After the gesture data gathering phase has ended, the accumulated data set from all users will be published.
-        The data contains blah.. (target word, keyboard layout and dimensions, gesture (times and coordinates), suggestions by the current library, used dictionary hash, bit more)
-        The words are chosen from built-in dictionaries or dictionaries available on the dictionaries repositories, so no user-defined words will be used..
+        Privacy (ask Lief to confirm / correct)\n\n
+        The data you submit consists of target word, keyboard layout and dimensions, gesture (times and coordinates), suggestions by the current library, hash of the used dictionaries, app version, data gathering mode, whether the gesture typing library is the "default" Google library, and a checksum of the gesture data.\n
+        Submitted data will be downloaded and deleted from the mailbox automatically (daily? is sender mail address stored any longer?).
+        After the gesture data gathering phase has ended, the accumulated data set from all users will be published (license?).
 
-        In the final data set there is nothing to identify you personally, but it might be possible to determine which gestures were made by the same person.
+        In the final data set (also in intermediate data?) there is nothing to identify you personally, but it might be possible to determine which gestures were made by the same person.
         This can be done e.g. from a custom keyboard layout, keyboard dimensions, language, or individual gesturing style.
     </string>
+    <!-- Button text for showing gesture_data_description_privacy
+     string will probably be removed once data gathering is finished (end of 2026 latest) -->
+    <string name="gesture_data_privacy">Privacy</string>
     <!-- Button for getting the data file
      string will probably be removed once data gathering is finished (end of 2026 latest) -->
     <string name="gesture_data_get_data">Get gesture data file</string>
@@ -968,6 +970,9 @@ New dictionary:
     <!-- Button for copying the target mail address
      string will probably be removed once data gathering is finished (end of 2026 latest) -->
     <string name="gesture_data_copy_mail">Copy mail address</string>
+    <!-- Button for copying the target mail address
+     string will probably be removed once data gathering is finished (end of 2026 latest) -->
+    <string name="gesture_data_mail_use">Note that the mail address is used for automated processing only, any mails you send there will not be answered.</string>
     <!-- Text requesting the user to gesture a word
      string will probably be removed once data gathering is finished (end of 2026 latest) -->
     <string name="gesture_data_please_type">Please gesture type:</string>
@@ -999,7 +1004,7 @@ New dictionary:
      string will probably be removed once data gathering is finished (end of 2026 latest) -->
     <string name="gesture_data_active_description">Tap the "start" text, optionally switch the dictionary, and start gesture typing the displayed word.&lt;br/&gt;
         If your gesture matches the word, the data is saved and the next word is displayed. Otherwise you can retry, skip the word, or confirm you gestured correctly.&lt;br/&gt;
-        You can only use dictionaries that are built into the app or available in the &lt;a href=%s&gt;dictionaries repository&lt;/a&gt;.
+        You can only use dictionaries that are built into the app or available in the &lt;a href=%s&gt;dictionaries repository&lt;/a&gt;, no other words will be used.
     </string>
     <!-- Text for starting active gesture data gathering
      string will probably be removed once data gathering is finished (end of 2026 latest) -->

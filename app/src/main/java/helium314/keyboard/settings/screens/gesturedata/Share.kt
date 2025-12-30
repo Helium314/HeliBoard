@@ -101,6 +101,7 @@ fun ShareGestureData(ids: List<Long>) { // should we really use null here? from 
     TextButton({ scope.launch { clip.setClipEntry(ClipEntry(ClipData.newPlainText("mail address", ctx.getString(R.string.gesture_data_mail)))) } }) {
         Text(stringResource(R.string.gesture_data_copy_mail))
     }
+    Text(stringResource(R.string.gesture_data_mail_use))
 
     // this deletes the data in the dialog, but we should also have a way of deleting previously exported data
     var confirmDelete by remember { mutableStateOf(false) }
