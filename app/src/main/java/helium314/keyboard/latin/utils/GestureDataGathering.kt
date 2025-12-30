@@ -79,8 +79,6 @@ class WordData(
     private val height = keyboard.mOccupiedHeight
     private val width = keyboard.mOccupiedWidth
 
-    private val proxInfo = keyboard.proximityInfo // todo: is there any use?
-
     // if contacts dict is used we keep this information
     private val dictionariesInSuggestions = suggestions.map { it.mSourceDict }.toSet()
     private val packageName = keyboard.mId.mEditorInfo.packageName

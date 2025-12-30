@@ -3,6 +3,7 @@ package helium314.keyboard.settings.screens.gesturedata
 
 import android.content.Context
 import android.view.inputmethod.InputMethodManager
+import androidx.activity.compose.BackHandler
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -348,7 +349,7 @@ fun GestureDataScreen(
             TopAppBar(
                 title = { Text(stringResource(R.string.gesture_data_screen)) },
                 navigationIcon = {
-                    IconButton(onClick = onClickBack) {
+                    IconButton(onClick = { if (activeGathering) activeGathering = false else onClickBack() }) {
                         Icon(
                             painterResource(R.drawable.ic_arrow_back),
                             stringResource(R.string.spoken_description_action_previous)
@@ -356,6 +357,7 @@ fun GestureDataScreen(
                     }
                 },
             )
+            BackHandler(enabled = activeGathering) { activeGathering = false }
             if (activeGathering) { // AnimatedVisibility results in buggy behavior for some reason
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
