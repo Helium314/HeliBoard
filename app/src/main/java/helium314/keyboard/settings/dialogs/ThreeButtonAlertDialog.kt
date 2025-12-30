@@ -12,6 +12,8 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.widthIn
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -36,6 +38,7 @@ fun ThreeButtonAlertDialog(
     modifier: Modifier = Modifier,
     title: @Composable (() -> Unit)? = null,
     content: @Composable (() -> Unit)? = null,
+    scrollContent: Boolean = false,
     onNeutral: () -> Unit = { },
     checkOk: () -> Boolean = { true },
     confirmButtonText: String? = stringResource(android.R.string.ok),
@@ -72,8 +75,19 @@ fun ThreeButtonAlertDialog(
                     }
                     content?.let {
                         CompositionLocalProvider(LocalTextStyle provides MaterialTheme.typography.bodyMedium) {
-                            Box(Modifier.weight(weight = 1f, fill = false).padding(bottom = if (reducePadding) 2.dp else 8.dp)) {
-                                content()
+                            if (scrollContent) {
+                                val scrollState = rememberScrollState()
+                                Box(Modifier
+                                    .weight(weight = 1f, fill = false)
+                                    .padding(bottom = if (reducePadding) 2.dp else 8.dp)
+                                    .verticalScroll(scrollState)
+                                ) {
+                                    content()
+                                }
+                            } else {
+                                Box(Modifier.weight(weight = 1f, fill = false).padding(bottom = if (reducePadding) 2.dp else 8.dp)) {
+                                    content()
+                                }
                             }
                         }
                     }
