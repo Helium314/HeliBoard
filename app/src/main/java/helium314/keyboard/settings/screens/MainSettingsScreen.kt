@@ -28,7 +28,6 @@ import helium314.keyboard.settings.preferences.Preference
 import helium314.keyboard.settings.previewDark
 import helium314.keyboard.settings.screens.gesturedata.END_DATE_EPOCH_MILLIS
 import helium314.keyboard.settings.screens.gesturedata.TWO_WEEKS_IN_MILLIS
-import kotlin.time.Clock
 
 @Composable
 fun MainSettingsScreen(

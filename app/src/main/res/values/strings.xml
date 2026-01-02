@@ -918,13 +918,6 @@ New dictionary:
      string will probably be removed once data gathering is finished (end of 2026 latest) -->
     <string name="gesture_data_screen">Gesture data gathering</string>
     <!-- Descriptive text about gesture data gathering (parsed as HTML)
-    todo: make it nice, and clarify whether data will be public, and if so (I think yes) what it will look like
-        questions:
-            license of library?
-            license of gesture data?
-            when to stop gathering? (dont "hardcode" the date in the resource string)
-            mail address, pgp?
-            should i normalize coordinates? small improvement so users are less identifiable in the data set
     string will probably be removed once data gathering is finished (end of 2026 latest) -->
     <string name="gesture_data_description">
         Welcome to the gesture data gathering screen!&lt;br/&gt;&lt;br/&gt;
@@ -947,12 +940,12 @@ New dictionary:
     <!-- Descriptive text about privacy of gesture data
     string will probably be removed once data gathering is finished (end of 2026 latest) -->
     <string name="gesture_data_description_privacy">
-        Privacy (ask Lief to confirm / correct)\n\n
+        Privacy\n\n
         The data you submit consists of target word, keyboard layout and dimensions, gesture (times and coordinates), suggestions by the current library, hash of the used dictionaries, app version, data gathering mode, whether the gesture typing library is the "default" Google library, and a checksum of the gesture data.\n
-        Submitted data will be downloaded and deleted from the mailbox automatically (daily? is sender mail address stored any longer?).
+        Submitted data will be downloaded and deleted from the mailbox automatically, but may be stored locally for longer (latest until end of the gesture data gathering phase).
         After the gesture data gathering phase has ended, the accumulated data set from all users will be published (license?).
 
-        In the final data set (also in intermediate data?) there is nothing to identify you personally, but it might be possible to determine which gestures were made by the same person.
+        In the published data set there is nothing to identify you personally, but it might be possible to determine which gestures were made by the same person.
         This can be done e.g. from a custom keyboard layout, keyboard dimensions, language, or individual gesturing style.
     </string>
     <!-- Button text for showing gesture_data_description_privacy

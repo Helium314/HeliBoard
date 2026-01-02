@@ -11,6 +11,7 @@ import helium314.keyboard.keyboard.Keyboard
 import helium314.keyboard.latin.BuildConfig
 import helium314.keyboard.latin.InputAttributes
 import helium314.keyboard.latin.NgramContext
+import helium314.keyboard.latin.R
 import helium314.keyboard.latin.SingleDictionaryFacilitator
 import helium314.keyboard.latin.SuggestedWords
 import helium314.keyboard.latin.common.ComposedData
@@ -110,7 +111,7 @@ class WordData(
             filteredSuggestions.add(word)
         }
         val data = GestureData(
-            BuildConfig.VERSION_CODE,
+            context.getString(R.string.english_ime_name) + " " + BuildConfig.VERSION_NAME,
             context.protectedPrefs().getString(Settings.PREF_LIBRARY_CHECKSUM, "") == JniUtils.expectedDefaultChecksum(),
             targetWord,
             dictionariesInSuggestions.map {
@@ -156,7 +157,7 @@ data class GestureDataInfo(val id: Long, val targetWord: String, val timestamp: 
 
 @Serializable
 data class GestureData(
-    val appVersionCode: Int,
+    val application: String,
     val knownLibrary: Boolean,
     val targetWord: String?, // this will be tricky for active gathering if user corrects the word
     val dictionaries: List<DictInfo>,
