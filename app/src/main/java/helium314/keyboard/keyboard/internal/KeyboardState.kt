@@ -13,7 +13,7 @@ import helium314.keyboard.latin.define.DebugFlags
 import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.utils.CapsModeUtils
 import helium314.keyboard.latin.utils.Log
-import helium314.keyboard.latin.utils.RecapitalizeStatus
+import helium314.keyboard.latin.utils.RecapitalizeMode
 
 /**
  * Keyboard state machine.
@@ -67,7 +67,7 @@ class KeyboardState(private val mSwitchActions: SwitchActions) {
     private var isSymbolShifted = false
     private var prevMainKeyboardWasShiftLocked = false
     private var prevSymbolsKeyboardWasShifted = false
-    private var recapitalizeMode = RecapitalizeStatus.NOT_A_RECAPITALIZE_MODE
+    private var recapitalizeMode = RecapitalizeMode.NULL
 
     // For handling double tap.
     private var isInAlphabetUnshiftedFromShifted = false
@@ -246,7 +246,7 @@ class KeyboardState(private val mSwitchActions: SwitchActions) {
         mSwitchActions.setAlphabetKeyboard()
         mode = MODE_ALPHABET
         isSymbolShifted = false
-        this@KeyboardState.recapitalizeMode = RecapitalizeStatus.NOT_A_RECAPITALIZE_MODE
+        this.recapitalizeMode = RecapitalizeMode.NULL
         switchState = SWITCH_STATE_ALPHA
         mSwitchActions.requestUpdatingShiftState(autoCapsFlags, recapitalizeMode)
     }
@@ -258,7 +258,7 @@ class KeyboardState(private val mSwitchActions: SwitchActions) {
         mSwitchActions.setSymbolsKeyboard()
         mode = MODE_SYMBOLS
         isSymbolShifted = false
-        recapitalizeMode = RecapitalizeStatus.NOT_A_RECAPITALIZE_MODE
+        recapitalizeMode = RecapitalizeMode.NULL
         // Reset alphabet shift state.
         alphabetShiftState.setShiftLocked(false)
         switchState = SWITCH_STATE_SYMBOL_BEGIN
@@ -271,7 +271,7 @@ class KeyboardState(private val mSwitchActions: SwitchActions) {
         mSwitchActions.setSymbolsShiftedKeyboard()
         mode = MODE_SYMBOLS
         isSymbolShifted = true
-        recapitalizeMode = RecapitalizeStatus.NOT_A_RECAPITALIZE_MODE
+        recapitalizeMode = RecapitalizeMode.NULL
         // Reset alphabet shift state.
         alphabetShiftState.setShiftLocked(false)
         switchState = SWITCH_STATE_SYMBOL_BEGIN
@@ -282,7 +282,7 @@ class KeyboardState(private val mSwitchActions: SwitchActions) {
             Log.d(TAG, "setEmojiKeyboard")
         }
         mode = MODE_EMOJI
-        recapitalizeMode = RecapitalizeStatus.NOT_A_RECAPITALIZE_MODE
+        recapitalizeMode = RecapitalizeMode.NULL
         // Remember caps lock mode and reset alphabet shift state.
         prevMainKeyboardWasShiftLocked = alphabetShiftState.isShiftLocked
         alphabetShiftState.setShiftLocked(false)
@@ -294,7 +294,7 @@ class KeyboardState(private val mSwitchActions: SwitchActions) {
             Log.d(TAG, "setClipboardKeyboard")
         }
         mode = MODE_CLIPBOARD
-        recapitalizeMode = RecapitalizeStatus.NOT_A_RECAPITALIZE_MODE
+        recapitalizeMode = RecapitalizeMode.NULL
         // Remember caps lock mode and reset alphabet shift state.
         prevMainKeyboardWasShiftLocked = alphabetShiftState.isShiftLocked
         alphabetShiftState.setShiftLocked(false)
@@ -318,7 +318,7 @@ class KeyboardState(private val mSwitchActions: SwitchActions) {
             modeBeforeNumpad = if (forceReturnToAlpha) MODE_ALPHABET else mode
         }
         mode = MODE_NUMPAD
-        recapitalizeMode = RecapitalizeStatus.NOT_A_RECAPITALIZE_MODE
+        recapitalizeMode = RecapitalizeMode.NULL
         mSwitchActions.setNumpadKeyboard()
         switchState = if (withSliding) SWITCH_STATE_MOMENTARY_TO_NUMPAD else SWITCH_STATE_NUMPAD_BEGIN
     }
@@ -458,7 +458,7 @@ class KeyboardState(private val mSwitchActions: SwitchActions) {
         if (DEBUG_EVENT) {
             Log.d(TAG, "onUpdateShiftState: " + stateToString(autoCapsFlags, recapitalizeMode))
         }
-        this@KeyboardState.recapitalizeMode = recapitalizeMode
+        this.recapitalizeMode = recapitalizeMode
         updateAlphabetShiftState(autoCapsFlags, recapitalizeMode)
     }
 
@@ -472,17 +472,19 @@ class KeyboardState(private val mSwitchActions: SwitchActions) {
     }
 
     private fun updateShiftStateForRecapitalize(recapitalizeMode: Int) {
-        when (recapitalizeMode) {
-            RecapitalizeStatus.CAPS_MODE_ALL_UPPER                                                   -> setShifted(SHIFT_LOCK_SHIFTED)
-            RecapitalizeStatus.CAPS_MODE_FIRST_WORD_UPPER                                            -> setShifted(AUTOMATIC_SHIFT)
-            RecapitalizeStatus.CAPS_MODE_ALL_LOWER, RecapitalizeStatus.CAPS_MODE_ORIGINAL_MIXED_CASE -> setShifted(UNSHIFT)
-            else                                                                                     -> setShifted(UNSHIFT)
+        val shiftMode = when (recapitalizeMode) {
+            RecapitalizeMode.ORIGINAL_MIXED_CASE -> UNSHIFT
+            RecapitalizeMode.ALL_LOWER           -> UNSHIFT
+            RecapitalizeMode.FIRST_WORD_UPPER    -> AUTOMATIC_SHIFT
+            RecapitalizeMode.ALL_UPPER           -> SHIFT_LOCK_SHIFTED
+            else                                 -> UNSHIFT
         }
+        setShifted(shiftMode)
     }
 
     private fun updateAlphabetShiftState(autoCapsFlags: Int, recapitalizeMode: Int) {
         if (mode != MODE_ALPHABET) return
-        if (RecapitalizeStatus.NOT_A_RECAPITALIZE_MODE != recapitalizeMode) {
+        if (recapitalizeMode != RecapitalizeMode.NULL) {
             // We are recapitalizing. Match the keyboard to the current recapitalize state.
             updateShiftStateForRecapitalize(recapitalizeMode)
         } else if (!shiftKeyState.isReleasing) {
@@ -500,7 +502,7 @@ class KeyboardState(private val mSwitchActions: SwitchActions) {
 
     private fun onPressShift() {
         // If we are recapitalizing, we don't do any of the normal processing, including importantly the double tap timer.
-        if (RecapitalizeStatus.NOT_A_RECAPITALIZE_MODE != recapitalizeMode) {
+        if (recapitalizeMode != RecapitalizeMode.NULL) {
             return
         }
         if (mode != MODE_ALPHABET) {
@@ -542,9 +544,9 @@ class KeyboardState(private val mSwitchActions: SwitchActions) {
     }
 
     private fun onReleaseShift(withSliding: Boolean, autoCapsFlags: Int, recapitalizeMode: Int) {
-        if (RecapitalizeStatus.NOT_A_RECAPITALIZE_MODE != this@KeyboardState.recapitalizeMode) {
+        if (this.recapitalizeMode != RecapitalizeMode.NULL) {
             // We are recapitalizing. We should match the keyboard state to the recapitalize state in priority.
-            updateShiftStateForRecapitalize(this@KeyboardState.recapitalizeMode)
+            updateShiftStateForRecapitalize(this.recapitalizeMode)
         } else if (mode != MODE_ALPHABET) {
             // In symbol mode, switch back to the previous keyboard mode if the user chords the
             // shift key and another key, then releases the shift key.
@@ -669,7 +671,7 @@ class KeyboardState(private val mSwitchActions: SwitchActions) {
     }
 
     private fun stateToString(autoCapsFlags: Int, recapitalizeMode: Int) =
-        "$this autoCapsFlags=${CapsModeUtils.flagsToString(autoCapsFlags)} recapitalizeMode=${RecapitalizeStatus.modeToString(recapitalizeMode)}"
+        "$this autoCapsFlags=${CapsModeUtils.flagsToString(autoCapsFlags)} recapitalizeMode=${RecapitalizeMode.toString(recapitalizeMode)}"
 
     companion object {
         private val TAG = KeyboardState::class.java.simpleName

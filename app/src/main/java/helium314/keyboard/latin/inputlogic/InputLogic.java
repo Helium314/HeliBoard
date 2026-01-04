@@ -57,9 +57,11 @@ import helium314.keyboard.latin.utils.DictionaryInfoUtils;
 import helium314.keyboard.latin.utils.InputTypeUtils;
 import helium314.keyboard.latin.utils.IntentUtils;
 import helium314.keyboard.latin.utils.Log;
+import helium314.keyboard.latin.utils.RecapitalizeMode;
 import helium314.keyboard.latin.utils.RecapitalizeStatus;
 import helium314.keyboard.latin.utils.ScriptUtils;
 import helium314.keyboard.latin.utils.StatsUtils;
+import helium314.keyboard.latin.utils.TextPlacement;
 import helium314.keyboard.latin.utils.TextRange;
 import helium314.keyboard.latin.utils.TimestampKt;
 
@@ -1632,17 +1634,16 @@ public final class InputLogic {
             final CharSequence selectedText =
                     mConnection.getSelectedText(0 /* flags, 0 for no styles */);
             if (TextUtils.isEmpty(selectedText)) return; // Race condition with the input connection
-            mRecapitalizeStatus.start(selectionStart, selectionEnd, selectedText.toString(),
-                    settingsValues.mLocale,
+            mRecapitalizeStatus.start(selectedText.toString(), selectionStart, settingsValues.mLocale,
                     settingsValues.mSpacingAndPunctuations.mSortedWordSeparators);
         }
         mConnection.finishComposingText();
         mRecapitalizeStatus.rotate();
         mConnection.setSelection(selectionEnd, selectionEnd);
         mConnection.deleteTextBeforeCursor(numCharsSelected);
-        mConnection.commitText(mRecapitalizeStatus.getRecapitalizedString(), 0);
-        mConnection.setSelection(mRecapitalizeStatus.getNewCursorStart(),
-                mRecapitalizeStatus.getNewCursorEnd());
+        final TextPlacement replacement = mRecapitalizeStatus.textReplacement();
+        mConnection.commitText(replacement.text, 0);
+        mConnection.setSelection(replacement.selectionStart, replacement.selectionEnd());
     }
 
     private void performAdditionToUserHistoryDictionary(final SettingsValues settingsValues,
@@ -2008,7 +2009,7 @@ public final class InputLogic {
                 || !mRecapitalizeStatus.isSetAt(mConnection.getExpectedSelectionStart(),
                         mConnection.getExpectedSelectionEnd())) {
             // Not recapitalizing at the moment
-            return RecapitalizeStatus.NOT_A_RECAPITALIZE_MODE;
+            return RecapitalizeMode.NULL;
         }
         return mRecapitalizeStatus.getCurrentMode();
     }

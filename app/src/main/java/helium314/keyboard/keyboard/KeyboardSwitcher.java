@@ -47,7 +47,7 @@ import helium314.keyboard.latin.utils.CapsModeUtils;
 import helium314.keyboard.latin.utils.KtxKt;
 import helium314.keyboard.latin.utils.LanguageOnSpacebarUtils;
 import helium314.keyboard.latin.utils.Log;
-import helium314.keyboard.latin.utils.RecapitalizeStatus;
+import helium314.keyboard.latin.utils.RecapitalizeMode;
 import helium314.keyboard.latin.utils.ResourceUtils;
 import helium314.keyboard.latin.utils.ScriptUtils;
 import helium314.keyboard.latin.utils.SubtypeUtilsAdditional;
@@ -456,7 +456,7 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
         if (DEBUG_ACTION) {
             Log.d(TAG, "requestUpdatingShiftState: "
                     + " autoCapsFlags=" + CapsModeUtils.flagsToString(autoCapsFlags)
-                    + " recapitalizeMode=" + RecapitalizeStatus.modeToString(recapitalizeMode));
+                    + " recapitalizeMode=" + RecapitalizeMode.toString(recapitalizeMode));
         }
         mState.onUpdateShiftState(autoCapsFlags, recapitalizeMode);
     }
