@@ -913,4 +913,122 @@ New dictionary:
     <string name="custom_subtype">Custom subtype</string>
     <!-- Name for landscape orientation, used in various settings -->
     <string name="landscape">Landscape</string>
+
+    <!-- Title for screen to provide gesture data for library development
+     string will probably be removed once data gathering is finished (end of 2026 latest) -->
+    <string name="gesture_data_screen">Gesture data gathering</string>
+    <!-- Descriptive text about gesture data gathering (parsed as HTML)
+    string will probably be removed once data gathering is finished (end of 2026 latest) -->
+    <string name="gesture_data_description">
+        Welcome to the gesture data gathering screen!&lt;br/&gt;&lt;br/&gt;
+        This is part of an &lt;a href=https://nlnet.nl/project/GestureTyping&gt;NLnet-funded project&lt;/a&gt; striving to produce a fully open source (license?) gesture typing library capable of replacing the closed source Google library.&lt;br/&gt;
+        The result is planned to be a simple replacement for AOSP-based keyboards, but also usable with other keyboards, e.g. FlorisBoard.&lt;br/&gt;&lt;br/&gt;
+        For developing the library, it is tremendously helpful to have detailed gesture data in different languages and by different users available.&lt;br/&gt;
+        By gathering and submitting gesture typing data you can contribute to an open set of gesture data that will used for library development, and that will be published (license?) after the data gathering phase is finished on %s.
+        Once you have collected data, you can submit it using the share icon on the bottom of this screen.
+    </string>
+    <!-- Button text for showing gesture_data_description and gesture_data_description_modes
+     string will probably be removed once data gathering is finished (end of 2026 latest) -->
+    <string name="gesture_data_info">What\'s this?</string>
+    <!-- Descriptive text about gesture data gathering modes
+    string will probably be removed once data gathering is finished (end of 2026 latest) -->
+    <string name="gesture_data_description_modes">
+        Currently there is only the "active gathering" mode, where you are shown a specific word, and enter this word using gesture typing.\n
+        Later a "passive gathering" mode will be added, where you can provide samples from your normal gesture typing from other apps.
+        Due to the sensitivity of this approach, this will be opt-in, configurable, and have a review screen for the data you\'re about to submit.
+    </string>
+    <!-- Descriptive text about privacy of gesture data
+    string will probably be removed once data gathering is finished (end of 2026 latest) -->
+    <string name="gesture_data_description_privacy">
+        Privacy\n\n
+        The data you submit consists of target word, keyboard layout and dimensions, gesture (times and coordinates), suggestions by the current library, hash of the used dictionaries, app version, data gathering mode, whether the gesture typing library is the "default" Google library, and a checksum of the gesture data.\n
+        Submitted data will be downloaded and deleted from the mailbox automatically, but may be stored locally for longer (latest until end of the gesture data gathering phase).
+        After the gesture data gathering phase has ended, the accumulated data set from all users will be published (license?).
+
+        In the published data set there is nothing to identify you personally, but it might be possible to determine which gestures were made by the same person.
+        This can be done e.g. from a custom keyboard layout, keyboard dimensions, language, or individual gesturing style.
+    </string>
+    <!-- Button text for showing gesture_data_description_privacy
+     string will probably be removed once data gathering is finished (end of 2026 latest) -->
+    <string name="gesture_data_privacy">Privacy</string>
+    <!-- Button for getting the data file
+     string will probably be removed once data gathering is finished (end of 2026 latest) -->
+    <string name="gesture_data_get_data">Get gesture data file</string>
+    <!-- Button for deleting the data file
+     string will probably be removed once data gathering is finished (end of 2026 latest) -->
+    <string name="gesture_data_delete_data">Clear gesture data</string>
+    <!-- Button for sending the data file via mail
+     string will probably be removed once data gathering is finished (end of 2026 latest) -->
+    <string name="gesture_data_send_mail">Send data via mail</string>
+    <!-- Button for copying the target mail address
+     string will probably be removed once data gathering is finished (end of 2026 latest) -->
+    <string name="gesture_data_copy_mail">Copy mail address</string>
+    <!-- Button for copying the target mail address
+     string will probably be removed once data gathering is finished (end of 2026 latest) -->
+    <string name="gesture_data_mail_use">Note that the mail address is used for automated processing only, any mails you send there will not be answered.</string>
+    <!-- Text requesting the user to gesture a word
+     string will probably be removed once data gathering is finished (end of 2026 latest) -->
+    <string name="gesture_data_please_type">Please gesture type:</string>
+    <!-- Button for saving data and go to next word (now only shows up when the word is not in suggestions
+     string will probably be removed once data gathering is finished (end of 2026 latest) -->
+    <string name="gesture_data_next_save">Got "%s". Click if you\'re sure you gestured correctly</string>
+    <!-- Button for next word without saving data
+     string will probably be removed once data gathering is finished (end of 2026 latest) -->
+    <string name="gesture_data_next">Skip word</string>
+    <!-- Text stating how many words were written using active data gathering
+     string will probably be removed once data gathering is finished (end of 2026 latest) -->
+    <string name="gesture_data_active_count">%1$s words in this session, %2$s words total</string>
+    <!-- Title for the screen to review and submit gesture data
+     string will probably be removed once data gathering is finished (end of 2026 latest) -->
+    <string name="gesture_data_review_screen_title">Review &amp; share gesture data</string>
+    <!-- Short text on how many words are selected
+     string will probably be removed once data gathering is finished (end of 2026 latest) -->
+    <string name="gesture_data_words_selected">%s words</string>
+    <!-- Short title for date range display
+     string will probably be removed once data gathering is finished (end of 2026 latest) -->
+    <string name="gesture_data_date_range">Date range</string>
+    <!-- Text displayed when the user has more than 10000 gestures waiting for export
+     string will probably be removed once data gathering is finished (end of 2026 latest) -->
+    <string name="gesture_data_much_data">You have a lot of unsubmitted data. Please submit and then remove the old data.</string>
+    <!-- Button text for opening an info dialog containing gesture_data_active_description
+     string will probably be removed once data gathering is finished (end of 2026 latest) -->
+    <string name="gesture_data_how_to_use">How to use</string>
+    <!-- Explanatory text about active gesture data gathering (parsed as HTML, containing a link to the dictionaries repository)
+     string will probably be removed once data gathering is finished (end of 2026 latest) -->
+    <string name="gesture_data_active_description">Tap the "start" text, optionally switch the dictionary, and start gesture typing the displayed word.&lt;br/&gt;
+        If your gesture matches the word, the data is saved and the next word is displayed. Otherwise you can retry, skip the word, or confirm you gestured correctly.&lt;br/&gt;
+        You can only use dictionaries that are built into the app or available in the &lt;a href=%s&gt;dictionaries repository&lt;/a&gt;, no other words will be used.
+    </string>
+    <!-- Text for starting active gesture data gathering
+     string will probably be removed once data gathering is finished (end of 2026 latest) -->
+    <string name="gesture_data_active_start">Start active gathering</string>
+    <!-- Text for stopping active gesture data gathering
+     string will probably be removed once data gathering is finished (end of 2026 latest) -->
+    <string name="gesture_data_active_stop">Stop active gathering</string>
+    <!-- Message informing the user about coming end of data gathering (shown 2 weeks in advance)
+     string will probably be removed once data gathering is finished (end of 2026 latest) -->
+    <string name="gesture_data_ends_at">Gesture data gathering phase will end at %s. Please submit your data before that date.</string>
+    <!-- Message informing the user that gesture data gathering is over
+     string will probably be removed once data gathering is finished (end of 2026 latest) -->
+    <string name="gesture_data_ended">Gesture data gathering phase ended at %s. You can export your data, but not add anything new.</string>
+    <!-- Short text for exporting all available words
+     string will probably be removed once data gathering is finished (end of 2026 latest) -->
+    <string name="gesture_data_export_all">Share all</string>
+    <!-- Short text for exporting only words that were not exported previously
+     string will probably be removed once data gathering is finished (end of 2026 latest) -->
+    <string name="gesture_data_export_new">Share not previously exported</string>
+    <!-- Text for delete dialog, offering delete all / exported / cancel options
+     string will probably be removed once data gathering is finished (end of 2026 latest) -->
+    <!-- todo: consistent and clear naming for word vs gesture (because user may get the same word multiple times) -->
+    <!-- todo: consistent and clear naming for export / share / submit (and others) -->
+    <string name="gesture_data_delete_dialog">You have data for %1$s new and %2$s already exported words.</string>
+    <!-- Short text for delete all button
+     string will probably be removed once data gathering is finished (end of 2026 latest) -->
+    <string name="gesture_data_delete_dialog_all">Delete all</string>
+    <!-- Delete confirmation message
+     string will probably be removed once data gathering is finished (end of 2026 latest) -->
+    <string name="gesture_data_delete_dialog_confirm">Are you sure? This will delete %s words. Make sure your exported words are submitted!</string>
+    <!-- Short text for delete all button
+     string will probably be removed once data gathering is finished (end of 2026 latest) -->
+    <string name="gesture_data_delete_dialog_exported">Delete exported</string>
 </resources>

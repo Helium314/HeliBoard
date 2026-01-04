@@ -16,6 +16,7 @@ Does not use internet permission, and thus is 100% offline.
    * [Code Contribution](CONTRIBUTING.md)
 - [License](#license)
 - [Credits](#credits)
+  * [Funding](#funding)
 
 # Features
 <ul>
@@ -108,3 +109,11 @@ The icon is licensed under [Creative Commons BY-SA 4.0](https://creativecommons.
 - [Indic Keyboard](https://gitlab.com/indicproject/indic-keyboard)
 - [FlorisBoard](https://github.com/florisboard/florisboard/)
 - Our [contributors](https://github.com/Helium314/HeliBoard/graphs/contributors)
+
+## Funding
+
+This project is funded through [NGI Mobifree Fund](https://nlnet.nl/mobifree), a fund established by [NLnet](https://nlnet.nl) with financial support from the European Commission's [Next Generation Internet](https://ngi.eu) program. Learn more at the [NLnet project page](https://nlnet.nl/project/GestureTyping).
+
+[<img src="https://nlnet.nl/logo/banner.png" alt="NLnet foundation logo" width="20%" />](https://nlnet.nl)
+
+Further the project benefits from donations provided by many users (thank you all!).
