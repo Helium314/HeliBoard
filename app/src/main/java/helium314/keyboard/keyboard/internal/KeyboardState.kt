@@ -473,11 +473,11 @@ class KeyboardState(private val mSwitchActions: SwitchActions) {
 
     private fun updateShiftStateForRecapitalize(recapitalizeMode: RecapitalizeMode?) {
         val shiftMode = when (recapitalizeMode) {
+            null                                 -> UNSHIFT
             RecapitalizeMode.ORIGINAL_MIXED_CASE -> UNSHIFT
             RecapitalizeMode.ALL_LOWER           -> UNSHIFT
             RecapitalizeMode.FIRST_WORD_UPPER    -> AUTOMATIC_SHIFT
             RecapitalizeMode.ALL_UPPER           -> SHIFT_LOCK_SHIFTED
-            else                                 -> UNSHIFT
         }
         setShifted(shiftMode)
     }
