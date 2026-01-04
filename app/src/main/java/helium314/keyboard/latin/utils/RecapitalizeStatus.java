@@ -58,7 +58,7 @@ public class RecapitalizeStatus {
         mIsEnabled = false;
     }
 
-    public boolean mIsEnabled() {
+    public boolean isEnabled() {
         return mIsEnabled;
     }
 
