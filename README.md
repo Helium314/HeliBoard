@@ -71,6 +71,7 @@ Some notes on translations
 * the `hidden_features_message` is horrible to translate with Weblate, and serves little benefit as it's just a copy of what's already in the wiki: https://github.com/Helium314/HeliBoard/wiki/9.-Hidden-features. It's been made available in the app on user request/contribution.
 
 ## To Community
+There is the [discussions on GitHub](https://github.com/Helium314/HeliBoard/discussions), or if you prefer a more open network there is [Lemmy](https://lemmy.world/c/Heliboard).
 You can share your themes, layouts and dictionaries with other people:
 * Themes can be saved and loaded using the menu on top-right in the _adjust colors_ screen
   * You can share custom colors in a separate [discussion section](https://github.com/Helium314/HeliBoard/discussions/categories/custom-colors)
