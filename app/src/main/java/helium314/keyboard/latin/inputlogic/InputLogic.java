@@ -22,6 +22,7 @@ import android.view.inputmethod.CorrectionInfo;
 import android.view.inputmethod.EditorInfo;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import helium314.keyboard.event.Event;
 import helium314.keyboard.event.InputTransaction;
@@ -2004,12 +2005,13 @@ public final class InputLogic {
                 SpaceState.PHANTOM == mSpaceState);
     }
 
-    public int getCurrentRecapitalizeState() {
+    @Nullable
+    public RecapitalizeMode getCurrentRecapitalizeState() {
         if (!mRecapitalizeStatus.isStarted()
                 || !mRecapitalizeStatus.isSetAt(mConnection.getExpectedSelectionStart(),
                         mConnection.getExpectedSelectionEnd())) {
             // Not recapitalizing at the moment
-            return RecapitalizeMode.NULL;
+            return null;
         }
         return mRecapitalizeStatus.getCurrentMode();
     }

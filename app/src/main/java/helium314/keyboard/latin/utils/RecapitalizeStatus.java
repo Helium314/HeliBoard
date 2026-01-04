@@ -16,7 +16,7 @@ public class RecapitalizeStatus {
     // action was done, and the location of the cursor and the string that was there after.
     private String mText;
     private TextPlacement mTextPlacement;
-    private int mCurrentMode;
+    private RecapitalizeMode mCurrentMode;
     private boolean mSkipOriginalMixedCaseMode;
     private Locale mLocale;
     private int[] mSortedSeparators;
@@ -74,8 +74,8 @@ public class RecapitalizeStatus {
         String replacement;
         int i = 0; // Protection against infinite loop.
         do {
-            mCurrentMode = RecapitalizeMode.rotate(mCurrentMode, mSkipOriginalMixedCaseMode);
-            replacement = RecapitalizeMode.apply(mCurrentMode, mText, mSortedSeparators, mLocale);
+            mCurrentMode = mCurrentMode.rotate(mSkipOriginalMixedCaseMode);
+            replacement = mCurrentMode.apply(mText, mSortedSeparators, mLocale);
             ++i;
         } while (replacement.equals(mTextPlacement.text) && i <= modeCount);
         mTextPlacement.text = replacement;
@@ -85,7 +85,7 @@ public class RecapitalizeStatus {
         return mTextPlacement;
     }
 
-    public int getCurrentMode() {
+    public RecapitalizeMode getCurrentMode() {
         return mCurrentMode;
     }
 }

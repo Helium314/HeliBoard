@@ -5,16 +5,34 @@ import java.util.Locale;
 import helium314.keyboard.latin.common.StringUtils;
 
 public enum RecapitalizeMode {
-    ;
-    public static final int NULL = -1;
-    public static final int ORIGINAL_MIXED_CASE = 0;
-    public static final int ALL_LOWER = 1;
-    public static final int FIRST_WORD_UPPER = 2;
-    public static final int ALL_UPPER = 3;
-    // When adding a new mode, don't forget to update the ROTATION_SIZE constant.
-    private static final int ROTATION_SIZE = 4;
+    ORIGINAL_MIXED_CASE {
+        @Override
+        public String apply(String text, int[] sortedSeparators, Locale locale) {
+            return text;
+        }
+    },
+    ALL_LOWER {
+        @Override
+        public String apply(String text, int[] sortedSeparators, Locale locale) {
+            return text.toLowerCase(locale);
+        }
+    },
+    FIRST_WORD_UPPER {
+        @Override
+        public String apply(String text, int[] sortedSeparators, Locale locale) {
+            return StringUtils.capitalizeEachWord(text, sortedSeparators, locale);
+        }
+    },
+    ALL_UPPER {
+        @Override
+        public String apply(String text, int[] sortedSeparators, Locale locale) {
+            return text.toUpperCase(locale);
+        }
+    };
 
-    public static int of(final String string, final int[] sortedSeparators) {
+    private static RecapitalizeMode[] sCarousel = values();
+
+    public static RecapitalizeMode of(final String string, final int[] sortedSeparators) {
         if (StringUtils.isIdenticalAfterUpcase(string)) {
             return ALL_UPPER;
         } else if (StringUtils.isIdenticalAfterDowncase(string)) {
@@ -27,35 +45,16 @@ public enum RecapitalizeMode {
     }
 
     public static int count() {
-        return ROTATION_SIZE;
+        return sCarousel.length;
     }
 
-    public static int rotate(int recapitalizeMode, boolean skipOriginalMixedCaseMode) {
-        ++recapitalizeMode;
-        if (recapitalizeMode == ROTATION_SIZE) {
-            recapitalizeMode = skipOriginalMixedCaseMode ? 1 : 0;
+    public final RecapitalizeMode rotate(boolean skipOriginalMixedCaseMode) {
+        int position = ordinal() + 1;
+        if (position == sCarousel.length) {
+            position = skipOriginalMixedCaseMode ? 1 : 0;
         }
-        return recapitalizeMode;
+        return sCarousel[position];
     }
 
-    public static String apply(int recapitalizeMode, String text, int[] sortedSeparators, Locale locale) {
-        return switch (recapitalizeMode) {
-            case RecapitalizeMode.ORIGINAL_MIXED_CASE -> text;
-            case RecapitalizeMode.ALL_LOWER -> text.toLowerCase(locale);
-            case RecapitalizeMode.FIRST_WORD_UPPER -> StringUtils.capitalizeEachWord(text, sortedSeparators, locale);
-            case RecapitalizeMode.ALL_UPPER -> text.toUpperCase(locale);
-            default -> throw new IllegalArgumentException();
-        };
-    }
-
-    public static String toString(int recapitalizeMode) {
-        return switch (recapitalizeMode) {
-            case NULL -> "undefined";
-            case ORIGINAL_MIXED_CASE -> "mixedCase";
-            case ALL_LOWER -> "allLower";
-            case FIRST_WORD_UPPER -> "firstWordUpper";
-            case ALL_UPPER -> "allUpper";
-            default -> throw new IllegalArgumentException();
-        };
-    }
+    public abstract String apply(String text, int[] sortedSeparators, Locale locale);
 }
