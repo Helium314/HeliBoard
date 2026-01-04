@@ -52,11 +52,8 @@ public class RecapitalizeStatus {
         };
     }
 
-    /**
-     * We store the location of the cursor and the string that was there before the recapitalize
-     * action was done, and the location of the cursor and the string that was there after.
-     */
-    private int mCursorStartBefore;
+    // We store the location of the cursor and the string that was there before the recapitalize
+    // action was done, and the location of the cursor and the string that was there after.
     private String mStringBefore;
     private int mCursorStartAfter;
     private int mCursorEndAfter;
@@ -81,7 +78,6 @@ public class RecapitalizeStatus {
         if (!mIsEnabled) {
             return;
         }
-        mCursorStartBefore = cursorStart;
         mStringBefore = string;
         mCursorStartAfter = cursorStart;
         mCursorEndAfter = cursorEnd;
@@ -152,34 +148,6 @@ public class RecapitalizeStatus {
             }
         } while (mStringAfter.equals(oldResult) && count < ROTATION_STYLE.length + 1);
         mCursorEndAfter = mCursorStartAfter + mStringAfter.length();
-    }
-
-    /**
-     * Remove leading/trailing whitespace from the considered string.
-     */
-    public void trim() {
-        final int len = mStringBefore.length();
-        int nonWhitespaceStart = 0;
-        for (; nonWhitespaceStart < len;
-                nonWhitespaceStart = mStringBefore.offsetByCodePoints(nonWhitespaceStart, 1)) {
-            final int codePoint = mStringBefore.codePointAt(nonWhitespaceStart);
-            if (!Character.isWhitespace(codePoint)) break;
-        }
-        int nonWhitespaceEnd = len;
-        for (; nonWhitespaceEnd > 0;
-                nonWhitespaceEnd = mStringBefore.offsetByCodePoints(nonWhitespaceEnd, -1)) {
-            final int codePoint = mStringBefore.codePointBefore(nonWhitespaceEnd);
-            if (!Character.isWhitespace(codePoint)) break;
-        }
-        // If nonWhitespaceStart >= nonWhitespaceEnd, that means the selection contained only
-        // whitespace, so we leave it as is.
-        if ((0 != nonWhitespaceStart || len != nonWhitespaceEnd)
-                && nonWhitespaceStart < nonWhitespaceEnd) {
-            mCursorEndAfter = mCursorStartBefore + nonWhitespaceEnd;
-            mCursorStartBefore = mCursorStartAfter = mCursorStartBefore + nonWhitespaceStart;
-            mStringAfter = mStringBefore =
-                    mStringBefore.substring(nonWhitespaceStart, nonWhitespaceEnd);
-        }
     }
 
     public String getRecapitalizedString() {
