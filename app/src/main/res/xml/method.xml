@@ -170,6 +170,15 @@
         android:isAsciiCapable="true"
     />
     <subtype android:icon="@drawable/ic_ime_switcher"
+        android:label="@string/subtype_en_US_KQ"
+        android:subtypeId="0xeb2269ee"
+        android:imeSubtypeLocale="en_US"
+        android:languageTag="en-US"
+        android:imeSubtypeMode="keyboard"
+        android:imeSubtypeExtraValue="KeyboardLayoutSet=MAIN:kalq|FUNCTIONAL:functional_keys_kalq|SYMBOLS:symbols_kalq|NUMBER_ROW:number_row_kalq,AsciiCapable,EmojiCapable"
+        android:isAsciiCapable="true"
+    />
+    <subtype android:icon="@drawable/ic_ime_switcher"
         android:label="@string/subtype_generic"
         android:subtypeId="0x6f972360"
         android:imeSubtypeLocale="af"
