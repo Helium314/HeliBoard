@@ -1,52 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (C) 2012 The Android Open Source Project
-
-     Licensed under the Apache License, Version 2.0 (the "License");
-     you may not use this file except in compliance with the License.
-     You may obtain a copy of the License at
-
-          http://www.apache.org/licenses/LICENSE-2.0
-
-     Unless required by applicable law or agreed to in writing, software
-     distributed under the License is distributed on an "AS IS" BASIS,
-     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-     See the License for the specific language governing permissions and
-     limitations under the License.
+<!--
+Copyright (C) 2012 The Android Open Source Project
+modified
+SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
 -->
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-        package="org.dslul.openboard.inputmethod.latin">
+    xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.READ_USER_DICTIONARY" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.WRITE_USER_DICTIONARY" />
-
-    <!-- A signature-protected permission to ask AOSP Keyboard to close the software keyboard.
-         To use this, add the following line into calling application's AndroidManifest.xml
-         <pre>
-         {@code
-         <uses-permission android:name="org.dslul.openboard.inputmethod.latin.HIDE_SOFT_INPUT"/>
-         }
-         </pre>
-         then call {@link android.content.Context#sendBroadcast(Intent)} as follows:
-         <pre>
-         {@code
-         sendBroadcast(new Intent("org.dslul.openboard.inputmethod.latin.HIDE_SOFT_INPUT")
-                 .setPackage("org.dslul.openboard.inputmethod.latin"));
-         }
-         </pre> -->
-    <permission android:name="org.dslul.openboard.inputmethod.latin.HIDE_SOFT_INPUT"
-                android:protectionLevel="signature" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
 
     <application android:label="@string/english_ime_name"
+            android:name="helium314.keyboard.latin.App"
             android:icon="@mipmap/ic_launcher"
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:allowBackup="true"
             android:defaultToDeviceProtectedStorage="true"
             android:directBootAware="true"
-            android:extractNativeLibs="false">
+            tools:remove="android:appComponentFactory"
+            tools:targetApi="p">
 
         <!-- Services -->
         <service android:name="LatinIME"
@@ -57,7 +34,7 @@
             <intent-filter>
                 <action android:name="android.view.InputMethod" />
             </intent-filter>
-            <meta-data android:name="android.view.im" android:resource="@xml/method" />
+            <meta-data android:name="android.view.im" android:resource="@xml/method_dummy" />
         </service>
 
         <service android:name=".spellcheck.AndroidSpellCheckerService"
@@ -72,12 +49,10 @@
         </service>
 
         <!-- Activities -->
-        <activity android:name=".setup.SetupActivity"
+        <activity android:name="helium314.keyboard.settings.SettingsActivity"
                 android:theme="@style/platformActivityTheme"
-                android:label="@string/english_ime_name"
                 android:icon="@mipmap/ic_launcher"
-                android:launchMode="singleTask"
-                android:noHistory="true"
+                android:windowSoftInputMode="adjustResize"
                 android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -85,45 +60,29 @@
             </intent-filter>
         </activity>
 
-        <activity
-            android:name=".permissions.PermissionsActivity"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"
-            android:exported="false"
-            android:taskAffinity="" >
-        </activity>
-
-        <activity android:name=".setup.SetupWizardActivity"
-                android:theme="@style/platformActivityTheme"
-                android:label="@string/english_ime_name"
-                android:clearTaskOnLaunch="true"
-                android:exported="true">
+        <!-- separate activity that's used internally, only necessary in case the launcher icon is disabled on Android < 10 -->
+        <activity android:name="helium314.keyboard.settings.SettingsActivity2"
+            android:theme="@style/platformActivityTheme"
+            android:icon="@mipmap/ic_launcher"
+            android:windowSoftInputMode="adjustResize"
+            android:exported="true">
+            <!-- intent filter for opening .dict files -->
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-            </intent-filter>
-        </activity>
-
-        <activity android:name=".settings.SettingsActivity"
-                android:theme="@style/platformActivityTheme"
-                android:label="@string/ime_settings"
-                android:excludeFromRecents="true"
-                android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:mimeType="application/octet-stream" android:scheme="content" android:host="*" android:pathPattern=".*\\.dict" />
             </intent-filter>
         </activity>
 
         <activity android:name=".spellcheck.SpellCheckerSettingsActivity"
-                  android:theme="@style/platformActivityTheme"
-                  android:label="@string/android_spell_checker_settings"
+                android:theme="@style/platformActivityTheme"
+                android:label="@string/spell_checker_service_name"
                 android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
-
-        <!-- Unexported activity used for tests. -->
-        <activity android:name=".settings.TestFragmentActivity"
-                android:exported="false" />
 
         <!-- Broadcast receivers -->
         <receiver android:name="SystemBroadcastReceiver"
@@ -138,17 +97,24 @@
 
         <receiver android:name="DictionaryPackInstallBroadcastReceiver" android:exported="false">
             <intent-filter>
-                <action android:name="org.dslul.openboard.inputmethod.dictionarypack.aosp.UNKNOWN_CLIENT" />
+                <action android:name="helium314.keyboard.dictionarypack.aosp.UNKNOWN_CLIENT" />
             </intent-filter>
         </receiver>
 
-        <!-- Content providers -->
-        <provider android:name="org.dslul.openboard.inputmethod.dictionarypack.DictionaryProvider"
-                android:grantUriPermissions="true"
-                android:exported="false"
-                android:authorities="@string/authority"
-                android:multiprocess="false"
-                android:label="@string/dictionary_provider_name">
-        </provider>
     </application>
+
+    <queries>
+        <!-- To detect other IMEs -->
+        <intent>
+            <!-- changed to * as it's supposed to help with finding other keyboard apps, see https://github.com/Helium314/HeliBoard/issues/1340 -->
+            <!--<action android:name="android.view.InputMethod" />-->
+            <action android:name="*" />
+        </intent>
+
+        <!-- To detect names of installed apps -->
+        <intent>
+            <action android:name="android.intent.action.MAIN" />
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent>
+    </queries>
 </manifest>

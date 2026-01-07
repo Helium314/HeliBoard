@@ -1,0 +1,11 @@
+* Özelleştirilebilir işlev tuşu düzeni
+* Semboller ve daha fazla semboller düzenini biraz ayarla
+* Alt, ctrl, fn, meta tuşları için temel destek ekle
+* Araç çubuğunu genişlet (uzun basma işlevi, isteğe bağlı uzun basma ile sabitleme, otomatik göster/gizle, daha iyi pano araç çubuğu, ...)
+* Tab tuşu ekle
+* Caps lock göstergesi ekle
+* Bazı diller için düzenler ekle
+* Araç çubuğu tuşlarını klavye tuşları olarak ekle
+* Tüm renkleri özelleştirmeye izin ver
+* Metin kopyalandığında bildirim mesajı (toast notification) ekle
+* Hata düzeltmeleri ve daha fazla iyileştirme, tam sürüm notlarına bakın

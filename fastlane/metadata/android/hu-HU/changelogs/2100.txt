@@ -1,0 +1,8 @@
+* Hibás funkcióbillentyű-elrendezés javítása táblagépeken
+* Nyelvváltó billentyű csak akkor jelenjen meg, ha van mire váltani
+* Alapértelmezett színek véletlenszerűvé tétele a szürke helyett a „minden szín” beállításnál
+* Kézmozdulatok kezdési késleltetésének testreszabása gépelés közben
+* Pénznembillentyűk testreszabásának engedélyezése
+* Hosszú lenyomás idejének csökkentése a shift -> caps lock váltáshoz
+
+* És még több hibajavítás - további részletek a bejelentésben

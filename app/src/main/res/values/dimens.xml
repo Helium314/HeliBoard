@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+    SPDX-License-Identifier: GPL-3.0-only
+-->
 <resources>
     <dimen name="settings_screen_icon_inset">16dp</dimen>
 </resources>

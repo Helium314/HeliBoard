@@ -1,0 +1,11 @@
+* İşlev tuşu düzenlerini özelleştirmeye izin ver
+* Semboller ve daha fazla semboller düzenini biraz ayarla
+* Araç çubuğunu otomatik olarak göster/gizle seçenekleri ekle
+* Metin kopyalandığında bildirim mesajı (toast notification) ekle
+* Dil değiştirme tuşunun davranışını etkinleştirmeden ayır
+* Sayı ve telefon düzenleri için virgül tuşu açılır menüleri ekle
+* Araç çubuğunda uzun basarak sabitlemeyi isteğe bağlı yap
+* Araç çubuğu ayarlarını ayrı bir bölüme taşı
+* Tab tuşu ekle
+* Düzenlerde ctrl, araç çubuğu ve diğer tuş etiketlerini anla
+* Küçük düzeltmeler ve iyileştirmeler

@@ -1,48 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-/*
-**
-** Copyright 2011, The Android Open Source Project
-**
-** Licensed under the Apache License, Version 2.0 (the "License");
-** you may not use this file except in compliance with the License.
-** You may obtain a copy of the License at
-**
-**     http://www.apache.org/licenses/LICENSE-2.0
-**
-** Unless required by applicable law or agreed to in writing, software
-** distributed under the License is distributed on an "AS IS" BASIS,
-** WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-** See the License for the specific language governing permissions and
-** limitations under the License.
-*/
+    Copyright (C) 2011 The Android Open Source Project
+    modified
+    SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
 -->
 
 <!-- Configuration values for Small Phone Landscape. -->
 <resources>
-    <bool name="config_use_fullscreen_mode">false</bool>
+    <bool name="config_fullscreen_mode_allowed">true</bool>
 
     <!-- Preferable keyboard height in absolute scale: 1.100in -->
     <!-- This config_default_keyboard_height value should match with keyboard-heights.xml -->
     <dimen name="config_default_keyboard_height">176.0dp</dimen>
     <fraction name="config_min_keyboard_height">45%p</fraction>
 
-    <!-- key_height + key_bottom_gap = config_more_keys_keyboard_key_height -->
-    <dimen name="config_more_keys_keyboard_key_height">44.8dp</dimen>
+    <!-- key_height + key_bottom_gap = config_popup_keys_keyboard_key_height -->
+    <dimen name="config_popup_keys_keyboard_key_height">44.8dp</dimen>
     <!-- Amount of allowance for selecting keys in a mini popup keyboard by sliding finger. -->
-    <!-- config_more_keys_keyboard_key_height x 1.2 -->
-    <dimen name="config_more_keys_keyboard_slide_allowance">53.76dp</dimen>
+    <!-- config_popup_keys_keyboard_key_height x 1.2 -->
+    <dimen name="config_popup_keys_keyboard_slide_allowance">53.76dp</dimen>
 
     <fraction name="config_keyboard_top_padding_holo">2.727%p</fraction>
-    <fraction name="config_keyboard_bottom_padding_holo">0.0%p</fraction>
+    <fraction name="config_keyboard_bottom_padding_holo">2.5%p</fraction>
     <fraction name="config_key_vertical_gap_holo">5.368%p</fraction>
     <fraction name="config_key_horizontal_gap_holo">1.020%p</fraction>
-    <!-- config_more_keys_keyboard_key_height x -0.5 -->
-    <dimen name="config_more_keys_keyboard_vertical_correction_holo">-22.4dp</dimen>
+    <fraction name="config_key_vertical_gap_holo_narrow">4.85%p</fraction>
+    <fraction name="config_key_horizontal_gap_holo_narrow">0.920%p</fraction>
+    <!-- config_popup_keys_keyboard_key_height x -0.5 -->
+    <dimen name="config_popup_keys_keyboard_vertical_correction_holo">-22.4dp</dimen>
     <dimen name="config_key_preview_offset_holo">1.6dp</dimen>
-    <dimen name="config_key_preview_height_holo">80dp</dimen>
     <dimen name="config_key_preview_offset_lxx">0dp</dimen>
-    <dimen name="config_key_preview_height_lxx">122dp</dimen>
     <fraction name="config_key_preview_text_ratio">90%</fraction>
     <fraction name="config_key_letter_ratio_holo">65%</fraction>
     <fraction name="config_key_letter_ratio_lxx">65%</fraction>
@@ -58,14 +45,8 @@
     <fraction name="config_key_shifted_letter_hint_ratio_lxx">40%</fraction>
     <fraction name="config_language_on_spacebar_text_ratio">40.000%</fraction>
 
-    <!-- For 5-row keyboard -->
-    <fraction name="config_key_vertical_gap_5row">3.20%p</fraction>
-    <fraction name="config_key_letter_ratio_5row">65%</fraction>
-    <fraction name="config_key_shifted_letter_hint_ratio_5row">48%</fraction>
-
     <dimen name="config_suggestions_strip_height">36dp</dimen>
-    <dimen name="config_suggestions_strip_horizontal_margin">54dp</dimen>
-    <dimen name="config_suggestions_strip_edge_key_width">54dp</dimen>
+    <dimen name="config_suggestions_strip_edge_key_width">48dp</dimen>
     <dimen name="config_more_suggestions_row_height">36dp</dimen>
     <integer name="config_max_more_suggestions_row">2</integer>
     <fraction name="config_min_more_suggestions_width">60%</fraction>
@@ -78,9 +59,9 @@
 
     <!-- Emoji keyboard -->
     <fraction name="config_emoji_keyboard_key_width">8.33%p</fraction>
-    <fraction name="config_emoji_keyboard_row_height">40%p</fraction>
-    <fraction name="config_emoji_keyboard_key_letter_size">70%p</fraction>
-    <fraction name="config_emoji_keyboard_key_label_size">70%p</fraction>
+    <fraction name="config_emoji_keyboard_row_height">41%p</fraction>
+    <fraction name="config_emoji_keyboard_key_letter_size">78%p</fraction>
+    <fraction name="config_emoji_keyboard_key_label_size">78%p</fraction>
     <integer name="config_emoji_keyboard_max_recents_key_count">32</integer>
 
     <!-- Clipboard keyboard -->

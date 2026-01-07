@@ -1,0 +1,7 @@
+- update Servische Cyrillische lay-out door @markokocic (#704, #705)
+- update Estland layout door @tenextractor (#693)
+- reparatie vsn dubbele items in de klembordgeschiedenis door @codokie (#616, #680)
+- voeg alleen tekstinvoer toe aan de klembordgeschiedenis door @codokie (#711)
+- betere afbeeldingen in metadata door @RHJihan (#713)
+- correcte instelling van de kleur van pictogrammen in het dialoogvenster voor werkbalkselectie door @codokie (#715, #716)
+- overige oplossingen van problemen (#684, #723 en meer)

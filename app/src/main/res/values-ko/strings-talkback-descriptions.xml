@@ -1,96 +1,69 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- 
-/*
-**
-** Copyright 2015, The Android Open Source Project
-**
-** Licensed under the Apache License, Version 2.0 (the "License");
-** you may not use this file except in compliance with the License.
-** You may obtain a copy of the License at
-**
-**     http://www.apache.org/licenses/LICENSE-2.0
-**
-** Unless required by applicable law or agreed to in writing, software
-** distributed under the License is distributed on an "AS IS" BASIS,
-** WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-** See the License for the specific language governing permissions and
-** limitations under the License.
-*/
- -->
-
-<resources xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="spoken_use_headphones" msgid="4313642710742229868">"비밀번호 키를 음성으로 들으려면 헤드셋을 연결하세요."</string>
-    <string name="spoken_current_text_is" msgid="4240549866156675799">"입력한 텍스트: %s"</string>
-    <string name="spoken_no_text_entered" msgid="1711276837961785646">"입력한 텍스트 없음"</string>
-    <string name="spoken_auto_correct" msgid="8989324692167993804">"<xliff:g id="KEY_NAME">%1$s</xliff:g>을(를) 누르면 <xliff:g id="ORIGINAL_WORD">%2$s</xliff:g>을(를) <xliff:g id="CORRECTED_WORD">%3$s</xliff:g>(으)로 수정합니다."</string>
-    <string name="spoken_auto_correct_obscured" msgid="7769449372355268412">"<xliff:g id="KEY_NAME">%1$s</xliff:g>을(를) 누르면 자동 수정됩니다."</string>
-    <string name="spoken_empty_suggestion" msgid="4250215619373459752">"추천 항목 없음"</string>
-    <string name="spoken_description_unknown" msgid="5139930082759824442">"알 수 없는 문자"</string>
-    <string name="spoken_description_shift" msgid="7209798151676638728">"Shift 키"</string>
-    <string name="spoken_description_symbols_shift" msgid="3483198879916435717">"기호 더보기"</string>
-    <string name="spoken_description_shift_shifted" msgid="3122704922642232605">"Shift 키"</string>
-    <string name="spoken_description_symbols_shift_shifted" msgid="5179175466878186081">"기호"</string>
-    <string name="spoken_description_caps_lock" msgid="1224851412185975036">"Shift 키"</string>
-    <string name="spoken_description_delete" msgid="3878902286264983302">"삭제"</string>
-    <string name="spoken_description_to_symbol" msgid="8244903740201126590">"기호"</string>
-    <string name="spoken_description_to_alpha" msgid="4081215210530031950">"문자"</string>
-    <string name="spoken_description_to_numeric" msgid="4560261331530795682">"숫자"</string>
-    <string name="spoken_description_settings" msgid="7281251004003143204">"설정"</string>
-    <string name="spoken_description_tab" msgid="8210782459446866716">"탭"</string>
-    <string name="spoken_description_space" msgid="5908716896642059145">"스페이스바"</string>
-    <string name="spoken_description_mic" msgid="6153138783813452464">"음성 입력"</string>
-    <string name="spoken_description_emoji" msgid="7990051553008088470">"그림 이모티콘"</string>
-    <string name="spoken_description_return" msgid="3183692287397645708">"돌아가기"</string>
-    <string name="spoken_description_search" msgid="5099937658231911288">"검색"</string>
-    <string name="spoken_description_dot" msgid="5644176501632325560">"글머리 기호"</string>
-    <string name="spoken_description_language_switch" msgid="6818666779313544553">"언어 전환"</string>
-    <string name="spoken_description_action_next" msgid="431761808119616962">"다음"</string>
-    <string name="spoken_description_action_previous" msgid="2919072174697865110">"이전"</string>
-    <string name="spoken_description_shiftmode_on" msgid="5107180516341258979">"Shift 사용"</string>
-    <string name="spoken_description_shiftmode_locked" msgid="7307477738053606881">"Caps Lock 사용"</string>
-    <string name="spoken_description_mode_symbol" msgid="111186851131446691">"기호 모드"</string>
-    <string name="spoken_description_mode_symbol_shift" msgid="4305607977537665389">"기호 더보기 모드"</string>
-    <string name="spoken_description_mode_alpha" msgid="4676004119618778911">"문자 모드"</string>
-    <string name="spoken_description_mode_phone" msgid="2061220553756692903">"다이얼 모드"</string>
-    <string name="spoken_description_mode_phone_shift" msgid="7879963803547701090">"전화 기호 모드"</string>
-    <string name="announce_keyboard_hidden" msgid="2313574218950517779">"키보드 숨김"</string>
-    <string name="announce_keyboard_mode" msgid="6698257917367823205">"<xliff:g id="KEYBOARD_MODE">%s</xliff:g> 키보드 표시"</string>
-    <string name="keyboard_mode_date" msgid="6597407244976713364">"날짜"</string>
-    <string name="keyboard_mode_date_time" msgid="3642804408726668808">"날짜 및 시간"</string>
-    <string name="keyboard_mode_email" msgid="1239682082047693644">"이메일"</string>
-    <string name="keyboard_mode_im" msgid="3812086215529493501">"문자 메시지"</string>
-    <string name="keyboard_mode_number" msgid="5395042245837996809">"숫자"</string>
-    <string name="keyboard_mode_phone" msgid="2486230278064523665">"전화번호"</string>
-    <string name="keyboard_mode_text" msgid="9138789594969187494">"텍스트"</string>
-    <string name="keyboard_mode_time" msgid="8558297845514402675">"시간"</string>
-    <string name="keyboard_mode_url" msgid="8072011652949962550">"URL"</string>
-    <string name="spoken_descrption_emoji_category_recents" msgid="4185344945205590692">"최근"</string>
-    <string name="spoken_descrption_emoji_category_people" msgid="8414196269847492817">"사람"</string>
-    <string name="spoken_descrption_emoji_category_objects" msgid="6116297906606195278">"물건"</string>
-    <string name="spoken_descrption_emoji_category_nature" msgid="5018340512472354640">"자연"</string>
-    <string name="spoken_descrption_emoji_category_places" msgid="1163315840948545317">"장소"</string>
-    <string name="spoken_descrption_emoji_category_symbols" msgid="474680659024880601">"기호"</string>
-    <string name="spoken_descrption_emoji_category_flags" msgid="5971573825866381472">"깃발"</string>
-    <string name="spoken_descrption_emoji_category_eight_smiley_people" msgid="5682663819532433464">"이모티콘/사람"</string>
-    <string name="spoken_descrption_emoji_category_eight_animals_nature" msgid="5844950234883716704">"동물/자연"</string>
-    <string name="spoken_descrption_emoji_category_eight_food_drink" msgid="6196944764485349650">"음식/음료"</string>
-    <string name="spoken_descrption_emoji_category_eight_travel_places" msgid="3834085499381434611">"여행/장소"</string>
-    <string name="spoken_descrption_emoji_category_eight_activity" msgid="4795281669042975993">"활동"</string>
-    <string name="spoken_descrption_emoji_category_emoticons" msgid="456737544787823539">"이모티콘"</string>
-    <string name="spoken_description_upper_case" msgid="4904835255229433916">"대문자 <xliff:g id="LOWER_LETTER">%s</xliff:g>"</string>
-    <string name="spoken_letter_0049" msgid="4743162182646977944">"대문자 아이"</string>
-    <string name="spoken_letter_0130" msgid="4766619646231612274">"대문자 아이, 위 닷"</string>
-    <string name="spoken_symbol_unknown" msgid="717298227061173706">"알 수 없는 기호"</string>
-    <string name="spoken_emoji_unknown" msgid="5981009928135394306">"알 수 없는 그림 이모티콘"</string>
-    <string name="spoken_emoticon_3A_2D_21_20" msgid="2410905667389534573">"지루한 얼굴"</string>
-    <string name="spoken_emoticon_3A_2D_24_20" msgid="2481260475945560438">"당황한 얼굴"</string>
-    <string name="spoken_emoticon_42_2D_29_20" msgid="1063205250387128068">"선글라스 쓴 얼굴"</string>
-    <string name="spoken_emoticon_3A_4F_20" msgid="532695091593447238">"놀란 얼굴"</string>
-    <string name="spoken_emoticon_3A_2D_2A_20" msgid="5612342617244114291">"키스하는 얼굴"</string>
-    <string name="spoken_emoticon_3A_2D_5B_20" msgid="2223507987759905920">"찌푸린 얼굴"</string>
-    <string name="spoken_open_more_keys_keyboard" msgid="6832897688371903747">"대체 문자를 사용할 수 있습니다"</string>
-    <string name="spoken_close_more_keys_keyboard" msgid="3524914657934712026">"대체 문자를 닫았습니다."</string>
-    <string name="spoken_open_more_suggestions" msgid="4231720702882969760">"대체 추천 단어를 사용할 수 있습니다"</string>
-    <string name="spoken_close_more_suggestions" msgid="9118455416075032839">"대체 추천 단어를 닫았습니다."</string>
+<!--
+    Copyright (C) 2015 The Android Open Source Project
+    SPDX-License-Identifier: Apache-2.0
+-->
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="spoken_use_headphones">"비밀번호 키를 음성으로 들으려면 헤드셋을 연결하세요."</string>
+    <string name="spoken_current_text_is">"입력한 텍스트: %s"</string>
+    <string name="spoken_no_text_entered">"입력한 텍스트 없음"</string>
+    <string name="spoken_auto_correct">"<xliff:g id="KEY_NAME">%1$s</xliff:g>을(를) 누르면 <xliff:g id="ORIGINAL_WORD">%2$s</xliff:g>을(를) <xliff:g id="CORRECTED_WORD">%3$s</xliff:g>(으)로 수정합니다."</string>
+    <string name="spoken_auto_correct_obscured">"<xliff:g id="KEY_NAME">%1$s</xliff:g>을(를) 누르면 자동 수정됩니다."</string>
+    <string name="spoken_empty_suggestion">"추천 항목 없음"</string>
+    <string name="spoken_description_unknown">"알 수 없는 문자"</string>
+    <string name="spoken_description_shift">"Shift 키"</string>
+    <string name="spoken_description_symbols_shift">"기호 더보기"</string>
+    <string name="spoken_description_shift_shifted">"Shift 키"</string>
+    <string name="spoken_description_symbols_shift_shifted">"기호"</string>
+    <string name="spoken_description_caps_lock">"Shift 키"</string>
+    <string name="spoken_description_delete">"삭제"</string>
+    <string name="spoken_description_to_symbol">"기호"</string>
+    <string name="spoken_description_to_alpha">"문자"</string>
+    <string name="spoken_description_to_numeric">"숫자"</string>
+    <string name="spoken_description_settings">"설정"</string>
+    <string name="spoken_description_tab">"탭"</string>
+    <string name="spoken_description_space">"스페이스바"</string>
+    <string name="spoken_description_mic">"음성 입력"</string>
+    <string name="spoken_description_emoji">"그림 이모티콘"</string>
+    <string name="spoken_description_return">"돌아가기"</string>
+    <string name="spoken_description_search">"검색"</string>
+    <string name="spoken_description_dot">"글머리 기호"</string>
+    <string name="spoken_description_language_switch">"언어 전환"</string>
+    <string name="spoken_description_action_next">"다음"</string>
+    <string name="spoken_description_action_previous">"이전"</string>
+    <string name="spoken_description_shiftmode_on">"Shift 사용"</string>
+    <string name="spoken_description_shiftmode_locked">"Caps Lock 사용"</string>
+    <string name="spoken_description_mode_symbol">"기호 모드"</string>
+    <string name="spoken_description_mode_symbol_shift">"기호 더보기 모드"</string>
+    <string name="spoken_description_mode_alpha">"문자 모드"</string>
+    <string name="spoken_description_mode_phone">"다이얼 모드"</string>
+    <string name="spoken_description_mode_phone_shift">"전화 기호 모드"</string>
+    <string name="announce_keyboard_hidden">"키보드 숨김"</string>
+    <string name="announce_keyboard_mode">"<xliff:g id="KEYBOARD_MODE">%s</xliff:g> 키보드 표시"</string>
+    <string name="keyboard_mode_date">"날짜"</string>
+    <string name="keyboard_mode_date_time">"날짜 및 시간"</string>
+    <string name="keyboard_mode_email">"이메일"</string>
+    <string name="keyboard_mode_im">"문자 메시지"</string>
+    <string name="keyboard_mode_number">"숫자"</string>
+    <string name="keyboard_mode_phone">"전화번호"</string>
+    <string name="keyboard_mode_text">"텍스트"</string>
+    <string name="keyboard_mode_time">"시간"</string>
+    <string name="keyboard_mode_url">"URL"</string>
+    <string name="spoken_description_emoji_category_recents">"최근"</string>
+    <string name="spoken_description_emoji_category_objects">"물건"</string>
+    <string name="spoken_description_emoji_category_symbols">"기호"</string>
+    <string name="spoken_description_emoji_category_flags">"깃발"</string>
+    <string name="spoken_description_emoji_category_eight_smiley_people">"이모티콘/사람"</string>
+    <string name="spoken_description_emoji_category_eight_animals_nature">"동물/자연"</string>
+    <string name="spoken_description_emoji_category_eight_food_drink">"음식/음료"</string>
+    <string name="spoken_description_emoji_category_eight_travel_places">"여행/장소"</string>
+    <string name="spoken_description_emoji_category_eight_activity">"활동"</string>
+    <string name="spoken_description_emoji_category_emoticons">"이모티콘"</string>
+    <string name="spoken_description_upper_case">"대문자 <xliff:g id="LOWER_LETTER">%s</xliff:g>"</string>
+    <string name="spoken_letter_0049">"대문자 아이"</string>
+    <string name="spoken_letter_0130">"대문자 아이, 위 닷"</string>
+    <string name="spoken_open_popup_keys_keyboard">"대체 문자를 사용할 수 있습니다"</string>
+    <string name="spoken_close_popup_keys_keyboard">"대체 문자를 닫았습니다."</string>
+    <string name="spoken_open_more_suggestions">"대체 추천 단어를 사용할 수 있습니다"</string>
+    <string name="spoken_close_more_suggestions">"대체 추천 단어를 닫았습니다."</string>
 </resources>

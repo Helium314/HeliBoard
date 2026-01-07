@@ -1,0 +1,7 @@
+- Layout cirillico serbo aggiornato, di @markokocic (#704, #705)
+- Layout estone aggiornato, di @tenextractor (#693)
+- Correzione di voci duplicate nella cronologia degli appunti, di @codokie (#616, #680)
+- Aggiunta solo di voci di testo alla cronologia degli appunti, di @codokie (#711)
+- Immagini migliori nei metadati, di @RHJihan (#713)
+- Impostazione corretta del colore delle icone sulla barra degli strumenti, di @codokie (#715, #716)
+- Altre correzioni (#684, #723 e altro)

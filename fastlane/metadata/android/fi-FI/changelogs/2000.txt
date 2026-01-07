@@ -1,0 +1,10 @@
+* Lisää perustuki muokkausnäppäimille
+* Lisää pitkän painalluksen toimintoja useisiin työkalupalkin näppäimiin
+* ja muita leikepöydän historiatyökalupalkin näppäimiä
+* Tee leikepöydän historiatyökalurivistä muokattavissa
+* mahdollistaa kaikkien värien mukauttamisen
+* Lisää asetus näyttääksesi aina keskimmäisenä ehdotuksena syötettävän sanan
+* Lisää caps lock -ilmaisin
+* lisää piemontese, itämari, mansi, laajennetut asettelut kannadalle ja unkarille
+* Korjaa leikattu teksti avainten esikatselun ponnahdusikkunassa joissakin laitteissa
+* lisää korjauksia ja parannuksia, katso julkaisutiedot

@@ -1,0 +1,10 @@
+[popup_keys]
+a ă â
+i î
+s ș
+t ț
+' ‘ ‚ ’
+" “ „ ”
+
+[tlds]
+ro

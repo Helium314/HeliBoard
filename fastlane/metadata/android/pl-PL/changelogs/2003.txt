@@ -1,0 +1,11 @@
+* konfigurowalny układ klawiszy funkcyjnych
+* lekkie dostosowanie układów symboli i symboli dodatkowych
+* podstawowa obsługa klawiszy alt, ctrl, fn, meta
+* rozszerzenie możliwości paska narzędzi (funkcja długiego naciśnięcia, opcjonalne przypinanie długim naciśnięciem, automatyczne pokazywanie/ukrywanie, lepszy pasek narzędzi w schowku,...)
+* dodano klawisz tabulatora
+* dodano wskaźnik caps lock
+* dodano układy dla niektórych języków
+* dodano klawisze paska narzędzi jako klawisze klawiatury
+* możliwość dostosowania wszystkich kolorów
+* powiadomienie toast podczas kopiowania tekstu
+* poprawki błędów i więcej ulepszeń, zobacz pełne informacje o wydaniu

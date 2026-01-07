@@ -1,0 +1,20 @@
+* nouvel icône de @FabianOvrWrt avec la contribution de @the-eclectic-dyslexic (#517, #592)
+* plus de customisation de la barre espace du pavé tactile
+* ajout du % pour les mises en page des symboles shift (#568, #428)
+* amélioration du comportement quand la touche de changement de langue est définie pour changer à la fois la langue et le clavier
+* afficher les liens aux dictionnaires existants quand un dctionnaire est ajouté
+* ajout de la disposition de clavier Kaïtag par @alkaitagi (#519)
+* ajout de la disposition de clavier Probhat par @fahimscirex (#489)
+* ordre inversé optionnel de la barre d'outils pour les langues RTL par @codokie (#557, #574)
+* autorisation de customisation de mises en page particulières (pavé numérique, téléphone, ...)
+  * en cours d'expérimentation, car les schémas de base peuvent changer
+* mise à jour de spellchecker.xml pour inclure les lieux où les dictionnaires sont disponibles, mais n'est pas inclus dans l'application
+* mise à jour des traductions (merci aux traducteur·rices !)
+* amélioration du ndk par @Syphyr (#560)
+* amélioration du code de remplissage automatique en ligne par @arcarum (#595)
+* problème corrigé avec la fenêtre de la touche de la barre d'outils (#505)
+* problème corrigé avec la disposition turque (#508)
+* correction des mauvais switch states lors de la rotation dans l'écran de personnalisation des couleurs (#563)
+* problème corrigé avec les récents émojis qui ne chargent pas (#527)
+* problème corrigé avec les numbers qui ne s'affichent pas dans certains champs (#585)
+* quelques petites corrections

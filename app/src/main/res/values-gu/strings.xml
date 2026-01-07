@@ -1,193 +1,106 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!-- 
-/*
-**
-** Copyright 2008, The Android Open Source Project
-**
-** Licensed under the Apache License, Version 2.0 (the "License");
-** you may not use this file except in compliance with the License.
-** You may obtain a copy of the License at
-**
-**     http://www.apache.org/licenses/LICENSE-2.0
-**
-** Unless required by applicable law or agreed to in writing, software
-** distributed under the License is distributed on an "AS IS" BASIS,
-** WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-** See the License for the specific language governing permissions and
-** limitations under the License.
-*/
- -->
-
-<resources xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="english_ime_input_options" msgid="3909945612939668554">"ઇનપુટ વિકલ્પો"</string>
-    <string name="use_contacts_for_spellchecking_option_title" msgid="5374120998125353898">"સંપર્ક નામ શોધો"</string>
-    <string name="use_contacts_for_spellchecking_option_summary" msgid="8754413382543307713">"જોડણી-પરીક્ષક તમારી સંપર્ક સૂચિમાંથી એન્ટ્રીઝનો ઉપયોગ કરે છે"</string>
-    <string name="vibrate_on_keypress" msgid="5258079494276955460">"કીપ્રેસ પર વાઇબ્રેટ કરો"</string>
-    <string name="sound_on_keypress" msgid="6093592297198243644">"કીપ્રેસ પર ધ્વનિ"</string>
-    <string name="popup_on_keypress" msgid="123894815723512944">"કીપ્રેસ પર પોપઅપ"</string>
-    <string name="settings_screen_preferences" msgid="2696713156722014624">"પસંદગી"</string>
-    <string name="settings_screen_accounts" msgid="2786418968536696670">"એકાઉન્ટ્સ અને ગોપનીયતા"</string>
-    <string name="settings_screen_appearance" msgid="7358046399111611615">"દેખાવ અને લેઆઉટ્સ"</string>
-    <string name="settings_screen_gesture" msgid="8826372746901183556">"સાંકેતિક ટાઇપિંગ"</string>
-    <string name="settings_screen_correction" msgid="1616818407747682955">"ટેક્સ્ટ સુધારણા"</string>
-    <string name="settings_screen_advanced" msgid="7472408607625972994">"વિગતવાર"</string>
-    <string name="settings_screen_theme" msgid="2137262503543943871">"થીમ"</string>
-    <string name="enable_split_keyboard" msgid="4177264923999493614">"વિભાજિત કીબોર્ડ સક્ષમ કરો"</string>
-    <string name="include_other_imes_in_language_switch_list" msgid="4533689960308565519">"અન્ય ઇનપુટ પદ્ધતિઓ પર સ્વિચ કરો"</string>
-    <string name="include_other_imes_in_language_switch_list_summary" msgid="840637129103317635">"ભાષા સ્વિચ કી અન્ય ઇનપુટ પદ્ધતિઓને પણ આવરે છે"</string>
-    <string name="show_language_switch_key" msgid="5915478828318774384">"ભાષા સ્વિચ કી"</string>
-    <string name="show_language_switch_key_summary" msgid="7343403647474265713">"જ્યારે બહુવિધ ઇનપુટ ભાષાઓ સક્ષમ હોય ત્યારે બતાવો"</string>
-    <string name="key_preview_popup_dismiss_delay" msgid="6213164897443068248">"કી પોપઅપ કાઢી નાખવામાં વિલંબ"</string>
-    <string name="key_preview_popup_dismiss_no_delay" msgid="2096123151571458064">"કોઈ વિલંબ નથી"</string>
-    <string name="key_preview_popup_dismiss_default_delay" msgid="2166964333903906734">"ડિફોલ્ટ"</string>
-    <string name="abbreviation_unit_milliseconds" msgid="8700286094028323363">"<xliff:g id="MILLISECONDS">%s</xliff:g>ms"</string>
-    <string name="settings_system_default" msgid="6268225104743331821">"સિસ્ટમ ડિફોલ્ટ"</string>
-    <string name="use_contacts_dict" msgid="4435317977804180815">"સંપર્ક નામ સૂચવો"</string>
-    <string name="use_contacts_dict_summary" msgid="6599983334507879959">"સૂચનો અને સુધારાઓ માટે સંપર્કોમાંથી નામોનો ઉપયોગ કરો"</string>
-    <string name="use_personalized_dicts" msgid="5167396352105467626">"વ્યક્તિગત સૂચનો"</string>
-    <string name="enable_metrics_logging" msgid="5506372337118822837">"<xliff:g id="APPLICATION_NAME">%s</xliff:g> બહેતર બનાવો"</string>
-    <string name="use_double_space_period" msgid="8781529969425082860">"ડબલ-સ્પેસ પીરિયડ"</string>
-    <string name="use_double_space_period_summary" msgid="6532892187247952799">"સ્પેસબાર પર બેવાર ટેપ કરવું એક પીરિયડ અને તેના પછી એક જગ્યા શામેલ કરે છે"</string>
-    <string name="auto_cap" msgid="1719746674854628252">"સ્વતઃ-કેપિટલાઇઝેશન"</string>
-    <string name="auto_cap_summary" msgid="7934452761022946874">"દરેક વાક્યનો પ્રથમ શબ્દ કેપિટલ કરો"</string>
-    <string name="edit_personal_dictionary" msgid="3996910038952940420">"વ્યક્તિગત શબ્દકોશ"</string>
-    <string name="configure_dictionaries_title" msgid="4238652338556902049">"એડ-ઓન શબ્દકોશ"</string>
-    <string name="main_dictionary" msgid="4798763781818361168">"મુખ્ય શબ્દકોશ"</string>
-    <string name="prefs_show_suggestions" msgid="8026799663445531637">"સુધારણા સૂચનો બતાવો"</string>
-    <string name="prefs_show_suggestions_summary" msgid="1583132279498502825">"લખતી વખતે સૂચિત શબ્દો પ્રદર્શિત કરો"</string>
-    <string name="prefs_block_potentially_offensive_title" msgid="5078480071057408934">"વાંધાજનક શબ્દો બ્લૉક કરો"</string>
-    <string name="prefs_block_potentially_offensive_summary" msgid="2371835479734991364">"સંભવિત વાંધાજનક શબ્દો સૂચવશો નહીં"</string>
-    <string name="auto_correction" msgid="7630720885194996950">"સ્વતઃ-સુધારો"</string>
-    <string name="auto_correction_summary" msgid="5625751551134658006">"સ્પેસબાર અને વિરામચિહ્ન ખોટી રીતે લખાયેલ શબ્દોને આપમેળે સુધારે છે"</string>
-    <string name="auto_correction_threshold_mode_off" msgid="8470882665417944026">"બંધ"</string>
-    <string name="auto_correction_threshold_mode_modest" msgid="8788366690620799097">"વિનમ્ર"</string>
-    <string name="auto_correction_threshold_mode_aggressive" msgid="7319007299148899623">"જોરદાર"</string>
-    <string name="auto_correction_threshold_mode_very_aggressive" msgid="1853309024129480416">"ખૂબ ફરજ પાડીને"</string>
-    <string name="bigram_prediction" msgid="1084449187723948550">"આગલા શબ્દનું સૂચન"</string>
-    <string name="bigram_prediction_summary" msgid="3896362682751109677">"સૂચનો બનાવવા માટે પહેલાનાં શબ્દનો ઉપયોગ કરો"</string>
-    <string name="gesture_input" msgid="826951152254563827">"સાંકેતિક ટાઇપિંગ સક્ષમ કરો"</string>
-    <string name="gesture_input_summary" msgid="9180350639305731231">"અક્ષરો મારફતે સ્લાઇડ કરીને એક શબ્દ ઇનપુટ કરો"</string>
-    <string name="gesture_preview_trail" msgid="3802333369335722221">"હાવભાવ ટ્રેલ બતાવો"</string>
-    <string name="gesture_floating_preview_text" msgid="4443240334739381053">"ગતિશીલ ફ્લોટિંગ પૂર્વાવલોકન"</string>
-    <string name="gesture_floating_preview_text_summary" msgid="4472696213996203533">"હાવભાવ કરતી વખતે સૂચિત શબ્દ જુઓ"</string>
-    <string name="gesture_space_aware" msgid="2078291600664682496">"શબ્દસમૂહ હાવભાવ"</string>
-    <string name="gesture_space_aware_summary" msgid="4371385818348528538">"સ્પેસ કી પર જઈને હાવભાવ દરમિયાન સ્પેસ ઇનપુટ કરો"</string>
-    <string name="voice_input" msgid="3583258583521397548">"વૉઇસ ઇનપુટ કી"</string>
-    <string name="voice_input_disabled_summary" msgid="6323489602945135165">"કોઈ વૉઇસ ઇનપુટ પદ્ધતિઓ સક્ષમ કરેલ નથી. ભાષાઓ અને ઇનપુટ સેટિંગ્સને ચેક કરો."</string>
-    <string name="configure_input_method" msgid="373356270290742459">"ઇનપુટ પદ્ધતિઓ ગોઠવો"</string>
-    <string name="language_selection_title" msgid="3666971864764478269">"ભાષાઓ"</string>
-    <string name="help_and_feedback" msgid="5328219371839879161">"સહાય અને પ્રતિસાદ"</string>
-    <string name="select_language" msgid="5709487854987078367">"ભાષાઓ"</string>
-    <string name="hint_add_to_dictionary" msgid="2645988432867033007">"સાચવવા માટે ફરીથી ટૅપ કરો"</string>
-    <string name="hint_add_to_dictionary_without_word" msgid="6710206006427574423">"સાચવવા માટે અહીં ટૅપ કરો"</string>
-    <string name="has_dictionary" msgid="6071847973466625007">"શબ્દકોશ ઉપલબ્ધ છે"</string>
-    <string name="keyboard_layout" msgid="8451164783510487501">"કીબોર્ડ થીમ"</string>
-    <string name="switch_accounts" msgid="3321216593719006162">"એકાઉન્ટ્સ સ્વિચ કરો"</string>
-    <string name="no_accounts_selected" msgid="2073821619103904330">"કોઈ એકાઉન્ટ પસંદ કરેલ નથી"</string>
-    <string name="account_selected" msgid="2846876462199625974">"હાલમાં <xliff:g id="EMAIL_ADDRESS">%1$s</xliff:g> વાપરી રહ્યાં છે"</string>
-    <string name="account_select_ok" msgid="9141195141763227797">"ઓકે"</string>
-    <string name="account_select_cancel" msgid="5181012062618504340">"રદ કરો"</string>
-    <string name="account_select_sign_out" msgid="3299651159390187933">"સાઇન આઉટ કરો"</string>
-    <string name="account_select_title" msgid="6279711684772922649">"વાપરવા માટે એક એકાઉન્ટ પસંદ કરો"</string>
-    <string name="subtype_en_GB" msgid="88170601942311355">"અંગ્રેજી (યુકે)"</string>
-    <string name="subtype_en_US" msgid="6160452336634534239">"અંગ્રેજી (યુ એસ)"</string>
-    <string name="subtype_es_US" msgid="5583145191430180200">"સ્પેનિશ (US)"</string>
-    <string name="subtype_hi_ZZ" msgid="8860448146262798623">"હિંગ્લિશ"</string>
-    <string name="subtype_sr_ZZ" msgid="9059219552986034343">"સર્બિયન (લેટિન)"</string>
-    <string name="subtype_with_layout_en_GB" msgid="1931018968641592304">"અંગ્રેજી (યુકે) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_en_US" msgid="8809311287529805422">"અંગ્રેજી (યુએસ) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_es_US" msgid="510930471167541338">"સ્પેનિશ (યુએસ) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_hi_ZZ" msgid="6827402953860547044">"હિંગ્લિશ (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_sr_ZZ" msgid="2859024772719772407">"સર્બિયન (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_generic_traditional" msgid="8584594350973800586">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (પરંપરાગત)"</string>
-    <string name="subtype_generic_compact" msgid="3353673321203202922">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (કોમ્પેક્ટ)"</string>
-    <string name="subtype_no_language" msgid="7137390094240139495">"ભાષા નથી (આલ્ફાબેટ)"</string>
-    <string name="subtype_no_language_qwerty" msgid="244337630616742604">"આલ્ફાબેટ (QWERTY)"</string>
-    <string name="subtype_no_language_qwertz" msgid="443066912507547976">"આલ્ફાબેટ (QWERTZ)"</string>
-    <string name="subtype_no_language_azerty" msgid="8144348527575640087">"આલ્ફાબેટ (AZERTY)"</string>
-    <string name="subtype_no_language_dvorak" msgid="1564494667584718094">"આલ્ફાબેટ (Dvorak)"</string>
-    <string name="subtype_no_language_colemak" msgid="5837418400010302623">"આલ્ફાબેટ (Colemak)"</string>
-    <string name="subtype_no_language_pcqwerty" msgid="5354918232046200018">"આલ્ફાબેટ (PC)"</string>
-    <string name="subtype_emoji" msgid="7483586578074549196">"ઇમોજી"</string>
-    <string name="keyboard_theme" msgid="4909551808526178852">"કીબોર્ડ થીમ"</string>
-    <string name="custom_input_styles_title" msgid="8429952441821251512">"કસ્ટમ ઇનપુટ શૈલીઓ"</string>
-    <string name="add_style" msgid="6163126614514489951">"શૈલી ઉમેરો"</string>
-    <string name="add" msgid="8299699805688017798">"ઉમેરો"</string>
-    <string name="remove" msgid="4486081658752944606">"દૂર કરો"</string>
-    <string name="save" msgid="7646738597196767214">"સાચવો"</string>
-    <string name="subtype_locale" msgid="8576443440738143764">"ભાષા"</string>
-    <string name="keyboard_layout_set" msgid="4309233698194565609">"લેઆઉટ"</string>
-    <string name="custom_input_style_note_message" msgid="8826731320846363423">"તમારી કસ્ટમ ઇનપુટ શૈલી તમે તેનો ઉપયોગ કરવાનું શરૂ કરો તે પહેલા સક્ષમ કરવાની જરૂર છે. શું તમે તેને સક્ષમ કરવા માંગો છો?"</string>
-    <string name="enable" msgid="5031294444630523247">"સક્ષમ કરો"</string>
-    <string name="not_now" msgid="6172462888202790482">"હમણાં નહીં"</string>
-    <string name="custom_input_style_already_exists" msgid="8008728952215449707">"સમાન ઇનપુટ શૈલી પહેલાથી જ અસ્તિત્વમાં છે: <xliff:g id="INPUT_STYLE_NAME">%s</xliff:g>"</string>
-    <string name="prefs_keypress_vibration_duration_settings" msgid="7918341459947439226">"કીપ્રેસ વાઇબ્રેશન અવધિ"</string>
-    <string name="prefs_keypress_sound_volume_settings" msgid="6027007337036891623">"કીપ્રેસ ધ્વનિ વૉલ્યૂમ"</string>
-    <string name="prefs_key_longpress_timeout_settings" msgid="6102240298932897873">"લાંબા કી પ્રેસનો વિલંબ"</string>
-    <string name="prefs_enable_emoji_alt_physical_key" msgid="5963640002335470112">"ભૌતિક કીબોર્ડ માટે ઇમોજી"</string>
-    <string name="prefs_enable_emoji_alt_physical_key_summary" msgid="5259484820941627827">"ભૌતિક Alt કી ઇમોજી પેલેટ દર્શાવે છે"</string>
-    <string name="button_default" msgid="3988017840431881491">"ડિફોલ્ટ"</string>
-    <string name="setup_welcome_title" msgid="6112821709832031715">"<xliff:g id="APPLICATION_NAME">%s</xliff:g> પર સ્વાગત છે"</string>
-    <string name="setup_welcome_additional_description" msgid="8150252008545768953">"સાંકેતિક ટાઇપિંગ દ્વારા"</string>
-    <string name="setup_start_action" msgid="8936036460897347708">"પ્રારંભ કરો"</string>
-    <string name="setup_next_action" msgid="371821437915144603">"આગલું પગલું"</string>
-    <string name="setup_steps_title" msgid="6400373034871816182">"<xliff:g id="APPLICATION_NAME">%s</xliff:g> સેટ કરી રહ્યું છે"</string>
-    <string name="setup_step1_title" msgid="3147967630253462315">"<xliff:g id="APPLICATION_NAME">%s</xliff:g> સક્ષમ કરો"</string>
-    <string name="setup_step1_instruction" msgid="4295448056733329661">"કૃપા કરીને \"<xliff:g id="APPLICATION_NAME">%s</xliff:g>\" ને તમારી ભાષાઓ અને ઇનપુટ સેટિંગ્સમાં તપાસો. આ તેને તમારા ઉપકરણ પર ચાલવા માટે અધિકૃત કરશે."</string>
-    <string name="setup_step1_finished_instruction" msgid="8701441895377434947">"<xliff:g id="APPLICATION_NAME">%s</xliff:g> એ તમારી ભાષાઓ અને ઇનપુટ સેટિંગ્સમાં પહેલાથી જ સક્ષમ કરેલું છે, તેથી આ પગલું પૂર્ણ થયું. હવે આગલા પર!"</string>
-    <string name="setup_step1_action" msgid="4366513534999901728">"સેટિંગ્સમાં સક્ષમ કરો"</string>
-    <string name="setup_step2_title" msgid="6860725447906690594">"<xliff:g id="APPLICATION_NAME">%s</xliff:g> પર સ્વિચ કરો"</string>
-    <string name="setup_step2_instruction" msgid="9141481964870023336">"આગલું, \"<xliff:g id="APPLICATION_NAME">%s</xliff:g>\" ને તમારા સક્રિય ટેક્સ્ટ-ઇનપુટ પદ્ધતિ તરીકે પસંદ કરો."</string>
-    <string name="setup_step2_action" msgid="1660330307159824337">"ઇનપુટ પદ્ધતિઓ પર સ્વિચ કરો"</string>
-    <string name="setup_step3_title" msgid="3154757183631490281">"અભિનંદન, તમે બધું સેટ કર્યું છે!"</string>
-    <string name="setup_step3_instruction" msgid="8025981829605426000">"હવે તમે તમારી મનપસંદ એપ્લિકેશન્સમાં <xliff:g id="APPLICATION_NAME">%s</xliff:g> થી ટાઇપ કરી શકો છો."</string>
-    <string name="setup_step3_action" msgid="600879797256942259">"વધારાની ભાષાઓ ગોઠવો"</string>
-    <string name="setup_finish_action" msgid="276559243409465389">"સમાપ્ત થયું"</string>
-    <string name="show_setup_wizard_icon" msgid="5008028590593710830">"ઍપ્લિકેશન આયકન બતાવો"</string>
-    <string name="show_setup_wizard_icon_summary" msgid="4119998322536880213">"લોંચરમાં ઍપ્લિકેશન આયકન પ્રદર્શિત કરો"</string>
-    <string name="app_name" msgid="6320102637491234792">"શબ્દકોશ પ્રદાતા"</string>
-    <string name="dictionary_provider_name" msgid="3027315045397363079">"શબ્દકોશ પ્રદાતા"</string>
-    <string name="dictionary_service_name" msgid="6237472350693511448">"શબ્દકોશ સેવા"</string>
-    <string name="download_description" msgid="6014835283119198591">"શબ્દકોશ અપડેટ માહિતી"</string>
-    <string name="dictionary_settings_title" msgid="8091417676045693313">"એડ-ઓન શબ્દકોશ"</string>
-    <string name="dictionary_settings_summary" msgid="5305694987799824349">"શબ્દકોશો માટેની સેટિંગ્સ"</string>
-    <string name="user_dictionaries" msgid="3582332055892252845">"વપરાશકર્તા શબ્દકોશ"</string>
-    <string name="default_user_dict_pref_name" msgid="1625055720489280530">"વપરાશકર્તા શબ્દકોશ"</string>
-    <string name="dictionary_available" msgid="4728975345815214218">"શબ્દકોશ ઉપલબ્ધ છે"</string>
-    <string name="dictionary_downloading" msgid="2982650524622620983">"હાલમાં ડાઉનલોડ કરી રહ્યું છે"</string>
-    <string name="dictionary_installed" msgid="8081558343559342962">"ઇન્સ્ટોલ કરેલું"</string>
-    <string name="dictionary_disabled" msgid="8950383219564621762">"ઇન્સ્ટોલ કર્યું, અક્ષમ કર્યું"</string>
-    <string name="cannot_connect_to_dict_service" msgid="9216933695765732398">"શબ્દકોશ સેવા સાથે કનેક્ટ થવામાં સમસ્યા"</string>
-    <string name="no_dictionaries_available" msgid="8039920716566132611">"કોઈ શબ્દકોશ ઉપલબ્ધ નથી"</string>
-    <string name="check_for_updates_now" msgid="8087688440916388581">"તાજું કરો"</string>
-    <string name="last_update" msgid="730467549913588780">"છેલ્લે અપડેટ કર્યું"</string>
-    <string name="message_updating" msgid="4457761393932375219">"અપડેટ્સ માટે તપાસી રહ્યું છે"</string>
-    <string name="message_loading" msgid="5638680861387748936">"લોડ કરી રહ્યું છે..."</string>
-    <string name="main_dict_description" msgid="3072821352793492143">"મુખ્ય શબ્દકોશ"</string>
-    <string name="cancel" msgid="6830980399865683324">"રદ કરો"</string>
-    <string name="go_to_settings" msgid="3876892339342569259">"સેટિંગ્સ"</string>
-    <string name="install_dict" msgid="180852772562189365">"ઇન્સ્ટોલ કરો"</string>
-    <string name="cancel_download_dict" msgid="7843340278507019303">"રદ કરો"</string>
-    <string name="delete_dict" msgid="756853268088330054">"કાઢી નાખો"</string>
-    <string name="version_text" msgid="2715354215568469385">"સંસ્કરણ <xliff:g id="VERSION_NUMBER">%1$s</xliff:g>"</string>
-    <string name="user_dict_settings_add_menu_title" msgid="1254195365689387076">"ઉમેરો"</string>
-    <string name="user_dict_settings_add_dialog_title" msgid="4096700390211748168">"શબ્દકોષમાં ઉમેરો"</string>
-    <string name="user_dict_settings_add_screen_title" msgid="5818914331629278758">"શબ્દસમૂહ"</string>
-    <string name="user_dict_settings_add_dialog_more_options" msgid="5671682004887093112">"વધુ વિકલ્પો"</string>
-    <string name="user_dict_settings_add_dialog_less_options" msgid="2716586567241724126">"ઓછા વિકલ્પો"</string>
-    <string name="user_dict_settings_add_dialog_confirm" msgid="4703129507388332950">"ઓકે"</string>
-    <string name="user_dict_settings_add_word_option_name" msgid="6665558053408962865">"શબ્દ:"</string>
-    <string name="user_dict_settings_add_shortcut_option_name" msgid="3094731590655523777">"શોર્ટકટ:"</string>
-    <string name="user_dict_settings_add_locale_option_name" msgid="4738643440987277705">"ભાષા:"</string>
-    <string name="user_dict_settings_add_word_hint" msgid="4902434148985906707">"એક શબ્દ લખો"</string>
-    <string name="user_dict_settings_add_shortcut_hint" msgid="2265453012555060178">"વૈકલ્પિક શોર્ટકટ"</string>
-    <string name="user_dict_settings_edit_dialog_title" msgid="3765774633869590352">"શબ્દ સંપાદિત કરો"</string>
-    <string name="user_dict_settings_context_menu_edit_title" msgid="6812255903472456302">"સંપાદિત કરો"</string>
-    <string name="user_dict_settings_context_menu_delete_title" msgid="8142932447689461181">"કાઢી નાખો"</string>
-    <string name="user_dict_settings_empty_text" msgid="6889278304342592383">"તમારી પાસે વપરાશકર્તા શબ્દકોશમાં કોઈપણ શબ્દ નથી. શબ્દને ઉમેરવા માટે, ઉમેરો (+) બટન ટૅપ કરો."</string>
-    <string name="user_dict_settings_all_languages" msgid="8276126583216298886">"તમામ"</string>
-    <string name="user_dict_settings_more_languages" msgid="7131268499685180461">"વધુ ભાષાઓ…"</string>
-    <string name="user_dict_settings_delete" msgid="110413335187193859">"કાઢી નાખો"</string>
-    <string name="user_dict_fast_scroll_alphabet" msgid="5431919401558285473">" [અ આ ઇ ઈ ઉ ઊ ઋ એ ઐ ઓ ઔ ક ખ ગ ઘ ઙ ચ છ જ ઝ ઞ ટ ઠ ડ ઢ ણ ત થ દ ધ ન પ ફ બ ભ મ ય ર લ વ શ ષ સ હ ળ]"</string>
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright (C) 2008 The Android Open Source Project
+    modified
+    SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
+--><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="use_contacts_dict">"સંપર્ક નામ શોધો"</string>
+    <string name="vibrate_on_keypress">"કીપ્રેસ પર વાઇબ્રેટ કરો"</string>
+    <string name="sound_on_keypress">"કીપ્રેસ પર ધ્વનિ"</string>
+    <string name="popup_on_keypress">"કીપ્રેસ પર પોપઅપ"</string>
+    <string name="settings_screen_preferences">"પસંદગી"</string>
+    <string name="settings_screen_gesture">"સાંકેતિક ટાઇપિંગ"</string>
+    <string name="settings_screen_correction">"ટેક્સ્ટ સુધારણા"</string>
+    <string name="settings_screen_advanced">"વિગતવાર"</string>
+    <string name="settings_screen_theme">"થીમ"</string>
+    <string name="enable_split_keyboard">"વિભાજિત કીબોર્ડ સક્ષમ કરો"</string>
+    <string name="language_switch_key_switch_input_method">"અન્ય ઇનપુટ પદ્ધતિઓ પર સ્વિચ કરો"</string>
+    <string name="show_language_switch_key">"ભાષા સ્વિચ કી"</string>
+    <string name="abbreviation_unit_milliseconds">"%sms"</string>
+    <string name="settings_system_default">"સિસ્ટમ ડિફોલ્ટ"</string>
+    <string name="use_contacts_dict_summary">"સૂચનો અને સુધારાઓ માટે સંપર્કોમાંથી નામોનો ઉપયોગ કરો"</string>
+    <string name="use_personalized_dicts">"વ્યક્તિગત સૂચનો"</string>
+    <string name="use_double_space_period">"ડબલ-સ્પેસ પીરિયડ"</string>
+    <string name="use_double_space_period_summary">"સ્પેસબાર પર બેવાર ટેપ કરવું એક પીરિયડ અને તેના પછી એક જગ્યા શામેલ કરે છે"</string>
+    <string name="auto_cap">"સ્વતઃ-કેપિટલાઇઝેશન"</string>
+    <string name="auto_cap_summary">"દરેક વાક્યનો પ્રથમ શબ્દ કેપિટલ કરો"</string>
+    <string name="edit_personal_dictionary">"વ્યક્તિગત શબ્દકોશ"</string>
+    <string name="main_dictionary">"મુખ્ય શબ્દકોશ"</string>
+    <string name="prefs_show_suggestions">"સુધારણા સૂચનો બતાવો"</string>
+    <string name="prefs_show_suggestions_summary">"લખતી વખતે સૂચિત શબ્દો પ્રદર્શિત કરો"</string>
+    <string name="prefs_block_potentially_offensive_title">"વાંધાજનક શબ્દો બ્લૉક કરો"</string>
+    <string name="prefs_block_potentially_offensive_summary">"સંભવિત વાંધાજનક શબ્દો સૂચવશો નહીં"</string>
+    <string name="autocorrect">"સ્વતઃ-સુધારો"</string>
+    <string name="auto_correction_summary">"સ્પેસબાર અને વિરામચિહ્ન ખોટી રીતે લખાયેલ શબ્દોને આપમેળે સુધારે છે"</string>
+    <string name="auto_correction_threshold_mode_off">"બંધ"</string>
+    <string name="auto_correction_threshold_mode_modest">"વિનમ્ર"</string>
+    <string name="auto_correction_threshold_mode_aggressive">"જોરદાર"</string>
+    <string name="auto_correction_threshold_mode_very_aggressive">"ખૂબ ફરજ પાડીને"</string>
+    <string name="bigram_prediction">"આગલા શબ્દનું સૂચન"</string>
+    <string name="bigram_prediction_summary">"સૂચનો બનાવવા માટે પહેલાનાં શબ્દનો ઉપયોગ કરો"</string>
+    <string name="gesture_input">"સાંકેતિક ટાઇપિંગ સક્ષમ કરો"</string>
+    <string name="gesture_input_summary">"અક્ષરો મારફતે સ્લાઇડ કરીને એક શબ્દ ઇનપુટ કરો"</string>
+    <string name="gesture_preview_trail">"હાવભાવ ટ્રેલ બતાવો"</string>
+    <string name="gesture_floating_preview_text">"ગતિશીલ ફ્લોટિંગ પૂર્વાવલોકન"</string>
+    <string name="gesture_space_aware">"શબ્દસમૂહ હાવભાવ"</string>
+    <string name="gesture_space_aware_summary">"સ્પેસ કી પર જઈને હાવભાવ દરમિયાન સ્પેસ ઇનપુટ કરો"</string>
+    <string name="subtype_en_GB">"અંગ્રેજી (યુકે)"</string>
+    <string name="subtype_en_US">"અંગ્રેજી (યુ એસ)"</string>
+    <string name="subtype_es_US">"સ્પેનિશ (US)"</string>
+    <string name="subtype_hi_Latn">"હિંગ્લિશ"</string>
+    <string name="subtype_sr_Latn">"સર્બિયન (લેટિન)"</string>
+    <string name="subtype_generic_traditional">"%s (પરંપરાગત)"</string>
+    <string name="subtype_generic_compact">"%s (કોમ્પેક્ટ)"</string>
+    <string name="subtype_no_language">"ભાષા નથી"</string>
+    <string name="subtype_emoji">"ઇમોજી"</string>
+    <string name="add">"ઉમેરો"</string>
+    <string name="remove">"દૂર કરો"</string>
+    <string name="save">"સાચવો"</string>
+    <string name="subtype_locale">"ભાષા"</string>
+    <string name="keyboard_layout_set">"લેઆઉટ"</string>
+    <string name="prefs_keypress_vibration_duration_settings">"કીપ્રેસ વાઇબ્રેશન અવધિ"</string>
+    <string name="prefs_keypress_sound_volume_settings">"કીપ્રેસ ધ્વનિ વૉલ્યૂમ"</string>
+    <string name="prefs_key_longpress_timeout_settings">"લાંબા કી પ્રેસનો વિલંબ"</string>
+    <string name="prefs_enable_emoji_alt_physical_key">"ભૌતિક કીબોર્ડ માટે ઇમોજી"</string>
+    <string name="prefs_enable_emoji_alt_physical_key_summary">"ભૌતિક Alt કી ઇમોજી પેલેટ દર્શાવે છે"</string>
+    <string name="button_default">"ડિફોલ્ટ"</string>
+    <string name="setup_welcome_title">%s પર સ્વાગત છે\"</string>
+    <string name="setup_welcome_additional_description">"સાંકેતિક ટાઇપિંગ દ્વારા"</string>
+    <string name="setup_start_action">"પ્રારંભ કરો"</string>
+    <string name="setup_steps_title">%s સેટ કરી રહ્યું છે\"</string>
+    <string name="setup_step1_title">%s સક્ષમ કરો\"</string>
+    <string name="setup_step1_instruction">"કૃપા કરીને \"%s\" ને તમારી ભાષાઓ અને ઇનપુટ સેટિંગ્સમાં તપાસો. આ તેને તમારા ઉપકરણ પર ચાલવા માટે અધિકૃત કરશે."</string>
+    <string name="setup_step1_action">"સેટિંગ્સમાં સક્ષમ કરો"</string>
+    <string name="setup_step2_title">%s પર સ્વિચ કરો\"</string>
+    <string name="setup_step2_instruction">"આગલું, \"%s\" ને તમારા સક્રિય ટેક્સ્ટ-ઇનપુટ પદ્ધતિ તરીકે પસંદ કરો."</string>
+    <string name="setup_step2_action">"ઇનપુટ પદ્ધતિઓ પર સ્વિચ કરો"</string>
+    <string name="setup_step3_title">"અભિનંદન, તમે બધું સેટ કર્યું છે!"</string>
+    <string name="setup_step3_instruction">"હવે તમે તમારી મનપસંદ એપ્લિકેશન્સમાં %s થી ટાઇપ કરી શકો છો."</string>
+    <string name="setup_finish_action">"સમાપ્ત થયું"</string>
+    <string name="show_setup_wizard_icon">"ઍપ્લિકેશન આયકન બતાવો"</string>
+    <string name="show_setup_wizard_icon_summary">"લોંચરમાં ઍપ્લિકેશન આયકન પ્રદર્શિત કરો"</string>
+    <string name="dictionary_category_title">"એડ-ઓન શબ્દકોશ"</string>
+    <string name="dictionary_available">"શબ્દકોશ ઉપલબ્ધ છે"</string>
+    <string name="settings">"સેટિંગ્સ"</string>
+    <string name="delete">"કાઢી નાખો"</string>
+    <string name="version_text">"સંસ્કરણ %1$s"</string>
+    <string name="user_dict_settings_add_shortcut_option_name">"શોર્ટકટ:"</string>
+    <string name="user_dict_settings_add_locale_option_name">"ભાષા:"</string>
+    <string name="user_dict_settings_add_word_hint">"એક શબ્દ લખો"</string>
+    <string name="user_dict_settings_add_shortcut_hint">"વૈકલ્પિક શોર્ટકટ"</string>
+    <string name="user_dict_settings_edit_dialog_title">"શબ્દ સંપાદિત કરો"</string>
+    <string name="user_dict_settings_all_languages">"તમામ"</string>
+    <string name="user_dict_settings_more_languages">"વધુ ભાષાઓ…"</string>
+    <string name="select_input_method">"ઇનપુટ પદ્ધતિ પસંદ કરો"</string>
+    <string name="undo">"પૂર્વવત્ કરો"</string>
+    <string name="redo">"ફરી કરો"</string>
+    <string name="use_personalized_dicts_summary">"સૂચનોને બહેતર બનાવવા માટે તમારા સંચારો અને  લખેલ ડેટાથી જાણો"</string>
+    <string name="label_go_key">"જાઓ"</string>
+    <string name="label_next_key">"આગલું"</string>
+    <string name="label_previous_key">"પહેલાંનું"</string>
+    <string name="label_done_key">"થઈ ગયું"</string>
+    <string name="label_send_key">"મોકલો"</string>
+    <string name="label_search_key">"શોધ"</string>
+    <string name="label_pause_key">"થોભો"</string>
+    <string name="label_wait_key">"રાહ જુઓ"</string>
 </resources>

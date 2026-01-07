@@ -1,0 +1,49 @@
+[
+  [
+    { "label": "1", "type": "numeric" },
+    { "label": "2", "type": "numeric" },
+    { "label": "3", "type": "numeric" },
+    { "label": "-", "type": "function", "popup": { "main": { "label": "+" } }, "labelFlags": 64 }
+  ],
+  [
+    { "label": "4", "type": "numeric" },
+    { "label": "5", "type": "numeric" },
+    { "label": "6", "type": "numeric" },
+    { "label": "space", "type": "function" }
+  ],
+  [
+    { "label": "7", "type": "numeric" },
+    { "label": "8", "type": "numeric" },
+    { "label": "9", "type": "numeric" },
+    { "label": "delete" }
+  ],
+  [
+    { "$": "variation_selector",
+      "default": { "label": ",", "type": "numeric", "groupId": 1 },
+      "date": { "label": ".", "type": "numeric", "groupId": 1 },
+      "time": { "label": ".", "type": "numeric", "groupId": 1, "popup": { "relevant": [
+        { "label": "!fixedColumnOrder!2" },
+        { "label": "!hasLabels!" },
+        { "label": "AM" },
+        { "label": "PM" }
+      ] } },
+      "datetime": { "label": ".", "type": "numeric", "groupId": 1, "popup": { "relevant": [
+        { "label": "!fixedColumnOrder!2" },
+        { "label": "!hasLabels!" },
+        { "label": "AM" },
+        { "label": "PM" }
+      ] } }
+    },
+    { "label": "0", "type": "numeric" },
+    { "$": "variation_selector",
+      "default": { "label": ".", "type": "numeric" },
+      "date": { "label": "/", "type": "numeric" },
+      "time": { "label": ":", "type": "numeric" },
+      "datetime": { "label": "/ :|/", "type": "numeric", "popup": { "relevant": [
+        { "label": "!noPanelAutoPopupKey!" },
+        { "label": "," }
+      ] } }
+    },
+    { "label": "enter"}
+  ]
+]

@@ -1,0 +1,8 @@
+* adicionar layout Chuvash por @tenextractor (#677)
+* adicionar tecla de corte por @codokie (#678)
+* atualizar o Probhat layout por @fahimscirex (#628)
+* mostrar ícones no diálogo da tecla da barra de ferramentas
+* adicionar botão de fechar no histórico da área de transferência por @codokie (#403, #649)
+* adicionar layout Russo (Estudante) por @Zolax9 (#640)
+* fazer numpad ao pressionar a tecla de símbolos opcional (#588)
+* correções menores e melhorias, incluindo #632, #637, #638 por @RHJihan

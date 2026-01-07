@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright (C) The Android Open Source Project
+    modified
+    SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
+--><resources xmlns:tools="http://schemas.android.com/tools" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="settings_screen_preferences">Imenyafen</string>
+    <string name="ime_settings">Iɣewwaren n HeliBoard</string>
+    <string name="settings_category_miscellaneous">Wiyyaḍ</string>
+    <string name="user_dict_settings_add_locale_option_name">Tutlayt :</string>
+    <string name="user_dict_settings_edit_dialog_title">Beddel awal-a</string>
+    <string name="save">Sekles</string>
+    <string name="add">Rnu</string>
+    <string name="user_dict_settings_more_languages">Tutlayin-nniḍen …</string>
+    <string name="remove">Kkes</string>
+    <string name="subtype_locale">Tutlayt</string>
+    <string name="keyboard_layout_set">Anasiw</string>
+    <string name="setup_start_action">Bdu</string>
+    <string name="settings">Iɣewwaren</string>
+    <string name="setup_finish_action">IH</string>
+    <string name="delete">Kkes</string>
+    <string name="user_dict_settings_add_word_hint">Aru yiwen n wawal</string>
+    <string name="label_search_key">Nadi</string>
+    <string name="user_dict_settings_add_shortcut_option_name">Anegzum:</string>
+    <string name="theme_name_pink" tools:keep="@string/theme_name_pink">Axuxi</string>
+    <string name="theme_name_brown" tools:keep="@string/theme_name_brown">Aqehwi</string>
+    <string name="theme_name_forest" tools:keep="@string/theme_name_forest">Lexla</string>
+    <string name="version">Lqem</string>
+    <string name="dialog_close">Mdel</string>
+    <string name="label_pause_key" tools:keep="@string/label_pause_key">Seṛǧu</string>
+    <string name="theme_name_light" tools:keep="@string/theme_name_light">Aceɛlal</string>
+    <string name="theme_name_darker" tools:keep="@string/theme_name_darker">Aberkan</string>
+    <string name="settings_screen_about">Ɣef</string>
+    <string name="settings_screen_advanced">Iɣewwaren leqqayen</string>
+    <string name="settings_screen_theme">Asentel</string>
+    <string name="settings_category_input">Anekcum</string>
+    <string name="settings_category_suggestions">Isumar</string>
+    <string name="switch_language">Abeddel n tutlayt</string>
+    <string name="show_emoji_key">Tiqfilt n imujiyen</string>
+    <string name="settings_system_default">Amezwer n unagraw</string>
+    <string name="popup_keys_layout" tools:keep="@string/popup_keys_layout">Asettef</string>
+    <string name="undo" tools:keep="@string/undo">Sefsex</string>
+    <string name="button_default">Amezwer</string>
+    <string name="dictionary_link_text">sya</string>
+    <string name="settings_screen_appearance">Udem</string>
+    <string name="label_send_key">Azen</string>
+    <string name="label_next_key">Uḍfir</string>
+    <string name="label_done_key">Immed</string>
+    <string name="layout_number" tools:keep="@string/layout_number">Uṭṭunen</string>
+    <string name="subtype_en_GB">Taglizit (Tagelda Yedduklen)</string>
+    <string name="select_input_method">Fren tarrayt n usekcem</string>
+    <string name="abbreviation_unit_milliseconds">%s ms</string>
+    <string name="settings_no_limit">Ulac tilisa</string>
+    <string name="edit_personal_dictionary">Amawal udmawan</string>
+    <string name="autocorrect">Aseɣti awurman</string>
+    <string name="main_dictionary">Amawal agejdan</string>
+    <string name="prefs_show_suggestions">Ssken-d isumar n useɣti</string>
+    <string name="day_or_night_night">Iḍ</string>
+    <string name="no_dictionary_dont_show_again_button">Ur t-id-skanay ara tikkelt nniḍen</string>
+    <string name="settings_screen_correction">Aseɣti n uḍris</string>
+    <string name="settings_category_correction">Iseɣtiyen</string>
+    <string name="show_language_switch_key">Taqeffalt n ubeddel n tutlayin</string>
+    <string name="bigram_prediction">Assuter i wawal i d-iteddun</string>
+    <string name="day_or_night_day">Ass</string>
+    <string name="show_setup_wizard_icon">Ssken-d tignit n usnas</string>
+    <string name="dictionary_settings_category">Imawalen</string>
+    <string name="user_dict_settings_all_languages">I tutlayin akk</string>
+    <string name="user_dict_add_word_button">Rnu awal</string>
+    <string name="layout_symbols" tools:keep="@string/layout_symbols">Izamulen</string>
+    <string name="file_read_error">Ur yezmir ara ad iɣer afaylu</string>
+    <string name="button_save_file">Sekles ɣer ufaylu</string>
+    <string name="copy_to_clipboard">Nɣel ɣer tfelwit n afus</string>
+    <string name="button_backup">Sekles</string>
+    <string name="popup_keys_symbols" tools:keep="@string/popup_keys_symbols">Izamulen</string>
+    <string name="popup_keys_language_priority" tools:keep="@string/popup_keys_language_priority">Tutlayt (tuzwirt)</string>
+    <string name="theme_colors">Initen</string>
+    <string name="action_none">Ula yiwen</string>
+    <string name="toast_msg_clipboard_copy">Agbur yettwanɣel</string>
+    <string name="page_start" tools:keep="@string/page_start">Taqacuct n usebter</string>
+    <string name="secondary_locale">Asekcem agetlan</string>
+    <string name="subtype_es_US">Taspenyulit (Iwunak Yeddukklen)</string>
+    <string name="subtype_en_US">Taglizit (Iwunak Yeddukklen)</string>
+    <string name="subtype_no_language">War tutlayt</string>
+    <string name="more_colors">Sken ugar n yiniten</string>
+    <string name="label_delete_key" tools:keep="@string/label_delete_key">Kkes</string>
+    <string name="voice" tools:keep="@string/voice">Anekcam n taɣect</string>
+    <string name="language_and_layouts_title">Tutlayin akked tneɣrufin</string>
+    <string name="more_keys_strip_description">Tiqeffalin nniḍen</string>
+    <string name="theme_name_black" tools:keep="@string/theme_name_black">Aberkan</string>
+    <string name="select_color_key">Aḍris n tqeffalin</string>
+    <string name="button_load_custom">Ɛebbi afaylu</string>
+    <string name="button_select_language">Fren tutlayt</string>
+    <string name="dictionary_available">Amawal yellan</string>
+    <string name="up" tools:keep="@string/up">Afella</string>
+    <string name="select_word" tools:keep="@string/select_word">Fren awal</string>
+    <string name="left" tools:keep="@string/left">Zelmaḍ</string>
+    <string name="right" tools:keep="@string/right">Yeffus</string>
+    <string name="down" tools:keep="@string/down">Adda</string>
+    <string name="load">Sali</string>
+    <string name="settings_category_experimental">Armitan</string>
+    <string name="label_wait_key" tools:keep="@string/label_wait_key">Ṛǧu</string>
+    <string name="settings_category_space">Tallunt</string>
+    <string name="theme_name_sand" tools:keep="@string/theme_name_sand">Ijdi</string>
+    <string name="subtype_mns">Mansi</string>
+    <string name="theme_style">Aɣanib</string>
+    <string name="settings_screen_toolbar">Afeggag n ifecka</string>
+    <string name="theme_name_dark" tools:keep="@string/theme_name_dark">Ubrik</string>
+    <string name="subtype_xdq">Kaitag</string>
+    <string name="dictionary_category_title">Imawalen nniḍen</string>
+    <string name="emoji" tools:keep="@string/emoji">Imujit</string>
+    <string name="subtype_emoji">Imujit</string>
+    <string name="user_dict_settings_add_weight_value">Taẓayt:</string>
+    <string name="layout_phone" tools:keep="@string/layout_phone">Tiliɣri</string>
+    <string name="settings_category_additional_keys">Tiqeffalin nniḍen</string>
+</resources>

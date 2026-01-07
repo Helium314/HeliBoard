@@ -1,0 +1,15 @@
+[popup_keys]
++ ﬩
+ג ג׳
+י ײַ
+ח ח׳
+ז ז׳
+צ צ׳
+ת ת׳
+ץ ץ׳
+
+[labels]
+alphabet: אבג
+
+[tlds]
+il co.il gov.il

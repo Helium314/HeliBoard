@@ -55,7 +55,7 @@ class SuggestOptions{
  private:
     DISALLOW_IMPLICIT_CONSTRUCTORS(SuggestOptions);
 
-    // Need to update org.dslul.openboard.inputmethod.latin.NativeSuggestOptions when you add, remove or
+    // Need to update helium314.keyboard.latin.NativeSuggestOptions when you add, remove or
     // reorder options.
     static const int IS_GESTURE = 0;
     static const int USE_FULL_EDIT_DISTANCE = 1;

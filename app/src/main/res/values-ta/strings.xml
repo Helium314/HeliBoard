@@ -1,193 +1,443 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!-- 
-/*
-**
-** Copyright 2008, The Android Open Source Project
-**
-** Licensed under the Apache License, Version 2.0 (the "License");
-** you may not use this file except in compliance with the License.
-** You may obtain a copy of the License at
-**
-**     http://www.apache.org/licenses/LICENSE-2.0
-**
-** Unless required by applicable law or agreed to in writing, software
-** distributed under the License is distributed on an "AS IS" BASIS,
-** WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-** See the License for the specific language governing permissions and
-** limitations under the License.
-*/
- -->
-
-<resources xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="english_ime_input_options" msgid="3909945612939668554">"உள்ளீட்டு விருப்பங்கள்"</string>
-    <string name="use_contacts_for_spellchecking_option_title" msgid="5374120998125353898">"தொடர்பு பெயர்களை ஆய்வுசெய்"</string>
-    <string name="use_contacts_for_spellchecking_option_summary" msgid="8754413382543307713">"உங்கள் தொடர்புபட்டியலில் இருந்து உள்ளீடுகளை பிழைத்திருத்தி பயன்படுத்துகிறது"</string>
-    <string name="vibrate_on_keypress" msgid="5258079494276955460">"விசையழுத்தின்போது அதிர்வுரு"</string>
-    <string name="sound_on_keypress" msgid="6093592297198243644">"விசையழுத்தத்தின்போது ஒலியெழுப்பு"</string>
-    <string name="popup_on_keypress" msgid="123894815723512944">"விழை அழுத்தத்தின்போது பாப்அப் செய்"</string>
-    <string name="settings_screen_preferences" msgid="2696713156722014624">"விருப்பங்கள்"</string>
-    <string name="settings_screen_accounts" msgid="2786418968536696670">"கணக்குகள் &amp; தனியுரிமை"</string>
-    <string name="settings_screen_appearance" msgid="7358046399111611615">"தோற்றம் &amp; தளவமைப்புகள்"</string>
-    <string name="settings_screen_gesture" msgid="8826372746901183556">"ஸ்வைப் தட்டச்சு"</string>
-    <string name="settings_screen_correction" msgid="1616818407747682955">"உரை திருத்தம்"</string>
-    <string name="settings_screen_advanced" msgid="7472408607625972994">"மேம்பட்டவை"</string>
-    <string name="settings_screen_theme" msgid="2137262503543943871">"தீம்"</string>
-    <string name="enable_split_keyboard" msgid="4177264923999493614">"பிரிக்கப்பட்ட விசைப்பலகையை இயக்கு"</string>
-    <string name="include_other_imes_in_language_switch_list" msgid="4533689960308565519">"பிற உள்ளீட்டு முறைகளுக்கு மாறு"</string>
-    <string name="include_other_imes_in_language_switch_list_summary" msgid="840637129103317635">"மொழி மாற்றல் விசை பிற உள்ளீட்டு முறைகளையும் கட்டுப்படுத்துகிறது"</string>
-    <string name="show_language_switch_key" msgid="5915478828318774384">"மொழி மாற்ற விசை"</string>
-    <string name="show_language_switch_key_summary" msgid="7343403647474265713">"பல உள்ளீட்டு மொழிகள் இயக்கப்பட்டிருக்கும்போது காட்டு"</string>
-    <string name="key_preview_popup_dismiss_delay" msgid="6213164897443068248">"விசை பாப்அப் விலக்கின் தாமதம்"</string>
-    <string name="key_preview_popup_dismiss_no_delay" msgid="2096123151571458064">"தாமதம் வேண்டாம்"</string>
-    <string name="key_preview_popup_dismiss_default_delay" msgid="2166964333903906734">"இயல்புநிலை"</string>
-    <string name="abbreviation_unit_milliseconds" msgid="8700286094028323363">"<xliff:g id="MILLISECONDS">%s</xliff:g>மி.வி."</string>
-    <string name="settings_system_default" msgid="6268225104743331821">"அமைப்பின் இயல்புநிலை"</string>
-    <string name="use_contacts_dict" msgid="4435317977804180815">"தொடர்பு பெயர்களைப் பரிந்துரை"</string>
-    <string name="use_contacts_dict_summary" msgid="6599983334507879959">"பரிந்துரைகள், திருத்தங்கள் ஆகியவற்றிற்கு தொடர்புகளிலிருந்து பெயர்களை பயன்படுத்து"</string>
-    <string name="use_personalized_dicts" msgid="5167396352105467626">"தனிப்பட்ட பரிந்துரைகள்"</string>
-    <string name="enable_metrics_logging" msgid="5506372337118822837">"<xliff:g id="APPLICATION_NAME">%s</xliff:g> ஐ மேம்படுத்து"</string>
-    <string name="use_double_space_period" msgid="8781529969425082860">"புள்ளியைத் தொடர்ந்து இடைவெளியை உள்ளிடு"</string>
-    <string name="use_double_space_period_summary" msgid="6532892187247952799">"ஸ்பேஸ் பட்டியை இருமுறை தட்டுவது, புள்ளியை தொடர்ந்து இடைவெளியை உள்ளிடும்"</string>
-    <string name="auto_cap" msgid="1719746674854628252">"தன்னியக்க பேரெழுத்தாக்கல்"</string>
-    <string name="auto_cap_summary" msgid="7934452761022946874">"வரியின் முதல் எழுத்தை பேரெழுத்தாக்கும்"</string>
-    <string name="edit_personal_dictionary" msgid="3996910038952940420">"தனிப்பட்ட அகராதி"</string>
-    <string name="configure_dictionaries_title" msgid="4238652338556902049">"துணை அகராதிகள்"</string>
-    <string name="main_dictionary" msgid="4798763781818361168">"முதன்மை அகராதி"</string>
-    <string name="prefs_show_suggestions" msgid="8026799663445531637">"திருத்துதல் விருப்பங்களைக் காட்டு"</string>
-    <string name="prefs_show_suggestions_summary" msgid="1583132279498502825">"உள்ளிடும்போது பரிந்துரைக்கப்பட்ட வார்த்தைகளைக் காட்டும்"</string>
-    <string name="prefs_block_potentially_offensive_title" msgid="5078480071057408934">"புண்படுத்தும் சொற்களைத் தடு"</string>
-    <string name="prefs_block_potentially_offensive_summary" msgid="2371835479734991364">"மனதைப் புண்படுத்தக் கூடிய சொற்களைப் பரிந்துரைக்க வேண்டாம்"</string>
-    <string name="auto_correction" msgid="7630720885194996950">"தன்னியக்க திருத்தம்"</string>
-    <string name="auto_correction_summary" msgid="5625751551134658006">"ஸ்பேஸ்பாரும், நிறுத்தற்குறிகளும் தவறாக உள்ளிடப்பட்ட வார்த்தைகளை தானாக திருத்தும்"</string>
-    <string name="auto_correction_threshold_mode_off" msgid="8470882665417944026">"ஆஃப்"</string>
-    <string name="auto_correction_threshold_mode_modest" msgid="8788366690620799097">"மிதமாக"</string>
-    <string name="auto_correction_threshold_mode_aggressive" msgid="7319007299148899623">"தீவிரமாக"</string>
-    <string name="auto_correction_threshold_mode_very_aggressive" msgid="1853309024129480416">"மிகத் தீவிரமாக"</string>
-    <string name="bigram_prediction" msgid="1084449187723948550">"அடுத்த வார்த்தை பரிந்துரைகள்"</string>
-    <string name="bigram_prediction_summary" msgid="3896362682751109677">"பரிந்துரைகளை உருவாக்க முந்தைய வார்த்தைகளைப் பயன்படுத்தும்"</string>
-    <string name="gesture_input" msgid="826951152254563827">"ஸ்வைப் உள்ளீட்டை இயக்கு"</string>
-    <string name="gesture_input_summary" msgid="9180350639305731231">"எழுத்துகள் வழியாக இழுப்பதன் மூலம் வார்த்தையை உள்ளிடலாம்"</string>
-    <string name="gesture_preview_trail" msgid="3802333369335722221">"ஸ்வைப் தடத்தைக் காட்டு"</string>
-    <string name="gesture_floating_preview_text" msgid="4443240334739381053">"நிகழ்நேர மிதக்கும் மாதிரிக்காட்சி"</string>
-    <string name="gesture_floating_preview_text_summary" msgid="4472696213996203533">"சைகையிடும் போது பரிந்துரைக்கும் வார்த்தையைப் பார்க்கலாம்"</string>
-    <string name="gesture_space_aware" msgid="2078291600664682496">"சொற்றொடர் ஸ்வைப்"</string>
-    <string name="gesture_space_aware_summary" msgid="4371385818348528538">"ஸ்பேஸ் விசைக்கு இழுப்பதன் மூலம் சைகைகளுக்கு இடையே இடைவெளிகளை உள்ளிடலாம்"</string>
-    <string name="voice_input" msgid="3583258583521397548">"குரல் உள்ளீட்டு விசை"</string>
-    <string name="voice_input_disabled_summary" msgid="6323489602945135165">"குரல் உள்ளீட்டு முறைகள் இயக்கப்படவில்லை. மொழி &amp; உள்ளீட்டு அமைப்புகளைச் சரிபார்க்கவும்."</string>
-    <string name="configure_input_method" msgid="373356270290742459">"உள்ளீட்டு முறைகளை உள்ளமைத்தல்"</string>
-    <string name="language_selection_title" msgid="3666971864764478269">"மொழிகள்"</string>
-    <string name="help_and_feedback" msgid="5328219371839879161">"உதவி &amp; கருத்து"</string>
-    <string name="select_language" msgid="5709487854987078367">"மொழிகள்"</string>
-    <string name="hint_add_to_dictionary" msgid="2645988432867033007">"சேமிக்க, மீண்டும் தட்டவும்"</string>
-    <string name="hint_add_to_dictionary_without_word" msgid="6710206006427574423">"சேமிக்க, இங்கே தட்டவும்"</string>
-    <string name="has_dictionary" msgid="6071847973466625007">"அகராதி உள்ளது"</string>
-    <string name="keyboard_layout" msgid="8451164783510487501">"விசைப்பலகை தீம்"</string>
-    <string name="switch_accounts" msgid="3321216593719006162">"கணக்குகளை மாற்று"</string>
-    <string name="no_accounts_selected" msgid="2073821619103904330">"கணக்குகள் எதையும் தேர்வுசெய்யவில்லை"</string>
-    <string name="account_selected" msgid="2846876462199625974">"இப்போது <xliff:g id="EMAIL_ADDRESS">%1$s</xliff:g>ஐப் பயன்படுத்துகிறீர்கள்"</string>
-    <string name="account_select_ok" msgid="9141195141763227797">"சரி"</string>
-    <string name="account_select_cancel" msgid="5181012062618504340">"ரத்துசெய்"</string>
-    <string name="account_select_sign_out" msgid="3299651159390187933">"வெளியேறு"</string>
-    <string name="account_select_title" msgid="6279711684772922649">"பயன்படுத்த, கணக்கைத் தேர்ந்தெடு"</string>
-    <string name="subtype_en_GB" msgid="88170601942311355">"ஆங்கிலம் (யூகே)"</string>
-    <string name="subtype_en_US" msgid="6160452336634534239">"ஆங்கிலம் (யூஎஸ்)"</string>
-    <string name="subtype_es_US" msgid="5583145191430180200">"ஸ்பானிஷ் (யூஎஸ்)"</string>
-    <string name="subtype_hi_ZZ" msgid="8860448146262798623">"ஹிங்கிலிஷ்"</string>
-    <string name="subtype_sr_ZZ" msgid="9059219552986034343">"செர்பியன் (லத்தீன்)"</string>
-    <string name="subtype_with_layout_en_GB" msgid="1931018968641592304">"ஆங்கிலம் (யூகே) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_en_US" msgid="8809311287529805422">"ஆங்கிலம் (யூஎஸ்) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_es_US" msgid="510930471167541338">"ஸ்பானிஷ் (யூஎஸ்) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_hi_ZZ" msgid="6827402953860547044">"ஹிங்கிலிஷ் (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_sr_ZZ" msgid="2859024772719772407">"செர்பியன் (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_generic_traditional" msgid="8584594350973800586">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (பாரம்பரியமானது)"</string>
-    <string name="subtype_generic_compact" msgid="3353673321203202922">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (வசதியான)"</string>
-    <string name="subtype_no_language" msgid="7137390094240139495">"மொழியில்லை (அகரவரிசை)"</string>
-    <string name="subtype_no_language_qwerty" msgid="244337630616742604">"அகரவரிசை (க்வெர்டி)"</string>
-    <string name="subtype_no_language_qwertz" msgid="443066912507547976">"அகரவரிசை (க்வெர்ட்ச்)"</string>
-    <string name="subtype_no_language_azerty" msgid="8144348527575640087">"அகரவரிசை (எசெர்டி)"</string>
-    <string name="subtype_no_language_dvorak" msgid="1564494667584718094">"அகரவரிசை (ட்வொராக்)"</string>
-    <string name="subtype_no_language_colemak" msgid="5837418400010302623">"அகரவரிசை (கொல்மக்)"</string>
-    <string name="subtype_no_language_pcqwerty" msgid="5354918232046200018">"அகரவரிசை (பிசி)"</string>
-    <string name="subtype_emoji" msgid="7483586578074549196">"எமோஜி"</string>
-    <string name="keyboard_theme" msgid="4909551808526178852">"விசைப்பலகை தீம்"</string>
-    <string name="custom_input_styles_title" msgid="8429952441821251512">"தனிப்பயன் உள்ளீட்டு நடைகள்"</string>
-    <string name="add_style" msgid="6163126614514489951">"நடையைச் சேர்"</string>
-    <string name="add" msgid="8299699805688017798">"சேர்"</string>
-    <string name="remove" msgid="4486081658752944606">"அகற்று"</string>
-    <string name="save" msgid="7646738597196767214">"சேமி"</string>
-    <string name="subtype_locale" msgid="8576443440738143764">"மொழி"</string>
-    <string name="keyboard_layout_set" msgid="4309233698194565609">"தளவமைப்பு"</string>
-    <string name="custom_input_style_note_message" msgid="8826731320846363423">"உங்கள் தனிப்பயன் உள்ளீட்டு நடையை பயன்படுத்த தொடங்கும் முன்பு, அதை இயக்க வேண்டும். அதை இப்போது இயக்க விரும்புகிறீர்களா?"</string>
-    <string name="enable" msgid="5031294444630523247">"இயக்கு"</string>
-    <string name="not_now" msgid="6172462888202790482">"இப்பொழுது வேண்டாம்"</string>
-    <string name="custom_input_style_already_exists" msgid="8008728952215449707">"இதே உள்ளீட்டு நடை ஏற்கனவே உள்ளது: <xliff:g id="INPUT_STYLE_NAME">%s</xliff:g>"</string>
-    <string name="prefs_keypress_vibration_duration_settings" msgid="7918341459947439226">"விசையழுத்த அதிர்வின் காலஅளவு"</string>
-    <string name="prefs_keypress_sound_volume_settings" msgid="6027007337036891623">"விசையழுத்த ஒலியளவு"</string>
-    <string name="prefs_key_longpress_timeout_settings" msgid="6102240298932897873">"விசைக்கான நீண்ட அழுத்த நேரம்"</string>
-    <string name="prefs_enable_emoji_alt_physical_key" msgid="5963640002335470112">"கைமுறை விசைப்பலகைக்கான ஈமோஜி"</string>
-    <string name="prefs_enable_emoji_alt_physical_key_summary" msgid="5259484820941627827">"ஈமோஜி பலகத்தைக் காட்டும் கைமுறை Alt விசை"</string>
-    <string name="button_default" msgid="3988017840431881491">"இயல்புநிலை"</string>
-    <string name="setup_welcome_title" msgid="6112821709832031715">"<xliff:g id="APPLICATION_NAME">%s</xliff:g> பயன்பாட்டிற்கு வரவேற்கிறோம்"</string>
-    <string name="setup_welcome_additional_description" msgid="8150252008545768953">"ஸ்வைப் உள்ளீடு மூலம்"</string>
-    <string name="setup_start_action" msgid="8936036460897347708">"தொடங்குக"</string>
-    <string name="setup_next_action" msgid="371821437915144603">"அடுத்த கட்டம்"</string>
-    <string name="setup_steps_title" msgid="6400373034871816182">"<xliff:g id="APPLICATION_NAME">%s</xliff:g> ஆப்ஸை அமைக்கிறது"</string>
-    <string name="setup_step1_title" msgid="3147967630253462315">"<xliff:g id="APPLICATION_NAME">%s</xliff:g> ஆப்ஸை இயக்கவும்"</string>
-    <string name="setup_step1_instruction" msgid="4295448056733329661">"மொழி &amp; உள்ளீட்டு அமைப்புகளில் \"<xliff:g id="APPLICATION_NAME">%s</xliff:g>\" ஆப்ஸைத் தேர்வு செய்யவும். இதனால், சாதனத்தில் ஆப்ஸை இயக்கலாம்."</string>
-    <string name="setup_step1_finished_instruction" msgid="8701441895377434947">"மொழி &amp; உள்ளீட்டு அமைப்புகளில் <xliff:g id="APPLICATION_NAME">%s</xliff:g> ஏற்கனவே இயக்கப்பட்டுள்ளதால் இப்படிமுறை முடிந்தது. அடுத்த படிமுறைக்குச் செல்லவும்!"</string>
-    <string name="setup_step1_action" msgid="4366513534999901728">"அமைப்புகளில் இயக்கு"</string>
-    <string name="setup_step2_title" msgid="6860725447906690594">"<xliff:g id="APPLICATION_NAME">%s</xliff:g> க்கு மாறவும்"</string>
-    <string name="setup_step2_instruction" msgid="9141481964870023336">"அடுத்து, உங்கள் செயலில் உள்ள உரை உள்ளீட்டு முறையாக \"<xliff:g id="APPLICATION_NAME">%s</xliff:g>\" பயன்பாட்டைத் தேர்ந்தெடுக்கவும்."</string>
-    <string name="setup_step2_action" msgid="1660330307159824337">"உள்ளீட்டு முறைகளை மாற்றவும்"</string>
-    <string name="setup_step3_title" msgid="3154757183631490281">"வாழ்த்துகள், தயாராகிவிட்டீர்கள்!"</string>
-    <string name="setup_step3_instruction" msgid="8025981829605426000">"<xliff:g id="APPLICATION_NAME">%s</xliff:g> ஆப்ஸ் மூலம் உங்களுக்கு விருப்பமான எல்லா ஆப்ஸ்களிலும் நீங்கள் உள்ளிடலாம்."</string>
-    <string name="setup_step3_action" msgid="600879797256942259">"கூடுதல் மொழிகளை உள்ளமை"</string>
-    <string name="setup_finish_action" msgid="276559243409465389">"முடிந்தது"</string>
-    <string name="show_setup_wizard_icon" msgid="5008028590593710830">"ஆப்ஸ் ஐகானைக் காட்டு"</string>
-    <string name="show_setup_wizard_icon_summary" msgid="4119998322536880213">"துவக்கியில் ஆப்ஸ் ஐகானைக் காட்டும்"</string>
-    <string name="app_name" msgid="6320102637491234792">"அகராதி வழங்கி"</string>
-    <string name="dictionary_provider_name" msgid="3027315045397363079">"அகராதி வழங்கி"</string>
-    <string name="dictionary_service_name" msgid="6237472350693511448">"அகராதி சேவை"</string>
-    <string name="download_description" msgid="6014835283119198591">"அகராதியின் புதுப்பிப்பு தகவல்"</string>
-    <string name="dictionary_settings_title" msgid="8091417676045693313">"துணை அகராதிகள்"</string>
-    <string name="dictionary_settings_summary" msgid="5305694987799824349">"அகராதிகளுக்கான அமைப்பு"</string>
-    <string name="user_dictionaries" msgid="3582332055892252845">"பயனர் அகராதிகள்"</string>
-    <string name="default_user_dict_pref_name" msgid="1625055720489280530">"பயனர் அகராதி"</string>
-    <string name="dictionary_available" msgid="4728975345815214218">"அகராதி கிடைக்கிறது"</string>
-    <string name="dictionary_downloading" msgid="2982650524622620983">"தற்போது பதிவிறக்குகிறது"</string>
-    <string name="dictionary_installed" msgid="8081558343559342962">"நிறுவப்பட்டது"</string>
-    <string name="dictionary_disabled" msgid="8950383219564621762">"நிறுவப்பட்டது, முடக்கப்பட்டது"</string>
-    <string name="cannot_connect_to_dict_service" msgid="9216933695765732398">"அகராதி சேவையில் இணைப்பதில் பிரச்சனை ஏற்பட்டது"</string>
-    <string name="no_dictionaries_available" msgid="8039920716566132611">"அகராதிகள் எதுவும் இல்லை"</string>
-    <string name="check_for_updates_now" msgid="8087688440916388581">"புதுப்பி"</string>
-    <string name="last_update" msgid="730467549913588780">"இறுதியாகப் புதுப்பித்தது"</string>
-    <string name="message_updating" msgid="4457761393932375219">"புதுப்பிப்புகளுக்காக சரிபார்கிறது"</string>
-    <string name="message_loading" msgid="5638680861387748936">"ஏற்றுகிறது..."</string>
-    <string name="main_dict_description" msgid="3072821352793492143">"முதன்மை அகராதி"</string>
-    <string name="cancel" msgid="6830980399865683324">"ரத்துசெய்"</string>
-    <string name="go_to_settings" msgid="3876892339342569259">"அமைப்பு"</string>
-    <string name="install_dict" msgid="180852772562189365">"நிறுவு"</string>
-    <string name="cancel_download_dict" msgid="7843340278507019303">"ரத்துசெய்"</string>
-    <string name="delete_dict" msgid="756853268088330054">"நீக்கு"</string>
-    <string name="version_text" msgid="2715354215568469385">"<xliff:g id="VERSION_NUMBER">%1$s</xliff:g> பதிப்பு"</string>
-    <string name="user_dict_settings_add_menu_title" msgid="1254195365689387076">"சேர்"</string>
-    <string name="user_dict_settings_add_dialog_title" msgid="4096700390211748168">"அகராதியில் சேர்"</string>
-    <string name="user_dict_settings_add_screen_title" msgid="5818914331629278758">"சொற்றொடர்"</string>
-    <string name="user_dict_settings_add_dialog_more_options" msgid="5671682004887093112">"மேலும் விருப்பங்கள்"</string>
-    <string name="user_dict_settings_add_dialog_less_options" msgid="2716586567241724126">"குறைவான விருப்பங்கள்"</string>
-    <string name="user_dict_settings_add_dialog_confirm" msgid="4703129507388332950">"சரி"</string>
-    <string name="user_dict_settings_add_word_option_name" msgid="6665558053408962865">"வார்த்தை:"</string>
-    <string name="user_dict_settings_add_shortcut_option_name" msgid="3094731590655523777">"ஷார்ட்கட்:"</string>
-    <string name="user_dict_settings_add_locale_option_name" msgid="4738643440987277705">"மொழி:"</string>
-    <string name="user_dict_settings_add_word_hint" msgid="4902434148985906707">"வார்த்தையை உள்ளிடவும்"</string>
-    <string name="user_dict_settings_add_shortcut_hint" msgid="2265453012555060178">"விருப்பத்திற்குரிய ஷார்ட்கட்"</string>
-    <string name="user_dict_settings_edit_dialog_title" msgid="3765774633869590352">"வார்த்தையைத் திருத்து"</string>
-    <string name="user_dict_settings_context_menu_edit_title" msgid="6812255903472456302">"திருத்து"</string>
-    <string name="user_dict_settings_context_menu_delete_title" msgid="8142932447689461181">"நீக்கு"</string>
-    <string name="user_dict_settings_empty_text" msgid="6889278304342592383">"பயனர் அகராதியில் எந்தச் சொற்களும் இல்லை. சொல்லைச் சேர்க்க, சேர் (+) எனும் பொத்தானைத் தட்டவும்."</string>
-    <string name="user_dict_settings_all_languages" msgid="8276126583216298886">"எல்லா மொழிகளுக்கும்"</string>
-    <string name="user_dict_settings_more_languages" msgid="7131268499685180461">"மேலும் மொழிகள்..."</string>
-    <string name="user_dict_settings_delete" msgid="110413335187193859">"நீக்கு"</string>
-    <string name="user_dict_fast_scroll_alphabet" msgid="5431919401558285473">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright (C) 2008 The Android Open Source Project
+    modified
+    SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
+--><resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="use_contacts_dict">"தொடர்பு பெயர்களை ஆய்வுசெய்"</string>
+    <string name="vibrate_on_keypress">"விசையழுத்தின்போது அதிர்வுரு"</string>
+    <string name="sound_on_keypress">"விசையழுத்தத்தின்போது ஒலியெழுப்பு"</string>
+    <string name="popup_on_keypress">"விழை அழுத்தத்தின்போது பாப்அப் செய்"</string>
+    <string name="settings_screen_preferences">"விருப்பங்கள்"</string>
+    <string name="settings_screen_gesture">"ஸ்வைப் தட்டச்சு"</string>
+    <string name="settings_screen_correction">"உரை திருத்தம்"</string>
+    <string name="settings_screen_advanced">"மேம்பட்டவை"</string>
+    <string name="settings_screen_theme">"தீம்"</string>
+    <string name="enable_split_keyboard">"பிரிக்கப்பட்ட விசைப்பலகையை இயக்கு"</string>
+    <string name="language_switch_key_switch_input_method">"பிற உள்ளீட்டு முறைகளுக்கு மாறு"</string>
+    <string name="show_language_switch_key">"மொழி மாற்ற விசை"</string>
+    <string name="abbreviation_unit_milliseconds">%s மிவி</string>
+    <string name="settings_system_default">"அமைப்பின் இயல்புநிலை"</string>
+    <string name="use_contacts_dict_summary">"பரிந்துரைகள், திருத்தங்கள் ஆகியவற்றிற்கு தொடர்புகளிலிருந்து பெயர்களை பயன்படுத்து"</string>
+    <string name="use_personalized_dicts">"தனிப்பட்ட பரிந்துரைகள்"</string>
+    <string name="use_double_space_period">"புள்ளியைத் தொடர்ந்து இடைவெளியை உள்ளிடு"</string>
+    <string name="use_double_space_period_summary">"ஸ்பேஸ் பட்டியை இருமுறை தட்டுவது, புள்ளியை தொடர்ந்து இடைவெளியை உள்ளிடும்"</string>
+    <string name="auto_cap">"தன்னியக்க பேரெழுத்தாக்கல்"</string>
+    <string name="auto_cap_summary">"வரியின் முதல் எழுத்தை பேரெழுத்தாக்கும்"</string>
+    <string name="edit_personal_dictionary">"தனிப்பட்ட அகராதி"</string>
+    <string name="main_dictionary">"முதன்மை அகராதி"</string>
+    <string name="prefs_show_suggestions">"திருத்துதல் விருப்பங்களைக் காட்டு"</string>
+    <string name="prefs_show_suggestions_summary">"உள்ளிடும்போது பரிந்துரைக்கப்பட்ட வார்த்தைகளைக் காட்டும்"</string>
+    <string name="prefs_block_potentially_offensive_title">"புண்படுத்தும் சொற்களைத் தடு"</string>
+    <string name="prefs_block_potentially_offensive_summary">"மனதைப் புண்படுத்தக் கூடிய சொற்களைப் பரிந்துரைக்க வேண்டாம்"</string>
+    <string name="autocorrect">"தன்னியக்க திருத்தம்"</string>
+    <string name="auto_correction_summary">"ஸ்பேஸ்பாரும், நிறுத்தற்குறிகளும் தவறாக உள்ளிடப்பட்ட வார்த்தைகளை தானாக திருத்தும்"</string>
+    <string name="auto_correction_threshold_mode_off">"ஆஃப்"</string>
+    <string name="auto_correction_threshold_mode_modest">"மிதமாக"</string>
+    <string name="auto_correction_threshold_mode_aggressive">"தீவிரமாக"</string>
+    <string name="auto_correction_threshold_mode_very_aggressive">"மிகத் தீவிரமாக"</string>
+    <string name="bigram_prediction">"அடுத்த வார்த்தை பரிந்துரைகள்"</string>
+    <string name="bigram_prediction_summary">"பரிந்துரைகளை உருவாக்க முந்தைய வார்த்தைகளைப் பயன்படுத்தும்"</string>
+    <string name="gesture_input">"ஸ்வைப் உள்ளீட்டை இயக்கு"</string>
+    <string name="gesture_input_summary">"எழுத்துகள் வழியாக இழுப்பதன் மூலம் வார்த்தையை உள்ளிடலாம்"</string>
+    <string name="gesture_preview_trail">"ஸ்வைப் தடத்தைக் காட்டு"</string>
+    <string name="gesture_floating_preview_text">"நிகழ்நேர மிதக்கும் மாதிரிக்காட்சி"</string>
+    <string name="gesture_space_aware">"சொற்றொடர் ஸ்வைப்"</string>
+    <string name="gesture_space_aware_summary">"ஸ்பேஸ் விசைக்கு இழுப்பதன் மூலம் சைகைகளுக்கு இடையே இடைவெளிகளை உள்ளிடலாம்"</string>
+    <string name="subtype_en_GB">"ஆங்கிலம் (யூகே)"</string>
+    <string name="subtype_en_US">"ஆங்கிலம் (யூஎஸ்)"</string>
+    <string name="subtype_es_US">"ஸ்பானிஷ் (யூஎஸ்)"</string>
+    <string name="subtype_hi_Latn">"ஹிங்கிலிஷ்"</string>
+    <string name="subtype_sr_Latn">"செர்பியன் (லத்தீன்)"</string>
+    <string name="subtype_generic_traditional">"%s (பாரம்பரியமானது)"</string>
+    <string name="subtype_generic_compact">"%s (வசதியான)"</string>
+    <string name="subtype_no_language">"மொழியில்லை"</string>
+    <string name="subtype_emoji">"எமோஜி"</string>
+    <string name="add">"சேர்"</string>
+    <string name="remove">"அகற்று"</string>
+    <string name="save">"சேமி"</string>
+    <string name="subtype_locale">"மொழி"</string>
+    <string name="keyboard_layout_set">"தளவமைப்பு"</string>
+    <string name="prefs_keypress_vibration_duration_settings">"விசையழுத்த அதிர்வின் காலஅளவு"</string>
+    <string name="prefs_keypress_sound_volume_settings">"விசையழுத்த ஒலியளவு"</string>
+    <string name="prefs_key_longpress_timeout_settings">"விசைக்கான நீண்ட அழுத்த நேரம்"</string>
+    <string name="prefs_enable_emoji_alt_physical_key">"கைமுறை விசைப்பலகைக்கான ஈமோஜி"</string>
+    <string name="prefs_enable_emoji_alt_physical_key_summary">"ஈமோஜி பலகத்தைக் காட்டும் கைமுறை Alt விசை"</string>
+    <string name="button_default">"இயல்புநிலை"</string>
+    <string name="setup_welcome_title">%s பயன்பாட்டிற்கு வரவேற்கிறோம்\"</string>
+    <string name="setup_welcome_additional_description">"ஸ்வைப் உள்ளீடு மூலம்"</string>
+    <string name="setup_start_action">"தொடங்குக"</string>
+    <string name="setup_steps_title">%s ஆப்ஸை அமைக்கிறது\"</string>
+    <string name="setup_step1_title">%s ஆப்ஸை இயக்கவும்\"</string>
+    <string name="setup_step1_instruction">"மொழி &amp; உள்ளீட்டு அமைப்புகளில் \"%s\" ஆப்ஸைத் தேர்வு செய்யவும். இதனால், சாதனத்தில் ஆப்ஸை இயக்கலாம்."</string>
+    <string name="setup_step1_action">"அமைப்புகளில் இயக்கு"</string>
+    <string name="setup_step2_title">%s க்கு மாறவும்\"</string>
+    <string name="setup_step2_instruction">"அடுத்து, உங்கள் செயலில் உள்ள உரை உள்ளீட்டு முறையாக \"%s\" பயன்பாட்டைத் தேர்ந்தெடுக்கவும்."</string>
+    <string name="setup_step2_action">"உள்ளீட்டு முறைகளை மாற்றவும்"</string>
+    <string name="setup_step3_title">"வாழ்த்துகள், தயாராகிவிட்டீர்கள்!"</string>
+    <string name="setup_step3_instruction">"%s ஆப்ஸ் மூலம் உங்களுக்கு விருப்பமான எல்லா ஆப்ஸ்களிலும் நீங்கள் உள்ளிடலாம்."</string>
+    <string name="setup_finish_action">"முடிந்தது"</string>
+    <string name="show_setup_wizard_icon">"ஆப்ஸ் ஐகானைக் காட்டு"</string>
+    <string name="show_setup_wizard_icon_summary">"துவக்கியில் ஆப்ஸ் ஐகானைக் காட்டும்"</string>
+    <string name="dictionary_category_title">"துணை அகராதிகள்"</string>
+    <string name="dictionary_available">"அகராதி கிடைக்கிறது"</string>
+    <string name="settings">"அமைப்பு"</string>
+    <string name="delete">"நீக்கு"</string>
+    <string name="version_text">%s பதிப்பு</string>
+    <string name="user_dict_settings_add_shortcut_option_name">"ஷார்ட்கட்:"</string>
+    <string name="user_dict_settings_add_locale_option_name">"மொழி:"</string>
+    <string name="user_dict_settings_add_word_hint">"வார்த்தையை உள்ளிடவும்"</string>
+    <string name="user_dict_settings_add_shortcut_hint">"விருப்பத்திற்குரிய ஷார்ட்கட்"</string>
+    <string name="user_dict_settings_edit_dialog_title">"வார்த்தையைத் திருத்து"</string>
+    <string name="user_dict_settings_all_languages">"எல்லா மொழிகளுக்கும்"</string>
+    <string name="user_dict_settings_more_languages">"மேலும் மொழிகள்…"</string>
+    <string name="select_input_method">"உள்ளீட்டு முறையைத் தேர்வுசெய்க"</string>
+    <string name="undo">"செயல்தவிர்"</string>
+    <string name="redo">"மீண்டும்செய்"</string>
+    <string name="use_personalized_dicts_summary">"தொடர்புகளிலிருந்தும், உள்ளிட்ட தரவிலிருந்தும் பரிந்துரைகளை மேம்படுத்த அறியவும்"</string>
+    <string name="label_go_key">"செல்"</string>
+    <string name="label_next_key">"அடுத்து"</string>
+    <string name="label_previous_key">"முன்"</string>
+    <string name="label_done_key">"முடிந்தது"</string>
+    <string name="label_send_key">"அனுப்பு"</string>
+    <string name="label_search_key">"தேடு"</string>
+    <string name="label_pause_key">"இடைநிறுத்து"</string>
+    <string name="label_wait_key">"காத்திரு"</string>
+    <string name="spell_checker_service_name">எலிபோர்டு எழுத்துப்பிழை சரிபார்ப்பு</string>
+    <string name="ime_settings">எலிபோர்டு அமைப்புகள்</string>
+    <string name="android_spell_checker_settings">எலிபோர்டு எழுத்துப்பிழை சரிபார்ப்பு அமைப்புகள்</string>
+    <string name="vibrate_in_dnd_mode">தொந்தரவு செய்யாதே பயன்முறையில் அதிர்வு</string>
+    <string name="suggest_emojis">ஈமோசிகளைப் பரிந்துரைக்கவும்</string>
+    <string name="suggest_emojis_summary">சாதாரண பரிந்துரைகளில் ஈமோசி அகராதியைப் பயன்படுத்தவும்</string>
+    <string name="inline_emoji_search">இன்லைன் ஈமோசி தேடல்</string>
+    <string name="inline_emoji_search_summary">ஒரு வார்த்தைக்கு முன் பெருங்குடல் இருக்கும் போது ஈமோசிகளை மட்டும் பரிந்துரைக்கவும்</string>
+    <string name="emoji_dictionary_required">இந்த நற்பொருத்தம் செயல்பட ஈமோசி அகராதி தேவை. .dict வடிவத்தில் உள்ள அகராதிகளை %s பதிவிறக்கம் செய்யலாம்.</string>
+    <string name="show_emoji_descriptions">நீண்ட நேரம் அழுத்தும்போது ஈமோசி விளக்கத்தைக் காட்டு</string>
+    <string name="settings_category_input">உள்ளீடு</string>
+    <string name="settings_category_additional_keys">கூடுதல் விசைகள்</string>
+    <string name="settings_category_clipboard_history">இடைநிலைப்பலகை வரலாறு</string>
+    <string name="settings_category_correction">திருத்தங்கள்</string>
+    <string name="settings_category_space">இடைவெளி</string>
+    <string name="settings_category_suggestions">பரிந்துரைகள்</string>
+    <string name="settings_category_experimental">ஆய்வு</string>
+    <string name="settings_category_miscellaneous">மற்றவை</string>
+    <string name="enable_split_keyboard_landscape">பிளவு விசைப்பலகையை இயக்கு (இயற்கை)</string>
+    <string name="split_spacer_scale">பிளவு தூரம்</string>
+    <string name="switch_language">மொழியை மாற்றவும்</string>
+    <string name="language_switch_key_switch_both">இரண்டையும் மாற்றவும்</string>
+    <string name="language_switch_key_behavior">மொழி மாறுதல் முக்கிய நடத்தை</string>
+    <string name="show_emoji_key">ஈமோசி திறவுகோல்</string>
+    <string name="abbreviation_unit_minutes">%s மணித்துளி</string>
+    <string name="settings_no_limit">வரம்பு இல்லை</string>
+    <string name="use_apps_dict">பயன்பாட்டின் பெயர்களைப் பார்க்கவும்</string>
+    <string name="use_apps_dict_summary">பரிந்துரைகள் மற்றும் திருத்தங்களுக்கு நிறுவப்பட்ட பயன்பாடுகளின் பெயர்களைப் பயன்படுத்தவும்</string>
+    <string name="disable_personalized_dicts_message">எச்சரிக்கை: இந்த அமைப்பை முடக்கினால், கற்ற தரவு அழிக்கப்படும்</string>
+    <string name="add_to_personal_dictionary">தனிப்பட்ட அகராதியில் வார்த்தைகளைச் சேர்க்கவும்</string>
+    <string name="add_to_personal_dictionary_summary">கற்ற சொற்களைச் சேமிக்க சாதனத்தின் தனிப்பட்ட அகராதியைப் பயன்படுத்தவும்</string>
+    <string name="prefs_always_show_suggestions">எப்போதும் பரிந்துரைகளைக் காட்டு</string>
+    <string name="prefs_always_show_suggestions_summary">பரிந்துரைகளை முடக்குவதற்கான பிற பயன்பாடுகளின் கோரிக்கையை புறக்கணிக்கவும் (சிக்கல்களை ஏற்படுத்தலாம்)</string>
+    <string name="prefs_always_show_suggestions_except_web_text">இணையத் திருத்தப் புலங்களுக்கான பரிந்துரைகளை எப்போதும் காட்ட வேண்டாம்</string>
+    <string name="prefs_always_show_suggestions_except_web_text_summary">எப்போதும் காட்டும் பரிந்துரைகள் அமைப்பில் உள்ள சிக்கல்களுக்கு இணையத் திருத்தப் புலங்கள் (பெரும்பாலும் உலாவிகளில் காணப்படுகின்றன) மிகவும் பொதுவான காரணமாகும்</string>
+    <string name="more_autocorrect">மேலும் தானாக திருத்தம்</string>
+    <string name="more_autocorrect_summary">உள்ளீட்டு புலத்தால் வெளிப்படையாகக் கோரப்படாதபோதும் தானாகச் சரிசெய்தல்</string>
+    <string name="auto_correction_confidence">தானாக திருத்தம் செய்யும் நம்பிக்கை</string>
+    <string name="auto_correct_shortcuts">குறுக்குவழிகளைத் தானாகச் சரிசெய்யவும்</string>
+    <string name="auto_correct_shortcuts_summary">இயக்கப்படும் போது குறுக்குவழிகள் தானியங்கு திருத்தம் மூலம் விரிவாக்கப்படலாம்</string>
+    <string name="backspace_reverts_autocorrect">பேக்ச்பேச் தானாகத் திருத்தத்தை மாற்றுகிறது</string>
+    <string name="center_suggestion_text_to_enter">எப்போதும் நடுத்தர பரிந்துரையைப் பயன்படுத்தவும்</string>
+    <string name="center_suggestion_text_to_enter_summary">இடைவெளி அல்லது நிறுத்தற்குறியை அழுத்தினால், நடுப் பரிந்துரை உள்ளிடப்படும்</string>
+    <string name="suggest_punctuation">நிறுத்தற்குறி பரிந்துரைகள்</string>
+    <string name="suggest_punctuation_summary">வேறு பரிந்துரைகள் எதுவும் இல்லாதபோது நிறுத்தற்குறிகளைக் காட்டு</string>
+    <string name="suggest_clipboard_content">இடைநிலைப்பலகை உள்ளடக்கத்தைப் பரிந்துரைக்கவும்</string>
+    <string name="suggest_clipboard_content_summary">அண்மைக் காலத்தில் நகலெடுக்கப்பட்ட இடைநிலைப்பலகை உள்ளடக்கத்தை பரிந்துரையாகக் காட்டு</string>
+    <string name="gesture_floating_preview_static">மிதக்கும் முன்னோட்டம்</string>
+    <string name="gesture_floating_preview_static_summary">சைகை செய்யும் போது பரிந்துரைக்கப்பட்ட வார்த்தையைப் பார்க்கவும்</string>
+    <string name="gesture_floating_preview_dynamic_summary">சைகையின் போது முன்னோட்டத்தை நகர்த்தவும்</string>
+    <string name="gesture_fast_typing_cooldown">விரைவான தட்டச்சு குளிர்விப்பு</string>
+    <string name="gesture_fast_typing_cooldown_instant">எப்போதும் உடனடியாகத் தொடங்குங்கள்</string>
+    <string name="gesture_trail_fadeout_duration">சைகை பாதையின் ஆயுட்காலம்</string>
+    <string name="enable_clipboard_history">இடைநிலைப்பலகை வரலாற்றை இயக்கு</string>
+    <string name="enable_clipboard_history_summary">முடக்கப்பட்டிருந்தால், இடைநிலைப்பலகை விசை ஏதேனும் இருந்தால் இடைநிலைப்பலகை உள்ளடக்கத்தை ஒட்டும்</string>
+    <string name="clipboard_history_retention_time">வரலாற்றைத் தக்கவைக்கும் நேரம்</string>
+    <string name="clipboard_history_pinned_first">பின் செய்யப்பட்ட பொருட்களை மேலே காட்டு</string>
+    <string name="delete_swipe">ச்வைப் செய்வதை நீக்கு</string>
+    <string name="delete_swipe_summary">ஒரே நேரத்தில் உரையின் பெரிய பகுதிகளைத் தேர்ந்தெடுத்து அகற்ற, நீக்கு விசையிலிருந்து ச்வைப் செய்யவும்</string>
+    <string name="backup_restore_title">காப்பு மற்றும் மீட்டமை</string>
+    <string name="backup_restore_message">கோப்பிலிருந்து சேமிக்கவும் அல்லது ஏற்றவும். எச்சரிக்கை: மீட்டெடுப்பு ஏற்கனவே உள்ள தரவை மேலெழுதும்</string>
+    <string name="backup_error">காப்புப் பிழை: %s</string>
+    <string name="restore_error">காப்புப்பிரதியை மீட்டெடுப்பதில் பிழை: %s</string>
+    <string name="button_backup">காப்புப்பிரதி</string>
+    <string name="button_restore">மீட்டமை</string>
+    <string name="backup_restored">காப்புப்பிரதி மீட்டெடுக்கப்பட்டது</string>
+    <string name="timestamp_format_title">நேர முத்திரை விசைக்கான வடிவம்</string>
+    <string name="secondary_locale">பன்மொழி தட்டச்சு</string>
+    <string name="locales_with_dict">அகராதிகள் கொண்ட மொழிகள்</string>
+    <string name="load_gesture_library">சைகை தட்டச்சு நூலகத்தை ஏற்றவும்</string>
+    <string name="load_gesture_library_summary">சைகை தட்டச்சு செய்வதை இயக்க, சொந்த நூலகத்தை வழங்கவும்</string>
+    <string name="load_gesture_library_message">\'%s\'க்கான நூலகம் உங்களுக்குத் தேவைப்படும். சைகை தட்டச்சு செய்யும் போது பொருந்தாத நூலகங்கள் செயலிழக்கக்கூடும். \n\nஎச்சரிக்கை: வெளிப்புறக் குறியீட்டை ஏற்றுவது பாதுகாப்பு அபாயமாக இருக்கலாம். நீங்கள் நம்பும் மூலத்திலிருந்து மட்டுமே நூலகத்தைப் பயன்படுத்தவும்.</string>
+    <string name="checksum_mismatch_message">அறியப்படாத நூலகக் கோப்பு. நம்பகமான மூலத்திலிருந்து அதைப் பெற்றுள்ளீர்கள், அது \'%s\'க்கானது என்பதில் உறுதியாக உள்ளீர்களா?</string>
+    <string name="load_gesture_library_button_load">நூலகத்தை ஏற்றவும்</string>
+    <string name="load_gesture_library_button_delete">நூலகத்தை நீக்கு</string>
+    <string name="autospace_after_punctuation">நிறுத்தற்குறிக்குப் பிறகு ஆட்டோச்பேச்</string>
+    <string name="autospace_after_punctuation_summary">புதிய சொல்லைத் தட்டச்சு செய்யும் போது நிறுத்தற்குறிக்குப் பிறகு தானாகவே இடத்தைச் செருகவும்</string>
+    <string name="autospace_after_suggestion">பரிந்துரையைத் தேர்ந்தெடுத்த பிறகு ஆட்டோச்பேச்</string>
+    <string name="autospace_before_gesture_typing">ஒரு வார்த்தையை சைகை தட்டச்சு செய்வதற்கு முன் ஆட்டோச்பேச்</string>
+    <string name="autospace_after_gesture_typing">சைகையில் ஒரு வார்த்தையைத் தட்டச்சு செய்த பிறகு ஆட்டோச்பேச்</string>
+    <string name="shift_removes_autospace">சிப்டை அழுத்தும்போது ஆட்டோச்பேச் இல்லை</string>
+    <string name="shift_removes_autospace_summary">சிப்ட் நிலுவையில் உள்ள ஆட்டோச்பேசை நீக்குகிறது</string>
+    <string name="show_popup_keys_title">பாப்அப்பில் டயக்ரிட்டிக்சுடன் அதிக எழுத்துக்களைக் காட்டு</string>
+    <string name="show_popup_keys_normal">விசைப்பலகை மொழிகளில் வரையறுக்கப்பட்ட மாறுபாடுகளைக் காட்டு</string>
+    <string name="show_popup_keys_main">மிகவும் பொதுவான மாறுபாடுகளைச் சேர்க்கவும் (இயல்புநிலை)</string>
+    <string name="show_popup_keys_more">பொதுவான மாறுபாடுகளைச் சேர்க்கவும்</string>
+    <string name="show_popup_keys_all">கிடைக்கக்கூடிய அனைத்து வகைகளையும் சேர்க்கவும்</string>
+    <string name="url_detection_title">முகவரி கண்டறிதல்</string>
+    <string name="url_detection_summary">URLகள் மற்றும் ஒரே வார்த்தையாகக் கண்டறிய முயற்சிக்கவும்</string>
+    <string name="incognito">கட்டாய மறைநிலை பயன்முறை</string>
+    <string name="prefs_force_incognito_mode_summary">புதிய சொற்களைக் கற்றுக்கொள்வதை முடக்கு</string>
+    <string name="more_keys_strip_description">மேலும் விசைகள்</string>
+    <string name="language_and_layouts_title">மொழிகள் &amp; தளவமைப்புகள்</string>
+    <string name="number_row">எண் வரிசை</string>
+    <string name="number_row_summary">எப்போதும் எண் வரிசையைக் காட்டு</string>
+    <string name="localized_number_row">எண் வரிசையை உள்ளூர்மயமாக்கு</string>
+    <string name="localized_number_row_summary">லத்தீன் எண்களை விட உள்ளூர்மயமாக்கலை விரும்புங்கள்</string>
+    <string name="number_row_hints">எண் வரிசையில் குறிப்புகளைக் காட்டு</string>
+    <string name="save_subtype_per_app">ஒவ்வொரு பயன்பாட்டிற்கும் மொழியை நினைவில் கொள்ளுங்கள்</string>
+    <string name="show_hints">முக்கிய குறிப்புகளைக் காட்டு</string>
+    <string name="show_hints_summary">நீண்ட அழுத்த குறிப்புகளைக் காட்டு</string>
+    <string name="popup_order_and_hint_source">மேல்தோன்றல் விசை வரிசை மற்றும் குறிப்புகள் சான்று</string>
+    <string name="hint_source">குறிப்பு மூலத்தைத் தேர்ந்தெடுக்கவும்</string>
+    <string name="popup_order">மேல்தோன்றல் விசை வரிசையைத் தேர்ந்தெடுக்கவும்</string>
+    <string name="show_tld_popup_keys">TLD மேல்தோன்றல் விசைகளைக் காட்டு</string>
+    <string name="show_tld_popup_keys_summary">URLகள் மற்றும் மின்னஞ்சல் முகவரிகளைத் தட்டச்சு செய்யும் போது, பீரியட் கீ பாப்அப்களை மேல் நிலை டொமைன்களுடன் மாற்றவும்</string>
+    <string name="popup_keys_number" tools:keep="@string/popup_keys_number">எண் வரிசை</string>
+    <string name="popup_keys_language_priority" tools:keep="@string/popup_keys_language_priority">மொழி (முன்னுரிமை)</string>
+    <string name="popup_keys_layout" tools:keep="@string/popup_keys_layout">மனையமைவு</string>
+    <string name="popup_keys_symbols" tools:keep="@string/popup_keys_symbols">குறியிடுகள்</string>
+    <string name="toolbar_mode">கருவிப்பட்டி முறை</string>
+    <string name="toolbar_mode_expandable" tools:keep="@string/toolbar_mode_expandable">கருவிப்பட்டி விசைகள் மற்றும் பரிந்துரைகள்</string>
+    <string name="toolbar_mode_toolbar_keys" tools:keep="@string/toolbar_mode_toolbar_keys">கருவிப்பட்டி விசைகள் மட்டுமே</string>
+    <string name="toolbar_mode_suggestion_strip" tools:keep="@string/toolbar_mode_suggestion_strip">பரிந்துரைகள் மட்டுமே</string>
+    <string name="toolbar_mode_hidden" tools:keep="@string/toolbar_mode_hidden">மறைக்கப்பட்டது</string>
+    <string name="toolbar_hiding_global">இடைநிலைப்பலகை மற்றும் ஈமோசி கருவிப்பட்டிகளையும் மறைக்கவும்</string>
+    <string name="toolbar_keys">கருவிப்பட்டி விசைகளைத் தேர்ந்தெடுக்கவும்</string>
+    <string name="clipboard" tools:keep="@string/clipboard">இடைநிலைப் பலகை</string>
+    <string name="clear_clipboard" tools:keep="@string/clear_clipboard">கிளிப்போர்டை அழிக்கவும்</string>
+    <string name="voice" tools:keep="@string/voice">குரல் உள்ளீடு</string>
+    <string name="select_word" tools:keep="@string/select_word">வார்த்தையைத் தேர்ந்தெடுக்கவும்</string>
+    <string name="one_handed" tools:keep="@string/one_handed">ஒரு கை முறை</string>
+    <string name="split" tools:keep="@string/split">பிளவு விசைப்பலகை</string>
+    <string name="full_left" tools:keep="@string/full_left">முழு இடது</string>
+    <string name="full_right" tools:keep="@string/full_right">முழு உரிமை</string>
+    <string name="page_start" tools:keep="@string/page_start">பக்க துவக்கம்</string>
+    <string name="page_end" tools:keep="@string/page_end">பக்கம் முடிவு</string>
+    <string name="left" tools:keep="@string/left">இடது</string>
+    <string name="right" tools:keep="@string/right">வலது</string>
+    <string name="up" tools:keep="@string/up">மேலே</string>
+    <string name="down" tools:keep="@string/down">கீழே</string>
+    <string name="word_left" tools:keep="@string/word_left">சொல் விட்டு விட்டது</string>
+    <string name="word_right" tools:keep="@string/word_right">சொல் சரி</string>
+    <string name="page_up" tools:keep="@string/page_up">பக்கம் மேலே</string>
+    <string name="page_down" tools:keep="@string/page_down">பக்கம் கீழே</string>
+    <string name="close_history" tools:keep="@string/close_history">இடைநிலைப்பலகை வரலாற்றை மூடு</string>
+    <string name="emoji" tools:keep="@string/emoji">ஈமோசி</string>
+    <string name="clipboard_toolbar_keys">இடைநிலைப்பலகை கருவிப்பட்டி விசைகளைத் தேர்ந்தெடுக்கவும்</string>
+    <string name="pinned_toolbar_keys">பின் செய்யப்பட்ட கருவிப்பட்டி விசைகளைத் தேர்ந்தெடுக்கவும்</string>
+    <string name="quick_pin_toolbar_keys">நீண்ட அழுத்தத்தில் கருவிப்பட்டி விசையை பின் செய்யவும்</string>
+    <string name="quick_pin_toolbar_keys_summary">இது பின் செய்யப்படாத கருவிப்பட்டி விசைகளுக்கான பிற நீண்ட அழுத்த செயல்களை முடக்கும்</string>
+    <string name="show_popup_hints">செயல்பாட்டு குறிப்புகளைக் காட்டு</string>
+    <string name="show_popup_hints_summary">விசையை நீண்ட நேரம் அழுத்துவது கூடுதல் செயல்பாட்டைத் தூண்டினால், குறிப்புகளைக் காட்டு</string>
+    <string name="remove_redundant_popups">தேவையற்ற பாப்அப்களை அகற்று</string>
+    <string name="remove_redundant_popups_summary">அடிப்படை அமைப்பில் ஏற்கனவே இருக்கும் மேல்தோன்றல் விசைகளை அடக்கவும்</string>
+    <string name="prefs_long_press_keyboard_to_change_lang">ச்பேச் கீ மூலம் உள்ளீட்டு முறையை மாற்றவும்</string>
+    <string name="prefs_long_press_keyboard_to_change_lang_summary">ச்பேச் விசையை நீண்ட நேரம் அழுத்தினால், உள்ளீட்டு முறை தேர்வு மெனுவைத் தூண்டும்</string>
+    <string name="prefs_long_press_symbol_for_numpad">எண்பாடிற்கான சின்னங்கள் விசையை நீண்ட நேரம் அழுத்தவும்</string>
+    <string name="prefs_narrow_key_gaps">குறுகிய முக்கிய இடைவெளிகள்</string>
+    <string name="prefs_keyboard_height_scale">விசைப்பலகை உயர அளவு</string>
+    <string name="prefs_bottom_padding_scale">கீழே திணிப்பு அளவு</string>
+    <string name="prefs_side_padding_scale">பக்க திணிப்பு அளவுகோல்</string>
+    <string name="prefs_font_scale">விசைப்பலகை எழுத்துரு அளவு</string>
+    <string name="prefs_emoji_font_scale">ஈமோசி காட்சி எழுத்துரு அளவு</string>
+    <string name="prefs_emoji_key_fit">எழுத்துரு அளவுடன் ஈமோசி விசை அளவை அளவிடவும்</string>
+    <string name="prefs_emoji_skin_tone">இயல்பு ஈமோசி தோல் தொனி</string>
+    <string name="prefs_emoji_skin_tone_neutral">நடுநிலை</string>
+    <string name="prefs_space_bar_text">ச்பேச் பாரில் தனிப்பயன் உரை</string>
+    <string name="custom_font">கோப்பிலிருந்து தனிப்பயன் எழுத்துருவை அமைக்கவும்</string>
+    <string name="subtype_mns">மான்சி</string>
+    <string name="subtype_xdq">காய்டாக்</string>
+    <string name="subtype_dag">டக்பானி</string>
+    <string name="subtype_st">ஆங்கிலம்</string>
+    <string name="subtype_dru">தர்க்வா (உர்கி)</string>
+    <string name="subtype_mhr">மாரி (கிழக்கு)</string>
+    <string name="subtype_with_layout_generic">%1$s (%2$s)</string>
+    <string name="subtype_generic_extended">%s (நீட்டிக்கப்பட்டது)</string>
+    <string name="subtype_akkhor_bn_BD">%s (எழுத்துக்கள்)</string>
+    <string name="subtype_probhat_bn_BD">%s (காலை)</string>
+    <string name="subtype_baishakhi_bn_IN">%s (பைசாகி)</string>
+    <string name="subtype_khipro_bn">%s (கிப்ரோ)</string>
+    <string name="subtype_generic_phonetic">%s (ஒலிப்பு)</string>
+    <string name="subtype_generic_sebeolsik_390">%s (செபியோல்சிக் 390)</string>
+    <string name="subtype_generic_sebeolsik_final">%s (செபியோல்சிக் இறுதி)</string>
+    <string name="subtype_generic_student">%s (மாணவர்)</string>
+    <string name="load">ஏற்றவும்</string>
+    <string name="button_title_add_custom_layout">தனிப்பயன் அமைப்பைச் சேர்க்கவும்</string>
+    <string name="message_add_custom_layout">இணக்கமான வடிவத்தில் கோப்பைத் தேர்ந்தெடுக்கவும். வடிவங்களைப் பற்றிய செய்தி %s இல் உள்ளது.</string>
+    <string name="button_load_custom">கோப்பை ஏற்றவும்</string>
+    <string name="button_save_file">கோப்பில் சேமிக்கவும்</string>
+    <string name="copy_to_clipboard">இடைநிலைப்பலகைக்கு நகலெடுக்கவும்</string>
+    <string name="file_read_error">கோப்பைப் படிக்க முடியவில்லை</string>
+    <string name="delete_layout">%s தனிப்பயன் தளவமைப்பை உண்மையில் நீக்கவா?</string>
+    <string name="layout_in_use">எச்சரிக்கை: தளவமைப்பு தற்போது பயன்பாட்டில் உள்ளது</string>
+    <string name="layout_error">தளவமைப்பு பிழை: %s</string>
+    <string name="edit_layout">மூல தளவமைப்பைத் திருத்த தட்டவும்</string>
+    <string name="settings_screen_secondary_layouts">இரண்டாம் நிலை தளவமைப்புகள்</string>
+    <string name="layout_functional_keys" tools:keep="@string/layout_functional_keys">செயல்பாட்டு விசைகள்</string>
+    <string name="layout_functional_keys_tablet" tools:keep="@string/layout_functional_keys_tablet">செயல்பாட்டு விசைகள் (பெரிய திரை)</string>
+    <string name="layout_functional_keys_symbols" tools:keep="@string/layout_functional_keys_symbols">செயல்பாட்டு விசைகள் (சின்னங்கள்)</string>
+    <string name="layout_functional_keys_symbols_shifted" tools:keep="@string/layout_functional_keys_symbols_shifted">செயல்பாட்டு விசைகள் (மேலும் சின்னங்கள்)</string>
+    <string name="layout_symbols" tools:keep="@string/layout_symbols">குறியிடுகள்</string>
+    <string name="layout_symbols_arabic" tools:keep="@string/layout_symbols_arabic">சின்னங்கள் (அரபு)</string>
+    <string name="layout_symbols_shifted" tools:keep="@string/layout_symbols_shifted">மேலும் சின்னங்கள்</string>
+    <string name="layout_phone" tools:keep="@string/layout_phone">தொலைபேசி</string>
+    <string name="layout_phone_symbols" tools:keep="@string/layout_phone_symbols">தொலைபேசி சின்னங்கள்</string>
+    <string name="layout_number" tools:keep="@string/layout_number">எண்கள்</string>
+    <string name="layout_numpad" tools:keep="@string/layout_numpad">எண்பலகை</string>
+    <string name="layout_numpad_landscape" tools:keep="@string/layout_numpad_landscape">எண்பலகை (நிலப்பரப்பு)</string>
+    <string name="layout_number_row" tools:keep="@string/layout_number_row">எண் வரிசை</string>
+    <string name="layout_number_row_basic" tools:keep="@string/layout_number_row_basic">எண் வரிசை (அடிப்படை)</string>
+    <string name="layout_emoji_bottom_row" tools:keep="@string/layout_emoji_bottom_row">ஈமோசி கீழ் வரிசை</string>
+    <string name="layout_emoji_bottom_row_with_action" tools:keep="@string/layout_emoji_bottom_row_with_action">செயல் விசையுடன் ஈமோசியின் கீழ் வரிசை</string>
+    <string name="layout_clip_bottom_row" tools:keep="@string/layout_clip_bottom_row">இடைநிலைப்பலகை கீழ் வரிசை</string>
+    <string name="layout_clip_bottom_row_with_action" tools:keep="@string/layout_clip_bottom_row_with_action">செயல் விசையுடன் இடைநிலைப்பலகை கீழ் வரிசை</string>
+    <string name="customize_background_image">பின்னணி படத்தை அமைக்கவும்</string>
+    <string name="customize_background_image_landscape">பின்னணி படத்தை அமைக்கவும் (இயற்கை)</string>
+    <string name="summary_customize_background_image_landscape">அமைக்கப்படவில்லை என்றால், உருவப்படம் பயன்படுத்தப்படும்</string>
+    <string name="customize_currencies">நாணயங்களைத் தனிப்பயனாக்குங்கள்</string>
+    <string name="customize_currencies_detail">முதன்மையான மற்றும் 6 இரண்டாம் நிலை நாணயச் சின்னங்களை இடத்துடன் பிரிக்கவும்</string>
+    <string name="switch_keyboard_after">பிறகு முதன்மை விசைப்பலகைக்கு மாறவும்…</string>
+    <string name="after_emoji">ஈமோசி பார்வையில் ஈமோசியைத் தேர்ந்தெடுக்கிறது</string>
+    <string name="after_clip">இடைநிலைப்பலகை வரலாறு உள்ளீட்டைத் தேர்ந்தெடுக்கிறது</string>
+    <string name="after_symbol_and_space">குறியீடுகள் பார்வையில் மற்ற விசைகளுக்குப் பிறகு என்டர் அல்லது ச்பேசை அழுத்தவும்</string>
+    <string name="after_numpad_and_space">எண்பேடில் உள்ள மற்ற விசைகளுக்குப் பிறகு என்டர் அல்லது ச்பேசை அழுத்தவும்</string>
+    <string name="day_or_night_image">பகல் அல்லது இரவு பயன்முறைக்கு படத்தை அமைக்கவா?</string>
+    <string name="day_or_night_day">நாள்</string>
+    <string name="day_or_night_night">இரவு</string>
+    <string name="prefs_key_emoji_max_sdk">ஈமோசி பதிப்பை மேலெழுதவும்</string>
+    <string name="setup_step3_action">விசைப்பலகையை உள்ளமைக்கவும்</string>
+    <string name="dictionary_settings_category">அகராதிகள்</string>
+    <string name="internal_dictionary_summary">உள் முக்கிய அகராதி</string>
+    <string name="add_new_dictionary_title">கோப்பிலிருந்து அகராதியைச் சேர்க்கவும்</string>
+    <string name="button_select_language">மொழியைத் தேர்ந்தெடுக்கவும்</string>
+    <string name="replace_dictionary_message">\"%1$s\" என்ற பயனர் சேர்த்த அகராதியை உண்மையில் மாற்றவா? \n\nதற்போதைய அகராதி: \n%2$s \n\nபுதிய அகராதி: \n%3$s</string>
+    <string name="replace_dictionary">அகராதியை மாற்றவும்</string>
+    <string name="remove_dictionary_message">பயனர் சேர்த்த அகராதி \"%s\" ஐ உண்மையில் அகற்றவா?</string>
+    <string name="no_dictionary_message">அகராதி இல்லாமல், நீங்கள் முன்பு உள்ளிட்ட உரைக்கான பரிந்துரைகளை மட்டுமே பெறுவீர்கள்.&lt;br&gt; \nநீங்கள் அகராதிகளை %1$s பதிவிறக்கம் செய்யலாம் அல்லது \"%2$s\"க்கான அகராதியை நேரடியாக %3$s பதிவிறக்க முடியுமா எனச் சரிபார்க்கலாம்.</string>
+    <string name="no_dictionary_dont_show_again_button">மீண்டும் காட்டாதே</string>
+    <string name="add_dictionary">சேர்க்க அகராதியைத் தேர்ந்தெடுக்கவும். .dict வடிவத்தில் உள்ள அகராதிகளை %s பதிவிறக்கம் செய்யலாம்.</string>
+    <string name="dictionary_link_text">இங்கே</string>
+    <string name="available_dictionary_experimental">%s (சோதனை)</string>
+    <string name="dictionary_file_error">பிழை: தேர்ந்தெடுக்கப்பட்ட கோப்பு சரியான அகராதி கோப்பு அல்ல</string>
+    <string name="dictionary_file_wrong_script">பிழை: இந்த விசைப்பலகையுடன் ச்கிரிப்ட் இணக்கமாக இல்லை</string>
+    <string name="dictionary_load_error">அகராதி கோப்பை ஏற்றுவதில் பிழை</string>
+    <string name="user_dict_settings_add_weight_value">எடை:</string>
+    <string name="user_dict_word_already_present">இந்த சொல் ஏற்கனவே %s பயனர் அகராதியில் உள்ளது. தயவுசெய்து இன்னொன்றைத் தட்டச்சு செய்யவும்.</string>
+    <string name="user_dict_add_word_button">ஒரு வார்த்தையைச் சேர்க்கவும்</string>
+    <string name="theme_style">சூல் தண்டு</string>
+    <string name="icon_style">படவுரு பாணி</string>
+    <string name="style_name_Rounded" tools:keep="@string/style_name_Rounded">வட்டமானது</string>
+    <string name="theme_colors">நிறங்கள்</string>
+    <string name="theme_colors_night">நிறங்கள் (இரவு)</string>
+    <string name="key_borders">முக்கிய எல்லைகள்</string>
+    <string name="day_night_mode">தானியங்கு பகல்/இரவு பயன்முறை</string>
+    <string name="day_night_mode_summary">தோற்றம் கணினி அமைப்புகளைப் பின்பற்றும்</string>
+    <string name="theme_navbar">வண்ண வழிசெலுத்தல் பட்டி</string>
+    <string name="theme_name_light" tools:keep="@string/theme_name_light">ஒளி</string>
+    <string name="theme_name_holo_white" tools:keep="@string/theme_name_holo_white">ஓலோ ஒயிட்</string>
+    <string name="theme_name_dark" tools:keep="@string/theme_name_dark">இருள்</string>
+    <string name="theme_name_darker" tools:keep="@string/theme_name_darker">இருண்டது</string>
+    <string name="theme_name_black" tools:keep="@string/theme_name_black">கருப்பு</string>
+    <string name="theme_name_dynamic" tools:keep="@string/theme_name_dynamic">மாறும் நிறங்கள்</string>
+    <string name="theme_name_blue_gray" tools:keep="@string/theme_name_blue_gray">நீல சாம்பல்</string>
+    <string name="theme_name_brown" tools:keep="@string/theme_name_brown">பழுப்பு</string>
+    <string name="theme_name_chocolate" tools:keep="@string/theme_name_chocolate">சாக்லேட்</string>
+    <string name="theme_name_cloudy" tools:keep="@string/theme_name_cloudy">மேகமூட்டம்</string>
+    <string name="theme_name_forest" tools:keep="@string/theme_name_forest">காடு</string>
+    <string name="theme_name_indigo" tools:keep="@string/theme_name_indigo">இண்டிகோ</string>
+    <string name="theme_name_ocean" tools:keep="@string/theme_name_ocean">பெருங்கடல்</string>
+    <string name="theme_name_pink" tools:keep="@string/theme_name_pink">இளஞ்சிவப்பு</string>
+    <string name="theme_name_sand" tools:keep="@string/theme_name_sand">மணல்</string>
+    <string name="theme_name_violette" tools:keep="@string/theme_name_violette">வயலட்</string>
+    <string name="theme_name_user" tools:keep="@string/theme_name_user">பயனர் வரையறுக்கப்பட்ட</string>
+    <string name="auto_user_color">தானாக நிறத்தைத் தேர்ந்தெடுக்கவும்</string>
+    <string name="main_colors">முக்கிய வண்ணங்களை மட்டும் காட்டு</string>
+    <string name="more_colors">மேலும் வண்ணங்களைக் காட்டு</string>
+    <string name="all_colors">அனைத்து வண்ணங்களையும் காட்டு</string>
+    <string name="all_colors_warning">இந்த அமைப்பு உள்நாட்டில் பயன்படுத்தப்படும் அனைத்து வண்ணங்களையும் வெளிப்படுத்துகிறது. வண்ணங்களின் பட்டியல் எந்த நேரத்திலும் மாறலாம். இயல்புநிலை நிறம் சீரற்றது, மேலும் பெயர்கள் மொழிபெயர்க்கப்படாது.</string>
+    <string name="select_color_background">விசைப்பலகை பின்னணி</string>
+    <string name="select_color_key">முக்கிய உரை</string>
+    <string name="select_color_key_hint">முக்கிய குறிப்பு உரை</string>
+    <string name="select_color_suggestion">பரிந்துரை துண்டு உரை</string>
+    <string name="select_color_key_background">முக்கிய பின்னணி</string>
+    <string name="select_color_functional_key_background">செயல்பாட்டு விசை பின்னணி</string>
+    <string name="select_color_spacebar_background">ச்பேச் பார் பின்னணி</string>
+    <string name="select_color_spacebar_text">ச்பேச் பார் உரை</string>
+    <string name="select_color_accent">உச்சரிப்பு</string>
+    <string name="select_color_gesture">சைகை உள்ளீடு</string>
+    <string name="get_colors_message">நீங்கள் %s இல் வண்ணங்களைக் கண்டறிந்து பகிரலாம்.</string>
+    <string name="get_layouts_message">நீங்கள் %s இல் தளவமைப்புகளைக் கண்டறிந்து பகிரலாம்.</string>
+    <string name="discussion_section_link">விவாதப் பகுதி</string>
+    <string name="settings_screen_about">பற்றி</string>
+    <string name="version">பதிப்பு</string>
+    <string name="about_github_link">GitHub இல் காண்க</string>
+    <string name="about_wiki_link">விக்கிக்குச் செல்லவும்</string>
+    <string name="about_wiki_link_description">விக்கியை எந்த அறிவிலிமையம் பயனரும் மேம்படுத்தலாம்!</string>
+    <string name="save_log">பதிவை சேமிக்கவும்</string>
+    <string name="license">திறந்த மூல உரிமம்</string>
+    <string name="gnu_gpl">குனு பொது பொதுமக்கள் உரிமம் v3.0</string>
+    <string name="dialog_close">மூடு</string>
+    <string name="text_tap_languages">அமைப்புகளைத் திறக்க மொழியைத் தட்டவும்</string>
+    <string name="settings_screen_appearance">தோற்றம்</string>
+    <string name="settings_screen_toolbar">கருவிப்பட்டி</string>
+    <string name="hidden_features_title">மறைக்கப்பட்ட அம்சங்களின் விளக்கம்</string>
+    <string name="hidden_features_summary">கவனிக்கப்படாமல் போகக்கூடிய அம்சங்களைக் காட்டு</string>
+    <string name="hidden_features_text">சாதனம் பாதுகாக்கப்பட்ட சேமிப்பு</string>
+    <string name="hidden_features_message">► பின் செய்யப்பட்ட கருவிப்பட்டி விசைகளை நீண்ட நேரம் அழுத்துவதன் மூலம் கூடுதல் செயல்பாடு கிடைக்கும்: &lt;br&gt; \n• இடைநிலைப்பலகை &amp;#65515; &lt;br&gt; ஒட்டவும் \n• இடது/வலது நகர்த்து &amp;#65515; சொல் இடது/வலது &lt;br&gt; \n• மேல்/கீழே நகர்த்து &amp;#65515; பக்கம் மேலே/கீழே &lt;br&gt; \n• சொல் இடது/வலது &amp;#65515; வரி தொடக்கம்/முடிவு &lt;br&gt; \n• பக்கம் மேல்/கீழ் &amp;#65515; பக்கம் தொடக்கம்/முடிவு &lt;br&gt; \n• நகல் &amp;#65515; &lt;br&gt; வெட்டு \n• வார்த்தையைத் தேர்ந்தெடு &amp;#8596; &lt;br&gt; அனைத்தையும் தேர்ந்தெடுக்கவும் \n• செயல்தவிர் &amp;#8596; &lt;br&gt; &lt;br&gt; மீண்டும் வெற்றி \n► பரிந்துரைப் பட்டை கருவிப்பட்டியில் நீண்ட நேரம் அழுத்தும் விசைகள், அவற்றைப் பரிந்துரைப் பட்டையுடன் இணைக்கும். &lt;br&gt; &lt;br&gt; \n► இடைநிலைப்பலகை பார்வை, ஈமோசி காட்சி, ஒரு கை முறை, அமைப்புகள் அல்லது மொழி மாறுவதற்கு கமா-விசையை நீண்ட நேரம் அழுத்தவும்: &lt;br&gt; \n• நீங்கள் தொடர்புடைய விசையை இயக்கியிருந்தால், ஈமோசி பார்வை மற்றும் மொழி மாறுதல் மறைந்துவிடும்; &lt;br&gt; \n• சில தளவமைப்புகளுக்கு இது கமா-விசை அல்ல, ஆனால் அதே நிலையில் உள்ள விசை (எ.கா. இது டுவோராக் தளவமைப்பிற்கான \\\'q\\\'). &lt;br&gt; &lt;br&gt; \n► மறைநிலை பயன்முறை இயக்கப்பட்டால், எந்த வார்த்தைகளும் கற்றுக்கொள்ளப்படாது, மேலும் சமீபத்தியவற்றில் எந்த ஈமோசிகளும் சேர்க்கப்படாது. &lt;br&gt; &lt;br&gt; \n► கருவிப்பட்டியை அணுக மறைநிலை ஐகானை அழுத்தவும். &lt;br&gt; &lt;br&gt; \n► ச்லைடிங் விசை உள்ளீடு: ஒரு பெரிய எழுத்து விசையைத் தட்டச்சு செய்ய சிப்டில் இருந்து மற்றொரு விசைக்கு ச்வைப் செய்யவும்: &lt;br&gt; \n• இது \\\'?123\\\' விசைக்கு, குறியீடுகள் விசைப்பலகையில் இருந்து ஒற்றைக் குறியீட்டைத் தட்டச்சு செய்வதற்கும், தொடர்புடைய விசைகளுக்கும் வேலை செய்கிறது. &lt;br&gt; &lt;br&gt; \n► சிப்ட் அல்லது குறியீட்டு விசையை பிடித்து, ஒன்று அல்லது அதற்கு மேற்பட்ட விசைகளை அழுத்தவும், பின்னர் முந்தைய விசைப்பலகைக்கு திரும்ப சிப்ட் அல்லது குறியீட்டு விசையை வெளியிடவும். &lt;br&gt; &lt;br&gt; \n► மேலும் பரிந்துரைகளைக் காட்ட, பரிந்துரைப் பட்டியில் உள்ள பரிந்துரையை நீண்ட நேரம் அழுத்தவும், மேலும் இந்தப் பரிந்துரையை அகற்ற நீக்கு பொத்தானை அழுத்தவும். &lt;br&gt; &lt;br&gt; \n► மேலும் பரிந்துரைகளைத் திறக்க ஒரு பரிந்துரையிலிருந்து மேல்நோக்கி ச்வைப் செய்யவும், அதைத் தேர்ந்தெடுப்பதற்கான பரிந்துரையை வெளியிடவும். &lt;br&gt; &lt;br&gt; \n► இடைநிலைப்பலகை வரலாற்றில் உள்ள பதிவை பின் செய்ய நீண்ட நேரம் அழுத்தவும் (அன்பின் செய்யும் வரை அதை கிளிப்போர்டில் வைத்திருங்கள்). &lt;br&gt; &lt;br&gt; \n► ஒரு உள்ளீட்டை அகற்ற இடைநிலைப்பலகை காட்சியில் இடதுபுறமாக ச்வைப் செய்யவும் (அது பின் செய்யப்பட்டதைத் தவிர) &lt;br&gt; &lt;br&gt; \n► உரையைத் தேர்ந்தெடுத்து, பெரிய எழுத்து, சிற்றெழுத்து மற்றும் பெரிய எழுத்துக்களுக்கு இடையில் மாறுவதற்கு உயர்த்து ஐ அழுத்தவும். &lt;br&gt; &lt;br&gt; \n► கோப்பு எக்ச்ப்ளோரரில் அவற்றைத் திறப்பதன் மூலம் அகராதிகளைச் சேர்க்கலாம்: &lt;br&gt; \n• இது &lt;i&gt;content-uris&lt;/i&gt; உடன் மட்டுமே வேலை செய்யும், &lt;i&gt;file-uris&lt;/i&gt; உடன் அல்ல, அதாவது சில கோப்பு எக்ச்ப்ளோரர்களுடன் இது வேலை செய்யாமல் போகலாம். &lt;br&gt; &lt;br&gt; \n► ரூட் அணுகலுடன் கைமுறையாக காப்புப் பிரதி எடுக்கும் பயனர்களுக்கு: &lt;br&gt; \n• ஆண்ட்ராய்டு 7 இல் தொடங்கி, பகிரப்பட்ட விருப்பத்தேர்வுகள் கோப்பு இயல்புநிலை இடத்தில் இல்லை, ஏனெனில் பயன்பாடு %s ஐப் பயன்படுத்துகிறது. சாதனம் திறக்கப்படுவதற்கு முன்பு அமைப்புகளைப் படிக்க இது தேவை, எ.கா. துவக்கத்தில்; &lt;br&gt; \n• கோப்பு /data/user_de/0/package_id/shared_prefs/ இல் உள்ளது, இருப்பினும் இது சாதனம் மற்றும் ஆண்ட்ராய்டு பதிப்பைப் பொறுத்தது. &lt;br&gt; &lt;br&gt; \n&lt;i&gt;&lt;b&gt;பிழைத்திருத்த முறை / பிழைத்திருத்த APK&lt;/b&gt;&lt;/i&gt; &lt;br&gt; &lt;br&gt; \n► மூல அகராதியைக் காட்ட, பரிந்துரையை நீண்ட நேரம் அழுத்தவும். &lt;br&gt; &lt;br&gt; \n► பிழைத்திருத்த APK ஐப் பயன்படுத்தும் போது, மேம்பட்ட விருப்பத்தேர்வுகளுக்குள் பிழைத்திருத்த அமைப்புகளைக் கண்டறியலாம், இருப்பினும் பதிவில் அகராதிகளை இடுவதைத் தவிர பயன் குறைவாகவே உள்ளது. &lt;br&gt; \n• வெளியீட்டு APKக்கு, &lt;i&gt;About&lt;/i&gt; இல் உள்ள பதிப்பை நீங்கள் பல முறை தட்ட வேண்டும், பின்னர் &lt;i&gt;மேம்பட்ட விருப்பத்தேர்வுகளில்&lt;/i&gt; பிழைத்திருத்த அமைப்புகளைக் காணலாம். &lt;br&gt; \n• &lt;i&gt;பரிந்துரைத் தகவலைக் காண்பி&lt;/i&gt;ஐ இயக்கும் போது, சில உள் மதிப்பெண் மற்றும் மூல அகராதியைக் காட்டும் சில சிறிய எண்களை பரிந்துரைகளுக்கு மேல் இருக்கும். &lt;br&gt; &lt;br&gt; \n► பயன்பாடு செயலிழந்தால், நீங்கள் அமைப்புகளைத் திறக்கும்போது செயலிழப்பு பதிவுகள் வேண்டுமா என்று கேட்கப்படும். &lt;br&gt; &lt;br&gt; \n► பன்மொழி தட்டச்சு பயன்படுத்தும் போது, ச்பேச் பார் தற்போது பயன்படுத்தப்படும் மொழியைத் தீர்மானிக்கப் பயன்படுத்தப்படும் நம்பிக்கை மதிப்பைக் காட்டும். &lt;br&gt; &lt;br&gt; \n► பரிந்துரைகள் சில உள் மதிப்பெண் மற்றும் மூல அகராதியைக் காட்டும் (முடக்கப்படலாம்) சில சிறிய எண்களைக் கொண்டிருக்கும்.</string>
+    <string name="label_enter_key" tools:keep="@string/label_enter_key">உள்ளிடவும்</string>
+    <string name="label_tab_key" tools:keep="@string/label_tab_key">தாவல்</string>
+    <string name="label_delete_key" tools:keep="@string/label_delete_key">நீக்கு</string>
+    <string name="label_shift_key" tools:keep="@string/label_shift_key">உயர்த்து</string>
+    <string name="label_shift_key_shifted" tools:keep="@string/label_shift_key_shifted">சிப்ட் (மாற்றப்பட்டது)</string>
+    <string name="label_shift_key_locked" tools:keep="@string/label_shift_key_locked">தொப்பி பூட்டு</string>
+    <string name="label_space_key_for_number_layout" tools:keep="@string/label_space_key_for_number_layout">இடம் (எண் தளவமைப்பு)</string>
+    <string name="label_stop_onehanded_mode_key" tools:keep="@string/label_stop_onehanded_mode_key">ஒரு கை பயன்முறையை முடிக்கவும்</string>
+    <string name="label_resize_onehanded_key" tools:keep="@string/label_resize_onehanded_key">ஒரு கை பயன்முறையின் அளவை மாற்றவும்</string>
+    <string name="label_switch_onehanded_key" tools:keep="@string/label_switch_onehanded_key">ஒரு கை பயன்முறை பக்கத்தை மாற்றவும்</string>
+    <string name="label_shortcut_key_disabled" tools:keep="@string/label_shortcut_key_disabled">குரல் உள்ளீடு முடக்கப்பட்டது</string>
+    <string name="label_toolbar_key" tools:keep="@string/label_toolbar_key">கருவிப்பட்டியைக் காட்டு / மறை</string>
+    <string name="label_zwj_key" tools:keep="@string/label_zwj_key">சீரோ-அகல இணைப்பான்</string>
+    <string name="label_zwnj_key" tools:keep="@string/label_zwnj_key">சீரோ-அகலம் அல்லாத இணைப்பான்</string>
+    <string name="label_bin" tools:keep="@string/label_bin">பின்</string>
+    <string name="show_horizontal_space_swipe">கிடைமட்ட ச்பேச்பார் ச்வைப் சைகை</string>
+    <string name="show_vertical_space_swipe">செங்குத்து ச்பேச்பார் ச்வைப் சைகை</string>
+    <string name="action_none">எதுவுமில்லை</string>
+    <string name="space_swipe_move_cursor_entry">கர்சரை நகர்த்தவும்</string>
+    <string name="space_swipe_toggle_numpad_entry">எண்பேடை நிலைமாற்று</string>
+    <string name="space_swipe_hide_keyboard_entry">விசைப்பலகையை மறை</string>
+    <string name="var_toolbar_direction">மாறி கருவிப்பட்டி திசை</string>
+    <string name="var_toolbar_direction_summary">வலமிருந்து இடமாக விசைப்பலகை துணை வகை தேர்ந்தெடுக்கப்படும் போது தலைகீழ் திசை</string>
+    <string name="prefs_language_swipe_distance">மொழி ச்வைப் தூரத்தை மாற்றவும்</string>
+    <string name="customize_toolbar_key_codes">கருவிப்பட்டி முக்கிய குறியீடுகளைத் தனிப்பயனாக்குங்கள்</string>
+    <string name="customize_toolbar_key_code_reset_message">அனைத்து தனிப்பயனாக்கப்பட்ட முக்கிய குறியீடுகளையும் அழிக்கவா?</string>
+    <string name="key_code">முக்கிய குறியீடு</string>
+    <string name="long_press_code">குறியீட்டை நீண்ட நேரம் அழுத்தவும்</string>
+    <string name="auto_show_toolbar">ஆட்டோ சோ கருவிப்பட்டி</string>
+    <string name="auto_show_toolbar_summary">உள்ளீடு தொடங்கினால் அல்லது உரை தேர்ந்தெடுக்கப்பட்டால் கருவிப்பட்டியைக் காட்டு</string>
+    <string name="auto_hide_toolbar">தானாக மறை கருவிப்பட்டி</string>
+    <string name="auto_hide_toolbar_summary">பரிந்துரைகள் கிடைக்கும்போது கருவிப்பட்டியை மறைக்கவும்</string>
+    <string name="toast_msg_clipboard_copy">உள்ளடக்கம் நகலெடுக்கப்பட்டது</string>
+    <string name="customize_icons">ஐகான்களைத் தனிப்பயனாக்கு</string>
+    <string name="customize_icons_reset_message">அனைத்து தனிப்பயனாக்கப்பட்ட ஐகான்களையும் உண்மையில் மீட்டமைக்கவா?</string>
+    <string name="delete_confirmation">உண்மையில் %s ஐ நீக்கவா?</string>
+    <string name="name_invalid">தவறான பெயர்</string>
+    <string name="custom_subtype">தனிப்பயன் துணை வகை</string>
+    <string name="landscape">நிலப்பரப்பு</string>
 </resources>

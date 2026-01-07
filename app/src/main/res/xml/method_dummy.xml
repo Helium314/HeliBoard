@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    SPDX-License-Identifier: GPL-3.0-only
+-->
+
+<!--
+Dummy method.xml that is exposed to the system
+Before API 34 Android only allows enable subtypes using the system enabler, but we don't want it.
+Exposing the subtypes automatically shows enabled ones on the input method picker, and only the
+user can disable them. Even if all subtypes are disabled, the system will enable one, so it's not
+possible to switch to this keyboard without selecting a subtype, and we don't have control over
+which one.
+
+We don't want the subtypes managed by the system because it doesn't allow for nice settings, and
+the system picker crashes on some devices for unknown reasons.
+-->
+<input-method xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:settingsActivity="helium314.keyboard.settings.SettingsActivity"
+        android:isDefault="@bool/im_is_default"
+        android:supportsSwitchingToNextInputMethod="true"
+        android:supportsInlineSuggestions="true"
+        tools:targetApi="r">
+    <subtype android:icon="@drawable/ic_ime_switcher"
+            android:imeSubtypeExtraValue="dummy"
+            android:imeSubtypeMode="keyboard"
+            android:subtypeId="0x7000000f"
+            android:isAsciiCapable="true"
+    />
+</input-method>

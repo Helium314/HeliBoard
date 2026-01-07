@@ -1,96 +1,69 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- 
-/*
-**
-** Copyright 2015, The Android Open Source Project
-**
-** Licensed under the Apache License, Version 2.0 (the "License");
-** you may not use this file except in compliance with the License.
-** You may obtain a copy of the License at
-**
-**     http://www.apache.org/licenses/LICENSE-2.0
-**
-** Unless required by applicable law or agreed to in writing, software
-** distributed under the License is distributed on an "AS IS" BASIS,
-** WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-** See the License for the specific language governing permissions and
-** limitations under the License.
-*/
- -->
-
-<resources xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="spoken_use_headphones" msgid="4313642710742229868">"Катуу айтылган сырсөз ачкычтарын угуу үчүн гарнитураны туташтырыңыз."</string>
-    <string name="spoken_current_text_is" msgid="4240549866156675799">"Учурдагы текст %s"</string>
-    <string name="spoken_no_text_entered" msgid="1711276837961785646">"Текст киргизилген жок"</string>
-    <string name="spoken_auto_correct" msgid="8989324692167993804">"<xliff:g id="KEY_NAME">%1$s</xliff:g> <xliff:g id="ORIGINAL_WORD">%2$s</xliff:g> сөзүн <xliff:g id="CORRECTED_WORD">%3$s</xliff:g> сөзүнө оңдойт"</string>
-    <string name="spoken_auto_correct_obscured" msgid="7769449372355268412">"<xliff:g id="KEY_NAME">%1$s</xliff:g> авто оңдойт"</string>
-    <string name="spoken_empty_suggestion" msgid="4250215619373459752">"Сунуш жок"</string>
-    <string name="spoken_description_unknown" msgid="5139930082759824442">"Белгисиз белги"</string>
-    <string name="spoken_description_shift" msgid="7209798151676638728">"Shift"</string>
-    <string name="spoken_description_symbols_shift" msgid="3483198879916435717">"Дагы символдор"</string>
-    <string name="spoken_description_shift_shifted" msgid="3122704922642232605">"Shift"</string>
-    <string name="spoken_description_symbols_shift_shifted" msgid="5179175466878186081">"Символдор"</string>
-    <string name="spoken_description_caps_lock" msgid="1224851412185975036">"Shift"</string>
-    <string name="spoken_description_delete" msgid="3878902286264983302">"Жок кылуу"</string>
-    <string name="spoken_description_to_symbol" msgid="8244903740201126590">"Символдор"</string>
-    <string name="spoken_description_to_alpha" msgid="4081215210530031950">"Тамгалар"</string>
-    <string name="spoken_description_to_numeric" msgid="4560261331530795682">"Сандар"</string>
-    <string name="spoken_description_settings" msgid="7281251004003143204">"Жөндөөлөр"</string>
-    <string name="spoken_description_tab" msgid="8210782459446866716">"Кыстырма"</string>
-    <string name="spoken_description_space" msgid="5908716896642059145">"Боштук"</string>
-    <string name="spoken_description_mic" msgid="6153138783813452464">"Айтып киргизүү"</string>
-    <string name="spoken_description_emoji" msgid="7990051553008088470">"Эмодзи"</string>
-    <string name="spoken_description_return" msgid="3183692287397645708">"Кайтуу"</string>
-    <string name="spoken_description_search" msgid="5099937658231911288">"Издөө"</string>
-    <string name="spoken_description_dot" msgid="5644176501632325560">"Чекит"</string>
-    <string name="spoken_description_language_switch" msgid="6818666779313544553">"Тилди которуштуруу"</string>
-    <string name="spoken_description_action_next" msgid="431761808119616962">"Кийинки"</string>
-    <string name="spoken_description_action_previous" msgid="2919072174697865110">"Мурунку"</string>
-    <string name="spoken_description_shiftmode_on" msgid="5107180516341258979">"Shift иштетилген"</string>
-    <string name="spoken_description_shiftmode_locked" msgid="7307477738053606881">"Caps lock иштетилди"</string>
-    <string name="spoken_description_mode_symbol" msgid="111186851131446691">"Символдор режими"</string>
-    <string name="spoken_description_mode_symbol_shift" msgid="4305607977537665389">"Дагы символдор режими"</string>
-    <string name="spoken_description_mode_alpha" msgid="4676004119618778911">"Тамгалар режими"</string>
-    <string name="spoken_description_mode_phone" msgid="2061220553756692903">"Телефон режими"</string>
-    <string name="spoken_description_mode_phone_shift" msgid="7879963803547701090">"Телефон символдор режими"</string>
-    <string name="announce_keyboard_hidden" msgid="2313574218950517779">"Баскытоп жашырылган"</string>
-    <string name="announce_keyboard_mode" msgid="6698257917367823205">"<xliff:g id="KEYBOARD_MODE">%s</xliff:g> баскычтобу көрсөтүлүүдө"</string>
-    <string name="keyboard_mode_date" msgid="6597407244976713364">"күнү"</string>
-    <string name="keyboard_mode_date_time" msgid="3642804408726668808">"күнү жана убакыты"</string>
-    <string name="keyboard_mode_email" msgid="1239682082047693644">"email"</string>
-    <string name="keyboard_mode_im" msgid="3812086215529493501">"SMS/MMS"</string>
-    <string name="keyboard_mode_number" msgid="5395042245837996809">"сан"</string>
-    <string name="keyboard_mode_phone" msgid="2486230278064523665">"телефон"</string>
-    <string name="keyboard_mode_text" msgid="9138789594969187494">"текст"</string>
-    <string name="keyboard_mode_time" msgid="8558297845514402675">"убакыт"</string>
-    <string name="keyboard_mode_url" msgid="8072011652949962550">"URL"</string>
-    <string name="spoken_descrption_emoji_category_recents" msgid="4185344945205590692">"Акыркылар"</string>
-    <string name="spoken_descrption_emoji_category_people" msgid="8414196269847492817">"Адамдар"</string>
-    <string name="spoken_descrption_emoji_category_objects" msgid="6116297906606195278">"Объекттер"</string>
-    <string name="spoken_descrption_emoji_category_nature" msgid="5018340512472354640">"Жаратылыш"</string>
-    <string name="spoken_descrption_emoji_category_places" msgid="1163315840948545317">"Жерлер"</string>
-    <string name="spoken_descrption_emoji_category_symbols" msgid="474680659024880601">"Символдор"</string>
-    <string name="spoken_descrption_emoji_category_flags" msgid="5971573825866381472">"Желектер"</string>
-    <string name="spoken_descrption_emoji_category_eight_smiley_people" msgid="5682663819532433464">"Быйтыкча жана адамдар"</string>
-    <string name="spoken_descrption_emoji_category_eight_animals_nature" msgid="5844950234883716704">"Жаныбарлар жана жаратылыш"</string>
-    <string name="spoken_descrption_emoji_category_eight_food_drink" msgid="6196944764485349650">"Тамак жана суусундуктар"</string>
-    <string name="spoken_descrption_emoji_category_eight_travel_places" msgid="3834085499381434611">"Саякат жана жерлер"</string>
-    <string name="spoken_descrption_emoji_category_eight_activity" msgid="4795281669042975993">"Көнүгүү"</string>
-    <string name="spoken_descrption_emoji_category_emoticons" msgid="456737544787823539">"Жымыңдар"</string>
-    <string name="spoken_description_upper_case" msgid="4904835255229433916">"Баш тамга <xliff:g id="LOWER_LETTER">%s</xliff:g>"</string>
-    <string name="spoken_letter_0049" msgid="4743162182646977944">"Баш тамга I"</string>
-    <string name="spoken_letter_0130" msgid="4766619646231612274">"Баш тамга I, төбөсүндө чекити бар"</string>
-    <string name="spoken_symbol_unknown" msgid="717298227061173706">"Белгисиз символ"</string>
-    <string name="spoken_emoji_unknown" msgid="5981009928135394306">"Белгисиз эмодзи"</string>
-    <string name="spoken_emoticon_3A_2D_21_20" msgid="2410905667389534573">"Зериккен жүз"</string>
-    <string name="spoken_emoticon_3A_2D_24_20" msgid="2481260475945560438">"Уялган жүз"</string>
-    <string name="spoken_emoticon_42_2D_29_20" msgid="1063205250387128068">"Кара көз айнекчен жүз"</string>
-    <string name="spoken_emoticon_3A_4F_20" msgid="532695091593447238">"Таң калган жүз"</string>
-    <string name="spoken_emoticon_3A_2D_2A_20" msgid="5612342617244114291">"Өөп жаткан жүз"</string>
-    <string name="spoken_emoticon_3A_2D_5B_20" msgid="2223507987759905920">"Кабагын бүркөгөн жүз"</string>
-    <string name="spoken_open_more_keys_keyboard" msgid="6832897688371903747">"Альтернативалуу белгилер бар"</string>
-    <string name="spoken_close_more_keys_keyboard" msgid="3524914657934712026">"Альтернативалуу белгилер этибарга алынбайт"</string>
-    <string name="spoken_open_more_suggestions" msgid="4231720702882969760">"Альтернативалуу сунуштар бар"</string>
-    <string name="spoken_close_more_suggestions" msgid="9118455416075032839">"Альтернативалуу сунуштар этибарга алынбайт"</string>
+<!--
+    Copyright (C) 2015 The Android Open Source Project
+    SPDX-License-Identifier: Apache-2.0
+-->
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="spoken_use_headphones">"Катуу айтылган сырсөз ачкычтарын угуу үчүн гарнитураны туташтырыңыз."</string>
+    <string name="spoken_current_text_is">"Учурдагы текст %s"</string>
+    <string name="spoken_no_text_entered">"Текст киргизилген жок"</string>
+    <string name="spoken_auto_correct">"<xliff:g id="KEY_NAME">%1$s</xliff:g> <xliff:g id="ORIGINAL_WORD">%2$s</xliff:g> сөзүн <xliff:g id="CORRECTED_WORD">%3$s</xliff:g> сөзүнө оңдойт"</string>
+    <string name="spoken_auto_correct_obscured">"<xliff:g id="KEY_NAME">%1$s</xliff:g> авто оңдойт"</string>
+    <string name="spoken_empty_suggestion">"Сунуш жок"</string>
+    <string name="spoken_description_unknown">"Белгисиз белги"</string>
+    <string name="spoken_description_shift">"Shift"</string>
+    <string name="spoken_description_symbols_shift">"Дагы символдор"</string>
+    <string name="spoken_description_shift_shifted">"Shift"</string>
+    <string name="spoken_description_symbols_shift_shifted">"Символдор"</string>
+    <string name="spoken_description_caps_lock">"Shift"</string>
+    <string name="spoken_description_delete">"Жок кылуу"</string>
+    <string name="spoken_description_to_symbol">"Символдор"</string>
+    <string name="spoken_description_to_alpha">"Тамгалар"</string>
+    <string name="spoken_description_to_numeric">"Сандар"</string>
+    <string name="spoken_description_settings">"Жөндөөлөр"</string>
+    <string name="spoken_description_tab">"Кыстырма"</string>
+    <string name="spoken_description_space">"Боштук"</string>
+    <string name="spoken_description_mic">"Айтып киргизүү"</string>
+    <string name="spoken_description_emoji">"Эмодзи"</string>
+    <string name="spoken_description_return">"Кайтуу"</string>
+    <string name="spoken_description_search">"Издөө"</string>
+    <string name="spoken_description_dot">"Чекит"</string>
+    <string name="spoken_description_language_switch">"Тилди которуштуруу"</string>
+    <string name="spoken_description_action_next">"Кийинки"</string>
+    <string name="spoken_description_action_previous">"Мурунку"</string>
+    <string name="spoken_description_shiftmode_on">"Shift иштетилген"</string>
+    <string name="spoken_description_shiftmode_locked">"Caps lock иштетилди"</string>
+    <string name="spoken_description_mode_symbol">"Символдор режими"</string>
+    <string name="spoken_description_mode_symbol_shift">"Дагы символдор режими"</string>
+    <string name="spoken_description_mode_alpha">"Тамгалар режими"</string>
+    <string name="spoken_description_mode_phone">"Телефон режими"</string>
+    <string name="spoken_description_mode_phone_shift">"Телефон символдор режими"</string>
+    <string name="announce_keyboard_hidden">"Баскытоп жашырылган"</string>
+    <string name="announce_keyboard_mode">"<xliff:g id="KEYBOARD_MODE">%s</xliff:g> баскычтобу көрсөтүлүүдө"</string>
+    <string name="keyboard_mode_date">"күнү"</string>
+    <string name="keyboard_mode_date_time">"күнү жана убакыты"</string>
+    <string name="keyboard_mode_email">"email"</string>
+    <string name="keyboard_mode_im">"SMS/MMS"</string>
+    <string name="keyboard_mode_number">"сан"</string>
+    <string name="keyboard_mode_phone">"телефон"</string>
+    <string name="keyboard_mode_text">"текст"</string>
+    <string name="keyboard_mode_time">"убакыт"</string>
+    <string name="keyboard_mode_url">"URL"</string>
+    <string name="spoken_description_emoji_category_recents">"Акыркылар"</string>
+    <string name="spoken_description_emoji_category_objects">"Объекттер"</string>
+    <string name="spoken_description_emoji_category_symbols">"Символдор"</string>
+    <string name="spoken_description_emoji_category_flags">"Желектер"</string>
+    <string name="spoken_description_emoji_category_eight_smiley_people">"Быйтыкча жана адамдар"</string>
+    <string name="spoken_description_emoji_category_eight_animals_nature">"Жаныбарлар жана жаратылыш"</string>
+    <string name="spoken_description_emoji_category_eight_food_drink">"Тамак жана суусундуктар"</string>
+    <string name="spoken_description_emoji_category_eight_travel_places">"Саякат жана жерлер"</string>
+    <string name="spoken_description_emoji_category_eight_activity">"Көнүгүү"</string>
+    <string name="spoken_description_emoji_category_emoticons">"Жымыңдар"</string>
+    <string name="spoken_description_upper_case">"Баш тамга <xliff:g id="LOWER_LETTER">%s</xliff:g>"</string>
+    <string name="spoken_letter_0049">"Баш тамга I"</string>
+    <string name="spoken_letter_0130">"Баш тамга I, төбөсүндө чекити бар"</string>
+    <string name="spoken_open_popup_keys_keyboard">"Альтернативалуу белгилер бар"</string>
+    <string name="spoken_close_popup_keys_keyboard">"Альтернативалуу белгилер этибарга алынбайт"</string>
+    <string name="spoken_open_more_suggestions">"Альтернативалуу сунуштар бар"</string>
+    <string name="spoken_close_more_suggestions">"Альтернативалуу сунуштар этибарга алынбайт"</string>
 </resources>

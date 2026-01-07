@@ -1,0 +1,8 @@
+* Funkcióbillentyű-elrendezések testreszabásának engedélyezése
+* Szimbólumok és további szimbólumok elrendezésének enyhe módosítása
+* Opciók hozzáadása az eszköztár automatikus megjelenítéséhez/elrejtéséhez
+* Felugró értesítés hozzáadása szöveg másolásakor
+* Nyelvváltó billentyű viselkedésének szétválasztása az engedélyezéstől
+* Vesszőbillentyű felugró ablakainak hozzáadása a szám- és telefonelrendezésekhez
+
+* És még több hibajavítás - további részletek a bejelentésben

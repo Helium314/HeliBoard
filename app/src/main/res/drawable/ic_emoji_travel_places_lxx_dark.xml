@@ -1,7 +1,0 @@
-<?xml version='1.0' encoding='UTF-8'?>
-<selector xmlns:android="http://schemas.android.com/apk/res/android">
-  <item android:drawable="@drawable/ic_emoji_travel_places_activated_lxx_dark" android:state_focused="true"/>
-  <item android:drawable="@drawable/ic_emoji_travel_places_activated_lxx_dark" android:state_pressed="true"/>
-  <item android:drawable="@drawable/ic_emoji_travel_places_activated_lxx_dark" android:state_selected="true"/>
-  <item android:drawable="@drawable/ic_emoji_travel_places_normal_lxx_dark"/>
-</selector>

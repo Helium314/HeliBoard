@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="settings_screen_preferences">מנטׄימאת ברגזידה</string>
+    <string name="delete">חדֿףֿ</string>
+    <string name="auto_cap">בזרגכרדן כֿודכאר חרוףֿ</string>
+    <string name="autocorrect">תצחיח כֿודכאר</string>
+    <string name="ime_settings">מנטׄימאת HeliBoard‬‏</string>
+    <string name="use_personalized_dicts">פישנהאדאת שכֿצי שודה</string>
+    <string name="settings" tools:keep="@string/settings">מנטׄימאת</string>
+    <string name="user_dict_settings_add_shortcut_option_name">מיאנבר:‏</string>
+    <string name="day_or_night_day">רוז</string>
+    <string name="settings_screen_advanced">פישרפֿתה</string>
+    <string name="settings_screen_theme">טרחזמינה</string>
+    <string name="settings_category_input">גריש</string>
+    <string name="settings_category_correction">גֿלטגיריהא</string>
+    <string name="settings_category_suggestions">פישנהאדהא</string>
+    <string name="settings_category_experimental">אָזמאישי</string>
+    <string name="settings_category_miscellaneous">מתפֿרקה</string>
+    <string name="settings_screen_gesture">ורדי אשארהאי</string>
+    <string name="settings_screen_correction">אצלאח נװשתאר</string>
+    <string name="settings_category_additional_keys">כלידהאי אפֿזודה</string>
+    <string name="settings_category_clipboard_history">תאריכֿצׄה תכֿתגירה</string>
+    <string name="show_emoji_key">דכתה שכלך</string>
+    <string name="settings_system_default">פישפֿרץֿ סיסתם</string>
+    <string name="settings_no_limit">בימחדודײת</string>
+    <string name="use_double_space_period">נקטה בא דו פֿאצלה</string>
+    <string name="edit_personal_dictionary">ואזׅנאמה שכֿצי</string>
+    <string name="main_dictionary">ואזׅנאמה אצלי</string>
+    <string name="auto_correction_threshold_mode_off">כֿאמוש</string>
+    <string name="auto_correction_threshold_mode_modest">מתװסט</string>
+    <string name="auto_correction_threshold_mode_aggressive">שדיד</string>
+    <string name="bigram_prediction">פישנהאדאת כלמה בעדי</string>
+    <string name="gesture_space_aware">ורוד עבארת בא חרכת אשארהאי</string>
+    <string name="more_keys_strip_description">כלידהאי בישתר</string>
+    <string name="number_row">רדיףֿ אעדאד</string>
+    <string name="undo" tools:keep="@string/undo">לגֿו</string>
+    <string name="subtype_hi_Latn">הנדי אנגליסי</string>
+    <string name="subtype_en_US">אנגליסי (אמריכא)</string>
+    <string name="subtype_es_US">אספאנײאי (אמריכא)</string>
+    <string name="subtype_sr_Latn">צרבי (לאתין)</string>
+    <string name="subtype_emoji">אמוגׄי</string>
+    <string name="add">אפֿרודן</string>
+    <string name="remove">חדֿףֿ</string>
+    <string name="save">דֿכֿירה</string>
+    <string name="subtype_locale">זבאן</string>
+    <string name="keyboard_layout_set">צׄידמאן</string>
+    <string name="layout_phone" tools:keep="@string/layout_phone">פֿון</string>
+    <string name="layout_number" tools:keep="@string/layout_number">אעדאד</string>
+    <string name="day_or_night_night">שאם</string>
+    <string name="button_default">פישפֿרץֿ</string>
+    <string name="setup_start_action">שרוע בה כאר</string>
+    <string name="setup_finish_action">תמאם שוד</string>
+    <string name="dictionary_settings_category">לגֿאת</string>
+    <string name="user_dict_settings_add_weight_value">וזן:‏</string>
+    <string name="user_dict_settings_add_locale_option_name">זבאן:‏</string>
+    <string name="label_go_key">רפֿתן</string>
+    <string name="label_send_key">ארסאל</string>
+    <string name="label_search_key">גׄסתגׄו</string>
+    <string name="label_pause_key" tools:keep="@string/label_pause_key">מכת</string>
+    <string name="label_wait_key" tools:keep="@string/label_wait_key">אנתטׄאר</string>
+    <string name="auto_correction_threshold_mode_very_aggressive">בסיאר שדיד</string>
+    <string name="redo" tools:keep="@string/redo">באזאנגׄאם</string>
+    <string name="label_next_key">בעדי</string>
+    <string name="label_previous_key">קבלי</string>
+    <string name="label_done_key">אתמאם</string>
+    <string name="delete_swipe">חדֿףֿ בא כשידן</string>
+    <string name="subtype_en_GB">אנגליסי (בריתאנײא)</string>
+</resources>

@@ -1,0 +1,194 @@
+[
+  [
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "໑" },
+      "default": { "label": "ຢ", "popup": { "relevant": [ { "label": "1" }, { "label": "໑" } ] } }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "໒" },
+      "default": { "label": "ຟ", "popup": { "relevant": [ { "label": "2" }, { "label": "໒" } ] } }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "໓" },
+      "default": { "label": "ໂ", "popup": { "relevant": [ { "label": "3" }, { "label": "໓" } ] } }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "໔" },
+      "default": { "label": "ຖ", "popup": { "relevant": [ { "label": "4" }, { "label": "໔" } ] } }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "໌" },
+      "default": { "label": "ຸ" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "ຼ" },
+      "default": { "label": "ູ" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "໕" },
+      "default": { "label": "ຄ", "popup": { "relevant": [ { "label": "5" }, { "label": "໕" } ] } }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "໖" },
+      "default": { "label": "ຕ", "popup": { "relevant": [ { "label": "6" }, { "label": "໖" } ] } }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "໗" },
+      "default": { "label": "ຈ", "popup": { "relevant": [ { "label": "7" }, { "label": "໗" } ] } }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "໘" },
+      "default": { "label": "ຂ", "popup": { "relevant": [ { "label": "8" }, { "label": "໘" } ] } }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "໙" },
+      "default": { "label": "ຊ", "popup": { "relevant": [ { "label": "9" }, { "label": "໙" } ] } }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "ໍ່", "labelFlags": 128 },
+      "default": { "label": "ໍ" }
+    }
+  ],
+  [
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "ົ້", "labelFlags": 128 },
+      "default": { "label": "ົ" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "໐" },
+      "default": { "label": "ໄ", "popup": { "relevant": [ { "label": "0" }, { "label": "໐" } ] } }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "ຳ້", "labelFlags": 128 },
+      "default": { "label": "ຳ" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "_", "labelFlags": 48 },
+      "default": { "label": "ພ" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "+", "labelFlags": 48 },
+      "default": { "label": "ະ" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "ິ້", "labelFlags": 128 },
+      "default": { "label": "ິ" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "ີ້", "labelFlags": 128 },
+      "default": { "label": "ີ" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "ຣ" },
+      "default": { "label": "ຮ" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "ໜ" },
+      "default": { "label": "ນ" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "ຽ" },
+      "default": { "label": "ຍ" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "ຫຼ", "labelFlags": 128 },
+      "default": { "label": "ບ" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "”", "labelFlags": 48 },
+      "default": { "label": "ລ" }
+    }
+  ],
+  [
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "ັ້", "labelFlags": 128 },
+      "default": { "label": "ັ" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": ";", "labelFlags": 48 },
+      "default": { "label": "ຫ" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": ".", "labelFlags": 48 },
+      "default": { "label": "ກ" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": ",", "labelFlags": 48 },
+      "default": { "label": "ດ" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": ":", "labelFlags": 48 },
+      "default": { "label": "ເ" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "໊" },
+      "default": { "label": "້" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "໋" },
+      "default": { "label": "່" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "!", "labelFlags": 48 },
+      "default": { "label": "າ" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "\\?", "labelFlags": 48 },
+      "default": { "label": "ສ" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "%", "labelFlags": 48 },
+      "default": { "label": "ວ" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "=", "labelFlags": 48 },
+      "default": { "label": "ງ" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "“", "labelFlags": 48 },
+      "default": { "label": "“", "labelFlags": 48 }
+    }
+  ],
+  [
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "₭", "labelFlags": 48 },
+      "default": { "label": "ຜ" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "(", "labelFlags": 48 },
+      "default": { "label": "ປ" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "ຯ" },
+      "default": { "label": "ແ" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "\\@", "labelFlags": 48 },
+      "default": { "label": "ອ" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "ຶ້", "labelFlags": 128 },
+      "default": { "label": "ຶ" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "ື້", "labelFlags": 128 },
+      "default": { "label": "ື" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "ໆ" },
+      "default": { "label": "ທ" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "ໝ" },
+      "default": { "label": "ມ" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "$", "labelFlags": 48 },
+      "default": { "label": "ໃ" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": ")", "labelFlags": 48 },
+      "default": { "label": "ຝ" }
+    }
+  ]
+]

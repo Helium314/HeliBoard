@@ -1,0 +1,10 @@
+* Aggiunto supporto base tasti modificatori
+* Aggiunte pressioni prolungate su alcuni tasti barra strumenti
+* Più tasti disponibili barra strumenti cronologia appunti
+* Barra strumenti cronologia personalizzabile
+* Personalizzazione di tutti i colori
+* Opzione per mostrare sempre la parola suggerita centrale
+* Nuovo indicatore blocco maiuscole
+* Aggiunti layout piemontese mari orientale mansi estesi kannada ungherese
+* Fix testo tagliato popup anteprima tasti
+* Altre correzioni e miglioramenti

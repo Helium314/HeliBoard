@@ -1,0 +1,11 @@
+* Aanpasbare lay-out van de functionele toetsen
+* Symbolen en meer symboollay-outs enigszins aangepast
+* basisondersteuning voor alt, ctrl, fn, meta-toetsen
+* uitbreiding werkbalk (functie voor lang indrukken, optioneel lang indrukken, automatisch weergeven/verbergen, verbeterde werkbalk voor klembord, ...)
+* tab-toets toegevoegd
+* caps lock-indicator toegevoegd
+* lay-outs voor sommige talen toegevoegd
+* werkbalk-toetsen als toetsenbord-toetsen
+* alle kleuren aanpasbaar
+* melding bij het kopiëren van tekst
+* foutoplossingen en verdere verbeteringen, zie volledige release notes

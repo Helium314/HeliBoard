@@ -1,0 +1,7 @@
+- Aktualisierung des serbisch-kyrillischen Layouts von @markokocic (#704, #705)
+- Estland-Layout von @tenextractor aktualisieren (#693)
+- Doppelte Einträge im Zwischenablageverlauf von @codokie behoben (#616, #680)
+- Fügen Sie nur Texteinträge zum Zwischenablageverlauf von @codokie hinzu (#711)
+- bessere Bilder in Metadaten von @RHJihan (#713)
+- Farbe der Symbole im Auswahldialog der Symbolleiste richtig eingestellt von @codokie (#715, #716)
+- andere Korrekturen (#684, #723 und mehr)

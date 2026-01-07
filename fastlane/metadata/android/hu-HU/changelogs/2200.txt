@@ -1,0 +1,8 @@
+* Egyéni témák mentésének / exportálásának lehetősége
+* Nyilak ismétlődő lenyomásának engedélyezése a billentyűzeten
+* Több kurzor-eszköztárgomb (lapozás fel/le(/elejére/végére), szó balra/jobbra)
+* Beillesztés billentyű hozzáadása
+* Billentyűcsúsztatás viselkedésének javítása
+* Szóközön csúsztatás beállítás hozzáadása a számbillentyűzet váltásához
+
+* És még több hibajavítás - további részletek a bejelentésben

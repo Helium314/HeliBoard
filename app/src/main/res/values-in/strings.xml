@@ -1,232 +1,425 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-/*
-**
-** Copyright 2008, The Android Open Source Project
-**
-** Licensed under the Apache License, Version 2.0 (the "License");
-** you may not use this file except in compliance with the License.
-** You may obtain a copy of the License at
-**
-**     http://www.apache.org/licenses/LICENSE-2.0
-**
-** Unless required by applicable law or agreed to in writing, software
-** distributed under the License is distributed on an "AS IS" BASIS,
-** WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-** See the License for the specific language governing permissions and
-** limitations under the License.
-*/
- --><resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="english_ime_input_options" msgid="3909945612939668554">"Opsi masukan"</string>
-    <string name="use_contacts_for_spellchecking_option_title" msgid="5374120998125353898">"Cari nama kontak"</string>
-    <string name="use_contacts_for_spellchecking_option_summary" msgid="8754413382543307713">"Pemeriksa ejaan menggunakan entri dari daftar kontak Anda"</string>
-    <string name="vibrate_on_keypress" msgid="5258079494276955460">"Getar jika tombol ditekan"</string>
-    <string name="sound_on_keypress" msgid="6093592297198243644">"Berbunyi jika tombol ditekan"</string>
-    <string name="popup_on_keypress" msgid="123894815723512944">"Muncul saat tombol ditekan"</string>
-    <string name="settings_screen_preferences" msgid="2696713156722014624">"Preferensi"</string>
-    <string name="settings_screen_accounts" msgid="2786418968536696670">"Akun &amp; Privasi"</string>
-    <string name="settings_screen_appearance" msgid="7358046399111611615">"Tampilan &amp; Tata Letak"</string>
-    <string name="settings_screen_gesture" msgid="8826372746901183556">"Ketikan Gestur"</string>
-    <string name="settings_screen_correction" msgid="1616818407747682955">"Koreksi teks"</string>
-    <string name="settings_screen_advanced" msgid="7472408607625972994">"Lanjutan"</string>
-    <string name="settings_screen_theme" msgid="2137262503543943871">"Tema"</string>
-    <string name="enable_split_keyboard" msgid="4177264923999493614">"Aktifkan keyboard terpisah"</string>
-    <string name="include_other_imes_in_language_switch_list" msgid="4533689960308565519">"Beralih ke metode masukan lain"</string>
-    <string name="include_other_imes_in_language_switch_list_summary" msgid="840637129103317635">"Tombol beralih bahasa juga mencakup metode masukan lain"</string>
-    <string name="show_language_switch_key" msgid="5915478828318774384">"Tombol pengalih bahasa"</string>
-    <string name="show_language_switch_key_summary" msgid="7343403647474265713">"Tampilkan saat beberapa bahasa masukan diaktifkan"</string>
-    <string name="key_preview_popup_dismiss_delay" msgid="6213164897443068248">"Jeda tutup pop-up utama"</string>
-    <string name="key_preview_popup_dismiss_no_delay" msgid="2096123151571458064">"Tanpa penundaan"</string>
-    <string name="key_preview_popup_dismiss_default_delay" msgid="2166964333903906734">"Default"</string>
-    <string name="abbreviation_unit_milliseconds" msgid="8700286094028323363">"<xliff:g id="MILLISECONDS">%s</xliff:g> md"</string>
-    <string name="settings_system_default" msgid="6268225104743331821">"Default sistem"</string>
-    <string name="use_contacts_dict" msgid="4435317977804180815">"Sarankan nama Kontak"</string>
-    <string name="use_contacts_dict_summary" msgid="6599983334507879959">Menggunakan nama kontak untuk saran dan koreksi</string>
-    <string name="use_personalized_dicts" msgid="5167396352105467626">"Saran hasil personalisasi"</string>
-    <string name="enable_metrics_logging" msgid="5506372337118822837">"Tingkatkan <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
-    <string name="use_double_space_period" msgid="8781529969425082860">"Titik spasi ganda"</string>
-    <string name="use_double_space_period_summary" msgid="6532892187247952799">"Mengetuk tombol spasi dua kali akan memasukkan titik diikuti satu spasi"</string>
-    <string name="auto_cap" msgid="1719746674854628252">"Kapitalisasi otomatis"</string>
-    <string name="auto_cap_summary" msgid="7934452761022946874">"Kapitalisasi kata pertama di setiap kalimat"</string>
-    <string name="edit_personal_dictionary" msgid="3996910038952940420">"Kamus pribadi"</string>
-    <string name="configure_dictionaries_title" msgid="4238652338556902049">"Kamus pengaya"</string>
-    <string name="main_dictionary" msgid="4798763781818361168">"Kamus utama"</string>
-    <string name="prefs_show_suggestions" msgid="8026799663445531637">"Tampilkan saran koreksi"</string>
-    <string name="prefs_show_suggestions_summary" msgid="1583132279498502825">"Tampilkan kata yang disarankan ketika mengetik"</string>
-    <string name="prefs_block_potentially_offensive_title" msgid="5078480071057408934">"Blokir kata tak pantas"</string>
-    <string name="prefs_block_potentially_offensive_summary" msgid="2371835479734991364">"Jangan sarankan kata yang berpotensi menyinggung"</string>
-    <string name="auto_correction" msgid="7630720885194996950">"Koreksi otomatis"</string>
-    <string name="auto_correction_summary" msgid="5625751551134658006">"Bilah spasi dan tanda baca secara otomatis dikoreksi pada kata yang salah ketik"</string>
-    <string name="auto_correction_threshold_mode_off" msgid="8470882665417944026">"Mati"</string>
-    <string name="auto_correction_threshold_mode_modest" msgid="8788366690620799097">"Sederhana"</string>
-    <string name="auto_correction_threshold_mode_aggressive" msgid="7319007299148899623">"Agresif"</string>
-    <string name="auto_correction_threshold_mode_very_aggressive" msgid="1853309024129480416">"Sangat agresif"</string>
-    <string name="bigram_prediction" msgid="1084449187723948550">"Saran kata berikutnya"</string>
-    <string name="bigram_prediction_summary" msgid="3896362682751109677">"Gunakan kata sebelumnya dalam membuat saran"</string>
-    <string name="gesture_input" msgid="826951152254563827">"Aktifkan pengetikan gestur"</string>
-    <string name="gesture_input_summary" msgid="9180350639305731231">"Masukkan kata dengan menggeser huruf ke kanan/kiri"</string>
-    <string name="gesture_preview_trail" msgid="3802333369335722221">"Tampilkan jejak gestur"</string>
-    <string name="gesture_floating_preview_text" msgid="4443240334739381053">"Pratinjau mengambang dinamis"</string>
-    <string name="gesture_floating_preview_text_summary" msgid="4472696213996203533">"Lihat kata yang disarankan saat melakukan isyarat"</string>
-    <string name="gesture_space_aware" msgid="2078291600664682496">"Gesture frasa"</string>
-    <string name="gesture_space_aware_summary" msgid="4371385818348528538">"Masukkan spasi dalam isyarat dengan meluncur ke tombol spasi"</string>
-    <string name="voice_input" msgid="3583258583521397548">"Tombol masukan suara"</string>
-    <string name="voice_input_disabled_summary" msgid="6323489602945135165">"Tidak ada metode masukan suara yang diaktifkan. Periksa setelan Bahasan &amp; masukan."</string>
-    <string name="configure_input_method" msgid="373356270290742459">"Konfigurasikan metode masukan"</string>
-    <string name="language_selection_title" msgid="3666971864764478269">"Bahasa"</string>
-    <string name="help_and_feedback" msgid="5328219371839879161">"Bantuan &amp; masukan"</string>
-    <string name="select_language" msgid="5709487854987078367">"Bahasa"</string>
-    <string name="hint_add_to_dictionary" msgid="2645988432867033007">"Tap sekali lagi untuk menyimpan"</string>
-    <string name="hint_add_to_dictionary_without_word" msgid="6710206006427574423">"Tap di sini untuk menyimpan"</string>
-    <string name="has_dictionary" msgid="6071847973466625007">"Kamus yang tersedia"</string>
-    <string name="keyboard_layout" msgid="8451164783510487501">"Tema keyboard"</string>
-    <string name="switch_accounts" msgid="3321216593719006162">"Beralih akun"</string>
-    <string name="no_accounts_selected" msgid="2073821619103904330">"Tidak ada akun yang dipilih"</string>
-    <string name="account_selected" msgid="2846876462199625974">"Saat ini menggunakan <xliff:g id="EMAIL_ADDRESS">%1$s</xliff:g>"</string>
-    <string name="account_select_ok" msgid="9141195141763227797">"Oke"</string>
-    <string name="account_select_cancel" msgid="5181012062618504340">"Batal"</string>
-    <string name="account_select_sign_out" msgid="3299651159390187933">"Keluar"</string>
-    <string name="account_select_title" msgid="6279711684772922649">"Pilih akun yang akan digunakan"</string>
-    <string name="subtype_en_GB" msgid="88170601942311355">"Inggris (Inggris)"</string>
-    <string name="subtype_en_US" msgid="6160452336634534239">"Inggris (AS)"</string>
-    <string name="subtype_es_US" msgid="5583145191430180200">"Spanyol (AS)"</string>
-    <string name="subtype_hi_ZZ" msgid="8860448146262798623">"Hinglish"</string>
-    <string name="subtype_sr_ZZ" msgid="9059219552986034343">"Serbia (Latin)"</string>
-    <string name="subtype_with_layout_en_GB" msgid="1931018968641592304">"(<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>) Inggris (Inggris)"</string>
-    <string name="subtype_with_layout_en_US" msgid="8809311287529805422">"(<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>) Inggris (AS)"</string>
-    <string name="subtype_with_layout_es_US" msgid="510930471167541338">"(<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>) Spanyol (AS)"</string>
-    <string name="subtype_with_layout_hi_ZZ" msgid="6827402953860547044">"Hinglish (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_sr_ZZ" msgid="2859024772719772407">"Serbia (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_generic_traditional" msgid="8584594350973800586">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (Tradisional)"</string>
-    <string name="subtype_generic_compact" msgid="3353673321203202922">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (Rapat)"</string>
-    <string name="subtype_no_language" msgid="7137390094240139495">"Tidak ada bahasa (Abjad)"</string>
-    <string name="subtype_no_language_qwerty" msgid="244337630616742604">"Abjad (QWERTY)"</string>
-    <string name="subtype_no_language_qwertz" msgid="443066912507547976">"Abjad (QWERTZ)"</string>
-    <string name="subtype_no_language_azerty" msgid="8144348527575640087">"Abjad (AZERTY)"</string>
-    <string name="subtype_no_language_dvorak" msgid="1564494667584718094">"Abjad (Dvorak)"</string>
-    <string name="subtype_no_language_colemak" msgid="5837418400010302623">"Abjad (Colemak)"</string>
-    <string name="subtype_no_language_pcqwerty" msgid="5354918232046200018">"Abjad (PC)"</string>
-    <string name="subtype_emoji" msgid="7483586578074549196">"Emoji"</string>
-    <string name="keyboard_theme" msgid="4909551808526178852">"Tema keyboard"</string>
-    <string name="custom_input_styles_title" msgid="8429952441821251512">"Gaya masukan khusus"</string>
-    <string name="add_style" msgid="6163126614514489951">"Tambah gaya"</string>
-    <string name="add" msgid="8299699805688017798">"Tambahkan"</string>
-    <string name="remove" msgid="4486081658752944606">"Hapus"</string>
-    <string name="save" msgid="7646738597196767214">"Simpan"</string>
-    <string name="subtype_locale" msgid="8576443440738143764">"Bahasa"</string>
-    <string name="keyboard_layout_set" msgid="4309233698194565609">"Tata Letak"</string>
-    <string name="custom_input_style_note_message" msgid="8826731320846363423">"Gaya masukan khusus harus aktif sebelum digunakan. Aktifkan?"</string>
-    <string name="enable" msgid="5031294444630523247">"Aktifkan"</string>
-    <string name="not_now" msgid="6172462888202790482">"Nanti saja"</string>
-    <string name="custom_input_style_already_exists" msgid="8008728952215449707">"Sudah ada gaya masukan yang sama: <xliff:g id="INPUT_STYLE_NAME">%s</xliff:g>"</string>
-    <string name="prefs_keypress_vibration_duration_settings" msgid="7918341459947439226">"Durasi getar saat tekan tombol"</string>
-    <string name="prefs_keypress_sound_volume_settings" msgid="6027007337036891623">"Volume suara saat tekan tombol"</string>
-    <string name="prefs_key_longpress_timeout_settings" msgid="6102240298932897873">"Penundaan tekan lama tombol"</string>
-    <string name="prefs_enable_emoji_alt_physical_key" msgid="5963640002335470112">"Emoji untuk keyboard fisik"</string>
-    <string name="prefs_enable_emoji_alt_physical_key_summary" msgid="5259484820941627827">"Tombol Alt fisik menampilkan palet emoji"</string>
-    <string name="button_default" msgid="3988017840431881491">"Default"</string>
-    <string name="setup_welcome_title" msgid="6112821709832031715">"Selamat datang di <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
-    <string name="setup_welcome_additional_description" msgid="8150252008545768953">"dengan Ketikan Gestur"</string>
-    <string name="setup_start_action" msgid="8936036460897347708">"Memulai"</string>
-    <string name="setup_next_action" msgid="371821437915144603">"Langkah berikutnya"</string>
-    <string name="setup_steps_title" msgid="6400373034871816182">"Menyiapkan <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
-    <string name="setup_step1_title" msgid="3147967630253462315">"Aktifkan <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
-    <string name="setup_step1_instruction" msgid="4295448056733329661">"Centang \"<xliff:g id="APPLICATION_NAME">%s</xliff:g>\" di setelan Bahasa &amp; masukan. Tindakan ini akan mengizinkannya berjalan di perangkat Anda."</string>
-    <string name="setup_step1_finished_instruction" msgid="8701441895377434947">"<xliff:g id="APPLICATION_NAME">%s</xliff:g> telah diaktifkan di setelan Bahasa &amp; masukan Anda, jadi langkah ini sudah diselesaikan. Lanjut langkah selanjutnya!"</string>
-    <string name="setup_step1_action" msgid="4366513534999901728">"Aktifkan dalam Setelan"</string>
-    <string name="setup_step2_title" msgid="6860725447906690594">"Beralih ke <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
-    <string name="setup_step2_instruction" msgid="9141481964870023336">"Lalu, pilih \"<xliff:g id="APPLICATION_NAME">%s</xliff:g>\" sebagai metode masukan teks aktif Anda."</string>
-    <string name="setup_step2_action" msgid="1660330307159824337">"Alihkan metode masukan"</string>
-    <string name="setup_step3_title" msgid="3154757183631490281">"Selamat, Anda sudah siap!"</string>
-    <string name="setup_step3_instruction" msgid="8025981829605426000">"Sekarang Anda dapat mengetik di semua aplikasi favorit Anda dengan <xliff:g id="APPLICATION_NAME">%s</xliff:g>."</string>
-    <string name="setup_step3_action" msgid="600879797256942259">"Konfigurasikan bahasa tambahan"</string>
-    <string name="setup_finish_action" msgid="276559243409465389">"Selesai"</string>
-    <string name="show_setup_wizard_icon" msgid="5008028590593710830">"Tampilkan ikon aplikasi"</string>
-    <string name="show_setup_wizard_icon_summary" msgid="4119998322536880213">"Menampillkan ikon aplikasi di peluncur"</string>
-    <string name="app_name" msgid="6320102637491234792">"Penyedia Kamus"</string>
-    <string name="dictionary_provider_name" msgid="3027315045397363079">"Penyedia Kamus"</string>
-    <string name="dictionary_service_name" msgid="6237472350693511448">"Layanan Kamus"</string>
-    <string name="download_description" msgid="6014835283119198591">"Informasi pembaruan kamus"</string>
-    <string name="dictionary_settings_title" msgid="8091417676045693313">"Kamus pengaya"</string>
-    <string name="dictionary_settings_summary" msgid="5305694987799824349">"Setelan untuk kamus"</string>
-    <string name="user_dictionaries" msgid="3582332055892252845">"Kamus pengguna"</string>
-    <string name="default_user_dict_pref_name" msgid="1625055720489280530">"Kamus pengguna"</string>
-    <string name="dictionary_available" msgid="4728975345815214218">"Kamus yang tersedia"</string>
-    <string name="dictionary_downloading" msgid="2982650524622620983">"Saat ini sedang mendownload"</string>
-    <string name="dictionary_installed" msgid="8081558343559342962">"Terinstal"</string>
-    <string name="dictionary_disabled" msgid="8950383219564621762">"Terinstal, dinonaktifkan"</string>
-    <string name="cannot_connect_to_dict_service" msgid="9216933695765732398">"Problem koneksi kamus"</string>
-    <string name="no_dictionaries_available" msgid="8039920716566132611">"Tidak tersedia kamus"</string>
-    <string name="check_for_updates_now" msgid="8087688440916388581">"Segarkan"</string>
-    <string name="last_update" msgid="730467549913588780">"Terakhir diperbarui"</string>
-    <string name="message_updating" msgid="4457761393932375219">"Memeriksa pembaruan"</string>
-    <string name="message_loading" msgid="5638680861387748936">"Memuat…"</string>
-    <string name="main_dict_description" msgid="3072821352793492143">"Kamus utama"</string>
-    <string name="cancel" msgid="6830980399865683324">"Batal"</string>
-    <string name="go_to_settings" msgid="3876892339342569259">"Setelan"</string>
-    <string name="install_dict" msgid="180852772562189365">"Instal"</string>
-    <string name="cancel_download_dict" msgid="7843340278507019303">"Batal"</string>
-    <string name="delete_dict" msgid="756853268088330054">"Hapus"</string>
-    <string name="version_text" msgid="2715354215568469385">"Versi <xliff:g id="VERSION_NUMBER">%1$s</xliff:g>"</string>
-    <string name="user_dict_settings_add_menu_title" msgid="1254195365689387076">"Tambahkan"</string>
-    <string name="user_dict_settings_add_dialog_title" msgid="4096700390211748168">"Tambahkan ke kamus"</string>
-    <string name="user_dict_settings_add_screen_title" msgid="5818914331629278758">"Frasa"</string>
-    <string name="user_dict_settings_add_dialog_more_options" msgid="5671682004887093112">"Opsi lainnya"</string>
-    <string name="user_dict_settings_add_dialog_less_options" msgid="2716586567241724126">"Sedikit opsi"</string>
-    <string name="user_dict_settings_add_dialog_confirm" msgid="4703129507388332950">"Oke"</string>
-    <string name="user_dict_settings_add_word_option_name" msgid="6665558053408962865">"Kata:"</string>
-    <string name="user_dict_settings_add_shortcut_option_name" msgid="3094731590655523777">"Pintasan:"</string>
-    <string name="user_dict_settings_add_locale_option_name" msgid="4738643440987277705">"Bahasa:"</string>
-    <string name="user_dict_settings_add_word_hint" msgid="4902434148985906707">"Ketik kata"</string>
-    <string name="user_dict_settings_add_shortcut_hint" msgid="2265453012555060178">"Pintasan opsional"</string>
-    <string name="user_dict_settings_edit_dialog_title" msgid="3765774633869590352">"Edit kata"</string>
-    <string name="user_dict_settings_context_menu_edit_title" msgid="6812255903472456302">"Edit"</string>
-    <string name="user_dict_settings_context_menu_delete_title" msgid="8142932447689461181">"Hapus"</string>
-    <string name="user_dict_settings_empty_text" msgid="6889278304342592383">"Tidak ada kata-kata dalam kamus pengguna. Untuk menambahkan kata, tap tombol Tambahkan (+)."</string>
-    <string name="user_dict_settings_all_languages" msgid="8276126583216298886">"Untuk semua bahasa"</string>
-    <string name="user_dict_settings_more_languages" msgid="7131268499685180461">"Bahasa lainnya..."</string>
-    <string name="user_dict_settings_delete" msgid="110413335187193859">"Hapus"</string>
-    <string name="user_dict_fast_scroll_alphabet" msgid="5431919401558285473">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
-    <string name="prefs_resize_keyboard">Ubah ukuran keyboard</string>
+    Copyright (C) 2008 The Android Open Source Project
+    modified
+    SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
+--><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" xmlns:tools="http://schemas.android.com/tools">
+    <string name="use_contacts_dict">"Cari nama kontak"</string>
+    <string name="vibrate_on_keypress">Bergetar saat tombol ditekan</string>
+    <string name="sound_on_keypress">"Berbunyi jika tombol ditekan"</string>
+    <string name="popup_on_keypress">"Muncul saat tombol ditekan"</string>
+    <string name="settings_screen_preferences">"Preferensi"</string>
+    <string name="settings_screen_gesture">"Ketikan Gestur"</string>
+    <string name="settings_screen_correction">"Koreksi teks"</string>
+    <string name="settings_screen_advanced">"Lanjutan"</string>
+    <string name="settings_screen_theme">"Tema"</string>
+    <string name="enable_split_keyboard">"Aktifkan keyboard terpisah"</string>
+    <string name="language_switch_key_switch_input_method">"Beralih ke metode masukan lain"</string>
+    <string name="show_language_switch_key">"Tombol pengalih bahasa"</string>
+    <string name="abbreviation_unit_milliseconds">%s md</string>
+    <string name="settings_system_default">Sistem bawaan</string>
+    <string name="use_contacts_dict_summary">"Menggunakan nama dari Kontak untuk saran dan koreksi"</string>
+    <string name="use_personalized_dicts">"Saran hasil personalisasi"</string>
+    <string name="use_double_space_period">"Titik spasi ganda"</string>
+    <string name="use_double_space_period_summary">"Mengetuk tombol spasi dua kali akan memasukkan titik diikuti satu spasi"</string>
+    <string name="auto_cap">"Kapitalisasi otomatis"</string>
+    <string name="auto_cap_summary">"Kapitalisasi kata pertama di setiap kalimat"</string>
+    <string name="edit_personal_dictionary">"Kamus pribadi"</string>
+    <string name="main_dictionary">"Kamus utama"</string>
+    <string name="prefs_show_suggestions">"Tampilkan saran koreksi"</string>
+    <string name="prefs_show_suggestions_summary">"Tampilkan kata yang disarankan ketika mengetik"</string>
+    <string name="prefs_block_potentially_offensive_title">"Blokir kata tak pantas"</string>
+    <string name="prefs_block_potentially_offensive_summary">"Jangan sarankan kata yang berpotensi menyinggung"</string>
+    <string name="autocorrect">"Koreksi otomatis"</string>
+    <string name="auto_correction_summary">"Bilah spasi dan tanda baca secara otomatis dikoreksi pada kata yang salah ketik"</string>
+    <string name="auto_correction_threshold_mode_off">"Mati"</string>
+    <string name="auto_correction_threshold_mode_modest">"Sederhana"</string>
+    <string name="auto_correction_threshold_mode_aggressive">"Agresif"</string>
+    <string name="auto_correction_threshold_mode_very_aggressive">"Sangat agresif"</string>
+    <string name="bigram_prediction">"Saran kata berikutnya"</string>
+    <string name="bigram_prediction_summary">"Gunakan kata sebelumnya dalam membuat saran"</string>
+    <string name="gesture_input">"Aktifkan pengetikan gestur"</string>
+    <string name="gesture_input_summary">"Masukkan kata dengan menggeser huruf ke kanan/kiri"</string>
+    <string name="gesture_preview_trail">"Tampilkan jejak gestur"</string>
+    <string name="gesture_floating_preview_text">"Pratinjau mengambang dinamis"</string>
+    <string name="gesture_space_aware">"Gesture frasa"</string>
+    <string name="gesture_space_aware_summary">"Masukkan spasi dalam isyarat dengan meluncur ke tombol spasi"</string>
+    <string name="subtype_en_GB">"Inggris (Inggris)"</string>
+    <string name="subtype_en_US">"Inggris (AS)"</string>
+    <string name="subtype_es_US">"Spanyol (AS)"</string>
+    <string name="subtype_hi_Latn">"Hinglish"</string>
+    <string name="subtype_sr_Latn">"Serbia (Latin)"</string>
+    <string name="subtype_generic_traditional">%s (Tradisional)</string>
+    <string name="subtype_generic_compact">%s (Ringkas)</string>
+    <string name="subtype_no_language">"Tidak ada bahasa"</string>
+    <string name="subtype_emoji">"Emoji"</string>
+    <string name="add">"Tambahkan"</string>
+    <string name="remove">"Hapus"</string>
+    <string name="save">"Simpan"</string>
+    <string name="subtype_locale">"Bahasa"</string>
+    <string name="keyboard_layout_set">"Tata Letak"</string>
+    <string name="prefs_keypress_vibration_duration_settings">"Durasi getar saat tekan tombol"</string>
+    <string name="prefs_keypress_sound_volume_settings">"Volume suara saat tekan tombol"</string>
+    <string name="prefs_key_longpress_timeout_settings">"Penundaan tekan lama tombol"</string>
+    <string name="prefs_enable_emoji_alt_physical_key">"Emoji untuk keyboard fisik"</string>
+    <string name="prefs_enable_emoji_alt_physical_key_summary">"Tombol Alt fisik menampilkan palet emoji"</string>
+    <string name="button_default">"Default"</string>
+    <string name="setup_welcome_title">Selamat datang di %s</string>
+    <string name="setup_welcome_additional_description">"dengan Ketikan Gestur"</string>
+    <string name="setup_start_action">"Memulai"</string>
+    <string name="setup_steps_title">Menyiapkan %s</string>
+    <string name="setup_step1_title">Aktifkan %s</string>
+    <string name="setup_step1_instruction">Harap periksa \"%s\" di setelan Bahasa masukan Anda. Ini akan mengizinkannya untuk berjalan di perangkat Anda.</string>
+    <string name="setup_step1_action">"Aktifkan dalam Setelan"</string>
+    <string name="setup_step2_title">Beralih ke %s</string>
+    <string name="setup_step2_instruction">Selanjutnya, pilih \"%s\" sebagai metode input teks aktif Anda.</string>
+    <string name="setup_step2_action">"Alihkan metode masukan"</string>
+    <string name="setup_step3_title">"Selamat, Anda sudah siap!"</string>
+    <string name="setup_step3_instruction">Sekarang Anda bisa mengetik di semua aplikasi favorit Anda dengan %s.</string>
+    <string name="setup_finish_action">"Selesai"</string>
+    <string name="show_setup_wizard_icon">"Tampilkan ikon aplikasi"</string>
+    <string name="show_setup_wizard_icon_summary">"Menampillkan ikon aplikasi di peluncur"</string>
+    <string name="dictionary_category_title">"Kamus pengaya"</string>
+    <string name="dictionary_available">"Kamus yang tersedia"</string>
+    <string name="settings">"Setelan"</string>
+    <string name="delete">"Hapus"</string>
+    <string name="version_text">Versi %1$s</string>
+    <string name="user_dict_settings_add_shortcut_option_name">"Pintasan:"</string>
+    <string name="user_dict_settings_add_locale_option_name">"Bahasa:"</string>
+    <string name="user_dict_settings_add_word_hint">"Ketik kata"</string>
+    <string name="user_dict_settings_add_shortcut_hint">"Pintasan opsional"</string>
+    <string name="user_dict_settings_edit_dialog_title">"Edit kata"</string>
+    <string name="user_dict_settings_all_languages">"Untuk semua bahasa"</string>
+    <string name="user_dict_settings_more_languages">"Bahasa lainnya…"</string>
     <string name="prefs_keyboard_height_scale">Skala tinggi keyboard</string>
     <string name="delete_swipe">Gestur hapus</string>
-    <string name="space_trackpad">Gestur bilah spasi</string>
     <string name="delete_swipe_summary">Sentuh dan geser ke kiri pada tombol hapus untuk menghapus beberapa huruf/kata sekaligus</string>
-    <string name="space_trackpad_summary">Sentuh dan geser pada bilah spasi untuk menggerakkan kursor</string>
-    <string name="settings_category_clipboard_history">Riwayat clipboard</string>
-    <string name="settings_no_limit">Tidak terbatas</string>
-    <string name="enable_clipboard_history">Aktifkan riwayat clipboard</string>
+    <string name="settings_category_clipboard_history">Riwayat papan klip</string>
+    <string name="settings_no_limit">Tidak ada batas</string>
+    <string name="enable_clipboard_history">Aktifkan riwayat papan klip</string>
     <string name="clipboard_history_retention_time">Waktu simpan riwayat</string>
     <string name="show_hints">Tampilkan petunjuk tombol</string>
-    <string name="amoled_mode_summary">Dapat mengurangi penggunaan daya tergantung pada teknologi layar perangkat</string>
     <string name="number_row_summary">Selalu tampilkan baris angka</string>
-    <string name="abbreviation_unit_minutes"><xliff:g id="MINUTES">%s</xliff:g>mnt.</string>
-    <string name="subtype_no_language_workman">Alfabet (Workman)</string>
-    <string name="spell_checker_service_name">Pemeriksa Ejaan OpenBoard</string>
-    <string name="android_spell_checker_settings">Pengaturan Pemeriksa Ejaan OpenBoard</string>
-    <string name="show_clipboard_key">Tombol clipboard</string>
+    <string name="abbreviation_unit_minutes">%s mnt</string>
+    <string name="spell_checker_service_name">Pemeriksa Ejaan HeliBoard</string>
+    <string name="android_spell_checker_settings">Pengaturan Pemeriksa Ejaan HeliBoard</string>
     <string name="number_row">Baris angka</string>
     <string name="prefs_long_press_keyboard_to_change_lang">Ubah metode masukan dengan tombol spasi</string>
-    <string name="prefs_force_incognito_mode">Paksa mode privat</string>
+    <string name="incognito">Paksa mode privat</string>
     <string name="show_emoji_key">Tombol emoji</string>
-    <string name="ime_settings">Pengaturan OpenBoard</string>
+    <string name="ime_settings">Pengaturan HeliBoard</string>
     <string name="settings_category_input">Masukan</string>
     <string name="settings_category_additional_keys">Tombol tambahan</string>
     <string name="settings_category_suggestions">Saran</string>
-    <string name="settings_category_experimental">Eksperimental</string>
+    <string name="settings_category_experimental">Percobaan</string>
     <string name="settings_category_miscellaneous">Lainnya</string>
     <string name="settings_category_correction">Koreksi</string>
     <string name="more_keys_strip_description">Tombol lainnya</string>
     <string name="prefs_force_incognito_mode_summary">Nonaktifkan pembelajaran kata baru</string>
     <string name="prefs_long_press_keyboard_to_change_lang_summary">Menekan lama pada tombol spasi akan menampilkan menu pemilihan metode masukan</string>
     <string name="show_hints_summary">Tampilkan petunjuk tekan-lama</string>
-    <string name="subtype_no_language_colemak_dh">Alfabet (Colemak Mod-DH)</string>
     <string name="key_borders">Batas tombol</string>
     <string name="day_night_mode">Mode siang/malam otomatis</string>
     <string name="day_night_mode_summary">Tampilan mengikuti pengaturan sistem</string>
-    <string name="amoled_mode">Latar belakang hitam pekat</string>
-    <string name="theme_variant">Variasi tema</string>
-    <string name="theme_family">Keluarga tema</string>
-    <string name="enable_clipboard_history_summary">Jika dinonaktifkan, menekan tombol ikon clipboard akan menempelkan konten yang disalin</string>
-    <string name="subtype_with_layout_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Bangla">%s</xliff:g> (Akkhor)</string>
+    <string name="enable_clipboard_history_summary">Jika dinonaktifkan, menekan tombol ikon papan klip akan menempelkan konten yang disalin (jika ada)</string>
+    <string name="subtype_akkhor_bn_BD">%s (Akkhor)</string>
+    <string name="autospace_after_punctuation">Spasi otomatis setelah tanda baca</string>
+    <string name="autospace_after_punctuation_summary">Otomatis sisipkan spasi setelah tanda baca saat mengetik kata baru</string>
+    <string name="auto_correction_confidence">Tingkat ketepercayaan koreksi otomatis</string>
+    <string name="select_input_method">"Pilih metode masukan"</string>
+    <string name="undo">"Urungkan"</string>
+    <string name="redo">"Ulangi"</string>
+    <string name="use_personalized_dicts_summary">"Belajar dari komunikasi &amp; data terketik untuk meningkatkan saran"</string>
+    <string name="label_go_key">"Buka"</string>
+    <string name="label_next_key">"Lanjut"</string>
+    <string name="label_previous_key">"Balik"</string>
+    <string name="label_done_key">"Beres"</string>
+    <string name="label_send_key">"Kirim"</string>
+    <string name="label_search_key">"Telusur"</string>
+    <string name="label_pause_key">"Jeda"</string>
+    <string name="label_wait_key">"Tunggu"</string>
+    <string name="language_switch_key_switch_both">Ganti keduanya</string>
+    <string name="add_to_personal_dictionary">Tambahkan kata ke kamus pribadi</string>
+    <string name="add_to_personal_dictionary_summary">Gunakan kamus pribadi perangkat untuk menyimpan kata yang telah dipelajari</string>
+    <string name="more_autocorrect">Koreksi otomatis selengkapnya</string>
+    <string name="more_autocorrect_summary">Lakukan koreksi otomatis bahkan meski tidak diminta secara langsung oleh kolom input</string>
+    <string name="backup_restore_message">Simpan atau muat dari berkas. Peringatan: mengembalikan ke awal akan menimpa data yang lama</string>
+    <string name="backup_error">Kesalahan saat menyimpan data cadangan: %s</string>
+    <string name="restore_error">Gagal memuat data cadangan: %s</string>
+    <string name="button_backup">Cadangkan</string>
+    <string name="button_restore">Pulihkan</string>
+    <string name="down" tools:keep="@string/down">Bawah</string>
+    <string name="secondary_locale">Pengetikan multibahasa</string>
+    <string name="load_gesture_library">Muat pustaka pengetikan gestur</string>
+    <string name="load_gesture_library_summary">Tambahkan pustaka asli untuk mengaktifkan pengetikan dengan gestur</string>
+    <string name="checksum_mismatch_message">Berkas pustaka yang tak dikenal. Apakah Anda yakin telah mendapatkan pustaka ini dari sumber tepercaya dan untuk \'%s\'?</string>
+    <string name="load_gesture_library_button_load">Muat pustaka</string>
+    <string name="load_gesture_library_button_delete">Hapus pustaka</string>
+    <string name="show_popup_keys_title">Tampilkan lebih banyak huruf dengan diakritik pada layar sembulan</string>
+    <string name="show_popup_keys_normal">Tampilkan varian yang ditentukan dalam bahasa keyboard</string>
+    <string name="show_popup_keys_more">Tambahkan varian umum</string>
+    <string name="show_popup_keys_all">Tambahkan semua varian yang tersedia</string>
+    <string name="url_detection_title">Deteksi URL</string>
+    <string name="language_and_layouts_title">Bahasa &amp; Tata Letak</string>
+    <string name="localized_number_row">Lokalisasi angka baris</string>
+    <string name="localized_number_row_summary">Utamakan angka yang telah dilokalisasi dibandingkan angka latin</string>
+    <string name="popup_order">Pilih urutan kunci layar sembulan</string>
+    <string name="popup_keys_number" tools:keep="@string/popup_keys_number">Jumlah baris</string>
+    <string name="popup_keys_language_priority" tools:keep="@string/popup_keys_language_priority">Bahasa (prioritas)</string>
+    <string name="popup_keys_layout" tools:keep="@string/popup_keys_layout">Tata letak</string>
+    <string name="popup_keys_symbols" tools:keep="@string/popup_keys_symbols">Simbol</string>
+    <string name="toolbar_keys">Pilih tombol pada bilah perkakas</string>
+    <string name="clipboard" tools:keep="@string/clipboard">Papan klip</string>
+    <string name="clear_clipboard" tools:keep="@string/clear_clipboard">Hapus papan klip</string>
+    <string name="voice" tools:keep="@string/voice">Masukkan suara</string>
+    <string name="select_word" tools:keep="@string/select_word">Pilih kata</string>
+    <string name="full_left" tools:keep="@string/full_left">Kiri penuh</string>
+    <string name="full_right" tools:keep="@string/full_right">Kanan penuh</string>
+    <string name="left" tools:keep="@string/left">Kiri</string>
+    <string name="right" tools:keep="@string/right">Kanan</string>
+    <string name="up" tools:keep="@string/up">Atas</string>
+    <string name="show_popup_hints_summary">Tampilkan petunjuk jika menekan suatu tombol dengan lama memicu fungsi tambahan</string>
+    <string name="prefs_narrow_key_gaps">Sempitkan jarak antara tombol</string>
+    <string name="prefs_bottom_padding_scale">Skala bantalan bawah</string>
+    <string name="subtype_generic_sebeolsik_final">%s (Sebeolsik Final)</string>
+    <string name="button_load_custom">Muat file</string>
+    <string name="file_read_error">File tidak terbaca</string>
+    <string name="delete_layout">Yakin ingin menghapus tata letak kustom %s?</string>
+    <string name="layout_error">Kesalahan tata letak: %s</string>
+    <string name="edit_layout">Tekan untuk mengubah tata letak versi polos</string>
+    <string name="disable_personalized_dicts_message">Peringatan: Menonaktifkan pengaturan ini akan menghapus data yang telah diperoleh</string>
+    <string name="prefs_always_show_suggestions">Selalu tampilkan saran</string>
+    <string name="backup_restore_title">Pencadangan dan pemulihan</string>
+    <string name="one_handed" tools:keep="@string/one_handed">Mode satu tangan</string>
+    <string name="subtype_generic_sebeolsik_390">%s (Sebeolsik 390)</string>
+    <string name="button_title_add_custom_layout">Tambahkan tata letak kustom</string>
+    <string name="split_spacer_scale">Jarak pisah</string>
+    <string name="prefs_always_show_suggestions_summary">Abaikan permintaan aplikasi lain untuk menonaktifkan saran (dapat menimbulkan masalah)</string>
+    <string name="load_gesture_library_message">Anda membutuhkan pustaka untuk \'%s\'. Pustaka yang tidak cocok mungkin bisa mengeluarkan Anda dari aplikasi secara tiba-tiba saat menggunakan pengetikan gestur.
+\n
+\nPeringatan: memuat kode eksternal dapat menimbulkan resiko keamanan. Gunakan pustaka yang hanya Anda percaya.</string>
+    <string name="url_detection_summary">Mencoba untuk mendeteksi URL dan sejenisnya sebagai kata tunggal</string>
+    <string name="show_popup_hints">Tampilkan petunjuk fungsional</string>
+    <string name="message_add_custom_layout">Pilih file dalam format yang kompatibel. Informasi tentang format tersedia %s.</string>
+    <string name="switch_language">Ganti Bahasa</string>
+    <string name="hint_source">Pilih sumber petunjuk</string>
+    <string name="layout_symbols" tools:keep="@string/layout_symbols">Simbol</string>
+    <string name="layout_symbols_arabic" tools:keep="@string/layout_symbols_arabic">Simbol (bahasa Arab)</string>
+    <string name="layout_symbols_shifted" tools:keep="@string/layout_symbols_shifted">Lebih banyak simbol</string>
+    <string name="layout_phone" tools:keep="@string/layout_phone">Telepon</string>
+    <string name="layout_phone_symbols" tools:keep="@string/layout_phone_symbols">Simbol telepon</string>
+    <string name="layout_number" tools:keep="@string/layout_number">Angka</string>
+    <string name="layout_numpad" tools:keep="@string/layout_numpad">Papan nomor</string>
+    <string name="layout_numpad_landscape" tools:keep="@string/layout_numpad_landscape">Papan nomor (lanskap)</string>
+    <string name="customize_background_image">Ubah gambar latar belakang</string>
+    <string name="day_or_night_image">Ubah gambar untuk mode cerah atau malam?</string>
+    <string name="day_or_night_night">Malam</string>
+    <string name="day_or_night_day">Siang</string>
+    <string name="dictionary_settings_category">Kamus</string>
+    <string name="internal_dictionary_summary">Kamus utama internal</string>
+    <string name="add_new_dictionary_title">Tambahkan kamus dari file</string>
+    <string name="button_select_language">Pilih bahasa</string>
+    <string name="replace_dictionary">Ganti kamus</string>
+    <string name="remove_dictionary_message">Yakin ingin menghapus kamus bawaan pengguna \"%s\"?</string>
+    <string name="add_dictionary">Pilih kamus yang akan ditambahkan. Kamus dalam format .dict dapat diunduh %s.</string>
+    <string name="dictionary_link_text">di sini</string>
+    <string name="available_dictionary_experimental">%s (eksperimental)</string>
+    <string name="dictionary_file_error">Kesalahan: File yang dipilih bukan file kamus yang valid</string>
+    <string name="dictionary_file_wrong_script">Kesalahan: skrip tidak kompatibel dengan papan ketik ini</string>
+    <string name="dictionary_load_error">Gagal memuat file kamus</string>
+    <string name="user_dict_add_word_button">Tambahkan kata</string>
+    <string name="theme_style">Gaya</string>
+    <string name="style_name_Rounded" tools:keep="@string/style_name_Rounded">Bulat</string>
+    <string name="theme_colors_night">Warna (mode malam)</string>
+    <string name="theme_navbar">Bilah navigasi warna</string>
+    <string name="theme_name_darker" tools:keep="@string/theme_name_darker">Gelap gulita</string>
+    <string name="theme_name_dynamic" tools:keep="@string/theme_name_dynamic">Warna dinamis</string>
+    <string name="theme_name_blue_gray" tools:keep="@string/theme_name_blue_gray">Biru Abu-abu</string>
+    <string name="theme_name_brown" tools:keep="@string/theme_name_brown">Coklat</string>
+    <string name="theme_name_chocolate" tools:keep="@string/theme_name_chocolate">Cokelat</string>
+    <string name="theme_name_ocean" tools:keep="@string/theme_name_ocean">Laut</string>
+    <string name="theme_name_pink" tools:keep="@string/theme_name_pink">Merah muda</string>
+    <string name="theme_name_sand" tools:keep="@string/theme_name_sand">Pasir</string>
+    <string name="theme_name_violette" tools:keep="@string/theme_name_violette">Violet</string>
+    <string name="theme_name_user" tools:keep="@string/theme_name_user">Tema yang ditentukan pengguna</string>
+    <string name="replace_dictionary_message">Yakin ingin mengganti kamus bawaan pengguna \"%1$s\"?
+\n
+\nKamus saat ini:
+\n%2$s
+\n
+\nKamus baru:
+\n%3$s</string>
+    <string name="no_dictionary_message">"Tanpa kamus, Anda hanya akan mendapatkan saran untuk teks yang Anda masukkan sebelumnya.&lt;br&gt;\n        Anda bisa mengunduh kamus %1$s, atau memeriksa apakah kamus untuk \"%2$s\" dapat diunduh secara langsung dari %3$s."</string>
+    <string name="theme_name_black" tools:keep="@string/theme_name_black">Hitam</string>
+    <string name="setup_step3_action">Mengonfigurasi papan ketik</string>
+    <string name="no_dictionary_dont_show_again_button">Jangan tampilkan lagi</string>
+    <string name="theme_name_light" tools:keep="@string/theme_name_light">Cerah</string>
+    <string name="user_dict_settings_add_weight_value">Berat:</string>
+    <string name="user_dict_word_already_present">Kata ini sudah ada dalam kamus pengguna %s. Silakan ketik kata yang lain.</string>
+    <string name="theme_colors">Warna</string>
+    <string name="theme_name_dark" tools:keep="@string/theme_name_dark">Gelap</string>
+    <string name="theme_name_cloudy" tools:keep="@string/theme_name_cloudy">Berawan</string>
+    <string name="theme_name_forest" tools:keep="@string/theme_name_forest">Hutan</string>
+    <string name="action_none">Tidak ada</string>
+    <string name="space_swipe_move_cursor_entry">Gerakkan Kursor</string>
+    <string name="auto_user_color">Pilih warna secara otomatis</string>
+    <string name="main_colors">Tampilkan warna utama saja</string>
+    <string name="all_colors">Tampilkan semua warna</string>
+    <string name="select_color_background">Latar belakang papan ketik</string>
+    <string name="select_color_key">Tombol teks</string>
+    <string name="select_color_key_hint">Tombol teks petunjuk</string>
+    <string name="select_color_suggestion">Teks strip saran</string>
+    <string name="select_color_key_background">Warna latar belakang tombol</string>
+    <string name="select_color_functional_key_background">Warna latar belakang tombol fungsi</string>
+    <string name="select_color_accent">Warna aksen</string>
+    <string name="select_color_gesture">Warna input gestur</string>
+    <string name="settings_screen_about">Tentang</string>
+    <string name="version">Versi</string>
+    <string name="about_github_link">Lihat di GitHub</string>
+    <string name="save_log">Simpan log</string>
+    <string name="license">Lisensi sumber terbuka</string>
+    <string name="dialog_close">Tutup</string>
+    <string name="text_tap_languages">Tekan bahasa untuk membuka pengaturan</string>
+    <string name="settings_screen_appearance">Penampilan</string>
+    <string name="hidden_features_title">Penjelasan tentang fitur-fitur tersembunyi</string>
+    <string name="hidden_features_text">penyimpanan yang dilindungi perangkat</string>
+    <string name="select_color_spacebar_background">Warna latar belakang tombol spasi</string>
+    <string name="select_color_spacebar_text">Warna teks tombol spasi</string>
+    <string name="hidden_features_summary">Tampilkan fitur yang mungkin luput dari perhatian</string>
+    <string name="show_horizontal_space_swipe">Gerakan geser bilah spasi horizontal</string>
+    <string name="show_vertical_space_swipe">Gerakan geser bilah spasi vertikal</string>
+    <string name="theme_name_holo_white" tools:keep="@string/theme_name_holo_white">Holo Putih</string>
+    <string name="theme_name_indigo" tools:keep="@string/theme_name_indigo">Ungu lembayung</string>
+    <string name="gnu_gpl">Lisensi Publik Umum GPU v3.0</string>
+    <string name="subtype_xdq">Kaitag</string>
+    <string name="close_history" tools:keep="@string/close_history">Tutup riwayat papan klip</string>
+    <string name="emoji" tools:keep="@string/emoji">Emoji</string>
+    <string name="subtype_probhat_bn_BD">%s (Probhat)</string>
+    <string name="subtype_mns">Mansi</string>
+    <string name="more_colors">Tampilkan lebih banyak warna</string>
+    <string name="gesture_fast_typing_cooldown">Pendinginan pengetikan cepat</string>
+    <string name="gesture_fast_typing_cooldown_instant">Selalu mulai secara instan</string>
+    <string name="gesture_floating_preview_static">Pratinjau mengambang</string>
+    <string name="gesture_floating_preview_static_summary">Lihat kata yang disarankan sambil memberi isyarat</string>
+    <string name="gesture_floating_preview_dynamic_summary">Pindahkan pratinjau selama gerakan</string>
+    <string name="gesture_trail_fadeout_duration">Umur jejak gerakan</string>
+    <string name="prefs_space_bar_text">Teks khusus pada bilah spasi</string>
+    <string name="layout_number_row" tools:keep="@string/layout_number_row">Baris nomor</string>
+    <string name="customize_currencies">Sesuaikan mata uang</string>
+    <string name="toast_msg_clipboard_copy">Konten disalin</string>
+    <string name="auto_show_toolbar">Bilah alat pertunjukan otomatis</string>
+    <string name="subtype_generic_student">%s (Student)</string>
+    <string name="layout_functional_keys_symbols_shifted" tools:keep="@string/layout_functional_keys_symbols_shifted">Tombol fungsi (Lebih banyak simbol)</string>
+    <string name="center_suggestion_text_to_enter">Selalu gunakan saran pertengahan</string>
+    <string name="center_suggestion_text_to_enter_summary">Saat menekan spasi atau tanda baca, saran tengah akan dimasukkan</string>
+    <string name="layout_emoji_bottom_row" tools:keep="@string/layout_emoji_bottom_row">Emoji baris bawah</string>
+    <string name="layout_clip_bottom_row" tools:keep="@string/layout_clip_bottom_row">Baris bawah papan klip</string>
+    <string name="customize_currencies_detail">Tetapkan simbol mata uang utama dan hingga 6 simbol mata uang sekunder, dipisahkan dengan spasi</string>
+    <string name="var_toolbar_direction">Arah bilah alat variabel</string>
+    <string name="subtype_generic_extended">%s (Diperluas)</string>
+    <string name="load">Memuat</string>
+    <string name="button_save_file">Simpan ke file</string>
+    <string name="auto_show_toolbar_summary">Tampilkan bilah alat jika input dimulai atau teks dipilih</string>
+    <string name="page_start" tools:keep="@string/page_start">Awal halaman</string>
+    <string name="vibrate_in_dnd_mode">Bergetar dalam mode jangan ganggu</string>
+    <string name="page_end" tools:keep="@string/page_end">Akhir halaman</string>
+    <string name="word_left" tools:keep="@string/word_left">Kata tersisa</string>
+    <string name="clipboard_toolbar_keys">Pilih tombol bilah alat papan klip</string>
+    <string name="quick_pin_toolbar_keys">Sematkan tombol bilah alat saat ditekan lama</string>
+    <string name="quick_pin_toolbar_keys_summary">Ini akan menonaktifkan tindakan tekan lama lainnya untuk tombol bilah alat yang tidak disematkan</string>
+    <string name="prefs_long_press_symbol_for_numpad">Tekan lama tombol simbol untuk papan nomor</string>
+    <string name="subtype_generic_phonetic">%s (Fonetik)</string>
+    <string name="prefs_key_emoji_max_sdk">Ganti versi Emoji</string>
+    <string name="long_press_code">Kode tekan lama</string>
+    <string name="subtype_dru">Dargwa (Urakhi)</string>
+    <string name="key_code">Kode kunci</string>
+    <string name="label_shift_key_locked" tools:keep="@string/label_shift_key_locked">Kunci huruf kapital</string>
+    <string name="label_space_key_for_number_layout" tools:keep="@string/label_space_key_for_number_layout">Spasi (tata letak angka)</string>
+    <string name="label_stop_onehanded_mode_key" tools:keep="@string/label_stop_onehanded_mode_key">Akhiri mode satu tangan</string>
+    <string name="label_resize_onehanded_key" tools:keep="@string/label_resize_onehanded_key">Ubah ukuran mode satu tangan</string>
+    <string name="space_swipe_toggle_numpad_entry">Alihkan Papan nomor</string>
+    <string name="auto_correct_shortcuts">Pintasan koreksi otomatis</string>
+    <string name="auto_correct_shortcuts_summary">Saat diaktifkan, pintasan mungkin diperluas dengan koreksi otomatis</string>
+    <string name="page_down" tools:keep="@string/page_down">Halaman bawah</string>
+    <string name="pinned_toolbar_keys">Pilih tombol bilah alat yang disematkan</string>
+    <string name="page_up" tools:keep="@string/page_up">Halaman atas</string>
+    <string name="word_right" tools:keep="@string/word_right">Kata yang tepat</string>
+    <string name="custom_font">Atur font khusus dari file</string>
+    <string name="copy_to_clipboard">Salin ke papan klip</string>
+    <string name="customize_background_image_landscape">Mengatur gambar latar belakang (lanskap)</string>
+    <string name="summary_customize_background_image_landscape">Jika tidak diatur, gambar potret akan digunakan</string>
+    <string name="label_zwj_key" tools:keep="@string/label_zwj_key">Penggabung lebar nol</string>
+    <string name="label_zwnj_key" tools:keep="@string/label_zwnj_key">Non-joiner lebar nol</string>
+    <string name="auto_hide_toolbar_summary">Sembunyikan bilah alat saat saran tersedia</string>
+    <string name="customize_icons">Sesuaikan ikon</string>
+    <string name="var_toolbar_direction_summary">Membalikkan arah saat subtipe papan ketik kanan-ke-kiri dipilih</string>
+    <string name="auto_hide_toolbar">Sembunyikan bilah alat secara otomatis</string>
+    <string name="after_symbol_and_space">Menekan enter atau spasi setelah tombol lain dalam tampilan simbol</string>
+    <string name="switch_keyboard_after">Beralih ke keyboard utama setelah…</string>
+    <string name="after_emoji">Memilih emoji dalam tampilan emoji</string>
+    <string name="after_clip">Memilih entri riwayat papan klip</string>
+    <string name="show_popup_keys_main">Tambahkan varian yang sangat umum (default)</string>
+    <string name="remove_redundant_popups_summary">Tekan tombol popup yang sudah ada pada tata letak dasar</string>
+    <string name="settings_screen_toolbar">Bilah Alat</string>
+    <string name="remove_redundant_popups">Hapus popup yang berlebihan</string>
+    <string name="customize_icons_reset_message">Benarkah harus mereset semua ikon yang disesuaikan?</string>
+    <string name="language_switch_key_behavior">Perilaku tombol alih bahasa</string>
+    <string name="suggest_clipboard_content">Sarankan konten papan klip</string>
+    <string name="suggest_clipboard_content_summary">Tampilkan konten papan klip yang baru saja disalin sebagai saran</string>
+    <string name="customize_toolbar_key_code_reset_message">Benarkah semua kode kunci yang disesuaikan terhapus?</string>
+    <string name="hidden_features_message">► Menekan lama tombol bilah alat yang disematkan menghasilkan fungsi tambahan: &lt;br&gt; \n• clipboard &amp;#65515; tempel &lt;br&gt; \n• pindahkan ke kiri dan kanan &amp;#65515; kata ke kiri dan kanan &lt;br&gt; \n• pindahkan ke atas dan bawah &amp;#65515; halaman ke atas dan bawah &lt;br&gt; \n• kata ke kiri dan kanan &amp;#65515; awal baris &lt;br&gt; \n• halaman ke atas dan bawah &amp;#65515; awal halaman &lt;br&gt; \n• salin &amp;#65515; potong &lt;br&gt; \n• pilih kata &amp;#8596; pilih semua &lt;br&gt; \n• batalkan &amp;#8596; ulangi &lt;br&gt; &lt;br&gt; \n► Menekan lama tombol pada bilah alat strip saran akan menyematkannya ke strip saran. &lt;br&gt; &lt;br&gt; \n► Tekan lama tombol Koma untuk mengakses Tampilan Clipboard, Tampilan Emoji, Mode Satu Tangan, Pengaturan, atau Ganti Bahasa: &lt;br&gt; \n• Tampilan Emoji dan Ganti Bahasa akan menghilang jika Anda mengaktifkan tombol terkait; &lt;br&gt; \n• Untuk beberapa tata letak, yang aktif bukanlah tombol Koma, tetapi tombol pada posisi yang sama (misalnya, \'q\' untuk tata letak Dvorak). &lt;br&gt; &lt;br&gt; \n► Saat mode penyamaran diaktifkan, tidak ada kata yang akan dipelajari, dan tidak ada emoji yang akan ditambahkan ke yang terbaru. &lt;br&gt; &lt;br&gt; \n► Tekan ikon Penyamaran untuk mengakses bilah alat. &lt;br&gt; &lt;br&gt; \n► Input tombol geser: Geser dari shift ke tombol lain untuk mengetik satu tombol huruf kapital: &lt;br&gt; \n• Ini juga berfungsi untuk tombol \'?123\' untuk mengetik satu simbol dari papan ketik simbol, dan untuk tombol terkait. &lt;br&gt; &lt;br&gt; \n► Tahan tombol shift atau simbol, tekan satu atau beberapa tombol, lalu lepaskan tombol shift atau simbol untuk kembali ke papan ketik sebelumnya. &lt;br&gt; &lt;br&gt; \n► Tekan lama saran di strip saran untuk menampilkan lebih banyak saran, dan tombol hapus untuk menghapus saran ini. &lt;br&gt; &lt;br&gt; \n► Geser ke atas dari saran untuk membuka lebih banyak saran, dan lepaskan pada saran untuk memilihnya. &lt;br&gt; &lt;br&gt; \n► Tekan lama entri dalam riwayat clipboard untuk menyematkannya (simpan di clipboard hingga Anda melepas sematannya). &lt;br&gt; &lt;br&gt; \n► Geser ke kiri dalam tampilan clipboard untuk menghapus entri (kecuali saat disematkan) &lt;br&gt; &lt;br&gt; \n► Pilih teks dan tekan shift untuk beralih antara kata-kata huruf besar, huruf kecil, dan huruf kapital. &lt;br&gt; &lt;br&gt; \n► Anda dapat menambahkan kamus dengan membukanya di file explorer: &lt;br&gt; \n• Ini hanya berfungsi dengan &lt;i&gt;content-uris&lt;i&gt; dan tidak dengan &lt;i&gt;file-uris&lt;i&gt;, yang berarti mungkin tidak berfungsi dengan beberapa file explorer. &lt;br&gt; &lt;br&gt; \n► Untuk pengguna yang melakukan pencadangan manual dengan akses root: &lt;br&gt; \n• Dimulai pada Android 7, file preferensi bersama tidak berada di lokasi default, karena aplikasi menggunakan %s. Ini diperlukan agar pengaturan dapat dibaca sebelum perangkat dibuka kuncinya, misalnya saat boot; &lt;br&gt; \n• File terletak di datauser_de0package_idshared_prefs meskipun ini mungkin bergantung pada perangkat dan versi Android. &lt;br&gt; &lt;br&gt; \n&lt;i&gt;&lt;b&gt;Debug mode debug APK&lt;b&gt;&lt;i&gt; &lt;br&gt; &lt;br&gt; \n► Tekan lama saran untuk menampilkan kamus sumber. &lt;br&gt; &lt;br&gt; \n► Saat menggunakan APK debug, Anda dapat menemukan Setelan Debug di Preferensi Lanjutan, meskipun kegunaannya terbatas kecuali untuk membuang kamus ke dalam log. &lt;br&gt; \n• Untuk APK rilis, Anda perlu mengetuk versi di &lt;i&gt;Tentang&lt;i&gt; beberapa kali, lalu Anda dapat menemukan setelan debug di &lt;i&gt;Preferensi Lanjutan&lt;i&gt;. &lt;br&gt; \n• Saat mengaktifkan &lt;i&gt;Tampilkan info saran&lt;i&gt;, saran akan memiliki beberapa angka kecil di atas yang menunjukkan beberapa skor internal dan kamus sumber. &lt;br&gt; &lt;br&gt; \n► Jika terjadi kerusakan aplikasi, Anda akan diminta apakah Anda menginginkan log kerusakan saat membuka Setelan. &lt;br&gt; &lt;br&gt; \n► Saat menggunakan pengetikan multibahasa, bilah spasi akan menunjukkan nilai keyakinan yang digunakan untuk menentukan bahasa yang saat ini digunakan. &lt;br&gt; &lt;br&gt; \n► Saran akan memiliki beberapa angka kecil di bagian atas yang menunjukkan beberapa skor internal dan kamus sumber (dapat dinonaktifkan).</string>
+    <string name="all_colors_warning">Pengaturan ini menampilkan semua warna yang digunakan secara internal. Daftar warna dapat berubah sewaktu-waktu. Warna default bersifat acak, dan nama-namanya tidak akan diterjemahkan.</string>
+    <string name="layout_functional_keys" tools:keep="@string/layout_functional_keys">Tombol fungsi</string>
+    <string name="layout_functional_keys_symbols" tools:keep="@string/layout_functional_keys_symbols">Tombol Fungsional (Simbol)</string>
+    <string name="label_delete_key" tools:keep="@string/label_delete_key">Menghapus</string>
+    <string name="label_shift_key" tools:keep="@string/label_shift_key">Shift</string>
+    <string name="label_shift_key_shifted" tools:keep="@string/label_shift_key_shifted">Shift (bergeser)</string>
+    <string name="label_enter_key" tools:keep="@string/label_enter_key">enter</string>
+    <string name="label_tab_key" tools:keep="@string/label_tab_key">tab</string>
+    <string name="label_shortcut_key_disabled" tools:keep="@string/label_shortcut_key_disabled">Masukan suara dinonaktifkan</string>
+    <string name="label_toolbar_key" tools:keep="@string/label_toolbar_key">Tampilkan sembunyikan bilah alat</string>
+    <string name="customize_toolbar_key_codes">Sesuaikan kode tombol bilah alat</string>
+    <string name="label_switch_onehanded_key" tools:keep="@string/label_switch_onehanded_key">Beralih ke sisi mode satu tangan</string>
+    <string name="icon_style">Ikon style</string>
+    <string name="label_bin" tools:keep="@string/label_bin">bin</string>
+    <string name="custom_subtype">Subtipe khusus</string>
+    <string name="settings_screen_secondary_layouts">Tata letak sekunder</string>
+    <string name="discussion_section_link">Bagian Diskusi</string>
+    <string name="layout_in_use">PERINGATAN: Tata letak sedang digunakan saat ini</string>
+    <string name="layout_functional_keys_tablet" tools:keep="@string/layout_functional_keys_tablet">Kunci fungsional (layar besar)</string>
+    <string name="subtype_baishakhi_bn_IN">%s (Baishakhi)</string>
+    <string name="get_layouts_message">Anda dapat menemukan dan berbagi tata letak di %s.</string>
+    <string name="enable_split_keyboard_landscape">Aktifkan keyboard terpisah (lanskap)</string>
+    <string name="delete_confirmation">Benaran mau dihapus %s?</string>
+    <string name="name_invalid">Nama invalid</string>
+    <string name="prefs_font_scale">Skala font keyboard</string>
+    <string name="prefs_emoji_font_scale">Skala font tampilan emoji</string>
+    <string name="prefs_side_padding_scale">Skala bantalan samping</string>
+    <string name="number_row_hints">Tampilkan petunjuk pada baris nomor</string>
+    <string name="prefs_language_swipe_distance">Beralih Jarak Gesek Bahasa</string>
+    <string name="locales_with_dict">Bahasa dengan kamus</string>
+    <string name="split" tools:keep="@string/split">Keyboard terpisah</string>
+    <string name="get_colors_message">Anda dapat menemukan dan berbagi warna di %s.</string>
+    <string name="layout_number_row_basic" tools:keep="@string/layout_number_row_basic">Baris nomor (dasar)</string>
+    <string name="prefs_always_show_suggestions_except_web_text_summary">Bidang edit web (kebanyakan ditemukan di browser) adalah penyebab yang sangat umum untuk masalah dengan pengaturan saran yang selalu ditampilkan</string>
+    <string name="prefs_always_show_suggestions_except_web_text">Jangan selalu menampilkan saran untuk bidang edit web</string>
+    <string name="settings_category_space">Spasi</string>
+    <string name="shift_removes_autospace">Tidak ada spasi otomatis saat menekan shift</string>
+    <string name="shift_removes_autospace_summary">Shift menghapus spasi otomatis yang tertunda</string>
+    <string name="timestamp_format_title">Format kunci stempel waktu</string>
+    <string name="autospace_before_gesture_typing">Spasi otomatis sebelum mengetik kata dengan isyarat</string>
+    <string name="autospace_after_gesture_typing">Spasi otomatis setelah mengetik kata dengan isyarat</string>
+    <string name="show_tld_popup_keys">Menampilkan tombol popup TLD</string>
+    <string name="show_tld_popup_keys_summary">Ganti popup tombol titik dengan domain tingkat atas saat mengetik URL dan alamat email</string>
+    <string name="after_numpad_and_space">Menekan enter atau spasi setelah tombol lain di papan nomor</string>
+    <string name="subtype_dag">Dagbani</string>
+    <string name="subtype_st">Sesotho</string>
+    <string name="prefs_emoji_key_fit">Menskala ukuran tombol emoji dengan ukuran font</string>
+    <string name="autospace_after_suggestion">Spasi otomatis setelah memilih saran</string>
+    <string name="backup_restored">Cadangan dipulihkan</string>
+    <string name="use_apps_dict">Cari nama aplikasi</string>
+    <string name="use_apps_dict_summary">Gunakan nama aplikasi yang terinstal untuk saran dan koreksi</string>
+    <string name="backspace_reverts_autocorrect">Backspace mengembalikan koreksi otomatis</string>
+    <string name="prefs_emoji_skin_tone">Warna kulit emoji bawaan</string>
+    <string name="prefs_emoji_skin_tone_neutral">Netral</string>
 </resources>

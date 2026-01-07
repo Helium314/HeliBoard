@@ -1,0 +1,8 @@
+* Korjaa rikkinäinen toiminnallinen näppäinasettelu tableteille
+* Näytä kielenvaihtopainike vain, kun on jotain vaihdettavaa
+* tee "kaikki värit" -asetuksen oletusvärit satunnaiseksi harmaan sijaan
+* @devycarol mahdollistaa eleiden alkamisviiveen mukauttamisen kirjoittamisen aikana
+* mahdollistaa valuuttaavainten mukauttamisen
+* lyhennä pitkiä painalluksia shift -> caps lock, kirjoittaja @devycarol
+* laajentaa yläindeksin ponnahdusikkunoita numerorivien ja symbolien asetteluun, kirjoittaja @b02860de585071a2
+* pieniä korjauksia ja parannuksia

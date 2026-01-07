@@ -1,0 +1,12 @@
+* Ricerca emoji inline
+* Ricorda lingua per app (opzionale)
+* Miglioramenti al feedback aptico
+* Cronologia appunti persistente (anche per i non fissati)
+* Mostra gli appunti fissati in fondo (opzionale)
+* Righe inferiori emoji e appunti (opzionali)
+* Aggiunto un tasto per rifiutare i suggerimenti inline
+* Nuova lingua: Bengalese Khipro
+* Nuova lingua: Mirandese
+* Risolti alcuni problemi con le tastiere hardware
+* Link ai dizionari aggiornati (puntano direttamente al file)
+* Miglioramenti vari

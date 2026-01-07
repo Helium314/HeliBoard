@@ -1,0 +1,11 @@
+* Lisää mahdollisuus tallentaa / viedä mukautettuja teemoja
+* Tee näppäimistön nuolinäppäimet toistettavissa
+* lisää kohdistimen työkalupalkin näppäimiä (sivu ylös/alas (/aloitus/loppu, sana vasen/oikea)
+* Lisää liitäavain
+* Paranna näppäinten pyyhkäisykäyttäytymistä
+* lisää välilyöntipyyhkäisyasetus vaihtaaksesi numeronäppäimistöä
+* Lisää leikepöydälle ehdotus äskettäin kopioitua tekstiä varten
+* Poista tekstin valinta painamalla valintanäppäimiä uudelleen
+* viritä joitain värejä Android 12+:n asetuksista
+* Säädä kielestä riippuvia ponnahdusnäppäimiä
+* pieniä korjauksia ja parannuksia

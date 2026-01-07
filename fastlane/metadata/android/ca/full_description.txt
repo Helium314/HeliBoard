@@ -1,0 +1,30 @@
+HeliBoard és un teclat de codi obert conscient de la privadesa, basat en AOSP / OpenBoard.
+No utilitza Internet i, per tant, està 100% fora de línia.
+
+Característiques:
+<ul>
+  <li>Afegiu diccionaris per a suggeriments i correcció ortogràfica</li>
+  <ul>
+    <li>Creeu el vostre o obteniu-los <a href="https://codeberg.org/Helium314/aosp-dictionaries#dictionaries">aquí</a> o a <a href="https://codeberg.org/Helium314/aosp-dictionaries#experimental-dictionaries">secció experimental</a> (la qualitat pot variar)</li>
+    <li>Podeu utilitzar diccionaris addicionals per a emojis o símbols científics per oferir suggeriments (com ara «cerca d'emojis»)</li>
+    <li>Tingueu en compte que per als dissenys coreans, els suggeriments només funcionen amb <a href="https://github.com/openboard-team/openboard/commit/83fca9533c03b9fecc009fc632577226bbd6301f">aquest diccionari</a>, les eines del repositori de diccionaris no poden crear diccionaris funcionals</li>
+  </ul>
+  <li>Personalitzeu els temes del teclat (estil, colors i imatge de fons)</li>
+  <ul>
+    <li>pot seguir la configuració dia/nit del sistema a Android 10+ (i en algunes versions d'Android 9)</li>
+    <li>pot seguir colors dinàmics per a Android 12+</li>
+  </ul>
+  <li>Personalitzeu els <a href="https://github.com/Helium314/HeliBoard/blob/main/layouts.md">dissenys del teclat</a> (només disponible quan es desactiva <i>utilitzar els idiomes del sistema</i>)</li>
+  <li>Personalitzeu dissenys especials, com ara símbols, números o tecles funcionals</li>
+  <li>Escriptura multilingüe</li>
+  <li>Escriptura lliscant (<i>només amb la biblioteca de font tancada</i> ☹️)</li>
+  <ul>
+    <li>la biblioteca no s'inclou a l'aplicació, ja que no hi ha cap biblioteca de codi obert compatible disponible</li>
+    <li>es pot extreure dels paquets de GApps («<i>swypelibs</i>») o descarregar <a href="https://github.com/erkserkserks/openboard/tree/46fdf2b550035ca69299ce312fa158e7ade36967/app/src/main/jniLibs">aquí</a> (feu clic a fitxer i després «raw» o el petit botó de baixada)</li>
+  </ul>
+  <li>Historial del porta-retalls</li>
+  <li>Mode amb una sola mà</li>
+  <li>Teclat dividit (només disponible si la pantalla és prou gran)</li>
+  <li>Teclat numèric</li>
+  <li>Feu una còpia de seguretat i restaureu la vostra configuració i les dades de l'historial i de les paraules apreses</li>
+</ul>

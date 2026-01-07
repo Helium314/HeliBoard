@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- SPDX-License-Identifier: CC-BY-SA-4.O -->
+
+<svg
+   height="108"
+   viewBox="0 -960 4320 4320"
+   width="108"
+   version="1.1"
+   id="svg1"
+   xml:space="preserve"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/"><title
+     id="title3">HeliBoard Launcher Icon</title><defs
+     id="defs1" /><g
+     id="g45"
+     style="fill:#ffffff;fill-opacity:1"
+     transform="translate(0,39.983751)"><path
+       d="m 1288.8001,999.33325 q -5.8667,0 -10.1334,-3.73333 -3.7333,-3.73333 -3.7333,-10.13333 V 639.8668 q 0,-5.86666 3.7333,-9.59999 4.2667,-4.26666 10.1334,-4.26666 h 77.8666 q 5.8666,0 9.6,4.26666 3.7333,3.73333 3.7333,9.59999 v 124.2666 h 119.9999 V 639.8668 q 0,-5.86666 3.7334,-9.59999 4.2666,-4.26666 10.1333,-4.26666 h 77.8666 q 5.8667,0 9.6,4.26666 4.2667,3.73333 4.2667,9.59999 v 345.59979 q 0,5.86667 -4.2667,10.13333 -3.7333,3.73333 -9.6,3.73333 h -77.8666 q -5.8667,0 -10.1333,-3.73333 -3.7334,-4.26666 -3.7334,-10.13333 V 857.46667 H 1380 v 127.99992 q 0,5.86667 -3.7333,10.13333 -3.7334,3.73333 -9.6,3.73333 z"
+       id="text1"
+       style="font-size:533.333px;line-height:3;font-family:Rubik;-inkscape-font-specification:'Rubik, @wght=750';font-variation-settings:'wght' 750;text-align:center;letter-spacing:80px;word-spacing:-174.8px;text-anchor:middle;fill-rule:evenodd;stroke-width:302.362;stroke-linecap:round;paint-order:stroke markers fill"
+       aria-label="H" /><path
+       id="rect2"
+       style="font-variation-settings:'wght' 700;fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:248.041;stroke-linecap:round;paint-order:stroke markers fill"
+       d="m 1920,612.65625 c -110.7998,0 -200,89.20022 -200,200 0,110.79978 89.2002,199.99995 200,199.99995 110.7998,0 200,-89.20017 200,-199.99995 0,-110.79978 -89.2002,-200 -200,-200 z m -28.3594,58.04687 c 0.6417,-0.05 1.2865,0 1.9532,0 h 52.8124 c 5.3334,0 9.8605,1.56563 13.5938,4.76563 3.7333,3.73333 5.625,8.50835 5.625,14.375 v 77.1875 h 77.1875 c 5.3333,0 9.8605,1.89167 13.5937,5.625 3.7334,3.73333 5.625,8.26043 5.625,13.59375 v 52.8125 c 0,5.33332 -1.8916,9.86042 -5.625,13.59375 -3.7332,3.73333 -8.2604,5.625 -13.5937,5.625 h -77.1875 v 77.1875 c 0,5.33332 -1.8917,9.86042 -5.625,13.59375 -3.7333,3.73333 -8.2604,5.625 -13.5938,5.625 h -52.8124 c -5.3334,0 -9.8605,-1.89167 -13.5938,-5.625 -3.7333,-3.73333 -5.625,-8.26043 -5.625,-13.59375 v -77.1875 h -77.1875 c -5.8667,0 -10.6417,-1.89167 -14.375,-5.625 -3.2,-3.73333 -4.8438,-8.26043 -4.8437,-13.59375 V 786.25 c -1e-4,-5.33332 1.6437,-9.86042 4.8437,-13.59375 3.7333,-3.73333 8.5083,-5.625 14.375,-5.625 h 77.1875 v -77.1875 c 0,-5.86665 1.8917,-10.64167 5.625,-14.375 3.2667,-2.8 7.149,-4.41563 11.6406,-4.76563 z" /><path
+       id="rect4"
+       style="font-variation-settings:'wght' 700;fill-rule:evenodd;stroke-width:248.041;stroke-linecap:round;paint-order:stroke markers fill"
+       d="m 2400,612.66669 c 110.8,0 200,89.2 200,200 0,110.8 -89.2,200.00001 -200,200.00001 -110.8,0 -200,-89.20001 -200,-200.00001 0,-110.8 89.2,-200 200,-200 z" /><path
+       id="rect5"
+       style="font-variation-settings:'wght' 700;fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:248.041;stroke-linecap:round;paint-order:stroke markers fill"
+       d="m 2880,612.65625 c -110.7998,0 -200,89.20022 -200,200 0,110.79978 89.2002,199.99995 200,199.99995 110.7998,0 200,-89.20017 200,-199.99995 0,-110.79978 -89.2002,-200 -200,-200 z m -122.8125,154.375 h 245.625 c 5.3333,0 9.8604,1.89167 13.5937,5.625 3.7334,3.73333 5.625,8.26042 5.625,13.59375 v 52.8125 c 0,5.33333 -1.8916,9.86042 -5.625,13.59375 -3.7333,3.73333 -8.2604,5.625 -13.5937,5.625 h -245.625 c -5.8667,0 -10.6417,-1.89167 -14.375,-5.625 -3.2,-3.73333 -4.8437,-8.26042 -4.8437,-13.59375 V 786.25 c 0,-5.33333 1.6437,-9.86042 4.8437,-13.59375 3.7333,-3.73333 8.5083,-5.625 14.375,-5.625 z" /><path
+       id="rect7"
+       style="font-variation-settings:'wght' 700;fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:248.041;stroke-linecap:round;paint-order:stroke markers fill"
+       d="m 2400,1172.6562 c -110.7998,0 -200,89.2003 -200,200 0,110.7998 89.2002,200 200,200 110.7998,0 200,-89.2002 200,-200 0,-110.7997 -89.2002,-199.9999 -200,-200 z m -28.3594,58.0469 c 0.6417,-0.05 1.2865,0 1.9532,0 h 52.8124 c 5.3334,0 9.8605,1.5657 13.5938,4.7657 3.7333,3.7333 5.625,8.5084 5.625,14.375 v 77.1874 h 77.1875 c 5.3333,0 9.8605,1.8918 13.5937,5.625 3.7334,3.7334 5.625,8.2605 5.625,13.5938 v 52.8125 c 0,5.3333 -1.8916,9.8605 -5.625,13.5937 -3.7332,3.7334 -8.2604,5.625 -13.5937,5.625 h -77.1875 v 77.1876 c 0,5.3333 -1.8917,9.8604 -5.625,13.5937 -3.7333,3.7333 -8.2604,5.625 -13.5938,5.625 h -52.8124 c -5.3334,0 -9.8605,-1.8917 -13.5938,-5.625 -3.7333,-3.7333 -5.625,-8.2604 -5.625,-13.5937 v -77.1876 h -77.1875 c -5.8667,1e-4 -10.6417,-1.8916 -14.375,-5.625 -3.2,-3.7332 -4.8438,-8.2604 -4.8437,-13.5937 V 1346.25 c -1e-4,-5.3333 1.6437,-9.8604 4.8437,-13.5938 3.7333,-3.7332 8.5083,-5.625 14.375,-5.625 h 77.1875 v -77.1874 c 0,-5.8666 1.8917,-10.6417 5.625,-14.375 3.2667,-2.8 7.149,-4.4157 11.6406,-4.7657 z" /><path
+       id="rect8"
+       style="font-variation-settings:'wght' 700;fill-rule:evenodd;stroke-width:248.041;stroke-linecap:round;paint-order:stroke markers fill"
+       d="m 1920,1172.6667 c 110.8,0 200,89.2 200,200 0,110.8 -89.2,200 -200,200 -110.8,0 -200,-89.2 -200,-200 0,-110.8 89.2,-200 200,-200 z" /><path
+       id="rect9"
+       style="font-variation-settings:'wght' 700;fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:248.041;stroke-linecap:round;paint-order:stroke markers fill"
+       d="m 1440,1172.6562 c -110.7998,0 -200,89.2003 -200,200 0,110.7998 89.2002,200 200,200 110.7998,0 200,-89.2002 200,-200 0,-110.7997 -89.2002,-199.9999 -200,-200 z m -122.8125,154.375 h 245.625 c 5.3333,0 9.8604,1.8917 13.5937,5.625 3.7334,3.7334 5.6251,8.2605 5.625,13.5938 v 52.8125 c 0,5.3333 -1.8916,9.8604 -5.625,13.5937 -3.7333,3.7334 -8.2604,5.6251 -13.5937,5.625 h -245.625 c -5.8667,0 -10.6417,-1.8916 -14.375,-5.625 -3.2,-3.7333 -4.8437,-8.2604 -4.8437,-13.5937 V 1346.25 c 0,-5.3333 1.6437,-9.8604 4.8437,-13.5938 3.7333,-3.7333 8.5083,-5.625 14.375,-5.625 z" /><path
+       id="rect10"
+       style="font-variation-settings:'wght' 700;fill-rule:evenodd;stroke-width:303.786;stroke-linecap:round;paint-order:stroke markers fill"
+       d="m 1660,1752.6667 h 1000 c 55.4,0 100,44.6 100,100 0,55.4 -44.6,100 -100,100 H 1660 c -55.4,0 -100,-44.6 -100,-100 0,-55.4 44.6,-100 100,-100 z" /><path
+       d="m 2731.9998,1559.3333 q -5.8666,0 -10.1333,-3.7334 -3.7333,-4.2666 -3.7333,-10.1333 v -345.5998 q 0,-5.8667 3.7333,-9.6 4.2667,-4.2667 10.1333,-4.2667 h 166.3999 q 46.9333,0 76.8,12.8 30.4,12.8 44.8,36.8 14.4,23.4667 14.4,57.6 0,18.6666 -7.4667,33.0666 -6.9333,14.4 -17.0667,24 -10.1333,9.0667 -19.2,13.8667 20.8,9.0666 36.2667,30.9333 15.4666,21.8666 15.4666,50.1333 0,36.2666 -16.5333,61.8666 -16,25.0667 -46.9333,38.9333 -30.9333,13.3334 -75.7333,13.3334 z m 91.2,-75.2 h 68.2666 q 20.8,0 30.9333,-11.7333 10.1333,-12.2667 10.1333,-27.7333 0,-16 -10.6666,-27.7334 -10.1333,-11.7333 -30.4,-11.7333 h -68.2666 z m 0,-151.4666 h 63.4666 q 19.7333,0 28.8,-10.6666 9.6,-10.6667 9.6,-25.6 0,-14.9333 -9.6,-25.0667 -9.0667,-10.6666 -28.8,-10.6666 h -63.4666 z"
+       id="text16"
+       style="font-size:533.333px;line-height:3;font-family:Rubik;-inkscape-font-specification:'Rubik, @wght=750';font-variation-settings:'wght' 750;text-align:center;letter-spacing:80px;word-spacing:-174.8px;text-anchor:middle;fill-rule:evenodd;stroke-width:302.362;stroke-linecap:round;paint-order:stroke markers fill"
+       aria-label="B" /></g><metadata
+     id="metadata3"><rdf:RDF><cc:Work
+         rdf:about=""><dc:title>HeliBoard Launcher Icon</dc:title><dc:creator><cc:Agent><dc:title>https://github.com/FabianOvrWrt</dc:title></cc:Agent></dc:creator><dc:source>https://github.com/Helium314/HeliBoard</dc:source><cc:license
+           rdf:resource="http://creativecommons.org/licenses/by-sa/4.0/" /><dc:rights><cc:Agent><dc:title>CC Attribution-ShareAlike 4.0</dc:title></cc:Agent></dc:rights><dc:date>03/31/2024</dc:date></cc:Work><cc:License
+         rdf:about="http://creativecommons.org/licenses/by-sa/4.0/"><cc:permits
+           rdf:resource="http://creativecommons.org/ns#Reproduction" /><cc:permits
+           rdf:resource="http://creativecommons.org/ns#Distribution" /><cc:requires
+           rdf:resource="http://creativecommons.org/ns#Notice" /><cc:requires
+           rdf:resource="http://creativecommons.org/ns#Attribution" /><cc:permits
+           rdf:resource="http://creativecommons.org/ns#DerivativeWorks" /><cc:requires
+           rdf:resource="http://creativecommons.org/ns#ShareAlike" /></cc:License></rdf:RDF></metadata></svg>

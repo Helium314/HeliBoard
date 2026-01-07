@@ -1,0 +1,9 @@
+* Aggiornate icone tasti correzione automatica e selezione barra strumenti
+* Aggiunto layout Chuvash
+* Aggiunto tasto Taglia alla barra strumenti
+* Aggiornato layout Probhat
+* Impostazioni barra strumenti mostrano le icone
+* Aggiunto pulsante Chiudi nella cronologia appunti
+* Aggiunto layout Russo Studente
+* Opzione per rendere facoltativo il tastierino numerico su pressione prolungata
+* Correzioni e miglioramenti minori

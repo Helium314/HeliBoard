@@ -1,207 +1,445 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!-- 
-/*
-**
-** Copyright 2008, The Android Open Source Project
-**
-** Licensed under the Apache License, Version 2.0 (the "License");
-** you may not use this file except in compliance with the License.
-** You may obtain a copy of the License at
-**
-**     http://www.apache.org/licenses/LICENSE-2.0
-**
-** Unless required by applicable law or agreed to in writing, software
-** distributed under the License is distributed on an "AS IS" BASIS,
-** WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-** See the License for the specific language governing permissions and
-** limitations under the License.
-*/
- -->
-
-<resources xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="english_ime_input_options" msgid="3909945612939668554">"Настройки"</string>
-    <string name="use_contacts_for_spellchecking_option_title" msgid="5374120998125353898">"Поиск в контактах"</string>
-    <string name="use_contacts_for_spellchecking_option_summary" msgid="8754413382543307713">"Использовать имена контактов при проверке правописания"</string>
-    <string name="vibrate_on_keypress" msgid="5258079494276955460">"Виброотклик клавиш"</string>
-    <string name="sound_on_keypress" msgid="6093592297198243644">"Звук клавиш"</string>
-    <string name="popup_on_keypress" msgid="123894815723512944">"Увеличивать при нажатии"</string>
-    <string name="settings_screen_preferences" msgid="2696713156722014624">"Настройки"</string>
-    <string name="settings_screen_accounts" msgid="2786418968536696670">"Аккаунты"</string>
-    <string name="settings_screen_appearance" msgid="7358046399111611615">"Вид и раскладки"</string>
-    <string name="settings_screen_gesture" msgid="8826372746901183556">"Непрерывный ввод"</string>
-    <string name="settings_screen_correction" msgid="1616818407747682955">"Исправление текста"</string>
-    <string name="settings_screen_advanced" msgid="7472408607625972994">"Дополнительные настройки"</string>
-    <string name="settings_screen_theme" msgid="2137262503543943871">"Тема"</string>
-    <string name="enable_split_keyboard" msgid="4177264923999493614">"Включить разделенную клавиатуру"</string>
-    <string name="include_other_imes_in_language_switch_list" msgid="4533689960308565519">"Смена способов ввода"</string>
-    <string name="include_other_imes_in_language_switch_list_summary" msgid="840637129103317635">"Клавиша переключения языков также служит для смены способа ввода"</string>
-    <string name="show_language_switch_key" msgid="5915478828318774384">"Клавиша смены языка"</string>
-    <string name="show_language_switch_key_summary" msgid="7343403647474265713">"Показывать, когда включено несколько раскладок"</string>
-    <string name="key_preview_popup_dismiss_delay" msgid="6213164897443068248">"Задержка закрытия"</string>
-    <string name="key_preview_popup_dismiss_no_delay" msgid="2096123151571458064">"Без задержки"</string>
-    <string name="key_preview_popup_dismiss_default_delay" msgid="2166964333903906734">"По умолчанию"</string>
-    <string name="abbreviation_unit_milliseconds" msgid="8700286094028323363">"<xliff:g id="MILLISECONDS">%s</xliff:g> мс"</string>
-    <string name="settings_system_default" msgid="6268225104743331821">"По умолчанию"</string>
-    <string name="use_contacts_dict" msgid="4435317977804180815">"Подсказывать имена"</string>
-    <string name="use_contacts_dict_summary" msgid="6599983334507879959">"Подсказывать исправления на основе имен из списка контактов"</string>
-    <string name="use_personalized_dicts" msgid="5167396352105467626">"Пользовательские словари"</string>
-    <string name="enable_metrics_logging" msgid="5506372337118822837">"Помочь улучшить приложение <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
-    <string name="use_double_space_period" msgid="8781529969425082860">"Точки автоматически"</string>
-    <string name="use_double_space_period_summary" msgid="6532892187247952799">"Вводить точку с пробелом двойным нажатием пробела."</string>
-    <string name="auto_cap" msgid="1719746674854628252">"Заглавные автоматически"</string>
-    <string name="auto_cap_summary" msgid="7934452761022946874">"Писать первое слово предложения с прописной буквы"</string>
-    <string name="edit_personal_dictionary" msgid="3996910038952940420">"Личный словарь"</string>
-    <string name="configure_dictionaries_title" msgid="4238652338556902049">"Дополнительные словари"</string>
-    <string name="main_dictionary" msgid="4798763781818361168">"Основной словарь"</string>
-    <string name="prefs_show_suggestions" msgid="8026799663445531637">"Варианты исправлений"</string>
-    <string name="prefs_show_suggestions_summary" msgid="1583132279498502825">"Предлагать варианты слов во время ввода"</string>
-    <string name="prefs_block_potentially_offensive_title" msgid="5078480071057408934">"Блокировка нецензурных слов"</string>
-    <string name="prefs_block_potentially_offensive_summary" msgid="2371835479734991364">"Не предлагать слова, которые могут быть сочтены оскорбительными"</string>
-    <string name="auto_correction" msgid="7630720885194996950">"Автоисправление"</string>
-    <string name="auto_correction_summary" msgid="5625751551134658006">"Автоматическое исправление опечаток при вводе знака препинания или пробела"</string>
-    <string name="auto_correction_threshold_mode_off" msgid="8470882665417944026">"Отключено"</string>
-    <string name="auto_correction_threshold_mode_modest" msgid="8788366690620799097">"Умеренное"</string>
-    <string name="auto_correction_threshold_mode_aggressive" msgid="7319007299148899623">"Активно"</string>
-    <string name="auto_correction_threshold_mode_very_aggressive" msgid="1853309024129480416">"Очень активно"</string>
-    <string name="bigram_prediction" msgid="1084449187723948550">"Подсказывать слова"</string>
-    <string name="bigram_prediction_summary" msgid="3896362682751109677">"Предлагать подсказки на основе предыдущего слова"</string>
-    <string name="gesture_input" msgid="826951152254563827">"Включить функцию"</string>
-    <string name="gesture_input_summary" msgid="9180350639305731231">"Вводите слова, не отрывая пальца от клавиатуры"</string>
-    <string name="gesture_preview_trail" msgid="3802333369335722221">"Рисовать линию"</string>
-    <string name="gesture_floating_preview_text" msgid="4443240334739381053">"Показывать подсказки"</string>
-    <string name="gesture_floating_preview_text_summary" msgid="4472696213996203533">"Показывать подсказки при вводе текста"</string>
-    <string name="gesture_space_aware" msgid="2078291600664682496">"Непрерывный ввод фраз"</string>
-    <string name="gesture_space_aware_summary" msgid="4371385818348528538">"Проводите по клавише пробела после каждого слова"</string>
-    <string name="voice_input" msgid="3583258583521397548">"Клавиша голосового ввода"</string>
-    <string name="voice_input_disabled_summary" msgid="6323489602945135165">"Голосовой способ ввода не включен. Проверьте раздел настроек \"Язык и ввод\"."</string>
-    <string name="configure_input_method" msgid="373356270290742459">"Настройка способов ввода"</string>
-    <string name="language_selection_title" msgid="3666971864764478269">"Выберите язык"</string>
-    <string name="help_and_feedback" msgid="5328219371839879161">"Справка/отзыв"</string>
-    <string name="select_language" msgid="5709487854987078367">"Язык"</string>
-    <string name="hint_add_to_dictionary" msgid="2645988432867033007">"Чтобы сохранить, нажмите ещё раз"</string>
-    <string name="hint_add_to_dictionary_without_word" msgid="6710206006427574423">"Чтобы сохранить, нажмите здесь"</string>
-    <string name="has_dictionary" msgid="6071847973466625007">"Доступен словарь"</string>
-    <string name="keyboard_layout" msgid="8451164783510487501">"Тема клавиатуры"</string>
-    <string name="switch_accounts" msgid="3321216593719006162">"Сменить аккаунт"</string>
-    <string name="no_accounts_selected" msgid="2073821619103904330">"Аккаунт не выбран"</string>
-    <string name="account_selected" msgid="2846876462199625974">"Используется аккаунт <xliff:g id="EMAIL_ADDRESS">%1$s</xliff:g>"</string>
-    <string name="account_select_ok" msgid="9141195141763227797">"ОК"</string>
-    <string name="account_select_cancel" msgid="5181012062618504340">"Отмена"</string>
-    <string name="account_select_sign_out" msgid="3299651159390187933">"Выйти"</string>
-    <string name="account_select_title" msgid="6279711684772922649">"Выберите аккаунт"</string>
-    <string name="subtype_en_GB" msgid="88170601942311355">"Английский (Великобритания)"</string>
-    <string name="subtype_en_US" msgid="6160452336634534239">"Английский (США)"</string>
-    <string name="subtype_es_US" msgid="5583145191430180200">"Испанский (США)"</string>
-    <string name="subtype_hi_ZZ" msgid="8860448146262798623">"Хинглиш"</string>
-    <string name="subtype_sr_ZZ" msgid="9059219552986034343">"Сербский (латиница)"</string>
-    <string name="subtype_with_layout_en_GB" msgid="1931018968641592304">"Английский (Великобритания, <xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_en_US" msgid="8809311287529805422">"Английский (США, <xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_es_US" msgid="510930471167541338">"Испанский (США, <xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_hi_ZZ" msgid="6827402953860547044">"Хинглиш (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_sr_ZZ" msgid="2859024772719772407">"Сербский (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_generic_traditional" msgid="8584594350973800586">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (классическая)"</string>
-    <string name="subtype_generic_compact" msgid="3353673321203202922">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (компактная раскладка)"</string>
-    <string name="subtype_no_language" msgid="7137390094240139495">"Язык не определен (латиница)"</string>
-    <string name="subtype_no_language_qwerty" msgid="244337630616742604">"Латиница (QWERTY)"</string>
-    <string name="subtype_no_language_qwertz" msgid="443066912507547976">"Латиница (QWERTZ)"</string>
-    <string name="subtype_no_language_azerty" msgid="8144348527575640087">"Латиница (AZERTY)"</string>
-    <string name="subtype_no_language_dvorak" msgid="1564494667584718094">"Латиница (Dvorak)"</string>
-    <string name="subtype_no_language_colemak" msgid="5837418400010302623">"Латиница (Colemak)"</string>
-    <string name="subtype_no_language_pcqwerty" msgid="5354918232046200018">"Латиница (ПК)"</string>
-    <string name="subtype_emoji" msgid="7483586578074549196">"Эмодзи"</string>
-    <string name="keyboard_theme" msgid="4909551808526178852">"Тема клавиатуры"</string>
-    <string name="custom_input_styles_title" msgid="8429952441821251512">"Свои стили ввода"</string>
-    <string name="add_style" msgid="6163126614514489951">"Добавить стиль"</string>
-    <string name="add" msgid="8299699805688017798">"Добавить"</string>
-    <string name="remove" msgid="4486081658752944606">"Удалить"</string>
-    <string name="save" msgid="7646738597196767214">"Сохранить"</string>
-    <string name="subtype_locale" msgid="8576443440738143764">"Язык"</string>
-    <string name="keyboard_layout_set" msgid="4309233698194565609">"Раскладка"</string>
-    <string name="custom_input_style_note_message" msgid="8826731320846363423">"Необходимо включить персонализированный стиль ввода."</string>
-    <string name="enable" msgid="5031294444630523247">"Включить"</string>
-    <string name="not_now" msgid="6172462888202790482">"Не сейчас"</string>
-    <string name="custom_input_style_already_exists" msgid="8008728952215449707">"Такой стиль ввода уже существует: <xliff:g id="INPUT_STYLE_NAME">%s</xliff:g>"</string>
-    <string name="prefs_keypress_vibration_duration_settings" msgid="7918341459947439226">"Длительность вибро при нажатии"</string>
-    <string name="prefs_keypress_sound_volume_settings" msgid="6027007337036891623">"Громкость звука при нажатии"</string>
-    <string name="prefs_key_longpress_timeout_settings" msgid="6102240298932897873">"Долгое нажатие"</string>
-    <string name="prefs_enable_emoji_alt_physical_key" msgid="5963640002335470112">"Смайлики с внешней клавиатуры"</string>
-    <string name="prefs_enable_emoji_alt_physical_key_summary" msgid="5259484820941627827">"Открывать список смайликов нажатием клавиши ALT"</string>
-    <string name="button_default" msgid="3988017840431881491">"По умолчанию"</string>
-    <string name="setup_welcome_title" msgid="6112821709832031715">"Представляем приложение \"<xliff:g id="APPLICATION_NAME">%s</xliff:g>\""</string>
-    <string name="setup_welcome_additional_description" msgid="8150252008545768953">"с непрерывным вводом"</string>
-    <string name="setup_start_action" msgid="8936036460897347708">"Начать работу"</string>
-    <string name="setup_next_action" msgid="371821437915144603">"Далее"</string>
-    <string name="setup_steps_title" msgid="6400373034871816182">"<xliff:g id="APPLICATION_NAME">%s</xliff:g>: настройка"</string>
-    <string name="setup_step1_title" msgid="3147967630253462315">"<xliff:g id="APPLICATION_NAME">%s</xliff:g>: включение"</string>
-    <string name="setup_step1_instruction" msgid="4295448056733329661">"Чтобы включить приложение \"<xliff:g id="APPLICATION_NAME">%s</xliff:g>\", установите флажок рядом с его названием в настройках языка и ввода."</string>
-    <string name="setup_step1_finished_instruction" msgid="8701441895377434947">"Приложение \"<xliff:g id="APPLICATION_NAME">%s</xliff:g>\" уже включено в настройках языка и ввода. Перейдите к следующему шагу."</string>
-    <string name="setup_step1_action" msgid="4366513534999901728">"Включить в настройках"</string>
-    <string name="setup_step2_title" msgid="6860725447906690594">"<xliff:g id="APPLICATION_NAME">%s</xliff:g>: активация"</string>
-    <string name="setup_step2_instruction" msgid="9141481964870023336">"Выберите приложение \"<xliff:g id="APPLICATION_NAME">%s</xliff:g>\" как текущий способ ввода."</string>
-    <string name="setup_step2_action" msgid="1660330307159824337">"Другой способ ввода"</string>
-    <string name="setup_step3_title" msgid="3154757183631490281">"Настройте дополнительные языки."</string>
-    <string name="setup_step3_instruction" msgid="8025981829605426000">"Теперь вы можете использовать приложение \"<xliff:g id="APPLICATION_NAME">%s</xliff:g>\" для набора текста."</string>
-    <string name="setup_step3_action" msgid="600879797256942259">"Настроить дополнительные языки"</string>
-    <string name="setup_finish_action" msgid="276559243409465389">"Готово"</string>
-    <string name="show_setup_wizard_icon" msgid="5008028590593710830">"Значок приложения"</string>
-    <string name="show_setup_wizard_icon_summary" msgid="4119998322536880213">"Отображать значок приложения среди других приложений."</string>
-    <string name="app_name" msgid="6320102637491234792">"Поставщик словарей"</string>
-    <string name="dictionary_provider_name" msgid="3027315045397363079">"Поставщик словарей"</string>
-    <string name="dictionary_service_name" msgid="6237472350693511448">"Служба словарей"</string>
-    <string name="download_description" msgid="6014835283119198591">"Обновления словаря"</string>
-    <string name="dictionary_settings_title" msgid="8091417676045693313">"Дополнительные словари"</string>
-    <string name="dictionary_settings_summary" msgid="5305694987799824349">"Настройки словарей"</string>
-    <string name="user_dictionaries" msgid="3582332055892252845">"Пользовательские словари"</string>
-    <string name="default_user_dict_pref_name" msgid="1625055720489280530">"Пользовательский словарь"</string>
-    <string name="dictionary_available" msgid="4728975345815214218">"Доступен словарь"</string>
-    <string name="dictionary_downloading" msgid="2982650524622620983">"Загрузка…"</string>
-    <string name="dictionary_installed" msgid="8081558343559342962">"Установлен"</string>
-    <string name="dictionary_disabled" msgid="8950383219564621762">"Установлен, отключен"</string>
-    <string name="cannot_connect_to_dict_service" msgid="9216933695765732398">"Сбой подключения"</string>
-    <string name="no_dictionaries_available" msgid="8039920716566132611">"Словарей нет"</string>
-    <string name="check_for_updates_now" msgid="8087688440916388581">"Обновить"</string>
-    <string name="last_update" msgid="730467549913588780">"Последнее обновление"</string>
-    <string name="message_updating" msgid="4457761393932375219">"Проверка обновлений…"</string>
-    <string name="message_loading" msgid="5638680861387748936">"Загрузка…"</string>
-    <string name="main_dict_description" msgid="3072821352793492143">"Основной словарь"</string>
-    <string name="cancel" msgid="6830980399865683324">"Отмена"</string>
-    <string name="go_to_settings" msgid="3876892339342569259">"Настройки"</string>
-    <string name="install_dict" msgid="180852772562189365">"Установить"</string>
-    <string name="cancel_download_dict" msgid="7843340278507019303">"Отмена"</string>
-    <string name="delete_dict" msgid="756853268088330054">"Удалить"</string>
-    <string name="version_text" msgid="2715354215568469385">"Версия <xliff:g id="VERSION_NUMBER">%1$s</xliff:g>"</string>
-    <string name="user_dict_settings_add_menu_title" msgid="1254195365689387076">"Добавить"</string>
-    <string name="user_dict_settings_add_dialog_title" msgid="4096700390211748168">"Добавление в словарь"</string>
-    <string name="user_dict_settings_add_screen_title" msgid="5818914331629278758">"Фраза"</string>
-    <string name="user_dict_settings_add_dialog_more_options" msgid="5671682004887093112">"Больше настроек"</string>
-    <string name="user_dict_settings_add_dialog_less_options" msgid="2716586567241724126">"Меньше настроек"</string>
-    <string name="user_dict_settings_add_dialog_confirm" msgid="4703129507388332950">"ОК"</string>
-    <string name="user_dict_settings_add_word_option_name" msgid="6665558053408962865">"Слово:"</string>
-    <string name="user_dict_settings_add_shortcut_option_name" msgid="3094731590655523777">"Быстрые клавиши:"</string>
-    <string name="user_dict_settings_add_locale_option_name" msgid="4738643440987277705">"Язык:"</string>
-    <string name="user_dict_settings_add_word_hint" msgid="4902434148985906707">"Введите слово"</string>
-    <string name="user_dict_settings_add_shortcut_hint" msgid="2265453012555060178">"Ярлык для фразы (необязательно)"</string>
-    <string name="user_dict_settings_edit_dialog_title" msgid="3765774633869590352">"Изменение слова"</string>
-    <string name="user_dict_settings_context_menu_edit_title" msgid="6812255903472456302">"Изменить"</string>
-    <string name="user_dict_settings_context_menu_delete_title" msgid="8142932447689461181">"Удалить"</string>
-    <string name="user_dict_settings_empty_text" msgid="6889278304342592383">"В пользовательском словаре пока ничего нет. Добавлять слова можно с помощью кнопки \"Добавить (+)\"."</string>
-    <string name="user_dict_settings_all_languages" msgid="8276126583216298886">"Для всех языков"</string>
-    <string name="user_dict_settings_more_languages" msgid="7131268499685180461">"Другой язык"</string>
-    <string name="user_dict_settings_delete" msgid="110413335187193859">"Удалить"</string>
-    <string name="user_dict_fast_scroll_alphabet" msgid="5431919401558285473">" АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ"</string>
-    <string name="number_row">"Ряд с цифрами"</string>
-    <string name="number_row_summary">"Всегда показывать отдельный ряд с цифрами."</string>
-    <string name="show_hints">"Подсказывать символы"</string>
-    <string name="show_hints_summary">"Показывать символы на клавишах"</string>
-    <string name="prefs_resize_keyboard">"Включить изменение размера клавиатуры"</string>
-    <string name="prefs_keyboard_height_scale">"Масштабирование по высоте"</string>
-    <string name="delete_swipe">"Удаление жестом"</string>
-    <string name="space_trackpad">"Жест по пробелу"</string>
-    <string name="delete_swipe_summary">"Включить быстрое удаление текста жестом по клавише удаления."</string>
-    <string name="space_trackpad_summary">"Перемещать курсор жестом по клавише пробела."</string>
-    <string name="more_keys_strip_description">"Ещё клавиши"</string>
-    <string name="prefs_force_incognito_mode">"Режим инкогнито"</string>
-    <string name="prefs_force_incognito_mode_summary">"Не запоминать новые слова."</string>
-    <string name="show_emoji_key">"Клавиша смайликов"</string>
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright (C) 2008 The Android Open Source Project
+    modified
+    SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
+--><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" xmlns:tools="http://schemas.android.com/tools">
+    <string name="use_contacts_dict">"Поиск в контактах"</string>
+    <string name="vibrate_on_keypress">"Виброотклик клавиш"</string>
+    <string name="sound_on_keypress">"Звук клавиш"</string>
+    <string name="popup_on_keypress">"Увеличивать при нажатии"</string>
+    <string name="settings_screen_preferences">"Настройки"</string>
+    <string name="settings_screen_appearance">Оформление</string>
+    <string name="settings_screen_gesture">"Непрерывный ввод"</string>
+    <string name="settings_screen_correction">"Исправление текста"</string>
+    <string name="settings_screen_advanced">Дополнительные</string>
+    <string name="settings_screen_theme">"Тема"</string>
+    <string name="enable_split_keyboard">Включить разделение клавиатуры</string>
+    <string name="language_switch_key_switch_input_method">Смена методов ввода</string>
+    <string name="show_language_switch_key">"Клавиша смены языка"</string>
+    <string name="abbreviation_unit_milliseconds">%s мс.</string>
+    <string name="settings_system_default">"По умолчанию"</string>
+    <string name="use_contacts_dict_summary">Использовать имена из Контактов для предложений и исправлений</string>
+    <string name="use_personalized_dicts">"Пользовательские словари"</string>
+    <string name="use_double_space_period">"Точки автоматически"</string>
+    <string name="use_double_space_period_summary">Двойное нажатие на клавишу пробела вставляет точку и пробел</string>
+    <string name="auto_cap">"Заглавные автоматически"</string>
+    <string name="auto_cap_summary">Автоматически ставить заглавную букву в начале предложений</string>
+    <string name="edit_personal_dictionary">"Личный словарь"</string>
+    <string name="main_dictionary">"Основной словарь"</string>
+    <string name="prefs_show_suggestions">Показывать варианты исправлений</string>
+    <string name="prefs_show_suggestions_summary">"Предлагать варианты слов во время ввода"</string>
+    <string name="prefs_block_potentially_offensive_title">Блокировать нецензурные слова</string>
+    <string name="prefs_block_potentially_offensive_summary">"Не предлагать слова, которые могут быть сочтены оскорбительными"</string>
+    <string name="autocorrect">"Автоисправление"</string>
+    <string name="auto_correction_summary">"Автоматическое исправление опечаток при вводе знака препинания или пробела"</string>
+    <string name="auto_correction_threshold_mode_off">Откл.</string>
+    <string name="auto_correction_threshold_mode_modest">"Умеренное"</string>
+    <string name="auto_correction_threshold_mode_aggressive">Активное</string>
+    <string name="auto_correction_threshold_mode_very_aggressive">Агрессивное</string>
+    <string name="bigram_prediction">Предлагать следующее слово</string>
+    <string name="bigram_prediction_summary">Учитывать предыдущее слово при формировании предложений</string>
+    <string name="gesture_input">"Включить функцию"</string>
+    <string name="gesture_input_summary">Набирайте текст, проводя по буквам и не отрывая палец от экрана</string>
+    <string name="gesture_preview_trail">Рисовать линию</string>
+    <string name="gesture_floating_preview_text">Показывать подсказки</string>
+    <string name="gesture_space_aware">Непрерывный ввод фраз</string>
+    <string name="gesture_space_aware_summary">Умный пробел при жестах: вводите несколько слов, проводя пальцем через пробел</string>
+    <string name="subtype_en_GB">Английский (Великобритания)</string>
+    <string name="subtype_en_US">Английский (США)</string>
+    <string name="subtype_es_US">Испанский (США)</string>
+    <string name="subtype_hi_Latn">Хинглиш</string>
+    <string name="subtype_mns">Мансийский</string>
+    <string name="subtype_xdq">Кайтагский</string>
+    <string name="subtype_sr_Latn">Сербский (Латиница)</string>
+    <string name="subtype_generic_traditional">%s (Традиционная)</string>
+    <string name="subtype_generic_compact">%s (Компактная)</string>
+    <string name="subtype_no_language">Стандартная</string>
+    <string name="subtype_emoji">Эмодзи</string>
+    <string name="add">Добавить</string>
+    <string name="remove">Удалить</string>
+    <string name="save">Сохранить</string>
+    <string name="subtype_locale">Язык</string>
+    <string name="keyboard_layout_set">Раскладка</string>
+    <string name="prefs_keypress_vibration_duration_settings">Вибросигнал при нажатии клавиш</string>
+    <string name="prefs_keypress_sound_volume_settings">Звук при нажатии клавиш</string>
+    <string name="prefs_key_longpress_timeout_settings">Длительность долгого нажатия</string>
+    <string name="prefs_enable_emoji_alt_physical_key">Эмодзи для физической клавиатуры</string>
+    <string name="prefs_enable_emoji_alt_physical_key_summary">Физическая клавиша Alt показывает все доступные эмодзи</string>
+    <string name="button_default">По умолчанию</string>
+    <string name="setup_welcome_title">Добро пожаловать в %s</string>
+    <string name="setup_welcome_additional_description">с непрерывным вводом</string>
+    <string name="setup_start_action">Начать работу</string>
+    <string name="setup_steps_title">Настроить %s</string>
+    <string name="setup_step1_title">Включить %s</string>
+    <string name="setup_step1_instruction">Убедитесь, что приложение \"%s\" включено в настройках языка и ввода. Это позволит ему работать на вашем устройстве.</string>
+    <string name="setup_step1_action">Включить в настройках</string>
+    <string name="setup_step2_title">Переключитесь на %s</string>
+    <string name="setup_step2_instruction">Теперь выберите \"%s\" в качестве активного метода ввода текста.</string>
+    <string name="setup_step2_action">Другой способ ввода</string>
+    <string name="setup_step3_title">Поздравляем, всё готово!</string>
+    <string name="setup_step3_instruction">Теперь вы можете использовать приложение %s для набора текста.</string>
+    <string name="setup_finish_action">Готово</string>
+    <string name="show_setup_wizard_icon">Показывать значок приложения</string>
+    <string name="show_setup_wizard_icon_summary">Отображать значок приложения на панели запуска</string>
+    <string name="dictionary_category_title">Дополнительные словари</string>
+    <string name="dictionary_available">Доступный словарь</string>
+    <string name="settings">Настройки</string>
+    <string name="delete">Удалить</string>
+    <string name="version_text">Версия %s</string>
+    <string name="user_dict_settings_add_shortcut_option_name">"Быстрые клавиши:"</string>
+    <string name="user_dict_settings_add_locale_option_name">"Язык:"</string>
+    <string name="user_dict_settings_add_word_hint">Введите слово</string>
+    <string name="user_dict_settings_add_shortcut_hint">Ярлык для фразы (необязательно)</string>
+    <string name="user_dict_settings_edit_dialog_title">Изменение слова</string>
+    <string name="user_dict_settings_all_languages">Для всех языков</string>
+    <string name="user_dict_settings_more_languages">Другие языки…</string>
+    <string name="number_row">Ряд с цифрами</string>
+    <string name="number_row_summary">Всегда показывать ряд с цифрами</string>
+    <string name="show_hints">Показывать дополнительные символы</string>
+    <string name="show_hints_summary">Показывать дополнительные символы для ввода долгим нажатием</string>
+    <string name="prefs_narrow_key_gaps">Увеличенные клавиши</string>
+    <string name="prefs_keyboard_height_scale">Масштабирование по высоте</string>
+    <string name="url_detection_title">Обнаружение URL-адреса</string>
+    <string name="url_detection_summary">Попытаться обнаружить URL-адреса и схожие конструкции как единое целое</string>
+    <string name="delete_swipe">Удаление жестом</string>
+    <string name="delete_swipe_summary">Проведите пальцем от клавиши удаления, чтобы выделить и сразу удалить большие фрагменты текста</string>
+    <string name="backup_restore_title">Резервное копирование и восстановление</string>
+    <string name="backup_restore_message">Сохранение в файл или загрузка из него. Внимание: восстановление перезапишет текущие данные</string>
+    <string name="backup_error">Ошибка резервного копирования: %s</string>
+    <string name="restore_error">Ошибка восстановления из резервной копии: %s</string>
+    <string name="button_backup">Сохранить</string>
+    <string name="button_restore">Загрузить</string>
+    <string name="secondary_locale">Многоязычный набор текста</string>
+    <string name="load_gesture_library">Загрузить библиотеку ввода жестами</string>
+    <string name="load_gesture_library_summary">Предоставьте встроенную библиотеку для включения ввода жестами</string>
+    <string name="more_keys_strip_description">Больше клавиш</string>
+    <string name="incognito">Включить режим инкогнито</string>
+    <string name="prefs_force_incognito_mode_summary">Отключить запоминание новых слов</string>
+    <string name="show_emoji_key">Клавиша эмодзи</string>
+    <string name="settings_category_clipboard_history">История буфера обмена</string>
+    <string name="enable_clipboard_history">Включить журнал буфера обмена</string>
+    <string name="spell_checker_service_name">Проверка правописания HeliBoard</string>
+    <string name="android_spell_checker_settings">Настройки проверки правописания</string>
+    <string name="abbreviation_unit_minutes">%s мин.</string>
+    <string name="ime_settings">Настройки HeliBoard</string>
+    <string name="settings_no_limit">Без ограничения</string>
+    <string name="clipboard_history_retention_time">Время хранения журнала буфера обмена</string>
+    <string name="subtype_akkhor_bn_BD">%s (Акхор)</string>
+    <string name="subtype_dru">Даргинский (Урахи)</string>
+    <string name="key_borders">Контуры клавиш</string>
+    <string name="day_night_mode">Использовать тему системы</string>
+    <string name="theme_style">Стиль темы</string>
+    <string name="style_name_Rounded">Закруглённый</string>
+    <string name="theme_colors">Цвета темы</string>
+    <string name="theme_colors_night">Цвета темы (тёмная тема)</string>
+    <string name="day_night_mode_summary">Внешний вид будет следовать настройкам системы</string>
+    <string name="autospace_after_punctuation_summary">Автоматически добавлять пробел после знаков препинания при вводе нового слова</string>
+    <string name="enable_clipboard_history_summary">Если отключено, клавиша буфера обмена вставит содержимое буфера обмена, если оно есть</string>
+    <string name="autospace_after_punctuation">Автоматически добавлять пробел после знаков препинания</string>
+    <string name="prefs_long_press_keyboard_to_change_lang">Изменять метод ввода с помощью пробела</string>
+    <string name="settings_category_experimental">Экспериментальные</string>
+    <string name="settings_category_miscellaneous">Другие настройки (разное)</string>
+    <string name="settings_category_correction">Исправления</string>
+    <string name="settings_category_input">Настройки ввода</string>
+    <string name="settings_category_additional_keys">Дополнительные клавиши</string>
+    <string name="settings_category_suggestions">Предложения</string>
+    <string name="prefs_long_press_keyboard_to_change_lang_summary">Долгое нажатие клавиши пробела вызовет меню выбора метода ввода</string>
+    <string name="theme_navbar">Цвет панели навигации</string>
+    <string name="auto_correction_confidence">Точность автоисправления</string>
+    <string name="theme_name_light">Светлая</string>
+    <string name="theme_name_dark">Тёмная</string>
+    <string name="theme_name_darker">Серая</string>
+    <string name="theme_name_black">Чёрная</string>
+    <string name="theme_name_user">Пользовательская</string>
+    <string name="auto_user_color">Автоматический выбор цвета</string>
+    <string name="select_color_background">Фон клавиатуры</string>
+    <string name="select_color_key">Текст клавиш</string>
+    <string name="select_color_key_hint">Текст спецсимволов клавиш</string>
+    <string name="select_color_key_background">Фон клавиш</string>
+    <string name="select_color_functional_key_background">Фон функциональных клавиш</string>
+    <string name="select_color_spacebar_background">Фон пробела</string>
+    <string name="select_color_spacebar_text">Текст пробела</string>
+    <string name="select_color_accent">Акцент</string>
+    <string name="settings_screen_about">Справка</string>
+    <string name="version">Версия</string>
+    <string name="about_github_link">Посмотреть на GitHub</string>
+    <string name="license">Лицензия с открытым исходным кодом</string>
+    <string name="gnu_gpl">Стандартная общественная лицензия GNU v3.0</string>
+    <string name="dialog_close">Закрыть</string>
+    <string name="text_tap_languages">Нажмите на язык для настроек</string>
+    <string name="select_input_method">"Выберите метод ввода"</string>
+    <string name="hidden_features_title">Описание скрытых функций</string>
+    <string name="hidden_features_summary">Показать функции, которые могут остаться незамеченными</string>
+    <string name="undo">"Отменить"</string>
+    <string name="redo">"Повторить"</string>
+    <string name="use_personalized_dicts_summary">Анализировать переписку и введённый текст для улучшения предложений</string>
+    <string name="label_go_key">"ОК"</string>
+    <string name="label_next_key">"Далее"</string>
+    <string name="label_previous_key">"Назад"</string>
+    <string name="label_done_key">Готово</string>
+    <string name="label_send_key">"Отправить"</string>
+    <string name="label_search_key">"Поиск"</string>
+    <string name="label_pause_key">"Пауза"</string>
+    <string name="label_wait_key">Ждать</string>
+    <string name="prefs_always_show_suggestions">Всегда показывать предложения</string>
+    <string name="internal_dictionary_summary">Внутренний основной словарь</string>
+    <string name="main_colors">Показывать только основные цвета</string>
+    <string name="voice" tools:keep="@string/voice">Голосовой ввод</string>
+    <string name="theme_name_dynamic" tools:keep="@string/theme_name_dynamic">Динамические цвета</string>
+    <string name="show_popup_hints">Показать функциональные подсказки</string>
+    <string name="message_add_custom_layout">Выберите файл в совместимом формате. Информация о форматах доступна %s.</string>
+    <string name="subtype_generic_sebeolsik_390">%s (Себольсик 390)</string>
+    <string name="add_to_personal_dictionary_summary">Использовать личный словарь устройства для хранения выученных слов</string>
+    <string name="subtype_generic_sebeolsik_final">%s (Себольсик финальная)</string>
+    <string name="theme_name_chocolate" tools:keep="@string/theme_name_chocolate">Шоколад</string>
+    <string name="theme_name_cloudy" tools:keep="@string/theme_name_cloudy">Облачная</string>
+    <string name="day_or_night_day">День</string>
+    <string name="popup_keys_language_priority" tools:keep="@string/popup_keys_language_priority">Язык (приоритет)</string>
+    <string name="add_to_personal_dictionary">Добавить слова в личный словарь</string>
+    <string name="customize_background_image">Установить фоновое изображение</string>
+    <string name="edit_layout">Нажмите, чтобы отредактировать базовую раскладку</string>
+    <string name="theme_name_pink" tools:keep="@string/theme_name_pink">Розовая</string>
+    <string name="language_and_layouts_title">Языки и раскладки</string>
+    <string name="hidden_features_text">хранилище, защищённое устройством</string>
+    <string name="theme_name_forest" tools:keep="@string/theme_name_forest">Лес</string>
+    <string name="load_gesture_library_message">Вам понадобится библиотека для \'%s\'. Несовместимые библиотеки могут привести к сбою при использовании набора текста с помощью жестов. \n\nВнимание: загрузка внешнего кода может представлять угрозу безопасности. Используйте библиотеку только из источника, которому вы доверяете.</string>
+    <string name="load_gesture_library_button_delete">Удалить</string>
+    <string name="localized_number_row_summary">Предпочитать локализованные латинские цифры</string>
+    <string name="checksum_mismatch_message">Неизвестный файл библиотеки. Вы уверены, что получили его из надёжного источника и оно предназначено для \'%s\'?</string>
+    <string name="theme_name_blue_gray" tools:keep="@string/theme_name_blue_gray">Серо-голубой</string>
+    <string name="user_dict_add_word_button">Добавить слово</string>
+    <string name="select_color_suggestion">Текст полосы предложений</string>
+    <string name="show_popup_keys_normal">Показать варианты, определённые в языках клавиатуры</string>
+    <string name="show_popup_keys_more">Добавить распространённые варианты</string>
+    <string name="replace_dictionary">Заменить словарь</string>
+    <string name="clipboard" tools:keep="@string/clipboard">Буфер обмена</string>
+    <string name="theme_name_indigo" tools:keep="@string/theme_name_indigo">Индиго</string>
+    <string name="popup_keys_number" tools:keep="@string/popup_keys_number">Ряд с цифрами</string>
+    <string name="popup_order">Выберите порядок всплывающих клавиш</string>
+    <string name="hint_source">Выберите источник подсказки</string>
+    <string name="button_select_language">Выберите язык</string>
+    <string name="day_or_night_image">Установить изображение для дневного или ночного режима?</string>
+    <string name="toolbar_keys">Выбрать клавиши панели инструментов</string>
+    <string name="theme_name_ocean" tools:keep="@string/theme_name_ocean">Океан</string>
+    <string name="show_popup_hints_summary">Отображать подсказки, если долгое нажатие клавиши запускает дополнительную функцию</string>
+    <string name="theme_name_sand" tools:keep="@string/theme_name_sand">Песок</string>
+    <string name="select_word" tools:keep="@string/select_word">Выберите слово</string>
+    <string name="all_colors">Показывать все цвета</string>
+    <string name="delete_layout">Действительно удалить пользовательскую раскладку %s?</string>
+    <string name="dictionary_settings_category">Словари</string>
+    <string name="button_title_add_custom_layout">Добавить собственную раскладку</string>
+    <string name="setup_step3_action">Настройка клавиатуры</string>
+    <string name="popup_keys_symbols" tools:keep="@string/popup_keys_symbols">Символы</string>
+    <string name="add_new_dictionary_title">Добавить словарь из файла</string>
+    <string name="theme_name_brown" tools:keep="@string/theme_name_brown">Коричневый</string>
+    <string name="theme_name_violette" tools:keep="@string/theme_name_violette">Виолетта</string>
+    <string name="localized_number_row">Локализация ряда с цифрами</string>
+    <string name="show_popup_keys_all">Добавить все доступные варианты</string>
+    <string name="more_autocorrect">Больше автоисправлений</string>
+    <string name="split_spacer_scale">Расстояние разделения</string>
+    <string name="prefs_always_show_suggestions_summary">Игнорировать запросы других приложений об отключении предложений (может вызвать проблемы)</string>
+    <string name="switch_language">Смена языка</string>
+    <string name="clear_clipboard" tools:keep="@string/clear_clipboard">Очистить буфер обмена</string>
+    <string name="day_or_night_night">Ночь</string>
+    <string name="no_dictionary_dont_show_again_button">Больше не показывать</string>
+    <string name="disable_personalized_dicts_message">Предупреждение: Отключение этого параметра приведёт к удалению изученных данных</string>
+    <string name="load_gesture_library_button_load">Загрузить</string>
+    <string name="prefs_bottom_padding_scale">Высота нижнего отступа</string>
+    <string name="select_color_gesture">Ввод жестами</string>
+    <string name="show_popup_keys_title">Показывать больше букв с диакритическими знаками в всплывающем окне</string>
+    <string name="one_handed" tools:keep="@string/one_handed">Режим одной руки</string>
+    <string name="save_log">Сохранить журнал</string>
+    <string name="popup_keys_layout" tools:keep="@string/popup_keys_layout">Раскладка</string>
+    <string name="more_autocorrect_summary">Автоматически исправлять даже если поле ввода не требует этого</string>
+    <string name="theme_name_holo_white" tools:keep="@string/theme_name_holo_white">Holo Белая</string>
+    <string name="language_switch_key_switch_both">Смена обоих</string>
+    <string name="up" tools:keep="@string/up">Вверх</string>
+    <string name="remove_dictionary_message">Удалить пользовательский словарь «%s»?</string>
+    <string name="file_read_error">Не получается прочитать файл</string>
+    <string name="dictionary_link_text">здесь</string>
+    <string name="add_dictionary">Выберите словарь для добавления. Словари в формате .dict можно загрузить %s.</string>
+    <string name="right" tools:keep="@string/right">Вправо</string>
+    <string name="dictionary_load_error">Ошибка загрузки файла словаря</string>
+    <string name="layout_symbols_shifted">Больше символов</string>
+    <string name="down" tools:keep="@string/down">Вниз</string>
+    <string name="full_left" tools:keep="@string/full_left">Полностью влево</string>
+    <string name="left" tools:keep="@string/left">Влево</string>
+    <string name="replace_dictionary_message">Заменить пользовательский словарь \"%1$s\"?\n\nТекущий словарь:\n%2$s\n\nНовый словарь:\n%3$s</string>
+    <string name="full_right" tools:keep="@string/full_right">Полностью вправо</string>
+    <string name="user_dict_settings_add_weight_value">Вес:</string>
+    <string name="button_load_custom">Загрузить файл</string>
+    <string name="layout_error">Ошибка раскладки: %s</string>
+    <string name="user_dict_word_already_present">Это слово уже присутствует в пользовательском словаре %s. Пожалуйста, введите другое.</string>
+    <string name="dictionary_file_wrong_script">Ошибка: скрипт несовместим с этой клавиатурой</string>
+    <string name="dictionary_file_error">Ошибка: выбранный файл не является корректным словарем</string>
+    <string name="no_dictionary_message">"Без словаря вы будете получать предложения только для введенного ранее текста.&lt;br&gt;\n        Вы можете загрузить словари %1$s или проверить, можно ли загрузить словарь для «%2$s» напрямую %3$s."</string>
+    <string name="available_dictionary_experimental">%s (экспериментальный)</string>
+    <string name="layout_symbols" tools:keep="@string/layout_symbols">Символы</string>
+    <string name="layout_symbols_arabic" tools:keep="@string/layout_symbols_arabic">Символы (арабские)</string>
+    <string name="layout_number" tools:keep="@string/layout_number">Числа</string>
+    <string name="layout_numpad" tools:keep="@string/layout_numpad">Числовая клавиатура</string>
+    <string name="layout_numpad_landscape" tools:keep="@string/layout_numpad_landscape">Числовая клавиатура (ландшафт)</string>
+    <string name="layout_phone" tools:keep="@string/layout_phone">Телефон</string>
+    <string name="layout_phone_symbols" tools:keep="@string/layout_phone_symbols">Символы телефона</string>
+    <string name="hidden_features_message">► Долгое нажатие на закреплённые клавиши панели инструментов открывает дополнительные функции:&lt;br&gt; \n\t• буфер обмена &amp;#65515; вставить &lt;br&gt; \n\t• сдвинуть курсор влево/вправо &amp;#65515; перейти на слово влево/вправо &lt;br&gt; \n\t• сдвинуть курсор вверх/вниз &amp;#65515; перейти на страницу вверх/вниз &lt;br&gt; \n\t• слово левее/правее &amp;#65515; перейти к началу/концу строки &lt;br&gt; \n\t• страница вверх/вниз &amp;#65515; перейти к началу/концу страниц&lt;br&gt; \n\t• копировать &amp;#65515; вырезать &lt;br&gt; \n\t• выделить слово &amp;#8596; выделить всё &lt;br&gt; \n\t• отменить &amp;#8596; повторить &lt;br&gt; &lt;br&gt; \n► Долгое нажатие на клавиши в панели инструментов полосы предложений - закрепляет их в полосе предложений. &lt;br&gt; &lt;br&gt; \n► Долгое нажатие на клавишу запятой - открывает Вид буфера обмена, Вид эмодзи, Режим одной руки, Настройки или Сменить язык: &lt;br&gt; \n\t• Вид эмодзи и Смена языка будут недоступны, если соответствующая клавиша уже включена; &lt;br&gt; \n\t• Для некоторых раскладок клавиатуры это не клавиша запятой, а клавиша, находящаяся в том же положении (например, это клавиша \"q\" для раскладки Dvorak). &lt;br&gt; &lt;br&gt; \n► Когда включен режим инкогнито, никакие слова не будут сохранены, и эмодзи не будут добавлены в список использованных. &lt;br&gt; &lt;br&gt; \n► Нажмите на иконку Инкогнито, чтобы получить доступ к панели инструментов.&lt;br&gt; &lt;br&gt; \n► Скользящий ввод клавиш: Проведите пальцем от клавиши Shift к другой клавише, чтобы ввести одну заглавную букву: &lt;br&gt; \n\t• Также это работает для клавиши \\\'?123\\\', чтобы ввести один символ из клавиатуры символов и для связанных с ней клавиш. &lt;br&gt; &lt;br&gt; \n► Удерживайте клавишу Shift или клавишу символа, нажмите одну или несколько клавиш и затем отпустите клавишу Shift или клавишу символа, чтобы переключиться обратно на предыдущую клавиатуру. &lt;br&gt; &lt;br&gt; \n► Долгое нажатие на предложение в полосе предложений показывает ещё больше предложений и клавишу удаления для удаления этого предложения. &lt;br&gt; &lt;br&gt; \n► Проведите пальцем вверх от предложения, чтобы показать больше предложений и отпустите на нужном, чтобы выбрать его. &lt;br&gt; &lt;br&gt; \n► Долгое нажатие на запись в истории буфера обмена закрепляет её (сохраняет в буфере обмена до тех пор, пока вы не отмените закрепление). &lt;br&gt; &lt;br&gt; \n► Проведите пальцем влево в просмотре буфера обмена, чтобы удалить запись (кроме случаев, когда она закреплена). &lt;br&gt; &lt;br&gt; \n► Выделите текст и нажмите клавишу Shift, чтобы переключаться между прописными, строчными буквами и капитализацией слов. &lt;br&gt; &lt;br&gt; \n► Вы можете добавить словари, открыв их в файловом менеджере: &lt;br&gt; \n\t• Это работает только с &lt;i&gt;content-uris&lt;/i&gt; и не работает с &lt;i&gt;file-uris&lt;/i&gt;, поэтому это может не работать с некоторыми файловыми менеджерами. &lt;br&gt; &lt;br&gt; \n► Для пользователей, создающих резервные копии вручную с правами суперпользователя (root): &lt;br&gt; \n\t• Начиная с Android 7, файл общих настроек находится в другом месте, поскольку приложение использует %s. Это необходимо, чтобы настройки можно было прочитать до разблокировки устройства, например, при запуске; &lt;br&gt; \n\t• Файл находится в /data/user_de/0/package_id/shared_prefs/, хотя это может зависеть от устройства и версии Android. &lt;br&gt; &lt;br&gt; \n&lt;i&gt;&lt;b&gt;Режим отладки / отладочная версия APK&lt;/b&gt;&lt;/i&gt; &lt;br&gt; &lt;br&gt; \n► Долгое нажатие на подсказку показывает исходный словарь. &lt;br&gt; &lt;br&gt; \n► Когда используется отладочная версия APK, можно найти в Настройки отладки в разделе Расширенные настройки, хотя их полезность ограничена, за исключением выгрузки словарей в журнал. &lt;br&gt; \n\t• Для релизной версии APK необходимо несколько раз нажать на версию в разделе &lt;i&gt;О программе&lt;/i&gt;, затем можно найти настройки отладки в разделе &lt;i&gt;Расширенные настройки&lt;/i&gt;. &lt;br&gt; \n\t• Когда включена опция &lt;i&gt;Показать информацию о подсказках&lt;/i&gt;, подсказки будут иметь небольшие цифры вверху, которые показывают некоторые внутренние баллы и исходный словарь. &lt;br&gt; &lt;br&gt; \n► В случае аварийного завершения работы приложения, вам будет предложено, получить журналы ошибок, когда вы откроете раздел Настройки. &lt;br&gt; &lt;br&gt; \n► Когда используется многоязычный ввод, клавиша пробела будет показывать значение достоверности, которое используется для определения текущего используемого языка. &lt;br&gt; &lt;br&gt; \n► Предложения будут иметь небольшие цифры вверху, которые показывают некоторые внутренние баллы и исходный словарь (это можно отключить).</string>
+    <string name="var_toolbar_direction_summary">Обратное направление, если выбран подтип клавиатуры с письмом справа налево</string>
+    <string name="var_toolbar_direction">Переменное направление панели инструментов</string>
+    <string name="subtype_probhat_bn_BD">%s (Пробхат)</string>
+    <string name="show_horizontal_space_swipe">Горизонтальный свайп по пробелу</string>
+    <string name="show_vertical_space_swipe">Вертикальный свайп по пробелу</string>
+    <string name="action_none">Бездействие</string>
+    <string name="space_swipe_move_cursor_entry">Перемещение курсора</string>
+    <string name="prefs_long_press_symbol_for_numpad">Долгое нажатие клавиши символов для цифровой клавиатуры</string>
+    <string name="subtype_generic_student">%s (Студенческая)</string>
+    <string name="language_switch_key_behavior">Действие клавиши смены языка</string>
+    <string name="emoji" tools:keep="@string/emoji">Эмодзи</string>
+    <string name="pinned_toolbar_keys">Выбрать закреплённые клавиши панели инструментов</string>
+    <string name="quick_pin_toolbar_keys_summary">При этом отключатся остальные функции долгого нажатия для незакреплённых кнопок панели</string>
+    <string name="quick_pin_toolbar_keys">Закреплять клавиши панели инструментов при долгом нажатии</string>
+    <string name="toast_msg_clipboard_copy">Контент скопирован</string>
+    <string name="auto_show_toolbar">Показывать панель инструментов автоматически</string>
+    <string name="auto_hide_toolbar">Скрывать панель инструментов автоматически</string>
+    <string name="center_suggestion_text_to_enter">Всегда использовать среднее предложение</string>
+    <string name="center_suggestion_text_to_enter_summary">При нажатии пробела или знака препинания будет использовано среднее предложение</string>
+    <string name="close_history" tools:keep="@string/close_history">Закрыть буфер обмена</string>
+    <string name="clipboard_toolbar_keys">Выбрать клавиши панели буфера обмена</string>
+    <string name="subtype_generic_extended">%s (Расширенная)</string>
+    <string name="auto_hide_toolbar_summary">Скрывать панель инструментов при появлении предложений</string>
+    <string name="settings_screen_toolbar">Панель инструментов</string>
+    <string name="auto_show_toolbar_summary">Показывать панель инструментов при вводе или при выборе текста</string>
+    <string name="more_colors">Показать больше цветов</string>
+    <string name="all_colors_warning">Эта настройка показывает все цвета, используемые внутри приложения. Список цветов может меняться. Цвет по умолчанию является случайным, и имена не будут переведены.</string>
+    <string name="layout_functional_keys_symbols_shifted" tools:keep="@string/layout_functional_keys_symbols_shifted">Функциональные клавиши (Дополнительные символы)</string>
+    <string name="layout_functional_keys" tools:keep="@string/layout_functional_keys">Функциональные клавиши</string>
+    <string name="layout_functional_keys_symbols" tools:keep="@string/layout_functional_keys_symbols">Функциональные клавиши (Символы)</string>
+    <string name="gesture_fast_typing_cooldown_instant">Всегда начинать немедленно</string>
+    <string name="gesture_fast_typing_cooldown">Время восстановления быстрой печати</string>
+    <string name="customize_currencies">Настройка валют</string>
+    <string name="customize_currencies_detail">Укажите основные и до 6 доп. символов валют через пробел</string>
+    <string name="load">Загрузить</string>
+    <string name="button_save_file">Сохранить в файл</string>
+    <string name="copy_to_clipboard">Копировать в буфер обмена</string>
+    <string name="page_start" tools:keep="@string/page_start">Начало страницы</string>
+    <string name="page_end" tools:keep="@string/page_end">Конец страницы</string>
+    <string name="word_left" tools:keep="@string/word_left">Слово левее</string>
+    <string name="word_right" tools:keep="@string/word_right">Слово правее</string>
+    <string name="page_up" tools:keep="@string/page_up">Страница вверх</string>
+    <string name="page_down" tools:keep="@string/page_down">Страница вниз</string>
+    <string name="suggest_clipboard_content">Предложить содержимое буфера обмена</string>
+    <string name="suggest_clipboard_content_summary">Показать недавно скопированное содержимое буфера обмена в качестве предложения</string>
+    <string name="space_swipe_toggle_numpad_entry">Переключить цифровую клавиатуру</string>
+    <string name="switch_keyboard_after">Вернуться к основной клавиатуре после…</string>
+    <string name="after_emoji">Выбора эмодзи в режиме просмотра</string>
+    <string name="after_clip">Выбора записи из истории буфера обмена</string>
+    <string name="after_symbol_and_space">Нажатия Enter или пробела после других клавиш в режиме символов</string>
+    <string name="show_popup_keys_main">Добавить самые распространённые варианты (по умолчанию)</string>
+    <string name="remove_redundant_popups">Удалить лишние всплывающие окна</string>
+    <string name="remove_redundant_popups_summary">Убрать всплывающие клавиши, присутствующие в базовой раскладке</string>
+    <string name="layout_number_row" tools:keep="@string/layout_number_row">Ряд с цифрами</string>
+    <string name="gesture_floating_preview_static_summary">Показывать предложенное слово во время набора жестами</string>
+    <string name="gesture_trail_fadeout_duration">Время жизни следа жеста</string>
+    <string name="prefs_space_bar_text">Пользовательский текст на клавише пробела</string>
+    <string name="layout_clip_bottom_row" tools:keep="@string/layout_clip_bottom_row">Строка буфера обмена внизу</string>
+    <string name="gesture_floating_preview_static">Плавающий предпросмотр</string>
+    <string name="gesture_floating_preview_dynamic_summary">Перемещать предпросмотр во время набора жестами</string>
+    <string name="layout_emoji_bottom_row" tools:keep="@string/layout_emoji_bottom_row">Строка эмодзи внизу</string>
+    <string name="icon_style">Стиль иконок</string>
+    <string name="label_enter_key" tools:keep="@string/label_enter_key">Ввод</string>
+    <string name="label_resize_onehanded_key" tools:keep="@string/label_resize_onehanded_key">Изменить размер режима работы одной рукой</string>
+    <string name="label_switch_onehanded_key" tools:keep="@string/label_switch_onehanded_key">Переключить сторону режима работы одной рукой</string>
+    <string name="label_tab_key" tools:keep="@string/label_tab_key">Табуляция</string>
+    <string name="label_delete_key" tools:keep="@string/label_delete_key">Удалить</string>
+    <string name="label_space_key_for_number_layout" tools:keep="@string/label_space_key_for_number_layout">Пробел (раскладка цифр)</string>
+    <string name="label_shift_key" tools:keep="@string/label_shift_key">Shift</string>
+    <string name="label_shift_key_shifted" tools:keep="@string/label_shift_key_shifted">Shift (нажат)</string>
+    <string name="label_shift_key_locked" tools:keep="@string/label_shift_key_locked">Caps lock</string>
+    <string name="label_shortcut_key_disabled" tools:keep="@string/label_shortcut_key_disabled">Голосовой ввод отключён</string>
+    <string name="label_toolbar_key" tools:keep="@string/label_toolbar_key">Показать / скрыть панель инструментов</string>
+    <string name="label_zwj_key" tools:keep="@string/label_zwj_key">Соединитель нулевой ширины</string>
+    <string name="customize_toolbar_key_codes">Настроить коды клавиш панели инструментов</string>
+    <string name="key_code">Код клавиши</string>
+    <string name="long_press_code">Код долгого нажатия</string>
+    <string name="customize_icons">Настроить иконки</string>
+    <string name="label_zwnj_key" tools:keep="@string/label_zwnj_key">Разъединитель нулевой ширины</string>
+    <string name="label_stop_onehanded_mode_key" tools:keep="@string/label_stop_onehanded_mode_key">Выход из режима работы одной рукой</string>
+    <string name="customize_icons_reset_message">Действительно сбросить все настроенные иконки?</string>
+    <string name="label_bin" tools:keep="@string/label_bin">Корзина</string>
+    <string name="vibrate_in_dnd_mode">Вибрация в режиме Не беспокоить</string>
+    <string name="subtype_generic_phonetic">%s (Фонетика)</string>
+    <string name="auto_correct_shortcuts">Автоисправление сокращений</string>
+    <string name="custom_font">Установить пользовательский шрифт из файла</string>
+    <string name="prefs_font_scale">Масштаб шрифта клавиатуры</string>
+    <string name="prefs_emoji_font_scale">Масштаб шрифта отображения эмодзи</string>
+    <string name="prefs_side_padding_scale">Масштаб бокового отступа</string>
+    <string name="auto_correct_shortcuts_summary">Если включено, автоисправление превратит сокращения в полные слова</string>
+    <string name="customize_toolbar_key_code_reset_message">Вы действительно хотите удалить все настроенные коды клавиш?</string>
+    <string name="prefs_key_emoji_max_sdk">Переопределить версию эмодзи</string>
+    <string name="summary_customize_background_image_landscape">Если не установлено, будет использоваться портретное изображение</string>
+    <string name="customize_background_image_landscape">Установить фоновое изображение (ландшафт)</string>
+    <string name="number_row_hints">Показывать подсказки в ряду с цифрами</string>
+    <string name="prefs_language_swipe_distance">Расстояние смахивания для переключения языка</string>
+    <string name="enable_split_keyboard_landscape">Включить разделение клавиатуры (ландшафт)</string>
+    <string name="split" tools:keep="@string/split">Разделение клавиатуры</string>
+    <string name="custom_subtype">Пользовательский подтип</string>
+    <string name="subtype_baishakhi_bn_IN">%s (Байсахи)</string>
+    <string name="layout_in_use">Предупреждение: раскладка в данный момент используется</string>
+    <string name="delete_confirmation">Действительно удалить %s?</string>
+    <string name="settings_screen_secondary_layouts">Дополнительные раскладки</string>
+    <string name="layout_functional_keys_tablet" tools:keep="@string/layout_functional_keys_tablet">Функциональные клавиши (большой экран)</string>
+    <string name="locales_with_dict">Языки со словарями</string>
+    <string name="get_colors_message">Найти и поделиться цветами в %s.</string>
+    <string name="get_layouts_message">Найти и поделиться раскладками в %s.</string>
+    <string name="discussion_section_link">обсуждения</string>
+    <string name="name_invalid">Недопустимое имя</string>
+    <string name="show_tld_popup_keys">Показать всплывающие клавиши TLD</string>
+    <string name="show_tld_popup_keys_summary">При вводе URL и адресов электронной почты заменить всплывающие подсказки клавиши точки на подсказки с доменами верхнего уровня</string>
+    <string name="after_numpad_and_space">Нажатия Enter или пробела после других клавиш на цифровой клавиатуре</string>
+    <string name="prefs_always_show_suggestions_except_web_text_summary">Поля ввода на веб-страницах (в основном в браузерах) часто вызывают проблемы с настройкой постоянного отображения подсказок</string>
+    <string name="layout_number_row_basic" tools:keep="@string/layout_number_row_basic">Ряд с цифрами (основной)</string>
+    <string name="prefs_always_show_suggestions_except_web_text">Не всегда показывать подсказки для полей ввода на веб-страницах</string>
+    <string name="settings_category_space">Пробел</string>
+    <string name="autospace_after_suggestion">Автопробел после ручного выбора предложения</string>
+    <string name="autospace_after_gesture_typing">Автопробел после набора слова жестами</string>
+    <string name="shift_removes_autospace">Автопробел отключается при нажатии Shift</string>
+    <string name="shift_removes_autospace_summary">Нажатие Shift убирает запланированный автопробел</string>
+    <string name="autospace_before_gesture_typing">Автопробел перед набором слова жестами</string>
+    <string name="backspace_reverts_autocorrect">Нажатие Backspace отменяет автоисправление</string>
+    <string name="timestamp_format_title">Формат ключа временной метки</string>
+    <string name="subtype_dag">Дагбани</string>
+    <string name="subtype_st">Сесото</string>
+    <string name="prefs_emoji_key_fit">Масштабировать размер клавиш эмодзи вместе с размером шрифта</string>
+    <string name="backup_restored">Резервная копия восстановлена</string>
+    <string name="use_apps_dict">Использовать названия приложений</string>
+    <string name="use_apps_dict_summary">Использовать названия установленных приложений для предложений и исправлений</string>
+    <string name="prefs_emoji_skin_tone">Тон кожи эмодзи по умолчанию</string>
+    <string name="prefs_emoji_skin_tone_neutral">Нейтральный</string>
+    <string name="subtype_with_layout_generic">%1$s (%2$s)</string>
+    <string name="toolbar_mode_expandable">Клавиши и предложения в панели инструментов</string>
+    <string name="toolbar_mode">Режим панели инструментов</string>
+    <string name="toolbar_mode_toolbar_keys">Только клавиши в панели инструментов</string>
+    <string name="toolbar_mode_suggestion_strip">Только предложения</string>
+    <string name="toolbar_mode_hidden">Скрыто</string>
+    <string name="toolbar_hiding_global">Скрыть панели инструментов буфера обмена и эмодзи</string>
+    <string name="popup_order_and_hint_source">Порядок всплывающих клавиш и источник подсказок</string>
+    <string name="landscape">Ландшафт</string>
+    <string name="show_emoji_descriptions">Показывать описание эмодзи при долгом нажатии</string>
+    <string name="suggest_emojis">Предложить эмодзи</string>
+    <string name="suggest_emojis_summary">Использовать словарь эмодзи в обычных предложениях</string>
+    <string name="suggest_punctuation">Предложения по пунктуации</string>
+    <string name="suggest_punctuation_summary">Показывать пунктуацию, когда другие предложения недоступны</string>
+    <string name="space_swipe_hide_keyboard_entry">Скрыть клавиатуру</string>
+    <string name="about_wiki_link">Перейти на Wiki</string>
+    <string name="about_wiki_link_description">Любой пользователь GitHub может улучшить Wiki!</string>
+    <string name="save_subtype_per_app">Запоминать язык для каждого приложения</string>
+    <string name="subtype_khipro_bn">%s (Кипро)</string>
+    <string name="clipboard_history_pinned_first">Показывать закрепленные элементы вверху</string>
+    <string name="inline_emoji_search">Прямой поиск эмодзи</string>
+    <string name="inline_emoji_search_summary">Предлагать только эмодзи, когда слово предшествует двоеточию</string>
+    <string name="emoji_dictionary_required">Для работы этой функции требуется словарь эмодзи. Словари в формате .dict можно загрузить по ссылке %s.</string>
+    <string name="subtype_mhr">Луговомарийский (Лугововосточный марийский)</string>
+    <string name="layout_emoji_bottom_row_with_action" tools:keep="@string/layout_emoji_bottom_row_with_action">Нижний ряд эмодзи с кнопкой действия</string>
+    <string name="layout_clip_bottom_row_with_action" tools:keep="@string/layout_clip_bottom_row_with_action">Панель буфера обмена внизу с кнопкой действия</string>
+    <string name="number_row_in_symbols">Показывать ряд цифр в режиме символов</string>
+    <string name="custom_emoji_font">Указать пользовательский шрифт эмодзи из файла</string>
 </resources>

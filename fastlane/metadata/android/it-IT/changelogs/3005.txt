@@ -1,0 +1,11 @@
+* Layout aggiunti: Arabo Hija'i, Ebraico 1452-2, Hindi fonetico, Dargwa (Urakhi), Baishakhi, Curdo
+* Alcuni layout aggiornati
+* Supporto agli accenti combinati
+* Pulsante 'Tastiera divisa' nella barra degli strumenti
+* Suffisso '.com' aggiunto ai popup
+* Font personalizzato per i tasti
+* Aggiustamento dimensione per i tasti
+* Modalità multilingua migliorata
+* Impostazioni ridisegnate
+* Aggiunte opzioni per spaziatura automatica, correzione testo e riga dei numeri
+* Migliorie e bugfix

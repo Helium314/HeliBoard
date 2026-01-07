@@ -1,0 +1,16 @@
+[popup_keys]
+a à â æ
+e é è ê ë
+i î ï
+o ô œ
+u ù û ü
+c ç
+y ÿ
+
+[extra_keys]
+1: è ü
+2: é ö
+2: à ä
+
+[tlds]
+fr

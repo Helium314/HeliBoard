@@ -1,0 +1,14 @@
+[popup_keys]
+ε έ
+υ ύ ϋ ΰ
+ι ί ϊ ΐ
+ο ό
+α ά
+η ή
+ω ώ
+
+[labels]
+alphabet: ΑΒΓ
+
+[tlds]
+gr

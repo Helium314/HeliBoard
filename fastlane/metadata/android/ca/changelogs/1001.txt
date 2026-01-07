@@ -1,0 +1,20 @@
+* nova icona (#517, #592)
+* barra d'espai (#486)
+* afegit % a símbols (#568, #428)
+* millor comport. quan tecla canvi idioma està config. per canviar l'idioma i el teclat
+* mostra enllaços als dics. existents en afegir un dic.
+* Kaitag (#519)
+* Probhat (#489)
+* invertir ordre barra (#557, #574)
+* permet diss. especials
+ Experim.
+* act. spellchecker.xml
+* act. traducs.
+* ndk (#560)
+* d'auto-emplenament (#595)
+* sol. (#505)
+* sol. (#508)
+* corr. (#563)
+* sol. (#527)
+* sol. (#585)
+* correcs. menors

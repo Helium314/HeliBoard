@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <!-- The sentence separator code point, for capitalization and auto-insertion -->
+    <!-- U+002E: "." FULL STOP   ; 2Eh = 46d -->
+    <!-- Hinglish uses default sentence separator, this overrides the value for hi locale -->
+    <integer name="sentence_separator">46</integer>
+</resources>

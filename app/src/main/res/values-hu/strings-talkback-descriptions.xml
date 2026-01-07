@@ -1,96 +1,69 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- 
-/*
-**
-** Copyright 2015, The Android Open Source Project
-**
-** Licensed under the Apache License, Version 2.0 (the "License");
-** you may not use this file except in compliance with the License.
-** You may obtain a copy of the License at
-**
-**     http://www.apache.org/licenses/LICENSE-2.0
-**
-** Unless required by applicable law or agreed to in writing, software
-** distributed under the License is distributed on an "AS IS" BASIS,
-** WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-** See the License for the specific language governing permissions and
-** limitations under the License.
-*/
- -->
-
-<resources xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="spoken_use_headphones" msgid="4313642710742229868">"Csatlakoztasson egy headsetet, ha hallani szeretné a jelszót felolvasva."</string>
-    <string name="spoken_current_text_is" msgid="4240549866156675799">"A jelenlegi szöveg: %s"</string>
-    <string name="spoken_no_text_entered" msgid="1711276837961785646">"Nincs szöveg megadva"</string>
-    <string name="spoken_auto_correct" msgid="8989324692167993804">"<xliff:g id="KEY_NAME">%1$s</xliff:g> billentyű – <xliff:g id="ORIGINAL_WORD">%2$s</xliff:g> szóra javítja a következőt: <xliff:g id="CORRECTED_WORD">%3$s</xliff:g>"</string>
-    <string name="spoken_auto_correct_obscured" msgid="7769449372355268412">"<xliff:g id="KEY_NAME">%1$s</xliff:g> billentyű automatikus javítást végez"</string>
-    <string name="spoken_empty_suggestion" msgid="4250215619373459752">"Nincs javaslat"</string>
-    <string name="spoken_description_unknown" msgid="5139930082759824442">"Ismeretlen karakter"</string>
-    <string name="spoken_description_shift" msgid="7209798151676638728">"Shift"</string>
-    <string name="spoken_description_symbols_shift" msgid="3483198879916435717">"További szimbólumok"</string>
-    <string name="spoken_description_shift_shifted" msgid="3122704922642232605">"Shift"</string>
-    <string name="spoken_description_symbols_shift_shifted" msgid="5179175466878186081">"Szimbólumok"</string>
-    <string name="spoken_description_caps_lock" msgid="1224851412185975036">"Shift"</string>
-    <string name="spoken_description_delete" msgid="3878902286264983302">"Törlés"</string>
-    <string name="spoken_description_to_symbol" msgid="8244903740201126590">"Szimbólumok"</string>
-    <string name="spoken_description_to_alpha" msgid="4081215210530031950">"Betűk"</string>
-    <string name="spoken_description_to_numeric" msgid="4560261331530795682">"Számok"</string>
-    <string name="spoken_description_settings" msgid="7281251004003143204">"Beállítások"</string>
-    <string name="spoken_description_tab" msgid="8210782459446866716">"Tab"</string>
-    <string name="spoken_description_space" msgid="5908716896642059145">"Szóköz"</string>
-    <string name="spoken_description_mic" msgid="6153138783813452464">"Hangbevitel"</string>
-    <string name="spoken_description_emoji" msgid="7990051553008088470">"Hangulatjel"</string>
-    <string name="spoken_description_return" msgid="3183692287397645708">"Enter"</string>
-    <string name="spoken_description_search" msgid="5099937658231911288">"Keresés"</string>
-    <string name="spoken_description_dot" msgid="5644176501632325560">"Pont"</string>
-    <string name="spoken_description_language_switch" msgid="6818666779313544553">"Nyelvváltás"</string>
-    <string name="spoken_description_action_next" msgid="431761808119616962">"Következő"</string>
-    <string name="spoken_description_action_previous" msgid="2919072174697865110">"Előző"</string>
-    <string name="spoken_description_shiftmode_on" msgid="5107180516341258979">"Shift bekapcsolva"</string>
-    <string name="spoken_description_shiftmode_locked" msgid="7307477738053606881">"Caps lock bekapcsolva"</string>
-    <string name="spoken_description_mode_symbol" msgid="111186851131446691">"„Szimbólumok” mód"</string>
-    <string name="spoken_description_mode_symbol_shift" msgid="4305607977537665389">"További szimbólumok mód"</string>
-    <string name="spoken_description_mode_alpha" msgid="4676004119618778911">"„Betű” mód"</string>
-    <string name="spoken_description_mode_phone" msgid="2061220553756692903">"„Telefon” mód"</string>
-    <string name="spoken_description_mode_phone_shift" msgid="7879963803547701090">"„Telefonos szimbólumok” mód"</string>
-    <string name="announce_keyboard_hidden" msgid="2313574218950517779">"Billentyűzet elrejtve"</string>
-    <string name="announce_keyboard_mode" msgid="6698257917367823205">"<xliff:g id="KEYBOARD_MODE">%s</xliff:g> billentyűzet megjelenítve"</string>
-    <string name="keyboard_mode_date" msgid="6597407244976713364">"dátum"</string>
-    <string name="keyboard_mode_date_time" msgid="3642804408726668808">"dátum és idő"</string>
-    <string name="keyboard_mode_email" msgid="1239682082047693644">"e-mail"</string>
-    <string name="keyboard_mode_im" msgid="3812086215529493501">"üzenetváltás"</string>
-    <string name="keyboard_mode_number" msgid="5395042245837996809">"szám"</string>
-    <string name="keyboard_mode_phone" msgid="2486230278064523665">"telefon"</string>
-    <string name="keyboard_mode_text" msgid="9138789594969187494">"szöveg"</string>
-    <string name="keyboard_mode_time" msgid="8558297845514402675">"idő"</string>
-    <string name="keyboard_mode_url" msgid="8072011652949962550">"URL"</string>
-    <string name="spoken_descrption_emoji_category_recents" msgid="4185344945205590692">"Legutóbbiak"</string>
-    <string name="spoken_descrption_emoji_category_people" msgid="8414196269847492817">"Emberek"</string>
-    <string name="spoken_descrption_emoji_category_objects" msgid="6116297906606195278">"Objektumok"</string>
-    <string name="spoken_descrption_emoji_category_nature" msgid="5018340512472354640">"Természet"</string>
-    <string name="spoken_descrption_emoji_category_places" msgid="1163315840948545317">"Helyek"</string>
-    <string name="spoken_descrption_emoji_category_symbols" msgid="474680659024880601">"Szimbólumok"</string>
-    <string name="spoken_descrption_emoji_category_flags" msgid="5971573825866381472">"Zászlók"</string>
-    <string name="spoken_descrption_emoji_category_eight_smiley_people" msgid="5682663819532433464">"Hangulatjelek és emberek"</string>
-    <string name="spoken_descrption_emoji_category_eight_animals_nature" msgid="5844950234883716704">"Állatvilág és természet"</string>
-    <string name="spoken_descrption_emoji_category_eight_food_drink" msgid="6196944764485349650">"Étel-ital"</string>
-    <string name="spoken_descrption_emoji_category_eight_travel_places" msgid="3834085499381434611">"Utazás és helyek"</string>
-    <string name="spoken_descrption_emoji_category_eight_activity" msgid="4795281669042975993">"Tevékenység"</string>
-    <string name="spoken_descrption_emoji_category_emoticons" msgid="456737544787823539">"Hangulatjelek"</string>
-    <string name="spoken_description_upper_case" msgid="4904835255229433916">"Nagy <xliff:g id="LOWER_LETTER">%s</xliff:g>"</string>
-    <string name="spoken_letter_0049" msgid="4743162182646977944">"Nagy I"</string>
-    <string name="spoken_letter_0130" msgid="4766619646231612274">"Nagy I, felette ponttal"</string>
-    <string name="spoken_symbol_unknown" msgid="717298227061173706">"Ismeretlen szimbólum"</string>
-    <string name="spoken_emoji_unknown" msgid="5981009928135394306">"Ismeretlen hangulatjel"</string>
-    <string name="spoken_emoticon_3A_2D_21_20" msgid="2410905667389534573">"Unott arc"</string>
-    <string name="spoken_emoticon_3A_2D_24_20" msgid="2481260475945560438">"Zavarban lévő arc"</string>
-    <string name="spoken_emoticon_42_2D_29_20" msgid="1063205250387128068">"Napszemüveges arc"</string>
-    <string name="spoken_emoticon_3A_4F_20" msgid="532695091593447238">"Meglepődött arc"</string>
-    <string name="spoken_emoticon_3A_2D_2A_20" msgid="5612342617244114291">"Csókot adó arc"</string>
-    <string name="spoken_emoticon_3A_2D_5B_20" msgid="2223507987759905920">"Homlokráncoló arc"</string>
-    <string name="spoken_open_more_keys_keyboard" msgid="6832897688371903747">"Az alternatív karakterek elérhetők"</string>
-    <string name="spoken_close_more_keys_keyboard" msgid="3524914657934712026">"Az alternatív karakterek billentyűzete bezárva"</string>
-    <string name="spoken_open_more_suggestions" msgid="4231720702882969760">"Az alternatív javaslatok elérhetők"</string>
-    <string name="spoken_close_more_suggestions" msgid="9118455416075032839">"Az alternatív javaslatok panel bezárva"</string>
+<!--
+    Copyright (C) 2015 The Android Open Source Project
+    SPDX-License-Identifier: Apache-2.0
+-->
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="spoken_use_headphones">"Csatlakoztasson egy headsetet, ha hallani szeretné a jelszót felolvasva."</string>
+    <string name="spoken_current_text_is">"A jelenlegi szöveg: %s"</string>
+    <string name="spoken_no_text_entered">"Nincs szöveg megadva"</string>
+    <string name="spoken_auto_correct">"<xliff:g id="KEY_NAME">%1$s</xliff:g> billentyű – <xliff:g id="ORIGINAL_WORD">%2$s</xliff:g> szóra javítja a következőt: <xliff:g id="CORRECTED_WORD">%3$s</xliff:g>"</string>
+    <string name="spoken_auto_correct_obscured">"<xliff:g id="KEY_NAME">%1$s</xliff:g> billentyű automatikus javítást végez"</string>
+    <string name="spoken_empty_suggestion">"Nincs javaslat"</string>
+    <string name="spoken_description_unknown">"Ismeretlen karakter"</string>
+    <string name="spoken_description_shift">"Shift"</string>
+    <string name="spoken_description_symbols_shift">"További szimbólumok"</string>
+    <string name="spoken_description_shift_shifted">"Shift"</string>
+    <string name="spoken_description_symbols_shift_shifted">"Szimbólumok"</string>
+    <string name="spoken_description_caps_lock">"Shift"</string>
+    <string name="spoken_description_delete">"Törlés"</string>
+    <string name="spoken_description_to_symbol">"Szimbólumok"</string>
+    <string name="spoken_description_to_alpha">"Betűk"</string>
+    <string name="spoken_description_to_numeric">"Számok"</string>
+    <string name="spoken_description_settings">"Beállítások"</string>
+    <string name="spoken_description_tab">"Tab"</string>
+    <string name="spoken_description_space">"Szóköz"</string>
+    <string name="spoken_description_mic">"Hangbevitel"</string>
+    <string name="spoken_description_emoji">"Hangulatjel"</string>
+    <string name="spoken_description_return">"Enter"</string>
+    <string name="spoken_description_search">"Keresés"</string>
+    <string name="spoken_description_dot">"Pont"</string>
+    <string name="spoken_description_language_switch">"Nyelvváltás"</string>
+    <string name="spoken_description_action_next">"Következő"</string>
+    <string name="spoken_description_action_previous">"Előző"</string>
+    <string name="spoken_description_shiftmode_on">"Shift bekapcsolva"</string>
+    <string name="spoken_description_shiftmode_locked">"Caps lock bekapcsolva"</string>
+    <string name="spoken_description_mode_symbol">"„Szimbólumok” mód"</string>
+    <string name="spoken_description_mode_symbol_shift">"További szimbólumok mód"</string>
+    <string name="spoken_description_mode_alpha">"„Betű” mód"</string>
+    <string name="spoken_description_mode_phone">"„Telefon” mód"</string>
+    <string name="spoken_description_mode_phone_shift">"„Telefonos szimbólumok” mód"</string>
+    <string name="announce_keyboard_hidden">"Billentyűzet elrejtve"</string>
+    <string name="announce_keyboard_mode">"<xliff:g id="KEYBOARD_MODE">%s</xliff:g> billentyűzet megjelenítve"</string>
+    <string name="keyboard_mode_date">"dátum"</string>
+    <string name="keyboard_mode_date_time">"dátum és idő"</string>
+    <string name="keyboard_mode_email">"e-mail"</string>
+    <string name="keyboard_mode_im">"üzenetváltás"</string>
+    <string name="keyboard_mode_number">"szám"</string>
+    <string name="keyboard_mode_phone">"telefon"</string>
+    <string name="keyboard_mode_text">"szöveg"</string>
+    <string name="keyboard_mode_time">"idő"</string>
+    <string name="keyboard_mode_url">"URL"</string>
+    <string name="spoken_description_emoji_category_recents">"Legutóbbiak"</string>
+    <string name="spoken_description_emoji_category_objects">"Objektumok"</string>
+    <string name="spoken_description_emoji_category_symbols">"Szimbólumok"</string>
+    <string name="spoken_description_emoji_category_flags">"Zászlók"</string>
+    <string name="spoken_description_emoji_category_eight_smiley_people">"Hangulatjelek és emberek"</string>
+    <string name="spoken_description_emoji_category_eight_animals_nature">"Állatvilág és természet"</string>
+    <string name="spoken_description_emoji_category_eight_food_drink">"Étel-ital"</string>
+    <string name="spoken_description_emoji_category_eight_travel_places">"Utazás és helyek"</string>
+    <string name="spoken_description_emoji_category_eight_activity">"Tevékenység"</string>
+    <string name="spoken_description_emoji_category_emoticons">"Hangulatjelek"</string>
+    <string name="spoken_description_upper_case">"Nagy <xliff:g id="LOWER_LETTER">%s</xliff:g>"</string>
+    <string name="spoken_letter_0049">"Nagy I"</string>
+    <string name="spoken_letter_0130">"Nagy I, felette ponttal"</string>
+    <string name="spoken_open_popup_keys_keyboard">"Az alternatív karakterek elérhetők"</string>
+    <string name="spoken_close_popup_keys_keyboard">"Az alternatív karakterek billentyűzete bezárva"</string>
+    <string name="spoken_open_more_suggestions">"Az alternatív javaslatok elérhetők"</string>
+    <string name="spoken_close_more_suggestions">"Az alternatív javaslatok panel bezárva"</string>
 </resources>

@@ -1,0 +1,9 @@
+- a Shift billentyű lenyomásával a javaslatok nagybetűvel jelennek meg
+- billentyűkódok hozzáadása a közvetítési intentekhez
+- emodzsileírások megjelenítése (nem kötelező), ehhez emodzsiszótár szükséges
+- a hardveres billentyűzet kezelésének javítása
+- „billentyűzet elrejtése” beállítás hozzáadása a függőleges csúsztatáshoz
+- latin altípus hozzáadása
+- emodzsiszótár hozzáadásakor az emodzisjavaslatok kikapcsolásának engedélyezése
+
+- És még több hibajavítás - további részletek a bejelentésben

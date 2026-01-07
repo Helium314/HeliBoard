@@ -1,43 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-/*
-**
-** Copyright 2013, The Android Open Source Project
-**
-** Licensed under the Apache License, Version 2.0 (the "License");
-** you may not use this file except in compliance with the License.
-** You may obtain a copy of the License at
-**
-**     http://www.apache.org/licenses/LICENSE-2.0
-**
-** Unless required by applicable law or agreed to in writing, software
-** distributed under the License is distributed on an "AS IS" BASIS,
-** WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-** See the License for the specific language governing permissions and
-** limitations under the License.
-*/
+    Copyright (C) 2013 The Android Open Source Project
+    modified
+    SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
 -->
-
-<resources xmlns:android="http://schemas.android.com/apk/res/android">
-    <style name="KeyboardIcons" />
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
     <style name="InputView" />
     <!-- Default theme values -->
     <style name="Keyboard">
         <item name="rowHeight">25%p</item>
         <item name="horizontalGap">@fraction/config_key_horizontal_gap_holo</item>
+        <item name="horizontalGapNarrow">@fraction/config_key_horizontal_gap_holo_narrow</item>
         <item name="verticalGap">@fraction/config_key_vertical_gap_holo</item>
+        <item name="verticalGapNarrow">@fraction/config_key_vertical_gap_holo_narrow</item>
         <item name="touchPositionCorrectionData">@array/touch_position_correction_data_holo</item>
         <item name="keyboardTopPadding">@fraction/config_keyboard_top_padding_holo</item>
         <item name="keyboardBottomPadding">@fraction/config_keyboard_bottom_padding_holo</item>
         <item name="keyboardLeftPadding">@fraction/config_keyboard_left_padding</item>
         <item name="keyboardRightPadding">@fraction/config_keyboard_right_padding</item>
-        <item name="moreKeysTemplate">@xml/kbd_more_keys_keyboard_template</item>
-        <item name="maxMoreKeysColumn">@integer/config_max_more_keys_column</item>
+        <item name="popupKeysTemplate">@xml/kbd_popup_keys_keyboard_template</item>
+        <item name="maxPopupKeysColumn">@integer/config_max_popup_keys_column</item>
+        <item name="android:forceDarkAllowed" tools:targetApi="q">false</item>
     </style>
     <style name="KeyboardView">
-        <!-- This keyBackground is needed to run unit tests based on {@link InputTestBase}. -->
-        <!-- TODO: Apply default {@link KeyboardTheme} to {@link InputTestBase} and remove this. -->
-        <item name="keyBackground">@drawable/btn_keyboard_key_klp</item>
+        <!-- This keyBackground is needed to run unit tests based on {@link InputTestBase}. -> todo: so it can be removed? -->
+        <item name="keyBackground">@drawable/btn_keyboard_key_holo_white</item>
         <item name="keyTypeface">normal</item>
         <!-- A negative value to disable key text shadow layer. -->
         <item name="keyTextShadowRadius">-1.0</item>
@@ -57,7 +45,6 @@
         <item name="gestureTrailMaxInterpolationDistanceThreshold">@dimen/config_gesture_trail_max_interpolation_distance_threshold</item>
         <item name="gestureTrailMaxInterpolationSegments">@integer/config_gesture_trail_max_interpolation_segments</item>
         <item name="gestureTrailFadeoutStartDelay">@integer/config_gesture_trail_fadeout_start_delay</item>
-        <item name="gestureTrailFadeoutDuration">@integer/config_gesture_trail_fadeout_duration</item>
         <item name="gestureTrailUpdateInterval">@integer/config_gesture_trail_update_interval</item>
         <item name="gestureTrailStartWidth">@dimen/config_gesture_trail_start_width</item>
         <item name="gestureTrailEndWidth">@dimen/config_gesture_trail_end_width</item>
@@ -74,21 +61,16 @@
         <item name="slidingKeyInputPreviewShadowRatio">@integer/config_sliding_key_input_preview_shadow_ratio</item>
         <item name="keyRepeatStartTimeout">@integer/config_key_repeat_start_timeout</item>
         <item name="keyRepeatInterval">@integer/config_key_repeat_interval</item>
-        <item name="longPressShiftLockTimeout">@integer/config_longpress_shift_lock_timeout</item>
         <item name="ignoreAltCodeKeyTimeout">@integer/config_ignore_alt_code_key_timeout</item>
-        <!-- TODO: consolidate key preview linger timeout with the key preview animation parameters. -->
-        <item name="keyPreviewLingerTimeout">@integer/config_key_preview_linger_timeout</item>
-        <item name="moreKeysKeyboardLayout">@layout/more_keys_keyboard</item>
-        <item name="showMoreKeysKeyboardAtTouchedPoint">@bool/config_show_more_keys_keyboard_at_touched_point</item>
+        <item name="popupKeysKeyboardLayout">@layout/popup_keys_keyboard</item>
+        <item name="showPopupKeysKeyboardAtTouchedPoint">@bool/config_show_popup_keys_keyboard_at_touched_point</item>
         <item name="languageOnSpacebarTextRatio">@fraction/config_language_on_spacebar_text_ratio</item>
-        <item name="languageOnSpacebarFinalAlpha">@integer/config_language_on_spacebar_final_alpha</item>
-        <item name="languageOnSpacebarFadeoutAnimator">@anim/language_on_spacebar_fadeout</item>
+        <item name="languageOnSpacebarFadeoutAnimator">@animator/language_on_spacebar_fadeout</item>
         <!-- Remove animations for now because it could drain a non-negligible amount of battery while typing.
         <item name="altCodeKeyWhileTypingFadeoutAnimator">@anim/alt_code_key_while_typing_fadeout</item>
         <item name="altCodeKeyWhileTypingFadeinAnimator">@anim/alt_code_key_while_typing_fadein</item>
         -->
         <!-- Common attributes of MainKeyboardView for gesture typing detection and recognition -->
-        <item name="gestureFloatingPreviewTextLingerTimeout">@integer/config_gesture_floating_preview_text_linger_timeout</item>
         <item name="gestureStaticTimeThresholdAfterFastTyping">@integer/config_gesture_static_time_threshold_after_fast_typing</item>
         <item name="gestureDetectFastMoveSpeedThreshold">@fraction/config_gesture_detect_fast_move_speed_threshold</item>
         <item name="gestureDynamicThresholdDecayDuration">@integer/config_gesture_dynamic_threshold_decay_duration</item>
@@ -101,18 +83,19 @@
         <item name="gestureRecognitionUpdateTime">@integer/config_gesture_recognition_update_time</item>
         <item name="gestureRecognitionSpeedThreshold">@fraction/config_gesture_recognition_speed_threshold</item>
         <item name="suppressKeyPreviewAfterBatchInputDuration">@integer/config_suppress_key_preview_after_batch_input_duration</item>
+
+        <item name="spacebarNoBorderBackground">@drawable/btn_keyboard_spacebar_base</item>
     </style>
     <style
         name="MainKeyboardView"
         parent="KeyboardView" />
-    <!-- Though {@link org.dslul.openboard.inputmethod.keyboard.emoji.EmojiPalettesView} doesn't extend
-         {@link org.dslul.openboard.inputmethod.keyboard.KeyboardView}, some views inside it, for instance
-         delete button, need themed {@link org.dslul.openboard.inputmethod.keyboard.KeyboardView}
+    <!-- Though {@link helium314.keyboard.keyboard.emoji.EmojiPalettesView} doesn't extend
+         {@link helium314.keyboard.keyboard.KeyboardView}, some views inside it, for instance
+         delete button, need themed {@link helium314.keyboard.keyboard.KeyboardView}
          attributes. -->
     <style name="EmojiPalettesView" />
     <style name="ClipboardHistoryView" />
-    <style name="MoreKeysKeyboard" />
-    <style name="MoreKeysKeyboardView" />
+    <style name="PopupKeysKeyboardView" />
     <style name="SuggestionStripView" />
     <style name="SuggestionWord">
         <item name="android:minWidth">@dimen/config_suggestion_min_width</item>

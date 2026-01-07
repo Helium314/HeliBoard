@@ -1,96 +1,69 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- 
-/*
-**
-** Copyright 2015, The Android Open Source Project
-**
-** Licensed under the Apache License, Version 2.0 (the "License");
-** you may not use this file except in compliance with the License.
-** You may obtain a copy of the License at
-**
-**     http://www.apache.org/licenses/LICENSE-2.0
-**
-** Unless required by applicable law or agreed to in writing, software
-** distributed under the License is distributed on an "AS IS" BASIS,
-** WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-** See the License for the specific language governing permissions and
-** limitations under the License.
-*/
- -->
-
-<resources xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="spoken_use_headphones" msgid="4313642710742229868">"پاس ورڈ کلیدوں کی آواز اونچی آواز میں سننے کیلئے ایک ہیڈ سیٹ پلگ ان کریں۔"</string>
-    <string name="spoken_current_text_is" msgid="4240549866156675799">"‏موجودہ  متن %s ہے"</string>
-    <string name="spoken_no_text_entered" msgid="1711276837961785646">"کوئی متن درج نہیں کیا گیا"</string>
-    <string name="spoken_auto_correct" msgid="8989324692167993804">"<xliff:g id="KEY_NAME">%1$s</xliff:g> <xliff:g id="ORIGINAL_WORD">%2$s</xliff:g> کو ٹھیک کر کے <xliff:g id="CORRECTED_WORD">%3$s</xliff:g> کر دیتی ہے"</string>
-    <string name="spoken_auto_correct_obscured" msgid="7769449372355268412">"<xliff:g id="KEY_NAME">%1$s</xliff:g> خود کار اصلاح کو انجام دیتی ہے"</string>
-    <string name="spoken_empty_suggestion" msgid="4250215619373459752">"کوئی تجویز نہیں"</string>
-    <string name="spoken_description_unknown" msgid="5139930082759824442">"نامعلوم حرف"</string>
-    <string name="spoken_description_shift" msgid="7209798151676638728">"Shift"</string>
-    <string name="spoken_description_symbols_shift" msgid="3483198879916435717">"مزید علامات"</string>
-    <string name="spoken_description_shift_shifted" msgid="3122704922642232605">"Shift"</string>
-    <string name="spoken_description_symbols_shift_shifted" msgid="5179175466878186081">"علامات"</string>
-    <string name="spoken_description_caps_lock" msgid="1224851412185975036">"Shift"</string>
-    <string name="spoken_description_delete" msgid="3878902286264983302">"حذف کریں"</string>
-    <string name="spoken_description_to_symbol" msgid="8244903740201126590">"علامات"</string>
-    <string name="spoken_description_to_alpha" msgid="4081215210530031950">"حروف"</string>
-    <string name="spoken_description_to_numeric" msgid="4560261331530795682">"نمبرز"</string>
-    <string name="spoken_description_settings" msgid="7281251004003143204">"ترتیبات"</string>
-    <string name="spoken_description_tab" msgid="8210782459446866716">"Tab"</string>
-    <string name="spoken_description_space" msgid="5908716896642059145">"اسپیس"</string>
-    <string name="spoken_description_mic" msgid="6153138783813452464">"صوتی ان پٹ"</string>
-    <string name="spoken_description_emoji" msgid="7990051553008088470">"Emoji"</string>
-    <string name="spoken_description_return" msgid="3183692287397645708">"واپس جائیں"</string>
-    <string name="spoken_description_search" msgid="5099937658231911288">"تلاش کریں"</string>
-    <string name="spoken_description_dot" msgid="5644176501632325560">"ڈاٹ"</string>
-    <string name="spoken_description_language_switch" msgid="6818666779313544553">"زبان سوئچ کریں"</string>
-    <string name="spoken_description_action_next" msgid="431761808119616962">"اگلا"</string>
-    <string name="spoken_description_action_previous" msgid="2919072174697865110">"پچھلا"</string>
-    <string name="spoken_description_shiftmode_on" msgid="5107180516341258979">"‏Shift فعال ہے"</string>
-    <string name="spoken_description_shiftmode_locked" msgid="7307477738053606881">"‏Caps lock فعال ہے"</string>
-    <string name="spoken_description_mode_symbol" msgid="111186851131446691">"علامات وضع"</string>
-    <string name="spoken_description_mode_symbol_shift" msgid="4305607977537665389">"مزید علامات کی وض‏ع"</string>
-    <string name="spoken_description_mode_alpha" msgid="4676004119618778911">"حروف وضع"</string>
-    <string name="spoken_description_mode_phone" msgid="2061220553756692903">"فون وضع"</string>
-    <string name="spoken_description_mode_phone_shift" msgid="7879963803547701090">"فون علامات کی وضع"</string>
-    <string name="announce_keyboard_hidden" msgid="2313574218950517779">"کی بورڈ مخفی ہے"</string>
-    <string name="announce_keyboard_mode" msgid="6698257917367823205">"<xliff:g id="KEYBOARD_MODE">%s</xliff:g> کی بورڈ دکھائی دے رہا ہے"</string>
-    <string name="keyboard_mode_date" msgid="6597407244976713364">"تاریخ"</string>
-    <string name="keyboard_mode_date_time" msgid="3642804408726668808">"تاریخ اور وقت"</string>
-    <string name="keyboard_mode_email" msgid="1239682082047693644">"ای میل"</string>
-    <string name="keyboard_mode_im" msgid="3812086215529493501">"پیغام رسانی"</string>
-    <string name="keyboard_mode_number" msgid="5395042245837996809">"نمبر"</string>
-    <string name="keyboard_mode_phone" msgid="2486230278064523665">"فون"</string>
-    <string name="keyboard_mode_text" msgid="9138789594969187494">"متن"</string>
-    <string name="keyboard_mode_time" msgid="8558297845514402675">"وقت"</string>
-    <string name="keyboard_mode_url" msgid="8072011652949962550">"URL"</string>
-    <string name="spoken_descrption_emoji_category_recents" msgid="4185344945205590692">"حالیہ"</string>
-    <string name="spoken_descrption_emoji_category_people" msgid="8414196269847492817">"لوگ"</string>
-    <string name="spoken_descrption_emoji_category_objects" msgid="6116297906606195278">"اشیاء"</string>
-    <string name="spoken_descrption_emoji_category_nature" msgid="5018340512472354640">"فطرت"</string>
-    <string name="spoken_descrption_emoji_category_places" msgid="1163315840948545317">"مقامات"</string>
-    <string name="spoken_descrption_emoji_category_symbols" msgid="474680659024880601">"علامات"</string>
-    <string name="spoken_descrption_emoji_category_flags" msgid="5971573825866381472">"جھنڈے"</string>
-    <string name="spoken_descrption_emoji_category_eight_smiley_people" msgid="5682663819532433464">"سمائلی اور لوگ"</string>
-    <string name="spoken_descrption_emoji_category_eight_animals_nature" msgid="5844950234883716704">"جانور اور فطرت"</string>
-    <string name="spoken_descrption_emoji_category_eight_food_drink" msgid="6196944764485349650">"غذا اور مشروب"</string>
-    <string name="spoken_descrption_emoji_category_eight_travel_places" msgid="3834085499381434611">"سفر اور جگہیں"</string>
-    <string name="spoken_descrption_emoji_category_eight_activity" msgid="4795281669042975993">"سرگرمی"</string>
-    <string name="spoken_descrption_emoji_category_emoticons" msgid="456737544787823539">"جذباتی اشکال"</string>
-    <string name="spoken_description_upper_case" msgid="4904835255229433916">"بڑی <xliff:g id="LOWER_LETTER">%s</xliff:g>"</string>
-    <string name="spoken_letter_0049" msgid="4743162182646977944">"‏بڑی I"</string>
-    <string name="spoken_letter_0130" msgid="4766619646231612274">"‏بڑی I، اوپر ڈاٹ"</string>
-    <string name="spoken_symbol_unknown" msgid="717298227061173706">"نامعلوم علامت"</string>
-    <string name="spoken_emoji_unknown" msgid="5981009928135394306">"‏نامعلوم emoji"</string>
-    <string name="spoken_emoticon_3A_2D_21_20" msgid="2410905667389534573">"اکتایا ہوا چہرہ"</string>
-    <string name="spoken_emoticon_3A_2D_24_20" msgid="2481260475945560438">"شرمندہ چہرہ"</string>
-    <string name="spoken_emoticon_42_2D_29_20" msgid="1063205250387128068">"دھوپ کا چشمہ پہنا ہوا چہرہ"</string>
-    <string name="spoken_emoticon_3A_4F_20" msgid="532695091593447238">"حیران چہرہ"</string>
-    <string name="spoken_emoticon_3A_2D_2A_20" msgid="5612342617244114291">"چومنے والا چہرہ"</string>
-    <string name="spoken_emoticon_3A_2D_5B_20" msgid="2223507987759905920">"تیوری چڑھایا ہوا چہرہ"</string>
-    <string name="spoken_open_more_keys_keyboard" msgid="6832897688371903747">"متبادل حروف دستیاب ہیں"</string>
-    <string name="spoken_close_more_keys_keyboard" msgid="3524914657934712026">"متبادل حروف کو مسترد کر دیا گیا ہے"</string>
-    <string name="spoken_open_more_suggestions" msgid="4231720702882969760">"متبادل تجاویز دستیاب ہیں"</string>
-    <string name="spoken_close_more_suggestions" msgid="9118455416075032839">"متبادل تجاویز کو مسترد کر دیا گیا ہے"</string>
+<!--
+    Copyright (C) 2015 The Android Open Source Project
+    SPDX-License-Identifier: Apache-2.0
+-->
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="spoken_use_headphones">"پاس ورڈ کلیدوں کی آواز اونچی آواز میں سننے کیلئے ایک ہیڈ سیٹ پلگ ان کریں۔"</string>
+    <string name="spoken_current_text_is">"‏موجودہ  متن %s ہے"</string>
+    <string name="spoken_no_text_entered">"کوئی متن درج نہیں کیا گیا"</string>
+    <string name="spoken_auto_correct">"<xliff:g id="KEY_NAME">%1$s</xliff:g> <xliff:g id="ORIGINAL_WORD">%2$s</xliff:g> کو ٹھیک کر کے <xliff:g id="CORRECTED_WORD">%3$s</xliff:g> کر دیتی ہے"</string>
+    <string name="spoken_auto_correct_obscured">"<xliff:g id="KEY_NAME">%1$s</xliff:g> خود کار اصلاح کو انجام دیتی ہے"</string>
+    <string name="spoken_empty_suggestion">"کوئی تجویز نہیں"</string>
+    <string name="spoken_description_unknown">"نامعلوم حرف"</string>
+    <string name="spoken_description_shift">"Shift"</string>
+    <string name="spoken_description_symbols_shift">"مزید علامات"</string>
+    <string name="spoken_description_shift_shifted">"Shift"</string>
+    <string name="spoken_description_symbols_shift_shifted">"علامات"</string>
+    <string name="spoken_description_caps_lock">"Shift"</string>
+    <string name="spoken_description_delete">"حذف کریں"</string>
+    <string name="spoken_description_to_symbol">"علامات"</string>
+    <string name="spoken_description_to_alpha">"حروف"</string>
+    <string name="spoken_description_to_numeric">"نمبرز"</string>
+    <string name="spoken_description_settings">"ترتیبات"</string>
+    <string name="spoken_description_tab">"Tab"</string>
+    <string name="spoken_description_space">"اسپیس"</string>
+    <string name="spoken_description_mic">"صوتی ان پٹ"</string>
+    <string name="spoken_description_emoji">"Emoji"</string>
+    <string name="spoken_description_return">"واپس جائیں"</string>
+    <string name="spoken_description_search">"تلاش کریں"</string>
+    <string name="spoken_description_dot">"ڈاٹ"</string>
+    <string name="spoken_description_language_switch">"زبان سوئچ کریں"</string>
+    <string name="spoken_description_action_next">"اگلا"</string>
+    <string name="spoken_description_action_previous">"پچھلا"</string>
+    <string name="spoken_description_shiftmode_on">"‏Shift فعال ہے"</string>
+    <string name="spoken_description_shiftmode_locked">"‏Caps lock فعال ہے"</string>
+    <string name="spoken_description_mode_symbol">"علامات وضع"</string>
+    <string name="spoken_description_mode_symbol_shift">"مزید علامات کی وض‏ع"</string>
+    <string name="spoken_description_mode_alpha">"حروف وضع"</string>
+    <string name="spoken_description_mode_phone">"فون وضع"</string>
+    <string name="spoken_description_mode_phone_shift">"فون علامات کی وضع"</string>
+    <string name="announce_keyboard_hidden">"کی بورڈ مخفی ہے"</string>
+    <string name="announce_keyboard_mode">"<xliff:g id="KEYBOARD_MODE">%s</xliff:g> کی بورڈ دکھائی دے رہا ہے"</string>
+    <string name="keyboard_mode_date">"تاریخ"</string>
+    <string name="keyboard_mode_date_time">"تاریخ اور وقت"</string>
+    <string name="keyboard_mode_email">"ای میل"</string>
+    <string name="keyboard_mode_im">"پیغام رسانی"</string>
+    <string name="keyboard_mode_number">"نمبر"</string>
+    <string name="keyboard_mode_phone">"فون"</string>
+    <string name="keyboard_mode_text">"متن"</string>
+    <string name="keyboard_mode_time">"وقت"</string>
+    <string name="keyboard_mode_url">"URL"</string>
+    <string name="spoken_description_emoji_category_recents">"حالیہ"</string>
+    <string name="spoken_description_emoji_category_objects">"اشیاء"</string>
+    <string name="spoken_description_emoji_category_symbols">"علامات"</string>
+    <string name="spoken_description_emoji_category_flags">"جھنڈے"</string>
+    <string name="spoken_description_emoji_category_eight_smiley_people">"سمائلی اور لوگ"</string>
+    <string name="spoken_description_emoji_category_eight_animals_nature">"جانور اور فطرت"</string>
+    <string name="spoken_description_emoji_category_eight_food_drink">"غذا اور مشروب"</string>
+    <string name="spoken_description_emoji_category_eight_travel_places">"سفر اور جگہیں"</string>
+    <string name="spoken_description_emoji_category_eight_activity">"سرگرمی"</string>
+    <string name="spoken_description_emoji_category_emoticons">"جذباتی اشکال"</string>
+    <string name="spoken_description_upper_case">"بڑی <xliff:g id="LOWER_LETTER">%s</xliff:g>"</string>
+    <string name="spoken_letter_0049">"‏بڑی I"</string>
+    <string name="spoken_letter_0130">"‏بڑی I، اوپر ڈاٹ"</string>
+    <string name="spoken_open_popup_keys_keyboard">"متبادل حروف دستیاب ہیں"</string>
+    <string name="spoken_close_popup_keys_keyboard">"متبادل حروف کو مسترد کر دیا گیا ہے"</string>
+    <string name="spoken_open_more_suggestions">"متبادل تجاویز دستیاب ہیں"</string>
+    <string name="spoken_close_more_suggestions">"متبادل تجاویز کو مسترد کر دیا گیا ہے"</string>
 </resources>

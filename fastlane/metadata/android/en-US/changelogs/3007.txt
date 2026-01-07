@@ -1,0 +1,11 @@
+* add layouts: Arabic Hija'i, Hebrew 1452-2, Hindi Phonetic, Dargwa (Urakhi), Baishakhi, Kurdish
+* update some layouts
+* support combining accents
+* split keyboard toolbar key
+* add .com popups
+* allow setting custom font
+* add font scale setting
+* improve automatic language switching
+* overhaul settings
+* add settings for more tuning of keyboard padding, auto-space, auto-correction, number row
+* more features and fixes

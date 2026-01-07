@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    SPDX-License-Identifier: GPL-3.0-only
+-->
+<resources>
+    <color name="foreground">#FFF</color>
+    <color name="foreground_weak">#BBB</color>
+    <color name="toast_background">#444444</color>
+
+    <color name="keyboard_background">@color/keyboard_background_dark</color>
+
+    <!-- Color resources for setup wizard, tutorial and settings -->
+    <color name="accent">@color/highlight_color_lxx_dark</color>
+    <color name="setup_background">#FF303030</color>
+    <color name="setup_step_background">#FF2D4260</color>
+    <color name="setup_text_title">#FF5C94F1</color>
+    <color name="setup_text_action">#FFFFFFFF</color>
+    <color name="action_bar_color">#FF212121</color>
+    <color name="navigation_bar_color">#FF303030</color>
+</resources>

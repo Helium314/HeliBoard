@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright (C) 2011 The Android Open Source Project
+    modified
+    SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
+-->
+<!--suppress AndroidUnknownAttribute -->
+<Keyboard xmlns:latin="http://schemas.android.com/apk/res-auto"
+    latin:keyWidth="5%p"
+    latin:rowHeight="@dimen/config_popup_keys_keyboard_key_height"
+    style="?attr/popupKeysKeyboardStyle"
+    >
+</Keyboard>

@@ -1,0 +1,7 @@
+- actualizar a disposición Serbio Cirílico por @markokocic (#704, #705)
+- actualizar a disposición do Estonio por @tenextractor (#693)
+- corrixir as entradas duplicadas no historial do portapapeis por @codokie (#616, #680)
+- só engade entradas de texto ao historial do portapapeis por @codokie (#711)
+- mellores imaxes nos metadatos por @RHJihan (#713)
+- pór a cor correcta das iconas no diálogo de selección da barra de ferramentas por @codokie (#715, #716)
+- outros arranxos (#684, #723 e outras)

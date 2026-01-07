@@ -1,0 +1,9 @@
+* Eszköztármódok hozzáadása (lehetővé teszi az eszköztár elrejtését)
+* Néhány hiányzó emodzsiváltozat hozzáadása
+* Altípusképernyő és -szótár párbeszédablak javítása
+* Színek javítása sötét mód kényszerítésekor
+* A legtöbb álló / fekvő méretezési beállítás áthelyezése egy párbeszédablakba
+* Nem fordíthatóként megjelölt karakterláncok fordításainak eltávolítása
+* Következő képernyő nyílirányának javítása RTL nyelveknél
+
+* És még több hibajavítás - további részletek a bejelentésben

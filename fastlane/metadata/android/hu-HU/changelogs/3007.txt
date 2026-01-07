@@ -1,0 +1,11 @@
+* Elrendezések hozzáadása: Arab Hija'i, Héber 1452-2, Hindi fonetikus, Dargwa (Urakhi), Baishakhi, Kurd
+* Néhány elrendezés frissítése
+* Ékezetek kombinálásának támogatása
+* Osztott billentyűzet eszköztárgomb
+* .com felugró ablakok hozzáadása
+* Egyéni betűtípus beállításának engedélyezése
+* Betűméret-skála beállítás hozzáadása
+* Automatikus nyelvváltás javítása
+* Beállítások átdolgozása
+
+* És még több hibajavítás - további részletek a bejelentésben

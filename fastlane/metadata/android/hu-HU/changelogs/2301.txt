@@ -1,0 +1,8 @@
+* Számsor, eszköztárkódok, ikonok, szóközszöveg, alsó sor testreszabása az emodzsi- és vágólapnézetekhez
+* Ikonstílus leválasztása a billentyűzet stílusáról
+* Felesleges felugró ablakok eltávolításának alapértelmezett letiltása (és egy kis javítás)
+* Kevésbé agresszív szóhozzáadás a személyes szótárhoz
+* Nincs rezgés „ne zavarjanak” módban
+* Teljesítmény javítása nagy szövegek másolásakor
+
+* És még több hibajavítás - további részletek a bejelentésben

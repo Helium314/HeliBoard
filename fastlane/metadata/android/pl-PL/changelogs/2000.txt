@@ -1,0 +1,10 @@
+* dodano podstawową obsługę klawiszy modyfikujących
+* dodano funkcję długiego naciśnięcia dla większej liczby klawiszy paska narzędzi
+* oraz więcej klawiszy paska narzędzi w schowku
+* możliwość dostosowania klawiszy paska narzędzi w schowku
+* możliwość dostosowania wszystkich kolorów
+* dodano ustawienie, aby zawsze wyświetlać wpisywane słowo jako środkową sugestię
+* dodano wskaźnik Caps Lock
+* dodano piemoncki, mari wschodni, mansyjski oraz rozszerzone układy dla języka kanadyjskiego i węgierskiego
+* naprawiono obcięty tekst w wyskakującym okienku podczas podglądu klawiszy na niektórych urządzeniach
+* więcej poprawek i ulepszeń, zobacz informacje o wydaniu

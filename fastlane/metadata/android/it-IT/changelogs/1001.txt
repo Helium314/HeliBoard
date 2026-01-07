@@ -1,0 +1,20 @@
+* Icona di @FabianOvrWrt/@the-eclectic-dyslexic
+* Funzioni trackpad e cambio lingua su spazio migliorate
+* % in layout simboli ⇧
+* Tasto cambio lingua+tastiera migliorato
+* Link ai dizionari esistenti
+* Layout Kaitag
+* Layout Probhat
+* Icone invertite per RTL
+* Layout speciali
+   (beta)
+* Spellchecker.xml ampliato
+* Traduzioni aggiornate
+* Ndk aggiornato
+* Riempimento inline aggiornato
+* Fix toolbar
+* Fix layout turco
+* Fix switch colori
+* Fix emoji recenti
+* Fix numeri invisibili
+* Bugfix

@@ -1,0 +1,33 @@
+[popup_keys]
+و ؤ
+ر ڑ
+ت ٹ
+ے ۓ
+ی ئ
+ہ ۂ ۃ
+ا آ أ ٰ ٖ
+س ص
+د ڈ
+گ غ
+ح ھ
+ج ض
+ک خ
+َ ُ ِ ٗ ْ ً ٌ ٍ ّ
+ز ذ
+ش ژ
+چ ث
+ط ظ
+ن ں
+punctuation ؟ ، ! . -
+« „ “ ”
+» ‚ ‘ ’ ‹ ›
+
+[labels]
+alphabet: اب‌پ
+comma: ،
+symbol: ۳۲۱؟
+period: ۔
+question: ؟
+
+[number_row]
+۱ ۲ ۳ ۴ ۵ ۶ ۷ ۸ ۹ ۰

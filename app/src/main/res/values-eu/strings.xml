@@ -1,193 +1,443 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!-- 
-/*
-**
-** Copyright 2008, The Android Open Source Project
-**
-** Licensed under the Apache License, Version 2.0 (the "License");
-** you may not use this file except in compliance with the License.
-** You may obtain a copy of the License at
-**
-**     http://www.apache.org/licenses/LICENSE-2.0
-**
-** Unless required by applicable law or agreed to in writing, software
-** distributed under the License is distributed on an "AS IS" BASIS,
-** WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-** See the License for the specific language governing permissions and
-** limitations under the License.
-*/
- -->
-
-<resources xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="english_ime_input_options" msgid="3909945612939668554">"Idazketa-aukerak"</string>
-    <string name="use_contacts_for_spellchecking_option_title" msgid="5374120998125353898">"Bilatu kontaktu-izenak"</string>
-    <string name="use_contacts_for_spellchecking_option_summary" msgid="8754413382543307713">"Ortografia-zuzentzaileak kontaktuak erabiltzen ditu"</string>
-    <string name="vibrate_on_keypress" msgid="5258079494276955460">"Egin dar-dar sakatzean"</string>
-    <string name="sound_on_keypress" msgid="6093592297198243644">"Soinua teklak sakatzean"</string>
-    <string name="popup_on_keypress" msgid="123894815723512944">"Handitu teklak, sakatzean"</string>
-    <string name="settings_screen_preferences" msgid="2696713156722014624">"Hobespenak"</string>
-    <string name="settings_screen_accounts" msgid="2786418968536696670">"Kontuak eta pribatutasuna"</string>
-    <string name="settings_screen_appearance" msgid="7358046399111611615">"Itxura eta diseinuak"</string>
-    <string name="settings_screen_gesture" msgid="8826372746901183556">"Idazketa lerrakorra"</string>
-    <string name="settings_screen_correction" msgid="1616818407747682955">"Testu-zuzenketa"</string>
-    <string name="settings_screen_advanced" msgid="7472408607625972994">"Ezarpen aurreratuak"</string>
-    <string name="settings_screen_theme" msgid="2137262503543943871">"Gaia"</string>
-    <string name="enable_split_keyboard" msgid="4177264923999493614">"Gaitu teklatu banatua"</string>
-    <string name="include_other_imes_in_language_switch_list" msgid="4533689960308565519">"Aldatu idazketa-metodoa"</string>
-    <string name="include_other_imes_in_language_switch_list_summary" msgid="840637129103317635">"Hizkuntza aldatzeko teklak beste idazketa-metodoetarako ere balio du"</string>
-    <string name="show_language_switch_key" msgid="5915478828318774384">"Hizkuntza aldatzeko tekla"</string>
-    <string name="show_language_switch_key_summary" msgid="7343403647474265713">"Erakutsi hainbat sarrera-hizkuntza gaituta daudenean"</string>
-    <string name="key_preview_popup_dismiss_delay" msgid="6213164897443068248">"Desagertzeko atzerapena"</string>
-    <string name="key_preview_popup_dismiss_no_delay" msgid="2096123151571458064">"Atzerapenik gabe"</string>
-    <string name="key_preview_popup_dismiss_default_delay" msgid="2166964333903906734">"Lehenetsia"</string>
-    <string name="abbreviation_unit_milliseconds" msgid="8700286094028323363">"<xliff:g id="MILLISECONDS">%s</xliff:g> ms"</string>
-    <string name="settings_system_default" msgid="6268225104743331821">"Sistemaren balio lehenetsia"</string>
-    <string name="use_contacts_dict" msgid="4435317977804180815">"Iradoki kontaktu-izenak"</string>
-    <string name="use_contacts_dict_summary" msgid="6599983334507879959">"Erabili kontaktuetako izenak iradokizunak eta zuzenketak egiteko"</string>
-    <string name="use_personalized_dicts" msgid="5167396352105467626">"Iradokizun pertsonalizatuak"</string>
-    <string name="enable_metrics_logging" msgid="5506372337118822837">"Hobetu <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
-    <string name="use_double_space_period" msgid="8781529969425082860">"Zuriune bikoitzarekin puntu"</string>
-    <string name="use_double_space_period_summary" msgid="6532892187247952799">"Zuriune-tekla bi aldiz sakatuta, puntua eta zuriunea txertatzen dira"</string>
-    <string name="auto_cap" msgid="1719746674854628252">"Maiuskula automatikoak"</string>
-    <string name="auto_cap_summary" msgid="7934452761022946874">"Ezarri esaldi bakoitzaren lehenengo hizkia maiuskulaz"</string>
-    <string name="edit_personal_dictionary" msgid="3996910038952940420">"Hiztegi pertsonala"</string>
-    <string name="configure_dictionaries_title" msgid="4238652338556902049">"Hiztegi gehigarriak"</string>
-    <string name="main_dictionary" msgid="4798763781818361168">"Hiztegi nagusia"</string>
-    <string name="prefs_show_suggestions" msgid="8026799663445531637">"Erakutsi zuzenketa-iradokizunak"</string>
-    <string name="prefs_show_suggestions_summary" msgid="1583132279498502825">"Bistaratu iradokitako hitzak idatzi bitartean"</string>
-    <string name="prefs_block_potentially_offensive_title" msgid="5078480071057408934">"Blokeatu hitz iraingarriak"</string>
-    <string name="prefs_block_potentially_offensive_summary" msgid="2371835479734991364">"Ez iradoki iraingarria izan daitekeen hitzik"</string>
-    <string name="auto_correction" msgid="7630720885194996950">"Zuzenketa automatikoa"</string>
-    <string name="auto_correction_summary" msgid="5625751551134658006">"Zuzendu auto. zuriuneak eta puntuazioa gaizki idatzitako hitzetan"</string>
-    <string name="auto_correction_threshold_mode_off" msgid="8470882665417944026">"Desaktibatu"</string>
-    <string name="auto_correction_threshold_mode_modest" msgid="8788366690620799097">"Zuhurra"</string>
-    <string name="auto_correction_threshold_mode_aggressive" msgid="7319007299148899623">"Neurriz gainekoa"</string>
-    <string name="auto_correction_threshold_mode_very_aggressive" msgid="1853309024129480416">"Oso neurriz gainekoa"</string>
-    <string name="bigram_prediction" msgid="1084449187723948550">"Hurrengo hitza iradokitzea"</string>
-    <string name="bigram_prediction_summary" msgid="3896362682751109677">"Erabili aurreko hitza iradokizunak egiteko"</string>
-    <string name="gesture_input" msgid="826951152254563827">"Gaitu idazketa lerrakorra"</string>
-    <string name="gesture_input_summary" msgid="9180350639305731231">"Idatzi hitzak hizki batetik bestera hatza lerratuta"</string>
-    <string name="gesture_preview_trail" msgid="3802333369335722221">"Erakutsi keinuaren bidea"</string>
-    <string name="gesture_floating_preview_text" msgid="4443240334739381053">"Flotatze dinamikodun aurrebista"</string>
-    <string name="gesture_floating_preview_text_summary" msgid="4472696213996203533">"Ikusi iradokitako hitza keinua egin bitartean"</string>
-    <string name="gesture_space_aware" msgid="2078291600664682496">"Esaldi-keinua"</string>
-    <string name="gesture_space_aware_summary" msgid="4371385818348528538">"Sartu zuriuneak keinuak egin bitartean zuriune-teklara lerratuta"</string>
-    <string name="voice_input" msgid="3583258583521397548">"Ahozko idazketaren tekla"</string>
-    <string name="voice_input_disabled_summary" msgid="6323489602945135165">"Ez da gaitu ahozko idazketa-metodorik. Egiaztatu Hizkuntza eta idazketa ataleko ezarpenak."</string>
-    <string name="configure_input_method" msgid="373356270290742459">"Konfiguratu idazketa-metodoak"</string>
-    <string name="language_selection_title" msgid="3666971864764478269">"Hizkuntzak"</string>
-    <string name="help_and_feedback" msgid="5328219371839879161">"Laguntza eta iritziak"</string>
-    <string name="select_language" msgid="5709487854987078367">"Hizkuntzak"</string>
-    <string name="hint_add_to_dictionary" msgid="2645988432867033007">"Gordetzeko, sakatu berriro"</string>
-    <string name="hint_add_to_dictionary_without_word" msgid="6710206006427574423">"Gordetzeko, sakatu hau"</string>
-    <string name="has_dictionary" msgid="6071847973466625007">"Hiztegia erabilgarri"</string>
-    <string name="keyboard_layout" msgid="8451164783510487501">"Teklatuaren gaia"</string>
-    <string name="switch_accounts" msgid="3321216593719006162">"Aldatu beste kontu batera"</string>
-    <string name="no_accounts_selected" msgid="2073821619103904330">"Ez da konturik hautatu"</string>
-    <string name="account_selected" msgid="2846876462199625974">"<xliff:g id="EMAIL_ADDRESS">%1$s</xliff:g> helbidea ari zara erabiltzen"</string>
-    <string name="account_select_ok" msgid="9141195141763227797">"Ados"</string>
-    <string name="account_select_cancel" msgid="5181012062618504340">"Utzi"</string>
-    <string name="account_select_sign_out" msgid="3299651159390187933">"Amaitu saioa"</string>
-    <string name="account_select_title" msgid="6279711684772922649">"Hautatu erabili nahi duzun kontua"</string>
-    <string name="subtype_en_GB" msgid="88170601942311355">"Ingelesa (Erresuma Batua)"</string>
-    <string name="subtype_en_US" msgid="6160452336634534239">"Ingelesa (AEB)"</string>
-    <string name="subtype_es_US" msgid="5583145191430180200">"Gaztelania (AEB)"</string>
-    <string name="subtype_hi_ZZ" msgid="8860448146262798623">"Hinglisha"</string>
-    <string name="subtype_sr_ZZ" msgid="9059219552986034343">"Serbiarra (latindarra)"</string>
-    <string name="subtype_with_layout_en_GB" msgid="1931018968641592304">"Ingelesa (Erresuma Batua) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_en_US" msgid="8809311287529805422">"Ingelesa (AEB) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_es_US" msgid="510930471167541338">"Gaztelania (AEB) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_hi_ZZ" msgid="6827402953860547044">"Hinglisha (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_sr_ZZ" msgid="2859024772719772407">"Serbiarra (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_generic_traditional" msgid="8584594350973800586">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (tradizionala)"</string>
-    <string name="subtype_generic_compact" msgid="3353673321203202922">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (trinkoa)"</string>
-    <string name="subtype_no_language" msgid="7137390094240139495">"Ez dago hizkuntzarik (alfabetoa)"</string>
-    <string name="subtype_no_language_qwerty" msgid="244337630616742604">"alfabetoa (QWERTY)"</string>
-    <string name="subtype_no_language_qwertz" msgid="443066912507547976">"alfabetoa (QWERTZ)"</string>
-    <string name="subtype_no_language_azerty" msgid="8144348527575640087">"alfabetoa (AZERTY)"</string>
-    <string name="subtype_no_language_dvorak" msgid="1564494667584718094">"alfabetoa (Dvorak)"</string>
-    <string name="subtype_no_language_colemak" msgid="5837418400010302623">"alfabetoa (Colemak)"</string>
-    <string name="subtype_no_language_pcqwerty" msgid="5354918232046200018">"alfabetoa (PC)"</string>
-    <string name="subtype_emoji" msgid="7483586578074549196">"Emojiak"</string>
-    <string name="keyboard_theme" msgid="4909551808526178852">"Teklatuaren gaia"</string>
-    <string name="custom_input_styles_title" msgid="8429952441821251512">"Idazketa-estilo pertsonalizatuak"</string>
-    <string name="add_style" msgid="6163126614514489951">"Gehitu estiloa"</string>
-    <string name="add" msgid="8299699805688017798">"Gehitu"</string>
-    <string name="remove" msgid="4486081658752944606">"Kendu"</string>
-    <string name="save" msgid="7646738597196767214">"Gorde"</string>
-    <string name="subtype_locale" msgid="8576443440738143764">"Hizkuntza"</string>
-    <string name="keyboard_layout_set" msgid="4309233698194565609">"Diseinua"</string>
-    <string name="custom_input_style_note_message" msgid="8826731320846363423">"Idazketa-estilo pertsonalizatua gaitu behar duzu erabiltzen hasi aurretik. Estiloa gaitu nahi duzu?"</string>
-    <string name="enable" msgid="5031294444630523247">"Gaitu"</string>
-    <string name="not_now" msgid="6172462888202790482">"Orain ez"</string>
-    <string name="custom_input_style_already_exists" msgid="8008728952215449707">"Idazketa-estilo hori badago lehendik ere: <xliff:g id="INPUT_STYLE_NAME">%s</xliff:g>"</string>
-    <string name="prefs_keypress_vibration_duration_settings" msgid="7918341459947439226">"Tekla sakatzearen dardararen iraupena"</string>
-    <string name="prefs_keypress_sound_volume_settings" msgid="6027007337036891623">"Tekla sakatzearen bolumena"</string>
-    <string name="prefs_key_longpress_timeout_settings" msgid="6102240298932897873">"Luze sakatzearen atzerapena"</string>
-    <string name="prefs_enable_emoji_alt_physical_key" msgid="5963640002335470112">"Teklatu fisikorako emojiak"</string>
-    <string name="prefs_enable_emoji_alt_physical_key_summary" msgid="5259484820941627827">"Teklatu fisikoko Alt tekla sakatuta emojiak agertzen dira"</string>
-    <string name="button_default" msgid="3988017840431881491">"Lehenetsia"</string>
-    <string name="setup_welcome_title" msgid="6112821709832031715">"Ongi etorri <xliff:g id="APPLICATION_NAME">%s</xliff:g> aplikaziora"</string>
-    <string name="setup_welcome_additional_description" msgid="8150252008545768953">"Idazketa lerrakorrarekin"</string>
-    <string name="setup_start_action" msgid="8936036460897347708">"Hasi erabiltzen"</string>
-    <string name="setup_next_action" msgid="371821437915144603">"Hurrengo urratsa"</string>
-    <string name="setup_steps_title" msgid="6400373034871816182">"<xliff:g id="APPLICATION_NAME">%s</xliff:g> konfiguratzen"</string>
-    <string name="setup_step1_title" msgid="3147967630253462315">"Gaitu <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
-    <string name="setup_step1_instruction" msgid="4295448056733329661">"Hautatu <xliff:g id="APPLICATION_NAME">%s</xliff:g> Hizkuntza eta idazketa ataleko ezarpenetan. Horrek gailuan exekutatzea baimenduko dio."</string>
-    <string name="setup_step1_finished_instruction" msgid="8701441895377434947">"<xliff:g id="APPLICATION_NAME">%s</xliff:g> gaituta duzu Hizkuntza eta idazketa ataleko ezarpenetan; beraz, urratsa eginda dago. Ekin hurrengoari!"</string>
-    <string name="setup_step1_action" msgid="4366513534999901728">"Gaitu Ezarpenak atalean"</string>
-    <string name="setup_step2_title" msgid="6860725447906690594">"Aldatu <xliff:g id="APPLICATION_NAME">%s</xliff:g> aplikaziora"</string>
-    <string name="setup_step2_instruction" msgid="9141481964870023336">"Ondoren, hautatu \"<xliff:g id="APPLICATION_NAME">%s</xliff:g>\" idazketa-metodo aktibo gisa."</string>
-    <string name="setup_step2_action" msgid="1660330307159824337">"Aldatu idazketa-metodoak"</string>
-    <string name="setup_step3_title" msgid="3154757183631490281">"Dena prest duzu!"</string>
-    <string name="setup_step3_instruction" msgid="8025981829605426000">"Gogokoen dituzun aplikazioetan idatz dezakezu dagoeneko <xliff:g id="APPLICATION_NAME">%s</xliff:g> erabilita."</string>
-    <string name="setup_step3_action" msgid="600879797256942259">"Konfiguratu hizkuntza gehigarriak"</string>
-    <string name="setup_finish_action" msgid="276559243409465389">"Amaituta"</string>
-    <string name="show_setup_wizard_icon" msgid="5008028590593710830">"Erakutsi aplikazioaren ikonoa"</string>
-    <string name="show_setup_wizard_icon_summary" msgid="4119998322536880213">"Bistaratu aplikazioaren ikonoa abiarazlean"</string>
-    <string name="app_name" msgid="6320102637491234792">"Hiztegi-hornitzailea"</string>
-    <string name="dictionary_provider_name" msgid="3027315045397363079">"Hiztegi-hornitzailea"</string>
-    <string name="dictionary_service_name" msgid="6237472350693511448">"Hiztegi-zerbitzua"</string>
-    <string name="download_description" msgid="6014835283119198591">"Hiztegia eguneratzeko informazioa"</string>
-    <string name="dictionary_settings_title" msgid="8091417676045693313">"Hiztegi gehigarriak"</string>
-    <string name="dictionary_settings_summary" msgid="5305694987799824349">"Hiztegien ezarpenak"</string>
-    <string name="user_dictionaries" msgid="3582332055892252845">"Erabiltzailearen hiztegiak"</string>
-    <string name="default_user_dict_pref_name" msgid="1625055720489280530">"Erabiltzailearen hiztegia"</string>
-    <string name="dictionary_available" msgid="4728975345815214218">"Hiztegia erabilgarri"</string>
-    <string name="dictionary_downloading" msgid="2982650524622620983">"Une honetan deskargatzen"</string>
-    <string name="dictionary_installed" msgid="8081558343559342962">"Instalatuta"</string>
-    <string name="dictionary_disabled" msgid="8950383219564621762">"Instalatuta, desgaituta"</string>
-    <string name="cannot_connect_to_dict_service" msgid="9216933695765732398">"Arazoa gertatu da hiztegi-zerbitzuarekin konektatzean"</string>
-    <string name="no_dictionaries_available" msgid="8039920716566132611">"Ez dago hiztegirik erabilgarri"</string>
-    <string name="check_for_updates_now" msgid="8087688440916388581">"Freskatu"</string>
-    <string name="last_update" msgid="730467549913588780">"Azken eguneratzea"</string>
-    <string name="message_updating" msgid="4457761393932375219">"Eguneratzeak bilatzen"</string>
-    <string name="message_loading" msgid="5638680861387748936">"Kargatzen…"</string>
-    <string name="main_dict_description" msgid="3072821352793492143">"Hiztegi nagusia"</string>
-    <string name="cancel" msgid="6830980399865683324">"Utzi"</string>
-    <string name="go_to_settings" msgid="3876892339342569259">"Ezarpenak"</string>
-    <string name="install_dict" msgid="180852772562189365">"Instalatu"</string>
-    <string name="cancel_download_dict" msgid="7843340278507019303">"Utzi"</string>
-    <string name="delete_dict" msgid="756853268088330054">"Ezabatu"</string>
-    <string name="version_text" msgid="2715354215568469385">"<xliff:g id="VERSION_NUMBER">%1$s</xliff:g> bertsioa"</string>
-    <string name="user_dict_settings_add_menu_title" msgid="1254195365689387076">"Gehitu"</string>
-    <string name="user_dict_settings_add_dialog_title" msgid="4096700390211748168">"Gehitu hiztegian"</string>
-    <string name="user_dict_settings_add_screen_title" msgid="5818914331629278758">"Esaldia"</string>
-    <string name="user_dict_settings_add_dialog_more_options" msgid="5671682004887093112">"Aukera gehiago"</string>
-    <string name="user_dict_settings_add_dialog_less_options" msgid="2716586567241724126">"Aukera gutxiago"</string>
-    <string name="user_dict_settings_add_dialog_confirm" msgid="4703129507388332950">"Ados"</string>
-    <string name="user_dict_settings_add_word_option_name" msgid="6665558053408962865">"Hitza:"</string>
-    <string name="user_dict_settings_add_shortcut_option_name" msgid="3094731590655523777">"Lasterbidea:"</string>
-    <string name="user_dict_settings_add_locale_option_name" msgid="4738643440987277705">"Hizkuntza:"</string>
-    <string name="user_dict_settings_add_word_hint" msgid="4902434148985906707">"Idatzi hitz bat"</string>
-    <string name="user_dict_settings_add_shortcut_hint" msgid="2265453012555060178">"Aukerako lasterbidea"</string>
-    <string name="user_dict_settings_edit_dialog_title" msgid="3765774633869590352">"Editatu hitza"</string>
-    <string name="user_dict_settings_context_menu_edit_title" msgid="6812255903472456302">"Editatu"</string>
-    <string name="user_dict_settings_context_menu_delete_title" msgid="8142932447689461181">"Ezabatu"</string>
-    <string name="user_dict_settings_empty_text" msgid="6889278304342592383">"Hutsik daukazu erabiltzailearen hiztegia. Hitzak gehitzeko, sakatu Gehitu (+) botoia."</string>
-    <string name="user_dict_settings_all_languages" msgid="8276126583216298886">"Hizkuntza guztietan"</string>
-    <string name="user_dict_settings_more_languages" msgid="7131268499685180461">"Hizkuntza gehiago…"</string>
-    <string name="user_dict_settings_delete" msgid="110413335187193859">"Ezabatu"</string>
-    <string name="user_dict_fast_scroll_alphabet" msgid="5431919401558285473">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright (C) 2008 The Android Open Source Project
+    modified
+    SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
+--><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" xmlns:tools="http://schemas.android.com/tools">
+    <string name="use_contacts_dict">"Bilatu kontaktu-izenak"</string>
+    <string name="vibrate_on_keypress">"Egin dar-dar sakatzean"</string>
+    <string name="sound_on_keypress">"Soinua teklak sakatzean"</string>
+    <string name="popup_on_keypress">Handitu tekla sakatzean</string>
+    <string name="settings_screen_preferences">"Hobespenak"</string>
+    <string name="settings_screen_gesture">Keinu-idazketa</string>
+    <string name="settings_screen_correction">"Testu-zuzenketa"</string>
+    <string name="settings_screen_advanced">"Aurreratuak"</string>
+    <string name="settings_screen_theme">"Gaia"</string>
+    <string name="enable_split_keyboard">"Gaitu teklatu banatua"</string>
+    <string name="language_switch_key_switch_input_method">"Aldatu idazketa-metodoa"</string>
+    <string name="show_language_switch_key">"Hizkuntza aldatzeko tekla"</string>
+    <string name="abbreviation_unit_milliseconds">"%s ms"</string>
+    <string name="settings_system_default">Sistemak lehenetsitakoa</string>
+    <string name="use_contacts_dict_summary">Erabili kontaktuen izenak iradokizunak eta zuzenketak egiteko</string>
+    <string name="use_personalized_dicts">"Iradokizun pertsonalizatuak"</string>
+    <string name="use_double_space_period">Zuriunearen sakatze bikoitzaren tartea</string>
+    <string name="use_double_space_period_summary">"Zuriune-tekla bi aldiz sakatuta, puntua eta zuriunea txertatzen dira"</string>
+    <string name="auto_cap">"Maiuskula automatikoak"</string>
+    <string name="auto_cap_summary">"Ezarri esaldi bakoitzaren lehenengo hizkia maiuskulaz"</string>
+    <string name="edit_personal_dictionary">"Hiztegi pertsonala"</string>
+    <string name="main_dictionary">"Hiztegi nagusia"</string>
+    <string name="prefs_show_suggestions">"Erakutsi zuzenketa-iradokizunak"</string>
+    <string name="prefs_show_suggestions_summary">"Bistaratu iradokitako hitzak idatzi bitartean"</string>
+    <string name="prefs_block_potentially_offensive_title">"Blokeatu hitz iraingarriak"</string>
+    <string name="prefs_block_potentially_offensive_summary">"Ez iradoki iraingarria izan daitekeen hitzik"</string>
+    <string name="autocorrect">"Zuzenketa automatikoa"</string>
+    <string name="auto_correction_summary">Zuriuneak eta puntuak automatikoki zuzentzeko gaizki idatzitako hitzak</string>
+    <string name="auto_correction_threshold_mode_off">"Desaktibatu"</string>
+    <string name="auto_correction_threshold_mode_modest">"Zuhurra"</string>
+    <string name="auto_correction_threshold_mode_aggressive">Ausarta</string>
+    <string name="auto_correction_threshold_mode_very_aggressive">Oso ausarta</string>
+    <string name="bigram_prediction">"Hurrengo hitza iradokitzea"</string>
+    <string name="bigram_prediction_summary">"Erabili aurreko hitza iradokizunak egiteko"</string>
+    <string name="gesture_input">Gaitu keinu-idazketa</string>
+    <string name="gesture_input_summary">"Idatzi hitzak hizki batetik bestera hatza lerratuta"</string>
+    <string name="gesture_preview_trail">"Erakutsi keinuaren bidea"</string>
+    <string name="gesture_floating_preview_text">"Flotatze dinamikodun aurrebista"</string>
+    <string name="gesture_space_aware">"Esaldi-keinua"</string>
+    <string name="gesture_space_aware_summary">"Sartu zuriuneak keinuak egin bitartean zuriune-teklara lerratuta"</string>
+    <string name="subtype_en_GB">"Ingelesa (Erresuma Batua)"</string>
+    <string name="subtype_en_US">"Ingelesa (AEB)"</string>
+    <string name="subtype_es_US">"Gaztelania (AEB)"</string>
+    <string name="subtype_hi_Latn">"Hinglisha"</string>
+    <string name="subtype_sr_Latn">"Serbiarra (latindarra)"</string>
+    <string name="subtype_generic_traditional">%s (Tradizionala)</string>
+    <string name="subtype_generic_compact">%s (Trinkoa)</string>
+    <string name="subtype_no_language">"Ez dago hizkuntzarik"</string>
+    <string name="subtype_emoji">"Emojiak"</string>
+    <string name="add">"Gehitu"</string>
+    <string name="remove">"Kendu"</string>
+    <string name="save">"Gorde"</string>
+    <string name="subtype_locale">"Hizkuntza"</string>
+    <string name="keyboard_layout_set">"Diseinua"</string>
+    <string name="prefs_keypress_vibration_duration_settings">Tekla sakatzean dardararen iraupena</string>
+    <string name="prefs_keypress_sound_volume_settings">"Tekla sakatzearen bolumena"</string>
+    <string name="prefs_key_longpress_timeout_settings">"Luze sakatzearen atzerapena"</string>
+    <string name="prefs_enable_emoji_alt_physical_key">"Teklatu fisikorako emojiak"</string>
+    <string name="prefs_enable_emoji_alt_physical_key_summary">"Teklatu fisikoko Alt tekla sakatuta emojiak agertzen dira"</string>
+    <string name="button_default">"Lehenetsia"</string>
+    <string name="setup_welcome_title">Ongi etorri %s aplikaziora</string>
+    <string name="setup_welcome_additional_description">Keinu-idazketarekin</string>
+    <string name="setup_start_action">"Hasi erabiltzen"</string>
+    <string name="setup_steps_title">%s konfiguratzen</string>
+    <string name="setup_step1_title">%s gaitu</string>
+    <string name="setup_step1_instruction">Hautatu \"%s\" Hizkuntza eta idazketa ataleko ezarpenetan &amp;. Horrek gailuan exekutatzea baimenduko dio.</string>
+    <string name="setup_step1_action">Gaitu Ezarpenetan</string>
+    <string name="setup_step2_title">Aldatu %s aplikaziora</string>
+    <string name="setup_step2_instruction">Ondoren, hautatu \"%s\" idazketa-metodo aktibo gisa.</string>
+    <string name="setup_step2_action">"Aldatu idazketa-metodoak"</string>
+    <string name="setup_step3_title">"Dena prest duzu!"</string>
+    <string name="setup_step3_instruction">Gogokoen dituzun aplikazioetan idatz dezakezu dagoeneko %s erabilita.</string>
+    <string name="setup_finish_action">"Amaituta"</string>
+    <string name="show_setup_wizard_icon">"Erakutsi aplikazioaren ikonoa"</string>
+    <string name="show_setup_wizard_icon_summary">Bistaratu aplikazioaren ikonoa panelean</string>
+    <string name="dictionary_category_title">"Hiztegi gehigarriak"</string>
+    <string name="dictionary_available">"Hiztegia erabilgarri"</string>
+    <string name="settings">"Ezarpenak"</string>
+    <string name="delete">"Ezabatu"</string>
+    <string name="version_text">%1$s bertsioa</string>
+    <string name="user_dict_settings_add_shortcut_option_name">"Lasterbidea:"</string>
+    <string name="user_dict_settings_add_locale_option_name">"Hizkuntza:"</string>
+    <string name="user_dict_settings_add_word_hint">"Idatzi hitz bat"</string>
+    <string name="user_dict_settings_add_shortcut_hint">"Aukerako lasterbidea"</string>
+    <string name="user_dict_settings_edit_dialog_title">"Editatu hitza"</string>
+    <string name="user_dict_settings_all_languages">"Hizkuntza guztietan"</string>
+    <string name="user_dict_settings_more_languages">"Hizkuntza gehiago…"</string>
+    <string name="settings_category_clipboard_history">Arbelaren historia</string>
+    <string name="settings_category_correction">Zuzenketak</string>
+    <string name="settings_category_suggestions">Iradokizunak</string>
+    <string name="settings_category_experimental">Esperimentala</string>
+    <string name="settings_category_miscellaneous">Denetarikoa</string>
+    <string name="settings_no_limit">Mugarik ez</string>
+    <string name="abbreviation_unit_minutes">%sminutu</string>
+    <string name="number_row_summary">Erakutsi beti zenbakien errenkada</string>
+    <string name="show_hints">Erakutsi teklen iradokizunak</string>
+    <string name="show_hints_summary">Erakutsi sakatze luzeen iradokizunak</string>
+    <string name="enable_clipboard_history">Gaitu arbelaren historia</string>
+    <string name="enable_clipboard_history_summary">Desgaituta badago, arbeleko teklak arbeleko edukia itsatsiko du halakorik badago</string>
+    <string name="clipboard_history_retention_time">Historikoa gordetzeko denbora</string>
+    <string name="prefs_force_incognito_mode_summary">Desgaitu hitz berrien ikasketa</string>
+    <string name="more_keys_strip_description">Tekla gehiago</string>
+    <string name="number_row">Zenbakien errenkada</string>
+    <string name="prefs_long_press_keyboard_to_change_lang_summary">Zuriune tekla luze sakatzeak sarrera-metodoa hautatzeko menua erakutsiko du</string>
+    <string name="spell_checker_service_name">HeliBoard ortografia zuzentzailea</string>
+    <string name="autospace_after_punctuation">Zuriunea puntuazioen ondoren</string>
+    <string name="incognito">Behartu ezkutuko modua</string>
+    <string name="subtype_akkhor_bn_BD">%s (Akkhor hizkuntza)</string>
+    <string name="settings_category_input">Sarrera</string>
+    <string name="key_borders">Teklen ertzak</string>
+    <string name="day_night_mode">Egun/gau modu automatikoa</string>
+    <string name="day_night_mode_summary">Itxurak sistemaren ezarpenei jarraituko die</string>
+    <string name="ime_settings">HeliBoard ezarpenak</string>
+    <string name="settings_category_additional_keys">Tekla gehigarriak</string>
+    <string name="android_spell_checker_settings">HeliBoard ortografia zuzentzailearen ezarpenak</string>
+    <string name="show_emoji_key">Emoji tekla</string>
+    <string name="delete_swipe">Desgaitu irristatzea</string>
+    <string name="delete_swipe_summary">Ezabatu teklatik hatza irristatu, testuaren zati handiagoak hautatzeko eta ezabatzeko</string>
+    <string name="autospace_after_punctuation_summary">Sartu automatikoki zuriunea puntuazioen ondoren hitz berri bat idaztean</string>
+    <string name="prefs_long_press_keyboard_to_change_lang">Aldatu idazketa-metodoa zuriune teklarekin</string>
+    <string name="prefs_keyboard_height_scale">Teklatuaren altuera eskala</string>
+    <string name="select_input_method">"Aukeratu idazketa-metodoa"</string>
+    <string name="undo">"Desegin"</string>
+    <string name="redo">"Berregin"</string>
+    <string name="use_personalized_dicts_summary">"Iradokizunak hobetzeko, ikasi komunikazioetatik eta idazten duzunetik"</string>
+    <string name="label_go_key">"Joan"</string>
+    <string name="label_next_key">"Hurrengoa"</string>
+    <string name="label_previous_key">Aurrekoa</string>
+    <string name="label_done_key">"Eginda"</string>
+    <string name="label_send_key">"Bidali"</string>
+    <string name="label_search_key">"Bilatu"</string>
+    <string name="label_pause_key">"Pausatu"</string>
+    <string name="label_wait_key">"Itxaron"</string>
+    <string name="language_switch_key_switch_both">Aldatu biak</string>
+    <string name="switch_language">Aldatu hizkuntza</string>
+    <string name="disable_personalized_dicts_message">Abisua: ezarpen hau desgaituz gero, ikasitako datuak garbituko dira</string>
+    <string name="split_spacer_scale">Zabaldu tartea</string>
+    <string name="add_to_personal_dictionary">Gehitu hitzak hiztegi pertsonalera</string>
+    <string name="add_to_personal_dictionary_summary">Erabili gailuko hiztegi pertsonala ikasitako hitzak gordetzeko</string>
+    <string name="prefs_always_show_suggestions">Erakutsi beti iradokizunak</string>
+    <string name="more_autocorrect">Zuzenketa automatiko gehiago</string>
+    <string name="more_autocorrect_summary">Zuzendu automatikoki sarrera-eremuak esplizituki eskatzen ez badu ere</string>
+    <string name="auto_correction_confidence">Autozuzenketaren konfiantza</string>
+    <string name="backup_error">Babeskopia-errorea: %s</string>
+    <string name="button_backup">Babeskopia</string>
+    <string name="restore_error">Errore bat gertatu da babeskopiaren berreskuratzean: %s</string>
+    <string name="backup_restore_title">Babeskopia eta berreskuratzea</string>
+    <string name="backup_restore_message">Gorde edo kargatu fitxategitik. Abisua: berreskuratzeak lehendik dauden datuak gainidatziko ditu</string>
+    <string name="prefs_always_show_suggestions_summary">Ez ikusi iradokizunak desgaitzeko beste aplikazioen eskaerak (arazoak sor ditzake)</string>
+    <string name="button_restore">Berreskuratu</string>
+    <string name="secondary_locale">Idazketa eleanitza</string>
+    <string name="load_gesture_library">Kargatu keinu-idazketaren liburutegia</string>
+    <string name="load_gesture_library_summary">Hornitu jatorrizko liburutegi bat keinu-idazketa gaitzeko</string>
+    <string name="load_gesture_library_message">\'%s\' liburutegia beharko duzu. Bateraezinak diren liburutegiek huts egin dezakete keinu-idazketa erabiltzean.
+\n
+\nAbisua: kanpoko kodea kargatzea segurtasun arriskua izan daiteke. Erabili soilik konfiantzazko iturri bateko liburutegi bat.</string>
+    <string name="checksum_mismatch_message">Liburutegiko fitxategi ezezaguna. Ziur iturri fidagarri batetik lortu duzula eta \'%s\'rentzat dela?</string>
+    <string name="load_gesture_library_button_load">Kargatu liburutegia</string>
+    <string name="load_gesture_library_button_delete">Ezabatu liburutegia</string>
+    <string name="show_popup_keys_title">Erakutsi pop-up leihoan ikur diakritikoak dituzten letra gehiago</string>
+    <string name="show_popup_keys_normal">Erakutsi teklatuko hizkuntzetako aldaerak</string>
+    <string name="show_popup_keys_more">Gehitu ohiko aldaerak</string>
+    <string name="show_popup_keys_all">Gehitu eskuragarri dauden aldaera guztiak</string>
+    <string name="url_detection_title">URL hautematea</string>
+    <string name="url_detection_summary">Saiatu URLak eta antzekoak hitz bakar gisa antzematen</string>
+    <string name="language_and_layouts_title">Hizkuntzak eta diseinuak</string>
+    <string name="localized_number_row">Aurkitu zenbakien errenkada</string>
+    <string name="hint_source">Hautatu iradokizunen iturria</string>
+    <string name="no_dictionary_message">Hiztegirik gabe, aurretik idatzitako testuko iradokizunak soilik jasoko dituzu.&lt;br&gt;
+\n
+\n .......... %1$s hiztegiak deskarga ditzakezu edo egiaztatu \"%2$s\" hiztegi bat zuzenean %3$s deskargatu daitekeen.</string>
+    <string name="add_dictionary">Hautatu gehitzeko hiztegi bat. .dict formatuan dauden hiztegiak %s deskargatu daitezke.</string>
+    <string name="theme_name_darker" tools:keep="@string/theme_name_darker">Ilunago</string>
+    <string name="voice" tools:keep="@string/voice">Ahots sarrera</string>
+    <string name="prefs_long_press_symbol_for_numpad">Sakatu luze ikurren tekla teklatu numerikorako</string>
+    <string name="prefs_narrow_key_gaps">Murriztu teklen arteko tarteak</string>
+    <string name="prefs_bottom_padding_scale">Beheko betegarriaren eskala</string>
+    <string name="layout_symbols" tools:keep="@string/layout_symbols">ikurrak</string>
+    <string name="user_dict_settings_add_weight_value">Pisua:</string>
+    <string name="theme_name_brown" tools:keep="@string/theme_name_brown">Marroia</string>
+    <string name="subtype_xdq">Kaitag</string>
+    <string name="dialog_close">Itxi</string>
+    <string name="text_tap_languages">Sakatu hizkuntza ezarpenak irekitzeko</string>
+    <string name="about_github_link">Ikusi GitHuben</string>
+    <string name="license">Kode irekiko lizentzia</string>
+    <string name="gnu_gpl">GNU General Public License v3.0</string>
+    <string name="theme_style">Estiloa</string>
+    <string name="save_log">Gorde erregistroa</string>
+    <string name="show_vertical_space_swipe">Zuriune-barrako keinu bertikala</string>
+    <string name="show_horizontal_space_swipe">Zuriune-barrako keinu horizontala</string>
+    <string name="action_none">Bat ere ez</string>
+    <string name="space_swipe_move_cursor_entry">Mugitu kurtsorea</string>
+    <string name="localized_number_row_summary">Nahiago lokalizatutakoak zenbaki latindarren aldean</string>
+    <string name="popup_order">Teklen pop-upeko ordena hautatu</string>
+    <string name="popup_keys_number" tools:keep="@string/popup_keys_number">Zenbakien errenkada</string>
+    <string name="popup_keys_language_priority" tools:keep="@string/popup_keys_language_priority">Hizkuntza (lehenetsia)</string>
+    <string name="popup_keys_layout" tools:keep="@string/popup_keys_layout">Diseinua</string>
+    <string name="popup_keys_symbols" tools:keep="@string/popup_keys_symbols">Ikurrak</string>
+    <string name="toolbar_keys">Hautatu tresna barraren teklak</string>
+    <string name="clipboard" tools:keep="@string/clipboard">Arbela</string>
+    <string name="one_handed" tools:keep="@string/one_handed">Esku bakarreko modua</string>
+    <string name="full_left" tools:keep="@string/full_left">Guztiz ezkerrean</string>
+    <string name="full_right" tools:keep="@string/full_right">Guztiz eskuinean</string>
+    <string name="left" tools:keep="@string/left">Ezkerrean</string>
+    <string name="right" tools:keep="@string/right">Eskuinean</string>
+    <string name="up" tools:keep="@string/up">Goian</string>
+    <string name="down" tools:keep="@string/down">Behean</string>
+    <string name="show_popup_hints">Erakutsi aholku funtzionalak</string>
+    <string name="show_popup_hints_summary">Erakutsi aholkuak tekla bat luze sakatzeak funtzionalitate gehigarriak abiarazten baditu</string>
+    <string name="theme_name_light" tools:keep="@string/theme_name_light">Argia</string>
+    <string name="cut" tools:keep="@string/cut">Moztu</string>
+    <string name="clear_clipboard" tools:keep="@string/clear_clipboard">Garbitu arbela</string>
+    <string name="select_word" tools:keep="@string/select_word">Hautatu hitza</string>
+    <string name="subtype_generic_sebeolsik_390">%s (Sebeolsik 390)</string>
+    <string name="subtype_generic_sebeolsik_final">%s (Sebeolsik Final)</string>
+    <string name="button_title_add_custom_layout">Gehitu diseinu pertsonalizatua</string>
+    <string name="message_add_custom_layout">Hautatu fitxategi bat formatu bateragarri batean. Formatuei buruzko informazioa eskuragarri dago %s.</string>
+    <string name="button_load_custom">Kargatu fitxategia</string>
+    <string name="file_read_error">Ezin da fitxategia irakurri</string>
+    <string name="delete_layout">Benetan ezabatu %s diseinu pertsonalizatua?</string>
+    <string name="edit_layout">Sakatu diseinu gordina editatzeko</string>
+    <string name="layout_symbols_arabic" tools:keep="@string/layout_symbols_arabic">Ikurrak (Arabiarrak)</string>
+    <string name="layout_symbols_shifted" tools:keep="@string/layout_symbols_shifted">ikur gehiago</string>
+    <string name="layout_phone" tools:keep="@string/layout_phone">Telefonoa</string>
+    <string name="layout_phone_symbols" tools:keep="@string/layout_phone_symbols">Telefonoaren ikurrak</string>
+    <string name="layout_number" tools:keep="@string/layout_number">Zenbakiak</string>
+    <string name="layout_numpad" tools:keep="@string/layout_numpad">Zenbakien teklatua</string>
+    <string name="layout_numpad_landscape" tools:keep="@string/layout_numpad_landscape">Zenbakien teklatua (horizontala)</string>
+    <string name="customize_background_image">Ezarri atzeko planoko irudia</string>
+    <string name="day_or_night_image">Irudia eguneko edo gaueko moduan ezarri nahi duzu?</string>
+    <string name="day_or_night_day">Eguna</string>
+    <string name="day_or_night_night">Gaua</string>
+    <string name="setup_step3_action">Konfiguratu teklatua</string>
+    <string name="replace_dictionary">Ordeztu hiztegia</string>
+    <string name="remove_dictionary_message">Erabiltzaileak gehitutako \"%s\" hiztegia benetan kendu?</string>
+    <string name="no_dictionary_dont_show_again_button">Ez erakutsi berriro</string>
+    <string name="dictionary_link_text">hemen</string>
+    <string name="available_dictionary_experimental">%s (esperimentala)</string>
+    <string name="dictionary_file_error">Errorea: hautatutako fitxategia ez da baliozko hiztegi-fitxategi bat</string>
+    <string name="dictionary_file_wrong_script">Errorea: script-a ez da bateragarria teklatu honekin</string>
+    <string name="dictionary_load_error">Errore bat gertatu da hiztegi-fitxategia kargatzean</string>
+    <string name="user_dict_word_already_present">Hitz hau %s erabiltzailearen hiztegian dago jada. Mesedez, idatzi beste bat.</string>
+    <string name="user_dict_add_word_button">Gehitu hitz bat</string>
+    <string name="style_name_Rounded" tools:keep="@string/style_name_Rounded">Borobildua</string>
+    <string name="theme_colors">Koloreak</string>
+    <string name="theme_colors_night">Koloreak (gauekoak)</string>
+    <string name="theme_navbar">Koloretako nabigazio-barra</string>
+    <string name="theme_name_holo_white" tools:keep="@string/theme_name_holo_white">Holo Zuria</string>
+    <string name="theme_name_dark" tools:keep="@string/theme_name_dark">Iluna</string>
+    <string name="theme_name_blue_gray" tools:keep="@string/theme_name_blue_gray">Gris urdina</string>
+    <string name="theme_name_chocolate" tools:keep="@string/theme_name_chocolate">Txokolate</string>
+    <string name="theme_name_cloudy" tools:keep="@string/theme_name_cloudy">Hodeitsu</string>
+    <string name="theme_name_forest" tools:keep="@string/theme_name_forest">Basoa</string>
+    <string name="theme_name_indigo" tools:keep="@string/theme_name_indigo">Indigo</string>
+    <string name="theme_name_ocean" tools:keep="@string/theme_name_ocean">Ozeanoa</string>
+    <string name="theme_name_pink" tools:keep="@string/theme_name_pink">Arrosa</string>
+    <string name="theme_name_sand" tools:keep="@string/theme_name_sand">Hondarra</string>
+    <string name="theme_name_violette" tools:keep="@string/theme_name_violette">Violeta</string>
+    <string name="theme_name_user" tools:keep="@string/theme_name_user">Erabiltzaileak definituta</string>
+    <string name="auto_user_color">Aukeratu kolorea automatikoki</string>
+    <string name="main_colors">Erakutsi kolore nagusiak soilik</string>
+    <string name="all_colors">Erakutsi kolore guztiak</string>
+    <string name="select_color_background">Teklatuaren atzeko planoa</string>
+    <string name="select_color_key">Teklaren testua</string>
+    <string name="select_color_key_hint">Teklaren aholku-testua</string>
+    <string name="select_color_suggestion">Iradokizunaren testua</string>
+    <string name="select_color_key_background">Teklaren atzeko planoa</string>
+    <string name="select_color_functional_key_background">Funtzio-teklaren atzeko planoa</string>
+    <string name="select_color_spacebar_background">Zuriune-teklaren atzeko planoa</string>
+    <string name="select_color_spacebar_text">Zuriune-teklaren testua</string>
+    <string name="select_color_accent">Azentua</string>
+    <string name="select_color_gesture">Keinu-sarrera</string>
+    <string name="settings_screen_about">Honi buruz</string>
+    <string name="version">Bertsioa</string>
+    <string name="settings_screen_appearance">Itxura</string>
+    <string name="hidden_features_title">Ezkutuko ezaugarrien deskribapena</string>
+    <string name="hidden_features_summary">Erakutsi oharkabean pasa daitezkeen ezaugarriak</string>
+    <string name="hidden_features_text">gailuak babestutako biltegiratzea</string>
+    <string name="var_toolbar_direction">Tresna-barraren norabide aldakorra</string>
+    <string name="hidden_features_message">► Tresna-barran finkatuta dauden teklak luze sakatuz sistemako arbeleko edukia itsatsi egiten da. &lt;br&gt; &lt;br&gt; Iradokizun-zerrendako tresna-barrako teklak luze sakatuz gero, iradokizun-zerrendan finkatzen dira. &lt;br&gt; &lt;br&gt; Luze sakatu koma tekla arbelaren ikuspegia, emoji ikuspegia, esku bakarreko modua, ezarpenak edo hizkuntza aldatzeko atzitzeko: &lt;br&gt; • Emoji ikuspegia eta hizkuntza aldatzea desagertuko dira dagokion tekla baduzu. gaituta; &lt;br&gt; • Diseinu batzuetan ez da koma-tekla, posizio berean dagoen tekla baizik (adibidez, \'q\' da Dvorak diseinurako). &lt;br&gt; &lt;br&gt; Ezkutuko modua gaituta dagoenean, ez da hitzik ikasiko eta ez da emojirik gehituko azken berrietan. &lt;br&gt; &lt;br&gt; Sakatu ezkutuko ikonoa tresna-barrara sartzeko. &lt;br&gt; &lt;br&gt; Irristatu teklaren sarrera: Irristatu shift batetik beste tekla batera maiuskulazko tekla bakarra idazteko: &lt;br&gt; • Honek \'?123\' teklak ere balio du sinboloen teklatuan ikur bakarra idazteko eta erlazionatutako gakoak. &lt;br&gt; &lt;br&gt; Luze sakatu iradokizunen zerrendako iradokizun bat iradokizun gehiago erakusteko, eta ezabatzeko botoia iradokizun hau kentzeko. &lt;br&gt; &lt;br&gt; Irristatu gorantz iradokizun batetik iradokizun gehiago irekitzeko, eta askatu iradokizuna hautatzeko. &lt;br&gt; &lt;br&gt; Luze sakatu arbeleko historiako sarrera bat ainguratzeko (jar ezazu arbelean aingura kendu arte). &lt;br&gt; &lt;br&gt; Hiztegiak gehi ditzakezu fitxategi-esploratzaile batean irekita: &lt;br&gt; • Honek &lt;i&gt;content-uris&lt;/i&gt;-ekin bakarrik funtzionatzen du eta ez &lt;i&gt;file-uris&lt;/i&gt;-ekin , hau da, baliteke fitxategi-esploratzaile batzuekin ez funtzionatzea. &lt;br&gt; &lt;br&gt; &lt;i&gt;Arazte modua / APK arazketa&lt;/i&gt; &lt;br&gt; &lt;br&gt; • Luze sakatu iradokizun bat iturburu-hiztegia erakusteko.&lt;br&gt; &lt;br&gt; • Arazketa APK erabiltzean, dezakezu bilatu Arazte-ezarpenak Hobespen aurreratuen barruan, nahiz eta erabilgarritasuna mugatua den hiztegiak erregistroan isurtzea izan ezik. &lt;br&gt; &lt;br&gt; • Aplikazioaren hutsegite bat gertatuz gero, Ezarpenak irekitzean hutsegiteen erregistroak nahi dituzun galdetuko zaizu. &lt;br&gt; &lt;br&gt; • Idazketa eleanitza erabiltzean, zuriune-barrak unean erabiltzen den hizkuntza zehazteko erabiltzen den konfiantza-balioa erakutsiko du. &lt;br&gt; &lt;br&gt; • Iradokizunek goian zenbaki txiki batzuk izango dituzte barne puntuazio eta iturburu-hiztegiren bat erakutsiz (desgaitu daiteke). &lt;br&gt; &lt;br&gt; Root sarbidearekin eskuzko babeskopiak egiten dituzten erabiltzaileentzat: Android 7-tik aurrera, partekatutako hobespen-fitxategia ez dago lehenetsitako kokapenean, aplikazioa %s erabiltzen ari delako. &lt;br&gt; Hau beharrezkoa da ezarpenak irakurri ahal izateko gailua desblokeatu aurretik, adibidez. abioan. &lt;br&gt; Fitxategia /data/user_de/0/package_id/shared_prefs/ helbidean dago, baina gailuaren eta Android bertsioaren araberakoa izan daiteke.</string>
+    <string name="subtype_probhat_bn_BD">%s (Probhat)</string>
+    <string name="layout_error">Diseinu errorea: %s</string>
+    <string name="theme_name_black" tools:keep="@string/theme_name_black">Beltza</string>
+    <string name="theme_name_dynamic" tools:keep="@string/theme_name_dynamic">Kolore dinamikoak</string>
+    <string name="var_toolbar_direction_summary">Alderantzikatu norabidea eskuinetik ezkerrera teklatu mota hautatzen denean</string>
+    <string name="subtype_generic_student">%s (Ikasle)</string>
+    <string name="dictionary_settings_category">Hiztegiak</string>
+    <string name="internal_dictionary_summary">Barneko hiztegi nagusia</string>
+    <string name="add_new_dictionary_title">Gehitu hiztegia fitxategitik</string>
+    <string name="button_select_language">Hautatu hizkuntza</string>
+    <string name="replace_dictionary_message">Erabiltzaileak gehitutako \"%1$s\" hiztegia benetan ordezkatu?
+\n
+\nUneko hiztegia:
+\n%2$s
+\n
+\nHiztegi berria:
+\n%3$s</string>
+    <string name="center_suggestion_text_to_enter">Erabili beti erdiko iradokizuna</string>
+    <string name="center_suggestion_text_to_enter_summary">Zuriunea edo puntuazioa sakatzean, erdiko iradokizuna sartuko da</string>
+    <string name="close_history" tools:keep="@string/close_history">Itxi arbelaren historia</string>
+    <string name="clipboard_toolbar_keys">Hautatu arbeleko tresna-barrako teklak</string>
+    <string name="more_colors">Erakutsi kolore gehiago</string>
+    <string name="all_colors_warning">Ezarpen honek barnean erabiltzen diren kolore guztiak agerian uzten ditu. Koloreen zerrenda edozein unetan alda daiteke. Kolore lehenetsia aleatorioa da, eta izenak ez dira itzuliko.</string>
+    <string name="layout_functional_keys" tools:keep="@string/layout_functional_keys">Funtzio-teklak</string>
+    <string name="layout_functional_keys_symbols_shifted" tools:keep="@string/layout_functional_keys_symbols_shifted">Funtzio-teklak (ikur gehiago)</string>
+    <string name="layout_functional_keys_symbols" tools:keep="@string/layout_functional_keys_symbols">Funtzio-teklak (ikurrak)</string>
+    <string name="pinned_toolbar_keys">Hautatu ainguratu beharreko tresna-barrako teklak</string>
+    <string name="quick_pin_toolbar_keys">Ainguratu tresna-barrako tekla luze sakatzean</string>
+    <string name="auto_hide_toolbar">Ezkutatu automatikoki tresna-barra</string>
+    <string name="auto_show_toolbar">Erakutsi automatikoki tresna-barra</string>
+    <string name="auto_show_toolbar_summary">Erakutsi tresna-barra sarrera hastean edo testua hautatzean</string>
+    <string name="quick_pin_toolbar_keys_summary">Honek ainguratuta ez dauden tresna-barrako teklak sakatu luzeko beste ekintza batzuk desgaituko ditu</string>
+    <string name="settings_screen_toolbar">Tresna-barra</string>
+    <string name="toast_msg_clipboard_copy">Kopiatu da edukia</string>
+    <string name="language_switch_key_behavior">Hizkuntza aldatzeko teklaren portaera</string>
+    <string name="auto_hide_toolbar_summary">Ezkutatu tresna-barra iradokizunak erabilgarri daudenean</string>
+    <string name="gesture_fast_typing_cooldown_instant">Hasi beti berehala</string>
+    <string name="gesture_fast_typing_cooldown">Idazketa azkarraren itxaron denbora</string>
+    <string name="subtype_generic_extended">%s (Extended)</string>
+    <string name="emoji" tools:keep="@string/emoji">Emojia</string>
+    <string name="subtype_mns">Mansi</string>
+    <string name="gesture_floating_preview_static">Aurrebista flotagarria</string>
+    <string name="gesture_floating_preview_static_summary">Ikusi iradokitako hitza keinuak egitean</string>
+    <string name="gesture_trail_fadeout_duration">Keinuaren iraupena</string>
+    <string name="customize_currencies">Pertsonalizatu monetak</string>
+    <string name="customize_currencies_detail">Ezarri moneta ikur nagusiak eta bigarren mailako 6 gehienez, zuriunez bereizita</string>
+    <string name="button_save_file">Gorde fitxategira</string>
+    <string name="copy_to_clipboard">Kopiatu arbelean</string>
+    <string name="load">Kargatu</string>
+    <string name="page_start" tools:keep="@string/page_start">Orriaren hasiera</string>
+    <string name="page_end" tools:keep="@string/page_end">Orriaren bukaera</string>
+    <string name="word_left" tools:keep="@string/word_left">Hitzaren ezkerrean</string>
+    <string name="word_right" tools:keep="@string/word_right">Hitzaren eskuinean</string>
+    <string name="page_down" tools:keep="@string/page_down">Orria behera</string>
+    <string name="page_up" tools:keep="@string/page_up">Orria gora</string>
+    <string name="suggest_clipboard_content">Iradoki arbeleko edukia</string>
+    <string name="suggest_clipboard_content_summary">Erakutsi duela gutxi kopiatutako arbeleko edukia iradokizun gisa</string>
+    <string name="gesture_floating_preview_dynamic_summary">Mugitu aurrebista keinu egitean</string>
+    <string name="switch_keyboard_after">Aldatu teklatu nagusira…</string>
+    <string name="after_emoji">Emoji hautatzen emoji ikuspegian</string>
+    <string name="after_clip">Arbeleko historiako sarrera hautatzen</string>
+    <string name="after_symbol_and_space">Sartu edo zuriune sakatuta ikurren ikuspegiko beste tekla batzuen ondoren</string>
+    <string name="show_popup_keys_main">Gehitu oso ohikoak diren aldaerak (lehenetsia)</string>
+    <string name="remove_redundant_popups">Kendu popup erredundanteak</string>
+    <string name="remove_redundant_popups_summary">Kendu oinarrizko diseinuan dauden popup teklak</string>
+    <string name="space_swipe_toggle_numpad_entry">Aktibatu/desaktibatu zenbaki-teklatua</string>
+    <string name="prefs_space_bar_text">Testu pertsonalizatua zuriune-barran</string>
+    <string name="layout_clip_bottom_row" tools:keep="@string/layout_clip_bottom_row">Arbelaren beheko errenkada</string>
+    <string name="layout_emoji_bottom_row" tools:keep="@string/layout_emoji_bottom_row">Emojien beheko errenkada</string>
+    <string name="layout_number_row" tools:keep="@string/layout_number_row">Zenbakien errenkada</string>
+    <string name="icon_style">Ikonoen estiloa</string>
+    <string name="label_shift_key_locked" tools:keep="@string/label_shift_key_locked">Block Maius</string>
+    <string name="label_enter_key" tools:keep="@string/label_enter_key">Sartu</string>
+    <string name="label_tab_key" tools:keep="@string/label_tab_key">Tab</string>
+    <string name="label_delete_key" tools:keep="@string/label_delete_key">Ezabatu</string>
+    <string name="label_shift_key" tools:keep="@string/label_shift_key">Maius</string>
+    <string name="label_shortcut_key_disabled" tools:keep="@string/label_shortcut_key_disabled">Ahotsaren sarrera desgaituta</string>
+    <string name="label_toolbar_key" tools:keep="@string/label_toolbar_key">Erakutsi / Ezkutatu tresna-barra</string>
+    <string name="customize_icons">Pertsonalizatu ikonoak</string>
+    <string name="label_space_key_for_number_layout" tools:keep="@string/label_space_key_for_number_layout">Zuriunea (zenbakien diseinuan)</string>
+    <string name="label_stop_onehanded_mode_key" tools:keep="@string/label_stop_onehanded_mode_key">Amaitu esku bakarreko modua</string>
+    <string name="label_resize_onehanded_key" tools:keep="@string/label_resize_onehanded_key">Aldatu esku bakarreko modua</string>
+    <string name="label_shift_key_shifted" tools:keep="@string/label_shift_key_shifted">Maiuskula (aktibatuta)</string>
+    <string name="label_switch_onehanded_key" tools:keep="@string/label_switch_onehanded_key">Aldatu esku bakarreko modura</string>
+    <string name="customize_toolbar_key_codes">Pertsonalizatu tresna-barrako tekla-kodeak</string>
+    <string name="key_code">Tekla-kodea</string>
+    <string name="long_press_code">Sakatze luzeko kodea</string>
+    <string name="prefs_always_show_suggestions_except_web_text">Ez erakutsi beti iradokizunik web edizioko eremuetarako</string>
+    <string name="settings_category_space">Zuriunea</string>
+    <string name="use_apps_dict_summary">Erabili instalatutako aplikazioen izenak iradokizunak eta zuzenketak egiteko</string>
+    <string name="enable_split_keyboard_landscape">Gaitu teklatu banatua (horizontala)</string>
+    <string name="vibrate_in_dnd_mode">Egin dar-dar ez molestatzeko moduan</string>
+    <string name="prefs_always_show_suggestions_except_web_text_summary">Web ediziorako eremuak (batez ere nabigatzaileetan aurkitzen direnak) oso ohiko arrazoia dira iradokizunen konfigurazioa beti erakusten duten arazoetarako</string>
+    <string name="auto_correct_shortcuts">Zuzenketa automatikorako lasterbideak</string>
+    <string name="backspace_reverts_autocorrect">Atzera-espazioak autozuzenketa desegiten du</string>
+    <string name="autospace_after_suggestion">Txertatu zuriunea iradokizun bat aukeratu ondoren</string>
+    <string name="timestamp_format_title">Denbora-zigilu gakoaren formatua</string>
+    <string name="shift_removes_autospace_summary">Mayus-ek kentzen du zuriune automatikoa</string>
+    <string name="auto_correct_shortcuts_summary">Gaituta dagoenean, lasterbideak autozuzenketaren bidez zabal daitezke</string>
+    <string name="use_apps_dict">Bilatu aplikazioen izenak</string>
+    <string name="backup_restored">Babeskopia berrezarri da</string>
+    <string name="autospace_before_gesture_typing">Txertatu zuriunea hitz bat idazteko keinuaren aurretik</string>
+    <string name="autospace_after_gesture_typing">Txertatu zuriunea hitz bat idazteko keinuaren ondoren</string>
+    <string name="shift_removes_autospace">Ez txertatu zuriunerik Mayus sakatzean</string>
+    <string name="number_row_hints">Erakutsi zenbaki-errenkadako argibideak</string>
+    <string name="locales_with_dict">Hiztegiak dituzten hizkuntzak</string>
+    <string name="show_tld_popup_keys">Erakutsi TLD popup teklak</string>
+    <string name="custom_subtype">Azpimota pertsonalizatua</string>
+    <string name="show_tld_popup_keys_summary">URLak eta helbide elektronikoak idaztean, periodoen teklen popupak lehen mailako domeinuekin ordeztu</string>
+    <string name="layout_number_row_basic" tools:keep="@string/layout_number_row_basic">Zenbakien errenkada (oinarrizkoa)</string>
+    <string name="subtype_baishakhi_bn_IN">%s (Baishakhi)</string>
+    <string name="get_colors_message">%s-n koloreak aurki eta parteka ditzakezu.</string>
+    <string name="prefs_key_emoji_max_sdk">Ez jaramonik egin Emoji bertsioari</string>
+    <string name="prefs_emoji_skin_tone">Emojien azalaren tonu lehenetsia</string>
+    <string name="subtype_generic_phonetic">%s (Phonetic)</string>
+    <string name="after_numpad_and_space">Sartu edo zuriunea sakatuta, numpad-eko beste teklen ondoren</string>
+    <string name="delete_confirmation">Seguru %s ezabatu nahi duzula?</string>
+    <string name="custom_font">Ezarri letra-tipo pertsonalizatua fitxategitik</string>
+    <string name="subtype_dag">Dagbani</string>
+    <string name="subtype_st">Sesotho</string>
+    <string name="prefs_emoji_key_fit">Eskalatu emojiak karaktereen tamainarekin</string>
+    <string name="settings_screen_secondary_layouts">Bigarren mailako diseinuak</string>
+    <string name="layout_in_use">Abisua: hori da une honetan erabiltzen ari den diseinua</string>
+    <string name="layout_functional_keys_tablet" tools:keep="@string/layout_functional_keys_tablet">Tekla funtzionalak (pantaila handia)</string>
+    <string name="prefs_side_padding_scale">Alboko betegarriaren eskala</string>
+    <string name="customize_background_image_landscape">Ezarri atzeko planoko irudia (horizontala)</string>
+    <string name="summary_customize_background_image_landscape">Ezartzen ez bada, irudia bertikala erabiliko da</string>
+    <string name="customize_icons_reset_message">Seguru berrezarri nahi duzula ikono pertsonalizatu guztiak?</string>
+    <string name="split" tools:keep="@string/split">Banatu teklatua</string>
+    <string name="prefs_font_scale">Teklatuko karaktereen eskala</string>
+    <string name="prefs_emoji_font_scale">Emojien eskala</string>
+    <string name="prefs_emoji_skin_tone_neutral">Neutroa</string>
+    <string name="subtype_dru">Dargwa (Urakhi)</string>
+    <string name="get_layouts_message">%s-n diseinuak aurki eta parteka ditzakezu.</string>
+    <string name="discussion_section_link">eztabaiden atala</string>
+    <string name="name_invalid">Izen baliogabea</string>
+    <string name="show_emoji_descriptions">Erakutsi emojiaren deskribapena luze sakatzean</string>
+    <string name="suggest_emojis_summary">Erabili emoji hiztegia iradokizun normaletan</string>
+    <string name="suggest_emojis">Iradokitako emojiak</string>
+    <string name="toolbar_hiding_global">Ezkutatu arbela eta emojien tresna-barrak ere</string>
+    <string name="toolbar_mode_toolbar_keys">Tresna-barrako gakoak bakarrik</string>
+    <string name="toolbar_mode_expandable">Tresna-barrako gakoak eta iradokizunak</string>
+    <string name="toolbar_mode_hidden">Ezkutuan</string>
+    <string name="toolbar_mode_suggestion_strip">Iradokizunak bakarrik</string>
+    <string name="subtype_with_layout_generic">%1$s (%2$s)</string>
+    <string name="landscape">Horizontala</string>
+    <string name="label_zwj_key" tools:keep="@string/label_zwj_key">Zero zabalerako karakterea</string>
+    <string name="customize_toolbar_key_code_reset_message">Benetan garbitu nahi duzu pertsonalizatutako tekla kodeak?</string>
+    <string name="prefs_language_swipe_distance">Aldatu hizkuntza lerratzeko distantzia</string>
+    <string name="toolbar_mode">Tresna-barra modua</string>
+    <string name="space_swipe_hide_keyboard_entry">Ezkutatu teklatua</string>
+    <string name="suggest_punctuation">Puntuazio iradokizunak</string>
+    <string name="suggest_punctuation_summary">Erakutsi puntuazioa beste iradokizunik ez dagoenean</string>
+    <string name="about_wiki_link">Joan Wikira</string>
+    <string name="about_wiki_link_description">Edozein erabiltzailek hobetu dezake Wikia!</string>
+    <string name="popup_order_and_hint_source">Popup teklen ordena eta iturria</string>
 </resources>

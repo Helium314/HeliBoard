@@ -1,64 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<org.dslul.openboard.inputmethod.keyboard.clipboard.ClipboardHistoryView
-        xmlns:android="http://schemas.android.com/apk/res/android"
+<!--
+    SPDX-License-Identifier: GPL-3.0-only
+-->
+<helium314.keyboard.keyboard.clipboard.ClipboardHistoryView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="bottom"
+    android:orientation="vertical"
+    android:visibility="gone"
+    android:background="@android:color/transparent"
+    style="?attr/clipboardHistoryViewStyle">
+
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:orientation="vertical"
-        style="?attr/clipboardHistoryViewStyle">
-
-    <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+        android:layout_height="wrap_content">
 
         <TextView
-                android:id="@+id/clipboard_empty_view"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="¯\\_(ツ)_/¯"/>
+            android:id="@+id/clipboard_empty_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="invisible"
+            android:text="¯\\_(ツ)_/¯"
+            tools:ignore="HardcodedText" />
 
-        <org.dslul.openboard.inputmethod.keyboard.clipboard.ClipboardHistoryRecyclerView
-                android:id="@+id/clipboard_list"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"/>
+        <helium314.keyboard.keyboard.clipboard.ClipboardHistoryRecyclerView
+            android:id="@+id/clipboard_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"/>
 
     </FrameLayout>
 
-    <FrameLayout
-            android:id="@+id/clipboard_action_bar"
-            android:layout_width="match_parent"
-            android:layout_height="0dip"
-            android:layout_weight="1"            >
-        <!-- TODO: Implement a KeyView and replace this. -->
-        <!-- Provide audio and haptic feedback by ourselves based on the keyboard settings.
-             We just need to ignore the system's audio and haptic feedback settings. -->
-        <TextView
-                android:id="@+id/clipboard_keyboard_alphabet"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginStart="2dp"
-                android:layout_marginTop="1dp"
-                android:layout_marginEnd="1dp"
-                android:layout_gravity="start|center_vertical"
-                android:paddingHorizontal="12dp"
-                android:gravity="center"
-                android:hapticFeedbackEnabled="false"
-                android:soundEffectsEnabled="false" />
+    <helium314.keyboard.keyboard.MainKeyboardView
+        android:id="@+id/bottom_row_keyboard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
-        <ImageButton
-                android:id="@+id/clipboard_clear"
-                android:layout_width="@dimen/config_suggestions_strip_edge_key_width"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end|center_vertical"
-                android:layout_marginEnd="2dp"
-                android:padding="8dp"
-                android:hapticFeedbackEnabled="false"
-                android:soundEffectsEnabled="false"
-                android:scaleType="fitCenter"
-                style="?attr/suggestionWordStyle" />
-
-    </FrameLayout>
-
-</org.dslul.openboard.inputmethod.keyboard.clipboard.ClipboardHistoryView>
+</helium314.keyboard.keyboard.clipboard.ClipboardHistoryView>

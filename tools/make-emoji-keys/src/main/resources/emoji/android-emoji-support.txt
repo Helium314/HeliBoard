@@ -15,6 +15,171 @@
 # releasing new emojis through its Noto font, it might be more complicated to
 # keep track of new additions though Noto font.
 
+@35 # Didn't find proper info from which Android version below emojis are supported, but judging by date, unicode 16.0 would be Android 15 (API level 35)
+U+1FAE9 # face with bags under eyes
+U+1FAC6 # fingerprint
+U+1FABE # leafless tree
+U+1FADC # root vegetable
+U+1FA89 # harp
+U+1FA8F # shovel
+U+1FADF # splatter
+U+1F1E8 U+1F1F6 # flag: sark
+# Above emojis are presumably supported from Android 15 (API level 35), but maybe also for older versions with upgraded font
+
+@34 # Didn't find proper info from which Android version below emojis are supported, but judging by date, unicode 15.1 would be Android 14 (API level 34)
+U+1F642 U+200D U+2194 U+FE0F # head shaking horizontally
+U+1F642 U+200D U+2195 U+FE0F # head shaking vertically
+U+1F6B6 U+200D U+27A1 U+FE0F # person walking facing right
+U+1F6B6 U+1F3FB U+200D U+27A1 U+FE0F # person walking facing right: light skin tone
+U+1F6B6 U+1F3FC U+200D U+27A1 U+FE0F # person walking facing right: medium-light skin tone
+U+1F6B6 U+1F3FD U+200D U+27A1 U+FE0F # person walking facing right: medium skin tone
+U+1F6B6 U+1F3FE U+200D U+27A1 U+FE0F # person walking facing right: medium-dark skin tone
+U+1F6B6 U+1F3FF U+200D U+27A1 U+FE0F # person walking facing right: dark skin tone
+U+1F6B6 U+200D U+2640 U+FE0F U+200D U+27A1 U+FE0F # woman walking facing right
+U+1F6B6 U+1F3FB U+200D U+2640 U+FE0F U+200D U+27A1 U+FE0F # woman walking facing right: light skin tone
+U+1F6B6 U+1F3FC U+200D U+2640 U+FE0F U+200D U+27A1 U+FE0F # woman walking facing right: medium-light skin tone
+U+1F6B6 U+1F3FD U+200D U+2640 U+FE0F U+200D U+27A1 U+FE0F # woman walking facing right: medium skin tone
+U+1F6B6 U+1F3FE U+200D U+2640 U+FE0F U+200D U+27A1 U+FE0F # woman walking facing right: medium-dark skin tone
+U+1F6B6 U+1F3FF U+200D U+2640 U+FE0F U+200D U+27A1 U+FE0F # woman walking facing right: dark skin tone
+U+1F6B6 U+200D U+2642 U+FE0F U+200D U+27A1 U+FE0F # man walking facing right
+U+1F6B6 U+1F3FB U+200D U+2642 U+FE0F U+200D U+27A1 U+FE0F # man walking facing right: light skin tone
+U+1F6B6 U+1F3FC U+200D U+2642 U+FE0F U+200D U+27A1 U+FE0F # man walking facing right: medium-light skin tone
+U+1F6B6 U+1F3FD U+200D U+2642 U+FE0F U+200D U+27A1 U+FE0F # man walking facing right: medium skin tone
+U+1F6B6 U+1F3FE U+200D U+2642 U+FE0F U+200D U+27A1 U+FE0F # man walking facing right: medium-dark skin tone
+U+1F6B6 U+1F3FF U+200D U+2642 U+FE0F U+200D U+27A1 U+FE0F # man walking facing right: dark skin tone
+U+1F9CE U+200D U+27A1 U+FE0F # person kneeling facing right
+U+1F9CE U+1F3FB U+200D U+27A1 U+FE0F # person kneeling facing right: light skin tone
+U+1F9CE U+1F3FC U+200D U+27A1 U+FE0F # person kneeling facing right: medium-light skin tone
+U+1F9CE U+1F3FD U+200D U+27A1 U+FE0F # person kneeling facing right: medium skin tone
+U+1F9CE U+1F3FE U+200D U+27A1 U+FE0F # person kneeling facing right: medium-dark skin tone
+U+1F9CE U+1F3FF U+200D U+27A1 U+FE0F # person kneeling facing right: dark skin tone
+U+1F9CE U+200D U+2640 U+FE0F U+200D U+27A1 U+FE0F # woman kneeling facing right
+U+1F9CE U+1F3FB U+200D U+2640 U+FE0F U+200D U+27A1 U+FE0F # woman kneeling facing right: light skin tone
+U+1F9CE U+1F3FC U+200D U+2640 U+FE0F U+200D U+27A1 U+FE0F # woman kneeling facing right: medium-light skin tone
+U+1F9CE U+1F3FD U+200D U+2640 U+FE0F U+200D U+27A1 U+FE0F # woman kneeling facing right: medium skin tone
+U+1F9CE U+1F3FE U+200D U+2640 U+FE0F U+200D U+27A1 U+FE0F # woman kneeling facing right: medium-dark skin tone
+U+1F9CE U+1F3FF U+200D U+2640 U+FE0F U+200D U+27A1 U+FE0F # woman kneeling facing right: dark skin tone
+U+1F9CE U+200D U+2642 U+FE0F U+200D U+27A1 U+FE0F # man kneeling facing right
+U+1F9CE U+1F3FB U+200D U+2642 U+FE0F U+200D U+27A1 U+FE0F # man kneeling facing right: light skin tone
+U+1F9CE U+1F3FC U+200D U+2642 U+FE0F U+200D U+27A1 U+FE0F # man kneeling facing right: medium-light skin tone
+U+1F9CE U+1F3FD U+200D U+2642 U+FE0F U+200D U+27A1 U+FE0F # man kneeling facing right: medium skin tone
+U+1F9CE U+1F3FE U+200D U+2642 U+FE0F U+200D U+27A1 U+FE0F # man kneeling facing right: medium-dark skin tone
+U+1F9CE U+1F3FF U+200D U+2642 U+FE0F U+200D U+27A1 U+FE0F # man kneeling facing right: dark skin tone
+U+1F9D1 U+200D U+1F9AF U+200D U+27A1 U+FE0F # person with white cane facing right
+U+1F9D1 U+1F3FB U+200D U+1F9AF U+200D U+27A1 U+FE0F # person with white cane facing right: light skin tone
+U+1F9D1 U+1F3FC U+200D U+1F9AF U+200D U+27A1 U+FE0F # person with white cane facing right: medium-light skin tone
+U+1F9D1 U+1F3FD U+200D U+1F9AF U+200D U+27A1 U+FE0F # person with white cane facing right: medium skin tone
+U+1F9D1 U+1F3FE U+200D U+1F9AF U+200D U+27A1 U+FE0F # person with white cane facing right: medium-dark skin tone
+U+1F9D1 U+1F3FF U+200D U+1F9AF U+200D U+27A1 U+FE0F # person with white cane facing right: dark skin tone
+U+1F468 U+200D U+1F9AF U+200D U+27A1 U+FE0F # man with white cane facing right
+U+1F468 U+1F3FB U+200D U+1F9AF U+200D U+27A1 U+FE0F # man with white cane facing right: light skin tone
+U+1F468 U+1F3FC U+200D U+1F9AF U+200D U+27A1 U+FE0F # man with white cane facing right: medium-light skin tone
+U+1F468 U+1F3FD U+200D U+1F9AF U+200D U+27A1 U+FE0F # man with white cane facing right: medium skin tone
+U+1F468 U+1F3FE U+200D U+1F9AF U+200D U+27A1 U+FE0F # man with white cane facing right: medium-dark skin tone
+U+1F468 U+1F3FF U+200D U+1F9AF U+200D U+27A1 U+FE0F # man with white cane facing right: dark skin tone
+U+1F469 U+200D U+1F9AF U+200D U+27A1 U+FE0F # woman with white cane facing right
+U+1F469 U+1F3FB U+200D U+1F9AF U+200D U+27A1 U+FE0F # woman with white cane facing right: light skin tone
+U+1F469 U+1F3FC U+200D U+1F9AF U+200D U+27A1 U+FE0F # woman with white cane facing right: medium-light skin tone
+U+1F469 U+1F3FD U+200D U+1F9AF U+200D U+27A1 U+FE0F # woman with white cane facing right: medium skin tone
+U+1F469 U+1F3FE U+200D U+1F9AF U+200D U+27A1 U+FE0F # woman with white cane facing right: medium-dark skin tone
+U+1F469 U+1F3FF U+200D U+1F9AF U+200D U+27A1 U+FE0F # woman with white cane facing right: dark skin tone
+U+1F9D1 U+200D U+1F9BC U+200D U+27A1 U+FE0F # person in motorized wheelchair facing right
+U+1F9D1 U+1F3FB U+200D U+1F9BC U+200D U+27A1 U+FE0F # person in motorized wheelchair facing right: light skin tone
+U+1F9D1 U+1F3FC U+200D U+1F9BC U+200D U+27A1 U+FE0F # person in motorized wheelchair facing right: medium-light skin tone
+U+1F9D1 U+1F3FD U+200D U+1F9BC U+200D U+27A1 U+FE0F # person in motorized wheelchair facing right: medium skin tone
+U+1F9D1 U+1F3FE U+200D U+1F9BC U+200D U+27A1 U+FE0F # person in motorized wheelchair facing right: medium-dark skin tone
+U+1F9D1 U+1F3FF U+200D U+1F9BC U+200D U+27A1 U+FE0F # person in motorized wheelchair facing right: dark skin tone
+U+1F468 U+200D U+1F9BC U+200D U+27A1 U+FE0F # man in motorized wheelchair facing right
+U+1F468 U+1F3FB U+200D U+1F9BC U+200D U+27A1 U+FE0F # man in motorized wheelchair facing right: light skin tone
+U+1F468 U+1F3FC U+200D U+1F9BC U+200D U+27A1 U+FE0F # man in motorized wheelchair facing right: medium-light skin tone
+U+1F468 U+1F3FD U+200D U+1F9BC U+200D U+27A1 U+FE0F # man in motorized wheelchair facing right: medium skin tone
+U+1F468 U+1F3FE U+200D U+1F9BC U+200D U+27A1 U+FE0F # man in motorized wheelchair facing right: medium-dark skin tone
+U+1F468 U+1F3FF U+200D U+1F9BC U+200D U+27A1 U+FE0F # man in motorized wheelchair facing right: dark skin tone
+U+1F469 U+200D U+1F9BC U+200D U+27A1 U+FE0F # woman in motorized wheelchair facing right
+U+1F469 U+1F3FB U+200D U+1F9BC U+200D U+27A1 U+FE0F # woman in motorized wheelchair facing right: light skin tone
+U+1F469 U+1F3FC U+200D U+1F9BC U+200D U+27A1 U+FE0F # woman in motorized wheelchair facing right: medium-light skin tone
+U+1F469 U+1F3FD U+200D U+1F9BC U+200D U+27A1 U+FE0F # woman in motorized wheelchair facing right: medium skin tone
+U+1F469 U+1F3FE U+200D U+1F9BC U+200D U+27A1 U+FE0F # woman in motorized wheelchair facing right: medium-dark skin tone
+U+1F469 U+1F3FF U+200D U+1F9BC U+200D U+27A1 U+FE0F # woman in motorized wheelchair facing right: dark skin tone
+U+1F9D1 U+200D U+1F9BD U+200D U+27A1 U+FE0F # person in manual wheelchair facing right
+U+1F9D1 U+1F3FB U+200D U+1F9BD U+200D U+27A1 U+FE0F # person in manual wheelchair facing right: light skin tone
+U+1F9D1 U+1F3FC U+200D U+1F9BD U+200D U+27A1 U+FE0F # person in manual wheelchair facing right: medium-light skin tone
+U+1F9D1 U+1F3FD U+200D U+1F9BD U+200D U+27A1 U+FE0F # person in manual wheelchair facing right: medium skin tone
+U+1F9D1 U+1F3FE U+200D U+1F9BD U+200D U+27A1 U+FE0F # person in manual wheelchair facing right: medium-dark skin tone
+U+1F9D1 U+1F3FF U+200D U+1F9BD U+200D U+27A1 U+FE0F # person in manual wheelchair facing right: dark skin tone
+U+1F468 U+200D U+1F9BD U+200D U+27A1 U+FE0F # man in manual wheelchair facing right
+U+1F468 U+1F3FB U+200D U+1F9BD U+200D U+27A1 U+FE0F # man in manual wheelchair facing right: light skin tone
+U+1F468 U+1F3FC U+200D U+1F9BD U+200D U+27A1 U+FE0F # man in manual wheelchair facing right: medium-light skin tone
+U+1F468 U+1F3FD U+200D U+1F9BD U+200D U+27A1 U+FE0F # man in manual wheelchair facing right: medium skin tone
+U+1F468 U+1F3FE U+200D U+1F9BD U+200D U+27A1 U+FE0F # man in manual wheelchair facing right: medium-dark skin tone
+U+1F468 U+1F3FF U+200D U+1F9BD U+200D U+27A1 U+FE0F # man in manual wheelchair facing right: dark skin tone
+U+1F469 U+200D U+1F9BD U+200D U+27A1 U+FE0F # woman in manual wheelchair facing right
+U+1F469 U+1F3FB U+200D U+1F9BD U+200D U+27A1 U+FE0F # woman in manual wheelchair facing right: light skin tone
+U+1F469 U+1F3FC U+200D U+1F9BD U+200D U+27A1 U+FE0F # woman in manual wheelchair facing right: medium-light skin tone
+U+1F469 U+1F3FD U+200D U+1F9BD U+200D U+27A1 U+FE0F # woman in manual wheelchair facing right: medium skin tone
+U+1F469 U+1F3FE U+200D U+1F9BD U+200D U+27A1 U+FE0F # woman in manual wheelchair facing right: medium-dark skin tone
+U+1F469 U+1F3FF U+200D U+1F9BD U+200D U+27A1 U+FE0F # woman in manual wheelchair facing right: dark skin tone
+U+1F3C3 U+200D U+27A1 U+FE0F # person running facing right
+U+1F3C3 U+1F3FB U+200D U+27A1 U+FE0F # person running facing right: light skin tone
+U+1F3C3 U+1F3FC U+200D U+27A1 U+FE0F # person running facing right: medium-light skin tone
+U+1F3C3 U+1F3FD U+200D U+27A1 U+FE0F # person running facing right: medium skin tone
+U+1F3C3 U+1F3FE U+200D U+27A1 U+FE0F # person running facing right: medium-dark skin tone
+U+1F3C3 U+1F3FF U+200D U+27A1 U+FE0F # person running facing right: dark skin tone
+U+1F3C3 U+200D U+2640 U+FE0F U+200D U+27A1 U+FE0F # woman running facing right
+U+1F3C3 U+1F3FB U+200D U+2640 U+FE0F U+200D U+27A1 U+FE0F # woman running facing right: light skin tone
+U+1F3C3 U+1F3FC U+200D U+2640 U+FE0F U+200D U+27A1 U+FE0F # woman running facing right: medium-light skin tone
+U+1F3C3 U+1F3FD U+200D U+2640 U+FE0F U+200D U+27A1 U+FE0F # woman running facing right: medium skin tone
+U+1F3C3 U+1F3FE U+200D U+2640 U+FE0F U+200D U+27A1 U+FE0F # woman running facing right: medium-dark skin tone
+U+1F3C3 U+1F3FF U+200D U+2640 U+FE0F U+200D U+27A1 U+FE0F # woman running facing right: dark skin tone
+U+1F3C3 U+200D U+2642 U+FE0F U+200D U+27A1 U+FE0F # man running facing right
+U+1F3C3 U+1F3FB U+200D U+2642 U+FE0F U+200D U+27A1 U+FE0F # man running facing right: light skin tone
+U+1F3C3 U+1F3FC U+200D U+2642 U+FE0F U+200D U+27A1 U+FE0F # man running facing right: medium-light skin tone
+U+1F3C3 U+1F3FD U+200D U+2642 U+FE0F U+200D U+27A1 U+FE0F # man running facing right: medium skin tone
+U+1F3C3 U+1F3FE U+200D U+2642 U+FE0F U+200D U+27A1 U+FE0F # man running facing right: medium-dark skin tone
+U+1F3C3 U+1F3FF U+200D U+2642 U+FE0F U+200D U+27A1 U+FE0F # man running facing right: dark skin tone
+U+1F9D1 U+200D U+1F9D1 U+200D U+1F9D2 # family: adult, adult, child
+U+1F9D1 U+200D U+1F9D1 U+200D U+1F9D2 U+200D U+1F9D2 # family: adult, adult, child, child
+U+1F9D1 U+200D U+1F9D2 # family: adult, child
+U+1F9D1 U+200D U+1F9D2 U+200D U+1F9D2 # family: adult, child, child
+U+1F426 U+200D U+1F525 # phoenix
+U+1F34B U+200D U+1F7E9 # lime
+U+1F344 U+200D U+1F7EB # brown mushroom
+U+26D3 U+FE0F U+200D U+1F4A5 # broken chain
+# Above emojis are presumably supported from Android 14 (API level 34), but maybe also for older versions with upgraded font
+
+@33 # Below emojis are supported from Android 13 (API level 33)
+U+1FAE8 # shaking face
+U+1FA77 # pink heart
+U+1FA75 # light blue heart
+U+1FA76 # grey heart
+U+1FAF7 # leftwards pushing hand
+U+1FAF7 U+1F3FB # leftwards pushing hand: light skin tone
+U+1FAF7 U+1F3FC # leftwards pushing hand: medium-light skin tone
+U+1FAF7 U+1F3FD # leftwards pushing hand: medium skin tone
+U+1FAF7 U+1F3FE # leftwards pushing hand: medium-dark skin tone
+U+1FAF7 U+1F3FF # leftwards pushing hand: dark skin tone
+U+1FAF8 # rightwards pushing hand
+U+1FAF8 U+1F3FB # rightwards pushing hand: light skin tone
+U+1FAF8 U+1F3FC # rightwards pushing hand: medium-light skin tone
+U+1FAF8 U+1F3FD # rightwards pushing hand: medium skin tone
+U+1FAF8 U+1F3FE # rightwards pushing hand: medium-dark skin tone
+U+1FAF8 U+1F3FF # rightwards pushing hand: dark skin tone
+U+1FACE # moose
+U+1FACF # donkey
+U+1FABD # wing
+U+1F426 U+200D U+2B1B # black bird
+U+1FABF # goose
+U+1FABC # jellyfish
+U+1FABB # hyacinth
+U+1FADA # ginger root
+U+1FADB # pea pod
+U+1FAAD # folding hand fan
+U+1FAAE # hair pick
+U+1FA87 # maracas
+U+1FA88 # flute
+U+1FAAF # khanda
+U+1F6DC # wireless
+# Above emojis are supported from Android 13 (API level 33)
 
 @32 # Below emojis are supported from Android 12l (API level 32)
 U+1FAE0 # melting face
@@ -95,6 +260,7 @@ U+1FAC5 U+1F3FE # person with crown: medium-dark skin tone
 U+1FAC5 U+1F3FF # person with crown: dark skin tone
 U+1FAC3 # pregnant man
 U+1FAC3 U+1F3FB # pregnant man: light skin tone
+U+1FAC3 U+1F3FC # pregnant man: medium-light skin tone
 U+1FAC3 U+1F3FD # pregnant man: medium skin tone
 U+1FAC3 U+1F3FE # pregnant man: medium-dark skin tone
 U+1FAC3 U+1F3FF # pregnant man: dark skin tone
@@ -115,12 +281,12 @@ U+1FAD9 # jar
 U+1F6DD # playground slide
 U+1F6DE # wheel
 U+1F6DF # ring buoy
-U+1FAAC # hamsa
 U+1FAA9 # mirror ball
 U+1FAAB # low battery
 U+1FA7C # crutch
 U+1FA7B # x-ray
 U+1FAE7 # bubbles
+U+1FAAC # hamsa
 U+1FAAA # identification card
 U+1F7F0 # heavy equals sign
 # Above emojis are supported from Android 12l (API level 32)
@@ -631,6 +797,18 @@ U+1FAA6 # headstone
 U+1FAA7 # placard
 U+26A7 U+FE0F # transgender symbol
 U+1F3F3 U+FE0F U+200D U+26A7 U+FE0F # transgender flag
+U+1F1FE U+1F1F9 # flag: mayotte
+U+1F1FC U+1F1EB # flag: wallis & futuna
+U+1F1F5 U+1F1F2 # flag: st. pierre & miquelon
+U+1F1F3 U+1F1E8 # flag: new caledonia
+U+1F1F2 U+1F1EB # flag: st. martin
+U+1F1EC U+1F1F8 # flag: south georgia & south sandwich islands
+U+1F1EC U+1F1F5 # flag: guadeloupe
+U+1F1EC U+1F1EB # flag: french guiana
+U+1F1EB U+1F1F0 # flag: falkland islands
+U+1F1EA U+1F1ED # flag: western sahara
+U+1F1EA U+1F1E6 # flag: ceuta & melilla
+U+1F1E9 U+1F1EC # flag: diego garcia
 # Above emojis are supported from Android 11.0 (API level 30)
 
 @29 # Below emojis are supported from Android 10.0 (API level 29)
@@ -3688,31 +3866,5 @@ U+1F532 # black square button
 U+1F3C1 # chequered flag
 U+1F6A9 # triangular flag
 U+1F38C # crossed flags
-U+1F1E6 # regional indicator symbol letter a
-U+1F1E7 # regional indicator symbol letter b
-U+1F1E8 # regional indicator symbol letter c
-U+1F1E9 # regional indicator symbol letter d
-U+1F1EA # regional indicator symbol letter e
-U+1F1EB # regional indicator symbol letter f
-U+1F1EC # regional indicator symbol letter g
-U+1F1ED # regional indicator symbol letter h
-U+1F1EE # regional indicator symbol letter i
-U+1F1EF # regional indicator symbol letter j
-U+1F1F0 # regional indicator symbol letter k
-U+1F1F1 # regional indicator symbol letter l
-U+1F1F2 # regional indicator symbol letter m
-U+1F1F3 # regional indicator symbol letter n
-U+1F1F4 # regional indicator symbol letter o
-U+1F1F5 # regional indicator symbol letter p
-U+1F1F6 # regional indicator symbol letter q
-U+1F1F7 # regional indicator symbol letter r
-U+1F1F8 # regional indicator symbol letter s
-U+1F1F9 # regional indicator symbol letter t
-U+1F1FA # regional indicator symbol letter u
-U+1F1FB # regional indicator symbol letter v
-U+1F1FC # regional indicator symbol letter w
-U+1F1FD # regional indicator symbol letter x
-U+1F1FE # regional indicator symbol letter y
-U+1F1FF # regional indicator symbol letter z
 # Above emojis are supported from Android 4.4 (API level 19)
 

@@ -1,0 +1,9 @@
+* permet personalitzar fila de nombres, codis de barres d'eines, icones, text de barra espai., fila inferior per a veure emojis i porta-retalls
+* separa estil d'icona d'estil de teclat
+* desactiva eliminació d'emergents redundants per defecte i afegir petita solució
+* addició menys agressiva de paraules a dic. personal
+* no vibra a mode No molestar
+* millor rendiment en copiar text gran
+* corregir finestres emergents de puntuació trencades
+* sol. problemes text duplicat
+* correcció errors menors

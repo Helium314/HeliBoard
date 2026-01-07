@@ -1,0 +1,9 @@
+* Stel optioneel namen van geïnstalleerde apps voor
+* Veeg om van emoji-categorie te wisselen
+* Sla op na het herstellen van de back-up
+* komma toegankelijk maken in pop-ups bij het tonen van TLD-pop-ups
+* Instelling toevoegen voor standaard emoji-huidskleur
+* Voeg keycodes toe voor linker en rechter alt- en ctrl-toetsen
+* Voeg sleutellabel "Timestamp" toe voor een meer toegankelijke tijdstempelsleutel
+* Begrijp speciale sleutellabels voor pop-ups in eenvoudige lay-outs
+* Kleine fixes en verbeteringen

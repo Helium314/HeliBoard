@@ -1,193 +1,454 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!-- 
-/*
-**
-** Copyright 2008, The Android Open Source Project
-**
-** Licensed under the Apache License, Version 2.0 (the "License");
-** you may not use this file except in compliance with the License.
-** You may obtain a copy of the License at
-**
-**     http://www.apache.org/licenses/LICENSE-2.0
-**
-** Unless required by applicable law or agreed to in writing, software
-** distributed under the License is distributed on an "AS IS" BASIS,
-** WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-** See the License for the specific language governing permissions and
-** limitations under the License.
-*/
- -->
-
-<resources xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="english_ime_input_options" msgid="3909945612939668554">"خيارات الإرسال"</string>
-    <string name="use_contacts_for_spellchecking_option_title" msgid="5374120998125353898">"بحث في أسماء جهات الاتصال"</string>
-    <string name="use_contacts_for_spellchecking_option_summary" msgid="8754413382543307713">"يستخدم المدقق الإملائي إدخالات من قائمة جهات الاتصال"</string>
-    <string name="vibrate_on_keypress" msgid="5258079494276955460">"اهتزاز عند ضغط مفتاح"</string>
-    <string name="sound_on_keypress" msgid="6093592297198243644">"صوت عند الضغط على مفتاح"</string>
-    <string name="popup_on_keypress" msgid="123894815723512944">"انبثاق عند ضغط مفتاح"</string>
-    <string name="settings_screen_preferences" msgid="2696713156722014624">"الإعدادات المفضّلة"</string>
-    <string name="settings_screen_accounts" msgid="2786418968536696670">"الحسابات والخصوصية"</string>
-    <string name="settings_screen_appearance" msgid="7358046399111611615">"المظهر والتنسيقات"</string>
-    <string name="settings_screen_gesture" msgid="8826372746901183556">"الكتابة بالإشارة"</string>
-    <string name="settings_screen_correction" msgid="1616818407747682955">"تصحيح النص"</string>
-    <string name="settings_screen_advanced" msgid="7472408607625972994">"الإعدادات المتقدمة"</string>
-    <string name="settings_screen_theme" msgid="2137262503543943871">"المظهر"</string>
-    <string name="enable_split_keyboard" msgid="4177264923999493614">"هل تريد تفعيل لوحة المفاتيح المقسمة"</string>
-    <string name="include_other_imes_in_language_switch_list" msgid="4533689960308565519">"التبديل إلى أسلوب إدخال آخر"</string>
-    <string name="include_other_imes_in_language_switch_list_summary" msgid="840637129103317635">"يغطي مفتاح تبديل اللغات أساليب الإدخال الأخرى أيضًا"</string>
-    <string name="show_language_switch_key" msgid="5915478828318774384">"مفتاح تبديل اللغة"</string>
-    <string name="show_language_switch_key_summary" msgid="7343403647474265713">"يظهر عندما يتم تفعيل لغات الإدخال متعددة"</string>
-    <string name="key_preview_popup_dismiss_delay" msgid="6213164897443068248">"تأخير إزالة النافذة المنبثقة الأساسية"</string>
-    <string name="key_preview_popup_dismiss_no_delay" msgid="2096123151571458064">"بلا تأخير"</string>
-    <string name="key_preview_popup_dismiss_default_delay" msgid="2166964333903906734">"تلقائي"</string>
-    <string name="abbreviation_unit_milliseconds" msgid="8700286094028323363">"<xliff:g id="MILLISECONDS">%s</xliff:g> مللي ثانية"</string>
-    <string name="settings_system_default" msgid="6268225104743331821">"الضبط التلقائي للنظام"</string>
-    <string name="use_contacts_dict" msgid="4435317977804180815">"اقتراح أسماء جهات الاتصال"</string>
-    <string name="use_contacts_dict_summary" msgid="6599983334507879959">"استخدام الأسماء من جهات الاتصال للاقتراحات والتصحيحات"</string>
-    <string name="use_personalized_dicts" msgid="5167396352105467626">"اقتراحات مخصصة"</string>
-    <string name="enable_metrics_logging" msgid="5506372337118822837">"تحسين <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
-    <string name="use_double_space_period" msgid="8781529969425082860">"نقطة المسافة المزدوجة"</string>
-    <string name="use_double_space_period_summary" msgid="6532892187247952799">"يؤدي النقر مرّتين على مفتاح المسافة إلى إدخال نقطة متبوعة بمسافة"</string>
-    <string name="auto_cap" msgid="1719746674854628252">"أحرف كبيرة تلقائيًا"</string>
-    <string name="auto_cap_summary" msgid="7934452761022946874">"كتابة الحرف الأول من كل جملة بحرف كبير"</string>
-    <string name="edit_personal_dictionary" msgid="3996910038952940420">"القاموس الشخصي"</string>
-    <string name="configure_dictionaries_title" msgid="4238652338556902049">"القواميس الإضافية"</string>
-    <string name="main_dictionary" msgid="4798763781818361168">"القاموس الرئيسي"</string>
-    <string name="prefs_show_suggestions" msgid="8026799663445531637">"عرض اقتراحات التصحيح"</string>
-    <string name="prefs_show_suggestions_summary" msgid="1583132279498502825">"عرض الكلمات المقترحة أثناء الكتابة"</string>
-    <string name="prefs_block_potentially_offensive_title" msgid="5078480071057408934">"حظر الكلمات المسيئة"</string>
-    <string name="prefs_block_potentially_offensive_summary" msgid="2371835479734991364">"عدم اقتراح كلمات محتمل أن تكون مسيئة"</string>
-    <string name="auto_correction" msgid="7630720885194996950">"التصحيح التلقائي"</string>
-    <string name="auto_correction_summary" msgid="5625751551134658006">"تؤدي المسافة والترقيم إلى تصحيح الكلمات المكتوبة بشكل غير صحيح"</string>
-    <string name="auto_correction_threshold_mode_off" msgid="8470882665417944026">"إيقاف"</string>
-    <string name="auto_correction_threshold_mode_modest" msgid="8788366690620799097">"معتدل"</string>
-    <string name="auto_correction_threshold_mode_aggressive" msgid="7319007299148899623">"صارم"</string>
-    <string name="auto_correction_threshold_mode_very_aggressive" msgid="1853309024129480416">"شديد الصرامة"</string>
-    <string name="bigram_prediction" msgid="1084449187723948550">"اقتراحات الكلمات التالية"</string>
-    <string name="bigram_prediction_summary" msgid="3896362682751109677">"استخدام الكلمة السابقة لتقديم الاقتراحات"</string>
-    <string name="gesture_input" msgid="826951152254563827">"تفعيل الكتابة بالإيماءة"</string>
-    <string name="gesture_input_summary" msgid="9180350639305731231">"إدخال كلمة من خلال التمرير على الأحرف"</string>
-    <string name="gesture_preview_trail" msgid="3802333369335722221">"عرض مسار الإيماءة"</string>
-    <string name="gesture_floating_preview_text" msgid="4443240334739381053">"معاينة نصوص متحركة ديناميكية"</string>
-    <string name="gesture_floating_preview_text_summary" msgid="4472696213996203533">"مشاهدة الكلمة المقترحة أثناء الإيماءة"</string>
-    <string name="gesture_space_aware" msgid="2078291600664682496">"عبارة الإيماء"</string>
-    <string name="gesture_space_aware_summary" msgid="4371385818348528538">"إدخال مسافات خلال الإيماءات من خلال تمرير مفتاح المسافة"</string>
-    <string name="voice_input" msgid="3583258583521397548">"مفتاح الإدخال الصوتي"</string>
-    <string name="voice_input_disabled_summary" msgid="6323489602945135165">"لم يتم تفعيل أي أساليب إدخال صوتي. تحقق من إعدادات اللغات والإدخال."</string>
-    <string name="configure_input_method" msgid="373356270290742459">"تهيئة طرق الإدخال"</string>
-    <string name="language_selection_title" msgid="3666971864764478269">"اللغات"</string>
-    <string name="help_and_feedback" msgid="5328219371839879161">"المساعدة والتعليقات"</string>
-    <string name="select_language" msgid="5709487854987078367">"اللغات"</string>
-    <string name="hint_add_to_dictionary" msgid="2645988432867033007">"انقر مرة أخرى للحفظ"</string>
-    <string name="hint_add_to_dictionary_without_word" msgid="6710206006427574423">"انقر هنا للحفظ"</string>
-    <string name="has_dictionary" msgid="6071847973466625007">"القاموس متاح"</string>
-    <string name="keyboard_layout" msgid="8451164783510487501">"مظهر لوحة المفاتيح"</string>
-    <string name="switch_accounts" msgid="3321216593719006162">"تبديل الحسابات"</string>
-    <string name="no_accounts_selected" msgid="2073821619103904330">"لم يتم تحديد أي حساب"</string>
-    <string name="account_selected" msgid="2846876462199625974">"يتم حاليًا استخدام <xliff:g id="EMAIL_ADDRESS">%1$s</xliff:g>"</string>
-    <string name="account_select_ok" msgid="9141195141763227797">"موافق"</string>
-    <string name="account_select_cancel" msgid="5181012062618504340">"إلغاء"</string>
-    <string name="account_select_sign_out" msgid="3299651159390187933">"الخروج"</string>
-    <string name="account_select_title" msgid="6279711684772922649">"تحديد حساب لاستخدامه"</string>
-    <string name="subtype_en_GB" msgid="88170601942311355">"الإنجليزية (المملكة المتحدة)"</string>
-    <string name="subtype_en_US" msgid="6160452336634534239">"الإنجليزية (الولايات المتحدة)"</string>
-    <string name="subtype_es_US" msgid="5583145191430180200">"الإسبانية (الأميركية)"</string>
-    <string name="subtype_hi_ZZ" msgid="8860448146262798623">"هنجليزية"</string>
-    <string name="subtype_sr_ZZ" msgid="9059219552986034343">"الصربية (اللاتينية)"</string>
-    <string name="subtype_with_layout_en_GB" msgid="1931018968641592304">"الإنجليزية (المملكة المتحدة) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_en_US" msgid="8809311287529805422">"الإنجليزية (الولايات المتحدة) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_es_US" msgid="510930471167541338">"الإسبانية (الولايات المتحدة) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_hi_ZZ" msgid="6827402953860547044">"هنجليزية (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_sr_ZZ" msgid="2859024772719772407">"الصربية (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_generic_traditional" msgid="8584594350973800586">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (التقليدية)"</string>
-    <string name="subtype_generic_compact" msgid="3353673321203202922">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (مكثفة)"</string>
-    <string name="subtype_no_language" msgid="7137390094240139495">"بدون لغة (أبجدية)"</string>
-    <string name="subtype_no_language_qwerty" msgid="244337630616742604">"‏الأبجدية (QWERTY)"</string>
-    <string name="subtype_no_language_qwertz" msgid="443066912507547976">"‏الأبجدية (QWERTZ)"</string>
-    <string name="subtype_no_language_azerty" msgid="8144348527575640087">"‏الأبجدية (AZERTY)"</string>
-    <string name="subtype_no_language_dvorak" msgid="1564494667584718094">"‏الأبجدية (Dvorak)"</string>
-    <string name="subtype_no_language_colemak" msgid="5837418400010302623">"‏الأبجدية (Colemak)"</string>
-    <string name="subtype_no_language_pcqwerty" msgid="5354918232046200018">"‏الأبجدية (PC)"</string>
-    <string name="subtype_emoji" msgid="7483586578074549196">"الرموز التعبيرية"</string>
-    <string name="keyboard_theme" msgid="4909551808526178852">"مظهر لوحة المفاتيح"</string>
-    <string name="custom_input_styles_title" msgid="8429952441821251512">"أنماط الإدخال المخصصة"</string>
-    <string name="add_style" msgid="6163126614514489951">"إضافة نمط"</string>
-    <string name="add" msgid="8299699805688017798">"إضافة"</string>
-    <string name="remove" msgid="4486081658752944606">"إزالة"</string>
-    <string name="save" msgid="7646738597196767214">"حفظ"</string>
-    <string name="subtype_locale" msgid="8576443440738143764">"اللغة"</string>
-    <string name="keyboard_layout_set" msgid="4309233698194565609">"التخطيط"</string>
-    <string name="custom_input_style_note_message" msgid="8826731320846363423">"يجب تفعيل نمط الإدخال المخصص قبل استخدامه. هل تريد تفعيله الآن؟"</string>
-    <string name="enable" msgid="5031294444630523247">"تفعيل"</string>
-    <string name="not_now" msgid="6172462888202790482">"ليس الآن"</string>
-    <string name="custom_input_style_already_exists" msgid="8008728952215449707">"نمط الإدخال ذاته موجود من قبل: <xliff:g id="INPUT_STYLE_NAME">%s</xliff:g>"</string>
-    <string name="prefs_keypress_vibration_duration_settings" msgid="7918341459947439226">"مدة اهتزاز الضغط على المفاتيح"</string>
-    <string name="prefs_keypress_sound_volume_settings" msgid="6027007337036891623">"مستوى صوت الضغط على المفاتيح"</string>
-    <string name="prefs_key_longpress_timeout_settings" msgid="6102240298932897873">"مهلة الضغط مع الاستمرار على المفاتيح"</string>
-    <string name="prefs_enable_emoji_alt_physical_key" msgid="5963640002335470112">"الرموز التعبيرية للوحة مفاتيح فعلية"</string>
-    <string name="prefs_enable_emoji_alt_physical_key_summary" msgid="5259484820941627827">"‏مفتاح Alt الفعلي يعرض لوحة الرموز التعبيرية"</string>
-    <string name="button_default" msgid="3988017840431881491">"التلقائية"</string>
-    <string name="setup_welcome_title" msgid="6112821709832031715">"أهلاً بك في <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
-    <string name="setup_welcome_additional_description" msgid="8150252008545768953">"مع الكتابة بالإشارة"</string>
-    <string name="setup_start_action" msgid="8936036460897347708">"بدء الاستخدام"</string>
-    <string name="setup_next_action" msgid="371821437915144603">"الخطوة التالية"</string>
-    <string name="setup_steps_title" msgid="6400373034871816182">"إعداد <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
-    <string name="setup_step1_title" msgid="3147967630253462315">"تفعيل <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
-    <string name="setup_step1_instruction" msgid="4295448056733329661">"يُرجى تحديد \"<xliff:g id="APPLICATION_NAME">%s</xliff:g>\" من خلال إعدادات اللغات والإدخال؛ وذلك للسماح بتشغيل هذا التطبيق على جهازك."</string>
-    <string name="setup_step1_finished_instruction" msgid="8701441895377434947">"تم تفعيل <xliff:g id="APPLICATION_NAME">%s</xliff:g> من قبل في إعدادات اللغات والإدخال، وبالتالي هذه الخطوة مكتملة. انتقل إلى الخطوة التالية."</string>
-    <string name="setup_step1_action" msgid="4366513534999901728">"تفعيل في الإعدادات"</string>
-    <string name="setup_step2_title" msgid="6860725447906690594">"التبديل إلى <xliff:g id="APPLICATION_NAME">%s</xliff:g>."</string>
-    <string name="setup_step2_instruction" msgid="9141481964870023336">"بعد ذلك، حدد \"<xliff:g id="APPLICATION_NAME">%s</xliff:g>\" باعتباره أسلوب إدخال النص النشط."</string>
-    <string name="setup_step2_action" msgid="1660330307159824337">"تبديل أساليب الإدخال"</string>
-    <string name="setup_step3_title" msgid="3154757183631490281">"تهانينا، بهذا تكون قد انتهيت من الإعداد"</string>
-    <string name="setup_step3_instruction" msgid="8025981829605426000">"الآن أصبح بإمكانك الكتابة في جميع تطبيقاتك المفضلة باستخدام <xliff:g id="APPLICATION_NAME">%s</xliff:g>."</string>
-    <string name="setup_step3_action" msgid="600879797256942259">"تهيئة اللغات الإضافية"</string>
-    <string name="setup_finish_action" msgid="276559243409465389">"إنهاء العملية"</string>
-    <string name="show_setup_wizard_icon" msgid="5008028590593710830">"عرض رمز التطبيق"</string>
-    <string name="show_setup_wizard_icon_summary" msgid="4119998322536880213">"عرض رمز التطبيق في المشغل"</string>
-    <string name="app_name" msgid="6320102637491234792">"مقدم القاموس"</string>
-    <string name="dictionary_provider_name" msgid="3027315045397363079">"مقدم القاموس"</string>
-    <string name="dictionary_service_name" msgid="6237472350693511448">"خدمة القاموس"</string>
-    <string name="download_description" msgid="6014835283119198591">"معلومات تحديث القاموس"</string>
-    <string name="dictionary_settings_title" msgid="8091417676045693313">"القواميس الإضافية"</string>
-    <string name="dictionary_settings_summary" msgid="5305694987799824349">"إعدادات القواميس"</string>
-    <string name="user_dictionaries" msgid="3582332055892252845">"قواميس المستخدم"</string>
-    <string name="default_user_dict_pref_name" msgid="1625055720489280530">"قاموس المستخدم"</string>
-    <string name="dictionary_available" msgid="4728975345815214218">"القاموس متاح"</string>
-    <string name="dictionary_downloading" msgid="2982650524622620983">"يتم حاليًا التنزيل"</string>
-    <string name="dictionary_installed" msgid="8081558343559342962">"تم التثبيت"</string>
-    <string name="dictionary_disabled" msgid="8950383219564621762">"مثبت، غير مفعّل"</string>
-    <string name="cannot_connect_to_dict_service" msgid="9216933695765732398">"مشكلة في الاتصال بخدمة القاموس"</string>
-    <string name="no_dictionaries_available" msgid="8039920716566132611">"لا تتوفر أي قواميس"</string>
-    <string name="check_for_updates_now" msgid="8087688440916388581">"تحديث"</string>
-    <string name="last_update" msgid="730467549913588780">"تاريخ آخر تحديث"</string>
-    <string name="message_updating" msgid="4457761393932375219">"جارٍ البحث عن تحديثات"</string>
-    <string name="message_loading" msgid="5638680861387748936">"جارٍ التحميل…"</string>
-    <string name="main_dict_description" msgid="3072821352793492143">"القاموس الرئيسي"</string>
-    <string name="cancel" msgid="6830980399865683324">"إلغاء"</string>
-    <string name="go_to_settings" msgid="3876892339342569259">"إعدادات"</string>
-    <string name="install_dict" msgid="180852772562189365">"تثبيت"</string>
-    <string name="cancel_download_dict" msgid="7843340278507019303">"إلغاء"</string>
-    <string name="delete_dict" msgid="756853268088330054">"حذف"</string>
-    <string name="version_text" msgid="2715354215568469385">"الإصدار <xliff:g id="VERSION_NUMBER">%1$s</xliff:g>"</string>
-    <string name="user_dict_settings_add_menu_title" msgid="1254195365689387076">"إضافة"</string>
-    <string name="user_dict_settings_add_dialog_title" msgid="4096700390211748168">"إضافة إلى القاموس"</string>
-    <string name="user_dict_settings_add_screen_title" msgid="5818914331629278758">"عبارة"</string>
-    <string name="user_dict_settings_add_dialog_more_options" msgid="5671682004887093112">"خيارات أكثر"</string>
-    <string name="user_dict_settings_add_dialog_less_options" msgid="2716586567241724126">"خيارات أقل"</string>
-    <string name="user_dict_settings_add_dialog_confirm" msgid="4703129507388332950">"موافق"</string>
-    <string name="user_dict_settings_add_word_option_name" msgid="6665558053408962865">"الكلمة:"</string>
-    <string name="user_dict_settings_add_shortcut_option_name" msgid="3094731590655523777">"الاختصار:"</string>
-    <string name="user_dict_settings_add_locale_option_name" msgid="4738643440987277705">"اللغة:"</string>
-    <string name="user_dict_settings_add_word_hint" msgid="4902434148985906707">"اكتب كلمة"</string>
-    <string name="user_dict_settings_add_shortcut_hint" msgid="2265453012555060178">"اختصار اختياري"</string>
-    <string name="user_dict_settings_edit_dialog_title" msgid="3765774633869590352">"تعديل كلمة"</string>
-    <string name="user_dict_settings_context_menu_edit_title" msgid="6812255903472456302">"تعديل"</string>
-    <string name="user_dict_settings_context_menu_delete_title" msgid="8142932447689461181">"حذف"</string>
-    <string name="user_dict_settings_empty_text" msgid="6889278304342592383">"ليس هناك أي كلمات في قاموس المستخدم. لإضافة كلمة، انقر على زر الإضافة (+)."</string>
-    <string name="user_dict_settings_all_languages" msgid="8276126583216298886">"لجميع اللغات"</string>
-    <string name="user_dict_settings_more_languages" msgid="7131268499685180461">"مزيد من اللغات..."</string>
-    <string name="user_dict_settings_delete" msgid="110413335187193859">"حذف"</string>
-    <string name="user_dict_fast_scroll_alphabet" msgid="5431919401558285473">" أ ب ت ث ج ح خ د ذ ر ز س ش ص ض ط ظ ع غ ف ق ك ل م ن ه و ي"</string>
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright (C) 2008 The Android Open Source Project
+    modified
+    SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
+--><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" xmlns:tools="http://schemas.android.com/tools">
+    <string name="use_contacts_dict">"بحث في أسماء جهات الاتصال"</string>
+    <string name="vibrate_on_keypress">"اهتزاز عند ضغط مفتاح"</string>
+    <string name="sound_on_keypress">"صوت عند الضغط على مفتاح"</string>
+    <string name="popup_on_keypress">"انبثاق عند ضغط مفتاح"</string>
+    <string name="settings_screen_preferences">"الإعدادات المفضّلة"</string>
+    <string name="settings_screen_gesture">"الكتابة بالإشارة"</string>
+    <string name="settings_screen_correction">"تصحيح النص"</string>
+    <string name="settings_screen_advanced">"الإعدادات المتقدمة"</string>
+    <string name="settings_screen_theme">السمة</string>
+    <string name="enable_split_keyboard">فعّل تقسيم لوحة المفاتيح</string>
+    <string name="language_switch_key_switch_input_method">"التبديل إلى أسلوب إدخال آخر"</string>
+    <string name="show_language_switch_key">"مفتاح تبديل اللغة"</string>
+    <string name="abbreviation_unit_milliseconds">%s ملي ثانية</string>
+    <string name="settings_system_default">"الضبط التلقائي للنظام"</string>
+    <string name="use_contacts_dict_summary">"استخدام الأسماء من جهات الاتصال للاقتراحات والتصحيحات"</string>
+    <string name="use_personalized_dicts">"اقتراحات مخصصة"</string>
+    <string name="use_double_space_period">"نقطة المسافة المزدوجة"</string>
+    <string name="use_double_space_period_summary">"يؤدي النقر مرّتين على مفتاح المسافة إلى إدخال نقطة متبوعة بمسافة"</string>
+    <string name="auto_cap">"أحرف كبيرة تلقائيًا"</string>
+    <string name="auto_cap_summary">"كتابة الحرف الأول من كل جملة بحرف كبير"</string>
+    <string name="edit_personal_dictionary">"القاموس الشخصي"</string>
+    <string name="main_dictionary">"القاموس الرئيسي"</string>
+    <string name="prefs_show_suggestions">أظهِر اقتراحات التصحيح</string>
+    <string name="prefs_show_suggestions_summary">أظهِر الكلمات المقترحة أثناء الكتابة</string>
+    <string name="prefs_block_potentially_offensive_title">"حظر الكلمات المسيئة"</string>
+    <string name="prefs_block_potentially_offensive_summary">"عدم اقتراح كلمات محتمل أن تكون مسيئة"</string>
+    <string name="autocorrect">"التصحيح التلقائي"</string>
+    <string name="auto_correction_summary">"تؤدي المسافة والترقيم إلى تصحيح الكلمات المكتوبة بشكل غير صحيح"</string>
+    <string name="auto_correction_threshold_mode_off">"إيقاف"</string>
+    <string name="auto_correction_threshold_mode_modest">"معتدل"</string>
+    <string name="auto_correction_threshold_mode_aggressive">"صارم"</string>
+    <string name="auto_correction_threshold_mode_very_aggressive">"شديد الصرامة"</string>
+    <string name="bigram_prediction">"اقتراحات الكلمات التالية"</string>
+    <string name="bigram_prediction_summary">"استخدام الكلمة السابقة لتقديم الاقتراحات"</string>
+    <string name="gesture_input">"تفعيل الكتابة بالإيماءة"</string>
+    <string name="gesture_input_summary">"إدخال كلمة من خلال التمرير على الأحرف"</string>
+    <string name="gesture_preview_trail">اعرض مسار الإيماءة</string>
+    <string name="gesture_floating_preview_text">"معاينة نصوص متحركة ديناميكية"</string>
+    <string name="gesture_space_aware">"عبارة الإيماء"</string>
+    <string name="gesture_space_aware_summary">"إدخال مسافات خلال الإيماءات من خلال تمرير مفتاح المسافة"</string>
+    <string name="subtype_en_GB">"الإنجليزية (المملكة المتحدة)"</string>
+    <string name="subtype_en_US">"الإنجليزية (الولايات المتحدة)"</string>
+    <string name="subtype_es_US">"الإسبانية (الأميركية)"</string>
+    <string name="subtype_hi_Latn">"هنجليزية"</string>
+    <string name="subtype_sr_Latn">"الصربية (اللاتينية)"</string>
+    <string name="subtype_generic_traditional">%s (التقليدية)</string>
+    <string name="subtype_generic_compact">%s (مضغوط)</string>
+    <string name="subtype_no_language">"بدون لغة"</string>
+    <string name="subtype_emoji">"الرموز التعبيرية"</string>
+    <string name="add">أضف</string>
+    <string name="remove">أزِل</string>
+    <string name="save">"حفظ"</string>
+    <string name="subtype_locale">"اللغة"</string>
+    <string name="keyboard_layout_set">"التخطيط"</string>
+    <string name="prefs_keypress_vibration_duration_settings">"مدة اهتزاز الضغط على المفاتيح"</string>
+    <string name="prefs_keypress_sound_volume_settings">"مستوى صوت الضغط على المفاتيح"</string>
+    <string name="prefs_key_longpress_timeout_settings">"مهلة الضغط مع الاستمرار على المفاتيح"</string>
+    <string name="prefs_enable_emoji_alt_physical_key">"الرموز التعبيرية للوحة مفاتيح فعلية"</string>
+    <string name="prefs_enable_emoji_alt_physical_key_summary">"‏مفتاح Alt الفعلي يعرض لوحة الرموز التعبيرية"</string>
+    <string name="button_default">"التلقائية"</string>
+    <string name="setup_welcome_title">مرحبًا بكم في %s</string>
+    <string name="setup_welcome_additional_description">مع الكتابة بالإيماءة</string>
+    <string name="setup_start_action">"بدء الاستخدام"</string>
+    <string name="setup_steps_title">قيد الإعداد %s</string>
+    <string name="setup_step1_title">مكِّن %s</string>
+    <string name="setup_step1_instruction">يُرجى التحقق من \"%s\" في إعدادات الإدخال واللغات. سيؤدي ذلك إلى تمكين لوحة المفاتيح على جهازك.</string>
+    <string name="setup_step1_action">"تفعيل في الإعدادات"</string>
+    <string name="setup_step2_title">بدّل إلى %s</string>
+    <string name="setup_step2_instruction">بعد ذلك، اختر \"%s” كطريقة إدخال النص النشط.</string>
+    <string name="setup_step2_action">"تبديل أساليب الإدخال"</string>
+    <string name="setup_step3_title">تهانينا، لقد انتهيت من الإعداد!</string>
+    <string name="setup_step3_instruction">الآن أصبح بإمكانك الكتابة في جميع تطبيقاتك المفضلة باستخدام %s.</string>
+    <string name="setup_finish_action">"إنهاء العملية"</string>
+    <string name="show_setup_wizard_icon">اعرض رمز التطبيق</string>
+    <string name="show_setup_wizard_icon_summary">اعرض رمز التطبيق في المشغل</string>
+    <string name="dictionary_category_title">"القواميس الإضافية"</string>
+    <string name="dictionary_available">"القاموس متاح"</string>
+    <string name="settings">"إعدادات"</string>
+    <string name="delete">احذف</string>
+    <string name="version_text">الإصدار %s</string>
+    <string name="user_dict_settings_add_shortcut_option_name">"الاختصار:"</string>
+    <string name="user_dict_settings_add_locale_option_name">"اللغة:"</string>
+    <string name="user_dict_settings_add_word_hint">"اكتب كلمة"</string>
+    <string name="user_dict_settings_add_shortcut_hint">"اختصار اختياري"</string>
+    <string name="user_dict_settings_edit_dialog_title">"تعديل كلمة"</string>
+    <string name="user_dict_settings_all_languages">"لجميع اللغات"</string>
+    <string name="user_dict_settings_more_languages">"مزيد من اللغات…"</string>
+    <string name="show_emoji_key">مفتاح الرموز التعبيرية</string>
+    <string name="settings_no_limit">بلا حدود</string>
+    <string name="ime_settings">إعدادات HeliBoard</string>
+    <string name="settings_category_input">الإدخال</string>
+    <string name="prefs_force_incognito_mode_summary">تعطيل تعلم الكلمات الجديدة</string>
+    <string name="more_keys_strip_description">المزيد من المفاتيح</string>
+    <string name="prefs_keyboard_height_scale">مقياس ارتفاع لوحة المفاتيح</string>
+    <string name="day_night_mode">وضع النهار / الوضع الليلي</string>
+    <string name="settings_category_correction">التصحيحات</string>
+    <string name="settings_category_suggestions">الاقتراحات</string>
+    <string name="settings_category_experimental">تجريبي</string>
+    <string name="settings_category_miscellaneous">متنوعة</string>
+    <string name="spell_checker_service_name">المدقق الإملائي لـ HeliBoard</string>
+    <string name="android_spell_checker_settings">إعدادات المدقق الإملائي لـ HeliBoard</string>
+    <string name="number_row">صف الأرقام</string>
+    <string name="number_row_summary">أظهِر صف الأرقام دائما</string>
+    <string name="day_night_mode_summary">سيتبع المظهر إعدادات النظام</string>
+    <string name="prefs_long_press_keyboard_to_change_lang">تغيير طريقة الإدخال باستخدام مفتاح المسافة</string>
+    <string name="settings_category_additional_keys">مفاتيح إضافية</string>
+    <string name="settings_category_clipboard_history">تاريخ الحافظة</string>
+    <string name="enable_clipboard_history">مكِّن تاريخ الحافظة</string>
+    <string name="enable_clipboard_history_summary">سيقوم مفتاح الحافظة بلصق محتوى الحافظة -إن وُجد- إن عُطِّل</string>
+    <string name="clipboard_history_retention_time">وقت الاحتفاظ بالتاريخ</string>
+    <string name="delete_swipe">احذف بالسحب</string>
+    <string name="key_borders">الحدود الرئيسة</string>
+    <string name="delete_swipe_summary">أجرِ سحبًا سريعًا على مفتاح الحذف لتُحدِّد وتُزيل أجزاءً كبيرة من النص دفعةً واحدة</string>
+    <string name="show_hints">أظهِر تلميحات المفاتيح</string>
+    <string name="select_input_method">"اختيار أسلوب الإدخال"</string>
+    <string name="show_hints_summary">أظهِر تلميحات المفاتيح عند الضغط لفترة طويلة</string>
+    <string name="prefs_long_press_keyboard_to_change_lang_summary">سيقوم الضغط المطول على مفتاح المسافة بإظهار قائمة اختيار أساليب الإدخال</string>
+    <string name="subtype_akkhor_bn_BD">%s (أخور)</string>
+    <string name="autospace_after_punctuation">ضع مسافةً بعد علامات الترقيم تلقائيًا</string>
+    <string name="autospace_after_punctuation_summary">أدرج مسافةً تلقائيًا بعد علامة الترقيم عند كتابة كلمة جديدة</string>
+    <string name="incognito">افرض وضع التخفي</string>
+    <string name="abbreviation_unit_minutes">%s min</string>
+    <string name="auto_correction_confidence">ثقة التصحيح التلقائي</string>
+    <string name="undo">"تراجع"</string>
+    <string name="redo">"إعادة"</string>
+    <string name="use_personalized_dicts_summary">"التعلم من اتصالاتك والبيانات التي تكتبها لتحسين الاقتراحات"</string>
+    <string name="label_go_key">"ذهاب"</string>
+    <string name="label_next_key">"تالٍ"</string>
+    <string name="label_previous_key">"سابق"</string>
+    <string name="label_done_key">"تم"</string>
+    <string name="label_send_key">"إرسال"</string>
+    <string name="label_search_key">"بحث"</string>
+    <string name="label_pause_key">"توقف"</string>
+    <string name="label_wait_key">"انتظر"</string>
+    <string name="theme_colors">الألوان</string>
+    <string name="popup_keys_number" tools:keep="@string/popup_keys_number">صف الأرقام</string>
+    <string name="available_dictionary_experimental">%s (تجريبي)</string>
+    <string name="theme_style">النمط</string>
+    <string name="style_name_Rounded" tools:keep="@string/style_name_Rounded">دائري</string>
+    <string name="localized_number_row">صف الأرقام باللغة المحلية</string>
+    <string name="all_colors">أظهِر كافة الألوان</string>
+    <string name="user_dict_add_word_button">أضف كلمة</string>
+    <string name="theme_name_brown" tools:keep="@string/theme_name_brown">بنّي</string>
+    <string name="theme_name_cloudy" tools:keep="@string/theme_name_cloudy">سحابي</string>
+    <string name="theme_name_forest" tools:keep="@string/theme_name_forest">غابة</string>
+    <string name="theme_name_sand" tools:keep="@string/theme_name_sand">رمل</string>
+    <string name="theme_name_user" tools:keep="@string/theme_name_user">مخصص</string>
+    <string name="theme_name_blue_gray" tools:keep="@string/theme_name_blue_gray">أزرق رمادي</string>
+    <string name="select_color_background">خلفية لوحة المفاتيح</string>
+    <string name="select_color_key">نص الأزرار</string>
+    <string name="auto_user_color">اختيار تلقائي للون</string>
+    <string name="version">الإصدار</string>
+    <string name="dialog_close">غلق</string>
+    <string name="settings_screen_appearance">المظهر</string>
+    <string name="select_color_key_background">خلفية الأزرار</string>
+    <string name="select_color_gesture">إدخال الإيماءة</string>
+    <string name="save_log">حفظ السِجِلّ</string>
+    <string name="license">رخصة مفتوحة المصدر</string>
+    <string name="select_color_spacebar_text">نص زر المسافة البيضاء</string>
+    <string name="about_github_link">الرابط إلى جت هب</string>
+    <string name="backup_restore_title">النسخ الاحتياطي والإسترجاع</string>
+    <string name="user_dict_settings_add_weight_value">الوزن:</string>
+    <string name="settings_screen_about">عن</string>
+    <string name="select_color_spacebar_background">خلفية زر المسافة البيضاء</string>
+    <string name="split_spacer_scale">مسافة التقسيم</string>
+    <string name="switch_language">غيّر اللغة</string>
+    <string name="more_autocorrect">التصحيح التلقائي المتقدم</string>
+    <string name="prefs_always_show_suggestions">اعرض الاقتراحات دائمًا</string>
+    <string name="button_backup">حفظ</string>
+    <string name="button_restore">استرجاع</string>
+    <string name="secondary_locale">الكتابة متعددة اللغات</string>
+    <string name="load_gesture_library_button_load">تحميل المكتبة</string>
+    <string name="load_gesture_library_button_delete">احذف المكتبة</string>
+    <string name="load_gesture_library">حمّل مكتبة الإيماءة</string>
+    <string name="popup_keys_symbols" tools:keep="@string/popup_keys_symbols">الرموز</string>
+    <string name="clipboard" tools:keep="@string/clipboard">الحافظة</string>
+    <string name="left" tools:keep="@string/left">يسار</string>
+    <string name="right" tools:keep="@string/right">يمين</string>
+    <string name="up" tools:keep="@string/up">أعلى</string>
+    <string name="down" tools:keep="@string/down">أسفل</string>
+    <string name="popup_keys_language_priority" tools:keep="@string/popup_keys_language_priority">اللغة (أولوية)</string>
+    <string name="clear_clipboard" tools:keep="@string/clear_clipboard">مسح الحافظة</string>
+    <string name="voice" tools:keep="@string/voice">الإدخال الصوتي</string>
+    <string name="select_word" tools:keep="@string/select_word">اختر كلمة</string>
+    <string name="one_handed" tools:keep="@string/one_handed">وضع اليد الواحدة</string>
+    <string name="prefs_narrow_key_gaps">تقليص المسافة ما بين الأزرار</string>
+    <string name="button_load_custom">تحميل ملف</string>
+    <string name="layout_symbols_shifted">المزيد من الرموز</string>
+    <string name="button_title_add_custom_layout">أضف تخطيط مخصّص</string>
+    <string name="file_read_error">تعذرت قراءة الملف</string>
+    <string name="dictionary_settings_category">القواميس</string>
+    <string name="setup_step3_action">إعداد لوحة المفاتيح</string>
+    <string name="internal_dictionary_summary">القواميس المدمَجَة</string>
+    <string name="add_new_dictionary_title">أضف قاموس عبر ملف</string>
+    <string name="dictionary_link_text">هنا</string>
+    <string name="button_select_language">اختر اللغة</string>
+    <string name="replace_dictionary">استبدل القاموس</string>
+    <string name="no_dictionary_dont_show_again_button">لا تظهره مرة أخرى</string>
+    <string name="theme_name_light" tools:keep="@string/theme_name_light">فاتح</string>
+    <string name="theme_name_dark" tools:keep="@string/theme_name_dark">داكن</string>
+    <string name="theme_name_darker" tools:keep="@string/theme_name_darker">أغمق</string>
+    <string name="theme_name_dynamic" tools:keep="@string/theme_name_dynamic">ألوان ديناميكية</string>
+    <string name="theme_name_ocean" tools:keep="@string/theme_name_ocean">محيط</string>
+    <string name="theme_name_pink" tools:keep="@string/theme_name_pink">وردي</string>
+    <string name="disable_personalized_dicts_message">تحذير: سيؤدي تعطيل هذا الإعداد إلى مسح البيانات التي تم تعلمها</string>
+    <string name="add_to_personal_dictionary">أضف كلمات إلى القاموس الشخصي</string>
+    <string name="select_color_key_hint">نص تلميح رئيسي</string>
+    <string name="var_toolbar_direction_summary">عكس الاتجاه عند تحديد نوع فرعي من لوحة المفاتيح من اليمين إلى اليسار</string>
+    <string name="var_toolbar_direction">اتجاه شريط الأدوات المتغير</string>
+    <string name="add_to_personal_dictionary_summary">استخدم القاموس الشخصي للجهاز لتخزين الكلمات التي تم تعلمها</string>
+    <string name="more_autocorrect_summary">التصحيح التلقائي حتى عندما لا يطلبه حقل الإدخال بشكل صريح</string>
+    <string name="backup_restore_message">حفظ أو تحميل من الملف. تحذير: ستؤدي الاستعادة إلى استبدال البيانات الموجودة</string>
+    <string name="theme_name_indigo" tools:keep="@string/theme_name_indigo">النيلي</string>
+    <string name="subtype_xdq">كايتاج</string>
+    <string name="add_dictionary">حدد القاموس الذي تريد إضافته. يمكن تنزيل القواميس بتنسيق .dict ‏%s.</string>
+    <string name="layout_symbols" tools:keep="@string/layout_symbols">الرموز</string>
+    <string name="layout_symbols_arabic" tools:keep="@string/layout_symbols_arabic">الرموز(العربية)</string>
+    <string name="layout_number" tools:keep="@string/layout_number">ارقام</string>
+    <string name="layout_numpad" tools:keep="@string/layout_numpad">لوحة الأرقام</string>
+    <string name="layout_phone" tools:keep="@string/layout_phone">الهاتف</string>
+    <string name="layout_phone_symbols" tools:keep="@string/layout_phone_symbols">رموز الهاتف</string>
+    <string name="layout_numpad_landscape" tools:keep="@string/layout_numpad_landscape">لوحة الأرقام (أفقي)</string>
+    <string name="remove_dictionary_message">هل تريد حقًا إزالة القاموس الذي أضافه المستخدم \"%s\"؟</string>
+    <string name="dictionary_file_error">خطأ: الملف المحدد ليس ملف قاموس صالح</string>
+    <string name="theme_name_black" tools:keep="@string/theme_name_black">أسود</string>
+    <string name="show_horizontal_space_swipe">إيماءة التمرير بشريط المسافة الأفقي</string>
+    <string name="show_vertical_space_swipe">إيماءة التمرير بشريط المسافة العمودي</string>
+    <string name="action_none">لاشيء</string>
+    <string name="space_swipe_move_cursor_entry">حرّك المؤشر</string>
+    <string name="backup_error">خطأ النسخ الاحتياطي: %s</string>
+    <string name="restore_error">خطأ في استعادة النسخة الاحتياطية: %s</string>
+    <string name="load_gesture_library_summary">وفّر مكتبة أصلية لتمكين الكتابة بالإيماءات</string>
+    <string name="load_gesture_library_message">ستحتاج إلى مكتبة \'%s\'. قد تتعطل المكتبات غير المتوافقة عند استخدام الكتابة بالإيماءات.
+\n
+\nتحذير: تحميل التعليمات البرمجية الخارجية يمكن أن يشكل خطراً أمنياً. استخدم فقط مكتبة من مصدر تثق به.</string>
+    <string name="checksum_mismatch_message">ملف مكتبة غير معروف. هل أنت متأكد أنك حصلت عليه من مصدر موثوق به وأنه مخصص لـ \'%s\'؟</string>
+    <string name="show_popup_keys_title">اعرض المزيد من الحروف مع علامات التشكيل في النافذة المنبثقة</string>
+    <string name="show_popup_keys_more">أضف المتغيرات المشتركة</string>
+    <string name="show_popup_keys_all">أضف جميع المتغيرات المتاحة</string>
+    <string name="url_detection_title">كشف عنوان URL</string>
+    <string name="url_detection_summary">حاول اكتشاف عناوين URL وما شابه ذلك من كلمة واحدة</string>
+    <string name="language_and_layouts_title">اللغات والتخطيطات</string>
+    <string name="hint_source">حدد مصدر التلميح</string>
+    <string name="popup_keys_layout" tools:keep="@string/popup_keys_layout">تخطيط</string>
+    <string name="toolbar_keys">حدد مفاتيح شريط الأدوات</string>
+    <string name="full_left" tools:keep="@string/full_left">اليسار الكامل</string>
+    <string name="full_right" tools:keep="@string/full_right">اليمين الكامل</string>
+    <string name="show_popup_hints_summary">أظهِر تلميحات إذا كان الضغط لفترة طويلة على المفتاح يؤدي إلى تشغيل وظائف إضافية</string>
+    <string name="day_or_night_image">تعيين الصورة لوضع النهار أو الليل؟</string>
+    <string name="day_or_night_day">صباح</string>
+    <string name="subtype_generic_sebeolsik_final">%s (سيبولسيك النهائي)</string>
+    <string name="message_add_custom_layout">حدد ملفًا بتنسيق متوافق. المعلومات حول التنسيقات متاحة %s.</string>
+    <string name="delete_layout">هل تريد حقًا حذف التخطيط المخصص %s؟</string>
+    <string name="layout_error">خطأ في التخطيط: %s</string>
+    <string name="edit_layout">انقر لتحرير التخطيط الأولي</string>
+    <string name="day_or_night_night">ليل</string>
+    <string name="customize_background_image">عيّن صورة الخلفية</string>
+    <string name="replace_dictionary_message">هل تريد حقًا استبدال القاموس الذي أضافه المستخدم \"%1$s\"؟
+\n
+\nالقاموس الحالي:
+\n%2$s
+\n
+\nقاموس جديد:
+\n%3$s</string>
+    <string name="dictionary_load_error">حدث خطأ أثناء تحميل ملف القاموس</string>
+    <string name="theme_colors_night">الألوان (الليل)</string>
+    <string name="select_color_accent">اللون الثانوي</string>
+    <string name="select_color_functional_key_background">الخلفية الرئيسية الوظيفية</string>
+    <string name="select_color_suggestion">نص شريط الاقتراح</string>
+    <string name="main_colors">أظهِر الألوان الرئيسية فقط</string>
+    <string name="theme_name_violette" tools:keep="@string/theme_name_violette">البنفسج</string>
+    <string name="theme_name_chocolate" tools:keep="@string/theme_name_chocolate">شوكولاتة</string>
+    <string name="theme_name_holo_white" tools:keep="@string/theme_name_holo_white">هولو الأبيض</string>
+    <string name="theme_navbar">شريط التنقل الملون</string>
+    <string name="hidden_features_text">تخزين محمي بالجهاز</string>
+    <string name="hidden_features_summary">أظهِر الميزات التي قد تمر دون أن يلاحظها أحد</string>
+    <string name="hidden_features_title">وصف الميزات المخفية</string>
+    <string name="text_tap_languages">اضغط على اللغة لفتح الإعدادات</string>
+    <string name="language_switch_key_switch_both">التبديل بينهما</string>
+    <string name="prefs_always_show_suggestions_summary">تجاهل طلب التطبيقات الأخرى لتعطيل الاقتراحات (قد يسبب مشاكل)</string>
+    <string name="show_popup_hints">أظهِر التلميحات الوظيفية</string>
+    <string name="dictionary_file_wrong_script">خطأ: البرنامج النصي غير متوافق مع لوحة المفاتيح هذه</string>
+    <string name="show_popup_keys_normal">أظهِر المتغيرات المحددة بلغات لوحة المفاتيح</string>
+    <string name="prefs_bottom_padding_scale">مقياس الحشو السفلي</string>
+    <string name="hidden_features_message">"► يؤدي الضغط لفترة طويلة على مفاتيح شريط الأدوات المثبتة إلى وظائف إضافية: &lt;br&gt;\n\n • الحافظة &amp;#65515; لصق &lt;br&gt;\n\n • تحرك لليسار/ لليمين &amp;#65515; كلمة يسار/يمين &lt;br&gt;\n\n • التحرك لأعلى/لأسفل &amp;#65515; الصفحة لأعلى/لأسفل &lt;br&gt;\n\n • كلمة يسار/يمين &amp;#65515; بداية/نهاية السطر &lt;br&gt;\n\n • صفحة لأعلى/لأسفل &amp;#65515; بداية/نهاية الصفحة &lt;br&gt;\n\n  • نسخة &amp;#65515; قطع &lt;br&gt;\n\n  • اختر كلمة &amp;#8596; حدد الكل &lt;br&gt;\n\n  • التراجع &amp;#8596; إعادة &lt;br&gt; &lt;br&gt;\n\n► يؤدي الضغط لفترة طويلة على المفاتيح في شريط أدوات شريط الاقتراحات إلى تثبيتها على شريط الاقتراحات. &lt;br&gt;&lt;br&gt;\n\n► اضغط لفترة طويلة على مفتاح الفاصلة للوصول إلى عرض الحافظة، أو عرض الرموز التعبيرية، أو الوضع بيد واحدة، أو الإعدادات، أو تبديل اللغة: &lt;br&gt;\n\n  • سيختفي عرض الرموز التعبيرية وتبديل اللغة إذا كان لديك المفتاح المقابل ممكّنًا. &lt;ر&gt;\n\n  • بالنسبة لبعض التخطيطات، فهو ليس مفتاح الفاصلة، ولكنه المفتاح الموجود في نفس الموضع (على سبيل المثال، إنه \\\'q\\\' لتخطيط Dvorak). &lt;br&gt;&lt;br&gt;\n\n► عند تمكين وضع التصفح المتخفي، لن يتم تعلم أي كلمات، ولن تتم إضافة أي رموز تعبيرية إلى الرسائل الأخيرة. &lt;br&gt;&lt;br&gt;\n\n► اضغط على أيقونة التصفح المتخفي للوصول إلى شريط الأدوات. &lt;br&gt;&lt;br&gt;\n\n► إدخال مفتاح منزلق: اسحب من مفتاح Shift إلى مفتاح آخر لكتابة مفتاح واحد كبير: &lt;br&gt;\n\n  • يعمل هذا أيضًا مع المفتاح \\\'?123\\\' لكتابة رمز واحد من لوحة مفاتيح الرموز، وللمفاتيح ذات الصلة. &lt;br&gt;&lt;br&gt;\n\n► اضغط مع الاستمرار على مفتاح Shift أو مفتاح الرمز، واضغط على مفتاح واحد أو أكثر، ثم حرر مفتاح Shift أو مفتاح الرمز للعودة إلى لوحة المفاتيح السابقة. &lt;br&gt;&lt;br&gt;\n\n► اضغط لفترة طويلة على أحد الاقتراحات في شريط الاقتراحات لإظهار المزيد من الاقتراحات، ثم اضغط على زر الحذف لإزالة هذا الاقتراح. &lt;br&gt;&lt;br&gt;\n\n► اسحب لأعلى من أحد الاقتراحات لفتح المزيد من الاقتراحات، ثم حرر الاقتراح لتحديده. &lt;br&gt;&lt;br&gt;\n\n► اضغط لفترة طويلة على أحد الإدخالات في سجل الحافظة لتثبيته (احتفظ به في الحافظة حتى تقوم بإلغاء تثبيته). &lt;br&gt;&lt;br&gt;\n\n► اسحب لليسار في عرض الحافظة لإزالة إدخال (باستثناء عندما يكون مثبتًا) &lt;br&gt; &lt;br&gt;\n\n► حدد النص واضغط على مفتاح Shift للتبديل بين الكلمات الكبيرة والصغيرة والأحرف الكبيرة. &lt;br&gt;&lt;br&gt;\n\n► يمكنك إضافة قواميس عن طريق فتحها في مستكشف الملفات: &lt;br&gt;\n\n  • يعمل هذا فقط مع &lt;i&gt;content-uris&lt;/i&gt; وليس مع &lt;i&gt;file-uris&lt;/i&gt;، مما يعني أنه قد لا يعمل مع بعض مستكشفات الملفات. &lt;br&gt;&lt;br&gt;\n\n► بالنسبة للمستخدمين الذين يقومون بالنسخ الاحتياطي اليدوي مع الوصول إلى الجذر: &lt;br&gt;\n\n  • بدءًا من Android 7، لا يكون ملف التفضيلات المشتركة في الموقع الافتراضي، لأن التطبيق يستخدم %s. يعد ذلك ضروريًا حتى يمكن قراءة الإعدادات قبل إلغاء قفل الجهاز، على سبيل المثال. في التمهيد؛ &lt;ر&gt;\n\n  • الملف موجود في /data/user_de/0/package_id/shared_prefs/ على الرغم من أن هذا قد يعتمد على الجهاز وإصدار Android. &lt;br&gt;&lt;br&gt;\n\n&lt;i&gt;&lt;b&gt;وضع التصحيح / تصحيح APK&lt;/b&gt;&lt;/i&gt; &lt;br&gt; &lt;br&gt;\n\n► اضغط لفترة طويلة على اقتراح لإظهار القاموس المصدر. &lt;br&gt;&lt;br&gt;\n\n► عند استخدام debug APK، يمكنك العثور على إعدادات Debug ضمن التفضيلات المتقدمة، على الرغم من أن الفائدة محدودة باستثناء تفريغ القواميس في السجل. &lt;ر&gt;\n\n  • بالنسبة لإصدار APK، تحتاج إلى النقر على الإصدار في &lt;i&gt;حول&lt;/i&gt; عدة مرات، ثم يمكنك العثور على إعدادات تصحيح الأخطاء في &lt;i&gt;التفضيلات المتقدمة&lt;/i&gt;. &lt;br&gt;\n\n  • عند تمكين &lt;i&gt;إظهار معلومات الاقتراح&lt;/i&gt;، ستحتوي الاقتراحات على بعض الأرقام الصغيرة في الأعلى لإظهار بعض النتائج الداخلية وقاموس المصدر. &lt;br&gt;&lt;br&gt;\n\n► في حالة تعطل التطبيق، سيُطلب منك ما إذا كنت تريد سجلات التعطل عند فتح الإعدادات. &lt;br&gt;&lt;br&gt;\n\n► عند استخدام الكتابة متعددة اللغات، سيُظهر شريط المسافة قيمة الثقة المستخدمة لتحديد اللغة المستخدمة حاليًا. &lt;br&gt;&lt;br&gt;\n\n► ستحتوي الاقتراحات على بعض الأرقام الصغيرة في الأعلى لإظهار بعض النتائج الداخلية وقاموس المصدر (يمكن تعطيله)."</string>
+    <string name="gnu_gpl">رخصة جنو العامة v3.0</string>
+    <string name="user_dict_word_already_present">هذه الكلمة موجودة بالفعل في قاموس المستخدم %s. الرجاء كتابة واحدة أخرى.</string>
+    <string name="localized_number_row_summary">تفضيل المحلية على الأرقام اللاتينية</string>
+    <string name="no_dictionary_message">"بدون قاموس، ستحصل فقط على اقتراحات للنص الذي أدخلته من قبل.&lt;br&gt;\n         يمكنك تنزيل القواميس %1$s، أو التحقق مما إذا كان يمكن تنزيل قاموس لـ \"%2$s\" مباشرةً %3$s."</string>
+    <string name="subtype_probhat_bn_BD">%s (بروبهات)</string>
+    <string name="subtype_generic_sebeolsik_390">%s (سيبولسيك 390)</string>
+    <string name="popup_order">اختر ترتيب المفاتيح المنبثقه</string>
+    <string name="prefs_long_press_symbol_for_numpad">اضغط لفترة طويلة على مفتاح الرموز للوحة الرقمية</string>
+    <string name="cut" tools:keep="@string/cut">قصّ</string>
+    <string name="subtype_generic_student">%s (طالب)</string>
+    <string name="center_suggestion_text_to_enter">استخدم دائمًا الاقتراح الأوسط</string>
+    <string name="center_suggestion_text_to_enter_summary">عند الضغط على مسافة أو علامات الترقيم، سيتم إدخال الاقتراح الأوسط</string>
+    <string name="close_history" tools:keep="@string/close_history">إغلاق تاريخ الحافظة</string>
+    <string name="clipboard_toolbar_keys">حدد مفاتيح شريط أدوات الحافظة</string>
+    <string name="subtype_generic_extended">%s (ممتدة)</string>
+    <string name="subtype_mns">مانسي</string>
+    <string name="more_colors">أظهِر المزيد من الالوان</string>
+    <string name="all_colors_warning">يعرض هذا الإعداد كافة الألوان المستخدمة داخليًا. قد تتغير قائمة الألوان في أي وقت. اللون الافتراضي عشوائي، ولن تتم ترجمة الأسماء.</string>
+    <string name="layout_functional_keys" tools:keep="@string/layout_functional_keys">مفاتيح وظيفية</string>
+    <string name="layout_functional_keys_symbols_shifted" tools:keep="@string/layout_functional_keys_symbols_shifted">المفاتيح الوظيفية (المزيد من الرموز)</string>
+    <string name="layout_functional_keys_symbols" tools:keep="@string/layout_functional_keys_symbols">المفاتيح الوظيفية (الرموز)</string>
+    <string name="quick_pin_toolbar_keys">تثبيت مفتاح شريط الأدوات عند الضغط لفترة طويلة</string>
+    <string name="quick_pin_toolbar_keys_summary">سيؤدي هذا إلى تعطيل إجراءات الضغط لفترة طويلة الأخرى لمفاتيح شريط الأدوات غير المثبتة</string>
+    <string name="pinned_toolbar_keys">حدد مفاتيح شريط الأدوات المثبتة</string>
+    <string name="toast_msg_clipboard_copy">تم نسخ المحتوى</string>
+    <string name="language_switch_key_behavior">سلوك مفتاح تبديل اللغة</string>
+    <string name="auto_show_toolbar">أظهِر شريط الأدوات تلقائيًا</string>
+    <string name="auto_show_toolbar_summary">أظهِر شريط الأدوات في حالة بدء الإدخال أو تحديد النص</string>
+    <string name="auto_hide_toolbar">إخفاء شريط الأدوات تلقائيًا</string>
+    <string name="auto_hide_toolbar_summary">إخفاء شريط الأدوات عندما تصبح الاقتراحات متاحة</string>
+    <string name="settings_screen_toolbar">شريط الأدوات</string>
+    <string name="emoji" tools:keep="@string/emoji">رمز تعبيري</string>
+    <string name="gesture_fast_typing_cooldown">التباطؤ السريع في الكتابة</string>
+    <string name="gesture_fast_typing_cooldown_instant">ابدأ دائمًا على الفور</string>
+    <string name="customize_currencies">تخصيص العملات</string>
+    <string name="customize_currencies_detail">عيّن رموز العملة الرئيسية وما يصل إلى 6 رموز عملة ثانوية، مفصولة بمسافة</string>
+    <string name="load">حمّل</string>
+    <string name="button_save_file">احفظ إلى الملف</string>
+    <string name="copy_to_clipboard">انسخ إلى الحافظة</string>
+    <string name="page_start" tools:keep="@string/page_start">بداية الصفحة</string>
+    <string name="page_end" tools:keep="@string/page_end">نهاية الصفحة</string>
+    <string name="word_left" tools:keep="@string/word_left">كلمة لليسار</string>
+    <string name="word_right" tools:keep="@string/word_right">كلمة لليمين</string>
+    <string name="page_up" tools:keep="@string/page_up">الصفحة للأعلى</string>
+    <string name="page_down" tools:keep="@string/page_down">الصفحة للأسفل</string>
+    <string name="suggest_clipboard_content_summary">أظهِر محتوى الحافظة الذي تم نسخه مؤخرًا كاقتراح</string>
+    <string name="suggest_clipboard_content">اقتراح محتوى الحافظة</string>
+    <string name="after_emoji">اختيار الرموز التعبيرية في عرض الرموز التعبيرية</string>
+    <string name="after_clip">تحديد إدخال محفوظات الحافظة</string>
+    <string name="space_swipe_toggle_numpad_entry">بدّل لوحة الأرقام</string>
+    <string name="after_symbol_and_space">الضغط على مفتاح الإدخال أو مسافة بعد المفاتيح الأخرى في عرض الرموز</string>
+    <string name="switch_keyboard_after">التبديل إلى لوحة المفاتيح الرئيسية بعد…</string>
+    <string name="show_popup_keys_main">أضف متغيرات شائعة جدًا (افتراضي)</string>
+    <string name="remove_redundant_popups_summary">منع المفاتيح المنبثقة الموجودة بالفعل في التخطيط الأساسي</string>
+    <string name="remove_redundant_popups">إزالة النوافذ المنبثقة الزائدة عن الحاجة</string>
+    <string name="gesture_floating_preview_dynamic_summary">نقل المعاينة أثناء الإيماءة</string>
+    <string name="gesture_trail_fadeout_duration">عمر مسار الإيماءة</string>
+    <string name="gesture_floating_preview_static_summary">انظر الكلمة المقترحة اثناء الايماء</string>
+    <string name="gesture_floating_preview_static">معاينة عائمة</string>
+    <string name="icon_style">نمط الأيقونة</string>
+    <string name="layout_number_row" tools:keep="@string/layout_number_row">صف الأرقام</string>
+    <string name="prefs_space_bar_text">نص مخصص على شريط المسافة</string>
+    <string name="layout_clip_bottom_row" tools:keep="@string/layout_clip_bottom_row">الصف السفلي للحافظة</string>
+    <string name="layout_emoji_bottom_row" tools:keep="@string/layout_emoji_bottom_row">الصف السفلي من الرموز التعبيرية</string>
+    <string name="label_tab_key" tools:keep="@string/label_tab_key">تبويب</string>
+    <string name="label_delete_key" tools:keep="@string/label_delete_key">احذف</string>
+    <string name="label_shift_key" tools:keep="@string/label_shift_key">تحويل</string>
+    <string name="label_shift_key_shifted" tools:keep="@string/label_shift_key_shifted">تحويل (تحول)</string>
+    <string name="label_shift_key_locked" tools:keep="@string/label_shift_key_locked">حرف كبير</string>
+    <string name="label_stop_onehanded_mode_key" tools:keep="@string/label_stop_onehanded_mode_key">إنهاء وضع اليد الواحدة</string>
+    <string name="label_resize_onehanded_key" tools:keep="@string/label_resize_onehanded_key">تحجيم وضع اليد الواحدة</string>
+    <string name="label_switch_onehanded_key" tools:keep="@string/label_switch_onehanded_key">تبديل جانب وضع اليد الواحدة</string>
+    <string name="label_shortcut_key_disabled" tools:keep="@string/label_shortcut_key_disabled">الإدخال الصوتي معطل</string>
+    <string name="label_toolbar_key" tools:keep="@string/label_toolbar_key">أظهِر / أخفِ شريط الأدوات</string>
+    <string name="label_zwj_key" tools:keep="@string/label_zwj_key">واصل العرض الصفري</string>
+    <string name="customize_toolbar_key_codes">تخصيص رموز مفاتيح شريط الأدوات</string>
+    <string name="key_code">رمز المفتاح</string>
+    <string name="long_press_code">رمز الضغطة المطولة</string>
+    <string name="customize_icons">تخصيص الأيقونات</string>
+    <string name="label_enter_key" tools:keep="@string/label_enter_key">إدخال</string>
+    <string name="label_space_key_for_number_layout" tools:keep="@string/label_space_key_for_number_layout">مسافة(تخطيط الأرقام)</string>
+    <string name="label_zwnj_key" tools:keep="@string/label_zwnj_key">الفاصلة المجازية</string>
+    <string name="subtype_dru">درغوة (أوراخي)</string>
+    <string name="auto_correct_shortcuts">اختصار التصحيح التلقائي</string>
+    <string name="auto_correct_shortcuts_summary">قد يتم توسيع الاختصارات عند تمكينها بواسطة التصحيح التلقائي</string>
+    <string name="custom_font">تعيين خط مخصص من الملف</string>
+    <string name="vibrate_in_dnd_mode">اهتزاز في وضع عدم الازعاج</string>
+    <string name="subtype_generic_phonetic">%s (صوتي)</string>
+    <string name="customize_icons_reset_message">هل تريد إعادة تعيين جميع الأيقونات المخصصة؟</string>
+    <string name="prefs_key_emoji_max_sdk">تجاوز إصدار الرموز التعبيرية</string>
+    <string name="customize_background_image_landscape">عيّن صورة الخلفية (أفقي)</string>
+    <string name="summary_customize_background_image_landscape">إذا لم يتم تعيينها، سيتم استخدام الصورة العمودية</string>
+    <string name="customize_toolbar_key_code_reset_message">هل تريد مسح جميع رموز المفاتيح المخصصة؟</string>
+    <string name="label_bin" tools:keep="@string/label_bin">سلة</string>
+    <string name="prefs_font_scale">مقياس الخط في لوحة المفاتيح</string>
+    <string name="prefs_emoji_font_scale">مقياس الخط لعرض الرموز التعبيرية</string>
+    <string name="prefs_side_padding_scale">مقياس الحشو الجانبي</string>
+    <string name="enable_split_keyboard_landscape">فعّل تقسيم لوحة المفاتيح (أفقي)</string>
+    <string name="delete_confirmation">هل تريد حذف %s حقًا؟</string>
+    <string name="split" tools:keep="@string/split">تقسيم لوحة المفاتيح</string>
+    <string name="number_row_hints">أظهِر التلميحات على صف الأرقام</string>
+    <string name="prefs_language_swipe_distance">بدّل مسافة التمرير للغة</string>
+    <string name="layout_functional_keys_tablet" tools:keep="@string/layout_functional_keys_tablet">المفاتيح الوظيفية (شاشة كبيرة)</string>
+    <string name="name_invalid">اسم غير صالح</string>
+    <string name="settings_screen_secondary_layouts">تخطيطات ثانوية</string>
+    <string name="layout_in_use">تحذير: التخطيط قيد الاستخدام حاليًا</string>
+    <string name="get_colors_message">يمكنك العثور على الألوان ومشاركتها في %s.</string>
+    <string name="locales_with_dict">اللغات مع القواميس</string>
+    <string name="get_layouts_message">يمكنك العثور على المخططات ومشاركتها في %s.</string>
+    <string name="discussion_section_link">قسم المناقشة</string>
+    <string name="custom_subtype">نوع فرعي مخصّص</string>
+    <string name="subtype_baishakhi_bn_IN">%s (Baishakhi)</string>
+    <string name="show_tld_popup_keys">أظهِر مفاتيح TLD المنبثقة</string>
+    <string name="show_tld_popup_keys_summary">استبدل مفتاح الفترة المنبثقة مع مجالات المستوى الأعلى عند كتابة عناوين URL وعناوين البريد الإلكتروني</string>
+    <string name="after_numpad_and_space">الضغط على إدخال أو مساحة بعد مفاتيح أخرى في لوحة الأرقام</string>
+    <string name="prefs_always_show_suggestions_except_web_text">لا تعرض دائمًا اقتراحات لحقول تحرير الويب</string>
+    <string name="layout_number_row_basic" tools:keep="@string/layout_number_row_basic">صف الرقم (أساسي)</string>
+    <string name="settings_category_space">المسافة</string>
+    <string name="prefs_always_show_suggestions_except_web_text_summary">تعتبر حقول تحرير الويب (الموجودة في غالب المتصفحات) سببًا شائعًا جدًا للمشكلات المتعلقة بإعداد اقتراحات العرض دائمًا</string>
+    <string name="autospace_before_gesture_typing">مسافة تلقائية قبل إيماءة كتابة كلمة</string>
+    <string name="autospace_after_gesture_typing">مسافة تلقائية بعد إيماءة كتابة كلمة</string>
+    <string name="shift_removes_autospace_summary">يقوم التحويل بإزالة المسافة تلقائية المعلقة</string>
+    <string name="autospace_after_suggestion">مسافة تلقائية بعد اختيار اقتراح</string>
+    <string name="backspace_reverts_autocorrect">يعود المسافة الخلفية إلى التصحيح التلقائي</string>
+    <string name="shift_removes_autospace">لا مسافة تلقائية عند الضغط على تحويل</string>
+    <string name="timestamp_format_title">تنسيق لمفتاح الطابع الزمني</string>
+    <string name="subtype_dag">دغبانية</string>
+    <string name="subtype_st">السوتية</string>
+    <string name="backup_restored">استُعيدت النسخة الاحتياطية</string>
+    <string name="prefs_emoji_key_fit">حجّم مفتاح الإيموجي مع حجم الخط</string>
+    <string name="use_apps_dict">ابحث عن أسماء التطبيقات</string>
+    <string name="use_apps_dict_summary">استخدام أسماء التطبيقات المثبتة للاقتراحات والتصحيحات</string>
+    <string name="prefs_emoji_skin_tone">لون بشرة الرموز التعبيرية الافتراضي</string>
+    <string name="prefs_emoji_skin_tone_neutral">طبيعي</string>
+    <string name="subtype_with_layout_generic">%1$s (%2$s)</string>
+    <string name="toolbar_mode">وضع شريط الأدوات</string>
+    <string name="toolbar_mode_expandable">مفاتيح شريط الأدوات والاقتراحات</string>
+    <string name="toolbar_mode_toolbar_keys">مفاتيح شريط الأدوات فقط</string>
+    <string name="toolbar_mode_suggestion_strip">اقتراحات فقط</string>
+    <string name="toolbar_mode_hidden">مخفي</string>
+    <string name="toolbar_hiding_global">أخفِ أشرطة أدوات الحافظة والرموز التعبيرية أيضًا</string>
+    <string name="popup_order_and_hint_source">ترتيب مفاتيح النوافذ المنبثقة ومصدر التلميحات</string>
+    <string name="landscape">أفقي</string>
+    <string name="show_emoji_descriptions">أظهر وصف الرموز التعبيرية عند الضغط مطولاً</string>
+    <string name="suggest_emojis">اقتراح رموز التعبيرية</string>
+    <string name="suggest_emojis_summary">استخدم قاموس الرموز التعبيرية في الاقتراحات العادية</string>
+    <string name="suggest_punctuation">اقتراحات علامات الترقيم</string>
+    <string name="suggest_punctuation_summary">أظهر علامات الترقيم عندما لا تتوفر اقتراحات أخرى</string>
+    <string name="space_swipe_hide_keyboard_entry">أخفِ لوحة مفاتيح</string>
+    <string name="about_wiki_link">اذهب إلى الويكي</string>
+    <string name="about_wiki_link_description">يمكن تحسين الويكي من خلال أي مستخدم Github!</string>
+    <string name="save_subtype_per_app">تذكر اللغة لكل تطبيق</string>
+    <string name="subtype_khipro_bn">%s (خيبرو)</string>
+    <string name="clipboard_history_pinned_first">أظهر العناصر المثبتة في الأعلى</string>
+    <string name="inline_emoji_search">البحث عن الرموز التعبيرية المضمنة</string>
+    <string name="inline_emoji_search_summary">اقترح رموزًا تعبيرية فقط عندما تسبق الكلمة نقطتان رأسيتان</string>
+    <string name="emoji_dictionary_required">مطلوب قاموس رموز تعبيرية لكي تعمل هذه الميزة. يمكن تنزيل القواميس بتنسيق .dict %s.</string>
+    <string name="subtype_mhr">ماري (شرقي)</string>
+    <string name="layout_clip_bottom_row_with_action" tools:keep="@string/layout_clip_bottom_row_with_action">الصف السفلي للحافظة مع مفتاح الإجراء</string>
+    <string name="layout_emoji_bottom_row_with_action" tools:keep="@string/layout_emoji_bottom_row_with_action">صف الرموز التعبيرية السفلي مع مفتاح الإجراء</string>
+    <string name="custom_emoji_font">عيِّن خط رموز التعبيرية مخصّص من ملف</string>
+    <string name="number_row_in_symbols">أظهر صف الأرقام في عرض الرموز</string>
 </resources>

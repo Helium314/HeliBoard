@@ -1,0 +1,30 @@
+HeliBoard to dbająca o prywatność klawiatura typu open source, oparta na AOSP / OpenBoard.
+Nie korzysta z uprawnień do internetu, więc jest w 100% offline.
+
+Funkcje:
+<ul>
+  <li>Dodawaj słowniki, aby otrzymywać sugestie i sprawdzać pisownię</li>
+  <ul>
+    <li>stwórz własny lub pobierz  <a href="https://codeberg.org/Helium314/aosp-dictionaries#dictionaries">stąd</a> albo z sekcji <a href="https://codeberg.org/Helium314/aosp-dictionaries#experimental-dictionaries">eksperymentalnej</a> (jakość może być różna)</li>
+    <li>dodatkowe słowniki dla emoji lub symboli naukowych można wykorzystać do otrzymywania sugestii (coś w stylu "wyszukiwania emoji")</li>
+    <li>weź pod uwagę, że w przypadku układów koreańskich sugestie działają tylko przy użyciu <a href="https://github.com/openboard-team/openboard/commit/83fca9533c03b9fecc009fc632577226bbd6301f">tego słownika</a>, narzędzia w repozytorium nie są w stanie stworzyć działających słowników</li>
+  </ul>
+  <li>Dostosuj motyw klawiatury (styl, kolory i obraz tła)</li>
+  <ul>
+    <li>może śledzić ustawienie dzień/noc w systemie Android 10+ (oraz w niektórych wersjach Androida 9)</li>
+    <li>może stosować dynamiczne kolory w systemie Android 12+</li>
+  </ul>
+  <li>Dostosuj <a href="https://github.com/Helium314/HeliBoard/blob/main/layouts.md">układy</a> klawiatury (możliwe tylko po wyłączeniu opcji <i>użyj języków systemu</i>)</li>
+  <li>Dostosuj układy specjalne, takie jak symbole, liczby lub układ klawiszy funkcyjnych</li>
+  <li>Pisanie wielojęzyczne</li>
+  <li>Pisanie gestami (<i>tylko z zamkniętą biblioteką</i> ☹️)</li>
+  <ul>
+    <li>biblioteka nie znajduje się w aplikacji, ponieważ nie ma kompatybilnej biblioteki typu open source</li>
+    <li>można ją wyodrębnić z pakietów GApps ("<i>swypelibs</i>"), lub pobrać <a href="https://github.com/erkserkserks/openboard/tree/46fdf2b550035ca69299ce312fa158e7ade36967/app/src/main/jniLibs">stąd</a> (kliknij plik, a następnie "raw" lub mały przycisk pobierania)</li>
+  </ul>
+  <li>Historia schowka</li>
+  <li>Tryb jednej ręki</li>
+  <li>Podzielona klawiatura (jeśli ekran jest wystarczająco duży)</li>
+  <li>Klawiatura numeryczna</li>
+  <li>Tworzenie kopii zapasowych i przywracanie ustawień oraz nauczonych słów/danych</li>
+</ul>

@@ -1,0 +1,38 @@
+[
+  [
+    { "label": "a" },
+    { "label": "z" },
+    { "label": "e" },
+    { "label": "r" },
+    { "label": "t" },
+    { "label": "y" },
+    { "label": "u" },
+    { "label": "i" },
+    { "label": "ɛ" },
+    { "label": "ɣ" }
+  ],
+  [
+    { "label": "q" },
+    { "label": "s" },
+    { "label": "d" },
+    { "label": "f" },
+    { "label": "g" },
+    { "label": "h" },
+    { "label": "j" },
+    { "label": "k" },
+    { "label": "l" },
+    { "label": "m" }
+  ],
+  [
+    { "label": "w" },
+    { "label": "x" },
+    { "label": "c" },
+    { "label": "v" },
+    { "label": "b" },
+    { "label": "n" },
+    { "$": "shift_state_selector",
+      "shiftedManual": { "label": "?" },
+      "default": { "label": "'" }
+    }
+  ]
+]

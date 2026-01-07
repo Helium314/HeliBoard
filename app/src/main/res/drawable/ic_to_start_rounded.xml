@@ -1,0 +1,4 @@
+<rotate xmlns:android="http://schemas.android.com/apk/res/android"
+    android:fromDegrees="180"
+    android:drawable="@drawable/ic_to_end_rounded">
+</rotate>

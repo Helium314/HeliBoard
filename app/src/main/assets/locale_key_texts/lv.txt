@@ -1,0 +1,18 @@
+[popup_keys]
+a ā
+c č
+e ē
+g ģ
+i ī
+k ķ
+l ļ
+n ņ
+o ō
+s š
+u ū
+z ž
+' ’ ‚ ‘
+" ” „ “
+
+[tlds]
+lv

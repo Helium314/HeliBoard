@@ -1,96 +1,69 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- 
-/*
-**
-** Copyright 2015, The Android Open Source Project
-**
-** Licensed under the Apache License, Version 2.0 (the "License");
-** you may not use this file except in compliance with the License.
-** You may obtain a copy of the License at
-**
-**     http://www.apache.org/licenses/LICENSE-2.0
-**
-** Unless required by applicable law or agreed to in writing, software
-** distributed under the License is distributed on an "AS IS" BASIS,
-** WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-** See the License for the specific language governing permissions and
-** limitations under the License.
-*/
- -->
-
-<resources xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="spoken_use_headphones" msgid="4313642710742229868">"මුරපදයේ යතුරු හඬ හොඳින් ඇසීමට හෙඩ්සෙටය සම්බන්ධ කරන්න."</string>
-    <string name="spoken_current_text_is" msgid="4240549866156675799">"වර්තමාන පෙළ %s ය"</string>
-    <string name="spoken_no_text_entered" msgid="1711276837961785646">"පෙළ ඇතුළු කර නැත"</string>
-    <string name="spoken_auto_correct" msgid="8989324692167993804">"<xliff:g id="KEY_NAME">%1$s</xliff:g> <xliff:g id="ORIGINAL_WORD">%2$s</xliff:g> සිට <xliff:g id="CORRECTED_WORD">%3$s</xliff:g> වෙත නිවැරදි කරයි"</string>
-    <string name="spoken_auto_correct_obscured" msgid="7769449372355268412">"<xliff:g id="KEY_NAME">%1$s</xliff:g> ස්වයං-නිවැරදි කිරීම සිදු කරයි"</string>
-    <string name="spoken_empty_suggestion" msgid="4250215619373459752">"යෝජනා නොමැත"</string>
-    <string name="spoken_description_unknown" msgid="5139930082759824442">"නොදන්නා අකුර"</string>
-    <string name="spoken_description_shift" msgid="7209798151676638728">"ෂිෆ්ට්"</string>
-    <string name="spoken_description_symbols_shift" msgid="3483198879916435717">"තව සංකේත"</string>
-    <string name="spoken_description_shift_shifted" msgid="3122704922642232605">"ෂිෆ්ට්"</string>
-    <string name="spoken_description_symbols_shift_shifted" msgid="5179175466878186081">"සංකේත"</string>
-    <string name="spoken_description_caps_lock" msgid="1224851412185975036">"ෂිෆ්ට්"</string>
-    <string name="spoken_description_delete" msgid="3878902286264983302">"මකන්න"</string>
-    <string name="spoken_description_to_symbol" msgid="8244903740201126590">"සංකේත"</string>
-    <string name="spoken_description_to_alpha" msgid="4081215210530031950">"අකුරු"</string>
-    <string name="spoken_description_to_numeric" msgid="4560261331530795682">"අංක"</string>
-    <string name="spoken_description_settings" msgid="7281251004003143204">"සැකසීම්"</string>
-    <string name="spoken_description_tab" msgid="8210782459446866716">"ටැබය"</string>
-    <string name="spoken_description_space" msgid="5908716896642059145">"ස්පේස්"</string>
-    <string name="spoken_description_mic" msgid="6153138783813452464">"හඬ ආදානය"</string>
-    <string name="spoken_description_emoji" msgid="7990051553008088470">"ඉමොජි"</string>
-    <string name="spoken_description_return" msgid="3183692287397645708">"ආපසු එවන්න"</string>
-    <string name="spoken_description_search" msgid="5099937658231911288">"සොයන්න"</string>
-    <string name="spoken_description_dot" msgid="5644176501632325560">"තිත"</string>
-    <string name="spoken_description_language_switch" msgid="6818666779313544553">"භාෂාව මාරු කරන්න"</string>
-    <string name="spoken_description_action_next" msgid="431761808119616962">"මීළඟ"</string>
-    <string name="spoken_description_action_previous" msgid="2919072174697865110">"පෙර"</string>
-    <string name="spoken_description_shiftmode_on" msgid="5107180516341258979">"ෂිෆ්ට් සබල කර ඇත"</string>
-    <string name="spoken_description_shiftmode_locked" msgid="7307477738053606881">"කැප්ස් ලොක් සබල කර ඇත"</string>
-    <string name="spoken_description_mode_symbol" msgid="111186851131446691">"සංකේත ආකාරය"</string>
-    <string name="spoken_description_mode_symbol_shift" msgid="4305607977537665389">"තව සංකේත ආකාර"</string>
-    <string name="spoken_description_mode_alpha" msgid="4676004119618778911">"අකුරු ආකාරය"</string>
-    <string name="spoken_description_mode_phone" msgid="2061220553756692903">"දුරකථන ආකාරය"</string>
-    <string name="spoken_description_mode_phone_shift" msgid="7879963803547701090">"දුරකථන සංකේත ආකාරය"</string>
-    <string name="announce_keyboard_hidden" msgid="2313574218950517779">"යතුරු පුවරුව සැඟවී ඇත"</string>
-    <string name="announce_keyboard_mode" msgid="6698257917367823205">"<xliff:g id="KEYBOARD_MODE">%s</xliff:g> යතුරුපුවරුව පෙන්වමින්"</string>
-    <string name="keyboard_mode_date" msgid="6597407244976713364">"දිනය"</string>
-    <string name="keyboard_mode_date_time" msgid="3642804408726668808">"දිනය සහ වේලාව"</string>
-    <string name="keyboard_mode_email" msgid="1239682082047693644">"ඊ-තැපෑල"</string>
-    <string name="keyboard_mode_im" msgid="3812086215529493501">"පණිවිඩ යැවීම"</string>
-    <string name="keyboard_mode_number" msgid="5395042245837996809">"අංකය"</string>
-    <string name="keyboard_mode_phone" msgid="2486230278064523665">"දුරකථනය"</string>
-    <string name="keyboard_mode_text" msgid="9138789594969187494">"පෙළ"</string>
-    <string name="keyboard_mode_time" msgid="8558297845514402675">"කාලය"</string>
-    <string name="keyboard_mode_url" msgid="8072011652949962550">"URL"</string>
-    <string name="spoken_descrption_emoji_category_recents" msgid="4185344945205590692">"මෑත"</string>
-    <string name="spoken_descrption_emoji_category_people" msgid="8414196269847492817">"පුද්ගලයින්"</string>
-    <string name="spoken_descrption_emoji_category_objects" msgid="6116297906606195278">"වස්තුව"</string>
-    <string name="spoken_descrption_emoji_category_nature" msgid="5018340512472354640">"සොබාදහම"</string>
-    <string name="spoken_descrption_emoji_category_places" msgid="1163315840948545317">"ස්ථාන"</string>
-    <string name="spoken_descrption_emoji_category_symbols" msgid="474680659024880601">"සංකේත"</string>
-    <string name="spoken_descrption_emoji_category_flags" msgid="5971573825866381472">"ලකුණු කිරීම්"</string>
-    <string name="spoken_descrption_emoji_category_eight_smiley_people" msgid="5682663819532433464">"භාව සහ පුද්ගලයන්"</string>
-    <string name="spoken_descrption_emoji_category_eight_animals_nature" msgid="5844950234883716704">"සතුන් සහ ස්වභාව ධර්මය"</string>
-    <string name="spoken_descrption_emoji_category_eight_food_drink" msgid="6196944764485349650">"ආහාරපාන"</string>
-    <string name="spoken_descrption_emoji_category_eight_travel_places" msgid="3834085499381434611">"සංචාර සහ ස්ථාන"</string>
-    <string name="spoken_descrption_emoji_category_eight_activity" msgid="4795281669042975993">"ක්‍රියාකාරකම"</string>
-    <string name="spoken_descrption_emoji_category_emoticons" msgid="456737544787823539">"ඉමෝටිකොන්"</string>
-    <string name="spoken_description_upper_case" msgid="4904835255229433916">"ලොකු <xliff:g id="LOWER_LETTER">%s</xliff:g>"</string>
-    <string name="spoken_letter_0049" msgid="4743162182646977944">"ලොකු I"</string>
-    <string name="spoken_letter_0130" msgid="4766619646231612274">"ලොකු I, ඉහළින් තිත"</string>
-    <string name="spoken_symbol_unknown" msgid="717298227061173706">"නොදන්නා සංකේතය"</string>
-    <string name="spoken_emoji_unknown" msgid="5981009928135394306">"නොදන්නා ඉමොජි"</string>
-    <string name="spoken_emoticon_3A_2D_21_20" msgid="2410905667389534573">"කම්මැලි මුහුණ"</string>
-    <string name="spoken_emoticon_3A_2D_24_20" msgid="2481260475945560438">"අපහසුවට පත් කළ මුහුණ"</string>
-    <string name="spoken_emoticon_42_2D_29_20" msgid="1063205250387128068">"අව් කණ්නාඩි පැළදි මුහුණ"</string>
-    <string name="spoken_emoticon_3A_4F_20" msgid="532695091593447238">"පුදුමයට පත් වුණු මුහුණ"</string>
-    <string name="spoken_emoticon_3A_2D_2A_20" msgid="5612342617244114291">"සිපගන්නා මුහුණ"</string>
-    <string name="spoken_emoticon_3A_2D_5B_20" msgid="2223507987759905920">"රවන මුහුණ"</string>
-    <string name="spoken_open_more_keys_keyboard" msgid="6832897688371903747">"විකල්ප අකුරු තිබේ"</string>
-    <string name="spoken_close_more_keys_keyboard" msgid="3524914657934712026">"විකල්ප අකුරු අස් කරන ලදි"</string>
-    <string name="spoken_open_more_suggestions" msgid="4231720702882969760">"විකල්ප යෝජනා තිබේ"</string>
-    <string name="spoken_close_more_suggestions" msgid="9118455416075032839">"විකල්ප යෝජනා අස් කරන ලදි"</string>
+<!--
+    Copyright (C) 2015 The Android Open Source Project
+    SPDX-License-Identifier: Apache-2.0
+-->
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="spoken_use_headphones">"මුරපදයේ යතුරු හඬ හොඳින් ඇසීමට හෙඩ්සෙටය සම්බන්ධ කරන්න."</string>
+    <string name="spoken_current_text_is">"වර්තමාන පෙළ %s ය"</string>
+    <string name="spoken_no_text_entered">"පෙළ ඇතුළු කර නැත"</string>
+    <string name="spoken_auto_correct">"<xliff:g id="KEY_NAME">%1$s</xliff:g> <xliff:g id="ORIGINAL_WORD">%2$s</xliff:g> සිට <xliff:g id="CORRECTED_WORD">%3$s</xliff:g> වෙත නිවැරදි කරයි"</string>
+    <string name="spoken_auto_correct_obscured">"<xliff:g id="KEY_NAME">%1$s</xliff:g> ස්වයං-නිවැරදි කිරීම සිදු කරයි"</string>
+    <string name="spoken_empty_suggestion">"යෝජනා නොමැත"</string>
+    <string name="spoken_description_unknown">"නොදන්නා අකුර"</string>
+    <string name="spoken_description_shift">"ෂිෆ්ට්"</string>
+    <string name="spoken_description_symbols_shift">"තව සංකේත"</string>
+    <string name="spoken_description_shift_shifted">"ෂිෆ්ට්"</string>
+    <string name="spoken_description_symbols_shift_shifted">"සංකේත"</string>
+    <string name="spoken_description_caps_lock">"ෂිෆ්ට්"</string>
+    <string name="spoken_description_delete">"මකන්න"</string>
+    <string name="spoken_description_to_symbol">"සංකේත"</string>
+    <string name="spoken_description_to_alpha">"අකුරු"</string>
+    <string name="spoken_description_to_numeric">"අංක"</string>
+    <string name="spoken_description_settings">"සැකසීම්"</string>
+    <string name="spoken_description_tab">"ටැබය"</string>
+    <string name="spoken_description_space">"ස්පේස්"</string>
+    <string name="spoken_description_mic">"හඬ ආදානය"</string>
+    <string name="spoken_description_emoji">"ඉමොජි"</string>
+    <string name="spoken_description_return">"ආපසු එවන්න"</string>
+    <string name="spoken_description_search">"සොයන්න"</string>
+    <string name="spoken_description_dot">"තිත"</string>
+    <string name="spoken_description_language_switch">"භාෂාව මාරු කරන්න"</string>
+    <string name="spoken_description_action_next">"මීළඟ"</string>
+    <string name="spoken_description_action_previous">"පෙර"</string>
+    <string name="spoken_description_shiftmode_on">"ෂිෆ්ට් සබල කර ඇත"</string>
+    <string name="spoken_description_shiftmode_locked">"කැප්ස් ලොක් සබල කර ඇත"</string>
+    <string name="spoken_description_mode_symbol">"සංකේත ආකාරය"</string>
+    <string name="spoken_description_mode_symbol_shift">"තව සංකේත ආකාර"</string>
+    <string name="spoken_description_mode_alpha">"අකුරු ආකාරය"</string>
+    <string name="spoken_description_mode_phone">"දුරකථන ආකාරය"</string>
+    <string name="spoken_description_mode_phone_shift">"දුරකථන සංකේත ආකාරය"</string>
+    <string name="announce_keyboard_hidden">"යතුරු පුවරුව සැඟවී ඇත"</string>
+    <string name="announce_keyboard_mode">"<xliff:g id="KEYBOARD_MODE">%s</xliff:g> යතුරුපුවරුව පෙන්වමින්"</string>
+    <string name="keyboard_mode_date">"දිනය"</string>
+    <string name="keyboard_mode_date_time">"දිනය සහ වේලාව"</string>
+    <string name="keyboard_mode_email">"ඊ-තැපෑල"</string>
+    <string name="keyboard_mode_im">"පණිවිඩ යැවීම"</string>
+    <string name="keyboard_mode_number">"අංකය"</string>
+    <string name="keyboard_mode_phone">"දුරකථනය"</string>
+    <string name="keyboard_mode_text">"පෙළ"</string>
+    <string name="keyboard_mode_time">"කාලය"</string>
+    <string name="keyboard_mode_url">"URL"</string>
+    <string name="spoken_description_emoji_category_recents">"මෑත"</string>
+    <string name="spoken_description_emoji_category_objects">"වස්තුව"</string>
+    <string name="spoken_description_emoji_category_symbols">"සංකේත"</string>
+    <string name="spoken_description_emoji_category_flags">"ලකුණු කිරීම්"</string>
+    <string name="spoken_description_emoji_category_eight_smiley_people">"භාව සහ පුද්ගලයන්"</string>
+    <string name="spoken_description_emoji_category_eight_animals_nature">"සතුන් සහ ස්වභාව ධර්මය"</string>
+    <string name="spoken_description_emoji_category_eight_food_drink">"ආහාරපාන"</string>
+    <string name="spoken_description_emoji_category_eight_travel_places">"සංචාර සහ ස්ථාන"</string>
+    <string name="spoken_description_emoji_category_eight_activity">"ක්‍රියාකාරකම"</string>
+    <string name="spoken_description_emoji_category_emoticons">"ඉමෝටිකොන්"</string>
+    <string name="spoken_description_upper_case">"ලොකු <xliff:g id="LOWER_LETTER">%s</xliff:g>"</string>
+    <string name="spoken_letter_0049">"ලොකු I"</string>
+    <string name="spoken_letter_0130">"ලොකු I, ඉහළින් තිත"</string>
+    <string name="spoken_open_popup_keys_keyboard">"විකල්ප අකුරු තිබේ"</string>
+    <string name="spoken_close_popup_keys_keyboard">"විකල්ප අකුරු අස් කරන ලදි"</string>
+    <string name="spoken_open_more_suggestions">"විකල්ප යෝජනා තිබේ"</string>
+    <string name="spoken_close_more_suggestions">"විකල්ප යෝජනා අස් කරන ලදි"</string>
 </resources>

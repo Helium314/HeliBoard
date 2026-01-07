@@ -1,31 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-/*
-**
-** Copyright 2013, The Android Open Source Project
-**
-** Licensed under the Apache License, Version 2.0 (the "License");
-** you may not use this file except in compliance with the License.
-** You may obtain a copy of the License at
-**
-**     http://www.apache.org/licenses/LICENSE-2.0
-**
-** Unless required by applicable law or agreed to in writing, software
-** distributed under the License is distributed on an "AS IS" BASIS,
-** WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-** See the License for the specific language governing permissions and
-** limitations under the License.
-*/
+    Copyright (C) 2013 The Android Open Source Project
+    modified
+    SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
 -->
 
 <resources>
-    <bool name="config_block_potentially_offensive">true</bool>
-    <!-- Default value for next word prediction: after entering a word and a space only, should we
-         look at input history to suggest a hopefully helpful suggestions for the next word? -->
-    <bool name="config_default_next_word_prediction">true</bool>
-
-    <!-- Maximum time for a clipboard history entry to be kept, in minutes. -->
-    <integer name="config_clipboard_history_retention_time">10</integer>
 
     <integer name="config_delay_in_milliseconds_to_update_shift_state">100</integer>
     <integer name="config_double_space_period_timeout">1100</integer>
@@ -35,29 +15,11 @@
 
     <integer name="config_ignore_alt_code_key_timeout">350</integer>
 
-    <integer name="config_key_preview_show_up_duration">0</integer>
-    <integer name="config_key_preview_dismiss_duration">0</integer>
-    <fraction name="config_key_preview_show_up_start_scale">100%</fraction>
-    <fraction name="config_key_preview_dismiss_end_scale">100%</fraction>
-    <!-- TODO: consolidate key preview linger timeout with the above animation parameters. -->
-    <integer name="config_key_preview_linger_timeout">0</integer>
     <!-- Suppress showing key preview duration after batch input in millisecond -->
     <integer name="config_suppress_key_preview_after_batch_input_duration">100</integer>
 
-    <bool name="config_default_vibration_enabled">false</bool>
-    <integer name="config_max_vibration_duration">100</integer>
-
-    <integer name="config_default_longpress_key_timeout">300</integer>
-    <integer name="config_max_longpress_timeout">700</integer>
-    <integer name="config_min_longpress_timeout">100</integer>
-    <integer name="config_longpress_timeout_step">10</integer>
     <integer name="config_accessibility_long_press_key_timeout">3000</integer>
-    <integer name="config_max_more_keys_column">5</integer>
-    <integer name="config_more_keys_keyboard_fadein_anim_time">0</integer>
-    <integer name="config_more_keys_keyboard_fadeout_anim_time">100</integer>
-
-    <!-- Long pressing shift will invoke caps-lock if > 0, never invoke caps-lock if == 0 -->
-    <integer name="config_longpress_shift_lock_timeout">1200</integer>
+    <integer name="config_max_popup_keys_column">5</integer>
 
     <!-- Sliding key input preview parameters -->
     <dimen name="config_sliding_key_input_preview_width">8.0dp</dimen>
@@ -68,15 +30,13 @@
     <integer name="config_sliding_key_input_preview_shadow_ratio">-1</integer>
     <dimen name="config_key_hysteresis_distance_for_sliding_modifier">8.0dp</dimen>
 
-    <integer name="config_language_on_spacebar_final_alpha">128</integer>
-    <dimen name="config_language_on_spacebar_horizontal_margin">1dp</dimen>
+    <dimen name="config_language_on_spacebar_horizontal_margin">3dp</dimen>
 
-    <integer name="config_gesture_floating_preview_text_linger_timeout">200</integer>
     <integer name="config_gesture_trail_fadeout_start_delay">100</integer>
-    <integer name="config_gesture_trail_fadeout_duration">800</integer>
     <integer name="config_gesture_trail_update_interval">20</integer>
     <!-- Static threshold for gesture after fast typing (msec) -->
     <integer name="config_gesture_static_time_threshold_after_fast_typing">500</integer>
+    <integer name="config_gesture_fast_typing_cooldown_step">10</integer>
     <!-- Static threshold for starting gesture detection (keyWidth%/sec) -->
     <fraction name="config_gesture_detect_fast_move_speed_threshold">150%</fraction>
     <!-- Dynamic threshold for gesture after fast typing (msec) -->
@@ -100,8 +60,8 @@
     <integer name="config_touch_noise_threshold_time">40</integer>
 
     <!-- Common keyboard configuration. -->
-    <fraction name="config_keyboard_left_padding">0%p</fraction>
-    <fraction name="config_keyboard_right_padding">0%p</fraction>
+    <fraction name="config_keyboard_left_padding">8%p</fraction>
+    <fraction name="config_keyboard_right_padding">8%p</fraction>
     <dimen name="config_keyboard_vertical_correction">0.0dp</dimen>
 
     <!-- Common key top visual configuration. -->
@@ -111,9 +71,8 @@
     <integer name="config_suggestions_count_in_strip">3</integer>
     <fraction name="config_center_suggestion_percentile">36%</fraction>
     <integer name="config_delay_in_milliseconds_to_update_suggestions">100</integer>
-    <integer name="config_delay_in_milliseconds_to_update_old_suggestions">300</integer>
 
-    <!-- Common more suggestions configuraion. -->
+    <!-- Common more suggestions configuration. -->
     <dimen name="config_more_suggestions_key_horizontal_padding">12dp</dimen>
     <dimen name="config_more_suggestions_bottom_gap">6dp</dimen>
     <dimen name="config_more_suggestions_modal_tolerance">32.0dp</dimen>
@@ -140,15 +99,10 @@
     <dimen name="config_emoji_category_page_id_height">2dp</dimen>
 
     <!-- Common configuration of clipboard keyboard -->
-    <dimen name="config_clipboard_divider_height">1.5dp</dimen>
     <dimen name="config_clipboard_pinned_icon_size">18dp</dimen>
 
     <!-- Inset used in Accessibility mode to avoid accidental key presses when a finger slides off the screen. -->
     <dimen name="config_accessibility_edge_slop">8dp</dimen>
 
     <integer name="config_user_dictionary_max_word_length">48</integer>
-
-    <!-- Personalization configuration -->
-    <!-- -1 means periocical wipe of the personalization dict is disabled. -->
-    <integer name="config_personalization_dict_wipe_interval_in_days">-1</integer>
 </resources>

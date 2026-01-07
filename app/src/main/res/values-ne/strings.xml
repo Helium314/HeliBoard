@@ -1,193 +1,108 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!-- 
-/*
-**
-** Copyright 2008, The Android Open Source Project
-**
-** Licensed under the Apache License, Version 2.0 (the "License");
-** you may not use this file except in compliance with the License.
-** You may obtain a copy of the License at
-**
-**     http://www.apache.org/licenses/LICENSE-2.0
-**
-** Unless required by applicable law or agreed to in writing, software
-** distributed under the License is distributed on an "AS IS" BASIS,
-** WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-** See the License for the specific language governing permissions and
-** limitations under the License.
-*/
- -->
-
-<resources xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="english_ime_input_options" msgid="3909945612939668554">"इनपुट विकल्पहरू"</string>
-    <string name="use_contacts_for_spellchecking_option_title" msgid="5374120998125353898">"सम्पर्क नामहरू हेर्नुहोस्"</string>
-    <string name="use_contacts_for_spellchecking_option_summary" msgid="8754413382543307713">"तपाईँको सम्पर्क सूचीबाट हिज्जे परीक्षकले प्रविष्टिहरूको प्रयोग गर्छ"</string>
-    <string name="vibrate_on_keypress" msgid="5258079494276955460">"कुञ्जी थिच्दा भाइब्रेट"</string>
-    <string name="sound_on_keypress" msgid="6093592297198243644">"कुञ्जी थिच्दा आवाज"</string>
-    <string name="popup_on_keypress" msgid="123894815723512944">"कुञ्जी दबाउँदा पपअप"</string>
-    <string name="settings_screen_preferences" msgid="2696713156722014624">"प्राथमिकताहरू"</string>
-    <string name="settings_screen_accounts" msgid="2786418968536696670">"खाताहरू तथा गोपनीयता"</string>
-    <string name="settings_screen_appearance" msgid="7358046399111611615">"आवरण तथा लेआउटहरू"</string>
-    <string name="settings_screen_gesture" msgid="8826372746901183556">"इशारा टाइपिङ"</string>
-    <string name="settings_screen_correction" msgid="1616818407747682955">"पाठ सुधार"</string>
-    <string name="settings_screen_advanced" msgid="7472408607625972994">"उन्नत"</string>
-    <string name="settings_screen_theme" msgid="2137262503543943871">"विषयवस्तु"</string>
-    <string name="enable_split_keyboard" msgid="4177264923999493614">"विभाजित कुञ्जीपाटी सक्षम गर्नुहोस्"</string>
-    <string name="include_other_imes_in_language_switch_list" msgid="4533689960308565519">"अन्य इनपुट विधिमा स्विच गर्नुहोस्"</string>
-    <string name="include_other_imes_in_language_switch_list_summary" msgid="840637129103317635">"भाषा स्विच किले अन्य इनपुट विधि पनि समेट्छ"</string>
-    <string name="show_language_switch_key" msgid="5915478828318774384">"भाषा स्विच कुञ्जी"</string>
-    <string name="show_language_switch_key_summary" msgid="7343403647474265713">"जब बहुसङ्ख्यक इनपुट भाषाहरू सक्षम भएपछि देखाउनुहोस्"</string>
-    <string name="key_preview_popup_dismiss_delay" msgid="6213164897443068248">"कि पपअप खारेजी ढिलाइ"</string>
-    <string name="key_preview_popup_dismiss_no_delay" msgid="2096123151571458064">"ढिलाइ छैन"</string>
-    <string name="key_preview_popup_dismiss_default_delay" msgid="2166964333903906734">"पूर्वनिर्धारित"</string>
-    <string name="abbreviation_unit_milliseconds" msgid="8700286094028323363">"<xliff:g id="MILLISECONDS">%s</xliff:g> मिलिसेकेन्ड"</string>
-    <string name="settings_system_default" msgid="6268225104743331821">"पूर्वनिर्धारित प्रणाली"</string>
-    <string name="use_contacts_dict" msgid="4435317977804180815">"सम्पर्क नामहरू सुझाव गर्नुहोस्"</string>
-    <string name="use_contacts_dict_summary" msgid="6599983334507879959">"सुझाव र सुधारका लागि सम्पर्कबाट नामहरू प्रयोग गर्नुहोस्"</string>
-    <string name="use_personalized_dicts" msgid="5167396352105467626">"निजीकृत सुझावहरू"</string>
-    <string name="enable_metrics_logging" msgid="5506372337118822837">"<xliff:g id="APPLICATION_NAME">%s</xliff:g>सुधार गर्नुहोस्"</string>
-    <string name="use_double_space_period" msgid="8781529969425082860">"डबल-स्पेस पूर्णविराम"</string>
-    <string name="use_double_space_period_summary" msgid="6532892187247952799">"स्पेसबारमा डबल ट्याप गर्नाले पूर्णविरामपछि स्पेस राख्दछ"</string>
-    <string name="auto_cap" msgid="1719746674854628252">"स्वतः क्यापिटलाइजेसन"</string>
-    <string name="auto_cap_summary" msgid="7934452761022946874">"प्रत्येक वाक्यको पहिलो शब्द क्यापिटल गर्नुहोस्"</string>
-    <string name="edit_personal_dictionary" msgid="3996910038952940420">"व्यक्तिगत शब्दकोश"</string>
-    <string name="configure_dictionaries_title" msgid="4238652338556902049">"एड-अन शब्दकोश"</string>
-    <string name="main_dictionary" msgid="4798763781818361168">"मुख्य शब्दकोश"</string>
-    <string name="prefs_show_suggestions" msgid="8026799663445531637">"सुधार सुझावहरू देखाउने"</string>
-    <string name="prefs_show_suggestions_summary" msgid="1583132279498502825">"टाइप गर्ने बेलामा सुझाव शब्दहरू देखाउनुहोस्"</string>
-    <string name="prefs_block_potentially_offensive_title" msgid="5078480071057408934">"आपत्तिजनक शब्दहरूलाई रोक्नुहोस्"</string>
-    <string name="prefs_block_potentially_offensive_summary" msgid="2371835479734991364">"सम्भावित आपत्तिजनक शब्दहरू सुझाव नगर्नुहोस्"</string>
-    <string name="auto_correction" msgid="7630720885194996950">"स्वतः सुधार"</string>
-    <string name="auto_correction_summary" msgid="5625751551134658006">"गल्ती टाइप भएका शब्दहरूलाई स्पेसबार र पङ्चुएसनले स्वचालित रूपमा सच्याउँछन्।"</string>
-    <string name="auto_correction_threshold_mode_off" msgid="8470882665417944026">"बन्द"</string>
-    <string name="auto_correction_threshold_mode_modest" msgid="8788366690620799097">"सामान्य"</string>
-    <string name="auto_correction_threshold_mode_aggressive" msgid="7319007299148899623">"आक्रामक"</string>
-    <string name="auto_correction_threshold_mode_very_aggressive" msgid="1853309024129480416">"ज्यादै आक्रामक"</string>
-    <string name="bigram_prediction" msgid="1084449187723948550">"अर्को शब्द सुझाव"</string>
-    <string name="bigram_prediction_summary" msgid="3896362682751109677">"सुझावहरू निर्माण गर्न अघिल्लो शब्द प्रयोग गर्नुहोस्"</string>
-    <string name="gesture_input" msgid="826951152254563827">"इशारा टाइप गर्ने सक्षम पार्नुहोस्"</string>
-    <string name="gesture_input_summary" msgid="9180350639305731231">"अक्षर स्लाइड गरी शब्द इनपुट गर्नुहोस्"</string>
-    <string name="gesture_preview_trail" msgid="3802333369335722221">"इशारा ट्रेल देखाउनुहोस्"</string>
-    <string name="gesture_floating_preview_text" msgid="4443240334739381053">"गतिशील फ्लोटिङ पूर्वावलोकन"</string>
-    <string name="gesture_floating_preview_text_summary" msgid="4472696213996203533">"इशारा गर्दा सुझाव दिइएको शब्द हेर्नुहोस्"</string>
-    <string name="gesture_space_aware" msgid="2078291600664682496">"वाक्यांश इशारा"</string>
-    <string name="gesture_space_aware_summary" msgid="4371385818348528538">"इशाराको बखतमा स्पेस कुञ्जीमा ग्लाईडिंग द्वारा आगत खाली ठाउँहरू"</string>
-    <string name="voice_input" msgid="3583258583521397548">"आवाज इनपुट कुञ्जी"</string>
-    <string name="voice_input_disabled_summary" msgid="6323489602945135165">"कुनै पनि आवाज इनपुट विधिलाई सक्रिय गरिएको छैन। भाषा र इनपुट सम्बन्धी सेटिङहरूलाई जाँच गर्नुहोस्।"</string>
-    <string name="configure_input_method" msgid="373356270290742459">"इनपुट विधिहरू कन्फिगर गर्नुहोस्"</string>
-    <string name="language_selection_title" msgid="3666971864764478269">"भाषाहरू"</string>
-    <string name="help_and_feedback" msgid="5328219371839879161">"मद्दत र प्रतिक्रिया"</string>
-    <string name="select_language" msgid="5709487854987078367">"भाषाहरू"</string>
-    <string name="hint_add_to_dictionary" msgid="2645988432867033007">"सुरक्षित गर्न फेरि ट्याप गर्नुहोस्"</string>
-    <string name="hint_add_to_dictionary_without_word" msgid="6710206006427574423">"सुरक्षित गर्न यहाँ ट्याप गर्नुहोस्"</string>
-    <string name="has_dictionary" msgid="6071847973466625007">"उपलब्ध शब्दकोश"</string>
-    <string name="keyboard_layout" msgid="8451164783510487501">"किबोर्ड थिम"</string>
-    <string name="switch_accounts" msgid="3321216593719006162">"खाताहरू स्विच गर्नुहोस्"</string>
-    <string name="no_accounts_selected" msgid="2073821619103904330">"कुनै खाता चयन गरिएको छैन"</string>
-    <string name="account_selected" msgid="2846876462199625974">"हाल प्रयोग गर्दै <xliff:g id="EMAIL_ADDRESS">%1$s</xliff:g>"</string>
-    <string name="account_select_ok" msgid="9141195141763227797">"ठिक छ"</string>
-    <string name="account_select_cancel" msgid="5181012062618504340">"रद्द गर्नुहोस्"</string>
-    <string name="account_select_sign_out" msgid="3299651159390187933">"बाहिर निकल्नुहोस्"</string>
-    <string name="account_select_title" msgid="6279711684772922649">"प्रयोग गर्न खाता चयन गर्नुहोस्"</string>
-    <string name="subtype_en_GB" msgid="88170601942311355">"अंग्रेजी (युके)"</string>
-    <string name="subtype_en_US" msgid="6160452336634534239">"अंग्रेजी (युएस्)"</string>
-    <string name="subtype_es_US" msgid="5583145191430180200">"स्पेनिस (युएस्)"</string>
-    <string name="subtype_hi_ZZ" msgid="8860448146262798623">"हिङ्लिस"</string>
-    <string name="subtype_sr_ZZ" msgid="9059219552986034343">"सर्बियाई (ल्याटिन)"</string>
-    <string name="subtype_with_layout_en_GB" msgid="1931018968641592304">"अंग्रेजी (बेलायत) ( <xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g> )"</string>
-    <string name="subtype_with_layout_en_US" msgid="8809311287529805422">"अंग्रेजी (अमेरिका) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_es_US" msgid="510930471167541338">"स्पेनेली (अमेरिका) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_hi_ZZ" msgid="6827402953860547044">"हिङ्लिस (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_sr_ZZ" msgid="2859024772719772407">"सर्बियाई (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_generic_traditional" msgid="8584594350973800586">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (परम्परागत)"</string>
-    <string name="subtype_generic_compact" msgid="3353673321203202922">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (संकुचित)"</string>
-    <string name="subtype_no_language" msgid="7137390094240139495">"कुनै भाषा होइन (वर्णमाला)"</string>
-    <string name="subtype_no_language_qwerty" msgid="244337630616742604">"वर्णमाला (QWERTY)"</string>
-    <string name="subtype_no_language_qwertz" msgid="443066912507547976">"वर्णमाला (QWERTZ)"</string>
-    <string name="subtype_no_language_azerty" msgid="8144348527575640087">"वर्णमाला (AZERTY)"</string>
-    <string name="subtype_no_language_dvorak" msgid="1564494667584718094">"वर्णमाला (Dvorak)"</string>
-    <string name="subtype_no_language_colemak" msgid="5837418400010302623">"वर्णमाला (Colemak)"</string>
-    <string name="subtype_no_language_pcqwerty" msgid="5354918232046200018">"वर्णमाला (PC)"</string>
-    <string name="subtype_emoji" msgid="7483586578074549196">"इमोजी"</string>
-    <string name="keyboard_theme" msgid="4909551808526178852">"किबोर्ड थिम"</string>
-    <string name="custom_input_styles_title" msgid="8429952441821251512">"आफू अनुकूल इनपुट शैली"</string>
-    <string name="add_style" msgid="6163126614514489951">"शैली थप्नुहोस्"</string>
-    <string name="add" msgid="8299699805688017798">"थप्नुहोस्"</string>
-    <string name="remove" msgid="4486081658752944606">"हटाउनुहोस्"</string>
-    <string name="save" msgid="7646738597196767214">"सुरक्षित गर्नुहोस्"</string>
-    <string name="subtype_locale" msgid="8576443440738143764">"भाषा"</string>
-    <string name="keyboard_layout_set" msgid="4309233698194565609">"लेआउट"</string>
-    <string name="custom_input_style_note_message" msgid="8826731320846363423">"तपाईंले प्रयोग गर्न सुरु गर्न अघि तपाईंको आफू अनुकूल इनपुट शैली सक्षम पारिनु पर्छ। के तपाईं यसलाई अहिले सक्षम पार्न चाहनु हुन्छ?"</string>
-    <string name="enable" msgid="5031294444630523247">"सक्षम पार्नुहोस्"</string>
-    <string name="not_now" msgid="6172462888202790482">"अहिले होइन"</string>
-    <string name="custom_input_style_already_exists" msgid="8008728952215449707">"यस्तो इनपुट शैली पहिले नै अवस्थित छ: <xliff:g id="INPUT_STYLE_NAME">%s</xliff:g>"</string>
-    <string name="prefs_keypress_vibration_duration_settings" msgid="7918341459947439226">"कुञ्जी थिचाइ भाइब्रेसन अवधि"</string>
-    <string name="prefs_keypress_sound_volume_settings" msgid="6027007337036891623">"कुञ्जी थिचाइ आवाज भोल्युम"</string>
-    <string name="prefs_key_longpress_timeout_settings" msgid="6102240298932897873">"कुञ्जीको लामो थिचाइमा ढिलाइ"</string>
-    <string name="prefs_enable_emoji_alt_physical_key" msgid="5963640002335470112">"भौतिक किबोर्डको लागि इमोजी"</string>
-    <string name="prefs_enable_emoji_alt_physical_key_summary" msgid="5259484820941627827">"भौतिक Alt कुञ्जीले इमोजी प्यालेट देखाउँछ"</string>
-    <string name="button_default" msgid="3988017840431881491">"पूर्वनिर्धारित"</string>
-    <string name="setup_welcome_title" msgid="6112821709832031715">"तपाईँलाई स्वागत छ<xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
-    <string name="setup_welcome_additional_description" msgid="8150252008545768953">"इशारा टाइप गर्नेसँग"</string>
-    <string name="setup_start_action" msgid="8936036460897347708">"सुरु गरौं"</string>
-    <string name="setup_next_action" msgid="371821437915144603">"अर्को चरण"</string>
-    <string name="setup_steps_title" msgid="6400373034871816182">"स्थापना गर्दै <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
-    <string name="setup_step1_title" msgid="3147967630253462315">"सक्षम पार्नुहोस् <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
-    <string name="setup_step1_instruction" msgid="4295448056733329661">"कृपया आफ्नो भाषा र इनपुट सम्बन्धी सेटिङहरूमा \"<xliff:g id="APPLICATION_NAME">%s</xliff:g>\" अनुप्रयोगलाई जाँच गर्नुहोस्। यस कारबाहीले अनुप्रयोगलाई तपाईँको यन्त्रमा सञ्चालन हुन आधिकार प्रदान गर्ने छ।"</string>
-    <string name="setup_step1_finished_instruction" msgid="8701441895377434947">"तपाईँको भाषा र इनपुट सम्बन्धी सेटिङहरूमा <xliff:g id="APPLICATION_NAME">%s</xliff:g> लाई पहिले नै सक्रिय गरिएको छ, त्यसैले यो चरण सम्पन्न भइसकेको छ। अर्को चरणमा जानुहोस्!"</string>
-    <string name="setup_step1_action" msgid="4366513534999901728">"सेटिङहरूमा सक्षम पार्नुहोस्"</string>
-    <string name="setup_step2_title" msgid="6860725447906690594">"<xliff:g id="APPLICATION_NAME">%s</xliff:g>मा स्विच गर्नुहोस्"</string>
-    <string name="setup_step2_instruction" msgid="9141481964870023336">"त्यसपछि, \"<xliff:g id="APPLICATION_NAME">%s</xliff:g>\" लाई तपाईँको सक्रिय पाठ इनपुट विधिका रूपमा चयन गर्नुहोस्।"</string>
-    <string name="setup_step2_action" msgid="1660330307159824337">"इनपुट विधि स्विच गर्नुहोस्"</string>
-    <string name="setup_step3_title" msgid="3154757183631490281">"बधाई छ, तपाईँले सेट पुरा गर्नुभयो!"</string>
-    <string name="setup_step3_instruction" msgid="8025981829605426000">"अब तपाईं <xliff:g id="APPLICATION_NAME">%s</xliff:g>का साथ तपाईंका सम्पूर्ण मन पर्ने अनुप्रयोगहरू टाइप गर्न सक्नुहुन्छ।"</string>
-    <string name="setup_step3_action" msgid="600879797256942259">"थप भाषाहरू कन्फिगर गर्नुहोस्"</string>
-    <string name="setup_finish_action" msgid="276559243409465389">"समाप्त भयो"</string>
-    <string name="show_setup_wizard_icon" msgid="5008028590593710830">"अनुप्रयोग आइकन देखाउनुहोस्"</string>
-    <string name="show_setup_wizard_icon_summary" msgid="4119998322536880213">"लन्चरमा अनुप्रयोग आइकन देखाउनुहोस्"</string>
-    <string name="app_name" msgid="6320102637491234792">"शब्दकोश प्रदायक"</string>
-    <string name="dictionary_provider_name" msgid="3027315045397363079">"शब्दकोश प्रदायक"</string>
-    <string name="dictionary_service_name" msgid="6237472350693511448">"शब्दकोश सेवा"</string>
-    <string name="download_description" msgid="6014835283119198591">"शब्दकोश अद्यावधिक जानकारी"</string>
-    <string name="dictionary_settings_title" msgid="8091417676045693313">"एड-अन शब्दकोश"</string>
-    <string name="dictionary_settings_summary" msgid="5305694987799824349">"शब्दकोशहरूका लागि सेटिङहरू"</string>
-    <string name="user_dictionaries" msgid="3582332055892252845">"प्रयोगकर्ता शब्दकोशहरू"</string>
-    <string name="default_user_dict_pref_name" msgid="1625055720489280530">"प्रयोगकर्ता शब्दकोश"</string>
-    <string name="dictionary_available" msgid="4728975345815214218">"उपलब्ध शब्दकोश"</string>
-    <string name="dictionary_downloading" msgid="2982650524622620983">"हाल डाउनलोड गर्दै"</string>
-    <string name="dictionary_installed" msgid="8081558343559342962">"स्थापित"</string>
-    <string name="dictionary_disabled" msgid="8950383219564621762">"स्थापित, असक्षम पारिएको"</string>
-    <string name="cannot_connect_to_dict_service" msgid="9216933695765732398">"शब्दकोश सेवासँग जोड्न समस्या"</string>
-    <string name="no_dictionaries_available" msgid="8039920716566132611">"शब्दकोशहरू उपलब्ध छैनन्"</string>
-    <string name="check_for_updates_now" msgid="8087688440916388581">"पुनः ताजा गर्नुहोस्"</string>
-    <string name="last_update" msgid="730467549913588780">"पछिल्लो अद्यावधिक"</string>
-    <string name="message_updating" msgid="4457761393932375219">"अद्यावधिकको लागि जाँच गर्दै"</string>
-    <string name="message_loading" msgid="5638680861387748936">"लोड हुँदै..."</string>
-    <string name="main_dict_description" msgid="3072821352793492143">"मुख्य शब्दकोश"</string>
-    <string name="cancel" msgid="6830980399865683324">"रद्द गर्नुहोस्"</string>
-    <string name="go_to_settings" msgid="3876892339342569259">"सेटिङहरू"</string>
-    <string name="install_dict" msgid="180852772562189365">"स्थापना गर्नुहोस्"</string>
-    <string name="cancel_download_dict" msgid="7843340278507019303">"रद्द गर्नुहोस्"</string>
-    <string name="delete_dict" msgid="756853268088330054">"मेट्नुहोस्"</string>
-    <string name="version_text" msgid="2715354215568469385">"संस्करण <xliff:g id="VERSION_NUMBER">%1$s</xliff:g>"</string>
-    <string name="user_dict_settings_add_menu_title" msgid="1254195365689387076">"थप्नुहोस्"</string>
-    <string name="user_dict_settings_add_dialog_title" msgid="4096700390211748168">"शब्दकोशमा थप्नुहोस्"</string>
-    <string name="user_dict_settings_add_screen_title" msgid="5818914331629278758">"पदावली"</string>
-    <string name="user_dict_settings_add_dialog_more_options" msgid="5671682004887093112">"थप विकल्पहरू"</string>
-    <string name="user_dict_settings_add_dialog_less_options" msgid="2716586567241724126">"कम विकल्पहरू"</string>
-    <string name="user_dict_settings_add_dialog_confirm" msgid="4703129507388332950">"ठिक छ"</string>
-    <string name="user_dict_settings_add_word_option_name" msgid="6665558053408962865">"शब्द:"</string>
-    <string name="user_dict_settings_add_shortcut_option_name" msgid="3094731590655523777">"सर्टकट:"</string>
-    <string name="user_dict_settings_add_locale_option_name" msgid="4738643440987277705">"भाषा:"</string>
-    <string name="user_dict_settings_add_word_hint" msgid="4902434148985906707">"एउटा शब्द टाइप गर्नुहोस्"</string>
-    <string name="user_dict_settings_add_shortcut_hint" msgid="2265453012555060178">"वैकल्पिक सर्टकट"</string>
-    <string name="user_dict_settings_edit_dialog_title" msgid="3765774633869590352">"शब्द सम्पादन गर्नुहोस्"</string>
-    <string name="user_dict_settings_context_menu_edit_title" msgid="6812255903472456302">"सम्पादन गर्नुहोस्"</string>
-    <string name="user_dict_settings_context_menu_delete_title" msgid="8142932447689461181">"मेट्नुहोस्"</string>
-    <string name="user_dict_settings_empty_text" msgid="6889278304342592383">"तपाईँको प्रयोगकर्ता शब्दकोषमा कुनै पनि शब्दहरू छैनन्। शब्द थप्न थप्नुहोस् (+) बटनलाई ट्याप गर्नुहोस्।"</string>
-    <string name="user_dict_settings_all_languages" msgid="8276126583216298886">"सबै भाषाहरूका लागि"</string>
-    <string name="user_dict_settings_more_languages" msgid="7131268499685180461">"थप भाषाहरू..."</string>
-    <string name="user_dict_settings_delete" msgid="110413335187193859">"मेट्नुहोस्"</string>
-    <string name="user_dict_fast_scroll_alphabet" msgid="5431919401558285473">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright (C) 2008 The Android Open Source Project
+    modified
+    SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
+--><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="use_contacts_dict">"सम्पर्क नामहरू हेर्नुहोस्"</string>
+    <string name="vibrate_on_keypress">"कुञ्जी थिच्दा भाइब्रेट"</string>
+    <string name="sound_on_keypress">"कुञ्जी थिच्दा आवाज"</string>
+    <string name="popup_on_keypress">"कुञ्जी दबाउँदा पपअप"</string>
+    <string name="settings_screen_preferences">"प्राथमिकताहरू"</string>
+    <string name="settings_screen_gesture">"इशारा टाइपिङ"</string>
+    <string name="settings_screen_correction">"पाठ सुधार"</string>
+    <string name="settings_screen_advanced">"उन्नत"</string>
+    <string name="settings_screen_theme">"विषयवस्तु"</string>
+    <string name="enable_split_keyboard">"विभाजित कुञ्जीपाटी सक्षम गर्नुहोस्"</string>
+    <string name="language_switch_key_switch_input_method">"अन्य इनपुट विधिमा स्विच गर्नुहोस्"</string>
+    <string name="show_language_switch_key">"भाषा स्विच कुञ्जी"</string>
+    <string name="abbreviation_unit_milliseconds">"%s मिलिसेकेन्ड"</string>
+    <string name="settings_system_default">"पूर्वनिर्धारित प्रणाली"</string>
+    <string name="use_contacts_dict_summary">"सुझाव र सुधारका लागि सम्पर्कबाट नामहरू प्रयोग गर्नुहोस्"</string>
+    <string name="use_personalized_dicts">"निजीकृत सुझावहरू"</string>
+    <string name="use_double_space_period">"डबल-स्पेस पूर्णविराम"</string>
+    <string name="use_double_space_period_summary">"स्पेसबारमा डबल ट्याप गर्नाले पूर्णविरामपछि स्पेस राख्दछ"</string>
+    <string name="auto_cap">"स्वतः क्यापिटलाइजेसन"</string>
+    <string name="auto_cap_summary">"प्रत्येक वाक्यको पहिलो शब्द क्यापिटल गर्नुहोस्"</string>
+    <string name="edit_personal_dictionary">"व्यक्तिगत शब्दकोश"</string>
+    <string name="main_dictionary">"मुख्य शब्दकोश"</string>
+    <string name="prefs_show_suggestions">"सुधार सुझावहरू देखाउने"</string>
+    <string name="prefs_show_suggestions_summary">"टाइप गर्ने बेलामा सुझाव शब्दहरू देखाउनुहोस्"</string>
+    <string name="prefs_block_potentially_offensive_title">"आपत्तिजनक शब्दहरूलाई रोक्नुहोस्"</string>
+    <string name="prefs_block_potentially_offensive_summary">"सम्भावित आपत्तिजनक शब्दहरू सुझाव नगर्नुहोस्"</string>
+    <string name="autocorrect">"स्वतः सुधार"</string>
+    <string name="auto_correction_summary">"गल्ती टाइप भएका शब्दहरूलाई स्पेसबार र पङ्चुएसनले स्वचालित रूपमा सच्याउँछन्।"</string>
+    <string name="auto_correction_threshold_mode_off">"बन्द"</string>
+    <string name="auto_correction_threshold_mode_modest">"सामान्य"</string>
+    <string name="auto_correction_threshold_mode_aggressive">"आक्रामक"</string>
+    <string name="auto_correction_threshold_mode_very_aggressive">"ज्यादै आक्रामक"</string>
+    <string name="bigram_prediction">"अर्को शब्द सुझाव"</string>
+    <string name="bigram_prediction_summary">"सुझावहरू निर्माण गर्न अघिल्लो शब्द प्रयोग गर्नुहोस्"</string>
+    <string name="gesture_input">"इशारा टाइप गर्ने सक्षम पार्नुहोस्"</string>
+    <string name="gesture_input_summary">"अक्षर स्लाइड गरी शब्द इनपुट गर्नुहोस्"</string>
+    <string name="gesture_preview_trail">"इशारा ट्रेल देखाउनुहोस्"</string>
+    <string name="gesture_floating_preview_text">"गतिशील फ्लोटिङ पूर्वावलोकन"</string>
+    <string name="gesture_space_aware">"वाक्यांश इशारा"</string>
+    <string name="gesture_space_aware_summary">"इशाराको बखतमा स्पेस कुञ्जीमा ग्लाईडिंग द्वारा आगत खाली ठाउँहरू"</string>
+    <string name="subtype_en_GB">"अंग्रेजी (युके)"</string>
+    <string name="subtype_en_US">"अंग्रेजी (युएस्)"</string>
+    <string name="subtype_es_US">"स्पेनिस (युएस्)"</string>
+    <string name="subtype_hi_Latn">"हिङ्लिस"</string>
+    <string name="subtype_sr_Latn">"सर्बियाई (ल्याटिन)"</string>
+    <string name="subtype_generic_traditional">"%s (परम्परागत)"</string>
+    <string name="subtype_generic_compact">"%s (संकुचित)"</string>
+    <string name="subtype_no_language">"कुनै भाषा होइन"</string>
+    <string name="subtype_emoji">"इमोजी"</string>
+    <string name="add">"थप्नुहोस्"</string>
+    <string name="remove">"हटाउनुहोस्"</string>
+    <string name="save">"सुरक्षित गर्नुहोस्"</string>
+    <string name="subtype_locale">"भाषा"</string>
+    <string name="keyboard_layout_set">"लेआउट"</string>
+    <string name="prefs_keypress_vibration_duration_settings">"कुञ्जी थिचाइ भाइब्रेसन अवधि"</string>
+    <string name="prefs_keypress_sound_volume_settings">"कुञ्जी थिचाइ आवाज भोल्युम"</string>
+    <string name="prefs_key_longpress_timeout_settings">"कुञ्जीको लामो थिचाइमा ढिलाइ"</string>
+    <string name="prefs_enable_emoji_alt_physical_key">"भौतिक किबोर्डको लागि इमोजी"</string>
+    <string name="prefs_enable_emoji_alt_physical_key_summary">"भौतिक Alt कुञ्जीले इमोजी प्यालेट देखाउँछ"</string>
+    <string name="button_default">"पूर्वनिर्धारित"</string>
+    <string name="setup_welcome_title">"तपाईँलाई स्वागत छ%s"</string>
+    <string name="setup_welcome_additional_description">"इशारा टाइप गर्नेसँग"</string>
+    <string name="setup_start_action">"सुरु गरौं"</string>
+    <string name="setup_steps_title">"स्थापना गर्दै %s"</string>
+    <string name="setup_step1_title">"सक्षम पार्नुहोस् %s"</string>
+    <string name="setup_step1_instruction">"कृपया आफ्नो भाषा र इनपुट सम्बन्धी सेटिङहरूमा \"%s\" अनुप्रयोगलाई जाँच गर्नुहोस्। यस कारबाहीले अनुप्रयोगलाई तपाईँको यन्त्रमा सञ्चालन हुन आधिकार प्रदान गर्ने छ।"</string>
+    <string name="setup_step1_action">"सेटिङहरूमा सक्षम पार्नुहोस्"</string>
+    <string name="setup_step2_title">%sमा स्विच गर्नुहोस्\"</string>
+    <string name="setup_step2_instruction">"त्यसपछि, \"%s\" लाई तपाईँको सक्रिय पाठ इनपुट विधिका रूपमा चयन गर्नुहोस्।"</string>
+    <string name="setup_step2_action">"इनपुट विधि स्विच गर्नुहोस्"</string>
+    <string name="setup_step3_title">"बधाई छ, तपाईँले सेट पुरा गर्नुभयो!"</string>
+    <string name="setup_step3_instruction">"अब तपाईं %sका साथ तपाईंका सम्पूर्ण मन पर्ने अनुप्रयोगहरू टाइप गर्न सक्नुहुन्छ।"</string>
+    <string name="setup_finish_action">"समाप्त भयो"</string>
+    <string name="show_setup_wizard_icon">"अनुप्रयोग आइकन देखाउनुहोस्"</string>
+    <string name="show_setup_wizard_icon_summary">"लन्चरमा अनुप्रयोग आइकन देखाउनुहोस्"</string>
+    <string name="dictionary_category_title">"एड-अन शब्दकोश"</string>
+    <string name="dictionary_available">"उपलब्ध शब्दकोश"</string>
+    <string name="settings">"सेटिङहरू"</string>
+    <string name="delete">"मेट्नुहोस्"</string>
+    <string name="version_text">"संस्करण %1$s"</string>
+    <string name="user_dict_settings_add_shortcut_option_name">"सर्टकट:"</string>
+    <string name="user_dict_settings_add_locale_option_name">"भाषा:"</string>
+    <string name="user_dict_settings_add_word_hint">"एउटा शब्द टाइप गर्नुहोस्"</string>
+    <string name="user_dict_settings_add_shortcut_hint">"वैकल्पिक सर्टकट"</string>
+    <string name="user_dict_settings_edit_dialog_title">"शब्द सम्पादन गर्नुहोस्"</string>
+    <string name="user_dict_settings_all_languages">"सबै भाषाहरूका लागि"</string>
+    <string name="user_dict_settings_more_languages">"थप भाषाहरू…"</string>
+    <string name="select_input_method">"निवेश विधि छान्नुहोस्"</string>
+    <string name="settings_screen_appearance">"उपस्थिति"</string>
+    <string name="undo">"अनडू गर्नुहोस्"</string>
+    <string name="redo">"रिडू गर्नुहोस्"</string>
+    <string name="use_personalized_dicts_summary">"सुझावहरू सुधार गर्न सञ्‍चारहरू र टाइप गरिएको डेटाबाट जान्नुहोस्"</string>
+    <string name="label_go_key">"जानु"</string>
+    <string name="label_next_key">"अर्को"</string>
+    <string name="label_previous_key">"पहिलो"</string>
+    <string name="label_done_key">"भयो"</string>
+    <string name="label_send_key">"पठाउनुहोस्"</string>
+    <string name="label_search_key">"खोजी गर्नुहोस्"</string>
+    <string name="label_pause_key">"रोक्नुहोस्"</string>
+    <string name="label_wait_key">"पर्खनुहोस्"</string>
+    <string name="spell_checker_service_name">हेलीबोर्ड हिज्जे जाँचकर्ता</string>
 </resources>

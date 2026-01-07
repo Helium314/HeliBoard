@@ -1,0 +1,11 @@
+* memungkinkan penyesuaian tata letak tombol fungsional
+* sedikit menyesuaikan simbol dan lebih banyak tata letak simbol
+* menambahkan opsi untuk menampilkan bilah alat secara otomatis
+* menambahkan pemberitahuan saat menyalin teks
+* memisahkan perilaku tombol alih bahasa dari pengaktifan
+* menambahkan pop-up tombol koma untuk tata letak nomor dan telepon
+* menjadikan penyematan tekan lama di bilah alat sebagai opsional
+* memindahkan pengaturan bilah alat ke bagian terpisah
+* menambahkan tombol tab
+* memahami ctrl, bilah alat, dan label tombol lainnya dalam tata letak
+* perbaikan dan penyempurnaan kecil

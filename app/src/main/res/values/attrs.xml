@@ -1,21 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-/*
-**
-** Copyright 2015, The Android Open Source Project
-**
-** Licensed under the Apache License, Version 2.0 (the "License");
-** you may not use this file except in compliance with the License.
-** You may obtain a copy of the License at
-**
-**     http://www.apache.org/licenses/LICENSE-2.0
-**
-** Unless required by applicable law or agreed to in writing, software
-** distributed under the License is distributed on an "AS IS" BASIS,
-** WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-** See the License for the specific language governing permissions and
-** limitations under the License.
-*/
+    Copyright (C) 2015 The Android Open Source Project
+    modified
+    SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
 -->
 
 <resources>
@@ -32,12 +19,12 @@
         <attr name="emojiPalettesViewStyle" format="reference" />
         <!-- ClipboardHistoryView style -->
         <attr name="clipboardHistoryViewStyle" format="reference" />
-        <!-- MoreKeysKeyboard style -->
-        <attr name="moreKeysKeyboardStyle" format="reference" />
-        <!-- MoreKeysKeyboardView style -->
-        <attr name="moreKeysKeyboardViewStyle" format="reference" />
-        <!-- MoreKeysKeyboardView style for action key -->
-        <attr name="moreKeysKeyboardViewForActionStyle" format="reference" />
+        <!-- PopupKeysKeyboard style -->
+        <attr name="popupKeysKeyboardStyle" format="reference" />
+        <!-- PopupKeysKeyboardView style -->
+        <attr name="popupKeysKeyboardViewStyle" format="reference" />
+        <!-- PopupKeysKeyboardView style for action key -->
+        <attr name="popupKeysKeyboardViewForActionStyle" format="reference" />
         <!-- Suggestions strip style -->
         <attr name="suggestionStripViewStyle" format="reference" />
         <!-- Suggestion word style -->
@@ -58,6 +45,7 @@
              {@link android.graphics.drawable.StateListDrawable}, with the following possible
              states: normal, pressed. -->
         <attr name="spacebarBackground" format="reference" />
+        <attr name="spacebarNoBorderBackground" format="reference" />
         <attr name="spacebarIconWidthRatio" format="float" />
         <!-- Right padding of hint letter to the edge of the key.-->
         <attr name="keyHintLetterPadding" format="dimension" />
@@ -73,7 +61,7 @@
         <!-- Key preview background states -->
         <attr name="state_left_edge" format="boolean" />
         <attr name="state_right_edge" format="boolean" />
-        <attr name="state_has_morekeys" format="boolean" />
+        <attr name="state_has_popup_keys" format="boolean" />
 
         <!-- Amount to offset the touch Y coordinate by, for bias correction. -->
         <attr name="verticalCorrection" format="dimension" />
@@ -82,11 +70,9 @@
     <declare-styleable name="MainKeyboardView">
         <!-- Size of the text for spacebar language label, in the proportion of key height. -->
         <attr name="languageOnSpacebarTextRatio" format="fraction" />
-        <attr name="languageOnSpacebarTextColor" format="color" />
         <attr name="languageOnSpacebarTextShadowRadius" format="float" />
         <attr name="languageOnSpacebarTextShadowColor" format="color" />
         <!-- Fadeout animator for spacebar language label. -->
-        <attr name="languageOnSpacebarFinalAlpha" format="integer" />
         <attr name="languageOnSpacebarFadeoutAnimator" format="reference" />
         <!-- Fadeout and fadein animator for altCodeWhileTyping keys. -->
         <attr name="altCodeKeyWhileTypingFadeoutAnimator" format="reference" />
@@ -101,7 +87,6 @@
         <attr name="touchNoiseThresholdDistance" format="dimension" />
         <!-- Enable key selection by dragging finger -->
         <attr name="keySelectionByDraggingFinger" format="boolean" />
-        <attr name="slidingKeyInputPreviewColor" format="color" />
         <attr name="slidingKeyInputPreviewWidth" format="dimension" />
         <attr name="slidingKeyInputPreviewBodyRatio" format="integer" />
         <attr name="slidingKeyInputPreviewShadowRatio" format="integer" />
@@ -109,30 +94,19 @@
         <attr name="keyRepeatStartTimeout" format="integer" />
         <!-- Key repeat interval in millisecond. -->
         <attr name="keyRepeatInterval" format="integer" />
-        <!-- Long press timeout of shift key to shift lock in millisecond. -->
-        <attr name="longPressShiftLockTimeout" format="integer" />
         <!-- Ignore special key timeout while typing in millisecond. -->
         <attr name="ignoreAltCodeKeyTimeout" format="integer" />
         <!-- Background resource for key press feedback.-->
         <attr name="keyPreviewBackground" format="reference" />
         <!-- Vertical offset of the key press feedback from the key. -->
         <attr name="keyPreviewOffset" format="dimension" />
-        <!-- Height of the key press feedback popup. -->
-        <attr name="keyPreviewHeight" format="dimension" />
-        <!-- TODO: consolidate key preview linger timeout with the key preview animation parameters. -->
-        <!-- Delay after key releasing and key press feedback dismissing in millisecond -->
-        <attr name="keyPreviewLingerTimeout" format="integer" />
-        <!-- Key preview show up animator -->
-        <attr name="keyPreviewShowUpAnimator" format="reference" />
-        <!-- Key preview dismiss animator -->
-        <attr name="keyPreviewDismissAnimator" format="reference" />
-        <!-- Layout resource for more keys keyboard -->
-        <attr name="moreKeysKeyboardLayout" format="reference" />
-        <!-- Layout resource for more keys keyboard of action key -->
-        <attr name="moreKeysKeyboardForActionLayout" format="reference" />
+        <!-- Layout resource for popup keys keyboard -->
+        <attr name="popupKeysKeyboardLayout" format="reference" />
+        <!-- Layout resource for popup keys keyboard of action key -->
+        <attr name="popupKeysKeyboardForActionLayout" format="reference" />
         <attr name="backgroundDimAlpha" format="integer" />
-        <!-- More keys keyboard will shown at touched point. -->
-        <attr name="showMoreKeysKeyboardAtTouchedPoint" format="boolean" />
+        <!-- Popup keys keyboard will shown at touched point. -->
+        <attr name="showPopupKeysKeyboardAtTouchedPoint" format="boolean" />
         <!-- Minimum distance between gesture trail sampling points. -->
         <attr name="gestureTrailMinSamplingDistance" format="dimension" />
         <!-- Maximum angular threshold between gesture trail interpolation segments in degree. -->
@@ -143,22 +117,15 @@
         <attr name="gestureTrailMaxInterpolationSegments" format="integer" />
         <!-- Delay after gesture trail starts fading out in millisecond. -->
         <attr name="gestureTrailFadeoutStartDelay" format="integer" />
-        <!-- Duration while gesture trail is fading out in millisecond. -->
-        <attr name="gestureTrailFadeoutDuration" format="integer" />
         <!-- Interval of updating gesture trail in millisecond. -->
         <attr name="gestureTrailUpdateInterval" format="integer" />
-        <attr name="gestureTrailColor" format="color" />
         <attr name="gestureTrailStartWidth" format="dimension" />
         <attr name="gestureTrailEndWidth" format="dimension" />
         <attr name="gestureTrailBodyRatio" format="integer" />
         <attr name="gestureTrailShadowRatio" format="integer" />
-        <!-- Delay after gesture input and gesture floating preview text dismissing in millisecond -->
-        <attr name="gestureFloatingPreviewTextLingerTimeout" format="integer" />
         <!-- Attributes for GestureFloatingPreviewText -->
         <attr name="gestureFloatingPreviewTextSize" format="dimension" />
-        <attr name="gestureFloatingPreviewTextColor" format="color" />
         <attr name="gestureFloatingPreviewTextOffset" format="dimension" />
-        <attr name="gestureFloatingPreviewColor" format="color" />
         <attr name="gestureFloatingPreviewHorizontalPadding" format="dimension" />
         <attr name="gestureFloatingPreviewVerticalPadding" format="dimension" />
         <attr name="gestureFloatingPreviewRoundRadius" format="dimension" />
@@ -184,15 +151,11 @@
         <attr name="suppressKeyPreviewAfterBatchInputDuration" format="integer" />
     </declare-styleable>
 
-    <declare-styleable name="MoreKeysKeyboardView">
+    <declare-styleable name="PopupKeysKeyboardView">
         <attr name="divider" format="reference" />
     </declare-styleable>
 
     <declare-styleable name="EmojiPalettesView">
-        <attr name="categoryIndicatorEnabled" format="boolean" />
-        <attr name="categoryIndicatorDrawable" format="reference" />
-        <attr name="categoryIndicatorBackground" format="reference" />
-        <attr name="categoryPageIndicatorColor" format="color" />
         <attr name="categoryPageIndicatorBackground" format="color" />
         <attr name="iconEmojiRecentsTab" format="reference" />
         <attr name="iconEmojiCategory1Tab" format="reference" />
@@ -208,22 +171,17 @@
     </declare-styleable>
 
     <declare-styleable name="ClipboardHistoryView">
-        <attr name="dividerBackground" format="color" />
         <attr name="iconPinnedClip" format="reference" />
     </declare-styleable>
 
     <declare-styleable name="SuggestionStripView">
         <attr name="suggestionStripOptions" format="integer">
             <!-- This should be aligned with
-                 {@link org.dslul.openboard.inputmethod.latin.suggestions.SuggestionStripLayoutHelper.AUTO_CORRECT_BOLD} etc. -->
+                 {@link helium314.keyboard.latin.suggestions.SuggestionStripLayoutHelper.AUTO_CORRECT_BOLD} etc. -->
             <flag name="autoCorrectBold" value="0x01" />
             <flag name="autoCorrectUnderline" value="0x02" />
             <flag name="validTypedWordBold" value="0x04" />
         </attr>
-        <attr name="colorValidTypedWord" format="color" />
-        <attr name="colorTypedWord" format="color" />
-        <attr name="colorAutoCorrect" format="color" />
-        <attr name="colorSuggested" format="color" />
         <attr name="alphaObsoleted" format="fraction" />
         <attr name="suggestionsCountInStrip" format="integer" />
         <attr name="centerSuggestionPercentile" format="fraction" />
@@ -234,21 +192,16 @@
     <declare-styleable name="Keyboard">
         <attr name="themeId" format="enum">
             <!-- This should be aligned with
-                 {@link org.dslul.openboard.inputmethod.keyboard.KeyboardTheme#THEME_ID_ICS} etc. -->
-            <enum name="ICS" value="0" />
-            <enum name="KLP" value="2" />
-            <enum name="LXXLight" value="3" />
-            <enum name="LXXDarkAmoled" value="4" />
-            <enum name="LXXAutoAmoled" value="10" />
-            <enum name="LXXDark" value="7" />
-            <enum name="LXXAuto" value="9" />
-            <enum name="LXXLightBorder" value="5" />
-            <enum name="LXXDarkBorder" value="6" />
-            <enum name="LXXAutoBorder" value="8" />
+                 {@link helium314.keyboard.keyboard.KeyboardTheme#THEME_ID_HOLO_BASE} etc. -->
+            <enum name="HoloBase" value="0" />
+            <enum name="LXXBase" value="1" />
+            <enum name="LXXBaseBorder" value="2" />
+            <enum name="RoundedBase" value="3" />
+            <enum name="RoundedBaseBorder" value="4" />
         </attr>
         <!-- Touch position correction -->
         <attr name="touchPositionCorrectionData" format="reference" />
-        <!-- Keyboard top, bottom, left, right edges paddings, in propotion of keyboard height. -->
+        <!-- Keyboard top, bottom, left, right edges paddings, in proportion of keyboard height. -->
         <attr name="keyboardTopPadding" format="fraction" />
         <attr name="keyboardBottomPadding" format="fraction" />
         <attr name="keyboardLeftPadding" format="fraction" />
@@ -258,47 +211,14 @@
         <attr name="rowHeight" format="dimension|fraction" />
         <!-- Default horizontal gap between keys, in the proportion of keyboard width. -->
         <attr name="horizontalGap" format="fraction" />
+        <!-- Default horizontal gap between keys, in the proportion of keyboard width. -->
+        <attr name="horizontalGapNarrow" format="fraction" />
         <!-- Default vertical gap between rows of keys, in the proportion of keyboard height. -->
         <attr name="verticalGap" format="fraction" />
-        <!-- More keys keyboard layout template -->
-        <attr name="moreKeysTemplate" format="reference" />
-        <!-- Icon set for key top and key preview. These should be aligned with
-             {@link org.dslul.openboard.inputmethod.keyboard.internal.KeyboardIconsSet#NAMES_AND_ATTR_IDS} -->
-        <attr name="iconShiftKey" format="reference" />
-        <attr name="iconDeleteKey" format="reference" />
-        <attr name="iconSettingsKey" format="reference" />
-        <attr name="iconSpaceKey" format="reference" />
-        <attr name="iconEnterKey" format="reference" />
-        <attr name="iconGoKey" format="reference" />
-        <attr name="iconSearchKey" format="reference" />
-        <attr name="iconSendKey" format="reference" />
-        <attr name="iconNextKey" format="reference" />
-        <attr name="iconDoneKey" format="reference" />
-        <attr name="iconPreviousKey" format="reference" />
-        <attr name="iconTabKey" format="reference" />
-        <attr name="iconShortcutKey" format="reference" />
-        <attr name="iconIncognitoKey" format="reference" />
-        <attr name="iconSpaceKeyForNumberLayout" format="reference" />
-        <attr name="iconShiftKeyShifted" format="reference" />
-        <attr name="iconShortcutKeyDisabled" format="reference" />
-        <attr name="iconLanguageSwitchKey" format="reference" />
-        <attr name="iconZwnjKey" format="reference" />
-        <attr name="iconZwjKey" format="reference" />
-        <attr name="iconImeKey" format="reference" />
-        <attr name="iconEmojiActionKey" format="reference" />
-        <attr name="iconEmojiNormalKey" format="reference" />
-        <attr name="iconClipboardActionKey" format="reference" />
-        <attr name="iconClipboardNormalKey" format="reference" />
-        <attr name="iconClearClipboardKey" format="reference" />
-        <attr name="iconStartOneHandedMode" format="reference" />
-        <attr name="iconStopOneHandedMode" format="reference" />
-        <attr name="iconSwitchOneHandedMode" format="reference" />
-    </declare-styleable>
-
-    <declare-styleable name="Keyboard_GridRows">
-        <attr name="codesArray" format="reference" />
-        <attr name="textsArray" format="reference" />
-        <attr name="moreCodesArray" format="reference" />
+        <!-- Default vertical gap between rows of keys, in the proportion of keyboard height. -->
+        <attr name="verticalGapNarrow" format="fraction" />
+        <!-- Popup keys keyboard layout template -->
+        <attr name="popupKeysTemplate" format="reference" />
     </declare-styleable>
 
     <declare-styleable name="Keyboard_Key">
@@ -306,31 +226,12 @@
              Code value represented in hexadecimal prefixed with "0x" or code value reference using
              "!code/<code_name>" notation. -->
         <attr name="altCode" format="string" />
-        <!-- The keys to display in the more keys keyboard. -->
-        <attr name="moreKeys" format="string" />
-        <!-- The keys to display in the more keys keyboard in addition to moreKeys.
-             The additional more keys are inserted at the '%' markers in the moreKeys if any.
-             They are inserted at the head of moreKeys if none.
-             If there are remaining entries of additionalMoreKeys even after all '%' markers have
-             been replaced, those remaining entries are appended at the end of moreKeys. -->
-        <attr name="additionalMoreKeys" format="string" />
-        <!-- Maximum column of more keys keyboard -->
-        <attr name="maxMoreKeysColumn" format="integer" />
-        <attr name="backgroundType" format="enum">
-            <!-- This should be aligned with
-                 {@link org.dslul.openboard.inputmethod.keyboard.Key#BACKGROUND_TYPE_NORMAL} etc. -->
-            <enum name="empty" value="0" />
-            <enum name="normal" value="1" />
-            <enum name="functional" value="2" />
-            <enum name="stickyOff" value="3" />
-            <enum name="stickyOn" value="4" />
-            <enum name="action" value="5" />
-            <enum name="spacebar" value="6" />
-        </attr>
+        <!-- Maximum column of popup keys keyboard -->
+        <attr name="maxPopupKeysColumn" format="integer" />
         <!-- The key action flags. -->
         <attr name="keyActionFlags" format="integer">
             <!-- This should be aligned with
-                 {@link org.dslul.openboard.inputmethod.keyboard.Key#ACTION_FLAGS_IS_REPEATABLE} etc. -->
+                 {@link helium314.keyboard.keyboard.Key#ACTION_FLAGS_IS_REPEATABLE} etc. -->
             <flag name="isRepeatable" value="0x01" />
             <flag name="noKeyPreview" value="0x02" />
             <flag name="altCodeWhileTyping" value="0x04" />
@@ -345,40 +246,40 @@
         <!-- The key label flags. -->
         <attr name="keyLabelFlags" format="integer">
             <!-- This should be aligned with
-                 {@link org.dslul.openboard.inputmethod.keyboard.Key#LABEL_FLAGS_FONT_NORMAL} etc. -->
-            <flag name="alignHintLabelToBottom" value="0x02" />
-            <flag name="alignIconToBottom" value="0x04" />
-            <flag name="alignLabelOffCenter" value="0x08" />
-            <flag name="fontNormal" value="0x10" />
-            <flag name="fontMonoSpace" value="0x20" />
-            <flag name="fontDefault" value="0x30" />
-            <flag name="followKeyLargeLetterRatio" value="0x40" />
-            <flag name="followKeyLetterRatio" value="0x80" />
-            <flag name="followKeyLabelRatio" value="0xC0" />
-            <flag name="followKeyHintLabelRatio" value="0x140" />
-            <flag name="hasPopupHint" value="0x200" />
-            <flag name="hasShiftedLetterHint" value="0x400" />
-            <flag name="hasHintLabel" value="0x800" />
-            <flag name="autoXScale" value="0x4000" />
+                 {@link helium314.keyboard.keyboard.Key#LABEL_FLAGS_FONT_NORMAL} etc. -->
+            <flag name="alignHintLabelToBottom" value="0x02" /><!-- 2 -->
+            <flag name="alignIconToBottom" value="0x04" /><!-- 4 -->
+            <flag name="alignLabelOffCenter" value="0x08" /><!-- 8 -->
+            <flag name="fontNormal" value="0x10" /><!-- 16 -->
+            <flag name="fontMonoSpace" value="0x20" /><!-- 32 -->
+            <flag name="fontDefault" value="0x30" /><!-- 48 -->
+            <flag name="followKeyLargeLetterRatio" value="0x40" /><!-- 64 -->
+            <flag name="followKeyLetterRatio" value="0x80" /><!-- 128 -->
+            <flag name="followKeyLabelRatio" value="0xC0" /><!-- 192 -->
+            <flag name="followKeyHintLabelRatio" value="0x140" /><!-- 320 -->
+            <flag name="hasPopupHint" value="0x200" /><!-- 512 -->
+            <flag name="hasShiftedLetterHint" value="0x400" /><!-- 1024 -->
+            <flag name="hasHintLabel" value="0x800" /><!-- 2048 -->
+            <flag name="autoXScale" value="0x4000" /><!-- 16384 -->
             <!-- The autoScale value implies autoXScale bit on to optimize scaling code path. -->
-            <flag name="autoScale" value="0xc000" />
-            <!-- If true, character case of code, altCode, moreKeys, keyOutputText, keyLabel,
+            <flag name="autoScale" value="0xc000" /><!-- 49152 -->
+            <!-- If true, character case of code, altCode, popupKeys, keyOutputText, keyLabel,
                  or keyHintLabel will never be subject to change. -->
-            <flag name="preserveCase" value="0x10000" />
+            <flag name="preserveCase" value="0x10000" /><!-- 65536 -->
             <!-- If true, use keyShiftedLetterHintActivatedColor for the shifted letter hint and
                  keyTextInactivatedColor for the primary key top label. -->
-            <flag name="shiftedLetterActivated" value="0x20000" />
+            <flag name="shiftedLetterActivated" value="0x20000" /><!-- 131072 -->
             <!-- If true, use EditorInfo.actionLabel for the key label. -->
-            <flag name="fromCustomActionLabel" value="0x40000" />
+            <flag name="fromCustomActionLabel" value="0x40000" /><!-- 262144 -->
             <!-- If true, use functionalTextColor instead of ketTextColor to drawing the label on
                  the key -->
-            <flag name="followFunctionalTextColor" value="0x80000" />
+            <flag name="followFunctionalTextColor" value="0x80000" /><!-- 524288 -->
             <!-- Keep aspect ratio of key background. -->
-            <flag name="keepBackgroundAspectRatio" value="0x100000" />
+            <flag name="keepBackgroundAspectRatio" value="0x100000" /><!-- 1048576 -->
             <!-- If true, disable keyHintLabel. -->
-            <flag name="disableKeyHintLabel" value="0x40000000" />
-            <!-- If true, disable additionalMoreKeys. -->
-            <flag name="disableAdditionalMoreKeys" value="0x80000000" />
+            <flag name="disableKeyHintLabel" value="0x40000000" /><!-- 1073741824 -->
+            <!-- If true, disable additionalPopupKeys. todo: is this still working? -->
+            <flag name="disableAdditionalPopupKeys" value="0x80000000" /><!-- 2147483648 -->
         </attr>
         <!-- The icon for disabled key -->
         <attr name="keyIconDisabled" format="string" />
@@ -391,7 +292,7 @@
              If the value is fillRight, the actual key width will be determined to fill out the
              area up to the right edge of the keyboard. -->
         <!-- This should be aligned with
-             {@link org.dslul.openboard.inputmethod.keyboard.internal.KeyboardRow#KEYWIDTH_FILL_RIGHT}. -->
+             {@link helium314.keyboard.keyboard.internal.keyboard_parser.XmlKeyboardRow#KEYWIDTH_FILL_RIGHT}. -->
         <attr name="keyWidth" format="fraction|enum">
             <enum name="fillRight" value="-1" />
         </attr>
@@ -425,30 +326,20 @@
         <attr name="keyShiftedLetterHintRatio" format="fraction" />
         <!-- The label's horizontal offset to the center of the key. Negative is to left and
              positive is to right. The value is in proportion of the width of
-             {@link org.dslul.openboard.inputmethod.latin.utils.TypefaceUtils#KEY_LABEL_REFERENCE_CHAR}. -->
+             {@link helium314.keyboard.latin.utils.TypefaceUtils#KEY_LABEL_REFERENCE_CHAR}. -->
         <attr name="keyLabelOffCenterRatio" format="fraction" />
         <!-- The hint label's horizontal offset to the center of the key. Negative is to left and
              positive is to right. The value is in proportion of the width of
-             {@link org.dslul.openboard.inputmethod.latin.utils.TypefaceUtils#KEY_LABEL_REFERENCE_CHAR}. -->
+             {@link helium314.keyboard.latin.utils.TypefaceUtils#KEY_LABEL_REFERENCE_CHAR}. -->
         <attr name="keyHintLabelOffCenterRatio" format="fraction" />
-        <!-- Color to use for the label in a key. -->
-        <attr name="keyTextColor" format="color" />
         <attr name="keyTextShadowColor" format="color" />
         <!-- Color to use for the label in a key when in inactivated state. -->
         <attr name="keyTextInactivatedColor" format="color" />
-        <!-- Color to use for the label in a key that has followFunctionalTextColor keyLabelFlags. -->
-        <attr name="functionalTextColor" format="color" />
-        <!-- Key hint letter (= one character hint label) color -->
-        <attr name="keyHintLetterColor" format="color" />
-        <!-- Key hint label color -->
-        <attr name="keyHintLabelColor" format="color" />
         <!-- Shifted letter hint colors -->
         <attr name="keyShiftedLetterHintInactivatedColor" format="color" />
         <attr name="keyShiftedLetterHintActivatedColor" format="color" />
 
         <!-- Key preview visual parameters -->
-        <!-- The text color for key press feedback. -->
-        <attr name="keyPreviewTextColor" format="color" />
         <!-- Size of the text for key press feedback popup, in the proportion of key height. -->
         <attr name="keyPreviewTextRatio" format="fraction" />
     </declare-styleable>
@@ -460,7 +351,7 @@
     <declare-styleable name="Keyboard_Case">
         <attr name="keyboardLayoutSet" format="string" />
         <!-- This should be aligned with
-             {@link org.dslul.openboard.inputmethod.keyboard.KeyboardId#ELEMENT_ALPHABET} etc. -->
+             {@link helium314.keyboard.keyboard.KeyboardId#ELEMENT_ALPHABET} etc. -->
         <attr name="keyboardLayoutSetElement" format="enum|string">
             <enum name="alphabet" value="0" />
             <enum name="alphabetManualShifted" value="1" />
@@ -489,17 +380,19 @@
             <enum name="emojiCategory14" value="24" />
             <enum name="emojiCategory15" value="25" />
             <enum name="emojiCategory16" value="26" />
+            <enum name="numpad" value="28"  />
         </attr>
         <!-- This should be aligned with Keyboard.themeId and
-             {@link org.dslul.openboard.inputmethod.keyboard.KeyboardTheme#THEME_ID_ICS} etc. -->
+             {@link helium314.keyboard.keyboard.KeyboardTheme#THEME_ID_HOLO_BASE} etc. -->
         <attr name="keyboardTheme" format="enum|string">
-            <enum name="ICS" value="0" />
-            <enum name="KLP" value="2" />
-            <enum name="LXXLight" value="3" />
-            <enum name="LXXDark" value="4" />
+            <enum name="HoloBase" value="0" />
+            <enum name="LXXBase" value="1" />
+            <enum name="LXXBaseBorder" value="2" />
+            <enum name="RoundedBase" value="3" />
+            <enum name="RoundedBaseBorder" value="4" />
         </attr>
         <!-- This should be aligned with
-             {@link org.dslul.openboard.inputmethod.keyboard.KeyboardId#MODE_TEXT} etc. -->
+             {@link helium314.keyboard.keyboard.KeyboardId#MODE_TEXT} etc. -->
         <attr name="mode" format="enum|string">
             <enum name="text" value="0" />
             <enum name="url" value="1" />
@@ -530,7 +423,7 @@
             <enum name="actionDone" value="6" />
             <enum name="actionPrevious" value="7" />
             <!-- This should be aligned with
-                 {@link org.dslul.openboard.inputmethod.latin.utils.InputTypeUtils#IME_ACTION_CUSTOM_LABEL}. -->
+                 {@link helium314.keyboard.latin.utils.InputTypeUtils#IME_ACTION_CUSTOM_LABEL}. -->
             <enum name="actionCustomLabel" value="0x100" />
         </attr>
         <attr name="isIconDefined" format="string" />
@@ -544,72 +437,6 @@
     <declare-styleable name="Keyboard_KeyStyle">
         <attr name="styleName" format="string" />
         <attr name="parentStyle" format="string" />
-    </declare-styleable>
-
-    <declare-styleable name="KeyboardLayoutSet_Element">
-        <!-- This should be aligned with
-             {@link org.dslul.openboard.inputmethod.keyboard.KeyboardId#ELEMENT_ALPHABET} etc. -->
-        <attr name="elementName" format="enum">
-            <enum name="alphabet" value="0" />
-            <enum name="alphabetManualShifted" value="1" />
-            <enum name="alphabetAutomaticShifted" value="2" />
-            <enum name="alphabetShiftLocked" value="3" />
-            <enum name="alphabetShiftLockShifted" value="4" />
-            <enum name="symbols" value="5" />
-            <enum name="symbolsShifted" value="6"  />
-            <enum name="phone" value="7"  />
-            <enum name="phoneSymbols" value="8"  />
-            <enum name="number" value="9"  />
-            <enum name="emojiRecents" value="10" />
-            <enum name="emojiCategory1" value="11" />
-            <enum name="emojiCategory2" value="12" />
-            <enum name="emojiCategory3" value="13" />
-            <enum name="emojiCategory4" value="14" />
-            <enum name="emojiCategory5" value="15" />
-            <enum name="emojiCategory6" value="16" />
-            <enum name="emojiCategory7" value="17" />
-            <enum name="emojiCategory8" value="18" />
-            <enum name="emojiCategory9" value="19" />
-            <enum name="emojiCategory10" value="20" />
-            <enum name="emojiCategory11" value="21" />
-            <enum name="emojiCategory12" value="22" />
-            <enum name="emojiCategory13" value="23" />
-            <enum name="emojiCategory14" value="24" />
-            <enum name="emojiCategory15" value="25" />
-            <enum name="emojiCategory16" value="26" />
-        </attr>
-        <attr name="elementKeyboard" format="reference"/>
-        <!-- Enable proximity characters correction. Disabled by default. -->
-        <attr name="enableProximityCharsCorrection" format="boolean" />
-        <!-- Indicates if the keyboard layout supports being split or not. false by default -->
-        <attr name="supportsSplitLayout" format="boolean" />
-        <!-- Allow redundant more keys when they are in the base layout. true by default. -->
-        <attr name="allowRedundantMoreKeys" format="boolean" />
-    </declare-styleable>
-
-    <declare-styleable name="KeyboardLayoutSet_Feature">
-        <!-- This should be aligned with
-             {@link org.dslul.openboard.inputmethod.latin.utils.ScriptUtils#SCRIPT_ARABIC} etc. -->
-        <attr name="supportedScript" format="enum">
-            <enum name="arabic" value="0" />
-            <enum name="armenian" value="1" />
-            <enum name="bengali" value="2" />
-            <enum name="cyrillic" value="3" />
-            <enum name="devanagari" value="4" />
-            <enum name="georgian" value="5" />
-            <enum name="greek" value="6" />
-            <enum name="hebrew" value="7" />
-            <enum name="kannada" value="8" />
-            <enum name="khmer" value="9" />
-            <enum name="lao" value="10" />
-            <enum name="latin" value="11" />
-            <enum name="malayalam" value="12" />
-            <!-- Myanmar is disabled. <enum name="myanmar" value="13" /> -->
-            <enum name="sinhala" value="14" />
-            <enum name="tamil" value="15" />
-            <enum name="telugu" value="16" />
-            <enum name="thai" value="17" />
-        </attr>
     </declare-styleable>
 
     <declare-styleable name="SeekBarDialogPreference">

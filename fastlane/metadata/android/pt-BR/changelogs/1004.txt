@@ -1,0 +1,7 @@
+- atualiza layout Cirílico Sérvio por @markokocic (#704, #705)
+- atualiza layout Estônia por @tenextractor (#693)
+- corrige entradas duplicadas no histórico da área de transferência by @codokie (#616, #680)
+- adiciona somente entradas de texto ao histórico da área de transferência por @codokie (#711)
+- imagens melhores nos metadados por @RHJihan (#713)
+- define corretamente cores de ícones no diálogo de seleção da barra de ferramentas por @codokie (#715, #716)
+- outras correções (#684, #723 e mais)

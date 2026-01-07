@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright (C) 2010 The Android Open Source Project
+    SPDX-License-Identifier: Apache-2.0
+-->
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+>
+    <helium314.keyboard.keyboard.PopupTextView
+        android:id="@+id/description_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="8dp"
+        android:paddingBottom="4dp"
+        android:visibility="gone"
+        android:maxLines="1" android:ellipsize="end"
+        style="?attr/popupKeysKeyboardViewStyle" />
+    <helium314.keyboard.keyboard.PopupKeysKeyboardView
+        android:id="@+id/popup_keys_keyboard_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="?attr/popupKeysKeyboardViewStyle" />
+</LinearLayout>

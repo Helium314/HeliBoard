@@ -1,10 +1,8 @@
+// SPDX-License-Identifier: GPL-3.0-only
+
 package com.majeur.inputmethod.tools.emoji.model
 
-import com.majeur.inputmethod.tools.emoji.model.EmojiData.Companion.CP_NUL
-
 data class EmojiSpec(val codes: IntArray, val unicodeVer: Float, val name: String) {
-
-    var component = CP_NUL
 
     val variants by lazy { mutableListOf<EmojiSpec>() }
 
@@ -16,6 +14,8 @@ data class EmojiSpec(val codes: IntArray, val unicodeVer: Float, val name: Strin
         other as EmojiSpec
         return codes contentEquals other.codes
     }
+
+    val text get() = codes.joinToString("") { Character.toString(it) }
 
     override fun hashCode() = codes.contentHashCode()
 }

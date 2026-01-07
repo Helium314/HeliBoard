@@ -1,0 +1,41 @@
+[popup_keys]
+ঙ ং
+য য়
+ড ঢ
+প ফ
+ট ঠ
+চ ছ
+জ ঝ
+হ ঞ
+গ ঘ
+ড় ঢ়
+ৃ ঋ
+ু উ
+ূ ঊ
+ি ই
+ী ঈ
+া আ অ
+্ ঁ
+ঁ !autoColumnOrder!6 ় ৄ ঽ ৢ ৱ ৣ ৗ ৠ ৺ ঌ ৰ ৡ
+ব ভ
+ক খ
+ত থ ৎ
+দ ধ
+্র ্য
+ো ও
+ৌ ঔ
+ে এ
+ৈ ঐ
+র ল র‍্য
+ন ণ
+স ষ
+ম শ
+punctuation !autoColumnOrder!8 \, ॥ ? ! !icon/zwnj_key|‌ !icon/zwj_key|‍ # @ ( ) / ; : - + \%
+
+[labels]
+alphabet: কখগ
+symbol: ?১২৩
+period: ।
+
+[number_row]
+১ ২ ৩ ৪ ৫ ৬ ৭ ৮ ৯ ০

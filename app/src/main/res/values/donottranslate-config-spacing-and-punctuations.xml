@@ -1,21 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-/*
-**
-** Copyright 2013, The Android Open Source Project
-**
-** Licensed under the Apache License, Version 2.0 (the "License");
-** you may not use this file except in compliance with the License.
-** You may obtain a copy of the License at
-**
-**     http://www.apache.org/licenses/LICENSE-2.0
-**
-** Unless required by applicable law or agreed to in writing, software
-** distributed under the License is distributed on an "AS IS" BASIS,
-** WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-** See the License for the specific language governing permissions and
-** limitations under the License.
-*/
+    Copyright (C) 2013 The Android Open Source Project
+    modified
+    SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <!-- TODO: these settings depend on the language. They should be put either in the dictionary
@@ -25,14 +12,22 @@
     <!-- Symbols that are normally preceded by a space (used to add an auto-space before these) -->
     <string name="symbols_preceded_by_space">([{&amp;</string>
     <!-- Symbols that are normally followed by a space (used to add an auto-space after these) -->
-    <string name="symbols_followed_by_space">.,;:!?)]}&amp;</string>
+    <string name="symbols_followed_by_space">.,;:!?)]}&amp;$€£</string>
     <!-- Symbols that behave like a single punctuation when typed next to each other -->
     <string name="symbols_clustering_together"></string>
     <!-- Symbols that separate words -->
     <!-- Don't remove the enclosing double quotes, they protect whitespace (not just U+0020) -->
-    <string name="symbols_word_separators">"&#x0009;&#x0020;&#x000A;&#x00A0;"()[]{}*&amp;&lt;&gt;+=|.,;:!?/_\"</string>
+    <string name="symbols_word_separators">"&#x0009;&#x0020;&#x000A;&#x00A0;"()[]{}*&amp;&lt;&gt;+=|.,;:!?/_\"„“</string>
+    <!-- Symbols pairs that may appear around text, comma separated. The first codepoint must be unique in the list, and must be a word separator -->
+    <string name="pair_symbols">(),[],{},&lt;&gt;,**,__,\"\",\'\',„“,“”,‚’,‘’,«»,‹›</string>
     <!-- Word connectors -->
     <string name="symbols_word_connectors">\'-</string>
+    <!-- Symbols that may act as word connectors, e.g. in URLs or mail addresses
+         / is not included, because a URL typically contains . or : before /, and including it might be unwanted in some cases
+         @ is not a word separator, but including it here allows continuing suggestions when typing a period of a mail address
+         todo: keep _ or not?
+     -->
+    <string name="symbols_sometimes_word_connectors">.:_@</string>
     <!-- The sentence separator code point, for capitalization and auto-insertion -->
     <!-- U+002E: "." FULL STOP   ; 2Eh = 46d -->
     <integer name="sentence_separator">46</integer>

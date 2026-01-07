@@ -1,0 +1,10 @@
+* Modifiye tuşları için temel destek ekle
+* Daha fazla araç çubuğu tuşuna uzun basma işlevi ekle
+* Daha fazla pano geçmişi araç çubuğu tuşu ekle
+* Pano geçmişi araç çubuğunu özelleştirilebilir yap
+* Tüm renkleri özelleştirmeye izin ver
+* Her zaman ortadaki öneri olarak girilecek kelimeyi gösterme ayarı ekle
+* Caps lock göstergesi ekle
+* Piedmontese, Doğu Mari, Mansi, Kannada ve Macarca için genişletilmiş düzenler ekle
+* Bazı cihazlarda tuş önizleme açılır penceresindeki kesik metni düzelt
+* Daha fazla düzeltme ve iyileştirme, sürüm notlarına bakın

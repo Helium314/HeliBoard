@@ -1,0 +1,11 @@
+* Özel temaları kaydetme/aktarabilme özelliği ekle
+* Klavye üzerindeki ok tuşlarını tekrar edilebilir yap
+* Daha fazla imleç araç çubuğu tuşu (sayfa yukarı/aşağı, kelime sola/sağa)
+* Yapıştırma tuşu ekle
+* Tuş kaydırma davranışını iyileştir
+* Numpad'i açıp kapamak için boşluk kaydırma ayarı ekle
+* Son kopyalanan metin için pano önerisi ekle
+* Seçim tuşlarına tekrar basıldığında metni seçimi kaldır
+* Android 12+ için ayarlarda bazı renkleri ayarla
+* Dil bağımlı açılır tuşları ayarla
+* Küçük düzeltmeler ve iyileştirmeler

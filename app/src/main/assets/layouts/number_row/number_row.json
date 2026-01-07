@@ -1,0 +1,44 @@
+[
+    [
+      { "$": "shift_state_selector",
+        "manualOrLocked": { "label": "!" },
+        "default": { "label": "1", "popup": { "relevant": [{ "label": "¹" }, { "label": "½" }, { "label": "⅓" }, { "label": "¼" }, { "label": "⅛" }] } }
+      },
+      { "$": "shift_state_selector",
+        "manualOrLocked": { "label": "@" },
+        "default": { "label": "2", "popup": { "relevant": [{ "label": "²" }, { "label": "⅔" }] } }
+      },
+      { "$": "shift_state_selector",
+        "manualOrLocked": { "label": "#" },
+        "default": { "label": "3", "popup": { "relevant": [{ "label": "³" }, { "label": "¾" }, { "label": "⅜" }] } }
+      },
+      { "$": "shift_state_selector",
+        "manualOrLocked": { "label": "$" },
+        "default": { "label": "4", "popup": { "relevant": [{ "label": "⁴" }] } }
+      },
+      { "$": "shift_state_selector",
+        "manualOrLocked": { "label": "%" },
+        "default": { "label": "5", "popup": { "relevant": [{ "label": "⁵" }, { "label": "⅝" }] } }
+      },
+      { "$": "shift_state_selector",
+        "manualOrLocked": { "label": "^" },
+        "default": { "label": "6", "popup": { "relevant": [{ "label": "⁶" }] } }
+      },
+      { "$": "shift_state_selector",
+        "manualOrLocked": { "label": "&" },
+        "default": { "label": "7", "popup": { "relevant": [{ "label": "⁷" }, { "label": "⅞" }] } }
+      },
+      { "$": "shift_state_selector",
+        "manualOrLocked": { "label": "*" },
+        "default": { "label": "8", "popup": { "relevant": [{ "label": "⁸" }] } }
+      },
+      { "$": "shift_state_selector",
+        "manualOrLocked": { "label": "(" },
+        "default": { "label": "9", "popup": { "relevant": [{ "label": "⁹" }] } }
+      },
+      { "$": "shift_state_selector",
+        "manualOrLocked": { "label": ")" },
+        "default": { "label": "0", "popup": { "relevant": [{ "label": "⁰" }, { "label": "ⁿ" }, { "label": "∅" }] } }
+      }
+    ]
+  ]

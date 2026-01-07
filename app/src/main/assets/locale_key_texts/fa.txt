@@ -1,0 +1,22 @@
+[popup_keys]
+ه ﻫ|ه‍ هٔ ة
+ی ئ ي ﯨ|ى
+ا !fixedColumnOrder!5 ٱ ء آ أ إ
+ت ة
+ک ك
+و ؤ
+punctuation !fixedColumnOrder!7  ٕ|ٕ  ْ|ْ  ّ|ّ  ٌ|ٌ  ٍ|ٍ  ً|ً  ٔ|ٔ  ٖ|ٖ  ٰ|ٰ  ٓ|ٓ  ُ|ُ  ِ|ِ  َ|َ ـــ|ـ
+« „ “ ”
+» ‚ ‘ ’ ‹ ›
+
+[labels]
+alphabet: ا‌ب‌پ
+symbol: ۳۲۱؟
+comma: ،
+question: ؟
+
+[number_row]
+۱ ۲ ۳ ۴ ۵ ۶ ۷ ۸ ۹ ۰
+
+[tlds]
+ir

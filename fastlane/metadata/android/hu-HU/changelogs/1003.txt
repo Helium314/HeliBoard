@@ -1,0 +1,9 @@
+* Ikonok cseréje az automatikus javítás és az összes kijelölése eszköztár-gombokhoz
+* Csuvas elrendezés hozzáadása
+* Kivágás eszköztárgomb hozzáadása
+* Probhat elrendezés frissítése
+* Eszköztár ikonok megjelenítése az eszköztárgomb-párbeszédablakban
+* Bezárás billentyű hozzáadása a vágólapelőzményekhez
+* Orosz (Tanuló) elrendezés hozzáadása
+* Számbillentyűzet a szimbólumbillentyű nyomva tartásával nem kötelezővé tétele
+* Kisebb javítások és fejlesztések

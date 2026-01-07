@@ -1,0 +1,8 @@
+* Bugfix layout per tablet
+* Tasto 'cambia lingua' dinamico (appare solo con più lingue)
+* Temi: colore base casuale per la modalità 'tutti i colori'
+* Possibilità di definire un tempo di attesa tra inserimento normale e gestuale
+* Possibilità di definire i tasti valuta
+* Ridotto l'intervallo per l'abilitazione del blocco maiuscole con la pressione lunga su ⇧
+* Aggiunti nuovi caratteri apice predefiniti sui tasti 0-9
+* Bugfix minori e miglioramenti vari

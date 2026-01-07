@@ -1,0 +1,9 @@
+* Personalizzazione di nuovi elementi
+* Stile della tastiera e delle icone selezionabili in modo indipendente
+* Tasti popup duplicati mostrati di default (più un piccolo miglioramento)
+* Aggiunta di parole al dizionario utente meno aggressiva
+* Nessuna vibrazione in modalità 'Non disturbare'
+* Prestazioni migliorate in caso di copia di testi molto lunghi
+* Tasti popup di punteggiatura migliorati e corretti
+* Risolti alcuni problemi di duplicazione testo
+* Altri miglioramenti e bugfix

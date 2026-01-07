@@ -1,0 +1,8 @@
+* Telepített alkalmazások neveinek opcionális javaslata
+* Csúsztatás az emodzsi kategóriák váltásához
+* Felugró értesítés megjelenítése a biztonsági mentés visszaállítása után
+* Vessző elérhetővé tétele a felugró ablakokban TLD felugró ablakok megjelenítésekor
+* Beállítás hozzáadása az alapértelmezett emodzsi bőrszínhez
+* Billentyűkódok hozzáadása a bal és jobb alt és ctrl billentyűkhöz
+
+* És még több hibajavítás - további részletek a bejelentésben

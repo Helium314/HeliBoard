@@ -1,0 +1,9 @@
+* Testre szabható funkcióbillentyű-elrendezés
+* Szimbólumok és további szimbólumok elrendezésének enyhe módosítása
+* Alt, ctrl, fn, meta billentyűk alapszintű támogatása
+* Eszköztár bővítése (hosszú lenyomás funkció, nem kötelező hosszú lenyomásos rögzítés, automatikus megjelenítés/elrejtés, jobb vágólap eszköztár, ...)
+* Tabulátor billentyű hozzáadása
+* Caps lock jelző hozzáadása
+* Elrendezések hozzáadása néhány nyelvhez
+
+* És még több hibajavítás - további részletek a bejelentésben

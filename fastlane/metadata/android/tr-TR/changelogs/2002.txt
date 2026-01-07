@@ -1,0 +1,4 @@
+* @codokie tarafından emoji araç çubuğu tuşu ekle (#845, #837)
+* Yinelenen harflerle ilgili iyileştirmeler (#225 ve belki diğerleri)
+* Emojiler içinde imleç konumlandırmaktan kaçın (#859)
+* Yeni eklenen özelliklerle ilgili küçük düzeltmeler

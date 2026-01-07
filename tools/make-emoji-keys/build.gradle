@@ -19,22 +19,16 @@ jar {
 task makeEmoji(type: JavaExec, dependsOn: ['jar']) {
     main = '-jar'
     args jar.archiveFile.get()
-    args '-res'
+    args '-assets'
     args project.rootProject.project('app').projectDir.path + File.separator + 'src' +
-            File.separator + 'main' + File.separator + 'res'
-}
-
-repositories {
-    mavenCentral()
+            File.separator + 'main' + File.separator + 'assets' + File.separator + 'emoji'
 }
 
 dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:2.1.10"
 }
 
-
-
 java {
-    sourceCompatibility = JavaVersion.VERSION_1_8
-    targetCompatibility = JavaVersion.VERSION_1_8
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
 }

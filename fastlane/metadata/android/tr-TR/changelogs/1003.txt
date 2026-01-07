@@ -1,0 +1,9 @@
+* @codokie tarafından otomatik düzeltme ve tümünü seç araç çubuğu tuşları için simgeleri değiştir (#524, #651)
+* @tenextractor tarafından Çuvaşça düzeni ekle (#677)
+* @codokie tarafından kesme araç çubuğu tuşu ekle (#678)
+* @fahimscirex tarafından Probhat düzenini güncelle (#628)
+* Araç çubuğu tuşu diyalogunda araç çubuğu simgelerini göster
+* @codokie tarafından pano geçmişine kapatma düğmesi ekle (#403, #649)
+* @Zolax9 tarafından Rusça (Öğrenci) düzeni ekle (#640)
+* Semboller tuşuna uzun basıldığında numpad'i göstermeyi isteğe bağlı yap (#588)
+* @RHJihan tarafından #632, #637, #638 dahil olmak üzere küçük düzeltmeler ve iyileştirmeler

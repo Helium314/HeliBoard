@@ -1,0 +1,41 @@
+[
+  [
+    { "$": "shift_state_selector",
+      "shiftedManual": { "label": ":", "popup": { "main": { "label": ";" } } },
+      "default": { "label": ";", "popup": { "main": { "label": ":" } } }
+    },
+    { "label": "ς", "labelFlags": 65536 },
+    { "label": "ε" },
+    { "label": "ρ" },
+    { "label": "τ" },
+    { "label": "υ" },
+    { "label": "θ" },
+    { "label": "ι" },
+    { "label": "ο" },
+    { "label": "π" }
+  ],
+  [
+    { "label": "α" },
+    { "label": "σ" },
+    { "label": "δ" },
+    { "label": "φ" },
+    { "label": "γ" },
+    { "label": "η" },
+    { "label": "ξ" },
+    { "label": "κ" },
+    { "label": "λ" },
+    { "$": "shift_state_selector",
+      "shiftedManual": { "code": 776, "label": "¨" },
+      "default": { "code": 769, "label": "´" }
+    }
+  ],
+  [
+    { "label": "ζ" },
+    { "label": "χ" },
+    { "label": "ψ" },
+    { "label": "ω" },
+    { "label": "β" },
+    { "label": "ν" },
+    { "label": "μ" }
+  ]
+]

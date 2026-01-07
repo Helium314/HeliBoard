@@ -1,0 +1,7 @@
+* new icon by @FabianOvrWrt with contributions from @the-eclectic-dyslexic (#517, #592)
+* more customizable space bar trackpad and language switch by @arcarum (#486)
+* add % to shift symbols layout (#568, #428)
+* improve behavior when language switch key is set to switch both language and keyboard
+* show links to existing dictionaries when adding a dictionary
+* add Kaitag layout by @alkaitagi (#519)
+* add Probhat layout by @fahimscirex (#489)

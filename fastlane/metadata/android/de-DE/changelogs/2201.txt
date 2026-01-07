@@ -1,0 +1,2 @@
+* visuelle Optionen für Gesteneingabe hinzufügen, von @devycarol (#944)
+* Aktualisierung einiger Icons, by @BlackyHawky (#977)

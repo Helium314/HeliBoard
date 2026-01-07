@@ -1,0 +1,7 @@
+[popup_keys]
+j ĵ
+u ŭ
+s ŝ
+c ĉ
+g ĝ
+h ĥ

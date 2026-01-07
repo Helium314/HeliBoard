@@ -1,0 +1,2 @@
+* adiciona opções visuais para digitação por gestos, por @devycarol (#944)
+* atualiza alguns ícones, por @BlackyHawky (#977)

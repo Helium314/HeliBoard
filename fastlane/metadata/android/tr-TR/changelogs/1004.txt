@@ -1,0 +1,7 @@
+- @markokocic tarafından Sırp Kiril alfabesi düzenini güncelle (#704, #705)
+- @tenextractor tarafından Estonya düzenini güncelle (#693)
+- @codokie tarafından pano geçmişindeki yinelenen girdileri düzelt (#616, #680)
+- Yalnızca metin girdilerini pano geçmişine ekle (@codokie #711)
+- Meta verilerde daha iyi görüntüler (@RHJihan #713)
+- Araç çubuğu seçim diyalogunda simgelerin rengini doğru ayarla (@codokie #715, #716)
+- Diğer düzeltmeler (#684, #723 ve daha fazlası)

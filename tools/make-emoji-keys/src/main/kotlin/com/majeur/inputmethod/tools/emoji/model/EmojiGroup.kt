@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: GPL-3.0-only
+
 package com.majeur.inputmethod.tools.emoji.model
 
 enum class EmojiGroup(val rawName: String) {
@@ -13,7 +15,7 @@ enum class EmojiGroup(val rawName: String) {
     FLAGS("Flags");
 
     companion object {
-        fun get(rawName: String) = values().first { it.rawName == rawName }
+        fun get(rawName: String) = entries.first { it.rawName == rawName }
     }
 
 }

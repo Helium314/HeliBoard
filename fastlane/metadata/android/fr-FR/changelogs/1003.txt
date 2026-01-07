@@ -1,0 +1,9 @@
+* changement des icônes pour l'autocorrection et la sélection de toutes les touches de la barre d'outils par @codokie (#524, #651)
+* ajout de la disposition de clavier Tchouvache par @tenextractor (#677)
+* ajout de la touche pour couper dans la barre d'outils par @codokie (#678)
+* mise à jour de la disposition de clavier Probhat par @fahimscirex (#628)
+* affichage des icônes de la barre d'outils dans la fenêtre des touches
+* ajout d'un bouton pour fermer dans l'historique du presse-papier par @codokie (#403, #649)
+* ajout de la disposition russe (student) par @Zolax9 (#640)
+* rendre les appuis longs sur les symboles du pavé numérique optionnels
+* corrections et améliorations mineures, en incluant #632, #637, #638 par @RHJihan

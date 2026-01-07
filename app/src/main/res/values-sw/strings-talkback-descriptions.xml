@@ -1,96 +1,69 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- 
-/*
-**
-** Copyright 2015, The Android Open Source Project
-**
-** Licensed under the Apache License, Version 2.0 (the "License");
-** you may not use this file except in compliance with the License.
-** You may obtain a copy of the License at
-**
-**     http://www.apache.org/licenses/LICENSE-2.0
-**
-** Unless required by applicable law or agreed to in writing, software
-** distributed under the License is distributed on an "AS IS" BASIS,
-** WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-** See the License for the specific language governing permissions and
-** limitations under the License.
-*/
- -->
-
-<resources xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="spoken_use_headphones" msgid="4313642710742229868">"Chomeka kifaa cha sauti ili usikie vitufe vya nenosiri vikitamkwa kwa sauti."</string>
-    <string name="spoken_current_text_is" msgid="4240549866156675799">"Maandishi ya sasa ni %s"</string>
-    <string name="spoken_no_text_entered" msgid="1711276837961785646">"Hakuna maandishi yaliyoingizwa"</string>
-    <string name="spoken_auto_correct" msgid="8989324692167993804">"<xliff:g id="KEY_NAME">%1$s</xliff:g> hurekebisha <xliff:g id="ORIGINAL_WORD">%2$s</xliff:g> kuwa <xliff:g id="CORRECTED_WORD">%3$s</xliff:g>"</string>
-    <string name="spoken_auto_correct_obscured" msgid="7769449372355268412">"<xliff:g id="KEY_NAME">%1$s</xliff:g> hufanya marekebisho otomatiki"</string>
-    <string name="spoken_empty_suggestion" msgid="4250215619373459752">"Hakuna pendekezo"</string>
-    <string name="spoken_description_unknown" msgid="5139930082759824442">"Herufi isiyojulikana"</string>
-    <string name="spoken_description_shift" msgid="7209798151676638728">"Shift"</string>
-    <string name="spoken_description_symbols_shift" msgid="3483198879916435717">"Alama zaidi"</string>
-    <string name="spoken_description_shift_shifted" msgid="3122704922642232605">"Shift"</string>
-    <string name="spoken_description_symbols_shift_shifted" msgid="5179175466878186081">"Alama"</string>
-    <string name="spoken_description_caps_lock" msgid="1224851412185975036">"Shift"</string>
-    <string name="spoken_description_delete" msgid="3878902286264983302">"Futa"</string>
-    <string name="spoken_description_to_symbol" msgid="8244903740201126590">"Alama"</string>
-    <string name="spoken_description_to_alpha" msgid="4081215210530031950">"Herufi"</string>
-    <string name="spoken_description_to_numeric" msgid="4560261331530795682">"Nambari"</string>
-    <string name="spoken_description_settings" msgid="7281251004003143204">"Mipangilio"</string>
-    <string name="spoken_description_tab" msgid="8210782459446866716">"Kichupo"</string>
-    <string name="spoken_description_space" msgid="5908716896642059145">"Nafasi"</string>
-    <string name="spoken_description_mic" msgid="6153138783813452464">"Kuweka data kwa kutamka"</string>
-    <string name="spoken_description_emoji" msgid="7990051553008088470">"Emoji"</string>
-    <string name="spoken_description_return" msgid="3183692287397645708">"Rudi"</string>
-    <string name="spoken_description_search" msgid="5099937658231911288">"Utafutaji"</string>
-    <string name="spoken_description_dot" msgid="5644176501632325560">"Nukta"</string>
-    <string name="spoken_description_language_switch" msgid="6818666779313544553">"Badilisha lugha"</string>
-    <string name="spoken_description_action_next" msgid="431761808119616962">"Linalofuata"</string>
-    <string name="spoken_description_action_previous" msgid="2919072174697865110">"Iililotangulia"</string>
-    <string name="spoken_description_shiftmode_on" msgid="5107180516341258979">"Shift imewashwa"</string>
-    <string name="spoken_description_shiftmode_locked" msgid="7307477738053606881">"Caps lock imewashwa"</string>
-    <string name="spoken_description_mode_symbol" msgid="111186851131446691">"Hali ya alama"</string>
-    <string name="spoken_description_mode_symbol_shift" msgid="4305607977537665389">"Hali ya alama zaidi"</string>
-    <string name="spoken_description_mode_alpha" msgid="4676004119618778911">"Hali ya herufi"</string>
-    <string name="spoken_description_mode_phone" msgid="2061220553756692903">"Hali ya simu"</string>
-    <string name="spoken_description_mode_phone_shift" msgid="7879963803547701090">"Hali ya alama za simu"</string>
-    <string name="announce_keyboard_hidden" msgid="2313574218950517779">"Kibodi imefichwa"</string>
-    <string name="announce_keyboard_mode" msgid="6698257917367823205">"Inaonyesha kibodi ya  <xliff:g id="KEYBOARD_MODE">%s</xliff:g>"</string>
-    <string name="keyboard_mode_date" msgid="6597407244976713364">"tarehe"</string>
-    <string name="keyboard_mode_date_time" msgid="3642804408726668808">"tarehe na wakati"</string>
-    <string name="keyboard_mode_email" msgid="1239682082047693644">"barua pepe"</string>
-    <string name="keyboard_mode_im" msgid="3812086215529493501">"kutuma ujumbe"</string>
-    <string name="keyboard_mode_number" msgid="5395042245837996809">"nambari"</string>
-    <string name="keyboard_mode_phone" msgid="2486230278064523665">"simu"</string>
-    <string name="keyboard_mode_text" msgid="9138789594969187494">"maandishi"</string>
-    <string name="keyboard_mode_time" msgid="8558297845514402675">"wakati"</string>
-    <string name="keyboard_mode_url" msgid="8072011652949962550">"URL"</string>
-    <string name="spoken_descrption_emoji_category_recents" msgid="4185344945205590692">"Zilizotumika majuzi"</string>
-    <string name="spoken_descrption_emoji_category_people" msgid="8414196269847492817">"Watu"</string>
-    <string name="spoken_descrption_emoji_category_objects" msgid="6116297906606195278">"Vitu"</string>
-    <string name="spoken_descrption_emoji_category_nature" msgid="5018340512472354640">"Maumbile"</string>
-    <string name="spoken_descrption_emoji_category_places" msgid="1163315840948545317">"Maeneo"</string>
-    <string name="spoken_descrption_emoji_category_symbols" msgid="474680659024880601">"Alama"</string>
-    <string name="spoken_descrption_emoji_category_flags" msgid="5971573825866381472">"Bendera"</string>
-    <string name="spoken_descrption_emoji_category_eight_smiley_people" msgid="5682663819532433464">"Kicheshi na Watu"</string>
-    <string name="spoken_descrption_emoji_category_eight_animals_nature" msgid="5844950234883716704">"Wanyama na Asili"</string>
-    <string name="spoken_descrption_emoji_category_eight_food_drink" msgid="6196944764485349650">"Vyakula na Vinywaji"</string>
-    <string name="spoken_descrption_emoji_category_eight_travel_places" msgid="3834085499381434611">"Usafiri na Maeneo"</string>
-    <string name="spoken_descrption_emoji_category_eight_activity" msgid="4795281669042975993">"Shughuli"</string>
-    <string name="spoken_descrption_emoji_category_emoticons" msgid="456737544787823539">"Vikaragosi"</string>
-    <string name="spoken_description_upper_case" msgid="4904835255229433916">"Herufi kubwa <xliff:g id="LOWER_LETTER">%s</xliff:g>"</string>
-    <string name="spoken_letter_0049" msgid="4743162182646977944">"Herufi I kubwa"</string>
-    <string name="spoken_letter_0130" msgid="4766619646231612274">"Herufi I kubwa, alama ya kitone inayowekwa sehemu ya juu ya herufi katika alfabeti za Kilatini na Kivietnamu"</string>
-    <string name="spoken_symbol_unknown" msgid="717298227061173706">"Alama isiyojulikana"</string>
-    <string name="spoken_emoji_unknown" msgid="5981009928135394306">"Emoji isiyojulikana"</string>
-    <string name="spoken_emoticon_3A_2D_21_20" msgid="2410905667389534573">"Kikaragosi cha uso uliochoka"</string>
-    <string name="spoken_emoticon_3A_2D_24_20" msgid="2481260475945560438">"Kikaragosi cha uso ulio tahayari"</string>
-    <string name="spoken_emoticon_42_2D_29_20" msgid="1063205250387128068">"Kikaragosi cha uso uliovaa miwani ya jua"</string>
-    <string name="spoken_emoticon_3A_4F_20" msgid="532695091593447238">"Kikaragosi cha uso unaoonyesha kushangaa"</string>
-    <string name="spoken_emoticon_3A_2D_2A_20" msgid="5612342617244114291">"Kikaragosi cha uso unaoonyesha busu"</string>
-    <string name="spoken_emoticon_3A_2D_5B_20" msgid="2223507987759905920">"Kikaragosi cha uso uliokunja ndita"</string>
-    <string name="spoken_open_more_keys_keyboard" msgid="6832897688371903747">"Herufi mbadala zinapatikana"</string>
-    <string name="spoken_close_more_keys_keyboard" msgid="3524914657934712026">"Herufi mbadala huondolewa"</string>
-    <string name="spoken_open_more_suggestions" msgid="4231720702882969760">"Mapendekezo mbadala yanapatikana"</string>
-    <string name="spoken_close_more_suggestions" msgid="9118455416075032839">"Mapendekezo mbadala huondolewa"</string>
+<!--
+    Copyright (C) 2015 The Android Open Source Project
+    SPDX-License-Identifier: Apache-2.0
+-->
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="spoken_use_headphones">"Chomeka kifaa cha sauti ili usikie vitufe vya nenosiri vikitamkwa kwa sauti."</string>
+    <string name="spoken_current_text_is">"Maandishi ya sasa ni %s"</string>
+    <string name="spoken_no_text_entered">"Hakuna maandishi yaliyoingizwa"</string>
+    <string name="spoken_auto_correct">"<xliff:g id="KEY_NAME">%1$s</xliff:g> hurekebisha <xliff:g id="ORIGINAL_WORD">%2$s</xliff:g> kuwa <xliff:g id="CORRECTED_WORD">%3$s</xliff:g>"</string>
+    <string name="spoken_auto_correct_obscured">"<xliff:g id="KEY_NAME">%1$s</xliff:g> hufanya marekebisho otomatiki"</string>
+    <string name="spoken_empty_suggestion">"Hakuna pendekezo"</string>
+    <string name="spoken_description_unknown">"Herufi isiyojulikana"</string>
+    <string name="spoken_description_shift">"Shift"</string>
+    <string name="spoken_description_symbols_shift">"Alama zaidi"</string>
+    <string name="spoken_description_shift_shifted">"Shift"</string>
+    <string name="spoken_description_symbols_shift_shifted">"Alama"</string>
+    <string name="spoken_description_caps_lock">"Shift"</string>
+    <string name="spoken_description_delete">"Futa"</string>
+    <string name="spoken_description_to_symbol">"Alama"</string>
+    <string name="spoken_description_to_alpha">"Herufi"</string>
+    <string name="spoken_description_to_numeric">"Nambari"</string>
+    <string name="spoken_description_settings">"Mipangilio"</string>
+    <string name="spoken_description_tab">"Kichupo"</string>
+    <string name="spoken_description_space">"Nafasi"</string>
+    <string name="spoken_description_mic">"Kuweka data kwa kutamka"</string>
+    <string name="spoken_description_emoji">"Emoji"</string>
+    <string name="spoken_description_return">"Rudi"</string>
+    <string name="spoken_description_search">"Utafutaji"</string>
+    <string name="spoken_description_dot">"Nukta"</string>
+    <string name="spoken_description_language_switch">"Badilisha lugha"</string>
+    <string name="spoken_description_action_next">"Linalofuata"</string>
+    <string name="spoken_description_action_previous">"Iililotangulia"</string>
+    <string name="spoken_description_shiftmode_on">"Shift imewashwa"</string>
+    <string name="spoken_description_shiftmode_locked">"Caps lock imewashwa"</string>
+    <string name="spoken_description_mode_symbol">"Hali ya alama"</string>
+    <string name="spoken_description_mode_symbol_shift">"Hali ya alama zaidi"</string>
+    <string name="spoken_description_mode_alpha">"Hali ya herufi"</string>
+    <string name="spoken_description_mode_phone">"Hali ya simu"</string>
+    <string name="spoken_description_mode_phone_shift">"Hali ya alama za simu"</string>
+    <string name="announce_keyboard_hidden">"Kibodi imefichwa"</string>
+    <string name="announce_keyboard_mode">"Inaonyesha kibodi ya  <xliff:g id="KEYBOARD_MODE">%s</xliff:g>"</string>
+    <string name="keyboard_mode_date">"tarehe"</string>
+    <string name="keyboard_mode_date_time">"tarehe na wakati"</string>
+    <string name="keyboard_mode_email">"barua pepe"</string>
+    <string name="keyboard_mode_im">"kutuma ujumbe"</string>
+    <string name="keyboard_mode_number">"nambari"</string>
+    <string name="keyboard_mode_phone">"simu"</string>
+    <string name="keyboard_mode_text">"maandishi"</string>
+    <string name="keyboard_mode_time">"wakati"</string>
+    <string name="keyboard_mode_url">"URL"</string>
+    <string name="spoken_description_emoji_category_recents">"Zilizotumika majuzi"</string>
+    <string name="spoken_description_emoji_category_objects">"Vitu"</string>
+    <string name="spoken_description_emoji_category_symbols">"Alama"</string>
+    <string name="spoken_description_emoji_category_flags">"Bendera"</string>
+    <string name="spoken_description_emoji_category_eight_smiley_people">"Kicheshi na Watu"</string>
+    <string name="spoken_description_emoji_category_eight_animals_nature">"Wanyama na Asili"</string>
+    <string name="spoken_description_emoji_category_eight_food_drink">"Vyakula na Vinywaji"</string>
+    <string name="spoken_description_emoji_category_eight_travel_places">"Usafiri na Maeneo"</string>
+    <string name="spoken_description_emoji_category_eight_activity">"Shughuli"</string>
+    <string name="spoken_description_emoji_category_emoticons">"Vikaragosi"</string>
+    <string name="spoken_description_upper_case">"Herufi kubwa <xliff:g id="LOWER_LETTER">%s</xliff:g>"</string>
+    <string name="spoken_letter_0049">"Herufi I kubwa"</string>
+    <string name="spoken_letter_0130">"Herufi I kubwa, alama ya kitone inayowekwa sehemu ya juu ya herufi katika alfabeti za Kilatini na Kivietnamu"</string>
+    <string name="spoken_open_popup_keys_keyboard">"Herufi mbadala zinapatikana"</string>
+    <string name="spoken_close_popup_keys_keyboard">"Herufi mbadala huondolewa"</string>
+    <string name="spoken_open_more_suggestions">"Mapendekezo mbadala yanapatikana"</string>
+    <string name="spoken_close_more_suggestions">"Mapendekezo mbadala huondolewa"</string>
 </resources>

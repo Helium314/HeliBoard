@@ -1,21 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-/*
-**
-** Copyright 2011, The Android Open Source Project
-**
-** Licensed under the Apache License, Version 2.0 (the "License");
-** you may not use this file except in compliance with the License.
-** You may obtain a copy of the License at
-**
-**     http://www.apache.org/licenses/LICENSE-2.0
-**
-** Unless required by applicable law or agreed to in writing, software
-** distributed under the License is distributed on an "AS IS" BASIS,
-** WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-** See the License for the specific language governing permissions and
-** limitations under the License.
-*/
+    Copyright (C) 2011 The Android Open Source Project
+    modified
+    SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
 -->
 
 <!-- Configuration values for Small Tablet Landscape. -->
@@ -25,12 +12,14 @@
     <dimen name="config_default_keyboard_height">283.5dp</dimen>
     <fraction name="config_min_keyboard_height">40%p</fraction>
 
-    <dimen name="config_more_keys_keyboard_key_height">81.9dp</dimen>
+    <dimen name="config_popup_keys_keyboard_key_height">81.9dp</dimen>
 
     <fraction name="config_keyboard_top_padding_holo">2.727%p</fraction>
-    <fraction name="config_keyboard_bottom_padding_holo">0.0%p</fraction>
+    <fraction name="config_keyboard_bottom_padding_holo">2.0%p</fraction>
     <fraction name="config_key_vertical_gap_holo">4.5%p</fraction>
     <fraction name="config_key_horizontal_gap_holo">0.9%p</fraction>
+    <fraction name="config_key_vertical_gap_holo_narrow">4.5%p</fraction>
+    <fraction name="config_key_horizontal_gap_holo_narrow">0.9%p</fraction>
 
     <fraction name="config_key_letter_ratio_holo">50%</fraction>
     <fraction name="config_key_letter_ratio_lxx">50%</fraction>
@@ -47,13 +36,7 @@
     <fraction name="config_language_on_spacebar_text_ratio">30.0%</fraction>
     <dimen name="config_key_shifted_letter_hint_padding">4dp</dimen>
 
-    <!-- For 5-row keyboard -->
-    <fraction name="config_key_vertical_gap_5row">3.20%p</fraction>
-    <fraction name="config_key_letter_ratio_5row">62%</fraction>
-    <fraction name="config_key_shifted_letter_hint_ratio_5row">36%</fraction>
-
     <dimen name="config_suggestions_strip_height">44dp</dimen>
-    <dimen name="config_suggestions_strip_horizontal_margin">180.0dp</dimen>
     <dimen name="config_suggestions_strip_edge_key_width">54dp</dimen>
     <integer name="config_max_more_suggestions_row">5</integer>
     <fraction name="config_min_more_suggestions_width">50%</fraction>

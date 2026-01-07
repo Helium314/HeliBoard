@@ -1,0 +1,30 @@
+HeliBoard, gizliliğe önem veren, AOSP / OpenBoard tabanlı açık kaynaklı bir klavyedir.
+İnternet izni kullanmaz, bu nedenle %100 çevrimdışıdır.
+
+Özellikler:
+<ul>
+  <li>Öneriler ve yazım denetimi için sözlükler ekle</li>
+  <ul>
+    <li>Kendi sözlüklerini oluşturabilir veya <a href="https://codeberg.org/Helium314/aosp-dictionaries#dictionaries">buradan</a> veya <a href="https://codeberg.org/Helium314/aosp-dictionaries#experimental-dictionaries">deneysel</a> bölümden (kalite değişebilir) indirebilirsin</li>
+    <li>Emojiler veya bilimsel semboller için ek sözlükler kullanarak öneriler sağlayabilirsin (emoji araması gibi)</li>
+    <li>Korece düzenleri için önerilerin yalnızca <a href="https://github.com/openboard-team/openboard/commit/83fca9533c03b9fecc009fc632577226bbd6301f">bu sözlük</a> ile çalıştığını unutma; sözlük deposundaki araçlar, çalışan sözlükler oluşturmak için yeterli değil</li>
+  </ul>
+  <li>Klavyenin temasını (stil, renkler ve arka plan resmi) özelleştir</li>
+  <ul>
+    <li>Android 10+ (ve bazı Android 9 sürümlerinde) sistemin gün/gece ayarını takip edebilir</li>
+    <li>Android 12+ için dinamik renkleri takip edebilir</li>
+  </ul>
+  <li>Klavyenin <a href="https://github.com/Helium314/HeliBoard/blob/main/layouts.md">düzenlerini</a> özelleştir (yalnızca <i>sistem dillerini kullan</i> özelliği devre dışı bırakıldığında kullanılabilir)</li>
+  <li>Semboller, sayı veya işlev tuşu düzenleri gibi özel düzenleri özelleştir</li>
+  <li>Çok dilli yazım</li>
+  <li>Kaydırarak yazma (<i>yalnızca kapalı kaynaklı kütüphane ile</i> ☹️)</li>
+  <ul>
+    <li>Kütüphane uygulamaya dahil değildir çünkü uyumlu bir açık kaynak kütüphanesi bulunmamaktadır</li>
+    <li>GApps paketlerinden ("<i>swypelibs</i>") çıkarılabilir veya <a href="https://github.com/erkserkserks/openboard/tree/46fdf2b550035ca69299ce312fa158e7ade36967/app/src/main/jniLibs">buradan</a> indirilebilir (dosyaya tıkla, ardından "raw" veya küçük indirme düğmesine bas)</li>
+  </ul>
+  <li>Pano geçmişi</li>
+  <li>Tek elle kullanım modu</li>
+  <li>Bölünmüş klavye (yalnızca ekran yeterince büyükse kullanılabilir)</li>
+  <li>Sayı tuş takımı</li>
+  <li>Ayarlarını ve öğrendiğin kelime / geçmiş verilerini yedekle ve geri yükle</li>
+</ul>

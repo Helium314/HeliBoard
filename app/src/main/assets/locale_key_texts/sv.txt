@@ -1,0 +1,13 @@
+[popup_keys]
+a ä å
+o ö
+' › ‹
+" » «
+
+[extra_keys]
+1: å
+2: ö
+2: ä
+
+[tlds]
+sv

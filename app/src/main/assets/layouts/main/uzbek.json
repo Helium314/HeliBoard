@@ -1,0 +1,37 @@
+[
+  [
+    { "label": "q" },
+    { "label": "w" },
+    { "label": "e" },
+    { "label": "r" },
+    { "label": "t" },
+    { "label": "y" },
+    { "label": "u" },
+    { "label": "i" },
+    { "label": "o" },
+    { "label": "p" },
+    { "label": "oʻ", "labelFlags": 128 }
+  ],
+  [
+    { "label": "a" },
+    { "label": "s" },
+    { "label": "d" },
+    { "label": "f" },
+    { "label": "g" },
+    { "label": "h" },
+    { "label": "j" },
+    { "label": "k" },
+    { "label": "l" },
+    { "label": "gʻ", "labelFlags": 128 },
+    { "label": "ʼ" }
+  ],
+  [
+    { "label": "z" },
+    { "label": "x" },
+    { "label": "c" },
+    { "label": "v" },
+    { "label": "b" },
+    { "label": "n" },
+    { "label": "m" }
+  ]
+]

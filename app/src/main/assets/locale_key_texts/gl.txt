@@ -1,0 +1,10 @@
+[popup_keys]
+a á ª
+e é
+i í
+o ó º
+u ú ü
+n ñ
+
+[extra_keys]
+2: ñ

@@ -1,96 +1,69 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- 
-/*
-**
-** Copyright 2015, The Android Open Source Project
-**
-** Licensed under the Apache License, Version 2.0 (the "License");
-** you may not use this file except in compliance with the License.
-** You may obtain a copy of the License at
-**
-**     http://www.apache.org/licenses/LICENSE-2.0
-**
-** Unless required by applicable law or agreed to in writing, software
-** distributed under the License is distributed on an "AS IS" BASIS,
-** WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-** See the License for the specific language governing permissions and
-** limitations under the License.
-*/
- -->
-
-<resources xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="spoken_use_headphones" msgid="4313642710742229868">"Mag-plug in ng headset upang marinig ang mga password key na binabanggit nang malakas."</string>
-    <string name="spoken_current_text_is" msgid="4240549866156675799">"Ang kasalukuyang teksto ay %s"</string>
-    <string name="spoken_no_text_entered" msgid="1711276837961785646">"Walang tekstong inilagay"</string>
-    <string name="spoken_auto_correct" msgid="8989324692167993804">"Itinatama ng <xliff:g id="KEY_NAME">%1$s</xliff:g> ang <xliff:g id="ORIGINAL_WORD">%2$s</xliff:g> sa <xliff:g id="CORRECTED_WORD">%3$s</xliff:g>"</string>
-    <string name="spoken_auto_correct_obscured" msgid="7769449372355268412">"Nagsasagawa ang <xliff:g id="KEY_NAME">%1$s</xliff:g> ng auto-correction"</string>
-    <string name="spoken_empty_suggestion" msgid="4250215619373459752">"Walang suhestyon"</string>
-    <string name="spoken_description_unknown" msgid="5139930082759824442">"Hindi alam na character"</string>
-    <string name="spoken_description_shift" msgid="7209798151676638728">"Shift"</string>
-    <string name="spoken_description_symbols_shift" msgid="3483198879916435717">"Marami pang simbolo"</string>
-    <string name="spoken_description_shift_shifted" msgid="3122704922642232605">"Shift"</string>
-    <string name="spoken_description_symbols_shift_shifted" msgid="5179175466878186081">"Mga Simbolo"</string>
-    <string name="spoken_description_caps_lock" msgid="1224851412185975036">"Shift"</string>
-    <string name="spoken_description_delete" msgid="3878902286264983302">"I-delete"</string>
-    <string name="spoken_description_to_symbol" msgid="8244903740201126590">"Mga Simbolo"</string>
-    <string name="spoken_description_to_alpha" msgid="4081215210530031950">"Mga Titik"</string>
-    <string name="spoken_description_to_numeric" msgid="4560261331530795682">"Mga Numero"</string>
-    <string name="spoken_description_settings" msgid="7281251004003143204">"Mga Setting"</string>
-    <string name="spoken_description_tab" msgid="8210782459446866716">"Tab"</string>
-    <string name="spoken_description_space" msgid="5908716896642059145">"Space"</string>
-    <string name="spoken_description_mic" msgid="6153138783813452464">"Input ng boses"</string>
-    <string name="spoken_description_emoji" msgid="7990051553008088470">"Emoji"</string>
-    <string name="spoken_description_return" msgid="3183692287397645708">"Bumalik"</string>
-    <string name="spoken_description_search" msgid="5099937658231911288">"Maghanap"</string>
-    <string name="spoken_description_dot" msgid="5644176501632325560">"Tuldok"</string>
-    <string name="spoken_description_language_switch" msgid="6818666779313544553">"Magpalit ng wika"</string>
-    <string name="spoken_description_action_next" msgid="431761808119616962">"Sunod"</string>
-    <string name="spoken_description_action_previous" msgid="2919072174697865110">"Nauna"</string>
-    <string name="spoken_description_shiftmode_on" msgid="5107180516341258979">"Naka-enable ang shift"</string>
-    <string name="spoken_description_shiftmode_locked" msgid="7307477738053606881">"Naka-enable ang caps lock"</string>
-    <string name="spoken_description_mode_symbol" msgid="111186851131446691">"Symbols mode"</string>
-    <string name="spoken_description_mode_symbol_shift" msgid="4305607977537665389">"Mode na marami pang simbolo"</string>
-    <string name="spoken_description_mode_alpha" msgid="4676004119618778911">"Letters mode"</string>
-    <string name="spoken_description_mode_phone" msgid="2061220553756692903">"Phone mode"</string>
-    <string name="spoken_description_mode_phone_shift" msgid="7879963803547701090">"Phone symbols mode"</string>
-    <string name="announce_keyboard_hidden" msgid="2313574218950517779">"Nakatago ang keyboard"</string>
-    <string name="announce_keyboard_mode" msgid="6698257917367823205">"Ipinapakita ang keyboard na <xliff:g id="KEYBOARD_MODE">%s</xliff:g>"</string>
-    <string name="keyboard_mode_date" msgid="6597407244976713364">"petsa"</string>
-    <string name="keyboard_mode_date_time" msgid="3642804408726668808">"petsa at oras"</string>
-    <string name="keyboard_mode_email" msgid="1239682082047693644">"email"</string>
-    <string name="keyboard_mode_im" msgid="3812086215529493501">"pagmemensahe"</string>
-    <string name="keyboard_mode_number" msgid="5395042245837996809">"numero"</string>
-    <string name="keyboard_mode_phone" msgid="2486230278064523665">"telepono"</string>
-    <string name="keyboard_mode_text" msgid="9138789594969187494">"teksto"</string>
-    <string name="keyboard_mode_time" msgid="8558297845514402675">"oras"</string>
-    <string name="keyboard_mode_url" msgid="8072011652949962550">"URL"</string>
-    <string name="spoken_descrption_emoji_category_recents" msgid="4185344945205590692">"Mga Kamakailang Ginamit"</string>
-    <string name="spoken_descrption_emoji_category_people" msgid="8414196269847492817">"Mga Tao"</string>
-    <string name="spoken_descrption_emoji_category_objects" msgid="6116297906606195278">"Mga Bagay"</string>
-    <string name="spoken_descrption_emoji_category_nature" msgid="5018340512472354640">"Kalikasan"</string>
-    <string name="spoken_descrption_emoji_category_places" msgid="1163315840948545317">"Mga Lugar"</string>
-    <string name="spoken_descrption_emoji_category_symbols" msgid="474680659024880601">"Mga Simbolo"</string>
-    <string name="spoken_descrption_emoji_category_flags" msgid="5971573825866381472">"Mga Watawat"</string>
-    <string name="spoken_descrption_emoji_category_eight_smiley_people" msgid="5682663819532433464">"Smiley at Mga Tao"</string>
-    <string name="spoken_descrption_emoji_category_eight_animals_nature" msgid="5844950234883716704">"Mga Hayop at Kalikasan"</string>
-    <string name="spoken_descrption_emoji_category_eight_food_drink" msgid="6196944764485349650">"Pagkain at Inumin"</string>
-    <string name="spoken_descrption_emoji_category_eight_travel_places" msgid="3834085499381434611">"Paglalakbay at Mga Lugar"</string>
-    <string name="spoken_descrption_emoji_category_eight_activity" msgid="4795281669042975993">"Aktibidad"</string>
-    <string name="spoken_descrption_emoji_category_emoticons" msgid="456737544787823539">"Mga Emoticon"</string>
-    <string name="spoken_description_upper_case" msgid="4904835255229433916">"Capital <xliff:g id="LOWER_LETTER">%s</xliff:g>"</string>
-    <string name="spoken_letter_0049" msgid="4743162182646977944">"Capital I"</string>
-    <string name="spoken_letter_0130" msgid="4766619646231612274">"Capital I, tuldok sa itaas"</string>
-    <string name="spoken_symbol_unknown" msgid="717298227061173706">"Hindi alam na simbolo"</string>
-    <string name="spoken_emoji_unknown" msgid="5981009928135394306">"Hindi alam na emoji"</string>
-    <string name="spoken_emoticon_3A_2D_21_20" msgid="2410905667389534573">"Tinatamad na mukha"</string>
-    <string name="spoken_emoticon_3A_2D_24_20" msgid="2481260475945560438">"Nahihiya na mukha"</string>
-    <string name="spoken_emoticon_42_2D_29_20" msgid="1063205250387128068">"Mukha na nakasuot ng salamin"</string>
-    <string name="spoken_emoticon_3A_4F_20" msgid="532695091593447238">"Nagulat na mukha"</string>
-    <string name="spoken_emoticon_3A_2D_2A_20" msgid="5612342617244114291">"Humahalik na mukha"</string>
-    <string name="spoken_emoticon_3A_2D_5B_20" msgid="2223507987759905920">"Nakasimangot na mukha"</string>
-    <string name="spoken_open_more_keys_keyboard" msgid="6832897688371903747">"Available ang mga alternatibong character"</string>
-    <string name="spoken_close_more_keys_keyboard" msgid="3524914657934712026">"Dini-dismiss ang mga alternatibong character"</string>
-    <string name="spoken_open_more_suggestions" msgid="4231720702882969760">"Available ang mga alternatibong suhestyon"</string>
-    <string name="spoken_close_more_suggestions" msgid="9118455416075032839">"Dini-dismiss ang mga alternatibong suhestyon"</string>
+<!--
+    Copyright (C) 2015 The Android Open Source Project
+    SPDX-License-Identifier: Apache-2.0
+-->
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="spoken_use_headphones">"Mag-plug in ng headset upang marinig ang mga password key na binabanggit nang malakas."</string>
+    <string name="spoken_current_text_is">"Ang kasalukuyang teksto ay %s"</string>
+    <string name="spoken_no_text_entered">"Walang tekstong inilagay"</string>
+    <string name="spoken_auto_correct">"Itinatama ng <xliff:g id="KEY_NAME">%1$s</xliff:g> ang <xliff:g id="ORIGINAL_WORD">%2$s</xliff:g> sa <xliff:g id="CORRECTED_WORD">%3$s</xliff:g>"</string>
+    <string name="spoken_auto_correct_obscured">"Nagsasagawa ang <xliff:g id="KEY_NAME">%1$s</xliff:g> ng auto-correction"</string>
+    <string name="spoken_empty_suggestion">"Walang suhestyon"</string>
+    <string name="spoken_description_unknown">"Hindi alam na character"</string>
+    <string name="spoken_description_shift">"Shift"</string>
+    <string name="spoken_description_symbols_shift">"Marami pang simbolo"</string>
+    <string name="spoken_description_shift_shifted">"Shift"</string>
+    <string name="spoken_description_symbols_shift_shifted">"Mga Simbolo"</string>
+    <string name="spoken_description_caps_lock">"Shift"</string>
+    <string name="spoken_description_delete">"I-delete"</string>
+    <string name="spoken_description_to_symbol">"Mga Simbolo"</string>
+    <string name="spoken_description_to_alpha">"Mga Titik"</string>
+    <string name="spoken_description_to_numeric">"Mga Numero"</string>
+    <string name="spoken_description_settings">"Mga Setting"</string>
+    <string name="spoken_description_tab">"Tab"</string>
+    <string name="spoken_description_space">"Space"</string>
+    <string name="spoken_description_mic">"Input ng boses"</string>
+    <string name="spoken_description_emoji">"Emoji"</string>
+    <string name="spoken_description_return">"Bumalik"</string>
+    <string name="spoken_description_search">"Maghanap"</string>
+    <string name="spoken_description_dot">"Tuldok"</string>
+    <string name="spoken_description_language_switch">"Magpalit ng wika"</string>
+    <string name="spoken_description_action_next">"Sunod"</string>
+    <string name="spoken_description_action_previous">"Nauna"</string>
+    <string name="spoken_description_shiftmode_on">"Naka-enable ang shift"</string>
+    <string name="spoken_description_shiftmode_locked">"Naka-enable ang caps lock"</string>
+    <string name="spoken_description_mode_symbol">"Symbols mode"</string>
+    <string name="spoken_description_mode_symbol_shift">"Mode na marami pang simbolo"</string>
+    <string name="spoken_description_mode_alpha">"Letters mode"</string>
+    <string name="spoken_description_mode_phone">"Phone mode"</string>
+    <string name="spoken_description_mode_phone_shift">"Phone symbols mode"</string>
+    <string name="announce_keyboard_hidden">"Nakatago ang keyboard"</string>
+    <string name="announce_keyboard_mode">"Ipinapakita ang keyboard na <xliff:g id="KEYBOARD_MODE">%s</xliff:g>"</string>
+    <string name="keyboard_mode_date">"petsa"</string>
+    <string name="keyboard_mode_date_time">"petsa at oras"</string>
+    <string name="keyboard_mode_email">"email"</string>
+    <string name="keyboard_mode_im">"pagmemensahe"</string>
+    <string name="keyboard_mode_number">"numero"</string>
+    <string name="keyboard_mode_phone">"telepono"</string>
+    <string name="keyboard_mode_text">"teksto"</string>
+    <string name="keyboard_mode_time">"oras"</string>
+    <string name="keyboard_mode_url">"URL"</string>
+    <string name="spoken_description_emoji_category_recents">"Mga Kamakailang Ginamit"</string>
+    <string name="spoken_description_emoji_category_objects">"Mga Bagay"</string>
+    <string name="spoken_description_emoji_category_symbols">"Mga Simbolo"</string>
+    <string name="spoken_description_emoji_category_flags">"Mga Watawat"</string>
+    <string name="spoken_description_emoji_category_eight_smiley_people">"Smiley at Mga Tao"</string>
+    <string name="spoken_description_emoji_category_eight_animals_nature">"Mga Hayop at Kalikasan"</string>
+    <string name="spoken_description_emoji_category_eight_food_drink">"Pagkain at Inumin"</string>
+    <string name="spoken_description_emoji_category_eight_travel_places">"Paglalakbay at Mga Lugar"</string>
+    <string name="spoken_description_emoji_category_eight_activity">"Aktibidad"</string>
+    <string name="spoken_description_emoji_category_emoticons">"Mga Emoticon"</string>
+    <string name="spoken_description_upper_case">"Capital <xliff:g id="LOWER_LETTER">%s</xliff:g>"</string>
+    <string name="spoken_letter_0049">"Capital I"</string>
+    <string name="spoken_letter_0130">"Capital I, tuldok sa itaas"</string>
+    <string name="spoken_open_popup_keys_keyboard">"Available ang mga alternatibong character"</string>
+    <string name="spoken_close_popup_keys_keyboard">"Dini-dismiss ang mga alternatibong character"</string>
+    <string name="spoken_open_more_suggestions">"Available ang mga alternatibong suhestyon"</string>
+    <string name="spoken_close_more_suggestions">"Dini-dismiss ang mga alternatibong suhestyon"</string>
 </resources>

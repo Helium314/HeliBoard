@@ -1,7 +1,0 @@
-1.4.3:
-- aggiunta modalità giorno/notte
-- raggruppate emoji di colore diverso
-- aggiunto layout Arabic PC
-- cambiamenti al layout tedesco
-- cambiamenti ai temi
-- bugfix

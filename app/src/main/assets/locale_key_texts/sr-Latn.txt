@@ -1,0 +1,15 @@
+[popup_keys]
+s š
+z ž
+c č ć
+d đ
+
+[extra_keys]
+1: š
+2: č
+2: ć
+3: đ
+3: ž
+
+[tlds]
+rs

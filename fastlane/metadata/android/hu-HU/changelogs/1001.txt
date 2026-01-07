@@ -1,0 +1,9 @@
+* Új ikon
+* Jobban testreszabható szóköz-érintőpad és nyelvváltás
+* % hozzáadása a shift-szimbólumok elrendezéséhez
+* Javított viselkedés, ha a nyelvváltó billentyű a nyelv és a billentyűzet együttes váltására van beállítva
+* Meglévő szótárakra mutató hivatkozások megjelenítése szótár hozzáadásakor
+* Kaitag és Probhat elrendezés hozzáadása
+* Megfordítható eszköztár-sorrend RTL nyelvekhez
+
+* És még több hibajavítás - további részletek a bejelentésben

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    SPDX-FileCopyrightText: Material Design Authors / Google LLC
+    SPDX-License-Identifier: Apache-2.0
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="30dp"
+    android:height="30dp"
+    android:viewportWidth="960"
+    android:viewportHeight="960">
+    <path
+        android:fillColor="#FFF"
+        android:pathData="M382,620.62L727.54,275.08Q736.46,266.16 748.73,265.96Q761,265.77 770.31,275.08Q779.61,284.39 779.61,296.46Q779.61,308.54 770.31,317.85L407.31,680.84Q396.46,691.69 382,691.69Q367.54,691.69 356.69,680.84L189.69,513.85Q180.77,504.92 180.88,492.65Q181,480.39 190.31,471.08Q199.62,461.77 211.69,461.77Q223.77,461.77 233.08,471.08L382,620.62Z"/>
+</vector>

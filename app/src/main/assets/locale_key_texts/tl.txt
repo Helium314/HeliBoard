@@ -1,0 +1,5 @@
+[popup_keys]
+n ñ
+
+[extra_keys]
+2: ñ

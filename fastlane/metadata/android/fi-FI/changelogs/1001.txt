@@ -1,0 +1,20 @@
+* @FabianOvrWrt:n uusi kuvake, @the-eclectic-dyslexic (#517, #592)
+* enemmän muokattavaa välilyöntinäppäimen ohjauslevyä ja kielenvaihtoa @arcarumilta (#486)
+* lisää % siirtääksesi symbolien asettelua (#568, #428)
+* parantaa käyttäytymistä, kun kielenvaihtonäppäin on asetettu vaihtamaan sekä kieltä että näppäimistöä
+* Näytä linkkejä olemassa oleviin sanakirjoihin, kun lisäät sanakirjaa
+* lisää Kaitag-asettelu @alkaitagi (#519)
+* lisää Probhat-asettelu @fahimscirex (#489)
+* valinnaisesti käänteinen työkalurivin järjestys RTL-kielille @codokien toimesta (#557, #574)
+* mahdollistaa erikoisasettelujen mukauttamisen (numeronäppäimistö, puhelin, ...)
+ * vielä kokeellinen, koska perusasettelut voivat muuttua
+* päivitys spellchecker.xml sisältämään maa-asetukset, joissa sanakirjat ovat saatavilla, mutta eivät sisälly sovellukseen
+* päivitys käännöksiä (kiitos kaikille kääntäjille!)
+* päivitys ndk:ltä @Syphyr (#560)
+* päivitä automaattisen täytön koodi @arcarum (#595)
+* Korjaa ongelma työkalupalkin näppäinvalintaikkunassa (#505)
+* korjaa turkkilaisen asettelun ongelma (#508)
+* Korjaa väärät kytkintilat käännettäessä mukautettuja värejä -näytössä (#563)
+* Korjaa ongelma, jossa viimeaikaiset emojit eivät lataudu (#527)
+* korjaa ongelma, jossa numerot eivät näy tietyissä kentissä (#585)
+* Pieniä korjauksia

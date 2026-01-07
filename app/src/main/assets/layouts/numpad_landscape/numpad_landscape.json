@@ -1,0 +1,46 @@
+[
+  [
+    { "label": "(", "type": "function", "popup": { "relevant": [ { "label": "[" }, { "label": "{" } ] } },
+    { "label": ")", "type": "function", "popup": { "relevant": [ { "label": "]" }, { "label": "}" } ] } },
+    { "label": ":", "type": "function" },
+    { "label": "1", "type": "numeric", "width": 0.3 },
+    { "label": "2", "type": "numeric", "width": 0.3 },
+    { "label": "3", "type": "numeric", "width": 0.3 },
+    { "label": "+", "type": "function", "popup": { "main": { "label": "±" } } },
+    { "label": "-", "type": "function", "popup": { "main": { "label": "~" } } },
+    { "label": "space", "type": "function" }
+  ],
+  [
+    { "label": "!", "type": "function" },
+    { "label": "?", "type": "function" },
+    { "label": ";", "type": "function" },
+    { "label": "4", "type": "numeric", "width": 0.3 },
+    { "label": "5", "type": "numeric", "width": 0.3 },
+    { "label": "6", "type": "numeric", "width": 0.3 },
+    { "label": "*", "type": "function", "popup": { "main":  { "label": "×" } } },
+    { "label": "/", "type": "function", "popup": { "main":  { "label": "÷" } } },
+    { "label": "delete" }
+  ],
+  [
+    { "label": "|", "type": "function" },
+    { "label": "$$$", "type": "function" },
+    { "label": "&", "type": "function" },
+    { "label": "7", "type": "numeric", "width": 0.3 },
+    { "label": "8", "type": "numeric", "width": 0.3 },
+    { "label": "9", "type": "numeric", "width": 0.3 },
+    { "label": "#", "type": "function" },
+    { "label": "%", "type": "function", "popup": { "main":  { "label": "‰" } } },
+    { "label": "action" }
+  ],
+  [
+    { "label": "alpha" },
+    { "label": "<", "type": "function", "popup": { "main":  { "label": "≤" } } },
+    { "label": ">", "type": "function", "popup": { "main":  { "label": "≥" } } },
+    { "label": "comma", "type": "numeric", "width": 0.3 },
+    { "label": "0", "type": "numeric", "width": 0.3 },
+    { "label": "period", "type": "numeric", "width": 0.3 },
+    { "label": "=", "type": "function", "popup": { "relevant": [ { "label": "≠"}, { "label": "≈"} ] } },
+    { "label": "=", "type": "function", "popup": { "relevant": [ { "label": "≠"}, { "label": "≈"} ] } },
+    { "label": "symbol" }
+  ]
+]

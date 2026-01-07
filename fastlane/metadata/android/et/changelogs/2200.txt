@@ -1,0 +1,11 @@
+* võimalus salvestada ja eksportida kohandatud välimusi
+* klahvistiku suunaklahvid on korratavad
+* kursori lisaklahvid tööriistaribal (leht ↑/↓(/algusesse/lõppu, sõna ←/→)
+* klahv kopeeritu asetamiseks
+* parem klahviga viipamine
+* tühikuklahviga viipamine, mis lülitab numbristiku sisse/välja
+* lõikelauasoovitus viimati kopeeritud tekstiga
+* valikuklahvide uus vajutus eemaldab tekstivaliku
+* silusime seadistustes värve Android 12+
+* silusime keelekohaseid hüpikklahve
+* pisiparandused, kohendused

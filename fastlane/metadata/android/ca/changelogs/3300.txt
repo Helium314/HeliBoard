@@ -1,0 +1,11 @@
+- majs. en prémer tecla Majs
+- afegir codis de teclat per intencions d'emissió
+- opc. mostrar descripcions d'emojis, cal dic. d'emojis
+- millorar maneig de teclat maquinari
+- afegir l'opció "amagar teclat" en lliscar vert.
+- afegir un subtipus llatí
+- permetre desactivar suggs. d'emojis en afegir dic. d'emojis
+- corregir emojis que falten al teclat dividit
+- eliminar emojis que no s'han d'utilitzar sols
+- corregir probs. amb llista negra
+- corregir el comportament de retrocés amb alguns emojis

@@ -1,47 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-/*
-**
-** Copyright 2009, The Android Open Source Project
-**
-** Licensed under the Apache License, Version 2.0 (the "License");
-** you may not use this file except in compliance with the License.
-** You may obtain a copy of the License at
-**
-**     http://www.apache.org/licenses/LICENSE-2.0
-**
-** Unless required by applicable law or agreed to in writing, software
-** distributed under the License is distributed on an "AS IS" BASIS,
-** WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-** See the License for the specific language governing permissions and
-** limitations under the License.
-*/
+    Copyright (C) 2009 The Android Open Source Project
+    modified
+    SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <!-- For backward compatibility.
-         @see org.dslul.openboard.inputmethod.latin.settings.SettingsValues#needsToShowVoiceInputKey(android.content.SharedPreferences,android.content.res.Resources) -->
-    <string name="voice_mode_main">0</string>
-
-    <!-- Subtype locale display name exceptions.
-         For each exception, there should be related string resources for display name that may have
-         explicit keyboard layout. The string resource name must be "subtype_<locale>" or
-         "subtype_with_layout_<locale>. Please refer to strings.xml for these resources. -->
-    <string-array name="subtype_locale_exception_keys">
-        <item>en_US</item>
-        <item>en_GB</item>
-        <item>es_US</item>
-        <item>hi_ZZ</item>
-        <item>hu_ZZ</item>
-        <item>sr_ZZ</item>
-    </string-array>
 
     <!-- Subtype locale whose name should be displayed in Locale.ROOT. -->
     <string-array name="subtype_locale_displayed_in_root_locale">
-        <item>hi_ZZ</item>
-        <item>sr_ZZ</item>
+        <item>hi-Latn</item>
+        <item>mns</item>
+        <item>dru</item>
+        <item>xdq</item>
+        <item>sr-Latn</item>
     </string-array>
-    <string name="subtype_in_root_locale_hi_ZZ" translatable="false">Hinglish</string>
-    <string name="subtype_in_root_locale_sr_ZZ" translatable="false">Srpski</string>
+    <!-- Display names for language tags in subtype_locale_displayed_in_root_locale -->
+    <string-array name="subtype_locale_displayed_in_root_locale_display_names">
+        <item>Hinglish</item>
+        <item>Ма̄ньси</item>
+        <item>ХӀурухъла лугъат</item>
+        <item>Хайдаҡьан</item>
+        <item>Srpski</item>
+    </string-array>
 
     <!-- Generic subtype label -->
     <string name="subtype_generic" translatable="false">%s</string>
@@ -52,6 +32,7 @@
         <item>qwertz</item>
         <item>azerty</item>
         <item>dvorak</item>
+        <item>halmak</item>
         <item>colemak</item>
         <item>colemak_dh</item>
         <item>workman</item>
@@ -64,25 +45,13 @@
         <item>QWERTZ</item>
         <item>AZERTY</item>
         <item>Dvorak</item>
+        <item>Halmak</item>
         <item>Colemak</item>
         <item>Colemak Mod-DH</item>
         <item>Workman</item>
         <item>Bépo</item>
         <item>PC</item>
     </string-array>
-    <!-- Description for generic subtype that has predefined layout.
-         The string resource name must be "subtype_generic_<layout name>".
-         The string resource with "No language" also must be added to strings.xml and the resource
-         name must be "subtype_no_language_<layout name>" -->
-    <string name="subtype_generic_qwerty" translatable="false">%s (QWERTY)</string>
-    <string name="subtype_generic_qwertz" translatable="false">%s (QWERTZ)</string>
-    <string name="subtype_generic_azerty" translatable="false">%s (AZERTY)</string>
-    <string name="subtype_generic_dvorak" translatable="false">%s (Dvorak)</string>
-    <string name="subtype_generic_colemak" translatable="false">%s (Colemak)</string>
-    <string name="subtype_generic_colemak_dh" translatable="false">%s (Colemak Mod-DH)</string>
-    <string name="subtype_generic_workman" translatable="false">%s (Workman)</string>
-    <string name="subtype_generic_bepo" translatable="false">%s (Bépo)</string>
-    <string name="subtype_generic_pcqwerty" translatable="false">%s (PC)</string>
 
     <!-- Description for Bulgarian (BDS) subtype. -->
     <string name="subtype_bulgarian_bds" translatable="false">%s (BDS)</string>
@@ -93,49 +62,14 @@
     <!-- Description for Arabic (PC) subtype. -->
     <string name="subtype_arabic_pc" translatable="false">%s (PC)</string>
 
-    <!-- Compatibility map from subtypeLocale:subtypeExtraValue to keyboardLayoutSet -->
-    <string-array name="locale_and_extra_value_to_keyboard_layout_set_map">
-        <item>en_US:TrySuppressingImeSwitcher,AsciiCapable,SupportTouchPositionCorrection,EmojiCapable</item>
-        <item>qwerty</item>
-        <item>en_GB:TrySuppressingImeSwitcher,AsciiCapable,SupportTouchPositionCorrection,EmojiCapable</item>
-        <item>qwerty</item>
-        <item>ar:SupportTouchPositionCorrection,EmojiCapable</item>
-        <item>arabic</item>
-        <item>cs:AsciiCapable,SupportTouchPositionCorrection,EmojiCapable</item>
-        <item>qwertz</item>
-        <item>da:AsciiCapable,SupportTouchPositionCorrection,EmojiCapable</item>
-        <item>nordic</item>
-        <item>de:AsciiCapable,SupportTouchPositionCorrection,EmojiCapable</item>
-        <item>qwertz</item>
-        <item>es:AsciiCapable,SupportTouchPositionCorrection,EmojiCapable</item>
-        <item>spanish</item>
-        <item>fi:AsciiCapable,SupportTouchPositionCorrection,EmojiCapable</item>
-        <item>nordic</item>
-        <item>fr:AsciiCapable,SupportTouchPositionCorrection,EmojiCapable</item>
-        <item>azerty</item>
-        <item>fr_CA:AsciiCapable,SupportTouchPositionCorrection,EmojiCapable</item>
-        <item>qwerty</item>
-        <item>hr:AsciiCapable,SupportTouchPositionCorrection,EmojiCapable</item>
-        <item>qwertz</item>
-        <item>hu:AsciiCapable,SupportTouchPositionCorrection,EmojiCapable</item>
-        <item>qwertz</item>
-        <item>it:AsciiCapable,SupportTouchPositionCorrection,EmojiCapable</item>
-        <item>qwerty</item>
-        <item>iw:SupportTouchPositionCorrection,EmojiCapable</item>
-        <item>hebrew</item>
-        <item>nb:AsciiCapable,SupportTouchPositionCorrection,EmojiCapable</item>
-        <item>nordic</item>
-        <item>nl:AsciiCapable,SupportTouchPositionCorrection,EmojiCapable</item>
-        <item>qwerty</item>
-        <item>pl:AsciiCapable,SupportTouchPositionCorrection,EmojiCapable</item>
-        <item>qwerty</item>
-        <item>ru:SupportTouchPositionCorrection,EmojiCapable</item>
-        <item>east_slavic</item>
-        <item>sr:SupportTouchPositionCorrection,EmojiCapable</item>
-        <item>south_slavic</item>
-        <item>sv:AsciiCapable,SupportTouchPositionCorrection,EmojiCapable</item>
-        <item>nordic</item>
-        <item>tr:AsciiCapable,SupportTouchPositionCorrection,EmojiCapable</item>
-        <item>qwerty</item>
-    </string-array>
+    <!-- Description for Arabic (Hija'i) subtype. -->
+    <string name="subtype_arabic_hijai" translatable="false">%s (Hija\'i)</string>
+
+    <!-- Description for Hebrew 2 subtype. -->
+    <string name="subtype_hebrew_1452_2" translatable="false">%s (1452-2)</string>
+
+    <string name="english_ime_name" translatable="false">HeliBoard</string>
+    <!-- App slogan-->
+    <string name="app_slogan" translatable="false">100% FOSS keyboard, based on AOSP.</string>
+
 </resources>

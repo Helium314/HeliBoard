@@ -1,0 +1,129 @@
+[
+  [
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "ધ" },
+      "default": { "label": "અ" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "ન" },
+      "default": { "label": "ા" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "પ" },
+      "default": { "label": "િ" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "ફ" },
+      "default": { "label": "ી" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "બ" },
+      "default": { "label": "ુ" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "ભ" },
+      "default": { "label": "ૂ" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "મ" },
+      "default": { "label": "ે" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "ય" },
+      "default": { "label": "ૈ" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "ર" },
+      "default": { "label": "ો" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "લ" },
+      "default": { "label": "ૌ" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "વ" },
+      "default": { "label": "ં" }
+    }
+  ],
+  [
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "શ" },
+      "default": { "label": "ઃ", "popup": { "main": { "label": "ઍ" } } }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "ષ" },
+      "default": { "label": "ક", "popup": { "main": { "label": "ઑ" } } }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "સ" },
+      "default": { "label": "ખ", "popup": { "main": { "label": "ૅ" } } }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "હ" },
+      "default": { "label": "ગ", "popup": { "main": { "label": "ૉ" } } }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "ળ" },
+      "default": { "label": "ઘ", "popup": { "main": { "label": "ૃ" } } }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "ક્ષ", "labelFlags": 128 },
+      "default": { "label": "ઙ", "popup": { "main": { "label": "ઋ" } } }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "જ્ઞ", "labelFlags": 128 },
+      "default": { "label": "ચ", "popup": { "main": { "label": "ત્ર" } } }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "આ" },
+      "default": { "label": "છ", "popup": { "main": { "label": "ત્ત" } } }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "ઇ" },
+      "default": { "label": "જ", "popup": { "main": { "label": "દ્વ" } } }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "ઈ" },
+      "default": { "label": "ઝ", "popup": { "main": { "label": "દ્ધ" } } }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "ઉ" },
+      "default": { "label": "ઞ", "popup": { "main": { "label": "દ્ર" } } }
+    }
+  ],
+  [
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "ઊ" },
+      "default": { "label": "ટ"}
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "એ" },
+      "default": { "label": "ઠ", "popup": { "main": { "label": "શ્ર" } } }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "ઐ" },
+      "default": { "label": "ડ", "popup": { "main": { "label": "શ્વ" } } }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "ઓ" },
+      "default": { "label": "ઢ", "popup": { "main": { "label": "દ્દ" } } }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "ઔ" },
+      "default": { "label": "ણ", "popup": { "main": { "label": "હ્ય" } } }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "અં", "labelFlags": 128 },
+      "default": { "label": "ત", "popup": { "main": { "label": "꠰" } } }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "અઃ", "labelFlags": 128 },
+      "default": { "label": "થ", "popup": { "main": { "label": "꠱" } } }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "ૐ" },
+      "default": { "label": "દ", "popup": { "main": { "label": "꠲" } } }
+    },
+    { "label": "્", "popup": { "main": { "label": "૱" } } }
+  ]
+]

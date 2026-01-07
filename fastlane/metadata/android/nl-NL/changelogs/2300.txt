@@ -1,0 +1,9 @@
+* Aanpassing toestaan van getallenrij, werkbalkcodes, pictogrammen, spatiebalktekst, onderste rij voor emoji- en klembordweergaven
+* Pictogramstijl loskoppelen van toetsenbordstijl
+* Schakel standaard het verwijderen van overbodige pop-ups uit (en voeg een kleine oplossing toe)
+* Minder agressieve toevoeging van woorden aan persoonlijk woordenboek
+* Geen trillingen in de modus Niet storen
+* Verbeterde prestaties bij het kopiëren van grote tekst
+* Repareer gedeeltelijk kapotte interpunctie-pop-ups
+* Enkele problemen opgelost waarbij tekst wordt gedupliceerd
+* Kleine dingen en meer oplossingen van problemen

@@ -1,0 +1,8 @@
+* naprawiono zepsuty układ klawiszy funkcyjnych dla tabletów
+* pokaż klawisz zmiany języka tylko wtedy, gdy jest coś do przełączenia
+* ustaw domyślne kolory „wszystkich kolorów” na losowe zamiast szarego
+* możliwość dostosowania opóźnienia startu dla gestów podczas pisania dzięki @devycarol
+* możliwość dostosowania klawiszy walut
+* skrócenie czasu długiego naciśnięcia dla shift -> caps lock dzięki @devycarol
+* zwiększono ilość wyskakujących okienek dla indeksów górnych w rzędzie numerycznym i układzie symboli dzięki @b02860de585071a2
+* drobne poprawki i ulepszenia

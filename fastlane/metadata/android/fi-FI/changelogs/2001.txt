@@ -1,0 +1,11 @@
+* mahdollistaa toiminnallisten näppäinasettelujen mukauttamisen
+* Säädä hieman symboleja ja lisää symbolien asetteluja
+* Lisää vaihtoehtoja automaattiseen näyttöön / piilotukseen
+* lisää paahtoleipäilmoitus tekstiä kopioitaessa
+* erota kielenvaihtonäppäimen toiminta käyttöönotosta
+* Lisää pilkkunäppäinten ponnahdusikkunoita numero- ja puhelinasetteluja varten
+* Tee pitkän painalluksen kiinnittäminen työkalurivillä valinnaiseksi
+* Siirrä työkalupalkin asetukset erilliseen osioon
+* Lisää sarkainnäppäin
+* Ymmärtää ctrl-, työkalurivin ja muiden asettelujen näppäinten tunnisteet
+* pieniä korjauksia ja parannuksia

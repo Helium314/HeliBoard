@@ -1,0 +1,11 @@
+* Personalizzazione layout tasti funzione
+* Modifiche ai layout 'Simboli' e 'Altri simboli'
+* Supporto base ai tasti fisici ALT, CTRL, Meta
+* Nuove opzioni per barra strumenti dinamica
+* Nuovo tasto ⇥ (tab)
+* Indicatore blocco maiuscolo
+* Nuovi layout di lingue
+* Funzioni della barra utilizzabili come tasti standard
+* Modifica dei colori estesi dei temi
+* Notifica toast alla copia del testo
+* Correzioni di bug e miglioramenti

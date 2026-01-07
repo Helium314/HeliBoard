@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="auto_correction_threshold_mode_off">قاپالی</string>
+    <string name="settings_screen_advanced">گلیشمیش</string>
+    <string name="settings_screen_theme">تەما</string>
+    <string name="settings_category_input">گیریش</string>
+    <string name="settings_category_suggestions">اونریلر</string>
+    <string name="settings_category_experimental">دڭیسل</string>
+    <string name="settings_category_miscellaneous">چشیتلی</string>
+    <string name="auto_cap">اوتوماتیك بویوك حرف یاپ</string>
+    <string name="autocorrect">اوتوماتیك دوزەلت</string>
+    <string name="auto_correction_threshold_mode_modest">اولچولو</string>
+    <string name="auto_correction_threshold_mode_aggressive">گنیش اولچكدە</string>
+    <string name="button_restore">گری یوكلە</string>
+    <string name="settings" tools:keep="@string/settings">آیرلر</string>
+    <string name="undo" tools:keep="@string/undo">گری آل</string>
+    <string name="settings_category_correction">دوزەلتمەلر</string>
+    <string name="settings_screen_preferences">ترجیحلر</string>
+    <string name="button_backup">یدكلەمە</string>
+    <string name="layout_symbols" tools:keep="@string/layout_symbols">سمبوللر</string>
+    <string name="subtype_emoji">اموجی</string>
+    <string name="spell_checker_service_name">‫HeliBoard‬ یازم دنەتلەییجیسی</string>
+    <string name="ime_settings">‫HeliBoard‬ عیارلری</string>
+    <string name="android_spell_checker_settings">‫HeliBoard‬ یازم دنەتلەییجیسی عیارلری</string>
+    <string name="use_contacts_dict">كیشی آدلرڭی دنەتلە</string>
+    <string name="settings_screen_gesture">حركتلە یازمە</string>
+    <string name="popup_keys_layout" tools:keep="@string/popup_keys_layout">دوزن</string>
+    <string name="popup_keys_symbols" tools:keep="@string/popup_keys_symbols">سمبوللر</string>
+    <string name="clipboard" tools:keep="@string/clipboard">پانو</string>
+    <string name="left" tools:keep="@string/left">صول</string>
+    <string name="right" tools:keep="@string/right">صاغ</string>
+    <string name="up" tools:keep="@string/up">یوقاری</string>
+    <string name="down" tools:keep="@string/down">آشاغی</string>
+    <string name="redo" tools:keep="@string/redo">یڭیدن یاپ</string>
+    <string name="emoji" tools:keep="@string/emoji">اموجی</string>
+    <string name="subtype_hi_Latn">هینگیلیزجە</string>
+    <string name="subtype_mns">مانسی</string>
+    <string name="subtype_xdq">قائیتاغ</string>
+    <string name="add">اكلە</string>
+    <string name="remove">قالدر</string>
+    <string name="save">قاعدت</string>
+    <string name="load">یوكلە</string>
+    <string name="keyboard_layout_set">دوزن</string>
+    <string name="layout_phone" tools:keep="@string/layout_phone">تلفون</string>
+    <string name="layout_number" tools:keep="@string/layout_number">صاییلر</string>
+    <string name="layout_numpad" tools:keep="@string/layout_numpad">صاییصال طوش طاقیمی</string>
+    <string name="day_or_night_day">گوندوز</string>
+    <string name="button_default">وارصاییلان</string>
+    <string name="dictionary_settings_category">سوزلوكلر</string>
+    <string name="delete">سیل</string>
+    <string name="user_dict_settings_add_weight_value">سیقلق:</string>
+    <string name="user_dict_settings_add_locale_option_name">دیل:</string>
+    <string name="style_name_Rounded" tools:keep="@string/style_name_Rounded">یووارلادلمش</string>
+    <string name="theme_colors">رنگلر</string>
+    <string name="theme_name_light" tools:keep="@string/theme_name_light">آچیق</string>
+    <string name="theme_name_dark" tools:keep="@string/theme_name_dark">قویو</string>
+    <string name="theme_name_darker" tools:keep="@string/theme_name_darker">دها قویو</string>
+    <string name="theme_name_black" tools:keep="@string/theme_name_black">سیاه</string>
+    <string name="theme_name_brown" tools:keep="@string/theme_name_brown">قهوەرنگی</string>
+    <string name="theme_name_chocolate" tools:keep="@string/theme_name_chocolate">چوقولاتە</string>
+    <string name="theme_name_cloudy" tools:keep="@string/theme_name_cloudy">گولگەلی</string>
+    <string name="theme_name_indigo" tools:keep="@string/theme_name_indigo">آچیق ماوی</string>
+    <string name="theme_name_ocean" tools:keep="@string/theme_name_ocean">اوقیانوس</string>
+    <string name="theme_name_pink" tools:keep="@string/theme_name_pink">پنبە</string>
+    <string name="theme_name_sand" tools:keep="@string/theme_name_sand">قوم</string>
+    <string name="theme_name_violette" tools:keep="@string/theme_name_violette">منكشە</string>
+    <string name="theme_name_user" tools:keep="@string/theme_name_user">قوللانیجی تنعیملی</string>
+    <string name="select_color_accent">اورگو</string>
+    <string name="settings_screen_about">حقڭدە</string>
+    <string name="version">سوروم</string>
+    <string name="dialog_close">قاپات</string>
+    <string name="settings_screen_appearance">گورڭم</string>
+    <string name="settings_screen_toolbar">آراچ چوبوقی</string>
+    <string name="label_go_key">گیت</string>
+    <string name="label_next_key">ایلری</string>
+    <string name="label_previous_key">گری</string>
+    <string name="label_done_key">بیتدی</string>
+    <string name="label_send_key">گوندر</string>
+    <string name="label_search_key">آراما</string>
+    <string name="label_pause_key" tools:keep="@string/label_pause_key">دور</string>
+    <string name="label_wait_key" tools:keep="@string/label_wait_key">بكلە</string>
+    <string name="action_none">یوق</string>
+    <string name="theme_style">ستیل</string>
+    <string name="theme_name_forest" tools:keep="@string/theme_name_forest">اورمان</string>
+    <string name="subtype_locale">دیل</string>
+    <string name="day_or_night_night">گجە</string>
+    <string name="user_dict_settings_add_shortcut_option_name">قیصەیول:</string>
+    <string name="setup_finish_action">تماملاندی</string>
+    <string name="dictionary_link_text">بورادە</string>
+</resources>
