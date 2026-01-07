@@ -798,6 +798,18 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
             return;
         }
 
+        if (Settings.getValues().mSwipeDownToHide) {
+            final int dX = x - mStartX;
+            final int dY = y - mStartY;
+            final int threshold = sPointerStep * 4;
+            if (dY > threshold && dY > 2 * Math.abs(dX)) {
+                if (sListener.onCustomRequest(Constants.CUSTOM_CODE_HIDE_KEYBOARD)) {
+                    cancelTrackingForAction();
+                    return;
+                }
+            }
+        }
+
         if (sGestureEnabler.shouldHandleGesture() && me != null) {
             // Add historical points to gesture path.
             final int pointerIndex = me.findPointerIndex(mPointerId);

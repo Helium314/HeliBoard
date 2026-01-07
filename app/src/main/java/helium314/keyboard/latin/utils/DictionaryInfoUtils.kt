@@ -7,7 +7,7 @@ package helium314.keyboard.latin.utils
 
 import android.content.Context
 import android.text.TextUtils
-import com.android.inputmethod.latin.utils.BinaryDictionaryUtils
+import helium314.keyboard.latin.legacy.utils.BinaryDictionaryUtils
 import helium314.keyboard.latin.dictionary.Dictionary
 import helium314.keyboard.latin.common.FileUtils
 import helium314.keyboard.latin.common.LocaleUtils.constructLocale

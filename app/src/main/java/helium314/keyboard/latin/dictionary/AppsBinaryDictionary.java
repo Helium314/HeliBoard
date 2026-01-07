@@ -3,7 +3,7 @@
 package helium314.keyboard.latin.dictionary;
 
 import android.content.Context;
-import com.android.inputmethod.latin.BinaryDictionary;
+import helium314.keyboard.latin.legacy.BinaryDictionary;
 import java.io.File;
 import java.util.Locale;
 import helium314.keyboard.latin.AppsManager;

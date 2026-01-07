@@ -9,7 +9,7 @@ package helium314.keyboard.latin.makedict;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.android.inputmethod.latin.BinaryDictionary;
+import helium314.keyboard.latin.legacy.BinaryDictionary;
 import helium314.keyboard.latin.dictionary.Dictionary;
 import helium314.keyboard.latin.NgramContext;
 import helium314.keyboard.latin.NgramContext.WordInfo;

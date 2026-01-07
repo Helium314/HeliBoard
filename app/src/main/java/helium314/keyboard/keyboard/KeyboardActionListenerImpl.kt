@@ -142,6 +142,10 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
         if (requestCode == Constants.CUSTOM_CODE_SHOW_INPUT_METHOD_PICKER) {
             return latinIME.showInputPickerDialog()
         }
+        if (requestCode == Constants.CUSTOM_CODE_HIDE_KEYBOARD) {
+            latinIME.requestHideSelf(0)
+            return true
+        }
         return false
     }
 

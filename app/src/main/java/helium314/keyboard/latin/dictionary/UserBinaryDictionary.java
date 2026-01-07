@@ -14,7 +14,7 @@ import android.net.Uri;
 import android.provider.UserDictionary.Words;
 import android.text.TextUtils;
 
-import com.android.inputmethod.latin.BinaryDictionary;
+import helium314.keyboard.latin.legacy.BinaryDictionary;
 
 import helium314.keyboard.latin.utils.Log;
 import helium314.keyboard.latin.utils.SubtypeLocaleUtils;

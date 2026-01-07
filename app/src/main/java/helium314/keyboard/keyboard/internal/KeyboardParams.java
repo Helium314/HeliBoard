@@ -255,16 +255,16 @@ public class KeyboardParams {
                 //  paddings.
             }
             mHorizontalGap = (int) (mRelativeHorizontalGap * width);
-            mVerticalGap = (int) (mRelativeVerticalGap * height);
+            mVerticalGap = (int) (mRelativeVerticalGap * height * Settings.getValues().mVerticalGapScale);
 
             mBaseHeight = mOccupiedHeight - mTopPadding - mBottomPadding + mVerticalGap;
             mDefaultRowHeight = ResourceUtils.getDimensionOrFraction(keyboardAttr,
                     R.styleable.Keyboard_rowHeight, 1, 1f / DEFAULT_KEYBOARD_ROWS);
             if (mDefaultRowHeight > 1) { // can be absolute size, in that case will be > 1
-                mDefaultAbsoluteRowHeight = (int) mDefaultRowHeight;
+                mDefaultAbsoluteRowHeight = (int) (mDefaultRowHeight * Settings.getValues().mGranularHeightScale);
                 mDefaultRowHeight *= -1; // make it negative when it's absolute
             } else {
-                mDefaultAbsoluteRowHeight = (int) (mDefaultRowHeight * mBaseHeight);
+                mDefaultAbsoluteRowHeight = (int) (mDefaultRowHeight * mBaseHeight * Settings.getValues().mGranularHeightScale);
             }
 
             mKeyVisualAttributes = KeyVisualAttributes.newInstance(keyAttr);

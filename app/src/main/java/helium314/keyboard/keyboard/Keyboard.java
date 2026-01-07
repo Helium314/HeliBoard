@@ -11,7 +11,7 @@ import android.util.SparseArray;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.android.inputmethod.keyboard.ProximityInfo;
+import helium314.keyboard.latin.legacy.ProximityInfo;
 
 import helium314.keyboard.keyboard.internal.KeyVisualAttributes;
 import helium314.keyboard.keyboard.internal.KeyboardIconsSet;

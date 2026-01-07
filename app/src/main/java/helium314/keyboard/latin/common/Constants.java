@@ -170,6 +170,7 @@ public final class Constants {
      */
     // The code to show input method picker.
     public static final int CUSTOM_CODE_SHOW_INPUT_METHOD_PICKER = 1;
+    public static final int CUSTOM_CODE_HIDE_KEYBOARD = 2;
 
     /**
      * Some common keys code. Must be positive.

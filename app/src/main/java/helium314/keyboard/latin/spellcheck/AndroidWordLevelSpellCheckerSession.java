@@ -30,7 +30,7 @@ import helium314.keyboard.latin.common.Constants;
 import helium314.keyboard.latin.common.LocaleUtils;
 import helium314.keyboard.latin.common.StringUtils;
 import helium314.keyboard.latin.define.DebugFlags;
-import com.android.inputmethod.latin.utils.BinaryDictionaryUtils;
+import helium314.keyboard.latin.legacy.utils.BinaryDictionaryUtils;
 
 import helium314.keyboard.latin.utils.ScriptUtils;
 import helium314.keyboard.latin.utils.StatsUtils;

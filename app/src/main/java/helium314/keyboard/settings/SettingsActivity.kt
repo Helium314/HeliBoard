@@ -9,23 +9,35 @@ import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import androidx.activity.ComponentActivity
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.Icon
+import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
 import androidx.compose.material3.TopAppBar
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.platform.ComposeView
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
 import helium314.keyboard.compat.locale
 import helium314.keyboard.keyboard.KeyboardSwitcher
 import helium314.keyboard.latin.BuildConfig
@@ -106,7 +118,36 @@ open class SettingsActivity : ComponentActivity(), SharedPreferences.OnSharedPre
                             }
                         }
                     else {
-                        SettingsNavHost(onClickBack = { this.finish() })
+                        var showTestDrive by rememberSaveable { mutableStateOf(false) }
+                        Scaffold(
+                            floatingActionButton = {
+                                FloatingActionButton(onClick = { showTestDrive = true }) {
+                                    Icon(painterResource(R.drawable.ic_ime_switcher), contentDescription = "Test Drive")
+                                }
+                            }
+                        ) { padding ->
+                            Box(modifier = Modifier.padding(padding)) {
+                                SettingsNavHost(onClickBack = { this.finish() })
+                            }
+                        }
+                        if (showTestDrive) {
+                            var text by rememberSaveable { mutableStateOf("") }
+                            val focusRequester = remember { FocusRequester() }
+                            ModalBottomSheet(onDismissRequest = { showTestDrive = false }) {
+                                TextField(
+                                    value = text,
+                                    onValueChange = { text = it },
+                                    modifier = Modifier.fillMaxWidth().padding(16.dp).focusRequester(focusRequester),
+                                    placeholder = { Text("Type here to test...") }
+                                )
+                                LaunchedEffect(Unit) {
+                                    focusRequester.requestFocus()
+                                    imm.showSoftInput(cv, InputMethodManager.SHOW_IMPLICIT)
+                                }
+                                Box(Modifier.padding(bottom = 300.dp))
+                            }
+                        }
+
                         if (showWelcomeWizard) {
                             WelcomeWizard(close = { showWelcomeWizard = false }, finish = this::finish)
                         } else if (crashReports.isNotEmpty()) {

@@ -74,7 +74,7 @@ static const JNINativeMethod sMethods[] = {
 };
 
 int register_DicTraverseSession(JNIEnv *env) {
-    const char *const kClassPathName = "com/android/inputmethod/latin/DicTraverseSession";
+    const char *const kClassPathName = "helium314/keyboard/latin/legacy/DicTraverseSession";
     return registerNativeMethods(env, kClassPathName, sMethods, NELEMS(sMethods));
 }
 } // namespace latinime

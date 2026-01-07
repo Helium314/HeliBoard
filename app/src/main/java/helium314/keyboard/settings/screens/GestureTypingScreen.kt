@@ -38,6 +38,7 @@ fun GestureTypingScreen(
     val gestureEnabled = prefs.getBoolean(Settings.PREF_GESTURE_INPUT, Defaults.PREF_GESTURE_INPUT)
     val items = listOf(
         Settings.PREF_GESTURE_INPUT,
+        Settings.PREF_SWIPE_DOWN_TO_HIDE,
         if (gestureEnabled)
             Settings.PREF_GESTURE_PREVIEW_TRAIL else null,
         if (gestureEnabled)
@@ -62,6 +63,9 @@ fun GestureTypingScreen(
 fun createGestureTypingSettings(context: Context) = listOf(
     Setting(context, Settings.PREF_GESTURE_INPUT, R.string.gesture_input, R.string.gesture_input_summary) {
         SwitchPreference(it, Defaults.PREF_GESTURE_INPUT)
+    },
+    Setting(context, Settings.PREF_SWIPE_DOWN_TO_HIDE, R.string.swipe_down_to_hide, R.string.swipe_down_to_hide_summary) {
+        SwitchPreference(it, Defaults.PREF_SWIPE_DOWN_TO_HIDE)
     },
     Setting(context, Settings.PREF_GESTURE_PREVIEW_TRAIL, R.string.gesture_preview_trail) {
         SwitchPreference(it, Defaults.PREF_GESTURE_PREVIEW_TRAIL)

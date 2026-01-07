@@ -19,7 +19,7 @@ import helium314.keyboard.latin.utils.Log;
 
 import androidx.annotation.NonNull;
 
-import com.android.inputmethod.latin.BinaryDictionary;
+import helium314.keyboard.latin.legacy.BinaryDictionary;
 
 import helium314.keyboard.latin.ContactsManager.ContactsChangedListener;
 import helium314.keyboard.latin.common.StringUtils;

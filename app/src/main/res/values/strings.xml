@@ -171,6 +171,10 @@
     <string name="gesture_input">Enable gesture typing</string>
     <!-- Description for "gesture_input" option. The user can input a word by tracing the letters of a word without releasing the finger from the screen.-->
     <string name="gesture_input_summary">Input a word by sliding through the letters</string>
+    <!-- Option to enable swipe down to hide keyboard -->
+    <string name="swipe_down_to_hide">Swipe down to hide keyboard</string>
+    <!-- Description for "swipe_down_to_hide" option. -->
+    <string name="swipe_down_to_hide_summary">Dismiss keyboard by swiping down</string>
     <!-- Option to enable gesture trail preview. The user can see a trail of the gesture during gesture input.-->
     <string name="gesture_preview_trail">Show gesture trail</string>
     <!-- Option to enable gesture floating text preview. The user can see a suggested word floating above the keyboard during a gesture input.-->
@@ -375,6 +379,10 @@
     <string name="prefs_narrow_key_gaps">Narrow key gaps</string>
     <!-- Title of the setting for setting keyboard height -->
     <string name="prefs_keyboard_height_scale">Keyboard height scale</string>
+    <!-- Title of the setting for setting global height scale -->
+    <string name="prefs_height_scale">Key height scale</string>
+    <!-- Title of the setting for setting vertical gap scale -->
+    <string name="prefs_vertical_gap_scale">Vertical gap scale</string>
     <!-- Title of the setting for setting bottom padding height -->
     <string name="prefs_bottom_padding_scale">Bottom padding scale</string>
     <!-- Title of the setting for setting side padding -->

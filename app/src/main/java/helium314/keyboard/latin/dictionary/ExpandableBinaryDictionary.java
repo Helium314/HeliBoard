@@ -13,7 +13,7 @@ import helium314.keyboard.latin.utils.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.android.inputmethod.latin.BinaryDictionary;
+import helium314.keyboard.latin.legacy.BinaryDictionary;
 
 import helium314.keyboard.latin.SuggestedWords.SuggestedWordInfo;
 import helium314.keyboard.latin.common.ComposedData;

@@ -6,7 +6,7 @@
 
 package helium314.keyboard.latin.utils;
 
-import com.android.inputmethod.latin.utils.BinaryDictionaryUtils;
+import helium314.keyboard.latin.legacy.utils.BinaryDictionaryUtils;
 
 import helium314.keyboard.latin.SuggestedWords.SuggestedWordInfo;
 import helium314.keyboard.latin.define.DebugFlags;
