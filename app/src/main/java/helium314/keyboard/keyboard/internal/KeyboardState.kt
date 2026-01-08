@@ -79,14 +79,14 @@ class KeyboardState(private val switchActions: SwitchActions) {
         var isValid = false
         var isAlphabetShiftLocked = false
         var mode = Mode.ALPHABET
-        var shiftMode = 0
+        var shiftMode = ShiftMode.UNSHIFT
 
         override fun toString(): String {
             if (!isValid) return "INVALID"
-            return mode.toString() + when (mode) {
-                Mode.ALPHABET -> "_" + shiftModeToString(if (isAlphabetShiftLocked) SHIFT_LOCK_SHIFTED else shiftMode)
-                Mode.SYMBOLS -> "_" + shiftModeToString(shiftMode)
-                else -> ""
+            return when (mode) {
+                Mode.ALPHABET -> "${mode}_${if (isAlphabetShiftLocked) ShiftMode.SHIFT_LOCKED else shiftMode}"
+                Mode.SYMBOLS -> "${mode}_$shiftMode"
+                else -> mode.toString()
             }
         }
     }
@@ -116,13 +116,13 @@ class KeyboardState(private val switchActions: SwitchActions) {
         if (mode == Mode.ALPHABET) {
             savedKeyboardState.isAlphabetShiftLocked = alphabetShiftState.isShiftLocked
             savedKeyboardState.shiftMode = when {
-                alphabetShiftState.isAutomaticShifted -> AUTOMATIC_SHIFT
-                alphabetShiftState.isShiftedOrShiftLocked -> MANUAL_SHIFT
-                else -> UNSHIFT
+                alphabetShiftState.isAutomaticShifted -> ShiftMode.AUTOMATIC
+                alphabetShiftState.isShiftedOrShiftLocked -> ShiftMode.MANUAL
+                else -> ShiftMode.UNSHIFT
             }
         } else {
             savedKeyboardState.isAlphabetShiftLocked = prevMainKeyboardWasShiftLocked
-            savedKeyboardState.shiftMode = if (isSymbolShifted) MANUAL_SHIFT else UNSHIFT
+            savedKeyboardState.shiftMode = if (isSymbolShifted) ShiftMode.MANUAL else ShiftMode.UNSHIFT
         }
         savedKeyboardState.isValid = true
         if (DEBUG_EVENT) {
@@ -143,7 +143,7 @@ class KeyboardState(private val switchActions: SwitchActions) {
                     setShifted(savedKeyboardState.shiftMode)
                 }
             }
-            Mode.SYMBOLS -> if (savedKeyboardState.shiftMode == MANUAL_SHIFT) setSymbolsShiftedKeyboard() else setSymbolsKeyboard()
+            Mode.SYMBOLS -> if (savedKeyboardState.shiftMode == ShiftMode.MANUAL) setSymbolsShiftedKeyboard() else setSymbolsKeyboard()
             Mode.EMOJI -> setEmojiKeyboard()
             Mode.CLIPBOARD -> setClipboardKeyboard()
             // don't overwrite toggle state if reloading from orientation change, etc.
@@ -151,33 +151,33 @@ class KeyboardState(private val switchActions: SwitchActions) {
         }
     }
 
-    private fun setShifted(shiftMode: Int) {
+    private fun setShifted(shiftMode: ShiftMode) {
         if (mode != Mode.ALPHABET) return
         val prevShiftMode = when {
-            alphabetShiftState.isAutomaticShifted -> AUTOMATIC_SHIFT
-            alphabetShiftState.isManualShifted -> MANUAL_SHIFT
-            else -> UNSHIFT
+            alphabetShiftState.isAutomaticShifted -> ShiftMode.AUTOMATIC
+            alphabetShiftState.isManualShifted -> ShiftMode.MANUAL
+            else -> ShiftMode.UNSHIFT
         }
         if (DebugFlags.DEBUG_ENABLED && shiftMode != prevShiftMode) {
-            Log.d(TAG, "setShifted: shiftMode=${shiftModeToString(shiftMode)} $this")
+            Log.d(TAG, "setShifted: shiftMode=$shiftMode $this")
         }
         when (shiftMode) {
-            AUTOMATIC_SHIFT -> {
-                alphabetShiftState.setAutomaticShifted()
-                if (shiftMode != prevShiftMode)
-                    switchActions.setAlphabetAutomaticShiftedKeyboard()
-            }
-            MANUAL_SHIFT -> {
-                alphabetShiftState.setShifted(true)
-                if (shiftMode != prevShiftMode)
-                    switchActions.setAlphabetManualShiftedKeyboard()
-            }
-            UNSHIFT -> {
+            ShiftMode.UNSHIFT -> {
                 alphabetShiftState.setShifted(false)
                 if (shiftMode != prevShiftMode)
                     switchActions.setAlphabetKeyboard()
             }
-            SHIFT_LOCK_SHIFTED -> {
+            ShiftMode.MANUAL -> {
+                alphabetShiftState.setShifted(true)
+                if (shiftMode != prevShiftMode)
+                    switchActions.setAlphabetManualShiftedKeyboard()
+            }
+            ShiftMode.AUTOMATIC -> {
+                alphabetShiftState.setAutomaticShifted()
+                if (shiftMode != prevShiftMode)
+                    switchActions.setAlphabetAutomaticShiftedKeyboard()
+            }
+            ShiftMode.SHIFT_LOCKED -> {
                 alphabetShiftState.setShifted(true)
                 switchActions.setAlphabetShiftLockShiftedKeyboard()
             }
@@ -475,11 +475,11 @@ class KeyboardState(private val switchActions: SwitchActions) {
 
     private fun updateShiftStateForRecapitalize(recapitalizeMode: RecapitalizeMode?) {
         val shiftMode = when (recapitalizeMode) {
-            null                                 -> UNSHIFT
-            RecapitalizeMode.ORIGINAL_MIXED_CASE -> UNSHIFT
-            RecapitalizeMode.ALL_LOWER           -> UNSHIFT
-            RecapitalizeMode.FIRST_WORD_UPPER    -> AUTOMATIC_SHIFT
-            RecapitalizeMode.ALL_UPPER           -> SHIFT_LOCK_SHIFTED
+            null                                 -> ShiftMode.UNSHIFT
+            RecapitalizeMode.ORIGINAL_MIXED_CASE -> ShiftMode.UNSHIFT
+            RecapitalizeMode.ALL_LOWER           -> ShiftMode.UNSHIFT
+            RecapitalizeMode.FIRST_WORD_UPPER    -> ShiftMode.AUTOMATIC
+            RecapitalizeMode.ALL_UPPER           -> ShiftMode.SHIFT_LOCKED
         }
         setShifted(shiftMode)
     }
@@ -494,9 +494,9 @@ class KeyboardState(private val switchActions: SwitchActions) {
         } else if (!alphabetShiftState.isShiftLocked && !shiftKeyState.isIgnoring) {
             val shifted = when {
                 // Only when shift key is releasing, automatic temporary upper case will be set.
-                shiftKeyState.isReleasing && autoCapsFlags != Constants.TextUtils.CAP_MODE_OFF -> AUTOMATIC_SHIFT
-                shiftKeyState.isChording -> MANUAL_SHIFT
-                else -> UNSHIFT
+                shiftKeyState.isReleasing && autoCapsFlags != Constants.TextUtils.CAP_MODE_OFF -> ShiftMode.AUTOMATIC
+                shiftKeyState.isChording -> ShiftMode.MANUAL
+                else -> ShiftMode.UNSHIFT
             }
             setShifted(shifted)
         }
@@ -528,18 +528,18 @@ class KeyboardState(private val switchActions: SwitchActions) {
             if (alphabetShiftState.isShiftLocked) {
                 // Shift key is pressed while shift locked state, we will treat this state as
                 // shift lock shifted state and mark as if shift key pressed while normal state.
-                setShifted(SHIFT_LOCK_SHIFTED)
+                setShifted(ShiftMode.SHIFT_LOCKED)
                 shiftKeyState.onPress()
             } else if (alphabetShiftState.isAutomaticShifted) {
                 // Shift key is pressed while automatic shifted, we have to move to manual shifted.
-                setShifted(MANUAL_SHIFT)
+                setShifted(ShiftMode.MANUAL)
                 shiftKeyState.onPress()
             } else if (alphabetShiftState.isShiftedOrShiftLocked) {
                 // In manual shifted state, we just record shift key has been pressing while shifted state.
                 shiftKeyState.onPressOnShifted()
             } else {
                 // In base layout, chording or manual shifted mode is started.
-                setShifted(MANUAL_SHIFT)
+                setShifted(ShiftMode.MANUAL)
                 shiftKeyState.onPress()
             }
         }
@@ -563,7 +563,7 @@ class KeyboardState(private val switchActions: SwitchActions) {
                 isInDoubleTapShiftKey -> isInDoubleTapShiftKey = false
                 // After chording input
                 shiftKeyState.isChording -> {
-                    if (alphabetShiftState.isShiftLockShifted) setShiftLocked(true) else setShifted(UNSHIFT)
+                    if (alphabetShiftState.isShiftLockShifted) setShiftLocked(true) else setShifted(ShiftMode.UNSHIFT)
                     // Automatic shift state may have been changed depending on what characters were input.
                     shiftKeyState.onRelease()
                     switchActions.requestUpdatingShiftState(autoCapsFlags, recapitalizeMode)
@@ -582,7 +582,7 @@ class KeyboardState(private val switchActions: SwitchActions) {
                 !withSliding && ((alphabetShiftState.isShiftedOrShiftLocked && shiftKeyState.isPressingOnShifted)
                     // Shift has been pressed without chording while manual shifted transited from automatic shifted
                     || (alphabetShiftState.isManualShiftedFromAutomaticShifted && shiftKeyState.isPressing)) -> {
-                        setShifted(UNSHIFT)
+                        setShifted(ShiftMode.UNSHIFT)
                         isInAlphabetUnshiftedFromShifted = true
                     }
             }
@@ -670,9 +670,11 @@ class KeyboardState(private val switchActions: SwitchActions) {
     }
 
     override fun toString(): String {
-        val keyboard = if (mode == Mode.ALPHABET) alphabetShiftState.toString()
-            else if (isSymbolShifted) "SYMBOLS_SHIFTED"
-            else "SYMBOLS"
+        val keyboard = when {
+            mode == Mode.ALPHABET -> alphabetShiftState.toString()
+            isSymbolShifted -> "SYMBOLS_SHIFTED"
+            else -> "SYMBOLS"
+        }
         return "[keyboard=$keyboard shift=$shiftKeyState symbol=$symbolKeyState switch=$switchState]"
     }
 
@@ -700,24 +702,17 @@ class KeyboardState(private val switchActions: SwitchActions) {
         NUMPAD,
     }
 
+    private enum class ShiftMode {
+        UNSHIFT,
+        MANUAL,
+        AUTOMATIC,
+        SHIFT_LOCKED,
+    }
+
     companion object {
         private val TAG = KeyboardState::class.java.simpleName
         private const val DEBUG_EVENT = false
 
-        // Constants for SavedKeyboardState.shiftMode and setShifted.
-        private const val UNSHIFT = 0
-        private const val MANUAL_SHIFT = 1
-        private const val AUTOMATIC_SHIFT = 2
-        private const val SHIFT_LOCK_SHIFTED = 3
-
         private fun isSpaceOrEnter(c: Int) = c == Constants.CODE_SPACE || c == Constants.CODE_ENTER
-
-        fun shiftModeToString(shiftMode: Int) = when (shiftMode) {
-            UNSHIFT            -> "UNSHIFT"
-            MANUAL_SHIFT       -> "MANUAL"
-            AUTOMATIC_SHIFT    -> "AUTOMATIC"
-            SHIFT_LOCK_SHIFTED -> "SHIFT_LOCKED"
-            else               -> null
-        }
     }
 }
