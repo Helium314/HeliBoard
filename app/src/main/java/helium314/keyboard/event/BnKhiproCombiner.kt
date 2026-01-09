@@ -4,6 +4,7 @@ package helium314.keyboard.event
 
 import android.content.Context
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode
+import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.utils.Log
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
@@ -50,7 +51,7 @@ class BnKhiproCombiner : Combiner {
         }
 
         private val loadedMappings: Map<String, Map<String, String>> by lazy {
-            loadKhiproMappings(helium314.keyboard.latin.App.instance)
+            loadKhiproMappings(Settings.getCurrentContext())
         }
 
         // Mapping groups
