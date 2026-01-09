@@ -2,7 +2,11 @@
 
 package helium314.keyboard.event
 
+import android.content.Context
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode
+import helium314.keyboard.latin.utils.Log
+import kotlinx.serialization.ExperimentalSerializationApi
+import kotlinx.serialization.json.Json
 import java.util.ArrayList
 
 /**
@@ -24,13 +28,29 @@ class BnKhiproCombiner : Combiner {
     }
 
     companion object {
-        private val loadedMappings: Map<String, Map<String, String>> by lazy {
-            try {
-                KhiproMappingLoader.loadMappings(helium314.keyboard.latin.App.instance)
+        private const val MAPPING_FILE = "khipro-mappings.json"
+
+        @OptIn(ExperimentalSerializationApi::class)
+        private val json = Json {
+            isLenient = true
+            ignoreUnknownKeys = true
+        }
+
+        private fun loadKhiproMappings(context: Context): Map<String, Map<String, String>> {
+            return try {
+                val jsonString = context.assets.open(MAPPING_FILE)
+                    .bufferedReader()
+                    .use { it.readText() }
+                json.decodeFromString<Map<String, Map<String, String>>>(jsonString)
+                    .mapKeys { it.key.lowercase() }
             } catch (e: Exception) {
-                android.util.Log.e("BnKhiproCombiner", "Failed to load mappings", e)
+                Log.e("BnKhiproCombiner", "Failed to load mappings", e)
                 emptyMap()
             }
+        }
+
+        private val loadedMappings: Map<String, Map<String, String>> by lazy {
+            loadKhiproMappings(helium314.keyboard.latin.App.instance)
         }
 
         // Mapping groups
