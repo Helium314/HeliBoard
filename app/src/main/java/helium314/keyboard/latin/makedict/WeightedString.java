@@ -7,6 +7,7 @@
 package helium314.keyboard.latin.makedict;
 
 import java.util.Arrays;
+import java.util.Objects;
 
 /**
  * A string with a probability.
@@ -36,7 +37,7 @@ public final class WeightedString {
 
     @Override
     public int hashCode() {
-        return Arrays.hashCode(new Object[] { mWord, mProbabilityInfo});
+        return Objects.hash(mWord, mProbabilityInfo);
     }
 
     @Override

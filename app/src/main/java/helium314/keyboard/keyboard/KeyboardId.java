@@ -110,7 +110,7 @@ public final class KeyboardId {
     }
 
     private static int computeHashCode(KeyboardId id) {
-        return Arrays.hashCode(new Object[] {
+        return Objects.hash(
                 id.elementId,
                 id.mode,
                 id.width,
@@ -129,7 +129,7 @@ public final class KeyboardId {
                 id.subtype,
                 id.isSplitLayout,
                 id.internalAction
-        });
+        );
     }
 
     private boolean equals(KeyboardId other) {
@@ -233,19 +233,20 @@ public final class KeyboardId {
                 elementIdToName(elementId),
                 subtype.getLocale(),
                 subtype.getExtraValueOf(KEYBOARD_LAYOUT_SET),
-            width, height,
+                width,
+                height,
                 modeName(mode),
                 actionName(imeAction()),
-                (navigateNext() ? " navigateNext" : ""),
-                (navigatePrevious() ? " navigatePrevious" : ""),
-                (deviceLocked ? " deviceLocked" : ""),
-                (passwordInput() ? " passwordInput" : ""),
-                (hasShortcutKey ? " hasShortcutKey" : ""),
-                (numberRowEnabled ? " numberRowEnabled" : ""),
-                (languageSwitchKeyEnabled ? " languageSwitchKeyEnabled" : ""),
-                (emojiKeyEnabled ? " emojiKeyEnabled" : ""),
-                (isMultiLine() ? " isMultiLine" : ""),
-                (isSplitLayout ? " isSplitLayout" : "")
+                navigateNext() ? " navigateNext" : "",
+                navigatePrevious() ? " navigatePrevious" : "",
+                deviceLocked ? " deviceLocked" : "",
+                passwordInput() ? " passwordInput" : "",
+                hasShortcutKey ? " hasShortcutKey" : "",
+                numberRowEnabled ? " numberRowEnabled" : "",
+                languageSwitchKeyEnabled ? " languageSwitchKeyEnabled" : "",
+                emojiKeyEnabled ? " emojiKeyEnabled" : "",
+                isMultiLine() ? " isMultiLine" : "",
+                isSplitLayout ? " isSplitLayout" : ""
         );
     }
 

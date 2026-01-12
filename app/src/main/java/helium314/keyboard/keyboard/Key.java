@@ -28,6 +28,7 @@ import kotlin.collections.ArraysKt;
 
 import java.util.Arrays;
 import java.util.Locale;
+import java.util.Objects;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -373,7 +374,7 @@ public class Key implements Comparable<Key> {
     }
 
     private static int computeHashCode(final Key key) {
-        return Arrays.hashCode(new Object[] {
+        return Objects.hash(
                 key.mX,
                 key.mY,
                 key.mWidth,
@@ -386,7 +387,7 @@ public class Key implements Comparable<Key> {
                 Arrays.hashCode(key.mPopupKeys),
                 key.getOutputText(),
                 key.mActionFlags,
-                key.mLabelFlags,
+                key.mLabelFlags
                 // Key can be distinguishable without the following members.
                 // key.mOptionalAttributes.mAltCode,
                 // key.mOptionalAttributes.mDisabledIconId,
@@ -396,7 +397,7 @@ public class Key implements Comparable<Key> {
                 // key.mOptionalAttributes.mVisualInsetLeft,
                 // key.mOptionalAttributes.mVisualInsetRight,
                 // key.mMaxPopupKeysColumn,
-        });
+        );
     }
 
     private boolean equalsInternal(final Key o) {

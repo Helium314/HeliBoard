@@ -15,6 +15,7 @@ import helium314.keyboard.latin.define.DecoderSpecificConstants;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Objects;
 
 /**
  * Class to represent information of previous words. This class is used to add n-gram entries
@@ -69,7 +70,7 @@ public class NgramContext {
 
         @Override
         public int hashCode() {
-            return Arrays.hashCode(new Object[] { mWord, mIsBeginningOfSentence } );
+            return Objects.hash(mWord, mIsBeginningOfSentence);
         }
 
         @Override
