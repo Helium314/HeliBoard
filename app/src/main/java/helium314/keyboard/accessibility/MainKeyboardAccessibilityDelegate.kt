@@ -47,24 +47,24 @@ class MainKeyboardAccessibilityDelegate(
             val lastKeyboard = super.keyboard
             super.keyboard = keyboard
             val lastKeyboardMode = mLastKeyboardMode
-            mLastKeyboardMode = keyboard.mId.mMode
+            mLastKeyboardMode = keyboard.mId.mode
             // Since this method is called even when accessibility is off, make sure
             // to check the state before announcing anything.
             if (!AccessibilityUtils.instance.isAccessibilityEnabled) {
                 return
             }
             // Announce the language name only when the language is changed.
-            if (lastKeyboard == null || keyboard.mId.mSubtype != lastKeyboard.mId.mSubtype) {
+            if (lastKeyboard == null || keyboard.mId.subtype != lastKeyboard.mId.subtype) {
                 announceKeyboardLanguage(keyboard)
                 return
             }
             // Announce the mode only when the mode is changed.
-            if (keyboard.mId.mMode != lastKeyboardMode) {
+            if (keyboard.mId.mode != lastKeyboardMode) {
                 announceKeyboardMode(keyboard)
                 return
             }
             // Announce the keyboard type only when the type is changed.
-            if (keyboard.mId.mElementId != lastKeyboard.mId.mElementId) {
+            if (keyboard.mId.elementId != lastKeyboard.mId.elementId) {
                 announceKeyboardType(keyboard, lastKeyboard)
                 return
             }
@@ -86,7 +86,7 @@ class MainKeyboardAccessibilityDelegate(
      * @param keyboard The new keyboard.
      */
     private fun announceKeyboardLanguage(keyboard: Keyboard) {
-        sendWindowStateChanged(keyboard.mId.mSubtype.rawSubtype.displayName())
+        sendWindowStateChanged(keyboard.mId.subtype.rawSubtype.displayName())
     }
 
     /**
@@ -97,7 +97,7 @@ class MainKeyboardAccessibilityDelegate(
      */
     private fun announceKeyboardMode(keyboard: Keyboard) {
         val context = mKeyboardView.context
-        val modeTextResId = KEYBOARD_MODE_RES_IDS[keyboard.mId.mMode]
+        val modeTextResId = KEYBOARD_MODE_RES_IDS[keyboard.mId.mode]
         if (modeTextResId == 0) {
             return
         }
@@ -113,8 +113,8 @@ class MainKeyboardAccessibilityDelegate(
      * @param lastKeyboard The last keyboard.
      */
     private fun announceKeyboardType(keyboard: Keyboard, lastKeyboard: Keyboard) {
-        val lastElementId = lastKeyboard.mId.mElementId
-        val resId = when (keyboard.mId.mElementId) {
+        val lastElementId = lastKeyboard.mId.elementId
+        val resId = when (keyboard.mId.elementId) {
             KeyboardId.ELEMENT_ALPHABET_AUTOMATIC_SHIFTED, KeyboardId.ELEMENT_ALPHABET -> {
                 if (lastElementId == KeyboardId.ELEMENT_ALPHABET
                         || lastElementId == KeyboardId.ELEMENT_ALPHABET_AUTOMATIC_SHIFTED) {

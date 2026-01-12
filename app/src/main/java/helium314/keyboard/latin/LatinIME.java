@@ -1712,7 +1712,7 @@ public class LatinIME extends InputMethodService implements
         p.println("  VersionCode = " + BuildConfig.VERSION_CODE);
         p.println("  VersionName = " + BuildConfig.VERSION_NAME);
         final Keyboard keyboard = mKeyboardSwitcher.getKeyboard();
-        final int keyboardMode = keyboard != null ? keyboard.mId.mMode : -1;
+        final int keyboardMode = keyboard != null ? keyboard.mId.mode : -1;
         p.println("  Keyboard mode = " + keyboardMode);
         final SettingsValues settingsValues = mSettings.getCurrent();
         p.println(settingsValues.dump());

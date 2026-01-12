@@ -22,7 +22,7 @@ import kotlin.math.sqrt
 class EmojiParser(private val params: KeyboardParams, private val context: Context) {
 
     fun parse(): ArrayList<ArrayList<KeyParams>> {
-        val emojiFileName = when (params.mId.mElementId) {
+        val emojiFileName = when (params.mId.elementId) {
             KeyboardId.ELEMENT_EMOJI_CATEGORY1 -> "SMILEYS_AND_EMOTION.txt"
             KeyboardId.ELEMENT_EMOJI_CATEGORY2 -> "PEOPLE_AND_BODY.txt"
             KeyboardId.ELEMENT_EMOJI_CATEGORY3 -> "ANIMALS_AND_NATURE.txt"
@@ -44,7 +44,7 @@ class EmojiParser(private val params: KeyboardParams, private val context: Conte
             context.assets.open("emoji/$emojiFileName").reader().use { it.readLines() }
         }
         val defaultSkinTone = context.prefs().getString(Settings.PREF_EMOJI_SKIN_TONE, Defaults.PREF_EMOJI_SKIN_TONE)!!
-        if (params.mId.mElementId == KeyboardId.ELEMENT_EMOJI_CATEGORY2 && defaultSkinTone != "") {
+        if (params.mId.elementId == KeyboardId.ELEMENT_EMOJI_CATEGORY2 && defaultSkinTone != "") {
             // adjust PEOPLE_AND_BODY if we have a non-yellow default skin tone
             val modifiedLines = emojiLines.map { line ->
                 val split = line.splitOnWhitespace().toMutableList()
@@ -94,7 +94,7 @@ class EmojiParser(private val params: KeyboardParams, private val context: Conte
     }
 
     private fun parseEmojiKeyNew(line: String): KeyParams? {
-        if (!line.contains(" ") || params.mId.mElementId == KeyboardId.ELEMENT_EMOJI_CATEGORY10) {
+        if (!line.contains(" ") || params.mId.elementId == KeyboardId.ELEMENT_EMOJI_CATEGORY10) {
             // single emoji without popups, or emoticons (there is one that contains space...)
             return if (SupportedEmojis.isUnsupported(line)) null
             else KeyParams(line, line.getCode(), null, null, Key.LABEL_FLAGS_FONT_NORMAL, params)

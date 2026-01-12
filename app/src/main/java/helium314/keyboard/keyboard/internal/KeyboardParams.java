@@ -216,8 +216,8 @@ public class KeyboardParams {
         else
             keyAttr = context.getResources().obtainAttributes(attr, R.styleable.Keyboard_Key);
         try {
-            final int height = mId.mHeight;
-            final int width = mId.mWidth;
+            final int height = mId.height;
+            final int width = mId.width;
             mOccupiedHeight = height;
             mOccupiedWidth = width;
             mTopPadding = (int) keyboardAttr.getFraction(
@@ -286,6 +286,6 @@ public class KeyboardParams {
             keyAttr.recycle();
             keyboardAttr.recycle();
         }
-        setTabletExtraKeys = Settings.getInstance().isTablet() && !mId.mSubtype.isCustom();
+        setTabletExtraKeys = Settings.getInstance().isTablet() && !mId.subtype.isCustom();
     }
 }

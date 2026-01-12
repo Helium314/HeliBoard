@@ -68,91 +68,91 @@ public final class KeyboardId {
     public static final int ELEMENT_EMOJI_BOTTOM_ROW = 29;
     public static final int ELEMENT_CLIPBOARD_BOTTOM_ROW = 30;
 
-    public final RichInputMethodSubtype mSubtype;
-    public final int mWidth;
-    public final int mHeight;
-    public final int mMode;
-    public final int mElementId;
-    public final EditorInfo mEditorInfo;
-    public final boolean mDeviceLocked;
-    public final boolean mNumberRowEnabled;
-    public final boolean mNumberRowInSymbols;
-    public final boolean mLanguageSwitchKeyEnabled;
-    public final boolean mEmojiKeyEnabled;
-    public final String mCustomActionLabel;
-    public final boolean mHasShortcutKey;
-    public final boolean mIsSplitLayout;
-    public final boolean mOneHandedModeEnabled;
-    public final KeyboardLayoutSet.InternalAction mInternalAction;
+    public final RichInputMethodSubtype subtype;
+    public final int width;
+    public final int height;
+    public final int mode;
+    public final int elementId;
+    public final EditorInfo editorInfo;
+    public final boolean deviceLocked;
+    public final boolean numberRowEnabled;
+    public final boolean numberRowInSymbols;
+    public final boolean languageSwitchKeyEnabled;
+    public final boolean emojiKeyEnabled;
+    public final String customActionLabel;
+    public final boolean hasShortcutKey;
+    public final boolean isSplitLayout;
+    public final boolean oneHandedModeEnabled;
+    public final KeyboardLayoutSet.InternalAction internalAction;
 
     private final int mHashCode;
 
     public KeyboardId(int elementId, KeyboardLayoutSet.Params params) {
-        mSubtype = params.mSubtype;
-        mWidth = params.mKeyboardWidth;
-        mHeight = params.mKeyboardHeight;
-        mMode = params.mMode;
-        mElementId = elementId;
-        mEditorInfo = params.mEditorInfo;
-        mDeviceLocked = params.mDeviceLocked;
-        mNumberRowEnabled = params.mNumberRowEnabled;
-        mNumberRowInSymbols = params.mNumberRowInSymbols;
-        mLanguageSwitchKeyEnabled = params.mLanguageSwitchKeyEnabled;
-        mEmojiKeyEnabled = params.mEmojiKeyEnabled;
-        mCustomActionLabel = (mEditorInfo.actionLabel != null)
-                ? mEditorInfo.actionLabel.toString() : null;
-        mHasShortcutKey = params.mVoiceInputKeyEnabled;
-        mIsSplitLayout = params.mIsSplitLayoutEnabled;
-        mOneHandedModeEnabled = params.mOneHandedModeEnabled;
-        mInternalAction = params.mInternalAction;
+        subtype = params.mSubtype;
+        width = params.mKeyboardWidth;
+        height = params.mKeyboardHeight;
+        mode = params.mMode;
+        this.elementId = elementId;
+        editorInfo = params.mEditorInfo;
+        deviceLocked = params.mDeviceLocked;
+        numberRowEnabled = params.mNumberRowEnabled;
+        numberRowInSymbols = params.mNumberRowInSymbols;
+        languageSwitchKeyEnabled = params.mLanguageSwitchKeyEnabled;
+        emojiKeyEnabled = params.mEmojiKeyEnabled;
+        customActionLabel = (editorInfo.actionLabel != null)
+                ? editorInfo.actionLabel.toString() : null;
+        hasShortcutKey = params.mVoiceInputKeyEnabled;
+        isSplitLayout = params.mIsSplitLayoutEnabled;
+        oneHandedModeEnabled = params.mOneHandedModeEnabled;
+        internalAction = params.mInternalAction;
 
         mHashCode = computeHashCode(this);
     }
 
     private static int computeHashCode(KeyboardId id) {
         return Arrays.hashCode(new Object[] {
-                id.mElementId,
-                id.mMode,
-                id.mWidth,
-                id.mHeight,
+                id.elementId,
+                id.mode,
+                id.width,
+                id.height,
                 id.passwordInput(),
-                id.mDeviceLocked,
-                id.mHasShortcutKey,
-                id.mNumberRowEnabled,
-                id.mLanguageSwitchKeyEnabled,
-                id.mEmojiKeyEnabled,
+                id.deviceLocked,
+                id.hasShortcutKey,
+                id.numberRowEnabled,
+                id.languageSwitchKeyEnabled,
+                id.emojiKeyEnabled,
                 id.isMultiLine(),
                 id.imeAction(),
-                id.mCustomActionLabel,
+                id.customActionLabel,
                 id.navigateNext(),
                 id.navigatePrevious(),
-                id.mSubtype,
-                id.mIsSplitLayout,
-                id.mInternalAction
+                id.subtype,
+                id.isSplitLayout,
+                id.internalAction
         });
     }
 
     private boolean equals(KeyboardId other) {
         if (other == this)
             return true;
-        return other.mElementId == mElementId
-                && other.mMode == mMode
-                && other.mWidth == mWidth
-                && other.mHeight == mHeight
+        return other.elementId == elementId
+                && other.mode == mode
+                && other.width == width
+                && other.height == height
                 && other.passwordInput() == passwordInput()
-                && other.mDeviceLocked == mDeviceLocked
-                && other.mHasShortcutKey == mHasShortcutKey
-                && other.mNumberRowEnabled == mNumberRowEnabled
-                && other.mLanguageSwitchKeyEnabled == mLanguageSwitchKeyEnabled
-                && other.mEmojiKeyEnabled == mEmojiKeyEnabled
+                && other.deviceLocked == deviceLocked
+                && other.hasShortcutKey == hasShortcutKey
+                && other.numberRowEnabled == numberRowEnabled
+                && other.languageSwitchKeyEnabled == languageSwitchKeyEnabled
+                && other.emojiKeyEnabled == emojiKeyEnabled
                 && other.isMultiLine() == isMultiLine()
                 && other.imeAction() == imeAction()
-                && TextUtils.equals(other.mCustomActionLabel, mCustomActionLabel)
+                && TextUtils.equals(other.customActionLabel, customActionLabel)
                 && other.navigateNext() == navigateNext()
                 && other.navigatePrevious() == navigatePrevious()
-                && other.mSubtype.equals(mSubtype)
-                && other.mIsSplitLayout == mIsSplitLayout
-                && Objects.equals(other.mInternalAction, mInternalAction);
+                && other.subtype.equals(subtype)
+                && other.isSplitLayout == isSplitLayout
+                && Objects.equals(other.internalAction, internalAction);
     }
 
     private static boolean isAlphabetKeyboard(int elementId) {
@@ -160,61 +160,61 @@ public final class KeyboardId {
     }
 
     public boolean isAlphaOrSymbolKeyboard() {
-        return mElementId <= ELEMENT_SYMBOLS_SHIFTED;
+        return elementId <= ELEMENT_SYMBOLS_SHIFTED;
     }
 
     public boolean isAlphabetKeyboard() {
-        return isAlphabetKeyboard(mElementId);
+        return isAlphabetKeyboard(elementId);
     }
 
     public boolean navigateNext() {
-        return (mEditorInfo.imeOptions & EditorInfo.IME_FLAG_NAVIGATE_NEXT) != 0
+        return (editorInfo.imeOptions & EditorInfo.IME_FLAG_NAVIGATE_NEXT) != 0
                 || imeAction() == EditorInfo.IME_ACTION_NEXT;
     }
 
     public boolean navigatePrevious() {
-        return (mEditorInfo.imeOptions & EditorInfo.IME_FLAG_NAVIGATE_PREVIOUS) != 0
+        return (editorInfo.imeOptions & EditorInfo.IME_FLAG_NAVIGATE_PREVIOUS) != 0
                 || imeAction() == EditorInfo.IME_ACTION_PREVIOUS;
     }
 
     public boolean passwordInput() {
-        int inputType = mEditorInfo.inputType;
+        int inputType = editorInfo.inputType;
         return InputTypeUtils.isAnyPasswordInputType(inputType);
     }
 
     public boolean isMultiLine() {
-        return (mEditorInfo.inputType & InputType.TYPE_TEXT_FLAG_MULTI_LINE) != 0;
+        return (editorInfo.inputType & InputType.TYPE_TEXT_FLAG_MULTI_LINE) != 0;
     }
 
     public boolean isAlphabetShifted() {
-        return mElementId == ELEMENT_ALPHABET_SHIFT_LOCKED || mElementId == ELEMENT_ALPHABET_SHIFT_LOCK_SHIFTED
-                || mElementId == ELEMENT_ALPHABET_AUTOMATIC_SHIFTED || mElementId == ELEMENT_ALPHABET_MANUAL_SHIFTED;
+        return elementId == ELEMENT_ALPHABET_SHIFT_LOCKED || elementId == ELEMENT_ALPHABET_SHIFT_LOCK_SHIFTED
+                || elementId == ELEMENT_ALPHABET_AUTOMATIC_SHIFTED || elementId == ELEMENT_ALPHABET_MANUAL_SHIFTED;
     }
 
     public boolean isAlphabetShiftedManually() {
-        return mElementId == ELEMENT_ALPHABET_SHIFT_LOCKED || mElementId == ELEMENT_ALPHABET_SHIFT_LOCK_SHIFTED
-            || mElementId == ELEMENT_ALPHABET_MANUAL_SHIFTED;
+        return elementId == ELEMENT_ALPHABET_SHIFT_LOCKED || elementId == ELEMENT_ALPHABET_SHIFT_LOCK_SHIFTED
+            || elementId == ELEMENT_ALPHABET_MANUAL_SHIFTED;
     }
 
     public boolean isNumberLayout() {
-        return mElementId == ELEMENT_NUMBER || mElementId == ELEMENT_NUMPAD
-                || mElementId == ELEMENT_PHONE || mElementId == ELEMENT_PHONE_SYMBOLS;
+        return elementId == ELEMENT_NUMBER || elementId == ELEMENT_NUMPAD
+                || elementId == ELEMENT_PHONE || elementId == ELEMENT_PHONE_SYMBOLS;
     }
 
     public boolean isEmojiKeyboard() {
-        return mElementId >= ELEMENT_EMOJI_RECENTS && mElementId <= ELEMENT_EMOJI_CATEGORY16;
+        return elementId >= ELEMENT_EMOJI_RECENTS && elementId <= ELEMENT_EMOJI_CATEGORY16;
     }
 
     public boolean isEmojiClipBottomRow() {
-        return mElementId == ELEMENT_CLIPBOARD_BOTTOM_ROW || mElementId == ELEMENT_EMOJI_BOTTOM_ROW;
+        return elementId == ELEMENT_CLIPBOARD_BOTTOM_ROW || elementId == ELEMENT_EMOJI_BOTTOM_ROW;
     }
 
     public int imeAction() {
-        return InputTypeUtils.getImeOptionsActionIdFromEditorInfo(mEditorInfo);
+        return InputTypeUtils.getImeOptionsActionIdFromEditorInfo(editorInfo);
     }
 
     public Locale getLocale() {
-        return mSubtype.getLocale();
+        return subtype.getLocale();
     }
 
     @Override
@@ -230,22 +230,22 @@ public final class KeyboardId {
     @Override
     public String toString() {
         return String.format(Locale.ROOT, "[%s %s:%s %dx%d %s %s%s%s%s%s%s%s%s%s%s%s]",
-                elementIdToName(mElementId),
-                mSubtype.getLocale(),
-                mSubtype.getExtraValueOf(KEYBOARD_LAYOUT_SET),
-                mWidth, mHeight,
-                modeName(mMode),
+                elementIdToName(elementId),
+                subtype.getLocale(),
+                subtype.getExtraValueOf(KEYBOARD_LAYOUT_SET),
+            width, height,
+                modeName(mode),
                 actionName(imeAction()),
                 (navigateNext() ? " navigateNext" : ""),
                 (navigatePrevious() ? " navigatePrevious" : ""),
-                (mDeviceLocked ? " deviceLocked" : ""),
+                (deviceLocked ? " deviceLocked" : ""),
                 (passwordInput() ? " passwordInput" : ""),
-                (mHasShortcutKey ? " hasShortcutKey" : ""),
-                (mNumberRowEnabled ? " numberRowEnabled" : ""),
-                (mLanguageSwitchKeyEnabled ? " languageSwitchKeyEnabled" : ""),
-                (mEmojiKeyEnabled ? " emojiKeyEnabled" : ""),
+                (hasShortcutKey ? " hasShortcutKey" : ""),
+                (numberRowEnabled ? " numberRowEnabled" : ""),
+                (languageSwitchKeyEnabled ? " languageSwitchKeyEnabled" : ""),
+                (emojiKeyEnabled ? " emojiKeyEnabled" : ""),
                 (isMultiLine() ? " isMultiLine" : ""),
-                (mIsSplitLayout ? " isSplitLayout" : "")
+                (isSplitLayout ? " isSplitLayout" : "")
         );
     }
 
@@ -314,7 +314,7 @@ public final class KeyboardId {
     }
 
     public int getKeyboardCapsMode() {
-        return switch (mElementId) {
+        return switch (elementId) {
             case KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCKED, KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCK_SHIFTED ->
                 WordComposer.CAPS_MODE_MANUAL_SHIFT_LOCKED;
             case KeyboardId.ELEMENT_ALPHABET_MANUAL_SHIFTED -> WordComposer.CAPS_MODE_MANUAL_SHIFTED;

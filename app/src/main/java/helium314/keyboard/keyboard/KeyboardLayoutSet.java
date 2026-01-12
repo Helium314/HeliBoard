@@ -175,8 +175,8 @@ public final class KeyboardLayoutSet {
         }
         final Keyboard keyboard = builder.build();
         sKeyboardCache.put(id, new SoftReference<>(keyboard));
-        if ((id.mElementId == KeyboardId.ELEMENT_ALPHABET
-                || id.mElementId == KeyboardId.ELEMENT_ALPHABET_AUTOMATIC_SHIFTED)
+        if ((id.elementId == KeyboardId.ELEMENT_ALPHABET
+                || id.elementId == KeyboardId.ELEMENT_ALPHABET_AUTOMATIC_SHIFTED)
                 && !mParams.mIsSpellChecker) {
             // We only forcibly cache the primary, "ALPHABET", layouts.
             for (int i = sForcibleKeyboardCache.length - 1; i >= 1; --i) {

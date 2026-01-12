@@ -57,7 +57,7 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
                     mParams.mTouchPositionCorrection.load(mContext.resources.getStringArray(R.array.touch_position_correction_data_default))
                 determineAbsoluteValues()
             } catch (e: Exception) {
-                Log.e(TAG, "error parsing layout $id ${id.mElementId}", e)
+                Log.e(TAG, "error parsing layout $id ${id.elementId}", e)
                 throw e
             }
         }
@@ -67,8 +67,8 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
     private fun setupParams() {
         val sv = Settings.getValues()
         mParams.mAllowRedundantPopupKeys = !sv.mRemoveRedundantPopups
-        mParams.mProximityCharsCorrectionEnabled = mParams.mId.mElementId == KeyboardId.ELEMENT_ALPHABET
-                || (mParams.mId.isAlphabetKeyboard && !mParams.mId.mSubtype.hasExtraValue(Constants.Subtype.ExtraValue.NO_SHIFT_PROXIMITY_CORRECTION))
+        mParams.mProximityCharsCorrectionEnabled = mParams.mId.elementId == KeyboardId.ELEMENT_ALPHABET
+                || (mParams.mId.isAlphabetKeyboard && !mParams.mId.subtype.hasExtraValue(Constants.Subtype.ExtraValue.NO_SHIFT_PROXIMITY_CORRECTION))
 
         addLocaleKeyTextsToParams(mContext, mParams, sv.mShowMorePopupKeys)
         mParams.mPopupKeyTypes.addAll(sv.mPopupKeyTypes)
@@ -101,8 +101,8 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
     }
 
     open fun build(): Keyboard {
-        if (mParams.mId.mIsSplitLayout
-                && mParams.mId.mElementId in KeyboardId.ELEMENT_ALPHABET..KeyboardId.ELEMENT_SYMBOLS_SHIFTED) {
+        if (mParams.mId.isSplitLayout
+                && mParams.mId.elementId in KeyboardId.ELEMENT_ALPHABET..KeyboardId.ELEMENT_SYMBOLS_SHIFTED) {
             addSplit()
         }
         addKeysToParams()
@@ -129,7 +129,7 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
         val spacerRelativeWidth = Settings.getValues().mSplitKeyboardSpacerRelativeWidth
         // adjust gaps for the whole keyboard, so it's the same for all rows
         mParams.mRelativeHorizontalGap *= 1f / (1f + spacerRelativeWidth)
-        mParams.mHorizontalGap = (mParams.mRelativeHorizontalGap * mParams.mId.mWidth).toInt()
+        mParams.mHorizontalGap = (mParams.mRelativeHorizontalGap * mParams.mId.width).toInt()
         var maxWidthBeforeSpacer = 0f
         var maxWidthAfterSpacer = 0f
         for (row in keysInRows) {

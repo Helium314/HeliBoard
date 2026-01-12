@@ -47,7 +47,7 @@ class KeyboardParser(private val params: KeyboardParams, private val context: Co
         params.readAttributes(context, null)
 
         // todo: maybe determine layoutType earlier, and to less stuff based on elementId
-        val layoutType = when (params.mId.mElementId) {
+        val layoutType = when (params.mId.elementId) {
             KeyboardId.ELEMENT_SYMBOLS -> LayoutType.SYMBOLS
             KeyboardId.ELEMENT_SYMBOLS_SHIFTED -> LayoutType.MORE_SYMBOLS
             KeyboardId.ELEMENT_PHONE -> LayoutType.PHONE
@@ -87,7 +87,7 @@ class KeyboardParser(private val params: KeyboardParams, private val context: Co
 
     private fun createRows(baseKeys: MutableList<MutableList<KeyData>>): ArrayList<ArrayList<KeyParams>> {
         // add padding for number layouts in landscape mode (maybe do it some other way later)
-        if (params.mId.isNumberLayout && params.mId.mElementId != KeyboardId.ELEMENT_NUMPAD
+        if (params.mId.isNumberLayout && params.mId.elementId != KeyboardId.ELEMENT_NUMPAD
                 && context.resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
             params.mLeftPadding = (params.mOccupiedWidth * 0.1f).toInt()
             params.mRightPadding = (params.mOccupiedWidth * 0.1f).toInt()
@@ -98,7 +98,7 @@ class KeyboardParser(private val params: KeyboardParams, private val context: Co
         addNumberRowOrPopupKeys(baseKeys, numberRow)
         if (params.mId.isAlphabetKeyboard)
             addSymbolPopupKeys(baseKeys)
-        if (params.mId.isAlphaOrSymbolKeyboard && params.mId.mNumberRowEnabled) {
+        if (params.mId.isAlphaOrSymbolKeyboard && params.mId.numberRowEnabled) {
             val newLabelFlags = defaultLabelFlags or
                     if (Settings.getValues().mShowNumberRowHints) 0 else Key.LABEL_FLAGS_DISABLE_HINT_LABEL
             baseKeys.add(0, numberRow.mapTo(mutableListOf()) { it.copy(newLabelFlags = newLabelFlags) })
@@ -122,7 +122,7 @@ class KeyboardParser(private val params: KeyboardParams, private val context: Co
         val baseKeyParams = baseKeys.mapIndexed { i, it ->
             val row: List<KeyData> = if (params.mId.isAlphaOrSymbolKeyboard && i == baseKeys.lastIndex - 1 && params.setTabletExtraKeys) {
                 // add bottom row extra keys
-                val tabletExtraKeys = params.mLocaleKeyboardInfos.getTabletExtraKeys(params.mId.mElementId)
+                val tabletExtraKeys = params.mLocaleKeyboardInfos.getTabletExtraKeys(params.mId.elementId)
                 tabletExtraKeys.first + it + tabletExtraKeys.second
             } else {
                 it
@@ -264,12 +264,12 @@ class KeyboardParser(private val params: KeyboardParams, private val context: Co
     }
 
     private fun addNumberRowOrPopupKeys(baseKeys: MutableList<MutableList<KeyData>>, numberRow: MutableList<KeyData>) {
-        if (!params.mId.mNumberRowEnabled && params.mId.mNumberRowInSymbols && params.mId.mElementId == KeyboardId.ELEMENT_SYMBOLS) {
+        if (!params.mId.numberRowEnabled && params.mId.numberRowInSymbols && params.mId.elementId == KeyboardId.ELEMENT_SYMBOLS) {
             // replace first symbols row with number row, but use the labels as popupKeys
             val numberRowCopy = numberRow.toMutableList()
             numberRowCopy.forEachIndexed { index, keyData -> keyData.popup.symbol = baseKeys[0].getOrNull(index)?.label }
             baseKeys[0] = numberRowCopy
-        } else if (!params.mId.mNumberRowEnabled && params.mId.isAlphabetKeyboard && !hasBuiltInNumbers()) {
+        } else if (!params.mId.numberRowEnabled && params.mId.isAlphabetKeyboard && !hasBuiltInNumbers()) {
             if (baseKeys[0].any { it.popup.main != null || !it.popup.relevant.isNullOrEmpty() } // first row of baseKeys has any layout popup key
                 && params.mPopupKeyLabelSources.let {
                     val layout = it.indexOf(POPUP_KEYS_LAYOUT)
@@ -324,9 +324,9 @@ class KeyboardParser(private val params: KeyboardParams, private val context: Co
     }
 
     // some layouts have numbers hardcoded in the main layout (pcqwerty as keys, and others as popups)
-    private fun hasBuiltInNumbers() = params.mId.mSubtype.mainLayoutName == "pcqwerty"
+    private fun hasBuiltInNumbers() = params.mId.subtype.mainLayoutName == "pcqwerty"
             || (Settings.getValues().mPopupKeyTypes.contains(POPUP_KEYS_LAYOUT)
-                && params.mId.mSubtype.mainLayoutName in listOf("lao", "thai", "korean_sebeolsik_390", "korean_sebeolsik_final")
+                && params.mId.subtype.mainLayoutName in listOf("lao", "thai", "korean_sebeolsik_390", "korean_sebeolsik_final")
             )
 
     companion object {

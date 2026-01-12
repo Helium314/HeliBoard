@@ -65,7 +65,7 @@ object KeyLabel {
     }
 
     fun String.rtlLabel(params: KeyboardParams): String {
-        if (!params.mId.mSubtype.isRtlSubtype || params.mId.isNumberLayout) return this
+        if (!params.mId.subtype.isRtlSubtype || params.mId.isNumberLayout) return this
         return when (this) {
             "{" -> "{|}"
             "}" -> "}|{"
@@ -130,7 +130,7 @@ object KeyLabel {
         else "$newLabel|!code/$code"
     }
 
-    private fun getShiftLabel(params: KeyboardParams) = when (params.mId.mElementId) {
+    private fun getShiftLabel(params: KeyboardParams) = when (params.mId.elementId) {
         KeyboardId.ELEMENT_SYMBOLS_SHIFTED -> params.mLocaleKeyboardInfos.labelSymbol
         KeyboardId.ELEMENT_SYMBOLS -> params.mLocaleKeyboardInfos.getShiftSymbolLabel(
             Settings.getInstance().isTablet)
@@ -157,15 +157,15 @@ object KeyLabel {
 
     // todo (later): should this be handled with metaState? but metaState shift would require LOTS of changes...
     private fun getActionKeyCode(params: KeyboardParams): String {
-        params.mId.mInternalAction?.let { return "${KeyboardCodesSet.PREFIX_CODE}${it.code()}" }
-        return if (params.mId.isMultiLine && (params.mId.mElementId == KeyboardId.ELEMENT_ALPHABET_MANUAL_SHIFTED || params.mId.mElementId == KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCK_SHIFTED))
+        params.mId.internalAction?.let { return "${KeyboardCodesSet.PREFIX_CODE}${it.code()}" }
+        return if (params.mId.isMultiLine && (params.mId.elementId == KeyboardId.ELEMENT_ALPHABET_MANUAL_SHIFTED || params.mId.elementId == KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCK_SHIFTED))
             "!code/key_shift_enter"
         else "!code/key_enter"
     }
 
     private fun getActionKeyLabel(params: KeyboardParams): String {
-        params.mId.mInternalAction?.let { return it.label() }
-        if (params.mId.isMultiLine && (params.mId.mElementId == KeyboardId.ELEMENT_ALPHABET_MANUAL_SHIFTED || params.mId.mElementId == KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCK_SHIFTED))
+        params.mId.internalAction?.let { return it.label() }
+        if (params.mId.isMultiLine && (params.mId.elementId == KeyboardId.ELEMENT_ALPHABET_MANUAL_SHIFTED || params.mId.elementId == KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCK_SHIFTED))
             return "!icon/enter_key"
         val iconName = when (params.mId.imeAction()) {
             EditorInfo.IME_ACTION_GO               -> KeyboardIconsSet.NAME_GO_KEY
@@ -174,7 +174,7 @@ object KeyLabel {
             EditorInfo.IME_ACTION_NEXT             -> KeyboardIconsSet.NAME_NEXT_KEY
             EditorInfo.IME_ACTION_DONE             -> KeyboardIconsSet.NAME_DONE_KEY
             EditorInfo.IME_ACTION_PREVIOUS         -> KeyboardIconsSet.NAME_PREVIOUS_KEY
-            InputTypeUtils.IME_ACTION_CUSTOM_LABEL -> return params.mId.mCustomActionLabel
+            InputTypeUtils.IME_ACTION_CUSTOM_LABEL -> return params.mId.customActionLabel
             else                                   -> return "!icon/enter_key"
         }
         val replacement = iconName.replaceIconWithLabelIfNoDrawable(params)

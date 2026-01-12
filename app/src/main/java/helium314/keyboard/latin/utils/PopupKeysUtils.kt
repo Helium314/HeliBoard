@@ -92,7 +92,7 @@ private fun transformLabel(label: String, params: KeyboardParams): String =
                 params.mLocaleKeyboardInfos.currencyKey.second[index - 1]
             else label
         }
-    } else if (params.mId.mSubtype.isRtlSubtype) {
+    } else if (params.mId.subtype.isRtlSubtype) {
         label.rtlLabel(params)
     } else label
 

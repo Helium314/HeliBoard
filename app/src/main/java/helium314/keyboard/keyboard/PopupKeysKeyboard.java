@@ -299,12 +299,12 @@ public final class PopupKeysKeyboard extends Keyboard {
             }
             final PopupKeySpec[] popupKeys = key.getPopupKeys();
             final int defaultColumns = key.getPopupKeysColumnNumber();
-            final int spaceForKeys = keyboard.mId.mWidth / keyWidth;
+            final int spaceForKeys = keyboard.mId.width / keyWidth;
             final int finalNumColumns = spaceForKeys >= Math.min(popupKeys.length, defaultColumns)
                     ? defaultColumns
                     : (spaceForKeys > 0 ? spaceForKeys : defaultColumns); // in last case setParameters will throw an exception
             mParams.setParameters(popupKeys.length, finalNumColumns, keyWidth,
-                    rowHeight, key.getX() + key.getWidth() / 2, keyboard.mId.mWidth,
+                    rowHeight, key.getX() + key.getWidth() / 2, keyboard.mId.width,
                     key.isPopupKeysFixedColumn(), key.isPopupKeysFixedOrder(), dividerWidth);
         }
 
