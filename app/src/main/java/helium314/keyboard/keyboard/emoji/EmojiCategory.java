@@ -27,6 +27,7 @@ import helium314.keyboard.latin.settings.Settings;
 import helium314.keyboard.latin.utils.ResourceUtils;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -296,7 +297,7 @@ final class EmojiCategory {
                         mLayoutSet.getKeyboard(KeyboardId.ELEMENT_EMOJI_RECENTS),
                         mMaxRecentsKeyCount, categoryId, currentWidth);
                 mCategoryKeyboardMap.put(categoryKeyboardMapKey, kbd);
-                kbd.loadRecentKeys(mCategoryKeyboardMap.values());
+                kbd.loadRecentKeys(getKeyboards());
                 return kbd;
             }
 
@@ -318,6 +319,10 @@ final class EmojiCategory {
             }
             return mCategoryKeyboardMap.get(categoryKeyboardMapKey);
         }
+    }
+
+    Collection<DynamicGridKeyboard> getKeyboards() {
+        return mCategoryKeyboardMap.values();
     }
 
     private int computeMaxKeyCountPerPage() {

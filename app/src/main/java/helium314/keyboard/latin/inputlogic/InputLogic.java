@@ -328,6 +328,11 @@ public final class InputLogic {
         mConnection.endBatchEdit();
         // Don't allow cancellation of manual pick
         mLastComposedWord.deactivate();
+
+        if (suggestionInfo.isEmoji()) {
+            KeyboardSwitcher.getInstance().getEmojiPalettesView().addRecent(suggestion);
+        }
+
         // Space state must be updated before calling updateShiftState
         if (settingsValues.mAutospaceAfterSuggestion)
             mSpaceState = SpaceState.PHANTOM;

@@ -343,12 +343,17 @@ public final class EmojiPalettesView extends LinearLayout
         initDictionaryFacilitator();
     }
 
+    public void addRecent(String emoji) {
+        initialize();
+        addRecentKey(getRecentsKeyboard().getKey(mEmojiCategory.getKeyboards(), emoji));
+    }
+
     private void addRecentKey(final Key key) {
         if (Settings.getValues().mIncognitoModeEnabled) {
             // We do not want to log recent keys while being in incognito
             return;
         }
-        if (mEmojiCategory.isInRecentTab()) {
+        if (getVisibility() == VISIBLE && mEmojiCategory.isInRecentTab()) {
             getRecentsKeyboard().addPendingKey(key);
             return;
         }
