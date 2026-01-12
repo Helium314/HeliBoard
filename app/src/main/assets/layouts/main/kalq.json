@@ -1,0 +1,52 @@
+[
+    [
+        { "label": "m", "width": 0.12 },
+        { "label": "b", "width": 0.12 },
+        { "label": "w", "width": 0.12 },
+        { "label": "h", "width": 0.12 },
+        { "type": "placeholder", "width": 0.005 },
+        { "label": "g", "width": 0.12 },
+        { "label": "t", "width": 0.12 },
+        { "label": "o", "width": 0.12 },
+        { "label": "j", "width": 0.12 }
+    ],
+    [
+        { "label": "p", "width": 0.12 },
+        { "label": "space", "width": 0.12 },
+        { "label": "x", "width": 0.12 },
+        { "label": "c", "width": 0.12 },
+        { "type": "placeholder", "width": 0.005 },
+        { "label": "i", "width": 0.12 },
+        { "label": "e", "width": 0.12 },
+        { "label": "space", "width": 0.12 },
+        { "label": "u", "width": 0.12 }
+    ],
+    [
+        { "label": "r", "width": 0.12 },
+        { "label": "y", "width": 0.12 },
+        { "label": "s", "width": 0.12 },
+        { "label": "z", "width": 0.12 },
+        { "type": "placeholder", "width": 0.005 },
+        { "label": "k", "width": 0.12 },
+        { "label": "a", "width": 0.12 },
+        { "label": "l", "width": 0.12 },
+        { "label": "q", "width": 0.12 }
+    ],
+    [
+        { "label": "d", "width": 0.12 },
+        { "label": "n", "width": 0.12 },
+        { "label": "f", "width": 0.12 },
+        { "label": "v", "width": 0.12 },
+        { "type": "placeholder", "width": 0.005 },
+        { "label":  "delete", "groupId": -1, "width":  0.24 },
+        { "label":  "action", "width":  0.24 }
+    ],
+    [
+        { "label":  "shift", "width":  0.24 },
+        { "label":  "language_switch", "width":  0.12 },
+        { "label":  "◁", "code":  -10040, "width":  0.12},
+        { "type": "placeholder", "width": 0.005 },
+        { "label":  "symbol_alpha", "width":  0.24 },
+        { "label":  "shift", "width":  0.24 }
+    ]
+]
