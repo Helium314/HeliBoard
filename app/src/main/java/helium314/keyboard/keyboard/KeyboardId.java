@@ -87,7 +87,7 @@ public final class KeyboardId {
 
     private final int mHashCode;
 
-    public KeyboardId(final int elementId, final KeyboardLayoutSet.Params params) {
+    public KeyboardId(int elementId, KeyboardLayoutSet.Params params) {
         mSubtype = params.mSubtype;
         mWidth = params.mKeyboardWidth;
         mHeight = params.mKeyboardHeight;
@@ -109,7 +109,7 @@ public final class KeyboardId {
         mHashCode = computeHashCode(this);
     }
 
-    private static int computeHashCode(final KeyboardId id) {
+    private static int computeHashCode(KeyboardId id) {
         return Arrays.hashCode(new Object[] {
                 id.mElementId,
                 id.mMode,
@@ -132,7 +132,7 @@ public final class KeyboardId {
         });
     }
 
-    private boolean equals(final KeyboardId other) {
+    private boolean equals(KeyboardId other) {
         if (other == this)
             return true;
         return other.mElementId == mElementId
@@ -155,7 +155,7 @@ public final class KeyboardId {
                 && Objects.equals(other.mInternalAction, mInternalAction);
     }
 
-    private static boolean isAlphabetKeyboard(final int elementId) {
+    private static boolean isAlphabetKeyboard(int elementId) {
         return elementId < ELEMENT_SYMBOLS;
     }
 
@@ -178,7 +178,7 @@ public final class KeyboardId {
     }
 
     public boolean passwordInput() {
-        final int inputType = mEditorInfo.inputType;
+        int inputType = mEditorInfo.inputType;
         return InputTypeUtils.isAnyPasswordInputType(inputType);
     }
 
@@ -218,7 +218,7 @@ public final class KeyboardId {
     }
 
     @Override
-    public boolean equals(final Object other) {
+    public boolean equals(Object other) {
         return other instanceof KeyboardId && equals((KeyboardId) other);
     }
 
@@ -249,7 +249,7 @@ public final class KeyboardId {
         );
     }
 
-    public static boolean equivalentEditorInfoForKeyboard(final EditorInfo a, final EditorInfo b) {
+    public static boolean equivalentEditorInfoForKeyboard(EditorInfo a, EditorInfo b) {
         if (a == null && b == null) return true;
         if (a == null || b == null) return false;
         return a.inputType == b.inputType
@@ -257,7 +257,7 @@ public final class KeyboardId {
                 && TextUtils.equals(a.privateImeOptions, b.privateImeOptions);
     }
 
-    public static String elementIdToName(final int elementId) {
+    public static String elementIdToName(int elementId) {
         return switch (elementId) {
             case ELEMENT_ALPHABET -> "alphabet";
             case ELEMENT_ALPHABET_MANUAL_SHIFTED -> "alphabetManualShifted";
@@ -292,7 +292,7 @@ public final class KeyboardId {
         };
     }
 
-    public static String modeName(final int mode) {
+    public static String modeName(int mode) {
         return switch (mode) {
             case MODE_TEXT -> "text";
             case MODE_URL -> "url";
@@ -308,7 +308,7 @@ public final class KeyboardId {
         };
     }
 
-    public static String actionName(final int actionId) {
+    public static String actionName(int actionId) {
         return (actionId == InputTypeUtils.IME_ACTION_CUSTOM_LABEL) ? "actionCustomLabel"
                 : EditorInfoCompatUtils.imeActionName(actionId);
     }
