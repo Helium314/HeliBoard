@@ -4,7 +4,7 @@ package helium314.keyboard.latin.utils
 import android.content.Context
 import android.widget.Toast
 import helium314.keyboard.keyboard.Key
-import helium314.keyboard.keyboard.KeyboardId
+import helium314.keyboard.keyboard.KeyboardElement
 import helium314.keyboard.keyboard.KeyboardLayoutSet
 import helium314.keyboard.keyboard.KeyboardSwitcher
 import helium314.keyboard.keyboard.internal.KeyboardParams
@@ -32,7 +32,7 @@ object LayoutUtilsCustom {
         if (Settings.getValues() == null)
             Settings.getInstance().loadSettings(context)
         val params = KeyboardParams()
-        params.mId = KeyboardLayoutSet.getFakeKeyboardId(KeyboardId.ELEMENT_ALPHABET)
+        params.mId = KeyboardLayoutSet.getFakeKeyboardId(KeyboardElement.ALPHABET)
         params.mPopupKeyTypes.add(POPUP_KEYS_LAYOUT)
         addLocaleKeyTextsToParams(context, params, POPUP_KEYS_NORMAL)
         try {

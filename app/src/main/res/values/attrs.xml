@@ -350,38 +350,6 @@
 
     <declare-styleable name="Keyboard_Case">
         <attr name="keyboardLayoutSet" format="string" />
-        <!-- This should be aligned with
-             {@link helium314.keyboard.keyboard.KeyboardId#ELEMENT_ALPHABET} etc. -->
-        <attr name="keyboardLayoutSetElement" format="enum|string">
-            <enum name="alphabet" value="0" />
-            <enum name="alphabetManualShifted" value="1" />
-            <enum name="alphabetAutomaticShifted" value="2" />
-            <enum name="alphabetShiftLocked" value="3" />
-            <enum name="alphabetShiftLockShifted" value="4" />
-            <enum name="symbols" value="5" />
-            <enum name="symbolsShifted" value="6"  />
-            <enum name="phone" value="7"  />
-            <enum name="phoneSymbols" value="8"  />
-            <enum name="number" value="9"  />
-            <enum name="emojiRecents" value="10" />
-            <enum name="emojiCategory1" value="11" />
-            <enum name="emojiCategory2" value="12" />
-            <enum name="emojiCategory3" value="13" />
-            <enum name="emojiCategory4" value="14" />
-            <enum name="emojiCategory5" value="15" />
-            <enum name="emojiCategory6" value="16" />
-            <enum name="emojiCategory7" value="17" />
-            <enum name="emojiCategory8" value="18" />
-            <enum name="emojiCategory9" value="19" />
-            <enum name="emojiCategory10" value="20" />
-            <enum name="emojiCategory11" value="21" />
-            <enum name="emojiCategory12" value="22" />
-            <enum name="emojiCategory13" value="23" />
-            <enum name="emojiCategory14" value="24" />
-            <enum name="emojiCategory15" value="25" />
-            <enum name="emojiCategory16" value="26" />
-            <enum name="numpad" value="28"  />
-        </attr>
         <!-- This should be aligned with Keyboard.themeId and
              {@link helium314.keyboard.keyboard.KeyboardTheme#THEME_ID_HOLO_BASE} etc. -->
         <attr name="keyboardTheme" format="enum|string">
@@ -390,16 +358,6 @@
             <enum name="LXXBaseBorder" value="2" />
             <enum name="RoundedBase" value="3" />
             <enum name="RoundedBaseBorder" value="4" />
-        </attr>
-        <!-- This should be aligned with
-             {@link helium314.keyboard.keyboard.KeyboardId#MODE_TEXT} etc. -->
-        <attr name="mode" format="enum|string">
-            <enum name="text" value="0" />
-            <enum name="url" value="1" />
-            <enum name="email" value="2" />
-            <enum name="im" value="3" />
-            <enum name="phone" value="4" />
-            <enum name="number" value="5" />
         </attr>
         <attr name="navigateNext" format="boolean" />
         <attr name="navigatePrevious" format="boolean" />

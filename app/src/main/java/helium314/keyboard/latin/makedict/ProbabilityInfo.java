@@ -10,6 +10,7 @@ import com.android.inputmethod.latin.BinaryDictionary;
 import helium314.keyboard.latin.utils.CombinedFormatUtils;
 
 import java.util.Arrays;
+import java.util.Objects;
 
 public final class ProbabilityInfo {
     public final int mProbability;
@@ -51,9 +52,9 @@ public final class ProbabilityInfo {
     @Override
     public int hashCode() {
         if (hasHistoricalInfo()) {
-            return Arrays.hashCode(new Object[] { mProbability, mTimestamp, mLevel, mCount });
+            return Objects.hash(mProbability, mTimestamp, mLevel, mCount);
         }
-        return Arrays.hashCode(new Object[] { mProbability });
+        return Objects.hash(mProbability);
     }
 
     @Override

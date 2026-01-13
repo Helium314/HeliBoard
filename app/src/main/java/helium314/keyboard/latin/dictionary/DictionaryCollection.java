@@ -22,7 +22,7 @@ import java.util.Locale;
  * Class for a collection of dictionaries that behave like one dictionary.
  */
 public final class DictionaryCollection extends Dictionary {
-    private final String TAG = DictionaryCollection.class.getSimpleName();
+    private static final String TAG = DictionaryCollection.class.getSimpleName();
     private final ArrayList<Dictionary> mDictionaries;
     private final float[] mWeights;
 

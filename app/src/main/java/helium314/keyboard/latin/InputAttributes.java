@@ -27,7 +27,7 @@ import androidx.annotation.NonNull;
  * Class to hold attributes of the input field.
  */
 public final class InputAttributes {
-    private final String TAG = InputAttributes.class.getSimpleName();
+    private static final String TAG = InputAttributes.class.getSimpleName();
 
     final public String mTargetApplicationPackageName;
     final public boolean mInputTypeShouldAutoCorrect;

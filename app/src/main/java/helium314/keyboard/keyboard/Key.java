@@ -28,6 +28,7 @@ import kotlin.collections.ArraysKt;
 
 import java.util.Arrays;
 import java.util.Locale;
+import java.util.Objects;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -363,17 +364,12 @@ public class Key implements Comparable<Key> {
         return (filteredPopupKeys == popupKeys) ? key : new Key(key, filteredPopupKeys);
     }
 
-    private static boolean needsToUpcase(final int labelFlags, final int keyboardElementId) {
-        if ((labelFlags & LABEL_FLAGS_PRESERVE_CASE) != 0) return false;
-        return switch (keyboardElementId) {
-            case KeyboardId.ELEMENT_ALPHABET_MANUAL_SHIFTED, KeyboardId.ELEMENT_ALPHABET_AUTOMATIC_SHIFTED,
-                    KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCKED, KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCK_SHIFTED -> true;
-            default -> false;
-        };
+    private static boolean needsToUpcase(final int labelFlags, final KeyboardElement element) {
+        return (labelFlags & LABEL_FLAGS_PRESERVE_CASE) == 0 && element.isAlphabetShifted();
     }
 
     private static int computeHashCode(final Key key) {
-        return Arrays.hashCode(new Object[] {
+        return Objects.hash(
                 key.mX,
                 key.mY,
                 key.mWidth,
@@ -386,7 +382,7 @@ public class Key implements Comparable<Key> {
                 Arrays.hashCode(key.mPopupKeys),
                 key.getOutputText(),
                 key.mActionFlags,
-                key.mLabelFlags,
+                key.mLabelFlags
                 // Key can be distinguishable without the following members.
                 // key.mOptionalAttributes.mAltCode,
                 // key.mOptionalAttributes.mDisabledIconId,
@@ -396,7 +392,7 @@ public class Key implements Comparable<Key> {
                 // key.mOptionalAttributes.mVisualInsetLeft,
                 // key.mOptionalAttributes.mVisualInsetRight,
                 // key.mMaxPopupKeysColumn,
-        });
+        );
     }
 
     private boolean equalsInternal(final Key o) {
@@ -1071,16 +1067,17 @@ public class Key implements Comparable<Key> {
             mHeight = params.mDefaultRowHeight;
             mIconName = KeySpecParser.getIconName(keySpec);
 
-            final boolean needsToUpcase = needsToUpcase(mLabelFlags, params.mId.mElementId);
+            KeyboardElement element = params.mId.element;
+            final boolean needsToUpcase = needsToUpcase(mLabelFlags, element);
             final Locale localeForUpcasing = params.mId.getLocale();
             int actionFlags = 0;
-            if (params.mId.isNumberLayout())
+            if (element.isNumberLayout())
                 actionFlags = ACTION_FLAGS_NO_KEY_PREVIEW;
 
             // label
             String label = null;
             if ((mLabelFlags & LABEL_FLAGS_FROM_CUSTOM_ACTION_LABEL) != 0) {
-                mLabel = params.mId.mCustomActionLabel;
+                mLabel = params.mId.customActionLabel;
             } else if (code >= Character.MIN_SUPPLEMENTARY_CODE_POINT) {
                 // This is a workaround to have a key that has a supplementary code point in its label.
                 // Because we can put a string in resource neither as a XML entity of a supplementary
@@ -1153,7 +1150,7 @@ public class Key implements Comparable<Key> {
             // action flags don't need to be specified, they can be deduced from the key
             if (mCode == Constants.CODE_SPACE
                     || mCode == KeyCode.LANGUAGE_SWITCH
-                    || (mCode == KeyCode.SYMBOL_ALPHA && !params.mId.isAlphabetKeyboard())
+                    || (mCode == KeyCode.SYMBOL_ALPHA && !element.isAlphabetLayout())
             )
                 actionFlags |= ACTION_FLAGS_ENABLE_LONG_PRESS;
             if (mCode <= Constants.CODE_SPACE && mCode != KeyCode.MULTIPLE_CODE_POINTS && mIconName == null)

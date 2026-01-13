@@ -1,6 +1,6 @@
 package helium314.keyboard
 
-import helium314.keyboard.keyboard.KeyboardId
+import helium314.keyboard.keyboard.KeyboardElement
 import helium314.keyboard.keyboard.KeyboardLayoutSet
 import helium314.keyboard.keyboard.internal.KeyboardParams
 import helium314.keyboard.keyboard.internal.keyboard_parser.POPUP_KEYS_NORMAL
@@ -37,7 +37,7 @@ class SubtypeTest {
         ShadowLog.setupLogging()
         ShadowLog.stream = System.out
         params = KeyboardParams()
-        params.mId = KeyboardLayoutSet.getFakeKeyboardId(KeyboardId.ELEMENT_ALPHABET)
+        params.mId = KeyboardLayoutSet.getFakeKeyboardId(KeyboardElement.ALPHABET)
         params.mPopupKeyTypes.add(POPUP_KEYS_LAYOUT)
         addLocaleKeyTextsToParams(latinIME, params, POPUP_KEYS_NORMAL)
     }

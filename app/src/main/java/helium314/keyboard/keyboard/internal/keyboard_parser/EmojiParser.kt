@@ -4,7 +4,7 @@ package helium314.keyboard.keyboard.internal.keyboard_parser
 import android.content.Context
 import helium314.keyboard.keyboard.Key
 import helium314.keyboard.keyboard.Key.KeyParams
-import helium314.keyboard.keyboard.KeyboardId
+import helium314.keyboard.keyboard.KeyboardElement
 import helium314.keyboard.keyboard.emoji.SupportedEmojis
 import helium314.keyboard.keyboard.internal.KeyboardParams
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode
@@ -22,17 +22,18 @@ import kotlin.math.sqrt
 class EmojiParser(private val params: KeyboardParams, private val context: Context) {
 
     fun parse(): ArrayList<ArrayList<KeyParams>> {
-        val emojiFileName = when (params.mId.mElementId) {
-            KeyboardId.ELEMENT_EMOJI_CATEGORY1 -> "SMILEYS_AND_EMOTION.txt"
-            KeyboardId.ELEMENT_EMOJI_CATEGORY2 -> "PEOPLE_AND_BODY.txt"
-            KeyboardId.ELEMENT_EMOJI_CATEGORY3 -> "ANIMALS_AND_NATURE.txt"
-            KeyboardId.ELEMENT_EMOJI_CATEGORY4 -> "FOOD_AND_DRINK.txt"
-            KeyboardId.ELEMENT_EMOJI_CATEGORY5 -> "TRAVEL_AND_PLACES.txt"
-            KeyboardId.ELEMENT_EMOJI_CATEGORY6 -> "ACTIVITIES.txt"
-            KeyboardId.ELEMENT_EMOJI_CATEGORY7 -> "OBJECTS.txt"
-            KeyboardId.ELEMENT_EMOJI_CATEGORY8 -> "SYMBOLS.txt"
-            KeyboardId.ELEMENT_EMOJI_CATEGORY9 -> "FLAGS.txt"
-            KeyboardId.ELEMENT_EMOJI_CATEGORY10 -> "EMOTICONS.txt"
+        val element = params.mId.element
+        val emojiFileName = when (element) {
+            KeyboardElement.EMOJI_CATEGORY1 -> "SMILEYS_AND_EMOTION.txt"
+            KeyboardElement.EMOJI_CATEGORY2 -> "PEOPLE_AND_BODY.txt"
+            KeyboardElement.EMOJI_CATEGORY3 -> "ANIMALS_AND_NATURE.txt"
+            KeyboardElement.EMOJI_CATEGORY4 -> "FOOD_AND_DRINK.txt"
+            KeyboardElement.EMOJI_CATEGORY5 -> "TRAVEL_AND_PLACES.txt"
+            KeyboardElement.EMOJI_CATEGORY6 -> "ACTIVITIES.txt"
+            KeyboardElement.EMOJI_CATEGORY7 -> "OBJECTS.txt"
+            KeyboardElement.EMOJI_CATEGORY8 -> "SYMBOLS.txt"
+            KeyboardElement.EMOJI_CATEGORY9 -> "FLAGS.txt"
+            KeyboardElement.EMOJI_CATEGORY10 -> "EMOTICONS.txt"
             else -> null
         }
         val emojiLines = if (emojiFileName == null) {
@@ -44,7 +45,7 @@ class EmojiParser(private val params: KeyboardParams, private val context: Conte
             context.assets.open("emoji/$emojiFileName").reader().use { it.readLines() }
         }
         val defaultSkinTone = context.prefs().getString(Settings.PREF_EMOJI_SKIN_TONE, Defaults.PREF_EMOJI_SKIN_TONE)!!
-        if (params.mId.mElementId == KeyboardId.ELEMENT_EMOJI_CATEGORY2 && defaultSkinTone != "") {
+        if (element == KeyboardElement.EMOJI_CATEGORY2 && defaultSkinTone != "") {
             // adjust PEOPLE_AND_BODY if we have a non-yellow default skin tone
             val modifiedLines = emojiLines.map { line ->
                 val split = line.splitOnWhitespace().toMutableList()
@@ -94,7 +95,7 @@ class EmojiParser(private val params: KeyboardParams, private val context: Conte
     }
 
     private fun parseEmojiKeyNew(line: String): KeyParams? {
-        if (!line.contains(" ") || params.mId.mElementId == KeyboardId.ELEMENT_EMOJI_CATEGORY10) {
+        if (!line.contains(" ") || params.mId.element == KeyboardElement.EMOJI_CATEGORY10) {
             // single emoji without popups, or emoticons (there is one that contains space...)
             return if (SupportedEmojis.isUnsupported(line)) null
             else KeyParams(line, line.getCode(), null, null, Key.LABEL_FLAGS_FONT_NORMAL, params)

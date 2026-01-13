@@ -79,7 +79,7 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
 
         val event: Event
         if (settings.current.mLocale.language == "ko") { // todo: this does not appear to be the right place
-            val subtype = keyboardSwitcher.keyboard?.mId?.mSubtype ?: RichInputMethodManager.getInstance().currentSubtype
+            val subtype = keyboardSwitcher.keyboard?.mId?.subtype ?: RichInputMethodManager.getInstance().currentSubtype
             event = HangulEventDecoder.decodeHardwareKeyEvent(subtype, keyEvent) {
                 getHardwareKeyEventDecoder(keyEvent.deviceId).decodeHardwareKey(keyEvent)
             }
@@ -113,7 +113,7 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
             // todo:
             //  setting meta shift should only be done for arrow and similar cursor movement keys
             //  should only be enabled once it works more reliably (currently depends on app for some reason)
-//            if (mkv.keyboard?.mId?.isAlphabetShiftedManually == true)
+//            if (mkv.keyboard?.mId?.element.isAlphabetShiftedManually == true)
 //                Event.createSoftwareKeypressEvent(primaryCode, metaState or KeyEvent.META_SHIFT_ON, mkv.getKeyX(x), mkv.getKeyY(y), isKeyRepeat)
 //            else Event.createSoftwareKeypressEvent(primaryCode, metaState, mkv.getKeyX(x), mkv.getKeyY(y), isKeyRepeat)
             Event.createSoftwareKeypressEvent(primaryCode, metaState, mkv.getKeyX(x), mkv.getKeyY(y), isKeyRepeat)

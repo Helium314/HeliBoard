@@ -3,7 +3,7 @@ package helium314.keyboard.keyboard.internal.keyboard_parser
 
 import android.content.Context
 import helium314.keyboard.keyboard.Key
-import helium314.keyboard.keyboard.KeyboardId
+import helium314.keyboard.keyboard.KeyboardElement
 import helium314.keyboard.keyboard.internal.KeyboardParams
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyData
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.toTextKey
@@ -91,11 +91,11 @@ class LocaleKeyboardInfos(dataStream: InputStream?, locale: Locale) {
     }
 
     /** Pair(extraKeysLeft, extraKeysRight) */
-    fun getTabletExtraKeys(elementId: Int): Pair<List<KeyData>, List<KeyData>> {
+    fun getTabletExtraKeys(element: KeyboardElement): Pair<List<KeyData>, List<KeyData>> {
         val flags = Key.LABEL_FLAGS_FONT_DEFAULT
-        return when (elementId) {
-            KeyboardId.ELEMENT_SYMBOLS -> listOf("\\".toTextKey(labelFlags = flags), "=".toTextKey(labelFlags = flags)) to emptyList()
-            KeyboardId.ELEMENT_SYMBOLS_SHIFTED -> emptyList<KeyData>() to listOf("¡".toTextKey(labelFlags = flags), "¿".toTextKey(labelFlags = flags))
+        return when (element) {
+            KeyboardElement.SYMBOLS -> listOf("\\".toTextKey(labelFlags = flags), "=".toTextKey(labelFlags = flags)) to emptyList()
+            KeyboardElement.SYMBOLS_SHIFTED -> emptyList<KeyData>() to listOf("¡".toTextKey(labelFlags = flags), "¿".toTextKey(labelFlags = flags))
             else -> emptyList<KeyData>() to listOf("!".toTextKey(labelFlags = flags), labelQuestion.toTextKey(labelFlags = flags)) // assume alphabet
         }
     }

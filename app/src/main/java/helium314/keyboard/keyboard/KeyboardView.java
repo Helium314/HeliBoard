@@ -194,7 +194,7 @@ public class KeyboardView extends View {
         mKeyDrawParams.updateParams(scaledKeyHeight, keyboard.mKeyVisualAttributes);
         invalidateAllKeys();
         requestLayout();
-        mFontSizeMultiplier = mKeyboard.mId.isEmojiKeyboard()
+        mFontSizeMultiplier = mKeyboard.mId.element.isEmojiLayout()
                 // In the case of EmojiKeyFit, the size of emojis is taken care of by the size of the keys
                 ? (Settings.getValues().mEmojiKeyFit? 1 : Settings.getValues().mFontSizeMultiplierEmoji)
                 : Settings.getValues().mFontSizeMultiplier;
@@ -624,11 +624,7 @@ public class KeyboardView extends View {
         if (key.hasActionKeyBackground()) {
             mColors.setColor(icon, ColorType.ACTION_KEY_ICON);
         } else if (key.isShift() && keyboard != null) {
-            if (keyboard.mId.mElementId == KeyboardId.ELEMENT_ALPHABET_MANUAL_SHIFTED
-                    || keyboard.mId.mElementId == KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCKED
-                    || keyboard.mId.mElementId == KeyboardId.ELEMENT_ALPHABET_AUTOMATIC_SHIFTED
-                    || keyboard.mId.mElementId == KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCK_SHIFTED
-            )
+            if (keyboard.mId.element.isAlphabetShifted())
                 mColors.setColor(icon, ColorType.SHIFT_KEY_ICON);
             else
                 mColors.setColor(icon, ColorType.KEY_ICON); // normal key if not shifted

@@ -194,9 +194,9 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
         }
     }
 
-    private void setKeyboard(final int keyboardId, @NonNull final KeyboardSwitchState toggleState) {
+    private void setKeyboard(@Nullable final KeyboardElement element, @NonNull final KeyboardSwitchState toggleState) {
         // with a hardware keyboard we might get here without ever calling onCreateInputView, so don't crash
-        if (mKeyboardView == null) return;
+        if (mKeyboardView == null || element == null) return;
 
         // Make {@link MainKeyboardView} visible and hide {@link EmojiPalettesView}.
         final SettingsValues currentSettingsValues = Settings.getValues();
@@ -204,13 +204,13 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
         // TODO: pass this object to setKeyboard instead of getting the current values.
         final MainKeyboardView keyboardView = mKeyboardView;
         final Keyboard oldKeyboard = keyboardView.getKeyboard();
-        final Keyboard newKeyboard = mKeyboardLayoutSet.getKeyboard(keyboardId);
+        final Keyboard newKeyboard = mKeyboardLayoutSet.getKeyboard(element);
         keyboardView.setKeyboard(newKeyboard);
         mCurrentInputView.setKeyboardTopPadding(newKeyboard.mTopPadding);
         keyboardView.setKeyPreviewPopupEnabled(currentSettingsValues.mKeyPreviewPopupOn);
         keyboardView.updateShortcutKey(mRichImm.isShortcutImeReady());
-        final boolean subtypeChanged = (oldKeyboard == null) || !newKeyboard.mId.mSubtype.equals(oldKeyboard.mId.mSubtype);
-        final int languageOnSpacebarFormatType = LanguageOnSpacebarUtils.getLanguageOnSpacebarFormatType(newKeyboard.mId.mSubtype);
+        final boolean subtypeChanged = (oldKeyboard == null) || !newKeyboard.mId.subtype.equals(oldKeyboard.mId.subtype);
+        final int languageOnSpacebarFormatType = LanguageOnSpacebarUtils.getLanguageOnSpacebarFormatType(newKeyboard.mId.subtype);
         final boolean hasMultipleEnabledIMEsOrSubtypes = mRichImm.hasMultipleEnabledIMEsOrSubtypes(true);
         keyboardView.startDisplayLanguageOnSpacebar(subtypeChanged, languageOnSpacebarFormatType, hasMultipleEnabledIMEsOrSubtypes);
     }
@@ -250,7 +250,7 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
         if (DEBUG_ACTION) {
             Log.d(TAG, "setAlphabetKeyboard");
         }
-        setKeyboard(KeyboardId.ELEMENT_ALPHABET, KeyboardSwitchState.OTHER);
+        setKeyboard(KeyboardElement.ALPHABET, KeyboardSwitchState.OTHER);
     }
 
     // Implements {@link KeyboardState.SwitchActions}.
@@ -259,7 +259,7 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
         if (DEBUG_ACTION) {
             Log.d(TAG, "setAlphabetManualShiftedKeyboard");
         }
-        setKeyboard(KeyboardId.ELEMENT_ALPHABET_MANUAL_SHIFTED, KeyboardSwitchState.OTHER);
+        setKeyboard(KeyboardElement.ALPHABET_MANUAL_SHIFTED, KeyboardSwitchState.OTHER);
     }
 
     // Implements {@link KeyboardState.SwitchActions}.
@@ -268,7 +268,7 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
         if (DEBUG_ACTION) {
             Log.d(TAG, "setAlphabetAutomaticShiftedKeyboard");
         }
-        setKeyboard(KeyboardId.ELEMENT_ALPHABET_AUTOMATIC_SHIFTED, KeyboardSwitchState.OTHER);
+        setKeyboard(KeyboardElement.ALPHABET_AUTOMATIC_SHIFTED, KeyboardSwitchState.OTHER);
     }
 
     // Implements {@link KeyboardState.SwitchActions}.
@@ -277,7 +277,7 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
         if (DEBUG_ACTION) {
             Log.d(TAG, "setAlphabetShiftLockedKeyboard");
         }
-        setKeyboard(KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCKED, KeyboardSwitchState.OTHER);
+        setKeyboard(KeyboardElement.ALPHABET_SHIFT_LOCKED, KeyboardSwitchState.OTHER);
     }
 
     // Implements {@link KeyboardState.SwitchActions}.
@@ -286,7 +286,7 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
         if (DEBUG_ACTION) {
             Log.d(TAG, "setAlphabetShiftLockShiftedKeyboard");
         }
-        setKeyboard(KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCK_SHIFTED, KeyboardSwitchState.OTHER);
+        setKeyboard(KeyboardElement.ALPHABET_SHIFT_LOCK_SHIFTED, KeyboardSwitchState.OTHER);
     }
 
     // Implements {@link KeyboardState.SwitchActions}.
@@ -295,7 +295,7 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
         if (DEBUG_ACTION) {
             Log.d(TAG, "setSymbolsKeyboard");
         }
-        setKeyboard(KeyboardId.ELEMENT_SYMBOLS, KeyboardSwitchState.OTHER);
+        setKeyboard(KeyboardElement.SYMBOLS, KeyboardSwitchState.OTHER);
     }
 
     // Implements {@link KeyboardState.SwitchActions}.
@@ -304,7 +304,7 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
         if (DEBUG_ACTION) {
             Log.d(TAG, "setSymbolsShiftedKeyboard");
         }
-        setKeyboard(KeyboardId.ELEMENT_SYMBOLS_SHIFTED, KeyboardSwitchState.SYMBOLS_SHIFTED);
+        setKeyboard(KeyboardElement.SYMBOLS_SHIFTED, KeyboardSwitchState.SYMBOLS_SHIFTED);
     }
 
     public boolean isImeSuppressedByHardwareKeyboard(
@@ -382,7 +382,7 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
         if (DEBUG_ACTION) {
             Log.d(TAG, "setNumpadKeyboard");
         }
-        setKeyboard(KeyboardId.ELEMENT_NUMPAD, KeyboardSwitchState.OTHER);
+        setKeyboard(KeyboardElement.NUMPAD, KeyboardSwitchState.OTHER);
     }
 
     @Override
@@ -395,16 +395,17 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
     }
 
     public enum KeyboardSwitchState {
-        HIDDEN(-1),
-        SYMBOLS_SHIFTED(KeyboardId.ELEMENT_SYMBOLS_SHIFTED),
-        EMOJI(KeyboardId.ELEMENT_EMOJI_RECENTS),
-        CLIPBOARD(KeyboardId.ELEMENT_CLIPBOARD),
-        OTHER(-1);
+        HIDDEN(null),
+        SYMBOLS_SHIFTED(KeyboardElement.SYMBOLS_SHIFTED),
+        EMOJI(KeyboardElement.EMOJI_RECENTS),
+        CLIPBOARD(KeyboardElement.CLIPBOARD),
+        OTHER(null);
 
-        final int mKeyboardId;
+        @Nullable
+        final KeyboardElement mElement;
 
-        KeyboardSwitchState(int keyboardId) {
-            mKeyboardId = keyboardId;
+        KeyboardSwitchState(@Nullable KeyboardElement element) {
+            mElement = element;
         }
     }
 
@@ -419,7 +420,7 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
             return KeyboardSwitchState.EMOJI;
         } else if (isShowingClipboardHistory()) {
             return KeyboardSwitchState.CLIPBOARD;
-        } else if (isShowingKeyboardId(KeyboardId.ELEMENT_SYMBOLS_SHIFTED)) {
+        } else if (isShowingKeyboardId(KeyboardElement.SYMBOLS_SHIFTED)) {
             return KeyboardSwitchState.SYMBOLS_SHIFTED;
         }
         return KeyboardSwitchState.OTHER;
@@ -447,7 +448,7 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
 
                 mMainKeyboardFrame.setVisibility(View.VISIBLE);
                 mKeyboardView.setVisibility(View.VISIBLE);
-                setKeyboard(toggleState.mKeyboardId, toggleState);
+                setKeyboard(toggleState.mElement, toggleState);
             }
         }
     }
@@ -604,16 +605,16 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
         mState.onEvent(event, currentAutoCapsState, currentRecapitalizeState);
     }
 
-    public boolean isShowingKeyboardId(@NonNull int... keyboardIds) {
+    public boolean isShowingKeyboardId(@NonNull KeyboardElement... elements) {
         if (mKeyboardView == null || !mKeyboardView.isShown()) {
             return false;
         }
         final Keyboard keyboard = mKeyboardView.getKeyboard();
         if (keyboard == null) // may happen when using hardware keyboard
             return false;
-        int activeKeyboardId = keyboard.mId.mElementId;
-        for (int keyboardId : keyboardIds) {
-            if (activeKeyboardId == keyboardId) {
+        KeyboardElement activeElement = keyboard.mId.element;
+        for (KeyboardElement element : elements) {
+            if (activeElement == element) {
                 return true;
             }
         }
@@ -732,7 +733,7 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
         if (keyboard == null) {
             return WordComposer.CAPS_MODE_OFF;
         }
-        return keyboard.mId.getKeyboardCapsMode();
+        return keyboard.mId.element.capsMode();
     }
 
     public String getCurrentKeyboardScript() {

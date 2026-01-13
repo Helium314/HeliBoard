@@ -18,6 +18,7 @@ import helium314.keyboard.latin.utils.CombinedFormatUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Objects;
 
 /**
  * Utility class for a word with a probability.
@@ -139,14 +140,14 @@ public final class WordProperty implements Comparable<WordProperty> {
     }
 
     private static int computeHashCode(WordProperty word) {
-        return Arrays.hashCode(new Object[] {
+        return Objects.hash(
                 word.mWord,
                 word.mProbabilityInfo,
                 word.mShortcutTargets,
                 word.mNgrams,
                 word.mIsNotAWord,
                 word.mIsPossiblyOffensive
-        });
+        );
     }
 
     /**

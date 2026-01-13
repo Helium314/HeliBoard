@@ -26,7 +26,7 @@ fun createPopupKeysArray(popupSet: PopupSet<*>?, params: KeyboardParams, label: 
     // often PopupKeys are empty, so we want to avoid unnecessarily creating sets
     val popupKeysDelegate = lazy { mutableSetOf<String>() }
     val popupKeys by popupKeysDelegate
-    val types = if (params.mId.isAlphabetKeyboard) params.mPopupKeyTypes else allPopupKeyTypes
+    val types = if (params.mId.element.isAlphabetLayout) params.mPopupKeyTypes else allPopupKeyTypes
     types.forEach { type ->
         when (type) {
             POPUP_KEYS_NUMBER -> popupSet?.numberLabel?.let { popupKeys.add(it) }
@@ -92,7 +92,7 @@ private fun transformLabel(label: String, params: KeyboardParams): String =
                 params.mLocaleKeyboardInfos.currencyKey.second[index - 1]
             else label
         }
-    } else if (params.mId.mSubtype.isRtlSubtype) {
+    } else if (params.mId.subtype.isRtlSubtype) {
         label.rtlLabel(params)
     } else label
 

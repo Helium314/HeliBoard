@@ -216,8 +216,8 @@ public class KeyboardParams {
         else
             keyAttr = context.getResources().obtainAttributes(attr, R.styleable.Keyboard_Key);
         try {
-            final int height = mId.mHeight;
-            final int width = mId.mWidth;
+            final int height = mId.height;
+            final int width = mId.width;
             mOccupiedHeight = height;
             mOccupiedWidth = width;
             mTopPadding = (int) keyboardAttr.getFraction(
@@ -236,7 +236,7 @@ public class KeyboardParams {
             final float defaultKeyWidthFactor = context.getResources().getInteger(R.integer.config_screen_metrics) > 2 ? 0.9f : 1f;
             final float alphaSymbolKeyWidth = keyAttr.getFraction(R.styleable.Keyboard_Key_keyWidth,
                     1, 1, defaultKeyWidthFactor / DEFAULT_KEYBOARD_COLUMNS);
-            mDefaultKeyWidth = mId.isNumberLayout() ? 0.17f : alphaSymbolKeyWidth;
+            mDefaultKeyWidth = mId.element.isNumberLayout() ? 0.17f : alphaSymbolKeyWidth;
             mDefaultAbsoluteKeyWidth = (int) (mDefaultKeyWidth * mBaseWidth);
             mAbsolutePopupKeyWidth = (int) (alphaSymbolKeyWidth * mBaseWidth);
 
@@ -278,7 +278,7 @@ public class KeyboardParams {
             // touchPositionResId currently is 0 for popups, and touch_position_correction_data_holo for others
             final int touchPositionResId = keyboardAttr.getResourceId(R.styleable.Keyboard_touchPositionCorrectionData, 0);
             if (touchPositionResId != 0) {
-                final int actualId = mId.isAlphabetKeyboard() ? touchPositionResId : R.array.touch_position_correction_data_default;
+                final int actualId = mId.element.isAlphabetLayout() ? touchPositionResId : R.array.touch_position_correction_data_default;
                 final String[] data = context.getResources().getStringArray(actualId);
                 mTouchPositionCorrection.load(data);
             }
@@ -286,6 +286,6 @@ public class KeyboardParams {
             keyAttr.recycle();
             keyboardAttr.recycle();
         }
-        setTabletExtraKeys = Settings.getInstance().isTablet() && !mId.mSubtype.isCustom();
+        setTabletExtraKeys = Settings.getInstance().isTablet() && !mId.subtype.isCustom();
     }
 }
