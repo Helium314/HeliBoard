@@ -679,8 +679,11 @@ public final class InputLogic {
                 inputTransaction.setDidAffectContents();
                 break;
             case KeyCode.SHIFT:
-                if (KeyboardSwitcher.getInstance().getKeyboard() != null && !KeyboardSwitcher.getInstance().getKeyboard().mId.isAlphabetKeyboard())
-                    break; // recapitalization and follow-up code should only trigger for alphabet shift, see #1256
+                {
+                    Keyboard keyboard = KeyboardSwitcher.getInstance().getKeyboard();
+                    if (keyboard != null && !keyboard.mId.element.isAlphabetLayout())
+                        break; // recapitalization and follow-up code should only trigger for alphabet shift, see #1256
+                }
                 performRecapitalization(inputTransaction.getSettingsValues());
                 inputTransaction.requireShiftUpdate(InputTransaction.SHIFT_UPDATE_NOW);
                 inputTransaction.setRequiresUpdateSuggestions();
@@ -801,6 +804,8 @@ public final class InputLogic {
                 break;
             case KeyCode.SEND_INTENT_ONE, KeyCode.SEND_INTENT_TWO, KeyCode.SEND_INTENT_THREE:
                 IntentUtils.handleSendIntentKey(mLatinIME, event.getKeyCode());
+                mLatinIME.requestHideSelf(0);
+                break;
             case KeyCode.IME_HIDE_UI:
                 mLatinIME.requestHideSelf(0);
                 break;
@@ -816,8 +821,8 @@ public final class InputLogic {
             case KeyCode.EMOJI, KeyCode.TOGGLE_ONE_HANDED_MODE, KeyCode.SWITCH_ONE_HANDED_MODE:
                 break;
             case KeyCode.CAPS_LOCK:
-                if (KeyboardSwitcher.getInstance().getKeyboard() == null
-                            || KeyboardSwitcher.getInstance().getKeyboard().mId.isAlphabetKeyboard()) {
+                Keyboard keyboard = KeyboardSwitcher.getInstance().getKeyboard();
+                if (keyboard == null || keyboard.mId.element.isAlphabetLayout()) {
                     inputTransaction.setRequiresUpdateSuggestions();
                 }
                 break;

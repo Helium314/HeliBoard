@@ -41,6 +41,7 @@ import helium314.keyboard.compat.ImeCompat;
 import helium314.keyboard.event.HapticEvent;
 import helium314.keyboard.keyboard.KeyboardActionListener;
 import helium314.keyboard.keyboard.KeyboardActionListenerImpl;
+import helium314.keyboard.keyboard.KeyboardMode;
 import helium314.keyboard.keyboard.emoji.EmojiPalettesView;
 import helium314.keyboard.keyboard.internal.KeyboardIconsSet;
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode;
@@ -1046,8 +1047,9 @@ public class LatinIME extends InputMethodService implements
             // we don't want to update a manually set shift state if selection changed towards one side
             // because this may end the manual shift, which is unwanted in case of shift + arrow keys for changing selection
             // todo: this is not fully implemented yet, and maybe should be behind a setting
-            if (mKeyboardSwitcher.getKeyboard() != null && mKeyboardSwitcher.getKeyboard().mId.isAlphabetShiftedManually()
-                && ((oldSelEnd == newSelEnd && oldSelStart != newSelStart) || (oldSelEnd != newSelEnd && oldSelStart == newSelStart)))
+            Keyboard keyboard = mKeyboardSwitcher.getKeyboard();
+            if (keyboard != null && keyboard.mId.element.isAlphabetShiftedManually()
+                    && (oldSelStart == newSelStart) != (oldSelEnd == newSelEnd))
                 return;
             mKeyboardSwitcher.requestUpdatingShiftState(getCurrentAutoCapsState(), getCurrentRecapitalizeState());
         }
@@ -1704,17 +1706,17 @@ public class LatinIME extends InputMethodService implements
     }
 
     @Override
-    protected void dump(final FileDescriptor fd, final PrintWriter fout, final String[] args) {
+    protected void dump(FileDescriptor fd, PrintWriter fout, String[] args) {
         super.dump(fd, fout, args);
 
-        final Printer p = new PrintWriterPrinter(fout);
+        var p = new PrintWriterPrinter(fout);
         p.println("LatinIME state :");
         p.println("  VersionCode = " + BuildConfig.VERSION_CODE);
         p.println("  VersionName = " + BuildConfig.VERSION_NAME);
-        final Keyboard keyboard = mKeyboardSwitcher.getKeyboard();
-        final int keyboardMode = keyboard != null ? keyboard.mId.mode : -1;
+        Keyboard keyboard = mKeyboardSwitcher.getKeyboard();
+        KeyboardMode keyboardMode = keyboard != null ? keyboard.mId.mode : null;
         p.println("  Keyboard mode = " + keyboardMode);
-        final SettingsValues settingsValues = mSettings.getCurrent();
+        SettingsValues settingsValues = mSettings.getCurrent();
         p.println(settingsValues.dump());
         p.println(mDictionaryFacilitator.dump(this));
     }

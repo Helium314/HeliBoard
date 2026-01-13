@@ -79,7 +79,7 @@ public final class KeyboardLayoutSet {
     public record InternalAction(int code, String label) {}
 
     public static final class Params {
-        int mMode;
+        KeyboardMode mMode;
         boolean mDisableTouchPositionCorrectionDataForTest; // remove
         // TODO: Use {@link InputAttributes} instead of these variables.
         EditorInfo mEditorInfo;
@@ -125,17 +125,16 @@ public final class KeyboardLayoutSet {
     }
 
     @NonNull
-    public Keyboard getKeyboard(int baseKeyboardLayoutSetElementId) {
-        int keyboardLayoutSetElementId = switch (mParams.mMode) {
-            case KeyboardId.MODE_PHONE -> baseKeyboardLayoutSetElementId == KeyboardId.ELEMENT_SYMBOLS
-                ? KeyboardId.ELEMENT_PHONE_SYMBOLS
-                : KeyboardId.ELEMENT_PHONE;
-            case KeyboardId.MODE_NUMPAD -> KeyboardId.ELEMENT_NUMPAD;
-            case KeyboardId.MODE_NUMBER,
-                 KeyboardId.MODE_DATE,
-                 KeyboardId.MODE_TIME,
-                 KeyboardId.MODE_DATETIME -> KeyboardId.ELEMENT_NUMBER;
-            default -> baseKeyboardLayoutSetElementId;
+    public Keyboard getKeyboard(@Nullable KeyboardElement baseElement) {
+        KeyboardElement element = switch (mParams.mMode) {
+            case PHONE -> baseElement == KeyboardElement.SYMBOLS
+                ? KeyboardElement.PHONE_SYMBOLS
+                : KeyboardElement.PHONE;
+            case NUMBER,
+                 DATE,
+                 TIME,
+                 DATETIME -> KeyboardElement.NUMBER;
+            default -> baseElement;
         };
 
         // Note: The keyboard for each shift state, and mode are represented as an elementName
@@ -143,7 +142,7 @@ public final class KeyboardLayoutSet {
         // specified as an elementKeyboard attribute in the file.
         // The KeyboardId is an internal key for a Keyboard object.
 
-        var id = new KeyboardId(keyboardLayoutSetElementId, mParams);
+        var id = new KeyboardId(element, mParams);
         try {
             return getKeyboard(id);
         } catch (RuntimeException e) {
@@ -164,15 +163,16 @@ public final class KeyboardLayoutSet {
         }
 
         var builder = new KeyboardBuilder<KeyboardParams>(mContext, new KeyboardParams(sUniqueKeysCache));
-        sUniqueKeysCache.setEnabled(id.isAlphabetKeyboard());
+        KeyboardElement element = id.element;
+        sUniqueKeysCache.setEnabled(element.isAlphabetLayout());
         builder.load(id);
         if (mParams.mDisableTouchPositionCorrectionDataForTest) {
             builder.disableTouchPositionCorrectionDataForTest();
         }
         Keyboard keyboard = builder.build();
         sKeyboardCache.put(id, new SoftReference<>(keyboard));
-        if ((id.elementId == KeyboardId.ELEMENT_ALPHABET
-                || id.elementId == KeyboardId.ELEMENT_ALPHABET_AUTOMATIC_SHIFTED)
+        if ((element == KeyboardElement.ALPHABET
+                || element == KeyboardElement.ALPHABET_AUTOMATIC_SHIFTED)
                 && !mParams.mIsSpellChecker) {
             // We only forcibly cache the primary, "ALPHABET", layouts.
             for (int i = sForcibleKeyboardCache.length - 1; i >= 1; --i) {
@@ -216,7 +216,7 @@ public final class KeyboardLayoutSet {
 
         public static KeyboardLayoutSet buildEmojiClipBottomRow(Context context, @Nullable EditorInfo ei) {
             var builder = new Builder(context, ei);
-            builder.mParams.mMode = KeyboardId.MODE_TEXT;
+            builder.mParams.mMode = KeyboardMode.TEXT;
             int width = ResourceUtils.getKeyboardWidth(context, Settings.getValues());
             // actually the keyboard does not have full height, but at this point we use it to get correct key heights
             int height = ResourceUtils.getKeyboardHeight(context.getResources(), Settings.getValues());
@@ -297,41 +297,41 @@ public final class KeyboardLayoutSet {
             return new KeyboardLayoutSet(mContext, mParams);
         }
 
-        private static int getKeyboardMode(EditorInfo editorInfo) {
+        private static KeyboardMode getKeyboardMode(EditorInfo editorInfo) {
             int inputType = editorInfo.inputType;
             int variation = inputType & InputType.TYPE_MASK_VARIATION;
 
             return switch (inputType & InputType.TYPE_MASK_CLASS) {
-                case InputType.TYPE_CLASS_NUMBER -> KeyboardId.MODE_NUMBER;
+                case InputType.TYPE_CLASS_NUMBER -> KeyboardMode.NUMBER;
                 case InputType.TYPE_CLASS_DATETIME -> switch (variation) {
-                    case InputType.TYPE_DATETIME_VARIATION_DATE -> KeyboardId.MODE_DATE;
-                    case InputType.TYPE_DATETIME_VARIATION_TIME -> KeyboardId.MODE_TIME;
-                    default -> KeyboardId.MODE_DATETIME; // must be InputType.TYPE_DATETIME_VARIATION_NORMAL
+                    case InputType.TYPE_DATETIME_VARIATION_DATE -> KeyboardMode.DATE;
+                    case InputType.TYPE_DATETIME_VARIATION_TIME -> KeyboardMode.TIME;
+                    default -> KeyboardMode.DATETIME; // must be InputType.TYPE_DATETIME_VARIATION_NORMAL
                 };
-                case InputType.TYPE_CLASS_PHONE -> KeyboardId.MODE_PHONE;
+                case InputType.TYPE_CLASS_PHONE -> KeyboardMode.PHONE;
                 case InputType.TYPE_CLASS_TEXT -> {
                     if (InputTypeUtils.isEmailVariation(variation)) {
-                        yield KeyboardId.MODE_EMAIL;
+                        yield KeyboardMode.EMAIL;
                     }
                     yield switch (variation) {
-                        case InputType.TYPE_TEXT_VARIATION_URI -> KeyboardId.MODE_URL;
+                        case InputType.TYPE_TEXT_VARIATION_URI -> KeyboardMode.URL;
                         case InputType.TYPE_TEXT_VARIATION_SHORT_MESSAGE ->
                             //KeyboardId.MODE_IM;
-                            KeyboardId.MODE_TEXT;
-                        default -> KeyboardId.MODE_TEXT;
+                            KeyboardMode.TEXT;
+                        default -> KeyboardMode.TEXT;
                     };
                 }
-                default -> KeyboardId.MODE_TEXT;
+                default -> KeyboardMode.TEXT;
             };
         }
     }
 
     // used for testing keyboard layout files without actually creating a keyboard
-    public static KeyboardId getFakeKeyboardId(int elementId) {
+    public static KeyboardId getFakeKeyboardId(KeyboardElement element) {
         var params = new Params();
         params.mEditorInfo = new EditorInfo();
         params.mSubtype = RichInputMethodSubtype.Companion.getEmojiSubtype();
         params.mSubtype.getMainLayoutName();
-        return new KeyboardId(elementId, params);
+        return new KeyboardId(element, params);
     }
 }

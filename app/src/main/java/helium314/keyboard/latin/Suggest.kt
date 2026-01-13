@@ -77,7 +77,7 @@ class Suggest(private val mDictionaryFacilitator: DictionaryFacilitator) {
         val trailingSingleQuotesCount = StringUtils.getTrailingSingleQuotesCount(typedWordString)
         val suggestionsContainer = getTransformedSuggestedWordInfoList(wordComposer, suggestionResults,
             trailingSingleQuotesCount, mDictionaryFacilitator.mainLocale, keyboard)
-        val keyboardShiftMode = keyboard.mId.keyboardCapsMode
+        val keyboardShiftMode = keyboard.mId.element.capsMode()
         val capitalizedTypedWord = capitalize(typedWordString, keyboardShiftMode == WordComposer.CAPS_MODE_MANUAL_SHIFT_LOCKED,
             keyboardShiftMode == WordComposer.CAPS_MODE_MANUAL_SHIFTED, mDictionaryFacilitator.mainLocale)
 
@@ -275,7 +275,7 @@ class Suggest(private val mDictionaryFacilitator: DictionaryFacilitator) {
         val locale = mDictionaryFacilitator.mainLocale
         val suggestionsContainer = ArrayList(suggestionResults)
         val suggestionsCount = suggestionsContainer.size
-        val keyboardShiftMode = keyboard.mId.keyboardCapsMode
+        val keyboardShiftMode = keyboard.mId.element.capsMode()
         val shouldMakeSuggestionsOnlyFirstCharCapitalized = wordComposer.wasShiftedNoLock()
             || keyboardShiftMode == WordComposer.CAPS_MODE_MANUAL_SHIFTED
         val shouldMakeSuggestionsAllUpperCase = wordComposer.isAllUpperCase
@@ -369,7 +369,7 @@ class Suggest(private val mDictionaryFacilitator: DictionaryFacilitator) {
             wordComposer: WordComposer, results: SuggestionResults,
             trailingSingleQuotesCount: Int, defaultLocale: Locale, keyboard: Keyboard
         ): ArrayList<SuggestedWordInfo> {
-            val keyboardShiftMode = keyboard.mId.keyboardCapsMode
+            val keyboardShiftMode = keyboard.mId.element.capsMode()
             val shouldMakeSuggestionsAllUpperCase = wordComposer.isAllUpperCase && !wordComposer.isResumed
                 || keyboardShiftMode == WordComposer.CAPS_MODE_MANUAL_SHIFT_LOCKED
             val shouldMakeSuggestionsOnlyFirstCharCapitalized = wordComposer.isOrWillBeOnlyFirstCharCapitalized

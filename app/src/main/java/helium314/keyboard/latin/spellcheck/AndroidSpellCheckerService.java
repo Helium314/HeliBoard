@@ -17,7 +17,7 @@ import android.view.textservice.SuggestionsInfo;
 import androidx.annotation.NonNull;
 
 import helium314.keyboard.keyboard.Keyboard;
-import helium314.keyboard.keyboard.KeyboardId;
+import helium314.keyboard.keyboard.KeyboardElement;
 import helium314.keyboard.keyboard.KeyboardLayoutSet;
 import helium314.keyboard.latin.DictionaryFacilitator;
 import helium314.keyboard.latin.DictionaryFacilitatorLruCache;
@@ -207,7 +207,7 @@ public final class AndroidSpellCheckerService extends SpellCheckerService
         final String mainLayoutName = SubtypeSettings.INSTANCE.getMatchingMainLayoutNameForLocale(locale);
         final InputMethodSubtype subtype = SubtypeUtilsAdditional.INSTANCE.createDummyAdditionalSubtype(locale, mainLayoutName);
         final KeyboardLayoutSet keyboardLayoutSet = createKeyboardSetForSpellChecker(subtype);
-        return keyboardLayoutSet.getKeyboard(KeyboardId.ELEMENT_ALPHABET);
+        return keyboardLayoutSet.getKeyboard(KeyboardElement.ALPHABET);
     }
 
     private KeyboardLayoutSet createKeyboardSetForSpellChecker(final InputMethodSubtype subtype) {
