@@ -1032,5 +1032,5 @@ New dictionary:
     <string name="gesture_data_delete_dialog_confirm">Are you sure? This will delete %s words. Make sure your exported words are submitted!</string>
     <!-- Short text for delete all button
      string will probably be removed once data gathering is finished (end of 2026 latest) -->
-    <string name="gesture_data_delete_dialog_exported">Delete exported</string>
+    <string name="gesture_data_delete_dialog_exported">Delete exported data</string>
 </resources>
