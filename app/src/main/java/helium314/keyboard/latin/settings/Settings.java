@@ -220,6 +220,10 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
         return sInstance.mSettingsValues;
     }
 
+    public static Context getCurrentContext() {
+        return sInstance.mContext;
+    }
+
     public static void init(final Context context) {
         sInstance.onCreate(context);
     }

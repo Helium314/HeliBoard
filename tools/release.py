@@ -142,6 +142,13 @@ def update_dict_hashes():
             f.write(line + "\n")
 
 
+# update khipro mapping json, see discussion at the bottom of https://github.com/Helium314/HeliBoard/pull/2134
+def update_khipro_mappings():
+    source = "https://raw.githubusercontent.com/KhiproTeam/Khipro-Mappings/refs/heads/main/output/touchscreen.json"
+    target = "app/src/main/assets/khipro-mappings.json"
+    urlretrieve(source, target)
+
+
 def main():
     if os.getcwd().endswith("tools"):
         os.chdir("../")
@@ -149,6 +156,7 @@ def main():
     update_translations()
     check_default_values_diff()
     update_dict_list()
+    update_khipro_mappings()
     check_changelog()
     update_dict_hashes()
 

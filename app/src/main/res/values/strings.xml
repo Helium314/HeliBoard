@@ -488,6 +488,8 @@ language, hence "No language". -->
     <string name="layout_functional_keys" tools:keep="@string/layout_functional_keys">Functional keys</string>
     <!-- Name for functional keys layout for tablets -->
     <string name="layout_functional_keys_tablet" tools:keep="@string/layout_functional_keys_tablet">Functional keys (large screen)</string>
+    <!-- Name for special functional keys layout for Khipro -->
+    <string name="layout_functional_keys_khipro" tools:keep="@string/layout_functional_keys">Functional keys (Khipro)</string>
     <!-- Name for functional keys layout when showing symbols layout -->
     <string name="layout_functional_keys_symbols" tools:keep="@string/layout_functional_keys_symbols">Functional keys (Symbols)</string>
     <!-- Name for functional keys layout when showing more symbols layout -->
