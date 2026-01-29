@@ -590,7 +590,8 @@ private class AssetsDictWithInfo(private val name: String, context: Context): Di
 private fun BinaryDictionary.addWords(words: MutableList<Pair<String, Int>>) {
     var token = 0
     val hasCases = mLocale?.let { ScriptUtils.scriptSupportsUppercase(it) } ?: true
-    var cumulativeWeight = words.lastOrNull()?.second ?: 0
+    var cumulativeWeight = /*words.lastOrNull()?.second ?:*/ 0
+    var added = false
     do {
         val result = getNextWordProperty(token)
         val word = result.mWordProperty.mWord
@@ -601,7 +602,10 @@ private fun BinaryDictionary.addWords(words: MutableList<Pair<String, Int>>) {
                 && (!hasCases || word.uppercase() != word)
             ) {
             cumulativeWeight += result.mWordProperty.probability
+            if (added && words.isEmpty())
+                return // crappy workaround for having 2 merged dictionaries when switching dicts while one is still loading
             words.add(word to cumulativeWeight)
+            added = true
         }
         token = result.mNextToken
     } while (token != 0)
