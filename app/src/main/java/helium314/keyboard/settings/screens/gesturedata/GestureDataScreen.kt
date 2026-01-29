@@ -77,6 +77,7 @@ import helium314.keyboard.latin.SingleDictionaryFacilitator
 import helium314.keyboard.latin.SuggestedWords
 import helium314.keyboard.latin.common.ComposedData
 import helium314.keyboard.latin.common.Links
+import helium314.keyboard.latin.common.LocaleUtils
 import helium314.keyboard.latin.common.LocaleUtils.constructLocale
 import helium314.keyboard.latin.dictionary.Dictionary
 import helium314.keyboard.latin.settings.Settings
@@ -199,7 +200,7 @@ fun GestureDataScreen(
         val availableDicts = remember { getAvailableDictionaries(ctx) }
         val currentLocale = Settings.getValues().mLocale
         var dict by remember { mutableStateOf(
-            availableDicts.firstOrNull { it.locale == currentLocale } ?: availableDicts.firstOrNull { it.locale.language == "en" }
+            LocaleUtils.getBestMatch(currentLocale, availableDicts) { it.locale }
         ) }
         LaunchedEffect(wordFromDict) { focusRequester.requestFocus() }
         val suggestionLogger = remember {
