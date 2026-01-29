@@ -165,7 +165,7 @@ data class GestureData(
     val gesture: List<PointerData>,
     val keyboardInfo: KeyboardInfo,
     val activeMode: Boolean,
-    val hash: String?
+    val uuid: String?
 )
 
 // hash is only available for dictionaries from .dict files
@@ -203,16 +203,16 @@ data class KeyboardInfo(val width: Int, val height: Int, val keys: List<KeyInfo>
 
 class GestureDataDao(val db: Database) {
     fun add(data: GestureData, timestamp: Long) {
-        require(data.hash == null)
+        require(data.uuid == null)
         val jsonString = Json.encodeToString(data)
-        // if hash in the resulting string is replaced with null, we should be able to reproduce it
-        val dataWithHash = data.copy(hash = ChecksumCalculator.checksum(jsonString.byteInputStream()))
+        // if uuid in the resulting string is replaced with null, we should be able to reproduce it
+        val dataWithId = data.copy(uuid = ChecksumCalculator.checksum(jsonString.byteInputStream()))
         val cv = ContentValues(3)
         cv.put(COLUMN_TIMESTAMP, timestamp)
         cv.put(COLUMN_WORD, data.targetWord)
         if (data.activeMode)
             cv.put(COLUMN_SOURCE_ACTIVE, 1)
-        cv.put(COLUMN_DATA, Json.encodeToString(dataWithHash))
+        cv.put(COLUMN_DATA, Json.encodeToString(dataWithId))
         db.writableDatabase.insert(TABLE, null, cv)
     }
 
