@@ -171,7 +171,7 @@ fun GestureDataScreen(
         val endDate = DateFormat.getDateInstance(DateFormat.MEDIUM).format(Date(END_DATE_EPOCH_MILLIS))
         if (System.currentTimeMillis() > END_DATE_EPOCH_MILLIS) {
             val message = stringResource(R.string.gesture_data_ended, endDate)
-            val infos = dao.filterInfos()
+            val infos = dao.filterInfos(limit = 10000) // export no more than 10k words at once due to possibly hitting mail size limits
             ThreeButtonAlertDialog(
                 onDismissRequest = onClickBack,
                 content = {
@@ -496,7 +496,11 @@ private fun BottomBar(hasWords: Boolean) {
                         }
                     }
                 } else {
-                    val toShare = dao.filterInfos(activeMode = true, exported = if (shareAll == true) null else false)
+                    val toShare = dao.filterInfos(
+                        activeMode = true,
+                        exported = if (shareAll == true) null else false,
+                        limit = 10000 // export no more than 10k words at once due to possibly hitting mail size limits
+                    )
                     Column { ShareGestureData(toShare.map { it.id }) }
                 }
             },

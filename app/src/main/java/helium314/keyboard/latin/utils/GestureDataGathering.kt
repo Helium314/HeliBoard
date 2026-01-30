@@ -236,7 +236,8 @@ class GestureDataDao(val db: Database) {
         begin: Long? = null,
         end: Long? = null,
         exported: Boolean? = null,
-        activeMode: Boolean? = null
+        activeMode: Boolean? = null,
+        limit: Int? = null
     ): List<GestureDataInfo> {
         val result = mutableListOf<GestureDataInfo>()
         val query = mutableListOf<String>()
@@ -252,7 +253,8 @@ class GestureDataDao(val db: Database) {
             word?.let { arrayOf(it.lowercase()) },
             null,
             null,
-            null
+            null,
+            limit?.toString()
         ).use {
             while (it.moveToNext()) {
                 result.add(GestureDataInfo(
