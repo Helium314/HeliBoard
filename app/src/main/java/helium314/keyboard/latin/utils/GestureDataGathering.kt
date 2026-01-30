@@ -112,7 +112,8 @@ class WordData(
         }
         val data = GestureData(
             context.getString(R.string.english_ime_name) + " " + BuildConfig.VERSION_NAME,
-            context.protectedPrefs().getString(Settings.PREF_LIBRARY_CHECKSUM, "") == JniUtils.expectedDefaultChecksum(),
+            if (!context.protectedPrefs().contains(Settings.PREF_LIBRARY_CHECKSUM)) null
+                else context.protectedPrefs().getString(Settings.PREF_LIBRARY_CHECKSUM, "") == JniUtils.expectedDefaultChecksum(),
             targetWord,
             dictionariesInSuggestions.map {
                 val hash = (it as? BinaryDictionary)?.hash ?: (it as? ReadOnlyBinaryDictionary)?.hash
@@ -158,7 +159,7 @@ data class GestureDataInfo(val id: Long, val targetWord: String, val timestamp: 
 @Serializable
 data class GestureData(
     val application: String,
-    val knownLibrary: Boolean,
+    val knownLibrary: Boolean?,
     val targetWord: String?, // this will be tricky for active gathering if user corrects the word
     val dictionaries: List<DictInfo>,
     val suggestions: List<Suggestion>,
