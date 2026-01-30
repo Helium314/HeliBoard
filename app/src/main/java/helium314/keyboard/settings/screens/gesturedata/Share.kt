@@ -180,7 +180,7 @@ private fun getData(ids: List<Long>): ManagedActivityResultLauncher<Intent, Acti
         ctx.getActivity()?.contentResolver?.openOutputStream(uri)?.use {
             os -> writeOutputToZipStream(file, os)
         }
-        dao.markAsExported(ids)
+        dao.markAsExported(ids, ctx)
         gestureIdsBeingExported = null
     }
 }
@@ -261,7 +261,7 @@ class GestureFileProvider : FileProvider() {
         val ctx = context
         val ids = gestureIdsBeingExported
         if (ctx != null && ids != null) {
-            GestureDataDao.getInstance(ctx)?.markAsExported(ids)
+            GestureDataDao.getInstance(ctx)?.markAsExported(ids, ctx)
         }
         gestureIdsBeingExported = null
     }

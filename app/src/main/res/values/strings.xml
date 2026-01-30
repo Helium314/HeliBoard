@@ -1033,4 +1033,7 @@ New dictionary:
     <!-- Short text for delete all button
      string will probably be removed once data gathering is finished (end of 2026 latest) -->
     <string name="gesture_data_delete_dialog_exported">Delete exported data</string>
+    <!-- Message that many words are waiting to be exported (%s is 5000, 10000, ...)
+     string will probably be removed once data gathering is finished (end of 2026 latest) -->
+    <string name="gesture_data_many_not_exported_words">You have more than %s words waiting to be exported</string>
 </resources>

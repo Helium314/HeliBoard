@@ -8,6 +8,7 @@ import android.view.inputmethod.EditorInfo
 import androidx.core.content.edit
 import com.android.inputmethod.latin.BinaryDictionary
 import helium314.keyboard.keyboard.Keyboard
+import helium314.keyboard.keyboard.KeyboardSwitcher
 import helium314.keyboard.latin.BuildConfig
 import helium314.keyboard.latin.InputAttributes
 import helium314.keyboard.latin.NgramContext
@@ -23,6 +24,7 @@ import helium314.keyboard.latin.dictionary.ReadOnlyBinaryDictionary
 import helium314.keyboard.latin.settings.Settings
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
+import kotlin.random.Random
 
 // functionality for gesture data gathering as part of the NLNet Project https://nlnet.nl/project/GestureTyping/
 // will be removed once the project is finished
@@ -60,6 +62,7 @@ fun getExportedActiveDeletionCount(context: Context) = context.prefs().getInt(PR
 private const val PREF_WORD_EXCLUSIONS = "gesture_data_word_exclusions"
 private const val PREF_APP_EXCLUSIONS = "gesture_data_app_exclusions"
 private const val PREF_DELETED_ACTIVE = "gesture_data_deleted_active_words"
+private const val PREF_PASSIVE_NOTIFY_COUNT = "gesture_data_passive_notify_count"
 
 const val dictTestImeOption = "useTestDictionaryFacilitator,${BuildConfig.APPLICATION_ID}.${Constants.ImeOption.NO_FLOATING_GESTURE_PREVIEW}"
 
@@ -126,6 +129,17 @@ class WordData(
             null
         )
         dao.add(data, timestamp)
+        if (!activeMode && Random.nextInt() % 20 == 0) {
+            // todo: this is untested
+            val count = dao.count(exported = false, activeMode = false)
+            val nextNotifyCount = context.prefs().getInt(PREF_PASSIVE_NOTIFY_COUNT, 5000)
+            if (count > nextNotifyCount) {
+                val approxCount = (count / 1000) * 1000
+                // show a toast
+                KeyboardSwitcher.getInstance().showToast(context.getString(R.string.gesture_data_many_not_exported_words, approxCount.toString()), true)
+                context.prefs().edit { putInt(PREF_PASSIVE_NOTIFY_COUNT, approxCount + 5000) }
+            }
+        }
     }
 
     // find when we should NOT save
@@ -289,11 +303,13 @@ class GestureDataDao(val db: Database) {
         return result
     }
 
-    fun markAsExported(ids: List<Long>) {
+    fun markAsExported(ids: List<Long>, context: Context) {
         if (ids.isEmpty()) return
         val cv = ContentValues(1)
         cv.put(COLUMN_EXPORTED, 1)
         db.writableDatabase.update(TABLE, cv, "$COLUMN_ID IN (${ids.joinToString(",")})", null)
+        if (count(exported = false, activeMode = false) < context.prefs().getInt(PREF_PASSIVE_NOTIFY_COUNT, 0))
+            context.prefs().edit { remove(PREF_PASSIVE_NOTIFY_COUNT) } // reset if we exported passive data
     }
 
     fun delete(ids: List<Long>, onlyExported: Boolean, context: Context): Int {
