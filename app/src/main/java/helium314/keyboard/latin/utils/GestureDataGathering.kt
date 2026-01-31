@@ -150,17 +150,20 @@ class WordData(
             null
         )
         dao.add(data, timestamp)
-        if (!activeMode && Random.nextInt() % 20 == 0) {
-            // todo: this is untested
-            val count = dao.count(exported = false, activeMode = false)
-            val nextNotifyCount = context.prefs().getInt(PREF_PASSIVE_NOTIFY_COUNT, 5000)
-            if (count > nextNotifyCount) {
-                val approxCount = (count / 1000) * 1000
-                // show a toast
-                KeyboardSwitcher.getInstance().showToast(context.getString(R.string.gesture_data_many_not_exported_words, approxCount.toString()), true)
-                context.prefs().edit { putInt(PREF_PASSIVE_NOTIFY_COUNT, approxCount + 5000) }
-            }
-        }
+        informAboutTooManyPassiveModeWords(context, dao)
+    }
+
+    // show a toast every 5k words, to avoid having to upload multiple files at a time because they are over their email attachment size limit
+    // but don't check on every word, because getting count from DB is not free
+    private fun informAboutTooManyPassiveModeWords(context: Context, dao: GestureDataDao) {
+        if (!activeMode || Random.nextInt() % 20 != 0) return
+        val count = dao.count(exported = false, activeMode = false)
+        val nextNotifyCount = context.prefs().getInt(PREF_PASSIVE_NOTIFY_COUNT, 5000)
+        if (count <= nextNotifyCount) return
+        val approxCount = (count / 1000) * 1000
+        // show a toast
+        KeyboardSwitcher.getInstance().showToast(context.getString(R.string.gesture_data_many_not_exported_words, approxCount.toString()), true)
+        context.prefs().edit { putInt(PREF_PASSIVE_NOTIFY_COUNT, approxCount + 5000) }
     }
 
     // find when we should NOT save
