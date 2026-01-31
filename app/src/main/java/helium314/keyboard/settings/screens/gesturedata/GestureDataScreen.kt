@@ -26,6 +26,7 @@ import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.BottomAppBar
+import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.HorizontalDivider
@@ -36,7 +37,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
@@ -305,13 +305,13 @@ fun GestureDataScreen(
         ) {
             Column {
                 texts()
+                val exportedAndDeletedCount by remember { mutableIntStateOf(getExportedActiveDeletionCount(ctx)) }
                 val oldActiveWords by remember {
                     sessionWordCount = 0
                     dbActiveWordCount = dao.count(activeMode = true)
-                    val exportedAndDeletedCount = getExportedActiveDeletionCount(ctx)
                     mutableIntStateOf(dbActiveWordCount + exportedAndDeletedCount)
                 }
-                Text(stringResource(R.string.gesture_data_active_count, sessionWordCount, sessionWordCount + oldActiveWords))
+                Text(stringResource(R.string.gesture_data_active_count, sessionWordCount, sessionWordCount + oldActiveWords, exportedAndDeletedCount))
                 Box(Modifier.size(1.dp)) { // box hides the field, but we can still interact with it
                     TextField(
                         value = TextFieldValue(),
@@ -333,6 +333,7 @@ fun GestureDataScreen(
     }
 
     val scrollState = rememberScrollState()
+    var activeGathering by remember { mutableStateOf(false) }
     Scaffold(
         contentWindowInsets = WindowInsets.safeDrawing.only(WindowInsetsSides.Bottom),
         bottomBar = { BottomBar(sessionWordCount + dbActiveWordCount > 0) }
@@ -343,7 +344,6 @@ fun GestureDataScreen(
                 .padding(horizontal = 12.dp)
                 .then(Modifier.padding(innerPadding)),
         ) {
-            var activeGathering by remember { mutableStateOf(false) }
             var showActiveInfoDialog by remember { mutableStateOf(false) }
             var showInfoDialog by remember { mutableStateOf(false) }
             var showPrivacyDialog by remember { mutableStateOf(false) }
@@ -365,11 +365,11 @@ fun GestureDataScreen(
                     horizontalArrangement = Arrangement.SpaceBetween,
                     modifier = Modifier.fillMaxWidth()
                 ) {
-                    TextButton({ showActiveInfoDialog = true }) {
-                        Text(stringResource(R.string.gesture_data_how_to_use))
+                    ButtonWithText(stringResource(R.string.gesture_data_how_to_use)) {
+                        showActiveInfoDialog = true
                     }
-                    TextButton({ activeGathering = false }) {
-                        Text(stringResource(R.string.gesture_data_active_stop))
+                    ButtonWithText(stringResource(R.string.gesture_data_active_stop)) {
+                        activeGathering = false
                     }
                 }
                 activeGathering()
@@ -378,23 +378,25 @@ fun GestureDataScreen(
                 // this part is hidden in active gathering mode because in active mode
                 // neither the keyboard nor the floating buttons (!) should cover any text
                 Column {
-                    TextButton({ showInfoDialog = true }) {
-                        Text(stringResource(R.string.gesture_data_info), Modifier.fillMaxWidth())
+                    ButtonWithText(stringResource(R.string.gesture_data_info), Modifier.fillMaxWidth()) {
+                        showInfoDialog = true
                     }
-                    TextButton({ showPrivacyDialog = true }) {
-                        Text(stringResource(R.string.gesture_data_info), Modifier.fillMaxWidth())
+                    ButtonWithText(stringResource(R.string.gesture_data_privacy), Modifier.fillMaxWidth()) {
+                        showPrivacyDialog = true
                     }
                     Spacer(Modifier.height(12.dp))
                     HorizontalDivider()
-                    TextButton({ showActiveInfoDialog = true }) {
-                        Text(stringResource(R.string.gesture_data_how_to_use), Modifier.fillMaxWidth())
-                    }
-                    TextButton({
+                    ButtonWithText(
+                        stringResource(R.string.gesture_data_active_start),
+                        Modifier.fillMaxWidth(),
+                        System.currentTimeMillis() < END_DATE_EPOCH_MILLIS - TWO_WEEKS_IN_MILLIS // disabled when close to end
+                    ) {
                         activeGathering = true
                         lastData = null
                         wordFromDict = null
-                    }) {
-                        Text(stringResource(R.string.gesture_data_active_start), Modifier.fillMaxWidth())
+                    }
+                    ButtonWithText(stringResource(R.string.gesture_data_how_to_use), Modifier.fillMaxWidth()) {
+                        showActiveInfoDialog = true
                     }
                 }
             }
@@ -422,7 +424,7 @@ fun GestureDataScreen(
         }
     }
     // showing at top left in preview, but correctly on device
-    if (lastData != null)
+    if (lastData != null && activeGathering)
         ExtendedFloatingActionButton(
             onClick = { nextWord(true) },
             // doesn't look good with the long text
@@ -434,7 +436,7 @@ fun GestureDataScreen(
                 .then(Modifier.safeDrawingPadding())
                 .fillMaxWidth(if (useWideLayout) 0.3f else 0.5f)
         )
-    if (wordFromDict != null)
+    if (wordFromDict != null && activeGathering)
         ExtendedFloatingActionButton(
             onClick = { nextWord(false) },
             text = { Text(stringResource(R.string.gesture_data_next)) },
@@ -480,19 +482,20 @@ private fun BottomBar(hasWords: Boolean) {
             }
         }
     )
-    if (showExportDialog) { // todo: go through flow again
-        val exportedCount = dao.count(activeMode = true, exported = true)
-        var shareAll by remember { mutableStateOf(if (exportedCount == 0) false else null) }
+    if (showExportDialog) {
+        val notExportedCount = dao.count(activeMode = true, exported = false)
+        val totalCount = dao.count(activeMode = true)
+        var shareAll by remember { mutableStateOf<Boolean?>(null) }
         ThreeButtonAlertDialog(
             onDismissRequest = { showExportDialog = false },
             content = {
                 if (shareAll == null) {
                     Column {
-                        TextButton({ shareAll = true }) {
-                            Text(stringResource(R.string.gesture_data_export_all))
+                        ButtonWithText(stringResource(R.string.gesture_data_export_new, notExportedCount), enabled = notExportedCount > 0) {
+                            shareAll = false
                         }
-                        TextButton({ shareAll = false }) {
-                            Text(stringResource(R.string.gesture_data_export_new))
+                        ButtonWithText(stringResource(R.string.gesture_data_export_all, totalCount), enabled = totalCount > 0) {
+                            shareAll = true
                         }
                     }
                 } else {
@@ -517,13 +520,15 @@ private fun BottomBar(hasWords: Boolean) {
         ThreeButtonAlertDialog(
             onDismissRequest = { showDeleteDialog = false },
             content = {
-                Text(stringResource(R.string.gesture_data_delete_dialog, nonExportedCount, exportedCount))
+                Column {
+                    Text(stringResource(R.string.gesture_data_delete_dialog, nonExportedCount, exportedCount))
+                    ButtonWithText(stringResource(R.string.gesture_data_delete_dialog_exported, exportedCount)) { showConfirmDialog = "exported" }
+                    ButtonWithText(stringResource(R.string.gesture_data_delete_dialog_all, exportedCount + nonExportedCount)) { showConfirmDialog = "all" }
+                }
             },
             cancelButtonText = stringResource(R.string.dialog_close),
-            onConfirmed = { showConfirmDialog = "exported" },
-            confirmButtonText = stringResource(R.string.gesture_data_delete_dialog_all),
-            onNeutral = { showConfirmDialog = "all" },
-            neutralButtonText = stringResource(R.string.gesture_data_delete_dialog_exported),
+            onConfirmed = { },
+            confirmButtonText = null,
         )
         if (showConfirmDialog != null) {
             val ctx = LocalContext.current
@@ -541,6 +546,14 @@ private fun BottomBar(hasWords: Boolean) {
                 }
             )
         }
+    }
+}
+
+// the text buttons look ugly, try something different
+@Composable
+fun ButtonWithText(text: String, modifier: Modifier = Modifier, enabled: Boolean = true, onClick: () -> Unit) {
+    Button(onClick, modifier, enabled) {
+        Text(text)
     }
 }
 

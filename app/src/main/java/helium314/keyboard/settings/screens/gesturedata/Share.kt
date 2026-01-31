@@ -13,7 +13,6 @@ import androidx.activity.compose.ManagedActivityResultLauncher
 import androidx.activity.result.ActivityResult
 import androidx.annotation.RequiresApi
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -47,15 +46,14 @@ import java.util.zip.ZipOutputStream
 // functionality for gesture data gathering as part of the NLNet Project https://nlnet.nl/project/GestureTyping/
 // will be removed once the project is finished
 
-// todo: nicer looking buttons
 @Composable
-fun ShareGestureData(ids: List<Long>) { // should we really use null here? from where this is called we have all ids anyway
+fun ShareGestureData(ids: List<Long>) {
     val ctx = LocalContext.current
     val dao = GestureDataDao.getInstance(ctx)!!
     val hasData = !dao.isEmpty() // no need to update if we have it in a dialog
     val getDataPicker = getData(ids)
     var exportStarted by remember { mutableStateOf(false) }
-    var showDelete by remember { mutableStateOf(false) }
+    var exportDone by remember { mutableStateOf(false) }
     val scope = rememberCoroutineScope()
     LaunchedEffect(exportStarted) {
         if (exportStarted) {
@@ -65,59 +63,53 @@ fun ShareGestureData(ids: List<Long>) { // should we really use null here? from 
                 while (gestureIdsBeingExported != null) {
                     delay(50)
                 }
-                showDelete = true
+                exportDone = true
             }
         }
     }
 
-    // share file, but only to mail apps
-    TextButton(
-        onClick = {
+    if (!exportDone) {
+        // share file, but only to mail apps
+        ButtonWithText(
+            stringResource(R.string.gesture_data_send_mail),
+            enabled = hasData && Intent(Intent.ACTION_SENDTO)
+                .apply { data = "mailto:".toUri() }.resolveActivity(ctx.packageManager) != null
+        ) {
             createZipFile(ctx, ids)
             if (zippedDataPath.isNotEmpty()) {
                 exportStarted = true
                 ctx.startActivity(createSendIntentChooser(ctx))
             }
-        },
-        enabled = hasData && Intent(Intent.ACTION_SENDTO)
-            .apply { data = "mailto:".toUri() }.resolveActivity(ctx.packageManager) != null
-    ) {
-        Text(stringResource(R.string.gesture_data_send_mail))
-    }
+        }
 
-    // get file
-    TextButton(
-        onClick = {
+        // get file
+        ButtonWithText(stringResource(R.string.gesture_data_get_data), enabled = hasData) {
             getDataPicker.launch(getDataIntent)
             exportStarted = true
-        },
-        enabled = hasData
-    ) {
-        Text(stringResource(R.string.gesture_data_get_data))
-    }
+        }
 
-    // copy mail address to clipboard, in case user doesn't use the mail intent
-    val clip = LocalClipboard.current
-    TextButton({ scope.launch { clip.setClipEntry(ClipEntry(ClipData.newPlainText("mail address", ctx.getString(R.string.gesture_data_mail)))) } }) {
-        Text(stringResource(R.string.gesture_data_copy_mail))
+        // copy mail address to clipboard, in case user doesn't use the mail intent
+        val clip = LocalClipboard.current
+        ButtonWithText(stringResource(R.string.gesture_data_copy_mail)) {
+            scope.launch { clip.setClipEntry(ClipEntry(ClipData.newPlainText("mail address", ctx.getString(R.string.gesture_data_mail)))) }
+        }
+        Text(stringResource(R.string.gesture_data_mail_use))
+    } else {
+        // this deletes the data in the dialog, but we should also have a way of deleting previously exported data
+        var confirmDelete by remember { mutableStateOf(false) }
+        ButtonWithText(stringResource(R.string.gesture_data_delete_dialog_exported, ids.size), enabled = hasData) {
+            confirmDelete = true
+        }
+        if (confirmDelete) {
+            ConfirmationDialog(
+                onDismissRequest = { confirmDelete = false },
+                onConfirmed = { dao.delete(ids, true, ctx) },
+                content = {
+                    Text(stringResource(R.string.delete_confirmation, ids.size))
+                }
+            )
+        }
     }
-    Text(stringResource(R.string.gesture_data_mail_use))
-
-    // this deletes the data in the dialog, but we should also have a way of deleting previously exported data
-    var confirmDelete by remember { mutableStateOf(false) }
-    if (showDelete)
-        TextButton({ confirmDelete = true }, enabled = hasData) {
-            Text(stringResource(R.string.gesture_data_delete_dialog_exported))
-    }
-    if (confirmDelete)
-        ConfirmationDialog(
-            onDismissRequest = { confirmDelete = false },
-            onConfirmed = { dao.delete(ids, true, ctx) },
-            content = {
-                Text(stringResource(R.string.delete_confirmation, ids.size))
-            }
-        )
-
 }
 
 private val getDataIntent = Intent(Intent.ACTION_CREATE_DOCUMENT)
