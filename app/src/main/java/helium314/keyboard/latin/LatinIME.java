@@ -839,6 +839,7 @@ public class LatinIME extends InputMethodService implements
         } else {
             mDictionaryFacilitator = mOriginalDictionaryFacilitator;
         }
+        GestureDataGatheringKt.showEndNotificationIfNecessary(this); // will do nothing for a long time
         mInputLogic.setFacilitator(mDictionaryFacilitator);
 
         mDictionaryFacilitator.onStartInput();

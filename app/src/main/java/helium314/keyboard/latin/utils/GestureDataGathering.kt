@@ -3,6 +3,7 @@ package helium314.keyboard.latin.utils
 
 import android.content.ContentValues
 import android.content.Context
+import android.content.SharedPreferences
 import android.text.InputType
 import android.view.inputmethod.EditorInfo
 import androidx.core.content.edit
@@ -22,8 +23,12 @@ import helium314.keyboard.latin.database.Database
 import helium314.keyboard.latin.dictionary.Dictionary
 import helium314.keyboard.latin.dictionary.ReadOnlyBinaryDictionary
 import helium314.keyboard.latin.settings.Settings
+import helium314.keyboard.settings.screens.gesturedata.END_DATE_EPOCH_MILLIS
+import helium314.keyboard.settings.screens.gesturedata.TWO_WEEKS_IN_MILLIS
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
+import java.text.DateFormat
+import java.util.Date
 import kotlin.random.Random
 
 // functionality for gesture data gathering as part of the NLNet Project https://nlnet.nl/project/GestureTyping/
@@ -59,10 +64,26 @@ fun addExportedActiveDeletionCount(context: Context, count: Int) {
 
 fun getExportedActiveDeletionCount(context: Context) = context.prefs().getInt(PREF_DELETED_ACTIVE, 0)
 
+/** shows a toast notification if we're close to the end of the data gathering phase (at most once per 24 hours, only if there is non-exported data) */
+fun showEndNotificationIfNecessary(context: Context) {
+    val now = System.currentTimeMillis()
+    if (now < END_DATE_EPOCH_MILLIS - TWO_WEEKS_IN_MILLIS) return
+    val lastShown = context.prefs().getLong(PREF_END_NOTIFICATION_LAST_SHOWN, 0)
+    if (lastShown > now - 24L * 60 * 60 * 1000) return // show at most once per 24 hours
+    context.prefs().edit { putLong(PREF_END_NOTIFICATION_LAST_SHOWN, now) } // set even if we have nothing to tell
+    val notExported = GestureDataDao.getInstance(context)?.count(exported = false) ?: 0
+    if (notExported == 0) return // nothing to export
+
+    // show a toast
+    val endDate = DateFormat.getDateInstance(DateFormat.MEDIUM).format(Date(END_DATE_EPOCH_MILLIS))
+    KeyboardSwitcher.getInstance().showToast(context.getString(R.string.gesture_data_ends_at, endDate), false)
+}
+
 private const val PREF_WORD_EXCLUSIONS = "gesture_data_word_exclusions"
 private const val PREF_APP_EXCLUSIONS = "gesture_data_app_exclusions"
 private const val PREF_DELETED_ACTIVE = "gesture_data_deleted_active_words"
 private const val PREF_PASSIVE_NOTIFY_COUNT = "gesture_data_passive_notify_count"
+private const val PREF_END_NOTIFICATION_LAST_SHOWN = "gesture_data_end_notification_shown"
 
 const val dictTestImeOption = "useTestDictionaryFacilitator,${BuildConfig.APPLICATION_ID}.${Constants.ImeOption.NO_FLOATING_GESTURE_PREVIEW}"
 
