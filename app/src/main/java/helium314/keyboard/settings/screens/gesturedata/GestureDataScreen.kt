@@ -474,7 +474,7 @@ private fun BottomBar(hasWords: Boolean) {
                     enabled = hasWords
                 ) {
                     Icon(
-                        painterResource(android.R.drawable.ic_menu_share), // todo: icon has alpha, which is not nice...
+                        painterResource(R.drawable.ic_share),
                         "share",
                         Modifier.size(30.dp)
                     )
