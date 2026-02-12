@@ -3,7 +3,6 @@ package helium314.keyboard.latin.utils
 
 import android.content.ContentValues
 import android.content.Context
-import android.content.SharedPreferences
 import android.text.InputType
 import android.view.inputmethod.EditorInfo
 import androidx.core.content.edit
@@ -19,6 +18,7 @@ import helium314.keyboard.latin.SuggestedWords
 import helium314.keyboard.latin.common.ComposedData
 import helium314.keyboard.latin.common.Constants
 import helium314.keyboard.latin.common.InputPointers
+import helium314.keyboard.latin.common.StringUtils
 import helium314.keyboard.latin.database.Database
 import helium314.keyboard.latin.dictionary.Dictionary
 import helium314.keyboard.latin.dictionary.ReadOnlyBinaryDictionary
@@ -118,7 +118,15 @@ class WordData(
         val keyboardInfo = KeyboardInfo(
             width, // baseHeight is without padding, but coordinates include padding
             height,
-            keys.map { KeyInfo(it.x, it.width, it.y, it.height, it.code) }
+            keys.map {
+                KeyInfo(
+                    it.x, it.width, it.y, it.height,
+                    it.outputText ?: if (it.code > 0) StringUtils.newSingleCodePointString(it.code) else "",
+                    it.popupKeys.orEmpty().map { popup ->
+                        popup.mOutputText ?: if (popup.mCode > 0) StringUtils.newSingleCodePointString(popup.mCode) else ""
+                    }
+                )
+            }
         )
         val filteredSuggestions = mutableListOf<SuggestedWords.SuggestedWordInfo>()
         for (word in suggestions) { // suggestions are sorted with highest score first
@@ -233,9 +241,10 @@ data class PointerData(val id: Int, val x: Int, val y: Int, val millis: Int) {
     }
 }
 
-// gesture typing only works with code, not with arbitrary labels
+// the old gesture typing library only works with code, not with arbitrary text
+// but we take the output text (usually still a single codepoint) because we'd like to change this
 @Serializable
-data class KeyInfo(val left: Int, val width: Int, val top: Int, val height: Int, val codePoint: Int)
+data class KeyInfo(val left: Int, val width: Int, val top: Int, val height: Int, val value: String, val alts: List<String>)
 
 @Serializable
 data class KeyboardInfo(val width: Int, val height: Int, val keys: List<KeyInfo>)
