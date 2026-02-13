@@ -117,6 +117,7 @@ public final class WordComposer {
     private void refreshTypedWordCache() {
         mTypedWordCache = mCombinerChain.getComposingWordWithCombiningFeedback();
         mCodePointSize = Character.codePointCount(mTypedWordCache, 0, mTypedWordCache.length());
+        mIsResumed = false;
     }
 
     /**

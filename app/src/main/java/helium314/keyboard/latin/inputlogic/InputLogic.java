@@ -2764,4 +2764,8 @@ public final class InputLogic {
             mEmojiDictionaryFacilitator = null;
         }
     }
+
+    public boolean isResumed() {
+        return mWordComposer.isResumed();
+    }
 }
