@@ -410,6 +410,10 @@ public final class WordComposer {
         return mAutoCorrection;
     }
 
+    public void setResumed(boolean isResumed) {
+        mIsResumed = isResumed;
+    }
+
     /**
      * @return whether we started composing this word by resuming suggestion on an existing string
      */
