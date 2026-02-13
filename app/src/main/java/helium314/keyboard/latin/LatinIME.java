@@ -1036,7 +1036,9 @@ public class LatinIME extends InputMethodService implements
         }
 
         final SettingsValues settingsValues = mSettings.getCurrent();
-        if (hasSuggestionStripView() && settingsValues.mAutoShowToolbar) {
+        if (hasSuggestionStripView() && settingsValues.mAutoShowToolbar
+            && (newSelStart != oldSelStart + 1 || newSelStart != composingSpanEnd)) {
+            // Auto-show toolbar except while typing
             mSuggestionStripView.setToolbarVisibility(true);
         }
 
