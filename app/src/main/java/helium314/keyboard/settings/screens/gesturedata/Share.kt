@@ -91,7 +91,7 @@ fun ShareGestureData(ids: List<Long>) {
         // copy mail address to clipboard, in case user doesn't use the mail intent
         val clip = LocalClipboard.current
         ButtonWithText(stringResource(R.string.gesture_data_copy_mail)) {
-            scope.launch { clip.setClipEntry(ClipEntry(ClipData.newPlainText("mail address", ctx.getString(R.string.gesture_data_mail)))) }
+            scope.launch { clip.setClipEntry(ClipEntry(ClipData.newPlainText("mail address", deobfuscateEmail(ctx)))) }
         }
         Text(stringResource(R.string.gesture_data_mail_use))
     } else {
@@ -117,13 +117,19 @@ private val getDataIntent = Intent(Intent.ACTION_CREATE_DOCUMENT)
     .putExtra(Intent.EXTRA_TITLE, "gesture_data_${SimpleDateFormat("yyyy-MM-dd", Locale.US).format(Calendar.getInstance().time)}.zip")
     .setType("application/zip")
 
+private fun deobfuscateEmail(context: Context): String {
+    return context.getString(R.string.gesture_data_mail)
+        .map { c ->  Char(c.code-2) }
+        .joinToString(separator = "")
+}
+
 private fun createSendIntentChooser(context: Context): Intent {
     // targets all apps that accept this kind of intent
     val shareFileIntent = Intent(Intent.ACTION_SEND).apply {
         type = "application/zip"
-        putExtra(Intent.EXTRA_EMAIL, arrayOf(context.getString(R.string.gesture_data_mail)))
+        putExtra(Intent.EXTRA_EMAIL, arrayOf(deobfuscateEmail(context)))
         putExtra(Intent.EXTRA_SUBJECT, MAIL_SUBJECT)
-        putExtra(Intent.EXTRA_TEXT, MAIL_TEXT)
+        putExtra(Intent.EXTRA_TEXT, context.getString(R.string.gesture_data_email_body))
         putExtra(Intent.EXTRA_STREAM, getZipFileUri(context))
         addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
     }
@@ -264,4 +270,3 @@ private var gestureIdsBeingExported: List<Long>? = null
 private var zippedDataPath = "" // set after writing the file
 
 private const val MAIL_SUBJECT = "HeliBoard ${BuildConfig.VERSION_NAME} gesture data"
-private const val MAIL_TEXT = "here is gesture data"
