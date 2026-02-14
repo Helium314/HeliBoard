@@ -336,7 +336,7 @@ fun GestureDataScreen(
     var activeGathering by remember { mutableStateOf(false) }
     Scaffold(
         contentWindowInsets = WindowInsets.safeDrawing.only(WindowInsetsSides.Bottom),
-        bottomBar = { BottomBar(sessionWordCount + dbActiveWordCount > 0) }
+        bottomBar = { BottomBar(sessionWordCount + dbActiveWordCount > 0) { dbActiveWordCount = dao.count(activeMode = true) } }
     ) { innerPadding ->
         Column(
             modifier = Modifier
@@ -449,7 +449,7 @@ fun GestureDataScreen(
 }
 
 @Composable
-private fun BottomBar(hasWords: Boolean) {
+private fun BottomBar(hasWords: Boolean, onDeleted: () -> Unit) {
     var showExportDialog by remember { mutableStateOf(false) }
     var showDeleteDialog by remember { mutableStateOf(false) }
     val dao = GestureDataDao.getInstance(LocalContext.current)!!
@@ -537,6 +537,7 @@ private fun BottomBar(hasWords: Boolean) {
                 onConfirmed = {
                     val ids = dao.filterInfos(activeMode = true).map { it.id }
                     dao.delete(ids, showConfirmDialog != "all", ctx)
+                    onDeleted()
                 },
                 content = {
                     Text(stringResource(
