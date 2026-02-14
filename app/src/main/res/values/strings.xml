@@ -958,7 +958,7 @@ New dictionary:
     <string name="gesture_data_privacy">Privacy</string>
     <!-- Button for getting the data file
      string will probably be removed once data gathering is finished (end of 2026 latest) -->
-    <string name="gesture_data_get_data">Export gesture data</string>
+    <string name="gesture_data_get_data">Share gesture data file</string>
     <!-- Button for deleting the data file
      string will probably be removed once data gathering is finished (end of 2026 latest) -->
     <string name="gesture_data_delete_data">Clear gesture data</string>
@@ -982,7 +982,7 @@ New dictionary:
     <string name="gesture_data_next">Skip word</string>
     <!-- Text stating how many words were written using active data gathering
      string will probably be removed once data gathering is finished (end of 2026 latest) -->
-    <string name="gesture_data_active_count">%1$s words in this session, %2$s words total (%3$s already exported/deleted)</string>
+    <string name="gesture_data_active_count">%1$s words in this session, %2$s words total (%3$s already submitted or deleted)</string>
     <!-- Title for the screen to review and submit gesture data
      string will probably be removed once data gathering is finished (end of 2026 latest) -->
     <string name="gesture_data_review_screen_title">Review &amp; share gesture data</string>
@@ -992,7 +992,7 @@ New dictionary:
     <!-- Short title for date range display
      string will probably be removed once data gathering is finished (end of 2026 latest) -->
     <string name="gesture_data_date_range">Date range</string>
-    <!-- Text displayed when the user has more than 10000 gestures waiting for export
+    <!-- Text displayed when the user has more than 10000 gestures waiting to be submitted
      string will probably be removed once data gathering is finished (end of 2026 latest) -->
     <string name="gesture_data_much_data">You have a lot of unsubmitted data. Please submit and then remove the old data.</string>
     <!-- Button text for opening an info dialog containing gesture_data_active_description
@@ -1015,30 +1015,28 @@ New dictionary:
     <string name="gesture_data_ends_at">Gesture data gathering phase will end at %s. Please submit your data before that date.</string>
     <!-- Message informing the user that gesture data gathering is over
      string will probably be removed once data gathering is finished (end of 2026 latest) -->
-    <string name="gesture_data_ended">Gesture data gathering phase ended at %s. You can export your data, but not add anything new.</string>
-    <!-- Text for exporting all available words
+    <string name="gesture_data_ended">Gesture data gathering phase ended at %s. You can share your existing data, but not add anything new.</string>
+    <!-- Text for sharing all available words
      string will probably be removed once data gathering is finished (end of 2026 latest) -->
-    <string name="gesture_data_export_all">Share all %s words</string>
-    <!-- Text for exporting only words that were not exported previously
+    <string name="gesture_data_share_all">Share all %s words</string>
+    <!-- Text for sharing only words that were not shared previously
      string will probably be removed once data gathering is finished (end of 2026 latest) -->
-    <string name="gesture_data_export_new">Share %s not previously exported words</string>
-    <!-- Text for delete dialog, offering delete all / exported / cancel options
+    <string name="gesture_data_share_new">Share %s not previously submitted words</string>
+    <!-- Text for delete dialog, offering delete all / shared / cancel options
      string will probably be removed once data gathering is finished (end of 2026 latest) -->
-    <!-- todo: consistent and clear naming for word vs gesture (because user may get the same word multiple times) -->
-    <!-- todo: consistent and clear naming for export / share / submit (and others) -->
-    <string name="gesture_data_delete_dialog">You have data for %1$s new and %2$s already exported words.</string>
+    <string name="gesture_data_delete_dialog">You have data for %1$s new and %2$s already shared words.</string>
     <!-- Short text for delete all button
      string will probably be removed once data gathering is finished (end of 2026 latest) -->
     <string name="gesture_data_delete_dialog_all">Delete all %s words</string>
     <!-- Delete confirmation message
      string will probably be removed once data gathering is finished (end of 2026 latest) -->
-    <string name="gesture_data_delete_dialog_confirm">Are you sure? This will delete %s words. Make sure your exported words are submitted!</string>
+    <string name="gesture_data_delete_dialog_confirm">Are you sure? This will delete %s words. Make sure your shared date is submitted!</string>
     <!-- Short text for delete all button
      string will probably be removed once data gathering is finished (end of 2026 latest) -->
-    <string name="gesture_data_delete_dialog_exported">Delete %s exported words</string>
-    <!-- Message that many words are waiting to be exported (%s is 5000, 10000, ...)
+    <string name="gesture_data_delete_dialog_submitted">Delete %s submitted words</string>
+    <!-- Message that many words are waiting to be shared (%s is 5000, 10000, ...)
      string will probably be removed once data gathering is finished (end of 2026 latest) -->
-    <string name="gesture_data_many_not_exported_words">You have more than %s words waiting to be exported</string>
+    <string name="gesture_data_many_not_shared_words">You have more than %s words waiting to be submitted</string>
     <!-- Body of the mail for sending gesture data. Translatable because it contains information relevant for the user.
      string will probably be removed once data gathering is finished (end of 2026 latest) -->
     <string name="gesture_data_email_body">IMPORTANT:\n\n

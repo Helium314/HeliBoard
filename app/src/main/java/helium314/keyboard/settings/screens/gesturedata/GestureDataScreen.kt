@@ -491,10 +491,10 @@ private fun BottomBar(hasWords: Boolean, onDeleted: () -> Unit) {
             content = {
                 if (shareAll == null) {
                     Column {
-                        ButtonWithText(stringResource(R.string.gesture_data_export_new, notExportedCount), enabled = notExportedCount > 0) {
+                        ButtonWithText(stringResource(R.string.gesture_data_share_new, notExportedCount), enabled = notExportedCount > 0) {
                             shareAll = false
                         }
-                        ButtonWithText(stringResource(R.string.gesture_data_export_all, totalCount), enabled = totalCount > 0) {
+                        ButtonWithText(stringResource(R.string.gesture_data_share_all, totalCount), enabled = totalCount > 0) {
                             shareAll = true
                         }
                     }
@@ -522,7 +522,7 @@ private fun BottomBar(hasWords: Boolean, onDeleted: () -> Unit) {
             content = {
                 Column {
                     Text(stringResource(R.string.gesture_data_delete_dialog, nonExportedCount, exportedCount))
-                    ButtonWithText(stringResource(R.string.gesture_data_delete_dialog_exported, exportedCount)) { showConfirmDialog = "exported" }
+                    ButtonWithText(stringResource(R.string.gesture_data_delete_dialog_submitted, exportedCount)) { showConfirmDialog = "exported" }
                     ButtonWithText(stringResource(R.string.gesture_data_delete_dialog_all, exportedCount + nonExportedCount)) { showConfirmDialog = "all" }
                 }
             },

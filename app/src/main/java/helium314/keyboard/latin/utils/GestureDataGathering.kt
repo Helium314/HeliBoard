@@ -170,7 +170,7 @@ class WordData(
         if (count <= nextNotifyCount) return
         val approxCount = (count / 1000) * 1000
         // show a toast
-        KeyboardSwitcher.getInstance().showToast(context.getString(R.string.gesture_data_many_not_exported_words, approxCount.toString()), true)
+        KeyboardSwitcher.getInstance().showToast(context.getString(R.string.gesture_data_many_not_shared_words, approxCount.toString()), true)
         context.prefs().edit { putInt(PREF_PASSIVE_NOTIFY_COUNT, approxCount + 5000) }
     }
 

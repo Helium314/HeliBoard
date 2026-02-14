@@ -97,7 +97,7 @@ fun ShareGestureData(ids: List<Long>) {
     } else {
         // this deletes the data in the dialog, but we should also have a way of deleting previously exported data
         var confirmDelete by remember { mutableStateOf(false) }
-        ButtonWithText(stringResource(R.string.gesture_data_delete_dialog_exported, ids.size), enabled = hasData) {
+        ButtonWithText(stringResource(R.string.gesture_data_delete_dialog_submitted, ids.size), enabled = hasData) {
             confirmDelete = true
         }
         if (confirmDelete) {
