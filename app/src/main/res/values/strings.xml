@@ -919,6 +919,9 @@ New dictionary:
     <!-- Name for landscape orientation, used in various settings -->
     <string name="landscape">Landscape</string>
 
+
+    <!-- gesture data gathering, new strings for normal use should go above -->
+
     <!-- Title for screen to provide gesture data for library development
      string will probably be removed once data gathering is finished (end of 2026 latest) -->
     <string name="gesture_data_screen">Gesture data gathering</string>
@@ -1047,4 +1050,6 @@ New dictionary:
         If you want to send us a message along with your data, write it below the line here.\n
         ---------------------------------------------\n
     </string>
+
+    <!-- new strings should go above the section for gesture data gathering -->
 </resources>
