@@ -149,7 +149,7 @@ fun GestureDataScreen(
     var showEndDialog by rememberSaveable { mutableStateOf(true) }
     val focusRequester = remember { FocusRequester() }
     val keyboard = LocalSoftwareKeyboardController.current
-    val words = remember { mutableListOf<Pair<String, Int>>() }
+    val words = remember { mutableListOf<Pair<String, Long>>() }
     val scope = rememberCoroutineScope()
     fun nextWord(save: Boolean) {
         if (!save) {
@@ -584,7 +584,7 @@ private interface DictWithInfo {
     val internal: Boolean
     fun getDictionary(context: Context): BinaryDictionary
     // not actually suspending, but makes clear that it shouldn't be called on UI thread (because it's slow)
-    suspend fun addWords(context: Context, words: MutableList<Pair<String, Int>>) = getDictionary(context).addWords(words)
+    suspend fun addWords(context: Context, words: MutableList<Pair<String, Long>>) = getDictionary(context).addWords(words)
 }
 
 private class CacheDictWithInfo(private val file: File): DictWithInfo {
@@ -606,10 +606,10 @@ private class AssetsDictWithInfo(private val name: String, context: Context): Di
     }
 }
 
-private fun BinaryDictionary.addWords(words: MutableList<Pair<String, Int>>) {
+private fun BinaryDictionary.addWords(words: MutableList<Pair<String, Long>>) {
     var token = 0
     val hasCases = mLocale?.let { ScriptUtils.scriptSupportsUppercase(it) } ?: true
-    var cumulativeWeight = /*words.lastOrNull()?.second ?:*/ 0
+    var cumulativeWeight = /*words.lastOrNull()?.second ?:*/ 0L
     var added = false
     do {
         val result = getNextWordProperty(token)
@@ -617,10 +617,12 @@ private fun BinaryDictionary.addWords(words: MutableList<Pair<String, Int>>) {
         if (!result.mWordProperty.mIsNotAWord
                 && word.length > 1
                 && !(result.mWordProperty.mIsPossiblyOffensive && Settings.getValues().mBlockPotentiallyOffensive)
-                && result.mWordProperty.probability > 15 // some minimum value, as there are too many unknown / rare words down there
+                && result.mWordProperty.probability > 2 // some minimum value, as there are too many unknown / rare words down there
                 && (!hasCases || word.uppercase() != word)
             ) {
-            cumulativeWeight += result.mWordProperty.probability
+            // probability actually is something like log or very high root of actual word frequency
+            // we use power of 4 to shift the probabilities in favor of more frequent words, so users mostly see relatively common words, but aren't bored by tons of very common words
+            cumulativeWeight += result.mWordProperty.probability * result.mWordProperty.probability * result.mWordProperty.probability * result.mWordProperty.probability
             if (added && words.isEmpty())
                 return // crappy workaround for having 2 merged dictionaries when switching dicts while one is still loading
             words.add(word to cumulativeWeight)
@@ -632,16 +634,16 @@ private fun BinaryDictionary.addWords(words: MutableList<Pair<String, Int>>) {
 
 // words will be added to the list while we're choosing -> ignore the new words
 // list may get cleared while we're choosing -> return null in that case
-private fun getRandomWord(words: MutableList<Pair<String, Int>>): String? {
+private fun getRandomWord(words: MutableList<Pair<String, Long>>): String? {
     if (words.isEmpty()) return null
     val maxIndex = words.lastIndex
     val lastCumWeight = words.getOrNull(maxIndex)?.second ?: return null
-    val random = Random.nextInt(lastCumWeight + 1)
+    val random = Random.nextLong(lastCumWeight + 1)
     return words.searchFirstExceedingScore(random)
 }
 
 // modified Kotlin binary search for cumulative weights
-private fun <T> List<Pair<T, Int>>.searchFirstExceedingScore(scoreToExceed: Int, fromIndex: Int = 0, toIndex: Int = lastIndex): T? {
+private fun <T> List<Pair<T, Long>>.searchFirstExceedingScore(scoreToExceed: Long, fromIndex: Int = 0, toIndex: Int = lastIndex): T? {
     var low = fromIndex
     var high = toIndex
 
