@@ -152,6 +152,12 @@ public class LatinIME extends InputMethodService implements
     private final BroadcastReceiver mDictionaryDumpBroadcastReceiver =
             new DictionaryDumpBroadcastReceiver(this);
 
+    @Override
+    public boolean onSwipeDownOnToolbar() {
+        LatinIME.this.requestHideSelf(0);
+        return true;
+    }
+
     final static class RestartAfterDeviceUnlockReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
