@@ -804,7 +804,7 @@ public final class InputLogic {
             case KeyCode.TIMESTAMP:
                 mLatinIME.onTextInput(TimestampKt.getTimestamp(mLatinIME));
                 break;
-            case KeyCode.SEARCH:
+            case KeyCode.EMOJI_SEARCH:
                 commitTyped(Settings.getValues(), LastComposedWord.NOT_A_SEPARATOR);
                 mLatinIME.launchEmojiSearch();
                 break;
