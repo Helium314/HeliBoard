@@ -4,6 +4,7 @@ package helium314.keyboard.latin.database
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import helium314.keyboard.latin.utils.GestureDataDao
 import helium314.keyboard.latin.utils.Log
 import java.io.File
 
@@ -13,12 +14,14 @@ class Database private constructor(context: Context, name: String = NAME) : SQLi
     }
 
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
-        // nothing yet
+        if (oldVersion <= 1) {
+            db.execSQL(GestureDataDao.CREATE_TABLE)
+        }
     }
 
     companion object {
         private val TAG = Database::class.java.simpleName
-        private const val VERSION = 1
+        private const val VERSION = 2
         const val NAME = "heliboard.db"
         private var instance: Database? = null
         fun getInstance(context: Context): Database {

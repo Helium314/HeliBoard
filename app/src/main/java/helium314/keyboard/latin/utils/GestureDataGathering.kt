@@ -399,12 +399,6 @@ class GestureDataDao(val db: Database) {
         }
     }
 
-    init {
-        // todo: switch to proper db upgrade before merging
-//        db.writableDatabase.execSQL("DROP TABLE $TABLE")
-        db.writableDatabase.execSQL(CREATE_TABLE)
-    }
-
     companion object {
         private const val TAG = "GestureDataDao"
 
@@ -414,7 +408,7 @@ class GestureDataDao(val db: Database) {
         private const val COLUMN_WORD = "WORD"
         private const val COLUMN_EXPORTED = "EXPORTED"
         private const val COLUMN_SOURCE_ACTIVE = "SOURCE_ACTIVE"
-        private const val COLUMN_DATA = "DATA" // data is text, blob actually is slower to store, and probably not worth the saved space
+        private const val COLUMN_DATA = "DATA" // data is text, blob with zip is slower to store, and probably not worth the saved space
 
         const val CREATE_TABLE = """
             CREATE TABLE IF NOT EXISTS $TABLE (
