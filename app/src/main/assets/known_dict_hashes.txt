@@ -1,3 +1,4 @@
+# SHA256 hashes of dictionaries in https://codeberg.org/Helium314/aosp-dictionaries (relevant because here we also have the word list file)
 00c9c095e3e1619369ab62a3b4474ebb6eb78b1350a5366985635c1922aca780
 0266a78e525ed7decac2a005593bbe9459094340e9802647376dc8ac6a09203d
 027c742c6901d8ebcae667d2791cf9ad4543d0324c539a441a0611287de51af1

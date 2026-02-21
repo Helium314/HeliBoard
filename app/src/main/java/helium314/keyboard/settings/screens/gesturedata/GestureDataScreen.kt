@@ -561,7 +561,7 @@ fun ButtonWithText(text: String, modifier: Modifier = Modifier, enabled: Boolean
 // we only check dictionaries for enabled locales (main + secondary)
 private fun getAvailableDictionaries(context: Context): List<DictWithInfo> {
     val allowedHashes = context.assets.open("known_dict_hashes.txt")
-        .use { it.reader().readLines() }.filter { it.isNotBlank() }
+        .use { it.reader().readLines() }.filterNot { it.isBlank() || it.startsWith("#") }
     val locales = SubtypeSettings.getEnabledSubtypes(true).flatMap {
         getSecondaryLocales(it.extraValue) + it.locale()
     }
