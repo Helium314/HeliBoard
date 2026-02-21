@@ -280,7 +280,7 @@
     <string name="auto_user_color">Изберете цвят автоматично</string>
     <string name="main_colors">Показване само на основните цветове</string>
     <string name="all_colors">Покажи всички цветове</string>
-    <string name="all_colors_warning">Тази настройка показва всички цветове, които се използват вътрешно. Списъкът с цветове може да се промени по всяко време. Цветът по подразбиране е произволен и имената няма да бъдат преведени.</string>
+    <string name="all_colors_warning">Тази настройка показва всички цветове, които се използват вътрешно. Списъкът с цветове може да се промени по всяко време. Стойността по подразбиране е извлечена от нормалните цветове и имената им няма да бъдат преведени.</string>
     <string name="action_none">Няма</string>
     <string name="space_swipe_move_cursor_entry">Преместване на курсора</string>
     <string name="var_toolbar_direction">Променлива посока на лентата с инструменти</string>
@@ -479,4 +479,5 @@
     <string name="layout_clip_bottom_row_with_action" tools:keep="@string/layout_clip_bottom_row_with_action">Долен ред на клипборда с клавиш за действие</string>
     <string name="number_row_in_symbols">Показване на числовия ред в изглед със символи</string>
     <string name="custom_emoji_font">Задаване на персонализиран шрифт за емтикони от файл</string>
+    <string name="layout_functional_keys_khipro" tools:keep="@string/layout_functional_keys">Функционални клавиши (Khipro)</string>
 </resources>

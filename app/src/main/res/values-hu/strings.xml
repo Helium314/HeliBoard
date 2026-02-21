@@ -391,7 +391,7 @@
     <string name="after_clip">A vágólap előzménybejegyzésének kiválasztása</string>
     <string name="after_symbol_and_space">Enter- vagy szóközbillentyű leütése más billentyűk után a szimbólumnézetben</string>
     <string name="after_numpad_and_space">Enter- vagy szóközbillentyű leütése más billentyűk után a számbillentyűzeten</string>
-    <string name="all_colors_warning">Ez a beállítás minden belsőleg használt színt megjeleníti. A színek listája bármikor változhat. Az alapértelmezett szín véletlenszerű, és a nevek nem kerülnek lefordításra.</string>
+    <string name="all_colors_warning">Ez a beállítás felfedi az összes belsőleg használt színt. A színek listája bármikor megváltozhat. Az alapértelmezett beállítás a normál színekből származik, és a színek nevei nem lesznek lefordítva.</string>
     <string name="get_colors_message">A színeket a következő helyen találja és oszthatja meg: %s.</string>
     <string name="get_layouts_message">Az elrendezéseket a következő helyen találja és oszthatja meg: %s.</string>
     <string name="about_wiki_link">Ugrás a Wikire</string>
@@ -442,4 +442,5 @@
     <string name="layout_clip_bottom_row_with_action" tools:keep="@string/layout_clip_bottom_row_with_action">Vágólap alsó sora akciógombbal</string>
     <string name="number_row_in_symbols">Számsor megjelenítése a szimbólumnézetben</string>
     <string name="custom_emoji_font">Egyéni emodzsi-betűtípus beállítása fájlból</string>
+    <string name="layout_functional_keys_khipro" tools:keep="@string/layout_functional_keys">Funkcióbillentyűk (Khipro)</string>
 </resources>

@@ -311,7 +311,7 @@
     <string name="subtype_mns">মানসি</string>
     <string name="quick_pin_toolbar_keys_summary">পিন করা নেই এমন অন্য টুলবার বোতামের দীর্ঘচাপের কার্যাবলি নিষ্ক্রিয় করবে</string>
     <string name="more_colors">অধিক রং প্রদর্শন</string>
-    <string name="all_colors_warning">এই সেটিংস অভ্যন্তরীণভাবে ব্যবহৃত সকল রং প্রকাশ করে। রঙের তালিকা যেকোনো সময় পরিবর্তিত হতে পারে। ডিফল্ট রং যেকোনো একটি হতে পারে এবং রঙের নাম অনুবাদ করা হবে না।</string>
+    <string name="all_colors_warning">এই সেটিংস অভ্যন্তরীণভাবে ব্যবহৃত সকল রং প্রকাশ করে। রঙের তালিকা যেকোনো সময় পরিবর্তিত হতে পারে। সাধারণ রং থেকে ডিফল্ট উদ্ভূত এবং রঙের নাম অনুবাদ করা হবে না।</string>
     <string name="layout_functional_keys" tools:keep="@string/layout_functional_keys">ফাংশনাল বোতাম</string>
     <string name="layout_functional_keys_symbols" tools:keep="@string/layout_functional_keys_symbols">ফাংশনাল বোতাম (প্রতীক)</string>
     <string name="layout_functional_keys_symbols_shifted" tools:keep="@string/layout_functional_keys_symbols_shifted">ফাংশনাল বোতাম (অধিক প্রতীক)</string>
@@ -443,4 +443,5 @@
     <string name="layout_clip_bottom_row_with_action" tools:keep="@string/layout_clip_bottom_row_with_action">অ্যাকশন বোতামসহ ক্লিপবোর্ডের নিম্ন সারি</string>
     <string name="number_row_in_symbols">প্রতীক দর্শনে নম্বর সারি প্রদর্শন</string>
     <string name="custom_emoji_font">ফাইল থেকে নিজস্বীকৃত ইমোজি ফন্ট নির্ধারণ</string>
+    <string name="layout_functional_keys_khipro" tools:keep="@string/layout_functional_keys">ফাংশনাল বোতাম (ক্ষিপ্র)</string>
 </resources>
