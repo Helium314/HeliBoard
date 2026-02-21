@@ -305,9 +305,9 @@ final class EmojiCategory {
             final Key[][] sortedKeysPages = sortKeysGrouped(
                     keyboard.getSortedKeys(), keyCountPerPage);
             for (int pageId = 0; pageId < sortedKeysPages.length; ++pageId) {
-                final DynamicGridKeyboard tempKeyboard = DynamicGridKeyboard.ofRowCount(mPrefs,
+                final DynamicGridKeyboard tempKeyboard = DynamicGridKeyboard.ofKeyCount(mPrefs,
                         mLayoutSet.getKeyboard(KeyboardId.ELEMENT_EMOJI_RECENTS),
-                        MAX_LINE_COUNT_PER_PAGE, categoryId, currentWidth);
+                        keyCountPerPage, categoryId, currentWidth);
                 for (final Key emojiKey : sortedKeysPages[pageId]) {
                     if (emojiKey == null) {
                         break;
