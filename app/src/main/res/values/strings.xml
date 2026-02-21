@@ -918,6 +918,10 @@ New dictionary:
     <string name="custom_subtype">Custom subtype</string>
     <!-- Name for landscape orientation, used in various settings -->
     <string name="landscape">Landscape</string>
+    <!-- Emoji search title bar text -->
+    <string name="emoji_search_title">Search emoji</string>
+    <!-- Placeholder text for search field -->
+    <string name="search_field_placeholder">Search</string>
 
 
     <!-- gesture data gathering, new strings for normal use should go above -->
