@@ -637,11 +637,15 @@ public final class InputLogic {
             inputTransaction.setDidAffectContents();
         }
         if (mWordComposer.isComposingWord()) {
-            // Check if we need to insert automatic space before starting to compose (e.g., after suggestion pickup)
-            // Only do this for the Khipro combiner
+            // Khipro auto-space after suggestion: when user picks a suggestion and starts composing the next word,
+            // insert space automatically, but skip it if the next character is punctuation (. , ; : ! ?) or word connector.
+            final int codePoint = event.getCodePoint();
+            final SettingsValues settingsValues = inputTransaction.getSettingsValues();
             if (SpaceState.PHANTOM == inputTransaction.getSpaceState()
-                    && "bn_khipro".equals(mWordComposer.getCombiningSpec())) {
-                insertAutomaticSpaceIfOptionsAndTextAllow(inputTransaction.getSettingsValues());
+                    && "bn_khipro".equals(mWordComposer.getCombiningSpec())
+                    && !settingsValues.isWordConnector(codePoint)
+                    && !settingsValues.isUsuallyFollowedBySpace(codePoint)) {
+                insertAutomaticSpaceIfOptionsAndTextAllow(settingsValues);
                 mSpaceState = SpaceState.NONE;
             }
             setComposingTextInternal(mWordComposer.getTypedWord(), 1);
