@@ -671,7 +671,7 @@ public class LatinIME extends InputMethodService implements
         mDictionaryFacilitator.resetDictionaries(this, mDictionaryFacilitator.getMainLocale(),
                 settingsValues.mUseContactsDictionary, settingsValues.mUseAppsDictionary,
                 settingsValues.mUsePersonalizedDicts, true, "", this);
-        mKeyboardSwitcher.setThemeNeedsReload();
+        mKeyboardSwitcher.setThemeNeedsReload(); // necessary for emoji search
         EmojiPalettesView.closeDictionaryFacilitator();
         EmojiSearchActivity.Companion.closeDictionaryFacilitator();
     }
