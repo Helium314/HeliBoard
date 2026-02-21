@@ -22,6 +22,7 @@ import android.view.inputmethod.CorrectionInfo;
 import android.view.inputmethod.EditorInfo;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import helium314.keyboard.event.Event;
 import helium314.keyboard.event.InputTransaction;
@@ -57,9 +58,11 @@ import helium314.keyboard.latin.utils.DictionaryInfoUtils;
 import helium314.keyboard.latin.utils.InputTypeUtils;
 import helium314.keyboard.latin.utils.IntentUtils;
 import helium314.keyboard.latin.utils.Log;
+import helium314.keyboard.latin.utils.RecapitalizeMode;
 import helium314.keyboard.latin.utils.RecapitalizeStatus;
 import helium314.keyboard.latin.utils.ScriptUtils;
 import helium314.keyboard.latin.utils.StatsUtils;
+import helium314.keyboard.latin.utils.TextPlacement;
 import helium314.keyboard.latin.utils.TextRange;
 import helium314.keyboard.latin.utils.TimestampKt;
 
@@ -87,9 +90,14 @@ public final class InputLogic {
     private int mSpaceState;
     // Never null
     public SuggestedWords mSuggestedWords = SuggestedWords.getEmptyInstance();
-    public final Suggest mSuggest;
-    private final DictionaryFacilitator mDictionaryFacilitator;
+    public Suggest mSuggest; // non-final for active gesture data gathering, revert when data gathering phase is done (end of 2026 latest)
+    public DictionaryFacilitator mDictionaryFacilitator; // non-final for active gesture data gathering, revert when data gathering phase is done (end of 2026 latest)
     private SingleDictionaryFacilitator mEmojiDictionaryFacilitator;
+    public void setFacilitator(DictionaryFacilitator facilitator) { // only for active gesture data gathering, remove when data gathering phase is done (end of 2026 latest)
+        if (mDictionaryFacilitator == facilitator) return;
+        mDictionaryFacilitator = facilitator;
+        mSuggest = new Suggest(mDictionaryFacilitator);
+    }
 
     public LastComposedWord mLastComposedWord = LastComposedWord.NOT_A_COMPOSED_WORD;
     // This has package visibility so it can be accessed from InputLogicHandler.
@@ -807,14 +815,7 @@ public final class InputLogic {
                 break;
             case KeyCode.INLINE_EMOJI_SEARCH_DONE:
                 setInlineEmojiSearchAction(false);
-                if (mSuggestedWords.mWillAutoCorrect) {
-                    deleteTextReplacedByEmoji();
-                    commitCurrentAutoCorrection(inputTransaction.getSettingsValues(), LastComposedWord.NOT_A_SEPARATOR, handler);
-                    inputTransaction.setDidAutoCorrect();
-                    mSuggestionStripViewAccessor.setNeutralSuggestionStrip();
-                } else {
-                    inputTransaction.setRequiresUpdateSuggestions();
-                }
+                inputTransaction.setRequiresUpdateSuggestions();
                 break;
             case KeyCode.VOICE_INPUT:
                 // switching to shortcut IME, shift state, keyboard,... is handled by LatinIME,
@@ -1106,6 +1107,16 @@ public final class InputLogic {
         final boolean shouldAvoidSendingCode = Constants.CODE_SPACE == codePoint
                 && !settingsValues.mSpacingAndPunctuations.mCurrentLanguageHasSpaces
                 && wasComposingWord;
+
+        // wrap / unwrap selected text in codepoint pairs
+        if (!wasComposingWord && mConnection.hasSelection()) { // we should never be composing when something is selected
+            final int pairedCodepoint = settingsValues.mSpacingAndPunctuations.getSecondInSymbolPair(codePoint);
+            if (pairedCodepoint != Constants.NOT_A_CODE) {
+                wrapSelection(codePoint, pairedCodepoint);
+                inputTransaction.requireShiftUpdate(InputTransaction.SHIFT_UPDATE_NOW);
+                return;
+            }
+        }
         if (mWordComposer.isCursorFrontOrMiddleOfComposingWord()) {
             // If we are in the middle of a recorrection, we need to commit the recorrection
             // first so that we can insert the separator at the current cursor position.
@@ -1266,6 +1277,7 @@ public final class InputLogic {
             } else {
                 mConnection.commitText("", 1);
             }
+            updateInlineEmojiSearch();
             inputTransaction.setRequiresUpdateSuggestions();
         } else {
             if (mLastComposedWord.canRevertCommit() && inputTransaction.getSettingsValues().mBackspaceRevertsAutocorrect) {
@@ -1615,7 +1627,7 @@ public final class InputLogic {
      * @param settingsValues The current settings values.
      */
     private void performRecapitalization(final SettingsValues settingsValues) {
-        if (!mConnection.hasSelection() || !mRecapitalizeStatus.mIsEnabled()) {
+        if (!mConnection.hasSelection() || !mRecapitalizeStatus.isEnabled()) {
             return; // No selection or recapitalize is disabled for now
         }
         final int selectionStart = mConnection.getExpectedSelectionStart();
@@ -1632,19 +1644,16 @@ public final class InputLogic {
             final CharSequence selectedText =
                     mConnection.getSelectedText(0 /* flags, 0 for no styles */);
             if (TextUtils.isEmpty(selectedText)) return; // Race condition with the input connection
-            mRecapitalizeStatus.start(selectionStart, selectionEnd, selectedText.toString(),
-                    settingsValues.mLocale,
+            mRecapitalizeStatus.start(selectedText.toString(), selectionStart, settingsValues.mLocale,
                     settingsValues.mSpacingAndPunctuations.mSortedWordSeparators);
-            // We trim leading and trailing whitespace.
-            mRecapitalizeStatus.trim();
         }
         mConnection.finishComposingText();
         mRecapitalizeStatus.rotate();
         mConnection.setSelection(selectionEnd, selectionEnd);
         mConnection.deleteTextBeforeCursor(numCharsSelected);
-        mConnection.commitText(mRecapitalizeStatus.getRecapitalizedString(), 0);
-        mConnection.setSelection(mRecapitalizeStatus.getNewCursorStart(),
-                mRecapitalizeStatus.getNewCursorEnd());
+        final TextPlacement replacement = mRecapitalizeStatus.textReplacement();
+        mConnection.commitText(replacement.text, 0);
+        mConnection.setSelection(replacement.selectionStart, replacement.selectionEnd());
     }
 
     private void performAdditionToUserHistoryDictionary(final SettingsValues settingsValues,
@@ -1778,7 +1787,6 @@ public final class InputLogic {
 
         updateInlineEmojiSearch();
         if (isInlineEmojiSearchAction()) {
-            mWordComposer.setComposingWord(EMPTY_CODE_POINTS, null);
             mInputLogicHandler.getSuggestedWords(() -> getSuggestedWords(SuggestedWords.INPUT_STYLE_TYPING,
                 SuggestedWords.NOT_A_SEQUENCE_NUMBER, this::doShowSuggestionsAndClearAutoCorrectionIndicator));
             return;
@@ -2006,12 +2014,13 @@ public final class InputLogic {
                 SpaceState.PHANTOM == mSpaceState);
     }
 
-    public int getCurrentRecapitalizeState() {
+    @Nullable
+    public RecapitalizeMode getCurrentRecapitalizeState() {
         if (!mRecapitalizeStatus.isStarted()
                 || !mRecapitalizeStatus.isSetAt(mConnection.getExpectedSelectionStart(),
                         mConnection.getExpectedSelectionEnd())) {
             // Not recapitalizing at the moment
-            return RecapitalizeStatus.NOT_A_RECAPITALIZE_MODE;
+            return null;
         }
         return mRecapitalizeStatus.getCurrentMode();
     }
@@ -2445,6 +2454,25 @@ public final class InputLogic {
     }
 
     /**
+     *  Wraps the selected text into the codepoints. If the same codepoints are
+     *  already present before and after the selection, they are removed instead.
+     *  (unfortunately Android long-press selection may select one of those codepoints, so unwrap may not work well)
+     */
+    private void wrapSelection(final int start, final int end) {
+        final CharSequence selected = mConnection.getSelectedText(0);
+        if (mConnection.getCodePointBeforeCursor() == start) {
+            // maybe we want to revert it
+            final CharSequence afterCursor = mConnection.getTextAfterCursor(1, 0);
+            if (afterCursor.length() > 0 && afterCursor.charAt(0) == end) {
+                mConnection.setSelection(mConnection.getExpectedSelectionStart() - 1, mConnection.getExpectedSelectionEnd() + 1);
+                mConnection.commitText(selected, 1);
+                return;
+            }
+        }
+        mConnection.commitText(StringUtils.newSingleCodePointString(start) + selected + StringUtils.newSingleCodePointString(end), 1);
+    }
+
+    /**
      * Retry resetting caches in the rich input connection.
      * <p>
      * When the editor can't be accessed we can't reset the caches, so we schedule a retry.
@@ -2623,8 +2651,7 @@ public final class InputLogic {
         if (on != isInlineEmojiSearchAction()) {
             KeyboardSwitcher.getInstance().loadKeyboard(mLatinIME.getCurrentInputEditorInfo(), Settings.getValues(),
                             mLatinIME.getCurrentAutoCapsState(), mLatinIME.getCurrentRecapitalizeState(),
-                            on? new KeyboardLayoutSet.InternalAction(
-                                KeyCode.INLINE_EMOJI_SEARCH_DONE, Settings.getValues().mAutoCorrectEnabled? "\uD83D\uDC4D" : "⏹️") : null);
+                            on? new KeyboardLayoutSet.InternalAction(KeyCode.INLINE_EMOJI_SEARCH_DONE,"!icon/close_history") : null);
         }
     }
 
@@ -2658,7 +2685,7 @@ public final class InputLogic {
             }
         }
         callback.onGetSuggestedWords(new SuggestedWords(suggestedWordInfos, suggestions.mRawSuggestions, typedWordInfo,
-                                     false /* typedWordValid */, Settings.getValues().mAutoCorrectEnabled,
+                                     false /* typedWordValid */, false /* autoCorrectEnabled */,
                                      false /* isObsoleteSuggestions */, SuggestedWords.INPUT_STYLE_TYPING, sequenceNumber));
     }
 

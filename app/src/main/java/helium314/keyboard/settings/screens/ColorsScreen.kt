@@ -98,7 +98,12 @@ fun ColorsScreen(
     val moreColors = KeyboardTheme.readUserMoreColors(prefs, newThemeName.text)
     val userColors = KeyboardTheme.readUserColors(prefs, newThemeName.text)
     val shownColors = if (moreColors == 2) {
-        val allColors = KeyboardTheme.readUserAllColors(prefs, newThemeName.text)
+        val fallbackColors = KeyboardTheme.readUserColorTheme(
+            prefs.getString(Settings.PREF_THEME_STYLE, Defaults.PREF_THEME_STYLE)!!,
+            prefs.getBoolean(Settings.PREF_THEME_KEY_BORDERS, Defaults.PREF_THEME_KEY_BORDERS),
+        userColors, ctx, isNight, null
+        )
+        val allColors = KeyboardTheme.readUserAllColors(prefs, newThemeName.text, fallbackColors)
         ColorType.entries.map {
             ColorSetting(it.name, null, allColors[it] ?: it.default())
         }
@@ -209,15 +214,21 @@ fun ColorsScreen(
         }
     )
     if (chosenColor != null) {
+        val oldAllColors = KeyboardTheme.readUserAllColors(prefs, newThemeName.text, null)
         ColorPickerDialog(
             onDismissRequest = { chosenColorString = "" },
             initialColor = chosenColor.displayColor(),
             title = chosenColor.displayName,
+            showDefault = moreColors == 2 && oldAllColors.contains(ColorType.valueOf(chosenColor.name)),
+            onDefault = {
+                // clear the color
+                oldAllColors.remove(ColorType.valueOf(chosenColor.name))
+                KeyboardTheme.writeUserAllColors(prefs, newThemeName.text, oldAllColors)
+            }
         ) { color ->
             if (moreColors == 2) {
-                val oldColors = KeyboardTheme.readUserAllColors(prefs, newThemeName.text)
-                oldColors[ColorType.valueOf(chosenColor.name)] = color
-                KeyboardTheme.writeUserAllColors(prefs, newThemeName.text, oldColors)
+                oldAllColors[ColorType.valueOf(chosenColor.name)] = color
+                KeyboardTheme.writeUserAllColors(prefs, newThemeName.text, oldAllColors)
             } else {
                 val oldUserColors = KeyboardTheme.readUserColors(prefs, newThemeName.text)
                 val newUserColors = (oldUserColors + ColorSetting(chosenColor.name, false, color))
@@ -231,7 +242,7 @@ fun ColorsScreen(
 private fun getColorString(prefs: SharedPreferences, themeName: String): String {
     val moreColors = KeyboardTheme.readUserMoreColors(prefs, themeName)
     if (moreColors == 2) {
-        val colors = KeyboardTheme.readUserAllColors(prefs, themeName).map { it.key.name to it.value }
+        val colors = KeyboardTheme.readUserAllColors(prefs, themeName, null).map { it.key.name to it.value }
         return Json.encodeToString((colors + (encodeBase36(themeName) to 0)).toMap()) // put theme name in here too
     }
     val colors = KeyboardTheme.readUserColors(prefs, themeName).associate { it.name to (it.color to (it.auto == true)) }

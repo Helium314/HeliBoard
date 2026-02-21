@@ -29,7 +29,7 @@ ONLY add screenshots when they add real value.
 If you add screenshots, reduce the size or use thumbnails to keep the issue nicely readable.
 
 **App version**
-Please provide the explicit version, or if you build the app yourself specify the latest commit.
+Please provide the explicit version (not just "latest"), or if you build the app yourself specify the latest commit.
 
 **Device:**
  - Model: [e.g. Samsung Galaxy S9]

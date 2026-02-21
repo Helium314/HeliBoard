@@ -84,7 +84,6 @@
     <string name="settings">"设置"</string>
     <string name="delete">"删除"</string>
     <string name="version_text">版本 %s</string>
-    <string name="user_dict_settings_add_dialog_title">添加到词典</string>
     <string name="user_dict_settings_add_shortcut_option_name">"快捷键："</string>
     <string name="user_dict_settings_add_locale_option_name">"语言："</string>
     <string name="user_dict_settings_add_word_hint">输入单词</string>
@@ -92,7 +91,6 @@
     <string name="user_dict_settings_edit_dialog_title">编辑单词</string>
     <string name="user_dict_settings_all_languages">对于所有语言</string>
     <string name="user_dict_settings_more_languages">"更多语言…"</string>
-    <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
     <string name="settings_category_suggestions">建议</string>
     <string name="settings_category_miscellaneous">杂项</string>
     <string name="settings_category_clipboard_history">剪贴板历史</string>
@@ -289,7 +287,6 @@
     <string name="delete_layout">确定要删除自定义布局 %s？</string>
     <string name="layout_symbols_arabic" tools:keep="@string/layout_symbols_arabic">符号（阿拉伯语）</string>
     <string name="theme_name_user" tools:keep="@string/theme_name_user">用户自定义</string>
-    <string name="theme_name_user_night" tools:keep="@string/theme_name_user_night">用户自定义（夜间）</string>
     <string name="select_color_gesture">滑行输入法</string>
     <string name="switch_keyboard_after">切换到主键盘后…</string>
     <string name="after_emoji">在表情符号视图中选择表情符号</string>
@@ -307,12 +304,11 @@
     <string name="subtype_generic_student">%s (Student)</string>
     <string name="subtype_mns">曼西语</string>
     <string name="layout_symbols" tools:keep="@string/layout_symbols">符号</string>
-    <string name="select_user_colors_summary">为文本和背景选择颜色</string>
     <string name="select_color_background">键盘背景</string>
     <string name="select_color_key">按键文本</string>
     <string name="more_colors">显示更多颜色</string>
     <string name="all_colors">显示所有颜色</string>
-    <string name="all_colors_warning">此设置显示内部使用的所有颜色。颜色列表可能随时更改。默认颜色是随机的，名称不会被翻译。</string>
+    <string name="all_colors_warning">此设置显示内部使用的所有颜色。颜色列表可能随时更改。默认颜色基于常规颜色，名称不会被翻译。</string>
     <string name="customize_background_image">设置背景图片</string>
     <string name="day_or_night_image">为日间或夜间模式设置图片？</string>
     <string name="day_or_night_day">日间</string>
@@ -447,4 +443,7 @@
     <string name="emoji_dictionary_required">此功能需要表情符号词典才能使用。可以下载 .dict 格式的词典 %s。</string>
     <string name="layout_emoji_bottom_row_with_action" tools:keep="@string/layout_emoji_bottom_row_with_action">带操作键的表情符号底行</string>
     <string name="layout_clip_bottom_row_with_action" tools:keep="@string/layout_clip_bottom_row_with_action">带操作键的剪贴板底行</string>
+    <string name="number_row_in_symbols">在符号视图中显示数字行</string>
+    <string name="custom_emoji_font">从文件设置自定义表情符号字体</string>
+    <string name="layout_functional_keys_khipro" tools:keep="@string/layout_functional_keys">功能键（Khipro）</string>
 </resources>

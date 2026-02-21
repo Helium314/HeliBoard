@@ -85,7 +85,6 @@
     <string name="settings">"Definições"</string>
     <string name="delete">Eliminar</string>
     <string name="version_text">Versão %1$s</string>
-    <string name="user_dict_settings_add_dialog_title">"Adicionar ao dicionário"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"Atalho:"</string>
     <string name="user_dict_settings_add_locale_option_name">Idioma:</string>
     <string name="user_dict_settings_add_word_hint">Digite uma palavra</string>
@@ -93,7 +92,6 @@
     <string name="user_dict_settings_edit_dialog_title">"Editar palavra"</string>
     <string name="user_dict_settings_all_languages">"Em todos os idiomas"</string>
     <string name="user_dict_settings_more_languages">Mais idiomas…</string>
-    <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
     <string name="show_hints_summary">Mostrar dicas com toque longo</string>
     <string name="delete_swipe">Deslize para eliminar</string>
     <string name="delete_swipe_summary">Pode deslizar desde a tecla \'Apagar\' para selecionar e remover grandes porções de texto de uma vez</string>
@@ -184,7 +182,7 @@
     <string name="auto_correct_shortcuts">Atalhos de correção automática</string>
     <string name="auto_correct_shortcuts_summary">Quando ativado, os atalhos podem ser expandidos pela correção automática</string>
     <string name="customize_background_image_landscape">Definir imagem de fundo (horizontal)</string>
-    <string name="custom_font">Escolher fonte de um ficheiro externo</string>
+    <string name="custom_font">Definir fonte a partir de um ficheiro</string>
     <string name="summary_customize_background_image_landscape">Se não for definido, será usada a imagem vertical</string>
     <string name="customize_toolbar_key_code_reset_message">Limpar mesmo todos os códigos de teclas personalizados?</string>
     <string name="number_row_hints">Mostrar dicas na linha de números</string>
@@ -234,10 +232,9 @@
     <string name="prefs_narrow_key_gaps">Teclas com espaços estreitos</string>
     <string name="subtype_xdq">Kaitag</string>
     <string name="layout_symbols_arabic" tools:keep="@string/layout_symbols_arabic">Símbolos (Árabe)</string>
-    <string name="select_user_colors_summary">Selecionar cores para texto e fundos</string>
     <string name="select_color_background">Fundo do teclado</string>
-    <string name="layout_emoji_bottom_row" tools:keep="@string/layout_emoji_bottom_row">Linha inferior de emojis</string>
-    <string name="layout_clip_bottom_row" tools:keep="@string/layout_clip_bottom_row">Linha inferior da área de transferência</string>
+    <string name="layout_emoji_bottom_row" tools:keep="@string/layout_emoji_bottom_row">Fila inferior de emojis</string>
+    <string name="layout_clip_bottom_row" tools:keep="@string/layout_clip_bottom_row">Fila inferior da área de transferência</string>
     <string name="theme_name_violette" tools:keep="@string/theme_name_violette">Violeta</string>
     <string name="prefs_always_show_suggestions_except_web_text">Não mostrar sempre sugestões para campos de edição web</string>
     <string name="prefs_always_show_suggestions_except_web_text_summary">Os campos de edição na Web (encontrados principalmente nos navegadores) são uma causa muito comum de problemas com a configuração de mostrar sempre sugestões</string>
@@ -308,7 +305,7 @@
     <string name="show_popup_hints">Mostrar dicas funcionais</string>
     <string name="show_popup_hints_summary">Mostrar dicas se um toque longo numa tecla ativa funcionalidade adicional</string>
     <string name="after_numpad_and_space">Premir Enter ou Espaço após outras teclas no teclado de números</string>
-    <string name="all_colors_warning">Esta configuração expõe todas as cores que são usadas internamente. A lista de cores pode mudar a qualquer momento. A cor padrão é aleatória, e os nomes não são traduzidos.</string>
+    <string name="all_colors_warning">Esta configuração expõe todas as cores que são usadas internamente. A lista de cores pode mudar a qualquer momento. A cor padrão é derivada das cores normais, e os nomes não são traduzidos.</string>
     <string name="select_color_gesture">Entrada de gesto</string>
     <string name="discussion_section_link">seção de discussão</string>
     <string name="settings_screen_about">Sobre</string>
@@ -325,7 +322,6 @@
     <string name="delete_confirmation">Apagar mesmo %s?</string>
     <string name="button_load_custom">Carregar ficheiro</string>
     <string name="theme_name_user" tools:keep="@string/theme_name_user">Definido pelo utilizador</string>
-    <string name="theme_name_user_night" tools:keep="@string/theme_name_user_night">Definido pelo utilizador (noite)</string>
     <string name="all_colors">Mostrar todas as cores</string>
     <string name="auto_hide_toolbar">Ocultar barra de ferramentas automaticamente</string>
     <string name="auto_hide_toolbar_summary">Ocultar barra de ferramentas quando sugestões ficam disponíveis</string>
@@ -435,4 +431,16 @@
     <string name="subtype_generic_sebeolsik_390">%s (Sebeolsik 390)</string>
     <string name="subtype_generic_sebeolsik_final">%s (Sebeolsik Final)</string>
     <string name="subtype_generic_student">%s (Estudante)</string>
+    <string name="inline_emoji_search">Pesquisa de emoji embutida</string>
+    <string name="inline_emoji_search_summary">Apenas sugerir emojis quando uma palavra é precedida por dois pontos</string>
+    <string name="emoji_dictionary_required">É necessário um dicionário de emojis para esta funcionalidade. Os dicionários no formato .dict podem ser descarregados %s.</string>
+    <string name="clipboard_history_pinned_first">Mostrar items afixados no topo</string>
+    <string name="save_subtype_per_app">Lembrar idioma por app</string>
+    <string name="subtype_mhr">Mai (Oriental)</string>
+    <string name="subtype_khipro_bn">%s (Khipro)</string>
+    <string name="layout_emoji_bottom_row_with_action" tools:keep="@string/layout_emoji_bottom_row_with_action">Fila inferior de emoji com tecla de ação</string>
+    <string name="layout_clip_bottom_row_with_action" tools:keep="@string/layout_clip_bottom_row_with_action">Fila inferior da área de transferência com tecla de ação</string>
+    <string name="custom_emoji_font">Definir fonte de emoji a partir de ficheiro</string>
+    <string name="number_row_in_symbols">Mostrar linha de números no ecrã de símbolos</string>
+    <string name="layout_functional_keys_khipro" tools:keep="@string/layout_functional_keys">Teclas funcionais (Khipro)</string>
 </resources>

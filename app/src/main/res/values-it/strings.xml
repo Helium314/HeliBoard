@@ -84,7 +84,6 @@
     <string name="settings">"Impostazioni"</string>
     <string name="delete">"Elimina"</string>
     <string name="version_text">Versione %s</string>
-    <string name="user_dict_settings_add_dialog_title">"Aggiungi al dizionario"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"Scorciatoia:"</string>
     <string name="user_dict_settings_add_locale_option_name">"Lingua:"</string>
     <string name="user_dict_settings_add_word_hint">"Digita una parola"</string>
@@ -92,7 +91,6 @@
     <string name="user_dict_settings_edit_dialog_title">"Modifica parola"</string>
     <string name="user_dict_settings_all_languages">"Per tutte le lingue"</string>
     <string name="user_dict_settings_more_languages">"Altre lingue…"</string>
-    <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
     <string name="prefs_keyboard_height_scale">Altezza tastiera</string>
     <string name="autospace_after_punctuation">Spazio automatico dopo la punteggiatura</string>
     <string name="more_keys_strip_description">Altri tasti</string>
@@ -260,9 +258,7 @@
     <string name="hidden_features_summary">Mostra le funzionalità che potrebbero passare inosservate</string>
     <string name="theme_colors_night">Tema scuro</string>
     <string name="all_colors">Mostra tutti i colori</string>
-    <string name="select_user_colors_summary">Scegli i colori di tasti, caratteri, icone, ecc.</string>
     <string name="select_color_key_hint">Testo degli indicatori di popup</string>
-    <string name="theme_name_user_night" tools:keep="@string/theme_name_user_night">Personalizzato (tema scuro)</string>
     <string name="theme_name_brown" tools:keep="@string/theme_name_brown">Marrone</string>
     <string name="replace_dictionary_message">Vuoi davvero sostituire il dizionario aggiunto dall\'utente \"%1$s\"?
 \n

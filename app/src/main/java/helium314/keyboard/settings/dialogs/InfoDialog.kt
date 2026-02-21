@@ -25,6 +25,7 @@ fun InfoDialog(
     ThreeButtonAlertDialog(
         onDismissRequest = onDismissRequest,
         content = { Text(message) },
+        scrollContent = true,
         cancelButtonText = stringResource(android.R.string.ok),
         onConfirmed = { },
         confirmButtonText = null

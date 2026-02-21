@@ -14,8 +14,10 @@ import helium314.keyboard.latin.PunctuationSuggestions;
 import helium314.keyboard.latin.R;
 import helium314.keyboard.latin.common.Constants;
 import helium314.keyboard.latin.common.StringUtils;
+import helium314.keyboard.latin.common.StringUtilsKt;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Locale;
 
 public final class SpacingAndPunctuations {
@@ -25,6 +27,7 @@ public final class SpacingAndPunctuations {
     private final int[] mSortedWordConnectors;
     private final int[] mSortedSometimesWordConnectors; // maybe rename... they are some sort of glue for words containing separators
     public final int[] mSortedWordSeparators;
+    public final List<int[]> mPairSymbols;
     public final PunctuationSuggestions mSuggestPuncList;
     private final int mSentenceSeparator;
     private final int mAbbreviationMarker;
@@ -43,6 +46,7 @@ public final class SpacingAndPunctuations {
         // To be able to binary search the code point. See {@link #isWordConnector(int)}.
         mSortedWordConnectors = StringUtils.toSortedCodePointArray(res.getString(R.string.symbols_word_connectors));
         mSortedWordSeparators = StringUtils.toSortedCodePointArray(res.getString(R.string.symbols_word_separators));
+        mPairSymbols = StringUtilsKt.toSortedCodepointArrays(res.getString(R.string.pair_symbols));
         mSortedSentenceTerminators = StringUtils.toSortedCodePointArray(res.getString(R.string.symbols_sentence_terminators));
         mSentenceSeparator = res.getInteger(R.integer.sentence_separator);
         mAbbreviationMarker = res.getInteger(R.integer.abbreviation_marker);
@@ -63,6 +67,10 @@ public final class SpacingAndPunctuations {
 
     public boolean isWordSeparator(final int code) {
         return Arrays.binarySearch(mSortedWordSeparators, code) >= 0;
+    }
+
+    public int getSecondInSymbolPair(final int code) {
+        return StringUtilsKt.getSecondInSymbolPair(mPairSymbols, code);
     }
 
     public boolean isWordConnector(final int code) {

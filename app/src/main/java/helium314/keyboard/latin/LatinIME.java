@@ -69,12 +69,14 @@ import helium314.keyboard.latin.suggestions.SuggestionStripView;
 import helium314.keyboard.latin.suggestions.SuggestionStripViewAccessor;
 import helium314.keyboard.latin.touchinputconsumer.GestureConsumer;
 import helium314.keyboard.latin.utils.ColorUtilKt;
+import helium314.keyboard.latin.utils.GestureDataGatheringKt;
 import helium314.keyboard.latin.utils.InlineAutofillUtils;
 import helium314.keyboard.latin.utils.InputMethodPickerKt;
 import helium314.keyboard.latin.utils.JniUtils;
 import helium314.keyboard.latin.utils.KtxKt;
 import helium314.keyboard.latin.utils.LeakGuardHandlerWrapper;
 import helium314.keyboard.latin.utils.Log;
+import helium314.keyboard.latin.utils.RecapitalizeMode;
 import helium314.keyboard.latin.utils.StatsUtils;
 import helium314.keyboard.latin.utils.StatsUtilsManager;
 import helium314.keyboard.latin.utils.SubtypeLocaleUtils;
@@ -124,8 +126,9 @@ public class LatinIME extends InputMethodService implements
 
     // UIHandler is needed when creating InputLogic
     public final UIHandler mHandler = new UIHandler(this);
-    private final DictionaryFacilitator mDictionaryFacilitator =
+    private DictionaryFacilitator mDictionaryFacilitator = // non-final for active gesture data gathering, revert when data gathering phase is done (end of 2026 latest)
             DictionaryFacilitatorProvider.getDictionaryFacilitator(false);
+    private final DictionaryFacilitator mOriginalDictionaryFacilitator = mDictionaryFacilitator;
     final InputLogic mInputLogic = new InputLogic(this, this, mDictionaryFacilitator);
 
     // TODO: Move these {@link View}s to {@link KeyboardSwitcher}.
@@ -837,6 +840,15 @@ public class LatinIME extends InputMethodService implements
     void onStartInputViewInternal(final EditorInfo editorInfo, final boolean restarting) {
         super.onStartInputView(editorInfo, restarting);
 
+        // only for active gesture data gathering, remove when data gathering phase is done (end of 2026 latest)
+        if (GestureDataGatheringKt.isInActiveGatheringMode(editorInfo)) {
+            mDictionaryFacilitator = GestureDataGatheringKt.getGestureDataActiveFacilitator();
+        } else {
+            mDictionaryFacilitator = mOriginalDictionaryFacilitator;
+        }
+        GestureDataGatheringKt.showEndNotificationIfNecessary(this); // will do nothing for a long time
+        mInputLogic.setFacilitator(mDictionaryFacilitator);
+
         mDictionaryFacilitator.onStartInput();
         // Switch to the null consumer to handle cases leading to early exit below, for which we
         // also wouldn't be consuming gesture data.
@@ -1299,7 +1311,8 @@ public class LatinIME extends InputMethodService implements
         return mInputLogic.getCurrentAutoCapsState(mSettings.getCurrent());
     }
 
-    public int getCurrentRecapitalizeState() {
+    @Nullable
+    public RecapitalizeMode getCurrentRecapitalizeState() {
         return mInputLogic.getCurrentRecapitalizeState();
     }
 

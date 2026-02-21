@@ -9,7 +9,6 @@ import android.content.res.TypedArray
 import android.graphics.Color
 import android.graphics.ColorFilter
 import android.graphics.PorterDuff
-import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable
 import android.os.Build
@@ -658,4 +657,5 @@ enum class ColorType {
     MAIN_BACKGROUND,
 }
 
+// this is not used any more, but we keep in case a colorMap does not get filled for whatever reason
 fun ColorType.default() = ColorUtils.setAlphaComponent(name.hashCode() and 0xffffff, 255)

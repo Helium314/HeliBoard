@@ -76,6 +76,7 @@ public final class KeyboardId {
     public final EditorInfo mEditorInfo;
     public final boolean mDeviceLocked;
     public final boolean mNumberRowEnabled;
+    public final boolean mNumberRowInSymbols;
     public final boolean mLanguageSwitchKeyEnabled;
     public final boolean mEmojiKeyEnabled;
     public final String mCustomActionLabel;
@@ -96,6 +97,7 @@ public final class KeyboardId {
         mEditorInfo = params.mEditorInfo;
         mDeviceLocked = params.mDeviceLocked;
         mNumberRowEnabled = params.mNumberRowEnabled;
+        mNumberRowInSymbols = params.mNumberRowInSymbols;
         mLanguageSwitchKeyEnabled = params.mLanguageSwitchKeyEnabled;
         mEmojiKeyEnabled = params.mEmojiKeyEnabled;
         mCustomActionLabel = (mEditorInfo.actionLabel != null)
@@ -179,8 +181,7 @@ public final class KeyboardId {
 
     public boolean passwordInput() {
         final int inputType = mEditorInfo.inputType;
-        return InputTypeUtils.isPasswordInputType(inputType)
-                || InputTypeUtils.isVisiblePasswordInputType(inputType);
+        return InputTypeUtils.isAnyPasswordInputType(inputType);
     }
 
     public boolean isMultiLine() {

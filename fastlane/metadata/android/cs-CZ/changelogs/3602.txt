@@ -1,0 +1,12 @@
+* hledání emoji na řádku
+* volitelné zapamatování jazyka / podtypu pro každou apl.
+* opravy a vylepšení haptické zpětné vazby
+* zachování odepnuté schr. při restartu aplikace
+* volitelné zobr. připnuté položky schránky jako poslední
+* přidány volitelné spodní řádky emodži a schránky
+* přidáno tlačítko pro zavření vložených návrhů
+* přidána bengálština Khipro
+* přidána mirandština
+* opraveny problémy s HW klávesnicí
+* odkazy na slovníky nyní vedou přímo k souboru
+* různé drobné opravy a vylepšení

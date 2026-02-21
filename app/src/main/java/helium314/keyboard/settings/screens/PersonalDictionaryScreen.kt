@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.Icon
@@ -46,8 +47,7 @@ fun PersonalDictionaryScreen(
     onClickBack: () -> Unit,
     locale: Locale?
 ) {
-    val ctx = LocalContext.current
-    val words = getAll(locale, ctx)
+    val words = getAll(locale, LocalContext.current)
     var selectedWord: Word? by remember { mutableStateOf(null) }
     SearchScreen(
         onClickBack = onClickBack,
@@ -55,7 +55,7 @@ fun PersonalDictionaryScreen(
             Column {
                 Text(stringResource(R.string.edit_personal_dictionary))
                 Text(
-                    locale.getLocaleDisplayNameForUserDictSettings(ctx),
+                    locale.getLocaleDisplayNameForUserDictSettings(LocalContext.current),
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
@@ -85,101 +85,7 @@ fun PersonalDictionaryScreen(
         }
     )
     if (selectedWord != null) {
-        val selWord = selectedWord!!
-        val focusRequester = remember { FocusRequester() }
-        LaunchedEffect(selectedWord) {
-            if (selWord.word == "" && selWord.weight == null && selWord.shortcut == null)
-                focusRequester.requestFocus() // user clicked add word
-        }
-        var newWord by remember { mutableStateOf(selWord) }
-        var newLocale by remember { mutableStateOf(locale) }
-        val wordValid = (newWord.word == selWord.word && locale == newLocale) || !doesWordExist(newWord.word, newLocale, ctx)
-        ThreeButtonAlertDialog(
-            onDismissRequest = { selectedWord = null },
-            onConfirmed = {
-                if (newWord != selWord || locale != newLocale) {
-                    deleteWord(selWord, locale, ctx.contentResolver)
-                    val saveWeight = newWord.weight ?: WEIGHT_FOR_USER_DICTIONARY_ADDS
-                    UserDictionary.Words.addWord(ctx, newWord.word, saveWeight, newWord.shortcut, newLocale)
-                }
-            },
-            checkOk = { newWord.word.isNotBlank() && wordValid },
-            confirmButtonText = stringResource(R.string.save),
-            neutralButtonText = stringResource(R.string.delete),
-            onNeutral = {
-                deleteWord(selWord, locale, ctx.contentResolver) // delete the originally selected word
-                selectedWord = null
-            },
-            title = {
-                Column {
-                    Text(stringResource(R.string.user_dict_settings_edit_dialog_title))
-                    Text(
-                        locale.getLocaleDisplayNameForUserDictSettings(ctx),
-                        style = MaterialTheme.typography.bodyMedium,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
-                    )
-                }
-            },
-            content = {
-                Column(
-                    verticalArrangement = Arrangement.spacedBy(8.dp)
-                ) {
-                    TextField(
-                        value = newWord.word,
-                        onValueChange = { newWord = newWord.copy(word = it) },
-                        modifier = Modifier.fillMaxWidth().focusRequester(focusRequester),
-                        singleLine = true
-                    )
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Text(stringResource(R.string.user_dict_settings_add_shortcut_option_name), Modifier.fillMaxWidth(0.3f))
-                        TextField(
-                            value = newWord.shortcut ?: "",
-                            onValueChange = { newWord = newWord.copy(shortcut = it.ifBlank { null }) },
-                            label = { Text(stringResource(R.string.user_dict_settings_add_shortcut_hint))},
-                            modifier = Modifier.weight(1f),
-                            singleLine = true
-                        )
-                    }
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Text(stringResource(R.string.user_dict_settings_add_weight_value), Modifier.fillMaxWidth(0.3f))
-                        TextField(
-                            newWord.weight?.toString() ?: "",
-                            {
-                                if (it.isBlank())
-                                    newWord = newWord.copy(weight = null)
-                                else if ((it.toIntOrNull() ?: -1) in 0..255)
-                                    newWord = newWord.copy(weight = it.toInt())
-                            },
-                            label = { Text(WEIGHT_FOR_USER_DICTIONARY_ADDS.toString()) },
-                            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-                            modifier = Modifier.weight(1f),
-                            singleLine = true
-                        )
-                    }
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Text(stringResource(R.string.user_dict_settings_add_locale_option_name), Modifier.fillMaxWidth(0.3f))
-                        DropDownField(
-                            items = getSpecificallySortedLocales(locale),
-                            selectedItem = newLocale,
-                            onSelected = { newLocale = it },
-                        ) {
-                            Text(it.getLocaleDisplayNameForUserDictSettings(ctx))
-                        }
-                    }
-                    if (!wordValid)
-                        Text(
-                            stringResource(R.string.user_dict_word_already_present, newLocale.getLocaleDisplayNameForUserDictSettings(ctx)),
-                            color = MaterialTheme.colorScheme.error
-                        )
-                }
-            }
-        )
+        EditWordDialog(selectedWord!!, locale) { selectedWord = null }
     }
     ExtendedFloatingActionButton(
         onClick = { selectedWord = Word("", null, null) },
@@ -187,6 +93,105 @@ fun PersonalDictionaryScreen(
         icon = { Icon(painter = painterResource(R.drawable.ic_edit), stringResource(R.string.user_dict_add_word_button)) },
         modifier = Modifier.wrapContentSize(Alignment.BottomEnd).padding(all = 12.dp)
             .then(Modifier.safeDrawingPadding())
+    )
+}
+
+@Composable
+private fun EditWordDialog(word: Word, locale: Locale?, onDismissRequest: () -> Unit) {
+    val ctx = LocalContext.current
+    val focusRequester = remember { FocusRequester() }
+    var newWord by remember { mutableStateOf(word) }
+    var newLocale by remember { mutableStateOf(locale) }
+    val wordValid = (newWord.word == word.word && locale == newLocale) || !doesWordExist(newWord.word, newLocale, ctx)
+    fun save() {
+        if (newWord != word || locale != newLocale) {
+            deleteWord(word, locale, ctx.contentResolver)
+            val saveWeight = newWord.weight ?: WEIGHT_FOR_USER_DICTIONARY_ADDS
+            UserDictionary.Words.addWord(ctx, newWord.word, saveWeight, newWord.shortcut, newLocale)
+        }
+    }
+    ThreeButtonAlertDialog(
+        onDismissRequest = onDismissRequest,
+        onConfirmed = { save() },
+        checkOk = { newWord.word.isNotBlank() && wordValid },
+        confirmButtonText = stringResource(R.string.save),
+        neutralButtonText = stringResource(R.string.delete),
+        onNeutral = {
+            deleteWord(word, locale, ctx.contentResolver) // delete the originally selected word
+            onDismissRequest()
+        },
+        title = {
+            Column {
+                Text(stringResource(R.string.user_dict_settings_edit_dialog_title))
+                Text(
+                    locale.getLocaleDisplayNameForUserDictSettings(ctx),
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+            }
+        },
+        content = {
+            LaunchedEffect(word) {
+                if (word.word == "" && word.weight == null && word.shortcut == null)
+                    focusRequester.requestFocus() // user clicked add word
+            }
+            Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                TextField(
+                    value = newWord.word,
+                    onValueChange = { newWord = newWord.copy(word = it) },
+                    modifier = Modifier.fillMaxWidth().focusRequester(focusRequester),
+                    singleLine = true,
+                    label = { Text(stringResource(R.string.user_dict_settings_add_word_hint))},
+                    keyboardActions = KeyboardActions {
+                        if (newWord.word.isNotBlank() && wordValid) {
+                            save()
+                            onDismissRequest()
+                        }
+                    }
+                )
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Text(stringResource(R.string.user_dict_settings_add_shortcut_option_name), Modifier.fillMaxWidth(0.3f))
+                    TextField(
+                        value = newWord.shortcut ?: "",
+                        onValueChange = { newWord = newWord.copy(shortcut = it.ifBlank { null }) },
+                        label = { Text(stringResource(R.string.user_dict_settings_add_shortcut_hint))},
+                        modifier = Modifier.weight(1f),
+                        singleLine = true
+                    )
+                }
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Text(stringResource(R.string.user_dict_settings_add_weight_value), Modifier.fillMaxWidth(0.3f))
+                    TextField(
+                        newWord.weight?.toString() ?: "",
+                        {
+                            if (it.isBlank())
+                                newWord = newWord.copy(weight = null)
+                            else if ((it.toIntOrNull() ?: -1) in 0..255)
+                                newWord = newWord.copy(weight = it.toInt())
+                        },
+                        label = { Text(WEIGHT_FOR_USER_DICTIONARY_ADDS.toString()) },
+                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                        modifier = Modifier.weight(1f),
+                        singleLine = true
+                    )
+                }
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Text(stringResource(R.string.user_dict_settings_add_locale_option_name), Modifier.fillMaxWidth(0.3f))
+                    DropDownField(
+                        items = getSpecificallySortedLocales(locale),
+                        selectedItem = newLocale,
+                        onSelected = { newLocale = it },
+                    ) {
+                        Text(it.getLocaleDisplayNameForUserDictSettings(ctx))
+                    }
+                }
+                if (!wordValid)
+                    Text(
+                        stringResource(R.string.user_dict_word_already_present, newLocale.getLocaleDisplayNameForUserDictSettings(ctx)),
+                        color = MaterialTheme.colorScheme.error
+                    )
+            }
+        }
     )
 }
 

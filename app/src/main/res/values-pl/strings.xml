@@ -85,7 +85,6 @@
     <string name="settings">"Ustawienia"</string>
     <string name="delete">"Usuń"</string>
     <string name="version_text">Wersja %1$s</string>
-    <string name="user_dict_settings_add_dialog_title">"Dodaj do słownika"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"Skrót:"</string>
     <string name="user_dict_settings_add_locale_option_name">"Język:"</string>
     <string name="user_dict_settings_add_word_hint">"Wpisz słowo"</string>
@@ -93,7 +92,6 @@
     <string name="user_dict_settings_edit_dialog_title">"Edytuj słowo"</string>
     <string name="user_dict_settings_all_languages">"Dla wszystkich języków"</string>
     <string name="user_dict_settings_more_languages">"Więcej języków…"</string>
-    <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
     <string name="settings_category_correction">Korekty</string>
     <string name="settings_category_miscellaneous">Różne</string>
     <string name="abbreviation_unit_minutes">%s min.</string>
@@ -273,12 +271,10 @@
     <string name="delete_layout">Na pewno chcesz usunąć układ %s?</string>
     <string name="dictionary_settings_category">Słowniki</string>
     <string name="button_title_add_custom_layout">Dodaj własny układ</string>
-    <string name="select_user_colors_summary">Wybierz kolory tekstu i tła</string>
     <string name="select_color_key_hint">Tekst wskazówek</string>
     <string name="setup_step3_action">Skonfiguruj klawiaturę</string>
     <string name="popup_keys_symbols" tools:keep="@string/popup_keys_symbols">Symbole</string>
     <string name="add_new_dictionary_title">Dodaj słownik z pliku</string>
-    <string name="theme_name_user_night" tools:keep="@string/theme_name_user_night">Własne (tryb nocny)</string>
     <string name="theme_name_brown" tools:keep="@string/theme_name_brown">Brązowe</string>
     <string name="replace_dictionary_message">Na pewno zastąpić słownik \"%1$s\" dodany przez użytkownika?
 \n

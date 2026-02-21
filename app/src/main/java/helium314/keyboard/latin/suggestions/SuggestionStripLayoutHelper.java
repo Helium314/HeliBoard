@@ -43,6 +43,7 @@ import helium314.keyboard.latin.SuggestedWords;
 import helium314.keyboard.latin.SuggestedWords.SuggestedWordInfo;
 import helium314.keyboard.latin.common.ColorType;
 import helium314.keyboard.latin.common.Colors;
+import helium314.keyboard.latin.common.StringUtilsKt;
 import helium314.keyboard.latin.settings.Settings;
 import helium314.keyboard.latin.settings.SettingsValues;
 import helium314.keyboard.latin.utils.ResourceUtils;
@@ -468,6 +469,7 @@ final class SuggestionStripLayoutHelper {
         }
         int count = 0;
         int indexInSuggestedWords;
+        final Typeface emojiTypeface = Settings.getInstance().getCustomEmojiTypeface();
         for (indexInSuggestedWords = 0; indexInSuggestedWords < suggestedWords.size()
                 && count < maxSuggestionInStrip; indexInSuggestedWords++) {
             final int positionInStrip =
@@ -481,6 +483,10 @@ final class SuggestionStripLayoutHelper {
             wordView.setTag(indexInSuggestedWords);
             wordView.setText(getStyledSuggestedWord(suggestedWords, indexInSuggestedWords));
             wordView.setTextColor(getSuggestionTextColor(suggestedWords, indexInSuggestedWords));
+
+            if (emojiTypeface != null && StringUtilsKt.isEmoji(wordView.getText()))
+                wordView.setTypeface(emojiTypeface);
+            else wordView.setTypeface(Typeface.DEFAULT); // todo: maybe use user-provided typeface here?
             if (SuggestionStripView.DEBUG_SUGGESTIONS) {
                 mDebugInfoViews.get(positionInStrip).setText(suggestedWords.getDebugString(indexInSuggestedWords));
             }

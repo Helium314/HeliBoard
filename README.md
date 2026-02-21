@@ -16,6 +16,7 @@ Does not use internet permission, and thus is 100% offline.
    * [Code Contribution](CONTRIBUTING.md)
 - [License](#license)
 - [Credits](#credits)
+  * [Funding](#funding)
 
 # Features
 <ul>
@@ -45,7 +46,7 @@ Does not use internet permission, and thus is 100% offline.
   <li>Backup and restore your settings and learned word / history data</li>
 </ul>
 
-For [FAQ](https://github.com/Helium314/HeliBoard/wiki/FAQ) and more information about the app and features, please visit the [wiki](https://github.com/Helium314/HeliBoard/wiki)
+For [FAQ](https://github.com/Helium314/HeliBoard/wiki/FAQ), [hidden features](https://github.com/Helium314/HeliBoard/wiki/9.-Hidden-features) and more information about the app and features, please visit the [wiki](https://github.com/Helium314/HeliBoard/wiki)
 
 # Contributing ❤
 
@@ -54,7 +55,7 @@ For [FAQ](https://github.com/Helium314/HeliBoard/wiki/FAQ) and more information 
 Whether you encountered a bug, or want to see a new feature in HeliBoard, you can contribute to the project by opening a new issue [here](https://github.com/Helium314/HeliBoard/issues). Your help is always welcome!
 
 Before opening a new issue, be sure to check the following:
- - **Does the issue already exist?** Make sure a similar issue has not been reported by browsing [existing issues](https://github.com/Helium314/HeliBoard/issues?q=). Please search open and closed issues.
+ - **Does the issue already exist?** Make sure a similar issue has not been reported by browsing [existing issues](https://github.com/Helium314/HeliBoard/issues?q=). Please search open and closed issues. In case of feature requests you could also check the [FAQ](https://github.com/Helium314/HeliBoard/wiki/FAQ) and [hidden features](https://github.com/Helium314/HeliBoard/wiki/9.-Hidden-features).
  - **Is the issue still relevant?** Make sure your issue is not already fixed in the latest version of HeliBoard.
  - **Is it a single topic?** If you want to suggest multiple things, open multiple issues.
  - **Did you use the issue template?** It is important to make life of our kind contributors easier by avoiding issues that miss key information to their resolution.
@@ -71,6 +72,7 @@ Some notes on translations
 * the `hidden_features_message` is horrible to translate with Weblate, and serves little benefit as it's just a copy of what's already in the wiki: https://github.com/Helium314/HeliBoard/wiki/9.-Hidden-features. It's been made available in the app on user request/contribution.
 
 ## To Community
+There is the [discussions on GitHub](https://github.com/Helium314/HeliBoard/discussions), or if you prefer a more open network there is [Lemmy](https://lemmy.world/c/Heliboard).
 You can share your themes, layouts and dictionaries with other people:
 * Themes can be saved and loaded using the menu on top-right in the _adjust colors_ screen
   * You can share custom colors in a separate [discussion section](https://github.com/Helium314/HeliBoard/discussions/categories/custom-colors)
@@ -107,3 +109,11 @@ The icon is licensed under [Creative Commons BY-SA 4.0](https://creativecommons.
 - [Indic Keyboard](https://gitlab.com/indicproject/indic-keyboard)
 - [FlorisBoard](https://github.com/florisboard/florisboard/)
 - Our [contributors](https://github.com/Helium314/HeliBoard/graphs/contributors)
+
+## Funding
+
+This project is funded through [NGI Mobifree Fund](https://nlnet.nl/mobifree), a fund established by [NLnet](https://nlnet.nl) with financial support from the European Commission's [Next Generation Internet](https://ngi.eu) program. Learn more at the [NLnet project page](https://nlnet.nl/project/GestureTyping).
+
+[<img src="https://nlnet.nl/logo/banner.png" alt="NLnet foundation logo" width="20%" />](https://nlnet.nl)
+
+Further the project benefits from donations provided by many users (thank you all!).
