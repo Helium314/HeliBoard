@@ -4,6 +4,7 @@ package helium314.keyboard.latin
 
 import android.content.ClipboardManager
 import android.content.Context
+import android.net.Uri
 import android.text.InputType
 import android.text.TextUtils
 import android.view.LayoutInflater
@@ -99,6 +100,12 @@ class ClipboardHistoryManager(
         val clipData = clipboardManager.primaryClip ?: return ""
         if (clipData.itemCount == 0) return ""
         return clipData.getItemAt(0)?.coerceToText(latinIME) ?: ""
+    }
+
+    fun retrieveClipboardUri(): Uri? {
+        val clipData = clipboardManager.primaryClip ?: return null
+        if (clipData.itemCount == 0) return null
+        return clipData.getItemAt(0)?.uri
     }
 
     private fun isClipSensitive(inputType: Int): Boolean {

@@ -9,6 +9,7 @@ package helium314.keyboard.latin;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -17,6 +18,7 @@ import android.content.res.Resources;
 import android.graphics.Color;
 import android.inputmethodservice.InputMethodService;
 import android.media.AudioManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Debug;
@@ -1387,6 +1389,22 @@ public class LatinIME extends InputMethodService implements
         updateStateAfterInputTransaction(completeInputTransaction);
         mInputLogic.restartSuggestionsOnWordTouchedByCursor(mSettings.getCurrent(), mKeyboardSwitcher.getCurrentKeyboardScript());
         mKeyboardSwitcher.onEvent(event, getCurrentAutoCapsState(), getCurrentRecapitalizeState());
+    }
+
+    public void onUriInput(final Uri uri) {
+        final EditorInfo editorInfo = getCurrentInputEditorInfo();
+        if (editorInfo == null) return;
+
+        final ContentResolver cr = getContentResolver();
+        String mimeType = cr.getType(uri);
+        if (mimeType == null) mimeType = "application/octet-stream";
+
+        if (!EditorInfoCompatUtils.isMimeTypeSupportedByEditor(editorInfo, mimeType)) {
+            mKeyboardSwitcher.showToast(getString(R.string.toast_msg_unsupported_uri), true);
+            return;
+        }
+
+        mInputLogic.mConnection.commitContent(uri, mimeType, editorInfo);
     }
 
     public void onStartBatchInput() {
