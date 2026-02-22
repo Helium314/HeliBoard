@@ -452,4 +452,39 @@
     <string name="custom_emoji_font">عيِّن خط رموز التعبيرية مخصّص من ملف</string>
     <string name="number_row_in_symbols">أظهر صف الأرقام في عرض الرموز</string>
     <string name="layout_functional_keys_khipro" tools:keep="@string/layout_functional_keys">المفاتيح الوظيفية (خِيبرو)</string>
+    <string name="gesture_data_info">ما هذا؟</string>
+    <string name="gesture_data_screen">جمع بيانات الإيماءات</string>
+    <string name="gesture_data_description">مرحبًا بكم في شاشة جمع بيانات الإيماءات!&lt;br/&gt;&lt;br/&gt; هذا جزء من &lt;a href=https://nlnet.nl/project/GestureTyping&gt;مشروع ممول من مؤسسة NLnet&lt;/a&gt; يسعى لإنتاج مكتبة مفتوحة المصدر بالكامل للكتابة بالإيماءات، قادرة على استبدال مكتبة جوجل مغلقة المصدر.&lt;br/&gt; من المخطط أن تكون النتيجة بديلاً بسيطاً للوحات المفاتيح القائمة على مشروع أندرويد مفتوح المصدر (AOSP)، ولكنها ستكون قابلة للاستخدام أيضًا مع لوحات مفاتيح أخرى، مثل FlorisBoard.&lt;br/&gt;&lt;br/&gt; لتطوير هذه المكتبة، من المفيد جدًا توفر بيانات إيماءات مفصلة بلغات مختلفة ومن مستخدمين مختلفين.&lt;br/&gt; من خلال جمع وتقديم بيانات الكتابة بالإيماءات، يمكنك المساهمة في مجموعة بيانات مفتوحة ستُستخدم لتطوير المكتبة. سيتم نشر مجموعة البيانات بموجب ترخيص CC BY-SA 4.0 بعد فترة من انتهاء مرحلة جمع البيانات في %s. بمجرد جمع البيانات، يمكنك إرسالها باستخدام أيقونة المشاركة الموجودة في أسفل هذه الشاشة.</string>
+    <string name="gesture_data_description_modes">تتوفر حاليًا فقط وضعية التجميع النشط، حيث تظهر لك كلمة مُحدّدة وتقوم بإدخالها باستخدام الكتابة بالإيماءات.\nلاحقًا، ستتم إضافة وضعية التجميع السلبي، والتي تتيح لك تقديم عينات من كتابتك الاعتيادية بالإيماءات في التطبيقات الأخرى. ونظراً لحساسية هذا الأسلوب، ستكون هذه الخاصية اختيارية وقابلة للضبط، وستتضمن شاشة مراجعة للبيانات التي أوشكت على إرسالها.</string>
+    <string name="gesture_data_description_privacy">الخصوصية\n\nتتكون البيانات التي ترسلها من الكلمة المستهدفة، وتخطيط لوحة المفاتيح وأبعادها، والإيماءة (الأوقات والإحداثيات)، والاقتراحات المقدمة من المكتبة الحالية، ورمز التجزئة (hash) للقواميس المستخدمة، وإصدار التطبيق، ووضع جمع البيانات، وما إذا كانت مكتبة الكتابة بالإيماءات هي مكتبة جوجل الافتراضية، ومعرف خاص بكل إيماءة.\nسيتم تنزيل البيانات المُرسلة وحذفها من صندوق بريد ProtonMail حيث تُخزّن في أقرب وقت ممكن. وبعد انتهاء مرحلة جمع بيانات الإيماءات، سيتم نشر مجموعة البيانات المتراكمة من جميع المستخدمين بموجب رخصة المشاع الإبداعي (Creative Commons BY-SA 4.0).\n\nكجزء من محاولة حماية خصوصيتك، لن يتم إدراجك صراحةً كمؤلف. سيكون الفضل لك تحت مسمى \"المساهمون في مشروع بيانات إيماءات HeliBoard\". لا ينبغي أن يكون من الممكن ربط البيانات التي تنشئها في هذه الشاشة بهويتك. ومع ذلك، قد يكون من الممكن تحديد الإيماءات التي قام بها نفس الشخص؛ يمكن القيام بذلك على سبيل المثال من خلال تخطيط لوحة مفاتيح مخصَّص أو أبعاد لوحة المفاتيح أو اللغة أو أسلوب الإيماء الفردي.</string>
+    <string name="gesture_data_privacy">الخصوصيّة</string>
+    <string name="gesture_data_get_data">شارك ملف بيانات الإيماءات</string>
+    <string name="gesture_data_delete_data">امحُ ملف بيانات الإيماءات</string>
+    <string name="gesture_data_send_mail">أرسل البيانات عبر البريد الإلكتروني</string>
+    <string name="gesture_data_copy_mail">انسخ عنوان البريد الإلكتروني</string>
+    <string name="gesture_data_mail_use">يُرجى ملاحظة أن عنوان البريد الإلكتروني مخصَّص لإرسال البيانات، وقد لا تتلقى ردوداً سريعة أو منتظمة.</string>
+    <string name="gesture_data_please_type">رجاءًا اكتب بالسحب:</string>
+    <string name="gesture_data_next_save">حصلت على %s. اضغط إذا كنت متأكدًا من أنك قمت بالإيماءة بشكل صحيح</string>
+    <string name="gesture_data_next">تخطي الكلمة</string>
+    <string name="gesture_data_active_count">%1$s كلمة في هذه الجلسة، %2$s كلمة إجمالاً (%3$s أُرسلت أو حُذفت بالفعل)</string>
+    <string name="gesture_data_review_screen_title">راجع و شارك بيانات الإيماءات</string>
+    <string name="gesture_data_words_selected">%s كلمة</string>
+    <string name="gesture_data_date_range">النطاق الزمني</string>
+    <string name="gesture_data_much_data">لديك الكثير من البيانات غير المُرسلة. يُرجى إرسالها ثم إزالة البيانات القديمة.</string>
+    <string name="gesture_data_how_to_use">كيفية الاستخدام</string>
+    <string name="gesture_data_active_description">انفر على \"ابدأ الجمع النشط\"، وبدّل القاموس إذا أردت، ثم ابدأ بالكتابة بالإيماء للكلمة المعروضة.&lt;br/&gt; إذا تطابقت إيماءتك مع الكلمة، فسيتم حفظ البيانات وعرض الكلمة التالية. بخلاف ذلك، يمكنك المحاولة مرة أخرى، أو تخطي الكلمة، أو التأكيد على أن إيماءتك كانت صحيحة.&lt;br/&gt; يمكنك فقط استخدام القواميس المدمجة في التطبيق أو المتوفرة في &lt;a href=%s&gt;مستودع القواميس&lt;/a&gt;، ولن يتم استخدام أي كلمات أخرى.</string>
+    <string name="gesture_data_active_start">ابدأ الجمع النشط</string>
+    <string name="gesture_data_active_stop">أوقف الجمع النشط</string>
+    <string name="gesture_data_ends_at">ستنتهي مرحلة جمع بيانات الإيماءات في %s. يُرجى تقديم بياناتك قبل ذلك التاريخ.</string>
+    <string name="gesture_data_ended">انتهت مرحلة جمع بيانات الإيماءات في %s. يمكنك مشاركة بياناتك الحالية، ولكن لا يمكنك إضافة أي شيء جديد.</string>
+    <string name="gesture_data_share_all">شارك كل %s كلمة</string>
+    <string name="gesture_data_share_new">شارك %s من الكلمات التي لم تُقدم من قبل</string>
+    <string name="gesture_data_delete_dialog">لديك بيانات لـ %1$s من الكلمات الجديدة و %2$s من الكلمات التي تمت مشاركتها بالفعل.</string>
+    <string name="gesture_data_delete_dialog_all">احذف كل %s كلمة</string>
+    <string name="gesture_data_delete_dialog_confirm">أمتأكد؟ سيؤدي هذا إلى حذف %s من الكلمات. تأكد من تقديم تاريخ مشاركتك!</string>
+    <string name="gesture_data_delete_dialog_submitted">احذف %s من الكلمات المُرسلة</string>
+    <string name="gesture_data_many_not_shared_words">لديك أكثر من %s كلمة بانتظار الإرسال</string>
+    <string name="gesture_data_email_body">هام:\n\nأهلاً بك!\nنود تذكيرك بأن هذه البيانات ستتم مشاركتها علنًا بموجب رخصة المشاع الإبداعي (CC BY-SA 4.0)، ولن يتم إدراج اسمك كمؤلف وذلك لحماية خصوصيتك.\n\nشكرًا لمشاركتنا حقوق بياناتك. سنحرص على استخدامها بشكل جيد!\n\nيُرجى ملاحظة أن تغيير صياغة هذا الإشعار لا يغير ما سنفعله ببياناتك. هذا ليس عقدًا للتعديل، بل هو مجرد تذكير ودي!\nإذا كنت ترغب في إرسال رسالة إلينا مع بياناتك، فاكتبها أسفل الخط هنا.\n---------------------------------------------</string>
+    <string name="emoji_search_title">ابحث في الرموز التعبيرية</string>
+    <string name="search_field_placeholder">ابحث</string>
 </resources>
