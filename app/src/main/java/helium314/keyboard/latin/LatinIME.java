@@ -1395,14 +1395,17 @@ public class LatinIME extends InputMethodService implements
         final EditorInfo editorInfo = getCurrentInputEditorInfo();
         if (editorInfo == null) return;
 
-        final ContentResolver cr = getContentResolver();
-        String mimeType = cr.getType(uri);
-        if (mimeType == null) mimeType = "application/octet-stream";
-
-        if (!EditorInfoCompatUtils.isMimeTypeSupportedByEditor(editorInfo, mimeType)) {
-            mKeyboardSwitcher.showToast(getString(R.string.toast_msg_unsupported_uri), true);
-            return;
+        String mimeType = getContentResolver().getType(uri);
+        if (mimeType == null) {
+            // ContentResolver may fail for some providers (e.g. Samsung clipboard).
+            // Fall back to the MIME type declared in the system clipboard's ClipDescription.
+            final android.content.ClipData clipData = ((android.content.ClipboardManager)
+                    getSystemService(Context.CLIPBOARD_SERVICE)).getPrimaryClip();
+            if (clipData != null && clipData.getDescription().getMimeTypeCount() > 0) {
+                mimeType = clipData.getDescription().getMimeType(0);
+            }
         }
+        if (mimeType == null) mimeType = "application/octet-stream";
 
         mInputLogic.mConnection.commitContent(uri, mimeType, editorInfo);
     }
