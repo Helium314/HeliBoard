@@ -5,6 +5,14 @@ import android.content.ContentValues
 import android.content.Context
 import android.text.InputType
 import android.view.inputmethod.EditorInfo
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.core.content.edit
 import com.android.inputmethod.latin.BinaryDictionary
 import helium314.keyboard.keyboard.Keyboard
@@ -23,6 +31,8 @@ import helium314.keyboard.latin.database.Database
 import helium314.keyboard.latin.dictionary.Dictionary
 import helium314.keyboard.latin.dictionary.ReadOnlyBinaryDictionary
 import helium314.keyboard.latin.settings.Settings
+import helium314.keyboard.settings.SettingsDestination
+import helium314.keyboard.settings.dialogs.ThreeButtonAlertDialog
 import helium314.keyboard.settings.screens.gesturedata.END_DATE_EPOCH_MILLIS
 import helium314.keyboard.settings.screens.gesturedata.TWO_WEEKS_IN_MILLIS
 import kotlinx.serialization.Serializable
@@ -64,6 +74,59 @@ fun addExportedActiveDeletionCount(context: Context, count: Int) {
 
 fun getExportedActiveDeletionCount(context: Context) = context.prefs().getInt(PREF_DELETED_ACTIVE, 0)
 
+/** shows dialog promoting contribution of gesture data, or ask to do again if last contribution was more than 2 weeks ago */
+@Composable fun GestureDataPromotionReminderDialog() {
+    val ctx = LocalContext.current
+    val promotionShowNext = ctx.prefs().getLong(PREF_SHOW_PROMOTION_DIALOG_NEXT, 0)
+    val reminderShowNext = ctx.prefs().getLong(PREF_SHOW_REMINDER_DIALOG_NEXT, 0)
+    val neverShow = promotionShowNext == Long.MAX_VALUE || reminderShowNext == Long.MAX_VALUE // user selected "don't show again"
+        // we only show the dialog if the use actively loaded the gesture typing library (as opposed to having the lib in the system and HeliBoard as a system app)
+        || ctx.protectedPrefs().getString(Settings.PREF_LIBRARY_CHECKSUM, "").isNullOrEmpty()
+    var shouldShowReminder by remember { mutableStateOf(
+        !neverShow && reminderShowNext < System.currentTimeMillis() && reminderShowNext > 0L
+    ) }
+    var shouldShowPromotion by remember { mutableStateOf(
+        // only show if the user never contributed data
+        !neverShow && promotionShowNext < System.currentTimeMillis() && reminderShowNext == 0L
+    ) }
+    if (shouldShowPromotion) {
+        ThreeButtonAlertDialog(
+            cancelButtonText = stringResource(R.string.ask_later),
+            onDismissRequest = {
+                ctx.prefs().edit { putLong(PREF_SHOW_PROMOTION_DIALOG_NEXT, System.currentTimeMillis() + 30L * 60 * 60 * 1000) }
+                shouldShowPromotion = false
+            },
+            title = { Text(stringResource(R.string.gesture_data_screen)) },
+            content = { Text(stringResource(R.string.gesture_data_promotion_message)) },
+            confirmButtonText = stringResource(R.string.gesture_data_take_me_there),
+            onConfirmed = { SettingsDestination.navigateTo(SettingsDestination.DataGathering) },
+            neutralButtonText = stringResource(R.string.no_dictionary_dont_show_again_button),
+            onNeutral = {
+                ctx.prefs().edit { putLong(PREF_SHOW_PROMOTION_DIALOG_NEXT, Long.MAX_VALUE) }
+                shouldShowPromotion = false
+            },
+        )
+    }
+    if (shouldShowReminder) {
+        ThreeButtonAlertDialog(
+            cancelButtonText = stringResource(R.string.ask_later),
+            onDismissRequest = {
+                ctx.prefs().edit { putLong(PREF_SHOW_REMINDER_DIALOG_NEXT, System.currentTimeMillis() + 30L * 60 * 60 * 1000) }
+                shouldShowReminder = false
+            },
+            title = { Text(stringResource(R.string.gesture_data_screen)) },
+            content = { Text(stringResource(R.string.gesture_data_reminder_message)) },
+            confirmButtonText = stringResource(R.string.gesture_data_take_me_there),
+            onConfirmed = { SettingsDestination.navigateTo(SettingsDestination.DataGathering) },
+            neutralButtonText = stringResource(R.string.no_dictionary_dont_show_again_button),
+            onNeutral = {
+                ctx.prefs().edit { putLong(PREF_SHOW_REMINDER_DIALOG_NEXT, Long.MAX_VALUE) }
+                shouldShowReminder = false
+            },
+        )
+    }
+}
+
 /** shows a toast notification if we're close to the end of the data gathering phase (at most once per 24 hours, only if there is non-exported data) */
 fun showEndNotificationIfNecessary(context: Context) {
     val now = System.currentTimeMillis()
@@ -84,6 +147,8 @@ private const val PREF_APP_EXCLUSIONS = "gesture_data_app_exclusions"
 private const val PREF_DELETED_ACTIVE = "gesture_data_deleted_active_words"
 private const val PREF_PASSIVE_NOTIFY_COUNT = "gesture_data_passive_notify_count"
 private const val PREF_END_NOTIFICATION_LAST_SHOWN = "gesture_data_end_notification_shown"
+private const val PREF_SHOW_PROMOTION_DIALOG_NEXT = "gesture_data_show_promotion_dialog_next_time"
+private const val PREF_SHOW_REMINDER_DIALOG_NEXT = "gesture_data_show_reminder_dialog_next_time"
 
 const val dictTestImeOption = "useTestDictionaryFacilitator,${BuildConfig.APPLICATION_ID}.${Constants.ImeOption.NO_FLOATING_GESTURE_PREVIEW}"
 
@@ -111,6 +176,8 @@ class WordData(
     private val timestamp = System.currentTimeMillis()
 
     fun save(context: Context) {
+        if (context.prefs().getLong(PREF_SHOW_PROMOTION_DIALOG_NEXT, 0) < Long.MAX_VALUE)
+            context.prefs().edit { putLong(PREF_SHOW_REMINDER_DIALOG_NEXT, System.currentTimeMillis() + TWO_WEEKS_IN_MILLIS) }
         if (!isSavingOk(context))
             return
         val dao = GestureDataDao.getInstance(context) ?: return

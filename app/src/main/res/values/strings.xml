@@ -1054,6 +1054,25 @@ New dictionary:
         If you want to send us a message along with your data, write it below the line here.\n
         ---------------------------------------------\n
     </string>
+    <!-- Message informing user about the possibility of gesture data gathering (dialog in main settings)
+     string will probably be removed once data gathering is finished (end of 2026 latest) -->
+    <string name="gesture_data_promotion_message">
+        Hey there!\n
+        Since you installed the gesture typing library, you might be interested in HeliBoard\'s project for creating a fully open gesture typing library.
+        You can help by contributing gesture data. For more information visit the gesture data gathering screen.
+    </string>
+    <!-- Message asking the user to contribute to gesture data gathering again (dialog in main settings)
+     string will probably be removed once data gathering is finished (end of 2026 latest) -->
+    <string name="gesture_data_reminder_message">
+        Hey there!\n
+        You previously used the gesture data gathering, but did not add data for quite a while. Do you want to contribute again?
+    </string>
+    <!-- Button to show later
+     string will probably be removed once data gathering is finished (end of 2026 latest) -->
+    <string name="ask_later">Ask me later</string>
+    <!-- Button to go to gesture data gathering screen
+     string will probably be removed once data gathering is finished (end of 2026 latest) -->
+    <string name="gesture_data_take_me_there">Take me there</string>
 
     <!-- new strings should go above the section for gesture data gathering -->
 </resources>
