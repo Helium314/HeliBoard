@@ -470,6 +470,7 @@ final class SuggestionStripLayoutHelper {
         int count = 0;
         int indexInSuggestedWords;
         final Typeface emojiTypeface = Settings.getInstance().getCustomEmojiTypeface();
+        final Typeface customTypeface = Settings.getInstance().getCustomTypeface();
         for (indexInSuggestedWords = 0; indexInSuggestedWords < suggestedWords.size()
                 && count < maxSuggestionInStrip; indexInSuggestedWords++) {
             final int positionInStrip =
@@ -486,7 +487,8 @@ final class SuggestionStripLayoutHelper {
 
             if (emojiTypeface != null && StringUtilsKt.isEmoji(wordView.getText()))
                 wordView.setTypeface(emojiTypeface);
-            else wordView.setTypeface(Typeface.DEFAULT); // todo: maybe use user-provided typeface here?
+            else if (customTypeface != null) wordView.setTypeface(customTypeface);
+            else wordView.setTypeface(Typeface.DEFAULT);
             if (SuggestionStripView.DEBUG_SUGGESTIONS) {
                 mDebugInfoViews.get(positionInStrip).setText(suggestedWords.getDebugString(indexInSuggestedWords));
             }
