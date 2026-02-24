@@ -208,7 +208,7 @@ fun createAdvancedSettings(context: Context) = listOf(
         BackupRestorePreference(it)
     },
     Setting(context, Settings.PREF_TIMESTAMP_FORMAT, R.string.timestamp_format_title) { setting ->
-        TextInputPreference(setting, Defaults.PREF_TIMESTAMP_FORMAT) { checkTimestampFormat(it) }
+        TextInputPreference(setting, Defaults.PREF_TIMESTAMP_FORMAT, stringResource(R.string.timestamp_description)) { checkTimestampFormat(it) }
     },
     Setting(context, SettingsWithoutKey.DEBUG_SETTINGS, R.string.debug_settings_title) {
         Preference(

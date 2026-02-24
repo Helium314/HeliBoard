@@ -222,6 +222,8 @@
     <string name="backup_restored">Backup restored</string>
     <!-- Preferences item for format for timestamp keycode -->
     <string name="timestamp_format_title">Format for timestamp key</string>
+    <!-- Message in preferences how to get timestamp key -->
+    <string name="timestamp_description">You can add the timestamp key using a custom layout with \'timestamp\' key, or key code -10043</string>
     <!-- Preferences item for choosing secondary language -->
     <string name="secondary_locale">Multilingual typing</string>
     <!-- Clarification which locales are available for multilingual typing -->
