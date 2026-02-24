@@ -915,6 +915,17 @@ public final class InputLogic {
         final int codePoint = event.getCodePoint();
         mSpaceState = SpaceState.NONE;
         final SettingsValues sv = inputTransaction.getSettingsValues();
+
+        // wrap / unwrap selected text in codepoint pairs
+        if (!mWordComposer.isComposingWord() && mConnection.hasSelection()) { // we should never be composing when something is selected
+            final int pairedCodepoint = sv.mSpacingAndPunctuations.getSecondInSymbolPair(codePoint);
+            if (pairedCodepoint != Constants.NOT_A_CODE) {
+                wrapSelection(codePoint, pairedCodepoint);
+                inputTransaction.requireShiftUpdate(InputTransaction.SHIFT_UPDATE_NOW);
+                return;
+            }
+        }
+
         // don't treat separators as for handling URLs and similar
         //  otherwise it would work too, but whenever a separator is entered, the word is not selected
         //  until the next character is entered, and the word is added to history
@@ -1112,15 +1123,6 @@ public final class InputLogic {
                 && !settingsValues.mSpacingAndPunctuations.mCurrentLanguageHasSpaces
                 && wasComposingWord;
 
-        // wrap / unwrap selected text in codepoint pairs
-        if (!wasComposingWord && mConnection.hasSelection()) { // we should never be composing when something is selected
-            final int pairedCodepoint = settingsValues.mSpacingAndPunctuations.getSecondInSymbolPair(codePoint);
-            if (pairedCodepoint != Constants.NOT_A_CODE) {
-                wrapSelection(codePoint, pairedCodepoint);
-                inputTransaction.requireShiftUpdate(InputTransaction.SHIFT_UPDATE_NOW);
-                return;
-            }
-        }
         if (mWordComposer.isCursorFrontOrMiddleOfComposingWord()) {
             // If we are in the middle of a recorrection, we need to commit the recorrection
             // first so that we can insert the separator at the current cursor position.
