@@ -216,6 +216,11 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
         final int languageOnSpacebarFormatType = LanguageOnSpacebarUtils.getLanguageOnSpacebarFormatType(newKeyboard.mId.mSubtype);
         final boolean hasMultipleEnabledIMEsOrSubtypes = mRichImm.hasMultipleEnabledIMEsOrSubtypes(true);
         keyboardView.startDisplayLanguageOnSpacebar(subtypeChanged, languageOnSpacebarFormatType, hasMultipleEnabledIMEsOrSubtypes);
+
+        if (currentSettingsValues.needsToLookupSuggestions()
+                                    && (currentSettingsValues.mInlineEmojiSearch || currentSettingsValues.mSuggestEmojis)) {
+            mKeyboardLayoutSet.initializeDefaultEmojiVersions();
+        }
     }
 
     public Keyboard getKeyboard() {

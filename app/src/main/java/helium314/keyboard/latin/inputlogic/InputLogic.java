@@ -2687,7 +2687,7 @@ public final class InputLogic {
         for (var suggestion: suggestions) {
             if (suggestion.isEmoji()) {
                 Suggest.addDebugInfo(suggestion, input);
-                suggestedWordInfos.add(suggestion);
+                suggestedWordInfos.add(Suggest.fixEmojiVersion(suggestion));
             }
         }
         callback.onGetSuggestedWords(new SuggestedWords(suggestedWordInfos, suggestions.mRawSuggestions, typedWordInfo,
