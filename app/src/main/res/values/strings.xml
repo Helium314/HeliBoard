@@ -983,7 +983,7 @@ New dictionary:
     <!-- Text requesting the user to gesture a word
      string will probably be removed once data gathering is finished (end of 2026 latest) -->
     <string name="gesture_data_please_type">Please gesture type:</string>
-    <!-- Button for saving data and go to next word (now only shows up when the word is not in suggestions
+    <!-- Button for saving data and go to next word (now only shows up when the word %s is not in suggestions)
      string will probably be removed once data gathering is finished (end of 2026 latest) -->
     <string name="gesture_data_next_save">Got "%s". Click if you\'re sure you gestured correctly</string>
     <!-- Button for next word without saving data
@@ -1019,13 +1019,13 @@ New dictionary:
     <!-- Text for stopping active gesture data gathering
      string will probably be removed once data gathering is finished (end of 2026 latest) -->
     <string name="gesture_data_active_stop">Stop active gathering</string>
-    <!-- Message informing the user about coming end of data gathering (shown 2 weeks in advance)
+    <!-- Message informing the user about coming end of data gathering (shown 2 weeks in advance, %s is the date)
      string will probably be removed once data gathering is finished (end of 2026 latest) -->
     <string name="gesture_data_ends_at">Gesture data gathering phase will end at %s. Please submit your data before that date.</string>
     <!-- Message informing the user that gesture data gathering is over
      string will probably be removed once data gathering is finished (end of 2026 latest) -->
     <string name="gesture_data_ended">Gesture data gathering phase ended at %s. You can share your existing data, but not add anything new.</string>
-    <!-- Text for sharing all available words
+    <!-- Text for sharing all available words (%s is number of words)
      string will probably be removed once data gathering is finished (end of 2026 latest) -->
     <string name="gesture_data_share_all">Share all %s words</string>
     <!-- Text for sharing only words that were not shared previously
@@ -1034,13 +1034,13 @@ New dictionary:
     <!-- Text for delete dialog, offering delete all / shared / cancel options
      string will probably be removed once data gathering is finished (end of 2026 latest) -->
     <string name="gesture_data_delete_dialog">You have data for %1$s new and %2$s already shared words.</string>
-    <!-- Short text for delete all button
+    <!-- Short text for delete all button (%s is number of words)
      string will probably be removed once data gathering is finished (end of 2026 latest) -->
     <string name="gesture_data_delete_dialog_all">Delete all %s words</string>
     <!-- Delete confirmation message
      string will probably be removed once data gathering is finished (end of 2026 latest) -->
     <string name="gesture_data_delete_dialog_confirm">Are you sure? This will delete %s words. Make sure your shared date is submitted!</string>
-    <!-- Short text for delete all button
+    <!-- Short text for delete all button (%s is number of words)
      string will probably be removed once data gathering is finished (end of 2026 latest) -->
     <string name="gesture_data_delete_dialog_submitted">Delete %s submitted words</string>
     <!-- Message that many words are waiting to be shared (%s is 5000, 10000, ...)
