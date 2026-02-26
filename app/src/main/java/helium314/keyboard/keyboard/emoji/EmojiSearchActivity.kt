@@ -101,8 +101,8 @@ import helium314.keyboard.latin.utils.DictionaryInfoUtils
 import helium314.keyboard.latin.utils.Log
 import helium314.keyboard.latin.utils.ResourceUtils
 import helium314.keyboard.latin.utils.prefs
-import helium314.keyboard.settings.CloseIcon
-import helium314.keyboard.settings.SearchIcon
+import helium314.keyboard.latin.utils.CloseIcon
+import helium314.keyboard.latin.utils.SearchIcon
 import kotlin.properties.Delegates
 
 private const val TAG = "emoji-search"
