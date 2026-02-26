@@ -4,6 +4,7 @@ e è é ə ɜ
 i ì
 o ò ó º
 u ù
+w / \\
 
 [tlds]
 it gov.it edu.it
