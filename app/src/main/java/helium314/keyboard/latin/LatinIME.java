@@ -1726,10 +1726,12 @@ public class LatinIME extends InputMethodService implements
             if (isImeClosed(intent)) {
                 requestHideSelf(0);
             } else {
-                mHandler.postDelayed(() -> KeyboardSwitcher.getInstance().setEmojiKeyboard(), 100);
-                if (intent.hasExtra(EmojiSearchActivity.EMOJI_KEY)) {
-                     onTextInput(getSelectedEmoji(intent));
-                }
+                mHandler.postDelayed(() -> {
+                    if (intent.hasExtra(EmojiSearchActivity.EMOJI_KEY)) {
+                         onTextInput(getSelectedEmoji(intent));
+                    }
+                    KeyboardSwitcher.getInstance().setEmojiKeyboard();
+                }, 100);
             }
 
             stopSelf(startId); // Allow the service to be destroyed when unbound
