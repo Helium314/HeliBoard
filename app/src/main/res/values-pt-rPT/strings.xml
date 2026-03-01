@@ -443,4 +443,7 @@
     <string name="custom_emoji_font">Definir fonte de emoji a partir de ficheiro</string>
     <string name="number_row_in_symbols">Mostrar linha de números no ecrã de símbolos</string>
     <string name="layout_functional_keys_khipro" tools:keep="@string/layout_functional_keys">Teclas funcionais (Khipro)</string>
+    <string name="emoji_search_title">Pesquisar emoji</string>
+    <string name="search_field_placeholder">Pesquisar</string>
+    <string name="gesture_data_info">O que é isto?</string>
 </resources>

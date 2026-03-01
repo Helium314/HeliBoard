@@ -443,4 +443,9 @@
     <string name="number_row_in_symbols">Mostra una línia de nombres a la vista de símbols</string>
     <string name="custom_emoji_font">Aplica una font d\'emoticones personalitzada des d\'un fitxer</string>
     <string name="layout_functional_keys_khipro" tools:keep="@string/layout_functional_keys">Tecles funcionals (Khipro)</string>
+    <string name="timestamp_description">Podeu afegir la tecla de marca de temps mitjançant un disseny personalitzat amb la tecla «timestamp» o el codi de tecla -10043</string>
+    <string name="emoji_search_title">Cerca emojis</string>
+    <string name="search_field_placeholder">Cerca</string>
+    <string name="gesture_data_screen">Recopilació de dades gestuals</string>
+    <string name="gesture_data_description">Benvinguts a la pantalla de recopilació de dades de gestos!&lt;br/&gt;&lt;br/&gt; Això forma part d\'un &lt;a href=https://nlnet.nl/project/GestureTyping&gt;projecte finançat per NLnet&lt;/a&gt; que s\'esforça per produir una biblioteca de mecanografia gestual de codi obert completament capaç de substituir la biblioteca de codi tancat de Google.&lt;br/&gt; Es preveu que el resultat sigui un substitut senzill per als teclats basats en AOSP, però també utilitzable amb altres teclats, p. ex. FlorisBoard.&lt;br/&gt;&lt;br/&gt; Per desenvolupar la biblioteca, és tremendament útil tenir disponibles dades gestuals detallades en diferents idiomes i per diferents usuaris.&lt;br/&gt; En recopilar i enviar dades de mecanografia gestual, podeu contribuir a un conjunt obert de dades gestuals que s\'utilitzaran per al desenvolupament de la biblioteca. El conjunt de dades es publicarà sota una llicència CC BY-SA 4.0 un temps després que la fase de recopilació de dades s\'hagi finalitzat el %s. Un cop hàgiu recopilat les dades, les podeu enviar mitjançant la icona de compartir a la part inferior d\'aquesta pantalla.</string>
 </resources>

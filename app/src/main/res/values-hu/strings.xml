@@ -478,4 +478,9 @@
     <string name="gesture_data_delete_dialog_submitted">%s beküldött szó törlése</string>
     <string name="gesture_data_many_not_shared_words">Több mint %s szó vár beküldésre</string>
     <string name="gesture_data_email_body">FONTOS:\n\n Üdvözöljük!\n Emlékeztetőül: ezeket az adatokat nyilvánosan közzétesszük CC BY-SA 4.0 licenc alatt, és az Ön magánéletének védelme érdekében nem tüntetjük fel szerzőként.\n\n Köszönjük, hogy megosztotta velünk az adatainak jogait. Jó célra fogjuk használni!\n\n Vegye figyelembe, hogy ezen értesítés szövegének módosítása nem változtatja meg az adatok felhasználási módját. Ez nem egy módosítható szerződés, csak egy baráti emlékeztető!\n Ha üzenetet is szeretne küldeni az adatok mellé, írja azt az alábbi vonal alá.\n ---------------------------------------------</string>
+    <string name="timestamp_description">Az időbélyeg kulcsot egy egyéni elrendezéssel adhatja hozzá a „timestamp” kulccsal vagy a -10043 kulcs kóddal</string>
+    <string name="gesture_data_promotion_message">Üdvözöljük!\n Mivel telepítette az ujjmozdulatokall történő íráshoz szükséges könyvtárat, talán érdekelheti a HeliBoard projektje, amelynek célja egy teljesen nyílt ujjmozdulat-gépelési könyvtár létrehozása. Ön is segítheti a munkánkat saját ujjmozdulataival. További információkért látogasson el az ujjmozdulatok gyűjtésének képernyőjére.</string>
+    <string name="gesture_data_reminder_message">Üdvözöljük!\n Korábban használta az ujjmozdulatok gyűjtését, de már jó ideje nem adott hozzá adatokat. Szeretne ismét közreműködni?</string>
+    <string name="ask_later">Később döntöm el</string>
+    <string name="gesture_data_take_me_there">Ugrás az ujjmozdulatok gyüjtésére</string>
 </resources>

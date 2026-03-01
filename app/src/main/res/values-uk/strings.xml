@@ -434,4 +434,6 @@
     <string name="name_invalid">Недійсне ім\'я</string>
     <string name="custom_subtype">Власний макет</string>
     <string name="landscape">Горизонтальна</string>
+    <string name="ask_later">Спитати пізніше</string>
+    <string name="clipboard_history_pinned_first">Показувати прикріплені об\'єкти вгорі</string>
 </resources>

@@ -450,4 +450,21 @@
     <string name="inline_emoji_search">חיפוש אמוג\'י מוטמע</string>
     <string name="custom_emoji_font">הגדרת גופן אמוג\'י מותאם מקובץ</string>
     <string name="number_row_in_symbols">הצגת שורת מספרים בתצוגת הסמלים</string>
+    <string name="layout_functional_keys_khipro" tools:keep="@string/layout_functional_keys">פקדים פונקציונליים (Khipro)</string>
+    <string name="emoji_search_title">חיפוש אמוג׳י</string>
+    <string name="search_field_placeholder">חיפוש</string>
+    <string name="gesture_data_screen">איסוף נתוני מחוות</string>
+    <string name="gesture_data_description">ברוך בואך אל מסך איסוף נתוני המחוות!&lt;br/&gt;&lt;br/&gt; זהו חלק מפרויקט &lt;a href=https://nlnet.nl/project/GestureTyping&gt; ממומן-NLnet&lt;/a&gt; החותר ליצור ספריית הקלדה במחוות בקוד פתוח מלא שתוכל להחליף את הספרייה של Google שהיא בקוד סגור.&lt;br/&gt; התוצר מתוכנן להוות חלופה פשוטה למקלדות מבוססות-AOSP, אך גם ניתנת לשימוש במקלדות אחרות, כדוגמת FlorisBoard.&lt;br/&gt;&lt;br/&gt; לצורך פיתוח הספרייה מאד עוזר שתהיה זמינות של נתוני שימוש במחוות בשפות שונות וע\"י משתמשים שונים.&lt;br/&gt; ע\"י איסוף והגשה של נתוני הקלדה במחוות באפשרותך לתרום למאגר פתוח של נתוני מחוות שישמש בפיתוח הספרייה. ערכת הנתונים תפורסם בהתאם לרישיון CC BY-SA 4.0 זמן מה לאחר סיום שלב איסוף הנתונים ב-%s. לאחר שביצעת איסוף של הנתונים, באפשרותך להגיש אותם באמצעות סמל השיתוף בתחתית מסך זה.</string>
+    <string name="gesture_data_info">מה זה?</string>
+    <string name="gesture_data_copy_mail">העתקת כתובת הדוא\"ל</string>
+    <string name="gesture_data_mail_use">שימו לב שכתובת הדוא\"ל נועדה למסירות נתונים, ייתכן שלא תקבלו תגובות מהירות או עקביות.</string>
+    <string name="gesture_data_please_type">נא להקליד במחווה:</string>
+    <string name="gesture_data_next_save">התקבל %s. ליחצו אם אתם בטוחים שהחוויתם נכון</string>
+    <string name="gesture_data_next">דילוג מילה</string>
+    <string name="gesture_data_active_count">%1$s מילים במופע הנוכחי, %2$s מילים בסה\"כ (%3$s כבר נמסרו או נמחקו)</string>
+    <string name="gesture_data_review_screen_title">סקירה ושיתוף של נתוני המחוות</string>
+    <string name="gesture_data_words_selected">%s מילים</string>
+    <string name="gesture_data_date_range">טווח תאריכים</string>
+    <string name="gesture_data_much_data">יש לכם הרבה נתונים שלא נמסרו. אנא מיסרו אותם ומחקו את הנתונים הישנים.</string>
+    <string name="gesture_data_how_to_use">איך להשתמש</string>
 </resources>

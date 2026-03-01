@@ -484,4 +484,9 @@ Nouveau dictionnaire:
     <string name="gesture_data_delete_dialog_submitted">Supprimer les %s mots soumis</string>
     <string name="gesture_data_many_not_shared_words">Vous avez plus de %s mots à soumettre</string>
     <string name="gesture_data_email_body">IMPORTANT :\n\nSalut !\nPour rappel, ces données seront partagées publiquement sous licence CC BY-SA 4.0 et vous ne serez pas mentionné(e) comme auteur(e) afin de protéger votre vie privée.\n\nMerci de nous avoir permis d’accéder à vos données. Nous en ferons bon usage !\n\nVeuillez noter que modifier le texte de cet avis n’aura aucune incidence sur l’utilisation de vos données. Il ne s’agit pas d’un contrat à modifier, mais simplement d’un rappel.\nSi vous souhaitez nous envoyer un message avec vos données, veuillez l’écrire ci-dessous.\n--------------------------------------------</string>
+    <string name="gesture_data_promotion_message">Salut !\nPuisque vous avez installé la bibliothèque de saisie gestuelle, le projet d\'HeliBoard visant à créer une bibliothèque de saisie gestuelle entièrement ouverte pourrait vous intéresser. Vous pouvez y contribuer en fournissant des données gestuelles. Pour plus d\'informations, consultez la page de collecte de données gestuelles.</string>
+    <string name="gesture_data_reminder_message">Salut !\nVous avez déjà utilisé la collecte de données gestuelles, mais vous n\'avez pas contribué depuis un certain temps. Souhaitez-vous participer à nouveau ?</string>
+    <string name="ask_later">Demandez-moi plus tard</string>
+    <string name="gesture_data_take_me_there">Y aller</string>
+    <string name="timestamp_description">Vous pouvez ajouter la clé d\'horodatage à l\'aide d\'une disposition personnalisée avec la clé « timestamp » ou le code de clé -10043</string>
 </resources>
