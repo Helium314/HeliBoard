@@ -346,4 +346,8 @@ public final class KeyboardLayoutSet {
         params.mSubtype.getMainLayoutName();
         return new KeyboardId(elementId, params);
     }
+
+    public void initializeDefaultEmojiVersions() {
+        getKeyboard(KeyboardId.ELEMENT_EMOJI_CATEGORY2);
+    }
 }
