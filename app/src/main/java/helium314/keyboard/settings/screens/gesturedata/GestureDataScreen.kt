@@ -96,14 +96,14 @@ import helium314.keyboard.latin.utils.getExportedActiveDeletionCount
 import helium314.keyboard.latin.utils.getSecondaryLocales
 import helium314.keyboard.latin.utils.locale
 import helium314.keyboard.settings.DropDownField
-import helium314.keyboard.settings.NextScreenIcon
-import helium314.keyboard.settings.Theme
+import helium314.keyboard.latin.utils.NextScreenIcon
+import helium314.keyboard.latin.utils.Theme
 import helium314.keyboard.settings.dialogs.ConfirmationDialog
 import helium314.keyboard.settings.dialogs.InfoDialog
 import helium314.keyboard.settings.dialogs.ThreeButtonAlertDialog
 import helium314.keyboard.settings.initPreview
 import helium314.keyboard.settings.isWideScreen
-import helium314.keyboard.settings.previewDark
+import helium314.keyboard.latin.utils.previewDark
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch

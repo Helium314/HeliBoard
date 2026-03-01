@@ -32,11 +32,11 @@ import helium314.keyboard.latin.R
 import helium314.keyboard.latin.common.LocaleUtils.localizedDisplayName
 import helium314.keyboard.latin.utils.DictionaryInfoUtils
 import helium314.keyboard.latin.utils.createDictionaryTextAnnotated
-import helium314.keyboard.settings.DeleteButton
-import helium314.keyboard.settings.ExpandButton
-import helium314.keyboard.settings.Theme
+import helium314.keyboard.latin.utils.DeleteButton
+import helium314.keyboard.latin.utils.ExpandButton
+import helium314.keyboard.latin.utils.Theme
 import helium314.keyboard.settings.dictionaryFilePicker
-import helium314.keyboard.settings.previewDark
+import helium314.keyboard.latin.utils.previewDark
 import helium314.keyboard.settings.screens.getUserAndInternalDictionaries
 import java.io.File
 import java.util.Locale
