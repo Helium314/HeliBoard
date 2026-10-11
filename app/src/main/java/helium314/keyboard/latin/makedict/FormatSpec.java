@@ -276,6 +276,23 @@ public final class FormatSpec {
         }
     }
 
+    /**
+     * Options about file format.
+     */
+    public static final class FormatOptions {
+        public final int mVersion;
+        public final boolean mHasTimestamp;
+
+        public FormatOptions(final int version) {
+            this(version, false /* hasTimestamp */);
+        }
+
+        public FormatOptions(final int version, final boolean hasTimestamp) {
+            mVersion = version;
+            mHasTimestamp = hasTimestamp;
+        }
+    }
+
     private FormatSpec() {
         // This utility class is not publicly instantiable.
     }

@@ -99,7 +99,7 @@ fun DictionaryDialog(
         scrollContent = true,
         neutralButtonText = stringResource(R.string.add_new_dictionary_title),
         onNeutral = {
-            val intent = IntentUtils.getResolvableTypeIntent(ctx, "application/octet-stream")
+            val intent = IntentUtils.getResolvableTypeIntent(ctx, "*/*")
                 .setAction(Intent.ACTION_OPEN_DOCUMENT)
             picker.launch(intent)
         }
