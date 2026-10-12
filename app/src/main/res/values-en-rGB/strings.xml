@@ -192,4 +192,6 @@
     <string name="auto_correct_capitalized_suggestions_description">After pressing shift to capitalise suggestions, auto-correct will trigger</string>
     <string name="backspace_reverts_autocorrect">Backspace reverts autocorrect</string>
     <string name="center_suggestion_text_to_enter">Always use middle suggestion</string>
+    <string name="show_dpad_key">D-pad key</string>
+    <string name="center_suggestion_text_to_enter_summary">On pressing space or punctuation, the middle suggestion will be entered</string>
 </resources>

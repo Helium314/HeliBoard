@@ -546,4 +546,8 @@
     <string name="about_community_links_description">Temas, editor de esquema, discussões…</string>
     <string name="layout_dpad" tools:keep="@string/layout_dpad">Teclas direcionais</string>
     <string name="space_swipe_toggle_dpad_entry">Mudar para teclas direcionais</string>
+    <string name="show_dpad_key">Tecla direcional</string>
+    <string name="recent_emojis_cleared">Apagou emojis recentes</string>
+    <string name="prefs_enable_hardware_keyboard">Suporte para teclado físico</string>
+    <string name="accent_shifted_icon">Ícone de maiúsculas destacado</string>
 </resources>

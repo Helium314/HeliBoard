@@ -548,4 +548,6 @@
     <string name="space_swipe_toggle_dpad_entry">Переключить D-pad</string>
     <string name="show_dpad_key">Клавиша D-pad</string>
     <string name="recent_emojis_cleared">Недавние эмодзи очищены</string>
+    <string name="prefs_enable_hardware_keyboard">Поддержка аппаратной клавиатуры</string>
+    <string name="accent_shifted_icon">Акцентный цвет иконки Shift</string>
 </resources>

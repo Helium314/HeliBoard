@@ -238,7 +238,7 @@ fun createPreferencesSettings(context: Context) = listOf(
     },
 )
 
-private val localesWithLocalizedNumberRow = listOf("bn", "ckb", "gu", "hi", "kn", "mr", "ne", "th", "ur", "ar", "fa")
+private val localesWithLocalizedNumberRow = listOf("ar", "bn", "ckb", "fa", "gu", "hi", "kn", "mr", "ne", "th", "ur")
 
 @Preview
 @Composable

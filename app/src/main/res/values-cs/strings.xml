@@ -550,4 +550,6 @@
     <string name="space_swipe_toggle_dpad_entry">Přepnout směrové klávesy</string>
     <string name="show_dpad_key">Klávesa pro D-pad</string>
     <string name="recent_emojis_cleared">Vymazané nedávné emodži</string>
+    <string name="prefs_enable_hardware_keyboard">Podpora hardwarové klávesnice</string>
+    <string name="accent_shifted_icon">Zvýrazněná ikona Shift</string>
 </resources>

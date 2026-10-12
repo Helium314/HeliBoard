@@ -557,4 +557,6 @@
     <string name="space_swipe_toggle_dpad_entry">D-pad omschakelen</string>
     <string name="recent_emojis_cleared">Recente emoji\'s gewist</string>
     <string name="show_dpad_key">D-pad sneltoets</string>
+    <string name="prefs_enable_hardware_keyboard">Ondersteuning voor fysiek toetsenbord</string>
+    <string name="accent_shifted_icon">Geaccentueerd Shift-pictogram</string>
 </resources>

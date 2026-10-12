@@ -556,4 +556,6 @@
     <string name="gesture_data_swipe_o_scope">Ferramenta para visualizar os datos de xestos: &lt;a href=%s&gt;Swipe-O-Scope&lt;/a&gt;</string>
     <string name="recent_emojis_cleared">Limpáronse os emojis recentes</string>
     <string name="show_dpad_key">Tecla D-pad</string>
+    <string name="prefs_enable_hardware_keyboard">Compatibilidade con teclado físico</string>
+    <string name="accent_shifted_icon">Icona das maiúsculas destacada</string>
 </resources>

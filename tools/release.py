@@ -123,12 +123,6 @@ def update_dict_hashes():
             continue
         with open(normal_dicts_dir + file, "rb") as f:
             hashes.append(hashlib.sha256(f.read()).hexdigest())
-    experimental_dicts_dir = dicts_dir + "/dictionaries_experimental/"
-    for file in os.listdir(experimental_dicts_dir):
-        if not file.startswith("main_"):
-            continue
-        with open(experimental_dicts_dir + file, "rb") as f:
-            hashes.append(hashlib.sha256(f.read()).hexdigest())
     hashes_file = "app/src/main/assets/known_dict_hashes.txt"
     with open(hashes_file) as f:
         for line in f:
@@ -143,7 +137,10 @@ def update_dict_hashes():
 def update_khipro_mappings():
     source = "https://raw.githubusercontent.com/KhiproTeam/khipro-MIM-touchscreen/main/bn-khipro.mim"
     target = "app/src/main/assets/bn-khipro.mim"
-    urlretrieve(source, target)
+    try:
+        urlretrieve(source, target)
+    except:
+        print("could not download khipro mappings")
 
 
 # update localesWithLocalizedNumberRow
@@ -161,9 +158,9 @@ def update_localized_number_row():
     for i, line in enumerate(lines):
         if not line.startswith("private val localesWithLocalizedNumberRow"):
             continue
+        locales.sort()
         localetext = "\", \"".join(locales)
         lines[i] = "private val localesWithLocalizedNumberRow = listOf(\"" + localetext + "\")\n"
-    lines.sort()
     with open(prefs, "w") as f:
         f.writelines(lines)
 

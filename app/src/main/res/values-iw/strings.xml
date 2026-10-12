@@ -550,4 +550,6 @@
     <string name="subtype_generic_student">%s (סטודנט)</string>
     <string name="recent_emojis_cleared">היסטוריית האמוג\'ים נמחקה</string>
     <string name="show_dpad_key">מקש D-pad (מקשי כיוון)</string>
+    <string name="accent_shifted_icon">סמל shift מודגש</string>
+    <string name="prefs_enable_hardware_keyboard">תמיכה במקלדת חומרה</string>
 </resources>

@@ -549,4 +549,6 @@
     <string name="space_swipe_toggle_dpad_entry">ডি-প্যাডে অবস্থান্তর</string>
     <string name="show_dpad_key">ডি-প্যাড বোতাম</string>
     <string name="recent_emojis_cleared">সম্প্রতিক ইমোজি পরিষ্কৃত</string>
+    <string name="prefs_enable_hardware_keyboard">হার্ডওয়্যার কিবোর্ড সমর্থন</string>
+    <string name="accent_shifted_icon">প্রধানীকৃত শিফট আইকন</string>
 </resources>
