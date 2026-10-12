@@ -55,5 +55,5 @@ object RecentEmojis {
             .getOrNull() ?: mutableListOf()
     }
 
-    private const val MAX_COUNT = 39 // max for config_emoji_keyboard_max_recents_key_count
+    private const val MAX_COUNT = 80 // config_emoji_keyboard_max_recents_key_count
 }
