@@ -52,7 +52,7 @@ android {
             isJniDebuggable = false
             signingConfig = signingConfigs.getByName("debug")
             applicationIdSuffix = ".debug"
-            isDefault = true
+            //isDefault = true // would be nice as default, but breaks unit test handling in Android Studio
         }
 
         androidComponents.onVariants { variant: ApplicationVariant ->
