@@ -78,19 +78,12 @@ def update_dict_list():
         split = line.split("|")
         dict_name = split[2].split("]")[1].split("(")[1].split(")")[0].split("/")[-1].split(".dict")[0]
         (dict_type, locale) = dict_name.split("_", 1)
-        if "_" in locale:
-            sp = locale.split("_")
-            locale = sp[0]
-            for s in sp[1:]:
-                locale = locale + "_" + s.upper()
-        if split[3].strip() == "yes":
-            extra = "exp"
-        elif "UNICODE LICENSE V3 (CLDR)" in split[7]:
-            extra = "cldr"
+        if "UNICODE LICENSE V3 (CLDR)" in split[7]:
+            dicts.append(f"cldr,{locale}\n")
         else:
-            extra = ""
-        dicts.append(f"{dict_type},{locale},{extra}\n")
-    target_file = "app/src/main/assets/dictionaries_in_dict_repo.csv"
+            dicts.append(dict_name + "\n")
+    target_file = "app/src/main/assets/dictionaries_in_dict_repo.txt"
+    dicts.sort()
     with open(target_file, 'w') as f:
         f.writelines(dicts)
 
@@ -170,6 +163,7 @@ def update_localized_number_row():
             continue
         localetext = "\", \"".join(locales)
         lines[i] = "private val localesWithLocalizedNumberRow = listOf(\"" + localetext + "\")\n"
+    lines.sort()
     with open(prefs, "w") as f:
         f.writelines(lines)
 

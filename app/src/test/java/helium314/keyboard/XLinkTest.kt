@@ -20,7 +20,7 @@ class XLinkTest { // Without the X, SubtypeTests fail with ClassCastException. W
         if (BuildConfig.BUILD_TYPE == "runTests") return // don't spam requests to Codeberg on every PR update
         val context = ApplicationProvider.getApplicationContext<App>()
         val urls = mutableSetOf<String>()
-        context.assets.open("dictionaries_in_dict_repo.csv").reader().readLines().forEach { line ->
+        context.assets.open("dictionaries_in_dict_repo.txt").reader().readLines().forEach { line ->
             getKnownDictionariesForLocale(line.split(",")[1].constructLocale(), context).forEach {
                 urls.add(it.second)
             }
