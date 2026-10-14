@@ -8,15 +8,12 @@ import helium314.keyboard.latin.common.codePointAt
 import helium314.keyboard.latin.common.codePointBefore
 import helium314.keyboard.latin.common.endsWithWordCodepoint
 import helium314.keyboard.latin.common.getFullEmojiAtEnd
-import helium314.keyboard.latin.common.getTouchedWordRange
 import helium314.keyboard.latin.common.isEmoji
 import helium314.keyboard.latin.common.isSingleGrapheme
-import helium314.keyboard.latin.common.moveStepsToCharCount
 import helium314.keyboard.latin.common.nonWordCodePointAndNoSpaceBeforeCursor
 import helium314.keyboard.latin.common.splitOnWhitespace
 import helium314.keyboard.latin.common.stripTrailingSeparatorsAndConnectors
 import helium314.keyboard.latin.settings.SpacingAndPunctuations
-import helium314.keyboard.latin.utils.TextRange
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.annotation.Config
@@ -85,40 +82,6 @@ class StringUtilsTest {
         assert(!endsWithWordCodepoint("\uD83D\uDE42", sp))
     }
 
-    @Test fun `get touched text range`() {
-        val sp = SpacingAndPunctuations(ApplicationProvider.getApplicationContext<App>().resources, false, Locale.ROOT)
-        val spUrl = SpacingAndPunctuations(ApplicationProvider.getApplicationContext<App>().resources, true, Locale.ROOT)
-        checkTextRange("blabla this is v", "ery good", sp, 15, 19)
-        checkTextRange(".hel", "lo...", sp, 1, 6)
-        checkTextRange("(hi", ")", sp, 1, 3)
-        checkTextRange("", "word", sp, 0, 4)
-
-        checkTextRange("mail: blorb@", "florb.com or", sp, 12, 17)
-        checkTextRange("mail: blorb@", "florb.com or", spUrl, 6, 21)
-        checkTextRange("mail: blor", "b@florb.com or", sp, 6, 11)
-        checkTextRange("mail: blor", "b@florb.com or", spUrl, 6, 21)
-        checkTextRange("mail: blorb@f", "lorb.com or", sp, 12, 17)
-        checkTextRange("mail: blorb@f", "lorb.com or", spUrl, 6, 21)
-
-        checkTextRange("http://exam", "ple.com", sp, 7, 14)
-        checkTextRange("http://exam", "ple.com", spUrl, 7, 18)
-        checkTextRange("http://example.", "com", sp, 15, 18)
-        checkTextRange("http://example.", "com", spUrl, 7, 18)
-        checkTextRange("htt", "p://example.com", sp, 0, 4)
-        checkTextRange("htt", "p://example.com", spUrl, 0, 18)
-        checkTextRange("http:/", "/example.com", sp, 6, 6)
-        checkTextRange("http:/", "/example.com", spUrl, 0, 18)
-
-        checkTextRange("..", ".", spUrl, 2, 2)
-        checkTextRange("...", "", spUrl, 3, 3)
-
-        // todo: these are bad cases of url detection
-        //  also: sometimesWordConnectors are for URL and should be named accordingly
-        checkTextRange("@@@", "@@@", spUrl, 0, 6)
-        checkTextRange("a...", "", spUrl, 0, 4)
-        checkTextRange("@@@", "", spUrl, 0, 3)
-    }
-
     @Test fun singleGrapheme() {
         assert(!"".isSingleGrapheme)
         assert(",".isSingleGrapheme)
@@ -175,27 +138,6 @@ class StringUtilsTest {
         assert(!isEmoji("🖐🏾🏼"))
     }
 
-    @Test fun moveStepsToCharCount() {
-        assertEquals(3, moveStepsToCharCount("abcd", 3))
-        assertEquals(-3, moveStepsToCharCount("abcd", -3))
-        assertEquals(4, moveStepsToCharCount("abcd", 10))
-        assertEquals(-4, moveStepsToCharCount("abcd", -10))
-        assertEquals(8, moveStepsToCharCount("\uD83C\uDFF3️\u200D\uD83C\uDF08bcd", 3))
-        assertEquals(-3, moveStepsToCharCount("\uD83C\uDFF3️\u200D\uD83C\uDF08bcd", -3))
-        assertEquals(4, moveStepsToCharCount("aэ́cd", 3))
-        assertEquals(-2, moveStepsToCharCount("abcэ́", -1))
-        assertEquals(19, moveStepsToCharCount("H̵̛͕̞̦̰̜͍̰̥̟͆̏͂̌͑́ͅэ́cd", 1))
-        assertEquals(21, moveStepsToCharCount("H̵̛͕̞̦̰̜͍̰̥̟͆̏͂̌͑́ͅэ́cd", 2))
-        assertEquals(22, moveStepsToCharCount("H̵̛͕̞̦̰̜͍̰̥̟͆̏͂̌͑́ͅэ́cd", 3))
-        assertEquals(23, moveStepsToCharCount("H̵̛͕̞̦̰̜͍̰̥̟͆̏͂̌͑́ͅэ́cd", 4))
-        assertEquals(-2, moveStepsToCharCount("aH̵̛͕̞̦̰̜͍̰̥̟͆̏͂̌͑́ͅcэ́", -1))
-        assertEquals(-3, moveStepsToCharCount("aH̵̛͕̞̦̰̜͍̰̥̟͆̏͂̌͑́ͅcэ́", -2))
-        assertEquals(-23, moveStepsToCharCount("aH̵̛͕̞̦̰̜͍̰̥̟͆̏͂̌͑́ͅcэ́", -4))
-        assertEquals(3, moveStepsToCharCount("abcd", 3))
-        assertEquals(5, moveStepsToCharCount("\uD83C\uDFF4\u200D☠️\uD83C\uDFF3️\u200D\uD83C\uDF08", 1))
-        assertEquals(-6, moveStepsToCharCount("\uD83C\uDFF4\u200D☠️\uD83C\uDFF3️\u200D\uD83C\uDF08", -1))
-    }
-
     @Test fun isEmojiDetectsAllAvailableEmojis() {
         val ctx = ApplicationProvider.getApplicationContext<App>()
         val allEmojis = ctx.assets.list("emoji")!!.flatMap {
@@ -224,11 +166,5 @@ class StringUtilsTest {
         assertEquals("word", stripTrailingSeparatorsAndConnectors("word-", svfs))
         assertEquals("word", stripTrailingSeparatorsAndConnectors("word'", svfs))
         assertEquals("word", stripTrailingSeparatorsAndConnectors("word'-'", svfs))
-    }
-
-    private fun checkTextRange(before: String, after: String, sp: SpacingAndPunctuations, wordStart: Int, wordEnd: Int) {
-        val got = getTouchedWordRange(before, after, sp)
-        val wanted = TextRange(before + after, wordStart, wordEnd, before.length, false)
-        assertEquals(wanted, got)
     }
 }

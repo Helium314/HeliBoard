@@ -1336,7 +1336,7 @@ public final class InputLogic {
                 // Note: restartSuggestionsOnWordTouchedByCursor is already called for normal
                 // (non-revert) backspace handling.
                 if (inputTransaction.getSettingsValues().needsToLookupSuggestions()
-                        && inputTransaction.getSettingsValues().mSpacingAndPunctuations.mCurrentLanguageHasSpaces) {
+                        && inputTransaction.getSettingsValues().mSpacingAndPunctuations.mCurrentLanguageHasSpacesOrWordIterator) {
                     restartSuggestionsOnWordTouchedByCursor(inputTransaction.getSettingsValues());
                 }
                 return;
@@ -1465,7 +1465,7 @@ public final class InputLogic {
             if (mConnection.hasSlowInputConnection()) {
                 mSuggestionStripViewAccessor.setNeutralSuggestionStrip();
             } else if (inputTransaction.getSettingsValues().needsToLookupSuggestions()
-                    && inputTransaction.getSettingsValues().mSpacingAndPunctuations.mCurrentLanguageHasSpaces) {
+                    && inputTransaction.getSettingsValues().mSpacingAndPunctuations.mCurrentLanguageHasSpacesOrWordIterator) {
                 restartSuggestionsOnWordTouchedByCursor(inputTransaction.getSettingsValues());
             }
         }
@@ -1474,7 +1474,7 @@ public final class InputLogic {
     String getWordAtCursor(SettingsValues settingsValues) {
         if (!mConnection.hasSelection()
                 && settingsValues.needsToLookupSuggestions()
-                && settingsValues.mSpacingAndPunctuations.mCurrentLanguageHasSpaces) {
+                && settingsValues.mSpacingAndPunctuations.mCurrentLanguageHasSpacesOrWordIterator) {
             TextRange range = mConnection.getWordRangeAtCursor(settingsValues.mSpacingAndPunctuations);
             if (range != null) {
                 return range.mWord.toString();
@@ -1817,7 +1817,7 @@ public final class InputLogic {
         // HACK: We may want to special-case some apps that exhibit bad behavior in case of
         // recorrection. This is a temporary, stopgap measure that will be removed later.
         // TODO: remove this.
-        if (!settingsValues.mSpacingAndPunctuations.mCurrentLanguageHasSpaces
+        if (!settingsValues.mSpacingAndPunctuations.mCurrentLanguageHasSpacesOrWordIterator
                 // If no suggestions are requested, don't try restarting suggestions.
                 || !settingsValues.needsToLookupSuggestions()
                 // If we are currently in a batch input, we must not resume suggestions, or the result

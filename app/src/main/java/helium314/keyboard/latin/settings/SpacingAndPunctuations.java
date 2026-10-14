@@ -8,7 +8,7 @@ package helium314.keyboard.latin.settings;
 
 import android.content.res.Resources;
 
-import helium314.keyboard.compat.ConfigurationCompatKt;
+import helium314.keyboard.compat.CompatBreakIterator;
 import helium314.keyboard.latin.R;
 import helium314.keyboard.latin.common.Constants;
 import helium314.keyboard.latin.common.StringUtils;
@@ -32,6 +32,7 @@ public final class SpacingAndPunctuations {
     private final int[] mSortedSentenceTerminators;
     public final String mSentenceSeparatorAndSpace;
     public final boolean mCurrentLanguageHasSpaces;
+    public final boolean mCurrentLanguageHasSpacesOrWordIterator;
     public final boolean mUsesAmericanTypography;
     public final boolean mUsesGermanRules;
     public final Locale mLocale;
@@ -61,6 +62,7 @@ public final class SpacingAndPunctuations {
         mUsesAmericanTypography = Locale.ENGLISH.getLanguage().equals(mLocale.getLanguage());
         mUsesGermanRules = Locale.GERMAN.getLanguage().equals(mLocale.getLanguage());
         mScript = ScriptUtils.script(mLocale);
+        mCurrentLanguageHasSpacesOrWordIterator = mCurrentLanguageHasSpaces || CompatBreakIterator.Companion.isLocaleAvailable(mLocale);
     }
 
     public boolean isWordSeparator(final int code) {
