@@ -24,8 +24,6 @@ import helium314.keyboard.latin.utils.DictionaryInfoUtils.getLocalesWithEmojiDic
 import helium314.keyboard.latin.utils.InputTypeUtils
 import helium314.keyboard.latin.utils.Log
 import helium314.keyboard.latin.utils.ResourceUtils
-import helium314.keyboard.latin.utils.ScriptUtils
-import helium314.keyboard.latin.utils.ScriptUtils.script
 import helium314.keyboard.latin.utils.SubtypeLocaleUtils.clearSubtypeDisplayNameCache
 import java.lang.ref.SoftReference
 
@@ -37,8 +35,6 @@ import java.lang.ref.SoftReference
  * [EditorInfo].
  */
 class KeyboardLayoutSet internal constructor(private val mContext: Context, private val mParams: Params) {
-    val script = mParams.script
-
     /**
      * Represents an internal action that overrides the action provided by the input field.
      * @param code to send on action key press
@@ -118,7 +114,6 @@ class KeyboardLayoutSet internal constructor(private val mContext: Context, priv
         var isSpellChecker = false
         var keyboardWidth = 0
         var keyboardHeight = 0
-        var script = ScriptUtils.SCRIPT_LATIN
         var internalAction: InternalAction? = null
         var emojiSearchAvailable = false
 
@@ -167,7 +162,6 @@ class KeyboardLayoutSet internal constructor(private val mContext: Context, priv
         }
 
         fun build(): KeyboardLayoutSet {
-            params.script = params.subtype.locale.script()
             return KeyboardLayoutSet(mContext, params)
         }
 

@@ -88,12 +88,12 @@ fun endsWithWordCodepoint(text: String, spacingAndPunctuations: SpacingAndPunctu
 
 // todo: simplify... maybe compare with original code?
 // todo: this breaks at e.g. э́, but should not
-fun getTouchedWordRange(before: CharSequence, after: CharSequence, script: String, spacingAndPunctuations: SpacingAndPunctuations): TextRange {
+fun getTouchedWordRange(before: CharSequence, after: CharSequence, spacingAndPunctuations: SpacingAndPunctuations): TextRange {
     // Going backward, find the first breaking point (separator)
     var startIndexInBefore = before.length
     var endIndexInAfter = -1 // todo: clarify why might we want to set it when checking before
     loopOverCodePointsBackwards(before) { codePoint, cpLength ->
-        if (!isPartOfCompositionForScript(codePoint, spacingAndPunctuations, script)) {
+        if (!isPartOfCompositionForScript(codePoint, spacingAndPunctuations)) {
             if (Character.isWhitespace(codePoint) || !spacingAndPunctuations.mCurrentLanguageHasSpaces)
                 return@loopOverCodePointsBackwards true
             // continue to the next whitespace and see whether this contains a sometimesWordConnector
@@ -120,7 +120,7 @@ fun getTouchedWordRange(before: CharSequence, after: CharSequence, script: Strin
     if (endIndexInAfter == -1) {
         endIndexInAfter = 0
         loopOverCodePoints(after) { codePoint, cpLength ->
-            if (!isPartOfCompositionForScript(codePoint, spacingAndPunctuations, script)) {
+            if (!isPartOfCompositionForScript(codePoint, spacingAndPunctuations)) {
                 if (Character.isWhitespace(codePoint) || !spacingAndPunctuations.mCurrentLanguageHasSpaces)
                     return@loopOverCodePoints true
                 // continue to the next whitespace and see whether this contains a sometimesWordConnector
@@ -171,10 +171,10 @@ fun getTouchedWordRange(before: CharSequence, after: CharSequence, script: Strin
 }
 
 // actually this should not be in STRING Utils, but only used for getTouchedWordRange
-private fun isPartOfCompositionForScript(codePoint: Int, spacingAndPunctuations: SpacingAndPunctuations, script: String) =
+private fun isPartOfCompositionForScript(codePoint: Int, spacingAndPunctuations: SpacingAndPunctuations) =
     spacingAndPunctuations.isWordConnector(codePoint) // We always consider word connectors part of compositions.
         // Otherwise, it's part of composition if it's part of script and not a separator.
-        || (!spacingAndPunctuations.isWordSeparator(codePoint) && ScriptUtils.isLetterPartOfScript(codePoint, script))
+        || (!spacingAndPunctuations.isWordSeparator(codePoint) && ScriptUtils.isLetterPartOfScript(codePoint, spacingAndPunctuations.mScript))
 
 /** split the string on the first of consecutive space only, further consecutive spaces are added to the next split */
 fun String.splitOnFirstSpacesOnly(): List<String> {

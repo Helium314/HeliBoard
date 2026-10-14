@@ -58,7 +58,6 @@ import helium314.keyboard.latin.utils.LanguageOnSpacebarUtils;
 import helium314.keyboard.latin.utils.Log;
 import helium314.keyboard.latin.utils.RecapitalizeMode;
 import helium314.keyboard.latin.utils.ResourceUtils;
-import helium314.keyboard.latin.utils.ScriptUtils;
 import helium314.keyboard.latin.utils.SubtypeUtilsAdditional;
 import helium314.keyboard.latin.utils.ToolbarMode;
 
@@ -581,13 +580,6 @@ public final class KeyboardSwitcher {
             return CapsMode.OFF;
         }
         return keyboard.mId.getElement().getCapsMode();
-    }
-
-    public String getCurrentKeyboardScript() {
-        if (null == mKeyboardLayoutSet) {
-            return ScriptUtils.SCRIPT_UNKNOWN;
-        }
-        return mKeyboardLayoutSet.getScript();
     }
 
     public void switchToSubtype(InputMethodSubtype subtype) {

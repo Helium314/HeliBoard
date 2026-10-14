@@ -263,9 +263,7 @@ public class LatinIME extends InputMethodService implements
                     }
                     break;
                 case MSG_RESUME_SUGGESTIONS:
-                    latinIme.mInputLogic.restartSuggestionsOnWordTouchedByCursor(
-                            latinIme.mSettings.getCurrent(),
-                            latinIme.mKeyboardSwitcher.getCurrentKeyboardScript());
+                    latinIme.mInputLogic.restartSuggestionsOnWordTouchedByCursor(latinIme.mSettings.getCurrent());
                     break;
                 case MSG_REOPEN_DICTIONARIES:
                     // We need to re-evaluate the currently composing word in case the script has
@@ -1431,10 +1429,8 @@ public class LatinIME extends InputMethodService implements
         if (KeyCode.VOICE_INPUT == event.getKeyCode()) {
             mRichImm.switchToShortcutIme(this);
         }
-        final InputTransaction completeInputTransaction =
-                mInputLogic.onCodeInput(mSettings.getCurrent(), event,
-                        mKeyboardSwitcher.getKeyboardCapsMode(),
-                        mKeyboardSwitcher.getCurrentKeyboardScript(), mHandler);
+        InputTransaction completeInputTransaction =
+                mInputLogic.onCodeInput(mSettings.getCurrent(), event, mKeyboardSwitcher.getKeyboardCapsMode(), mHandler);
         updateStateAfterInputTransaction(completeInputTransaction);
         mKeyboardSwitcher.onEvent(event, getCurrentAutoCapsState(), getCurrentRecapitalizeState());
     }
@@ -1446,7 +1442,7 @@ public class LatinIME extends InputMethodService implements
         InputTransaction completeInputTransaction = mInputLogic.onTextInput(mSettings.getCurrent(),
             event, mKeyboardSwitcher.getKeyboardCapsMode(), mHandler);
         updateStateAfterInputTransaction(completeInputTransaction);
-        mInputLogic.restartSuggestionsOnWordTouchedByCursor(mSettings.getCurrent(), mKeyboardSwitcher.getCurrentKeyboardScript());
+        mInputLogic.restartSuggestionsOnWordTouchedByCursor(mSettings.getCurrent());
         mKeyboardSwitcher.onEvent(event, getCurrentAutoCapsState(), getCurrentRecapitalizeState());
     }
 
@@ -1552,12 +1548,9 @@ public class LatinIME extends InputMethodService implements
     // Called from {@link SuggestionStripView} through the {@link SuggestionStripView#Listener}
     // interface
     @Override
-    public void pickSuggestionManually(final SuggestedWordInfo suggestionInfo) {
-        final InputTransaction completeInputTransaction = mInputLogic.onPickSuggestionManually(
-                mSettings.getCurrent(), suggestionInfo,
-                mKeyboardSwitcher.getKeyboardCapsMode(),
-                mKeyboardSwitcher.getCurrentKeyboardScript(),
-                mHandler);
+    public void pickSuggestionManually(SuggestedWordInfo suggestionInfo) {
+        InputTransaction completeInputTransaction = mInputLogic.onPickSuggestionManually(
+                mSettings.getCurrent(), suggestionInfo, mKeyboardSwitcher.getKeyboardCapsMode(), mHandler);
         updateStateAfterInputTransaction(completeInputTransaction);
     }
 

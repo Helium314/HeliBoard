@@ -15,13 +15,12 @@ import helium314.keyboard.latin.common.moveStepsToCharCount
 import helium314.keyboard.latin.common.nonWordCodePointAndNoSpaceBeforeCursor
 import helium314.keyboard.latin.common.splitOnWhitespace
 import helium314.keyboard.latin.common.stripTrailingSeparatorsAndConnectors
-import helium314.keyboard.latin.inputlogic.InputLogic
 import helium314.keyboard.latin.settings.SpacingAndPunctuations
-import helium314.keyboard.latin.utils.ScriptUtils
 import helium314.keyboard.latin.utils.TextRange
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.annotation.Config
+import java.util.Locale
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
@@ -65,7 +64,7 @@ class StringUtilsTest {
     }
 
     @Test fun `non-word codepoints and no space`() {
-        val sp = SpacingAndPunctuations(ApplicationProvider.getApplicationContext<App>().resources, false)
+        val sp = SpacingAndPunctuations(ApplicationProvider.getApplicationContext<App>().resources, false, Locale.ROOT)
         assert(!nonWordCodePointAndNoSpaceBeforeCursor("this is", sp))
         assert(!nonWordCodePointAndNoSpaceBeforeCursor("this ", sp))
         assert(!nonWordCodePointAndNoSpaceBeforeCursor("th.is ", sp))
@@ -73,7 +72,7 @@ class StringUtilsTest {
     }
 
     @Test fun `is word-like at end`() {
-        val sp = SpacingAndPunctuations(ApplicationProvider.getApplicationContext<App>().resources, false)
+        val sp = SpacingAndPunctuations(ApplicationProvider.getApplicationContext<App>().resources, false, Locale.ROOT)
         assert(!endsWithWordCodepoint("", sp))
         assert(endsWithWordCodepoint("don'", sp))
         assert(!endsWithWordCodepoint("hello!", sp))
@@ -87,38 +86,37 @@ class StringUtilsTest {
     }
 
     @Test fun `get touched text range`() {
-        val sp = SpacingAndPunctuations(ApplicationProvider.getApplicationContext<App>().resources, false)
-        val spUrl = SpacingAndPunctuations(ApplicationProvider.getApplicationContext<App>().resources, true)
-        val script = ScriptUtils.SCRIPT_LATIN
-        checkTextRange("blabla this is v", "ery good", sp, script, 15, 19)
-        checkTextRange(".hel", "lo...", sp, script, 1, 6)
-        checkTextRange("(hi", ")", sp, script, 1, 3)
-        checkTextRange("", "word", sp, script, 0, 4)
+        val sp = SpacingAndPunctuations(ApplicationProvider.getApplicationContext<App>().resources, false, Locale.ROOT)
+        val spUrl = SpacingAndPunctuations(ApplicationProvider.getApplicationContext<App>().resources, true, Locale.ROOT)
+        checkTextRange("blabla this is v", "ery good", sp, 15, 19)
+        checkTextRange(".hel", "lo...", sp, 1, 6)
+        checkTextRange("(hi", ")", sp, 1, 3)
+        checkTextRange("", "word", sp, 0, 4)
 
-        checkTextRange("mail: blorb@", "florb.com or", sp, script, 12, 17)
-        checkTextRange("mail: blorb@", "florb.com or", spUrl, script, 6, 21)
-        checkTextRange("mail: blor", "b@florb.com or", sp, script, 6, 11)
-        checkTextRange("mail: blor", "b@florb.com or", spUrl, script, 6, 21)
-        checkTextRange("mail: blorb@f", "lorb.com or", sp, script, 12, 17)
-        checkTextRange("mail: blorb@f", "lorb.com or", spUrl, script, 6, 21)
+        checkTextRange("mail: blorb@", "florb.com or", sp, 12, 17)
+        checkTextRange("mail: blorb@", "florb.com or", spUrl, 6, 21)
+        checkTextRange("mail: blor", "b@florb.com or", sp, 6, 11)
+        checkTextRange("mail: blor", "b@florb.com or", spUrl, 6, 21)
+        checkTextRange("mail: blorb@f", "lorb.com or", sp, 12, 17)
+        checkTextRange("mail: blorb@f", "lorb.com or", spUrl, 6, 21)
 
-        checkTextRange("http://exam", "ple.com", sp, script, 7, 14)
-        checkTextRange("http://exam", "ple.com", spUrl, script, 7, 18)
-        checkTextRange("http://example.", "com", sp, script, 15, 18)
-        checkTextRange("http://example.", "com", spUrl, script, 7, 18)
-        checkTextRange("htt", "p://example.com", sp, script, 0, 4)
-        checkTextRange("htt", "p://example.com", spUrl, script, 0, 18)
-        checkTextRange("http:/", "/example.com", sp, script, 6, 6)
-        checkTextRange("http:/", "/example.com", spUrl, script, 0, 18)
+        checkTextRange("http://exam", "ple.com", sp, 7, 14)
+        checkTextRange("http://exam", "ple.com", spUrl, 7, 18)
+        checkTextRange("http://example.", "com", sp, 15, 18)
+        checkTextRange("http://example.", "com", spUrl, 7, 18)
+        checkTextRange("htt", "p://example.com", sp, 0, 4)
+        checkTextRange("htt", "p://example.com", spUrl, 0, 18)
+        checkTextRange("http:/", "/example.com", sp, 6, 6)
+        checkTextRange("http:/", "/example.com", spUrl, 0, 18)
 
-        checkTextRange("..", ".", spUrl, script, 2, 2)
-        checkTextRange("...", "", spUrl, script, 3, 3)
+        checkTextRange("..", ".", spUrl, 2, 2)
+        checkTextRange("...", "", spUrl, 3, 3)
 
         // todo: these are bad cases of url detection
         //  also: sometimesWordConnectors are for URL and should be named accordingly
-        checkTextRange("@@@", "@@@", spUrl, script, 0, 6)
-        checkTextRange("a...", "", spUrl, script, 0, 4)
-        checkTextRange("@@@", "", spUrl, script, 0, 3)
+        checkTextRange("@@@", "@@@", spUrl, 0, 6)
+        checkTextRange("a...", "", spUrl, 0, 4)
+        checkTextRange("@@@", "", spUrl, 0, 3)
     }
 
     @Test fun singleGrapheme() {
@@ -216,7 +214,7 @@ class StringUtilsTest {
 
     @Test fun `strip trailing separators and connectors`() {
         val ctx = ApplicationProvider.getApplicationContext<App>()
-        val svfs = SpacingAndPunctuations(ctx.resources, false)
+        val svfs = SpacingAndPunctuations(ctx.resources, false, Locale.ROOT)
         assertEquals("word", stripTrailingSeparatorsAndConnectors("word", svfs))
         assertEquals("word", stripTrailingSeparatorsAndConnectors("word)", svfs))
         assertEquals("word", stripTrailingSeparatorsAndConnectors("word\"", svfs))
@@ -228,8 +226,8 @@ class StringUtilsTest {
         assertEquals("word", stripTrailingSeparatorsAndConnectors("word'-'", svfs))
     }
 
-    private fun checkTextRange(before: String, after: String, sp: SpacingAndPunctuations, script: String, wordStart: Int, wordEnd: Int) {
-        val got = getTouchedWordRange(before, after, script, sp)
+    private fun checkTextRange(before: String, after: String, sp: SpacingAndPunctuations, wordStart: Int, wordEnd: Int) {
+        val got = getTouchedWordRange(before, after, sp)
         val wanted = TextRange(before + after, wordStart, wordEnd, before.length, false)
         assertEquals(wanted, got)
     }

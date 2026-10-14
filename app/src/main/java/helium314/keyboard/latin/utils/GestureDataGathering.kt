@@ -12,7 +12,6 @@ import helium314.keyboard.latin.BuildConfig
 import helium314.keyboard.latin.InputAttributes
 import helium314.keyboard.latin.NgramContext
 import helium314.keyboard.latin.R
-import helium314.keyboard.latin.RichInputMethodManager
 import helium314.keyboard.latin.SingleDictionaryFacilitator
 import helium314.keyboard.latin.SuggestedWords
 import helium314.keyboard.latin.SuggestedWords.SuggestedWordInfo.KIND_SHORTCUT
@@ -117,10 +116,9 @@ object BackgroundGatheringCache {
         if (selection == null || before == null || after == null) return
 
         if (DEBUG) Log.i(TAG, "replace selection \"$selection\", before: \"$before\", after: \"$after\"")
-        val script = RichInputMethodManager.getInstance().currentSubtypeLocale.script
         val spacingAndPunctuations = Settings.getValues().mSpacingAndPunctuations
-        val wordAtStart = getTouchedWordRange(before, "$selection$after", script, spacingAndPunctuations)
-        val wordAtEnd = getTouchedWordRange("$before$selection", after, script, spacingAndPunctuations)
+        val wordAtStart = getTouchedWordRange(before, "$selection$after", spacingAndPunctuations)
+        val wordAtEnd = getTouchedWordRange("$before$selection", after, spacingAndPunctuations)
         if (DEBUG) Log.i(TAG, "at start \"${wordAtStart.mWord}\", at end \"${wordAtEnd.mWord}\"")
         val trimmed = selection.trim()
         if (

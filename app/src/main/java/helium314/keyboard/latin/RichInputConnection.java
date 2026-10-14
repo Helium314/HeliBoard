@@ -759,13 +759,13 @@ public final class RichInputConnection implements PrivateCommandPerformer {
         } else mIC.performContextMenuAction(android.R.id.selectAll);
     }
 
-    public void selectWord(final SpacingAndPunctuations spacingAndPunctuations, final String script) {
+    public void selectWord(SpacingAndPunctuations spacingAndPunctuations) {
         if (!isConnected()) return;
         if (mExpectedSelStart != mExpectedSelEnd) { // already something selected
             mIC.setSelection(mExpectedSelEnd, mExpectedSelEnd);
             return;
         }
-        final TextRange range = getWordRangeAtCursor(spacingAndPunctuations, script);
+        TextRange range = getWordRangeAtCursor(spacingAndPunctuations);
         if (range == null) return;
         mIC.setSelection(mExpectedSelStart - range.getNumberOfCharsInWordBeforeCursor(), mExpectedSelStart + range.getNumberOfCharsInWordAfterCursor());
     }
@@ -854,11 +854,9 @@ public final class RichInputConnection implements PrivateCommandPerformer {
      * Returns the text surrounding the cursor.
      *
      * @param spacingAndPunctuations the rules for spacing and punctuation
-     * @param script the script we consider to be writing words, as one of ScriptUtils.SCRIPT_*
      * @return a range containing the text surrounding the cursor (does NOT include the current selection, if any)
      */
-    @Nullable public TextRange getWordRangeAtCursor(final SpacingAndPunctuations spacingAndPunctuations,
-            final String script) {
+    @Nullable public TextRange getWordRangeAtCursor(SpacingAndPunctuations spacingAndPunctuations) {
         mIC = mParent.getCurrentInputConnection();
         if (!isConnected()) {
             return null;
@@ -868,7 +866,7 @@ public final class RichInputConnection implements PrivateCommandPerformer {
                 SLOW_INPUT_CONNECTION_ON_PARTIAL_RELOAD_MS,
                 NUM_CHARS_TO_GET_BEFORE_CURSOR,
                 InputConnection.GET_TEXT_WITH_STYLES);
-        final CharSequence after = getTextAfterCursorAndDetectLaggyConnection(
+        CharSequence after = getTextAfterCursorAndDetectLaggyConnection(
                 OPERATION_GET_WORD_RANGE_AT_CURSOR,
                 SLOW_INPUT_CONNECTION_ON_PARTIAL_RELOAD_MS,
                 NUM_CHARS_TO_GET_AFTER_CURSOR,
@@ -876,7 +874,7 @@ public final class RichInputConnection implements PrivateCommandPerformer {
         if (before == null || after == null) {
             return null;
         }
-        return StringUtilsKt.getTouchedWordRange(before, after, script, spacingAndPunctuations);
+        return StringUtilsKt.getTouchedWordRange(before, after, spacingAndPunctuations);
     }
 
     public boolean isCursorTouchingWord(final SpacingAndPunctuations spacingAndPunctuations,

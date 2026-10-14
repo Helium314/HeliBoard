@@ -13,6 +13,7 @@ import helium314.keyboard.latin.R;
 import helium314.keyboard.latin.common.Constants;
 import helium314.keyboard.latin.common.StringUtils;
 import helium314.keyboard.latin.common.StringUtilsKt;
+import helium314.keyboard.latin.utils.ScriptUtils;
 
 import java.util.Arrays;
 import java.util.List;
@@ -33,8 +34,10 @@ public final class SpacingAndPunctuations {
     public final boolean mCurrentLanguageHasSpaces;
     public final boolean mUsesAmericanTypography;
     public final boolean mUsesGermanRules;
+    public final Locale mLocale;
+    public final String mScript;
 
-    public SpacingAndPunctuations(final Resources res, final Boolean urlDetection) {
+    public SpacingAndPunctuations(Resources res, Boolean urlDetection, Locale locale) {
         // To be able to binary search the code point. See {@link #isUsuallyPrecededBySpace(int)}.
         mSortedSymbolsPrecededBySpace = StringUtils.toSortedCodePointArray(res.getString(R.string.symbols_preceded_by_space));
         // To be able to binary search the code point. See {@link #isUsuallyFollowedBySpace(int)}.
@@ -52,11 +55,12 @@ public final class SpacingAndPunctuations {
         mCurrentLanguageHasSpaces = res.getBoolean(R.bool.current_language_has_spaces);
         // make it empty if language doesn't have spaces, to avoid weird glitches
         mSortedSometimesWordConnectors = (urlDetection && mCurrentLanguageHasSpaces) ? StringUtils.toSortedCodePointArray(res.getString(R.string.symbols_sometimes_word_connectors)) : new int[0];
-        final Locale locale = ConfigurationCompatKt.locale(res.getConfiguration());
+        mLocale = locale;
         // Heuristic: we use American Typography rules because it's the most common rules for all
         // English variants. German rules (not "German typography") also have small gotchas.
-        mUsesAmericanTypography = Locale.ENGLISH.getLanguage().equals(locale.getLanguage());
-        mUsesGermanRules = Locale.GERMAN.getLanguage().equals(locale.getLanguage());
+        mUsesAmericanTypography = Locale.ENGLISH.getLanguage().equals(mLocale.getLanguage());
+        mUsesGermanRules = Locale.GERMAN.getLanguage().equals(mLocale.getLanguage());
+        mScript = ScriptUtils.script(mLocale);
     }
 
     public boolean isWordSeparator(final int code) {

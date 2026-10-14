@@ -288,7 +288,7 @@ public final class InputLogic {
     // Called from {@link SuggestionStripView} through the {@link SuggestionStripView#Listener}
     // interface
     public InputTransaction onPickSuggestionManually(SettingsValues settingsValues, SuggestedWordInfo suggestionInfo,
-            CapsMode keyboardCapsMode, String currentKeyboardScript, LatinIME.UIHandler handler) {
+            CapsMode keyboardCapsMode, LatinIME.UIHandler handler) {
         if (isInlineEmojiSearchAction()) {
             deleteTextReplacedByEmoji();
         }
@@ -302,7 +302,7 @@ public final class InputLogic {
             // Word separators are suggested before the user inputs something.
             // Rely on onCodeInput to do the complicated swapping/stripping logic consistently.
             Event event = Event.createPunctuationSuggestionPickedEvent(suggestionInfo);
-            return onCodeInput(settingsValues, event, keyboardCapsMode, currentKeyboardScript, handler);
+            return onCodeInput(settingsValues, event, keyboardCapsMode, handler);
         }
         if (GestureDataGatheringKt.useBackgroundGathering) {
             if (mWordComposer.isBatchMode())
@@ -489,7 +489,7 @@ public final class InputLogic {
      * @return the complete transaction object
      */
     public InputTransaction onCodeInput(SettingsValues settingsValues, @NonNull Event event,
-            CapsMode keyboardCapsMode, String currentKeyboardScript, LatinIME.UIHandler handler) {
+            CapsMode keyboardCapsMode, LatinIME.UIHandler handler) {
         mWordBeingCorrectedByCursor = null;
         mJustRevertedACommit = false;
 
@@ -524,7 +524,7 @@ public final class InputLogic {
             if (currentEvent.isConsumed()) {
                 handleConsumedEvent(currentEvent, inputTransaction);
             } else if (currentEvent.isFunctionalKeyEvent()) {
-                handleFunctionalEvent(currentEvent, inputTransaction, currentKeyboardScript, handler);
+                handleFunctionalEvent(currentEvent, inputTransaction, handler);
             } else {
                 handleNonFunctionalEvent(currentEvent, inputTransaction, handler);
             }
@@ -536,7 +536,7 @@ public final class InputLogic {
                 && (settingsValues.isWordCodePoint(processedEvent.getCodePoint())
                     || processedEvent.getKeyCode() == KeyCode.DELETE)
                 ) {
-            mWordBeingCorrectedByCursor = getWordAtCursor(settingsValues, currentKeyboardScript);
+            mWordBeingCorrectedByCursor = getWordAtCursor(settingsValues);
         }
         if (!inputTransaction.didAutoCorrect() && processedEvent.getKeyCode() != KeyCode.SHIFT
                 && processedEvent.getKeyCode() != KeyCode.CAPS_LOCK
@@ -725,7 +725,7 @@ public final class InputLogic {
      * @param event The event to handle.
      * @param inputTransaction The transaction in progress.
      */
-    private void handleFunctionalEvent(Event event, InputTransaction inputTransaction, String currentKeyboardScript, LatinIME.UIHandler handler) {
+    private void handleFunctionalEvent(Event event, InputTransaction inputTransaction, LatinIME.UIHandler handler) {
         int keyCode = event.getKeyCode();
         SettingsValues sv = inputTransaction.getSettingsValues();
         if (sv.mIsLocked && KeyCode.isIsBlockedWhenLocked(keyCode)) {
@@ -733,7 +733,7 @@ public final class InputLogic {
         }
         switch (keyCode) {
             case KeyCode.DELETE:
-                handleBackspaceEvent(event, inputTransaction, currentKeyboardScript);
+                handleBackspaceEvent(event, inputTransaction);
                 // Backspace is a functional key, but it affects the contents of the editor.
                 inputTransaction.setDidAffectContents();
                 break;
@@ -801,7 +801,7 @@ public final class InputLogic {
                 mConnection.selectAll();
                 break;
             case KeyCode.CLIPBOARD_SELECT_WORD:
-                mConnection.selectWord(sv.mSpacingAndPunctuations, currentKeyboardScript);
+                mConnection.selectWord(sv.mSpacingAndPunctuations);
                 break;
             case KeyCode.CLIPBOARD_COPY:
                 mConnection.copyText(true);
@@ -818,18 +818,18 @@ public final class InputLogic {
                     // fake delete keypress to remove the text
                     final Event backspaceEvent = Event.createSoftwareKeypressEvent(KeyCode.DELETE, 0,
                             event.getX(), event.getY(), event.isKeyRepeat());
-                    handleBackspaceEvent(backspaceEvent, inputTransaction, currentKeyboardScript);
+                    handleBackspaceEvent(backspaceEvent, inputTransaction);
                     inputTransaction.setDidAffectContents();
                 }
                 break;
             case KeyCode.WORD_LEFT:
                 sendDownUpKeyEventWithMetaState(
-                    ScriptUtils.isScriptRtl(currentKeyboardScript) ? KeyEvent.KEYCODE_DPAD_RIGHT : KeyEvent.KEYCODE_DPAD_LEFT,
+                    ScriptUtils.isScriptRtl(sv.mLocale.getScript()) ? KeyEvent.KEYCODE_DPAD_RIGHT : KeyEvent.KEYCODE_DPAD_LEFT,
                     KeyEvent.META_CTRL_ON | event.getMetaState());
                 break;
             case KeyCode.WORD_RIGHT:
                 sendDownUpKeyEventWithMetaState(
-                    ScriptUtils.isScriptRtl(currentKeyboardScript) ? KeyEvent.KEYCODE_DPAD_LEFT : KeyEvent.KEYCODE_DPAD_RIGHT,
+                    ScriptUtils.isScriptRtl(sv.mLocale.getScript()) ? KeyEvent.KEYCODE_DPAD_LEFT : KeyEvent.KEYCODE_DPAD_RIGHT,
                     KeyEvent.META_CTRL_ON | event.getMetaState());
                 break;
             case KeyCode.MOVE_START_OF_PAGE:
@@ -1274,8 +1274,7 @@ public final class InputLogic {
      * @param event The event to handle.
      * @param inputTransaction The transaction in progress.
      */
-    private void handleBackspaceEvent(final Event event, final InputTransaction inputTransaction,
-            final String currentKeyboardScript) {
+    private void handleBackspaceEvent(Event event, InputTransaction inputTransaction) {
         mSpaceState = SpaceState.NONE;
         mDeleteCount++;
 
@@ -1338,7 +1337,7 @@ public final class InputLogic {
                 // (non-revert) backspace handling.
                 if (inputTransaction.getSettingsValues().needsToLookupSuggestions()
                         && inputTransaction.getSettingsValues().mSpacingAndPunctuations.mCurrentLanguageHasSpaces) {
-                    restartSuggestionsOnWordTouchedByCursor(inputTransaction.getSettingsValues(), currentKeyboardScript);
+                    restartSuggestionsOnWordTouchedByCursor(inputTransaction.getSettingsValues());
                 }
                 return;
             }
@@ -1416,8 +1415,7 @@ public final class InputLogic {
                         // If this is an accelerated (i.e., double) deletion, then we need to
                         // consider unlearning here because we may have already reached
                         // the previous word, and will lose it after next deletion.
-                        hasUnlearnedWordBeingDeleted |= unlearnWordBeingDeleted(
-                                inputTransaction.getSettingsValues(), currentKeyboardScript);
+                        hasUnlearnedWordBeingDeleted |= unlearnWordBeingDeleted(inputTransaction.getSettingsValues());
                         sendDownUpKeyEvent(KeyEvent.KEYCODE_DEL);
                         totalDeletedLength++;
                     }
@@ -1448,8 +1446,7 @@ public final class InputLogic {
                         // If this is an accelerated (i.e., double) deletion, then we need to
                         // consider unlearning here because we may have already reached
                         // the previous word, and will lose it after next deletion.
-                        hasUnlearnedWordBeingDeleted |= unlearnWordBeingDeleted(
-                                inputTransaction.getSettingsValues(), currentKeyboardScript);
+                        hasUnlearnedWordBeingDeleted |= unlearnWordBeingDeleted(inputTransaction.getSettingsValues());
                         final int codePointBeforeCursorToDeleteAgain =
                                 mConnection.getCodePointBeforeCursor();
                         if (codePointBeforeCursorToDeleteAgain != Constants.NOT_A_CODE) {
@@ -1463,23 +1460,22 @@ public final class InputLogic {
             }
             if (!hasUnlearnedWordBeingDeleted) {
                 // Consider unlearning the word being deleted (if we have not done so already).
-                unlearnWordBeingDeleted(
-                        inputTransaction.getSettingsValues(), currentKeyboardScript);
+                unlearnWordBeingDeleted(inputTransaction.getSettingsValues());
             }
             if (mConnection.hasSlowInputConnection()) {
                 mSuggestionStripViewAccessor.setNeutralSuggestionStrip();
             } else if (inputTransaction.getSettingsValues().needsToLookupSuggestions()
                     && inputTransaction.getSettingsValues().mSpacingAndPunctuations.mCurrentLanguageHasSpaces) {
-                restartSuggestionsOnWordTouchedByCursor(inputTransaction.getSettingsValues(), currentKeyboardScript);
+                restartSuggestionsOnWordTouchedByCursor(inputTransaction.getSettingsValues());
             }
         }
     }
 
-    String getWordAtCursor(final SettingsValues settingsValues, final String currentKeyboardScript) {
+    String getWordAtCursor(SettingsValues settingsValues) {
         if (!mConnection.hasSelection()
                 && settingsValues.needsToLookupSuggestions()
                 && settingsValues.mSpacingAndPunctuations.mCurrentLanguageHasSpaces) {
-            final TextRange range = mConnection.getWordRangeAtCursor(settingsValues.mSpacingAndPunctuations, currentKeyboardScript);
+            TextRange range = mConnection.getWordRangeAtCursor(settingsValues.mSpacingAndPunctuations);
             if (range != null) {
                 return range.mWord.toString();
             }
@@ -1487,8 +1483,7 @@ public final class InputLogic {
         return "";
     }
 
-    boolean unlearnWordBeingDeleted(
-            final SettingsValues settingsValues, final String currentKeyboardScript) {
+    boolean unlearnWordBeingDeleted(SettingsValues settingsValues) {
         if (mConnection.hasSlowInputConnection()) {
             // TODO: Refactor unlearning so that it does not incur any extra calls
             // to the InputConnection. That way it can still be performed on a slow
@@ -1500,7 +1495,7 @@ public final class InputLogic {
         // entered the composing state yet), unlearn the word.
         // TODO: Consider tracking whether or not this word was typed by the user.
         if (!mConnection.isCursorFollowedByWordCharacter(settingsValues.mSpacingAndPunctuations)) {
-            final String wordBeingDeleted = getWordAtCursor(settingsValues, currentKeyboardScript);
+            String wordBeingDeleted = getWordAtCursor(settingsValues);
             if (!TextUtils.isEmpty(wordBeingDeleted)) {
                 unlearnWord(wordBeingDeleted, settingsValues, DictionaryFacilitator.UnlearnEvent.BACKSPACE);
                 return true;
@@ -1818,9 +1813,7 @@ public final class InputLogic {
      *
      * @param settingsValues the current values of the settings.
      */
-    public void restartSuggestionsOnWordTouchedByCursor(final SettingsValues settingsValues,
-            // TODO: remove this argument, put it into settingsValues
-            final String currentKeyboardScript) {
+    public void restartSuggestionsOnWordTouchedByCursor(SettingsValues settingsValues) {
         // HACK: We may want to special-case some apps that exhibit bad behavior in case of
         // recorrection. This is a temporary, stopgap measure that will be removed later.
         // TODO: remove this.
@@ -1854,7 +1847,7 @@ public final class InputLogic {
             mConnection.finishComposingText();
             return;
         }
-        final TextRange range = mConnection.getWordRangeAtCursor(settingsValues.mSpacingAndPunctuations, currentKeyboardScript);
+        TextRange range = mConnection.getWordRangeAtCursor(settingsValues.mSpacingAndPunctuations);
         if (null == range) return; // Happens if we don't have an input connection at all
         if (range.length() <= 0) {
             // Race condition, or touching a word in a non-supported script.
