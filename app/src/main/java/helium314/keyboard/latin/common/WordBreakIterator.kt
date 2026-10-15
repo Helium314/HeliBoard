@@ -54,6 +54,7 @@ private class SpacingAndPunctuationsWordIterator(val spacingAndPunctuations: Spa
         return index
     }
 
+    // we could relatively easily make following / preceding more performant, but do only if necessary
     override fun following(offset: Int): Int {
         index = offset
         if (index == -1) return index
@@ -115,6 +116,25 @@ private class SpacingAndPunctuationsWordIterator(val spacingAndPunctuations: Spa
 
     // this is what was previously in StringUtils.getTouchedWordRange
     //  for now we keep it the same, but it should definitely be improved
+    // possible improvements
+    //  more customizability via spacingAndPunctuations (which should then be somewhat configurable)
+    //  understand character alternatives like ’ and ' (there should already be some replacement happening, not sure where though))
+    //  better url detection
+    //  split a word in some cases when it contains word connectors
+    //   specifically thinking about cases like drop-in or step-by-step that are in dictionary
+    //   but we can have much longer arbitrary combinations where it would be much better if every word was separate
+    //   also we might want to treat ' and - differently (that's our only word connectors atm)
+    //  better definition of what counts as word
+    //   examples
+    //    hello is a word
+    //    123 is not a word
+    //    4ever should probably be a word (then what about 4e? 4ev?)
+    //    Eb8MX2Jl or s0;\zHagvOp should ideally not be words, but that's tricky
+    //   also relevant in case a word (or shortcut) starts with a number!
+    // use in InputLogic in connection with composing span, iirc there are already inconsistencies of writing a word vs touching a word
+    //  though it might introduce unexpected behavior in special cases e.g. when a user wants to write 'don't come here' (including the ')
+    //  and then it could happen that the composing span expands leftwards, e.g. while typing 4ever -> do we want that?
+    // use in SentenceLevelAdapter.WordIterator
     override fun getTouchedWordBounds(offset: Int): Pair<Int, Int> {
         val before = text.substring(0, offset)
         val after = text.substring(offset)
