@@ -1849,25 +1849,19 @@ public final class InputLogic {
         }
         TextRange range = mConnection.getWordRangeAtCursor(settingsValues.mSpacingAndPunctuations);
         if (null == range) return; // Happens if we don't have an input connection at all
+        // If for some strange reason (editor bug or so) we measure the text before the cursor as
+        // longer than what the entire text is supposed to be, the safe thing to do is bail out.
         if (range.length() <= 0) {
             // Race condition, or touching a word in a non-supported script.
             mLatinIME.setNeutralSuggestionStrip();
             mConnection.finishComposingText();
             return;
         }
-        // If for some strange reason (editor bug or so) we measure the text before the cursor as
-        // longer than what the entire text is supposed to be, the safe thing to do is bail out.
-        if (range.mHasUrlSpans) return;
         // If there are links, we don't resume suggestions. Making
         // edits to a linkified text through batch commands would ruin the URL spans, and unless
         // we take very complicated steps to preserve the whole link, we can't do things right so
         // we just do not resume because it's safer.
-        if (!isResumableWord(settingsValues, range.mWord.toString())) {
-            mSuggestionStripViewAccessor.setNeutralSuggestionStrip();
-            // "unselect" the previous text
-            mConnection.finishComposingText();
-            return;
-        }
+        if (range.mHasUrlSpans) return;
         restartSuggestions(range);
     }
 
@@ -2095,23 +2089,6 @@ public final class InputLogic {
             return NgramContext.BEGINNING_OF_SENTENCE;
         }
         return new NgramContext(new NgramContext.WordInfo(mLastComposedWord.mCommittedWord.toString()));
-    }
-
-    /**
-     * Tests the passed word for resumability.
-     * <p>
-     * We can resume suggestions on words whose first code point is a word code point (with some
-     * nuances: check the code for details).
-     *
-     * @param settings the current values of the settings.
-     * @param word the word to evaluate.
-     * @return whether it's fine to resume suggestions on this word.
-     */
-    private static boolean isResumableWord(final SettingsValues settings, final String word) {
-        final int firstCodePoint = word.codePointAt(0);
-        return settings.isWordCodePoint(firstCodePoint)
-                && Constants.CODE_SINGLE_QUOTE != firstCodePoint
-                && Constants.CODE_DASH != firstCodePoint;
     }
 
     /**

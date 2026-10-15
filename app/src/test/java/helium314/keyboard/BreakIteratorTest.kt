@@ -100,6 +100,29 @@ class BreakIteratorTest {
         assertEquals(9, wbi.following(2))
     }
 
+    @Test fun bla() {
+        val wbi = WordBreakIterator.getForSpacingAndPunctuations(SpacingAndPunctuations(ApplicationProvider.getApplicationContext<App>().resources, false, Locale.ROOT))
+        wbi.text = "no boundary in don't!"
+        assertEquals(20, wbi.following(15))
+        assertEquals(15 to 20, wbi.getTouchedWordBounds(16))
+        wbi.text = "2 boundaries in 'don'!"
+        assertEquals(17, wbi.following(16))
+        assertEquals(16 to 16, wbi.getTouchedWordBounds(16))
+        assertEquals(20, wbi.following(17))
+        assertEquals(17 to 20, wbi.getTouchedWordBounds(17))
+        assertEquals(21, wbi.following(20))
+        assertEquals(17, wbi.preceding(20))
+        assertEquals(17 to 20, wbi.getTouchedWordBounds(20))
+        assertEquals(21 to 21, wbi.getTouchedWordBounds(21))
+        assertEquals(17 to 20, wbi.getTouchedWordBounds(19))
+        wbi.text = "no boundary in don'!"
+        assertEquals(19, wbi.following(15))
+        assertEquals(15, wbi.preceding(19))
+        assertEquals(15 to 19, wbi.getTouchedWordBounds(15))
+        assertEquals(15 to 19, wbi.getTouchedWordBounds(17))
+        assertEquals(15 to 19, wbi.getTouchedWordBounds(19))
+    }
+
     @Test fun moveStepsToCharCount() {
         assertEquals(3, helium314.keyboard.latin.common.moveStepsToCharCount("abcd", 3))
         assertEquals(-3, helium314.keyboard.latin.common.moveStepsToCharCount("abcd", -3))

@@ -7,7 +7,6 @@ import helium314.keyboard.latin.settings.SpacingAndPunctuations
 import helium314.keyboard.latin.utils.ScriptUtils
 import kotlin.math.max
 
-
 interface WordBreakIterator : CompatBreakIterator {
     // very simple for now
     /**
@@ -23,9 +22,9 @@ interface WordBreakIterator : CompatBreakIterator {
         if (!isBoundary(offset))
             return preceding to following
         // first try to see if we're at the end, then at the start
-        if (Character.isLetter(text.codePointBefore(offset)))
+        if (preceding == offset || Character.isLetter(text.codePointBefore(offset)))
             return preceding to offset
-        if (Character.isLetter(text.codePointAt(offset)))
+        if (following == text.length || Character.isLetter(text.codePointAt(offset)))
             return offset to following
         return offset to offset
     }
@@ -171,6 +170,31 @@ private class SpacingAndPunctuationsWordIterator(val spacingAndPunctuations: Spa
                     }
                 }
                 true
+            }
+        }
+
+        if (startIndexInBefore != text.length) {
+            /*
+             * deal with wordConnectors at start and end
+             *  at start they should not be included
+             *  at end they should be included
+             *   unless the same code point is also at the start
+             *   e.g. don' is a "word"
+             *   e.g. for 'hello and 'hello' only hello is the word
+             */
+            val cpAtStart = Character.codePointAt(text, startIndexInBefore)
+            if (spacingAndPunctuations.isWordConnector(cpAtStart)) {
+                startIndexInBefore += Character.charCount(cpAtStart)
+
+                if (startIndexInBefore > offset)
+                    return offset to offset // outside the word
+
+                // and if the same codepoint is at the end, we assume it should be removed too
+                if (Character.codePointBefore(text, endIndexInAfter + offset) == cpAtStart)
+                    endIndexInAfter -= Character.charCount(cpAtStart)
+
+                if (endIndexInAfter + before.length < offset)
+                    return offset to offset // outside the word
             }
         }
 
