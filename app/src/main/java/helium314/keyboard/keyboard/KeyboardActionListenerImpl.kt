@@ -8,6 +8,7 @@ import android.view.inputmethod.InputMethodSubtype
 import androidx.core.util.forEach
 import androidx.core.view.inputmethod.EditorInfoCompat
 import androidx.core.view.inputmethod.InputContentInfoCompat
+import helium314.keyboard.compat.CompatBreakIterator
 import helium314.keyboard.event.Event
 import helium314.keyboard.event.HangulEventDecoder
 import helium314.keyboard.event.HapticEvent
@@ -21,8 +22,9 @@ import helium314.keyboard.latin.LatinIME
 import helium314.keyboard.latin.RichInputMethodManager
 import helium314.keyboard.latin.common.Constants
 import helium314.keyboard.latin.common.InputPointers
+import helium314.keyboard.latin.common.WordBreakIterator
 import helium314.keyboard.latin.common.combiningRange
-import helium314.keyboard.latin.common.moveStepsToCharCount
+import helium314.keyboard.latin.common.stepsToCharCount
 import helium314.keyboard.latin.inputlogic.InputLogic
 import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.utils.BackgroundGatheringCache
@@ -261,9 +263,15 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
     }
 
     private fun actualSteps(steps: Int): Int {
+        val isSwipeWords = settings.current.mDeleteSwipe == 2
+        val multiplier = if (isSwipeWords) 50 else 4 // arbitrary but hopefully high enough numbers
         val text = if (steps > 0) connection.getSelectedText(0) ?: return steps
-        else connection.getTextBeforeCursor(-steps * 4, 0) ?: return steps
-        return moveStepsToCharCount(text, steps)
+        else connection.getTextBeforeCursor(-steps * multiplier, 0) ?: return steps
+
+        // iterator could be customizable, but should be used consistently if reasonably possible
+        val iterator = if (isSwipeWords) WordBreakIterator.getForSpacingAndPunctuations(settings.current.mSpacingAndPunctuations)
+        else CompatBreakIterator.CharacterInstance
+        return stepsToCharCount(text, steps, iterator)
     }
 
     override fun onUpWithDeletePointerActive() {
@@ -325,7 +333,7 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
         val moveSteps: Int
         if (steps < 0) {
             val text = connection.getTextBeforeCursor(-steps * 4, 0) ?: return false
-            moveSteps = moveStepsToCharCount(text, steps)
+            moveSteps = stepsToCharCount(text, steps, CompatBreakIterator.CharacterInstance)
             if (moveSteps == 0) {
                 // some apps don't return any text via input connection, and the cursor can't be moved
                 // we fall back to virtually pressing the left/right key one or more times instead
@@ -341,7 +349,7 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
             gestureMoveBackHaptics()
         } else {
             val text = connection.getTextAfterCursor(steps * 4, 0) ?: return false
-            moveSteps = moveStepsToCharCount(text, steps)
+            moveSteps = stepsToCharCount(text, steps, CompatBreakIterator.CharacterInstance)
             if (moveSteps == 0) {
                 // some apps don't return any text via input connection, and the cursor can't be moved
                 // we fall back to virtually pressing the left/right key one or more times instead

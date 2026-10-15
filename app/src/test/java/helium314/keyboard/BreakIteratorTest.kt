@@ -5,6 +5,7 @@ import helium314.keyboard.compat.CompatBreakIterator
 import helium314.keyboard.latin.App
 import helium314.keyboard.latin.common.WordBreakIterator
 import helium314.keyboard.latin.common.getTouchedWordRange
+import helium314.keyboard.latin.common.stepsToCharCount
 import helium314.keyboard.latin.settings.SpacingAndPunctuations
 import helium314.keyboard.latin.utils.TextRange
 import org.junit.runner.RunWith
@@ -89,11 +90,11 @@ class BreakIteratorTest {
         assertEquals(6, default.following(2))
         assertEquals(6, wbi.following(2))
         assertEquals(1, default.preceding(2))
-//        assertEquals(1, wbi.preceding(2)) // todo: needs improvement
+        assertEquals(1, wbi.preceding(2))
         default.text = "'don'"
         wbi.text = default.text
         assertEquals(4, default.following(2))
-//        assertEquals(4, wbi.following(2)) // todo: needs improvement
+        assertEquals(4, wbi.following(2))
         default.text = "hell-bent"
         wbi.text = default.text
         assertEquals(4, default.following(2))
@@ -123,25 +124,51 @@ class BreakIteratorTest {
         assertEquals(15 to 19, wbi.getTouchedWordBounds(19))
     }
 
-    @Test fun moveStepsToCharCount() {
-        assertEquals(3, helium314.keyboard.latin.common.moveStepsToCharCount("abcd", 3))
-        assertEquals(-3, helium314.keyboard.latin.common.moveStepsToCharCount("abcd", -3))
-        assertEquals(4, helium314.keyboard.latin.common.moveStepsToCharCount("abcd", 10))
-        assertEquals(-4, helium314.keyboard.latin.common.moveStepsToCharCount("abcd", -10))
-        assertEquals(8, helium314.keyboard.latin.common.moveStepsToCharCount("\uD83C\uDFF3️\u200D\uD83C\uDF08bcd", 3))
-        assertEquals(-3, helium314.keyboard.latin.common.moveStepsToCharCount("\uD83C\uDFF3️\u200D\uD83C\uDF08bcd", -3))
-        assertEquals(4, helium314.keyboard.latin.common.moveStepsToCharCount("aэ́cd", 3))
-        assertEquals(-2, helium314.keyboard.latin.common.moveStepsToCharCount("abcэ́", -1))
-        assertEquals(19, helium314.keyboard.latin.common.moveStepsToCharCount("H̵̛͕̞̦̰̜͍̰̥̟͆̏͂̌͑́ͅэ́cd", 1))
-        assertEquals(21, helium314.keyboard.latin.common.moveStepsToCharCount("H̵̛͕̞̦̰̜͍̰̥̟͆̏͂̌͑́ͅэ́cd", 2))
-        assertEquals(22, helium314.keyboard.latin.common.moveStepsToCharCount("H̵̛͕̞̦̰̜͍̰̥̟͆̏͂̌͑́ͅэ́cd", 3))
-        assertEquals(23, helium314.keyboard.latin.common.moveStepsToCharCount("H̵̛͕̞̦̰̜͍̰̥̟͆̏͂̌͑́ͅэ́cd", 4))
-        assertEquals(-2, helium314.keyboard.latin.common.moveStepsToCharCount("aH̵̛͕̞̦̰̜͍̰̥̟͆̏͂̌͑́ͅcэ́", -1))
-        assertEquals(-3, helium314.keyboard.latin.common.moveStepsToCharCount("aH̵̛͕̞̦̰̜͍̰̥̟͆̏͂̌͑́ͅcэ́", -2))
-        assertEquals(-23, helium314.keyboard.latin.common.moveStepsToCharCount("aH̵̛͕̞̦̰̜͍̰̥̟͆̏͂̌͑́ͅcэ́", -4))
-        assertEquals(3, helium314.keyboard.latin.common.moveStepsToCharCount("abcd", 3))
-        assertEquals(5, helium314.keyboard.latin.common.moveStepsToCharCount("\uD83C\uDFF4\u200D☠️\uD83C\uDFF3️\u200D\uD83C\uDF08", 1))
-        assertEquals(-6, helium314.keyboard.latin.common.moveStepsToCharCount("\uD83C\uDFF4\u200D☠️\uD83C\uDFF3️\u200D\uD83C\uDF08", -1))
+    @Test fun characterStepsToCharCount() {
+        val it = CompatBreakIterator.CharacterInstance
+        assertEquals(3, stepsToCharCount("abcd", 3, it))
+        assertEquals(-3, stepsToCharCount("abcd", -3, it))
+        assertEquals(4, stepsToCharCount("abcd", 10, it))
+        assertEquals(-4, stepsToCharCount("abcd", -10, it))
+        assertEquals(8, stepsToCharCount("\uD83C\uDFF3️\u200D\uD83C\uDF08bcd", 3, it))
+        assertEquals(-3, stepsToCharCount("\uD83C\uDFF3️\u200D\uD83C\uDF08bcd", -3, it))
+        assertEquals(4, stepsToCharCount("aэ́cd", 3, it))
+        assertEquals(-2, stepsToCharCount("abcэ́", -1, it))
+        assertEquals(19, stepsToCharCount("H̵̛͕̞̦̰̜͍̰̥̟͆̏͂̌͑́ͅэ́cd", 1, it))
+        assertEquals(21, stepsToCharCount("H̵̛͕̞̦̰̜͍̰̥̟͆̏͂̌͑́ͅэ́cd", 2, it))
+        assertEquals(22, stepsToCharCount("H̵̛͕̞̦̰̜͍̰̥̟͆̏͂̌͑́ͅэ́cd", 3, it))
+        assertEquals(23, stepsToCharCount("H̵̛͕̞̦̰̜͍̰̥̟͆̏͂̌͑́ͅэ́cd", 4, it))
+        assertEquals(-2, stepsToCharCount("aH̵̛͕̞̦̰̜͍̰̥̟͆̏͂̌͑́ͅcэ́", -1, it))
+        assertEquals(-3, stepsToCharCount("aH̵̛͕̞̦̰̜͍̰̥̟͆̏͂̌͑́ͅcэ́", -2, it))
+        assertEquals(-23, stepsToCharCount("aH̵̛͕̞̦̰̜͍̰̥̟͆̏͂̌͑́ͅcэ́", -4, it))
+        assertEquals(3, stepsToCharCount("abcd", 3, it))
+        assertEquals(5, stepsToCharCount("\uD83C\uDFF4\u200D☠️\uD83C\uDFF3️\u200D\uD83C\uDF08", 1, it))
+        assertEquals(-6, stepsToCharCount("\uD83C\uDFF4\u200D☠️\uD83C\uDFF3️\u200D\uD83C\uDF08", -1, it))
+    }
+
+    // todo: default and SpacingAndPunctuations iterators behave differently, what do we want?
+    //  (plus in the end it should be customizable anyway)
+    @Test fun wordStepsToCharCount() {
+//        val it = WordBreakIterator.getForSpacingAndPunctuations(SpacingAndPunctuations(ApplicationProvider.getApplicationContext<App>().resources, false, Locale.ROOT))
+        val it = CompatBreakIterator.getWordInstance(Locale.ROOT)
+        assertEquals(-5, stepsToCharCount("hello", -1, it))
+        assertEquals(5, stepsToCharCount("hello", 1, it))
+        assertEquals(-3, stepsToCharCount("hello yes", -1, it))
+        assertEquals(5, stepsToCharCount("hello yes", 1, it))
+        assertEquals(-4, stepsToCharCount("hello yes", -2, it))
+        assertEquals(6, stepsToCharCount("hello yes", 2, it))
+        assertEquals(-9, stepsToCharCount("hello yes", -3, it))
+        assertEquals(9, stepsToCharCount("hello yes", 3, it))
+        assertEquals(-9, stepsToCharCount("hello yes", -4, it))
+        assertEquals(9, stepsToCharCount("hello yes", 4, it))
+        assertEquals(0, stepsToCharCount("", -3, it))
+        assertEquals(0, stepsToCharCount("", 3, it))
+        assertEquals(2, stepsToCharCount("  ", 1, it))
+        assertEquals(-3, stepsToCharCount("111", -1, it)) // do we want that?
+        assertEquals(3, stepsToCharCount("111", 1, it)) // do we want that?
+        assertEquals(-2, stepsToCharCount("31!xr", -1, it)) // better not
+        assertEquals(2, stepsToCharCount("31!xr", 1, it)) // better not
+        assertEquals(1, stepsToCharCount("....", 1, it)) // better not
     }
 
     @Test fun `get touched text range`() {

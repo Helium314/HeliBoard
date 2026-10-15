@@ -10,7 +10,6 @@ import helium314.keyboard.latin.utils.SpacedTokens
 import helium314.keyboard.latin.utils.SpannableStringUtils
 import helium314.keyboard.latin.utils.TextRange
 import java.math.BigInteger
-import java.text.BreakIterator
 import java.util.Locale
 import kotlin.text.indexOfFirst
 
@@ -208,10 +207,9 @@ val String.lastGrapheme: String get() {
     else res.substring(tone) // " 🏼" is detected as single grapheme, but we don't want this
 }
 
-/** translates a move of [steps] graphemes in [text] to character count */
-fun moveStepsToCharCount(text: CharSequence, steps: Int): Int {
+/** translates a move of [steps] in [text] as defined by [iterator] to character count */
+fun stepsToCharCount(text: CharSequence, steps: Int, iterator: CompatBreakIterator): Int {
     if (steps == 0) return 0
-    val iterator = CompatBreakIterator.CharacterInstance
     iterator.text = text
     if (steps > 0) {
         repeat(steps) { iterator.next() }

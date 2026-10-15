@@ -768,7 +768,7 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
         return switch (code) {
             case Constants.CODE_SPACE -> sv.mSpaceSwipeHorizontal != KeyboardActionListener.SwipeAction.NONE
                     || sv.mSpaceSwipeVertical != KeyboardActionListener.SwipeAction.NONE;
-            case KeyCode.DELETE -> sv.mDeleteSwipeEnabled;
+            case KeyCode.DELETE -> sv.mDeleteSwipe > 0;
             default -> false;
         };
     }
@@ -980,7 +980,7 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
             }
         } else if (code == KeyCode.DELETE) {
             // Delete slider
-            int steps = (x - mStartX) / sPointerStep;
+            int steps = (x - mStartX) / (sPointerStep * sv.mDeleteSwipe); // half speed for word delete
             if (steps != 0) {
                 if (!mInHorizontalSwipe) {
                     sTimerProxy.cancelKeyTimersOf(this);

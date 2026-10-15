@@ -708,6 +708,15 @@ private object AppUpgrade {
                 prefs.edit { remove("emoji_recent_keys")  }
             }
         }
+        if (oldVersion <= 4201) {
+            if (prefs.contains("delete_swipe")) {
+                val old = prefs.getBoolean("delete_swipe", true)
+                prefs.edit {
+                    putInt(Settings.PREF_DELETE_SWIPE, if (old) 1 else 0)
+                    remove("delete_swipe")
+                }
+            }
+        }
         upgradeToolbarPrefs(prefs)
         LayoutUtilsCustom.onLayoutFileChanged() // just to be sure
         prefs.edit { putInt(Settings.PREF_VERSION_CODE, BuildConfig.VERSION_CODE) }
