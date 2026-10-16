@@ -396,8 +396,8 @@ public final class KeyboardSwitcher {
         }
     }
 
-    private static int getSecondaryStripVisibility() {
-        return Settings.getValues().isSecondaryStripVisible()? View.VISIBLE : View.GONE;
+    private static int getStripVisibility(final boolean shown) {
+        return shown ? View.VISIBLE : View.GONE;
     }
 
     // Displays a toast-like message with the provided text for a specified duration.
@@ -653,7 +653,7 @@ public final class KeyboardSwitcher {
             // @see LatinIME#onComputeInset(android.inputmethodservice.InputMethodService.Insets)
             mKeyboardView.setVisibility(View.GONE);
             mSuggestionStripView.setVisibility(View.GONE);
-            mStripContainer.setVisibility(getSecondaryStripVisibility());
+            mStripContainer.setVisibility(getStripVisibility(Settings.getValues().mShowEmojiStrip));
             mClipboardStripScrollView.setVisibility(View.GONE);
             mEmojiTabStripView.setVisibility(View.VISIBLE);
             mClipboardHistoryView.setVisibility(View.GONE);
@@ -674,7 +674,7 @@ public final class KeyboardSwitcher {
             mKeyboardView.setVisibility(View.GONE);
             mEmojiTabStripView.setVisibility(View.GONE);
             mSuggestionStripView.setVisibility(View.GONE);
-            mStripContainer.setVisibility(getSecondaryStripVisibility());
+            mStripContainer.setVisibility(getStripVisibility(Settings.getValues().mShowClipboardStrip));
             mClipboardStripScrollView.post(() -> mClipboardStripScrollView.fullScroll(HorizontalScrollView.FOCUS_RIGHT));
             mClipboardStripScrollView.setVisibility(View.VISIBLE);
             mEmojiPalettesView.setVisibility(View.GONE);
