@@ -1025,7 +1025,7 @@ public final class RichInputConnection implements PrivateCommandPerformer {
         return mCommittedTextBeforeComposingText.indexOf(" ") != -1;
     }
 
-    public int getCharCountToDeleteBeforeCursor() {
+    public int getGraphemeLengthBeforeCursor() {
         int lastCodePoint = getCodePointBeforeCursor();
         if (StringUtils.mightBeEmoji(lastCodePoint) || Character.isSupplementaryCodePoint(lastCodePoint) || ConstantsKt.getCombiningRange().contains(lastCodePoint)) {
             CharSequence text = getTextBeforeCursor(NUM_CHARS_TO_GET_BEFORE_CURSOR, 0);
@@ -1033,6 +1033,12 @@ public final class RichInputConnection implements PrivateCommandPerformer {
             return StringUtilsKt.getLastGraphemeLength(text);
         }
         return 1;
+    }
+
+    public int getWordLengthBeforeCursor(SpacingAndPunctuations spacingAndPunctuations) {
+        CharSequence text = getTextBeforeCursor(NUM_CHARS_TO_GET_BEFORE_CURSOR, 0);
+        if (TextUtils.isEmpty(text)) return 1;
+        return StringUtilsKt.getLastWordLength(text, spacingAndPunctuations);
     }
 
     public boolean hasLetterBeforeLastSpaceBeforeCursor() {

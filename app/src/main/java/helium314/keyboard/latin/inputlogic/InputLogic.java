@@ -727,8 +727,12 @@ public final class InputLogic {
         }
         switch (keyCode) {
             case KeyCode.DELETE:
-                handleBackspaceEvent(event, inputTransaction);
+                handleBackspaceEvent(event, inputTransaction, false);
                 // Backspace is a functional key, but it affects the contents of the editor.
+                inputTransaction.setDidAffectContents();
+                break;
+            case KeyCode.DELETE_WORD:
+                handleBackspaceEvent(event, inputTransaction, true);
                 inputTransaction.setDidAffectContents();
                 break;
             case KeyCode.SHIFT: {
@@ -812,7 +816,7 @@ public final class InputLogic {
                     // fake delete keypress to remove the text
                     final Event backspaceEvent = Event.createSoftwareKeypressEvent(KeyCode.DELETE, 0,
                             event.getX(), event.getY(), event.isKeyRepeat());
-                    handleBackspaceEvent(backspaceEvent, inputTransaction);
+                    handleBackspaceEvent(backspaceEvent, inputTransaction, false); // todo: this is unlearning the word (we should reconsider this anyway)
                     inputTransaction.setDidAffectContents();
                 }
                 break;
@@ -1268,9 +1272,10 @@ public final class InputLogic {
      * @param event The event to handle.
      * @param inputTransaction The transaction in progress.
      */
-    private void handleBackspaceEvent(Event event, InputTransaction inputTransaction) {
+    private void handleBackspaceEvent(Event event, InputTransaction inputTransaction, boolean deleteWord) {
         mSpaceState = SpaceState.NONE;
         mDeleteCount++;
+        SettingsValues sv = inputTransaction.getSettingsValues();
 
         // In many cases after backspace, we need to update the shift state. Normally we need
         // to do this right away to avoid the shift state being out of date in case the user types
@@ -1288,7 +1293,7 @@ public final class InputLogic {
             // If we are in the middle of a recorrection, we need to commit the recorrection
             // first so that we can remove the character at the current cursor position.
             // We also need to unlearn the original word that is now being corrected.
-            unlearnWord(mWordComposer.getTypedWord(), inputTransaction.getSettingsValues(), DictionaryFacilitator.UnlearnEvent.BACKSPACE);
+            unlearnWord(mWordComposer.getTypedWord(), sv, DictionaryFacilitator.UnlearnEvent.BACKSPACE);
             resetEntireInputState(mConnection.getExpectedSelectionStart(),
                     mConnection.getExpectedSelectionEnd(), true /* clearSuggestionStrip */);
             // When we exit this if-clause, mWordComposer.isComposingWord() will return false.
@@ -1301,14 +1306,20 @@ public final class InputLogic {
                 mWordComposer.reset();
                 mWordComposer.setRejectedBatchModeSuggestion(rejectedSuggestion);
                 if (!TextUtils.isEmpty(rejectedSuggestion)) {
-                    unlearnWord(rejectedSuggestion, inputTransaction.getSettingsValues(), DictionaryFacilitator.UnlearnEvent.REJECTION);
+                    unlearnWord(rejectedSuggestion, sv, DictionaryFacilitator.UnlearnEvent.REJECTION);
                 }
                 StatsUtils.onBackspaceWordDelete(rejectedSuggestion.length());
             } else {
                 if (GestureDataGatheringKt.useBackgroundGathering)
                     BackgroundGatheringCache.INSTANCE.removeLast(mWordComposer.getTypedWord());
-                mWordComposer.applyProcessedEvent(event);
-                StatsUtils.onBackspacePressed(1);
+                if (deleteWord) {
+                    int length = mWordComposer.size();
+                    mWordComposer.reset();
+                    StatsUtils.onBackspaceWordDelete(length);
+                } else {
+                    mWordComposer.applyProcessedEvent(event);
+                    StatsUtils.onBackspacePressed(1);
+                }
             }
             if (mWordComposer.isComposingWord()) {
                 setComposingTextInternal(getTextWithUnderline(mWordComposer.getTypedWord()), 1);
@@ -1319,7 +1330,7 @@ public final class InputLogic {
             inputTransaction.setRequiresUpdateSuggestions();
             return;
         }
-        if (mLastComposedWord.canRevertCommit() && inputTransaction.getSettingsValues().mBackspaceRevertsAutocorrect) {
+        if (mLastComposedWord.canRevertCommit() && sv.mBackspaceRevertsAutocorrect) {
             String lastComposedWord = mLastComposedWord.mTypedWord;
             revertCommit(inputTransaction);
             StatsUtils.onRevertAutoCorrect();
@@ -1332,7 +1343,7 @@ public final class InputLogic {
         }
         if (SpaceState.DOUBLE == inputTransaction.getSpaceState()) {
             cancelDoubleSpacePeriodCountdown();
-            if (mConnection.revertDoubleSpacePeriod(inputTransaction.getSettingsValues().mSpacingAndPunctuations)) {
+            if (mConnection.revertDoubleSpacePeriod(sv.mSpacingAndPunctuations)) {
                 // No need to reset mSpaceState, it has already be done (that's why we
                 // receive it as a parameter)
                 inputTransaction.setRequiresUpdateSuggestions();
@@ -1355,7 +1366,7 @@ public final class InputLogic {
             // We also need to unlearn the selected text.
             CharSequence selection = mConnection.getSelectedText(0);
             if (!TextUtils.isEmpty(selection)) {
-                unlearnWord(selection.toString(), inputTransaction.getSettingsValues(), DictionaryFacilitator.UnlearnEvent.BACKSPACE);
+                unlearnWord(selection.toString(), sv, DictionaryFacilitator.UnlearnEvent.BACKSPACE);
             }
             int numCharsDeleted = mConnection.getExpectedSelectionEnd() - mConnection.getExpectedSelectionStart();
             mConnection.setSelection(mConnection.getExpectedSelectionEnd(), mConnection.getExpectedSelectionEnd());
@@ -1367,7 +1378,7 @@ public final class InputLogic {
 
         boolean hasUnlearnedWordBeingDeleted = false;
         // There is no selection, just delete one character.
-        if (inputTransaction.getSettingsValues().mInputAttributes.isTypeNull()
+        if (sv.mInputAttributes.isTypeNull()
                 || Constants.NOT_A_CURSOR_POSITION == mConnection.getExpectedSelectionEnd()) {
             // There are three possible reasons to send a key event: either the field has
             // type TYPE_NULL, in which case the keyboard should send events, or we are
@@ -1384,7 +1395,7 @@ public final class InputLogic {
                 // If this is an accelerated (i.e., double) deletion, then we need to
                 // consider unlearning here because we may have already reached
                 // the previous word, and will lose it after next deletion.
-                hasUnlearnedWordBeingDeleted |= unlearnWordBeingDeleted(inputTransaction.getSettingsValues());
+                hasUnlearnedWordBeingDeleted |= unlearnWordBeingDeleted(sv);
                 sendDownUpKeyEvent(KeyEvent.KEYCODE_DEL);
                 totalDeletedLength++;
             }
@@ -1401,23 +1412,27 @@ public final class InputLogic {
                 //  To make this more interesting, web browsers, and apps that are basically
                 // browsers under the hood, in many cases don't understand "deleteSurroundingText".
                 // So we try to send a backspace keypress instead.
-                if ((inputTransaction.getSettingsValues().mInputAttributes.mInputType & InputType.TYPE_MASK_VARIATION)
+                if ((sv.mInputAttributes.mInputType & InputType.TYPE_MASK_VARIATION)
                         == InputType.TYPE_TEXT_VARIATION_WEB_EDIT_TEXT)
                     sendDownUpKeyEvent(KeyEvent.KEYCODE_DEL);
                 else mConnection.deleteTextBeforeCursor(1);
                 return;
             }
-            int lengthToDelete = mConnection.getCharCountToDeleteBeforeCursor();
+            int lengthToDelete = deleteWord
+                ? mConnection.getWordLengthBeforeCursor(sv.mSpacingAndPunctuations)
+                : mConnection.getGraphemeLengthBeforeCursor();
             mConnection.deleteTextBeforeCursor(lengthToDelete);
             int totalDeletedLength = lengthToDelete;
             if (mDeleteCount > Constants.DELETE_ACCELERATE_AT) {
                 // If this is an accelerated (i.e., double) deletion, then we need to
                 // consider unlearning here because we may have already reached
                 // the previous word, and will lose it after next deletion.
-                hasUnlearnedWordBeingDeleted |= unlearnWordBeingDeleted(inputTransaction.getSettingsValues());
+                hasUnlearnedWordBeingDeleted |= unlearnWordBeingDeleted(sv);
                 int codePointBeforeCursorToDeleteAgain = mConnection.getCodePointBeforeCursor();
                 if (codePointBeforeCursorToDeleteAgain != Constants.NOT_A_CODE) {
-                    int lengthToDeleteAgain = mConnection.getCharCountToDeleteBeforeCursor();
+                    int lengthToDeleteAgain = deleteWord
+                        ? mConnection.getWordLengthBeforeCursor(sv.mSpacingAndPunctuations)
+                        : mConnection.getGraphemeLengthBeforeCursor();
                     mConnection.deleteTextBeforeCursor(lengthToDeleteAgain);
                     totalDeletedLength += lengthToDeleteAgain;
                 }
