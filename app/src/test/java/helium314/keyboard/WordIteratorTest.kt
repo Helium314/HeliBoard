@@ -15,7 +15,7 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 
 @RunWith(RobolectricTestRunner::class)
-class BreakIteratorTest {
+class WordIteratorTest {
     // for testing default behavior and comparing with SpacingAndPunctuationsWordIterator
     @Test fun breakIteratorBehavior() {
         val default = CompatBreakIterator.getWordInstance(Locale.ROOT)
@@ -44,7 +44,7 @@ class BreakIteratorTest {
         assertEquals(true, default.isBoundary(14))
         assertEquals(14, default.current())
         assertEquals(false, default.isBoundary(8))
-        assertEquals(10, default.current()) // this is weird...
+        assertEquals(10, default.current()) // this is weird but expected from documentation
 
         val wbi = WordBreakIterator.getForSpacingAndPunctuations(SpacingAndPunctuations(ApplicationProvider.getApplicationContext<App>().resources, false, Locale.ROOT))
         wbi.text = text
@@ -69,9 +69,9 @@ class BreakIteratorTest {
         assertEquals(-1, wbi.previous())
         assertEquals(-1, wbi.next())
         assertEquals(true, wbi.isBoundary(14))
-//        assertEquals(14, wbi.current()) // does it matter?
+        assertEquals(-1, wbi.current()) // does it matter?
         assertEquals(false, wbi.isBoundary(8))
-//        assertEquals(10, wbi.current()) // does it matter?
+        assertEquals(-1, wbi.current()) // does it matter?
     }
 
     @Test fun whatDoWeWant() {
@@ -101,7 +101,7 @@ class BreakIteratorTest {
         assertEquals(9, wbi.following(2))
     }
 
-    @Test fun bla() {
+    @Test fun wordBoundaries() {
         val wbi = WordBreakIterator.getForSpacingAndPunctuations(SpacingAndPunctuations(ApplicationProvider.getApplicationContext<App>().resources, false, Locale.ROOT))
         wbi.text = "no boundary in don't!"
         assertEquals(20, wbi.following(15))
@@ -122,28 +122,6 @@ class BreakIteratorTest {
         assertEquals(15 to 19, wbi.getTouchedWordBounds(15))
         assertEquals(15 to 19, wbi.getTouchedWordBounds(17))
         assertEquals(15 to 19, wbi.getTouchedWordBounds(19))
-    }
-
-    @Test fun characterStepsToCharCount() {
-        val it = CompatBreakIterator.CharacterInstance
-        assertEquals(3, stepsToCharCount("abcd", 3, it))
-        assertEquals(-3, stepsToCharCount("abcd", -3, it))
-        assertEquals(4, stepsToCharCount("abcd", 10, it))
-        assertEquals(-4, stepsToCharCount("abcd", -10, it))
-        assertEquals(8, stepsToCharCount("\uD83C\uDFF3️\u200D\uD83C\uDF08bcd", 3, it))
-        assertEquals(-3, stepsToCharCount("\uD83C\uDFF3️\u200D\uD83C\uDF08bcd", -3, it))
-        assertEquals(4, stepsToCharCount("aэ́cd", 3, it))
-        assertEquals(-2, stepsToCharCount("abcэ́", -1, it))
-        assertEquals(19, stepsToCharCount("H̵̛͕̞̦̰̜͍̰̥̟͆̏͂̌͑́ͅэ́cd", 1, it))
-        assertEquals(21, stepsToCharCount("H̵̛͕̞̦̰̜͍̰̥̟͆̏͂̌͑́ͅэ́cd", 2, it))
-        assertEquals(22, stepsToCharCount("H̵̛͕̞̦̰̜͍̰̥̟͆̏͂̌͑́ͅэ́cd", 3, it))
-        assertEquals(23, stepsToCharCount("H̵̛͕̞̦̰̜͍̰̥̟͆̏͂̌͑́ͅэ́cd", 4, it))
-        assertEquals(-2, stepsToCharCount("aH̵̛͕̞̦̰̜͍̰̥̟͆̏͂̌͑́ͅcэ́", -1, it))
-        assertEquals(-3, stepsToCharCount("aH̵̛͕̞̦̰̜͍̰̥̟͆̏͂̌͑́ͅcэ́", -2, it))
-        assertEquals(-23, stepsToCharCount("aH̵̛͕̞̦̰̜͍̰̥̟͆̏͂̌͑́ͅcэ́", -4, it))
-        assertEquals(3, stepsToCharCount("abcd", 3, it))
-        assertEquals(5, stepsToCharCount("\uD83C\uDFF4\u200D☠️\uD83C\uDFF3️\u200D\uD83C\uDF08", 1, it))
-        assertEquals(-6, stepsToCharCount("\uD83C\uDFF4\u200D☠️\uD83C\uDFF3️\u200D\uD83C\uDF08", -1, it))
     }
 
     // todo: default and SpacingAndPunctuations iterators behave differently, what do we want?
@@ -211,9 +189,16 @@ class BreakIteratorTest {
         checkTextRange("@@@", "", spUrl, 0, 3)
     }
 
-    private fun checkTextRange(before: String, after: String, sp: SpacingAndPunctuations, wordStart: Int, wordEnd: Int) {
+    private fun checkTextRange(before: String, after: String, sp: SpacingAndPunctuations, wantedWordStart: Int, wantedWordEnd: Int) {
+        val bi = WordBreakIterator.getForSpacingAndPunctuations(sp)
+        bi.text = before + after
+        val (start, end) = bi.getTouchedWordBounds(before.length)
+        assertEquals(wantedWordStart, start)
+        assertEquals(wantedWordEnd, end)
+        // todo: better use the check above (does the same thing)
+        //  but actually the whole check needs to be more more understandable and the tests expanded and the URL stuff fixed
         val got = getTouchedWordRange(before, after, sp)
-        val wanted = TextRange(before + after, wordStart, wordEnd, before.length, false)
+        val wanted = TextRange(before + after, wantedWordStart, wantedWordEnd, before.length, false)
         assertEquals(wanted, got)
     }
 }

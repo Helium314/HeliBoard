@@ -270,7 +270,7 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
 
         // iterator could be customizable, but should be used consistently if reasonably possible
         val iterator = if (isSwipeWords) WordBreakIterator.getForSpacingAndPunctuations(settings.current.mSpacingAndPunctuations)
-        else CompatBreakIterator.CharacterInstance
+        else CompatBreakIterator.graphemeInstance
         return stepsToCharCount(text, steps, iterator)
     }
 
@@ -333,7 +333,7 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
         val moveSteps: Int
         if (steps < 0) {
             val text = connection.getTextBeforeCursor(-steps * 4, 0) ?: return false
-            moveSteps = stepsToCharCount(text, steps, CompatBreakIterator.CharacterInstance)
+            moveSteps = stepsToCharCount(text, steps, CompatBreakIterator.graphemeInstance)
             if (moveSteps == 0) {
                 // some apps don't return any text via input connection, and the cursor can't be moved
                 // we fall back to virtually pressing the left/right key one or more times instead
@@ -349,7 +349,7 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
             gestureMoveBackHaptics()
         } else {
             val text = connection.getTextAfterCursor(steps * 4, 0) ?: return false
-            moveSteps = stepsToCharCount(text, steps, CompatBreakIterator.CharacterInstance)
+            moveSteps = stepsToCharCount(text, steps, CompatBreakIterator.graphemeInstance)
             if (moveSteps == 0) {
                 // some apps don't return any text via input connection, and the cursor can't be moved
                 // we fall back to virtually pressing the left/right key one or more times instead

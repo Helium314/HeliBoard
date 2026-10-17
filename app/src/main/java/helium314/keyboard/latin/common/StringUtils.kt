@@ -11,7 +11,6 @@ import helium314.keyboard.latin.utils.SpannableStringUtils
 import helium314.keyboard.latin.utils.TextRange
 import java.math.BigInteger
 import java.util.Locale
-import kotlin.text.indexOfFirst
 
 fun CharSequence.codePointAt(offset: Int) = Character.codePointAt(this, offset)
 fun CharSequence.codePointBefore(offset: Int) = Character.codePointBefore(this, offset)
@@ -59,13 +58,6 @@ fun hasLetterBeforeLastSpaceBeforeCursor(text: CharSequence): Boolean {
         false // continue
     }
     return false
-}
-
-/** get the complete emoji at end of [text], considering that emojis can be joined with ZWJ resulting in different emojis */
-// todo: this is now only used for tests, do we actually need it?
-fun getFullEmojiAtEnd(text: CharSequence): String {
-    val lastGrapheme = text.toString().lastGrapheme
-    return if (isEmoji(lastGrapheme)) lastGrapheme else ""
 }
 
 /**
@@ -175,36 +167,19 @@ fun isEmoji(c: Int): Boolean = mightBeEmoji(c) && isEmoji(newSingleCodePointStri
 fun isEmoji(text: CharSequence): Boolean = text.isSingleRegionalIndicator // not recognized by singleEmojiRegex
         || (text.toString().isSingleGrapheme && mightBeEmoji(text) && text.matches(singleEmojiRegex))
 
-private val CharSequence.isSingleRegionalIndicator: Boolean
-    get() = length == 2 && Character.codePointAt(this, 0) in 0x1F1E6..0x1F1FF
+private inline val CharSequence.isSingleRegionalIndicator: Boolean
+    get() = length == 2 && Character.codePointAt(this, 0).isRegionalIndicator
 
-val String.isSingleGrapheme: Boolean get() {
-    if (isEmpty()) return false
-    if (length == 1) return true
+inline val Int.isRegionalIndicator get() = this in 0x1F1E6..0x1F1FF
+//inline val Int.isSkinTone get() = this in 0x1F3FB..0x1F3FF
 
-    runCatching {
-        val iterator = CompatBreakIterator.CharacterInstance
-        iterator.text = this
-        iterator.next()
-        if (iterator.next() != -1) return false
-        // we have a single grapheme, but " 🏼" is detected as single grapheme which we don't want
-        return if (isSingleRegionalIndicator) true // standalone regional indicator (🇦–🇿): one code point
-        else if ('\uD83C' !in this) true // does not contain skin tone
-        else singleEmojiRegex.matches(this) // single grapheme only if it's a single emoji
-    }
-    // got IllegalArgumentException: Invalid index on iterator.next()
-    return false
-}
+inline val String.isSingleGrapheme: Boolean get() = length > 0 && lastGraphemeLength == length
 
-val String.lastGrapheme: String get() {
-    if (length <= 1) return this
-
-    val iterator = CompatBreakIterator.CharacterInstance
+val CharSequence.lastGraphemeLength: Int get() {
+    if (length <= 1) return length
+    val iterator = CompatBreakIterator.graphemeInstance
     iterator.text = this
-    val res = substring(iterator.preceding(length))
-    val tone = res.indexOfFirst { it == '\uD83C' }
-    return if (tone == -1 || singleEmojiRegex.matches(res)) res
-    else res.substring(tone) // " 🏼" is detected as single grapheme, but we don't want this
+    return length - iterator.preceding(length)
 }
 
 /** translates a move of [steps] in [text] as defined by [iterator] to character count */

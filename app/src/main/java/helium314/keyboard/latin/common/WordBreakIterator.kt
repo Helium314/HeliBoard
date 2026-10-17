@@ -30,6 +30,7 @@ interface WordBreakIterator : CompatBreakIterator {
     }
 
     companion object {
+        /** similar to [CompatBreakIterator.getWordInstance], but bit different behavior and planned to be somewhat customizable */
         fun getForSpacingAndPunctuations(spacingAndPunctuations: SpacingAndPunctuations) =
             if (!spacingAndPunctuations.mCurrentLanguageHasSpaces && spacingAndPunctuations.mCurrentLanguageHasSpacesOrWordIterator)
                 // we don't have one for this case, so use on that ignores spacingAndPunctuations
@@ -40,9 +41,12 @@ interface WordBreakIterator : CompatBreakIterator {
 
 // ideally this should be consistent with the other WordBreakIterators, except for when we want it
 private class SpacingAndPunctuationsWordIterator(val spacingAndPunctuations: SpacingAndPunctuations) : WordBreakIterator {
+    private val griter = CompatBreakIterator.graphemeInstance
+
     override var text: CharSequence = ""
         set(value) {
             field = value
+            griter.text = value
             index = 0
         }
     private var index = 0
@@ -59,8 +63,7 @@ private class SpacingAndPunctuationsWordIterator(val spacingAndPunctuations: Spa
         index = offset
         if (index == -1) return index
         while (index < text.length) {
-            val cp = text.codePointAt(index)
-            index += Character.charCount(cp)
+            index = griter.following(index)
             if (isBoundary(index)) return index
         }
         index = -1
@@ -73,20 +76,10 @@ private class SpacingAndPunctuationsWordIterator(val spacingAndPunctuations: Spa
         return index
     }
 
-    override fun next() = following(index)
-
-    override fun next(n: Int): Int {
-        repeat(n) { next() }
-        return index
-    }
-
-    override fun previous() = preceding(index)
-
     override fun preceding(offset: Int): Int {
         index = offset
         while (index > 0) {
-            val cp = text.codePointBefore(index)
-            index -= Character.charCount(cp)
+            index = griter.preceding(index)
             if (isBoundary(index)) return index
         }
         index = -1
@@ -96,6 +89,8 @@ private class SpacingAndPunctuationsWordIterator(val spacingAndPunctuations: Spa
     // todo: this should be consistent with getTouchedWordBounds, ideally with some testing
     override fun isBoundary(offset: Int): Boolean {
         if (offset == 0 || offset == text.length) return true // end is always a boundary
+        if (!griter.isBoundary(offset)) return false
+
         val previousCp = text.codePointBefore(offset)
         val nextCp = text.codePointAt(offset)
         val prevIsLetter = previousCp.isLetter

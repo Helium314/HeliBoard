@@ -1030,7 +1030,7 @@ public final class RichInputConnection implements PrivateCommandPerformer {
         if (StringUtils.mightBeEmoji(lastCodePoint) || Character.isSupplementaryCodePoint(lastCodePoint) || ConstantsKt.getCombiningRange().contains(lastCodePoint)) {
             CharSequence text = getTextBeforeCursor(NUM_CHARS_TO_GET_BEFORE_CURSOR, 0);
             if (TextUtils.isEmpty(text)) return 1;
-            return StringUtilsKt.getLastGrapheme(text.toString()).length();
+            return StringUtilsKt.getLastGraphemeLength(text);
         }
         return 1;
     }
