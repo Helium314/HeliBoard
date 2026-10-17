@@ -161,7 +161,6 @@ public final class InputLogic {
      * @param settingsValues the current settings values
      */
     public void startInput(final String combiningSpec, final SettingsValues settingsValues) {
-        mEnteredText = null;
         mWordBeingCorrectedByCursor = null;
         mConnection.onStartInput();
         if (!mWordComposer.getTypedWord().isEmpty()) {
@@ -266,11 +265,9 @@ public final class InputLogic {
             insertAutomaticSpaceIfOptionsAndTextAllow(settingsValues);
         }
         mConnection.commitText(text, 1);
-        StatsUtils.onWordCommitUserTyped(mEnteredText, mWordComposer.isBatchMode());
         mConnection.endBatchEdit();
         // Space state must be updated before calling updateShiftState
         mSpaceState = SpaceState.NONE;
-        mEnteredText = text;
         mWordBeingCorrectedByCursor = null;
         inputTransaction.setDidAffectContents();
         inputTransaction.requireShiftUpdate(InputTransaction.SHIFT_UPDATE_NOW);
@@ -544,9 +541,6 @@ public final class InputLogic {
                 && processedEvent.getKeyCode() != KeyCode.ALPHA
                 && processedEvent.getKeyCode() != KeyCode.SYMBOL)
             mLastComposedWord.deactivate();
-        if (KeyCode.DELETE != processedEvent.getKeyCode()) {
-            mEnteredText = null;
-        }
         mConnection.endBatchEdit();
         return inputTransaction;
     }
@@ -1334,23 +1328,6 @@ public final class InputLogic {
             // the final corrected word to be learned, as learning only occurs when suggestions
             // are active.
             restartSuggestionsAfterDelete(inputTransaction);
-            return;
-        }
-        // todo: this is currently disabled, as it causes inconsistencies with textInput, depending whether the end
-        //  is part of a word (where we start composing) or not (where we end in code below)
-        //  see https://github.com/HeliBorg/HeliBoard/issues/1019
-        //  with better emoji detection on backspace (getFullEmojiAtEnd), this functionality might not be necessary
-        //  -> enable again if there are issues, otherwise delete the code, together with mEnteredText
-        if (false && mEnteredText != null && mConnection.sameAsTextBeforeCursor(mEnteredText)) {
-            // Cancel multi-character input: remove the text we just entered.
-            // This is triggered on backspace after a key that inputs multiple characters,
-            // like the smiley key or the .com key.
-            mConnection.deleteTextBeforeCursor(mEnteredText.length());
-            StatsUtils.onDeleteMultiCharInput(mEnteredText.length());
-            mEnteredText = null;
-            // If we have mEnteredText, then we know that mHasUncommittedTypedChars == false.
-            // In addition we know that spaceState is false, and that we should not be
-            // reverting any autocorrect at this point. So we can safely return.
             return;
         }
         if (SpaceState.DOUBLE == inputTransaction.getSpaceState()) {
