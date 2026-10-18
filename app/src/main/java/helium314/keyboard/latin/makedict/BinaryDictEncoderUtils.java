@@ -73,6 +73,26 @@ public class BinaryDictEncoderUtils {
     private static int getPtNodeCountSize(PtNodeArray nodeArray) {
         return BinaryDictIOUtils.getPtNodeCountSize(nodeArray.mData.size());
     }
+    private static int getShortcutSize(WeightedString shortcut, HashMap<Integer, Integer> codePointToOneByteCodeMap) {
+        int size = 1;
+        String word = shortcut.mWord;
+        int length = word.length();
+
+        for (int i = 0; i < length; i = word.offsetByCodePoints(i, 1)) {
+            int codePoint = word.codePointAt(i);
+            size += CharEncoding.getCharSize(codePoint, codePointToOneByteCodeMap);
+        }
+
+        return size + 1;
+    }
+    private static int getShortcutListSize(ArrayList<WeightedString> shortcutList, HashMap<Integer, Integer> codePointToOneByteCodeMap) {
+        if (shortcutList == null || shortcutList.isEmpty()) return 0;
+        int size = FormatSpec.PTNODE_SHORTCUT_LIST_SIZE_SIZE;
+        for (WeightedString shortcut : shortcutList) {
+            size += getShortcutSize(shortcut, codePointToOneByteCodeMap);
+        }
+        return size;
+    }
     /**
      * Compute the maximum size of a PtNode, assuming 3-byte addresses for everything.
      *
@@ -303,6 +323,7 @@ public class BinaryDictEncoderUtils {
                 nodeSize += getByteSize(getOffsetToTargetNodeArrayDuringUpdate(ptNodeArray,
                     nodeSize + size, ptNode.mChildren));
             }
+            nodeSize += getShortcutListSize(ptNode.mShortcutTargets, null);
             if (null != ptNode.mBigrams) {
                 for (WeightedString bigram : ptNode.mBigrams) {
                     int offset = getOffsetToTargetPtNodeDuringUpdate(ptNodeArray,
@@ -470,7 +491,7 @@ public class BinaryDictEncoderUtils {
      * @param isPossiblyOffensive whether the PtNode is a possibly offensive entry.
      * @return the flags
      */
-    static int makePtNodeFlags(boolean hasMultipleChars, boolean isTerminal, int childrenAddressSize, boolean hasBigrams,
+    static int makePtNodeFlags(boolean hasMultipleChars, boolean isTerminal, int childrenAddressSize, boolean hasShortcuts, boolean hasBigrams,
                                boolean isNotAWord, boolean isPossiblyOffensive) {
         byte flags = 0;
         if (hasMultipleChars) flags |= FormatSpec.FLAG_HAS_MULTIPLE_CHARS;
@@ -491,6 +512,7 @@ public class BinaryDictEncoderUtils {
             default:
                 throw new RuntimeException("Node with a strange address");
         }
+        if (hasShortcuts) flags |= FormatSpec.FLAG_HAS_SHORTCUT_TARGETS;
         if (hasBigrams) flags |= FormatSpec.FLAG_HAS_BIGRAMS;
         if (isNotAWord) flags |= FormatSpec.FLAG_IS_NOT_A_WORD;
         if (isPossiblyOffensive) flags |= FormatSpec.FLAG_IS_POSSIBLY_OFFENSIVE;
@@ -499,6 +521,7 @@ public class BinaryDictEncoderUtils {
     static byte makePtNodeFlags(PtNode node, int childrenOffset) {
         return (byte) makePtNodeFlags(node.mChars.length > 1, node.isTerminal(),
             getByteSize(childrenOffset),
+            node.mShortcutTargets != null && !node.mShortcutTargets.isEmpty(),
             node.mBigrams != null && !node.mBigrams.isEmpty(),
             node.mIsNotAWord, node.mIsPossiblyOffensive);
     }

@@ -222,12 +222,35 @@ public class Ver2DictEncoder implements DictEncoder {
         }
     }
     @Override
-    public void writePtNode(PtNode ptNode, FusionDictionary dict,
-                            HashMap<Integer, Integer> codePointToOneByteCodeMap) {
+    public void writePtNode(PtNode ptNode, FusionDictionary dict, HashMap<Integer, Integer> codePointToOneByteCodeMap) {
         writePtNodeFlags(ptNode, codePointToOneByteCodeMap);
         writeCharacters(ptNode.mChars, ptNode.hasSeveralChars(), codePointToOneByteCodeMap);
         writeFrequency(ptNode.getProbability());
         writeChildrenPosition(ptNode, codePointToOneByteCodeMap);
         writeBigrams(ptNode.mBigrams, dict);
+        writeShortcuts(ptNode.mShortcutTargets, codePointToOneByteCodeMap);
+    }
+
+    private void writeShortcuts(ArrayList<WeightedString> shortcuts, HashMap<Integer, Integer> codePointToOneByteCodeMap) {
+        if (shortcuts == null || shortcuts.isEmpty()) return;
+        int indexOfShortcutByteSize = mPosition;
+        mPosition += 2;
+        Iterator<WeightedString> shortcutIterator = shortcuts.iterator();
+
+        while (shortcutIterator.hasNext()) {
+            WeightedString target = shortcutIterator.next();
+            int shortcutFlags = (shortcutIterator.hasNext() ? FormatSpec.FLAG_BIGRAM_SHORTCUT_ATTR_HAS_NEXT : 0)
+                + (target.getProbability() & FormatSpec.FLAG_BIGRAM_SHORTCUT_ATTR_FREQUENCY);
+            mPosition = BinaryDictEncoderUtils.writeUIntToBuffer(mBuffer, mPosition, shortcutFlags, 1);
+            int shortcutShift = CharEncoding.writeString(mBuffer, mPosition, target.mWord, codePointToOneByteCodeMap);
+            mPosition += shortcutShift;
+        }
+
+        int shortcutByteSize = mPosition - indexOfShortcutByteSize;
+        if (shortcutByteSize > FormatSpec.MAX_SHORTCUT_LIST_SIZE_IN_A_PTNODE) {
+            throw new RuntimeException("Shortcut list too large");
+        }
+
+        BinaryDictEncoderUtils.writeUIntToBuffer(mBuffer, indexOfShortcutByteSize, shortcutByteSize, 2);
     }
 }

@@ -83,11 +83,9 @@ public final class BinaryDictDecoderUtils {
         static int writeCharArray(int[] codePoints, byte[] buffer, int fromIndex, HashMap<Integer, Integer> codePointToOneByteCodeMap) {
             int index = fromIndex;
             for (int codePoint : codePoints) {
-                if (codePointToOneByteCodeMap != null) {
-                    if (codePointToOneByteCodeMap.containsKey(codePoint)) {
-                        // Convert code points
-                        codePoint = codePointToOneByteCodeMap.get(codePoint);
-                    }
+                if (codePointToOneByteCodeMap != null && codePointToOneByteCodeMap.containsKey(codePoint)) {
+                    // Convert code points
+                    codePoint = codePointToOneByteCodeMap.get(codePoint);
                 }
                 if (1 == getCharSize(codePoint, codePointToOneByteCodeMap)) {
                     buffer[index++] = (byte)codePoint;
@@ -98,6 +96,28 @@ public final class BinaryDictDecoderUtils {
                 }
             }
             return index;
+        }
+        static int writeString(byte[] buffer, int fromIndex, String word, HashMap<Integer, Integer> codePointToOneByteCodeMap) {
+            int length = word.length();
+            int index = fromIndex;
+
+            for (int i = 0; i < length; i = word.offsetByCodePoints(i, 1)) {
+                int codePoint = word.codePointAt(i);
+                if (codePointToOneByteCodeMap != null && codePointToOneByteCodeMap.containsKey(codePoint)) {
+                    codePoint = codePointToOneByteCodeMap.get(codePoint);
+                }
+
+                if (1 == getCharSize(codePoint, codePointToOneByteCodeMap)) {
+                    buffer[index++] = (byte)codePoint;
+                } else {
+                    buffer[index++] = (byte)(0xFF & codePoint >> 16);
+                    buffer[index++] = (byte)(0xFF & codePoint >> 8);
+                    buffer[index++] = (byte)(0xFF & codePoint);
+                }
+            }
+
+            buffer[index++] = FormatSpec.PTNODE_CHARACTERS_TERMINATOR;
+            return index - fromIndex;
         }
         /**
          * Writes a string with our character format to an OutputStream.
