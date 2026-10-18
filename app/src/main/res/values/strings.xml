@@ -1283,6 +1283,9 @@ New dictionary:
     <!-- Review screen menu entry to display shared but not deleted gathered data
      string will probably be removed once data gathering is finished (end of 2026 latest) -->
     <string name="gesture_data_include_shared">Include already submitted data</string>
+    <!-- Review screen menu entry to display each word at most once even if it was gestured more often
+     string will probably be removed once data gathering is finished (end of 2026 latest) -->
+    <string name="gesture_data_single_instance_per_word">Show only one entry per word</string>
     <!-- Review screen text indicating the word is already submitted
      string will probably be removed once data gathering is finished (end of 2026 latest) -->
     <string name="gesture_data_shared">submitted</string>
