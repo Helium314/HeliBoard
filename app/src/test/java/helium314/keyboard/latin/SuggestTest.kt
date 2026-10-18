@@ -641,7 +641,7 @@ class SuggestTest {
         enableAutocorrect(autoCorrectThreshold)
         currentTypingLocale = typingLocale
         val suggestionsContainer = ArrayList<SuggestedWordInfo>().apply { addAll(suggestions) }
-        val suggestionResults = SuggestionResults(suggestions.size, false, false)
+        val suggestionResults = SuggestionResults(suggestions.size, NgramContext.EMPTY_PREV_WORDS_INFO, false)
         suggestions.forEach { suggestionResults.add(it) }
 
         // store the original SuggestedWordInfo for typed word, as it will be removed
@@ -687,7 +687,7 @@ fun suggestion(word: String, score: Int, locale: Locale = currentTypingLocale, s
     )
 
 fun suggestionResults(suggestions: List<SuggestedWordInfo>, isBeginningOfSentence: Boolean = false) =
-    SuggestionResults(18, isBeginningOfSentence, false).apply { addAll(suggestions) }
+    SuggestionResults(18, if (isBeginningOfSentence) NgramContext.BEGINNING_OF_SENTENCE else NgramContext.EMPTY_PREV_WORDS_INFO, false).apply { addAll(suggestions) }
 
 @Implements(DictionaryFacilitatorImpl::class)
 class ShadowFacilitator {

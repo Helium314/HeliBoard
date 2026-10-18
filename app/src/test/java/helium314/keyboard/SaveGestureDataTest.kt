@@ -47,7 +47,7 @@ class SaveGestureDataTest {
     private fun wordData(vararg suggestions: SuggestedWords.SuggestedWordInfo) =
         WordData(
             null,
-            SuggestionResults(18, false, false).apply {
+            SuggestionResults(18, NgramContext.EMPTY_PREV_WORDS_INFO, false).apply {
                 suggestions.forEach { add(it) }
             },
             cd, NgramContext.EMPTY_PREV_WORDS_INFO, kb, 0, false,
