@@ -38,4 +38,18 @@ class DictionaryTest {
         // can't read it without lib...
         File(tempFile).delete()
     }
+
+    @Test fun readCombinedOutput() {
+        val dict = DictIO.readCombinedDictionary("src/test/resources/somelist.combined")
+        val tempFile = File("src/test/resources/somelist.temp")
+        DictIO.writeCombinedDictionary(tempFile.absolutePath, dict)
+        val dict2 = DictIO.readCombinedDictionary(tempFile)
+        val tempFile2 = File("src/test/resources/somelist2.temp")
+        DictIO.writeCombinedDictionary(tempFile2.absolutePath, dict2)
+        assertEquals(tempFile.readText(), tempFile2.readText())
+        tempFile.delete()
+        tempFile2.delete()
+    }
+
+    // todo: manual test that v2 definitely has working shortcuts
 }
