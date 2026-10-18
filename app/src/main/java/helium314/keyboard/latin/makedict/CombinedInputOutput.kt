@@ -70,7 +70,7 @@ object CombinedInputOutput {
         var isPossiblyOffensive = false
         val bigrams = ArrayList<WeightedString>()
         var shortcuts = ArrayList<WeightedString>()
-        var line: String? = reader.readLine()
+        var line: String? = reader.readLine()?.trimStart()
         while (line != null) {
             // loop over lines
             // build word and additional data from following lines (bigrams, shortcuts)
@@ -79,9 +79,9 @@ object CombinedInputOutput {
                 line = reader.readLine()
                 continue
             }
-            val args = line.trimStart().split(",")
+            val args = line.split(",")
             if (args[0].startsWith("${CombinedFormatUtils.WORD_TAG}=")) {
-                if (null != word) {
+                if (!word.isNullOrEmpty()) { // empty words exist in history dictionary
                     dict.add(
                         word, probabilityInfo, shortcuts.takeIf { it.isNotEmpty() }, isNotAWord, isPossiblyOffensive
                     )
@@ -193,13 +193,14 @@ object CombinedInputOutput {
                         )
                     }
                 }
-                if (reader.readLine()?.trim() != "${CombinedFormatUtils.NGRAM_PREV_WORD_TAG}[0]=$word")
+                line = reader.readLine()?.trimStart()
+                if (line != "${CombinedFormatUtils.NGRAM_PREV_WORD_TAG}[0]=$word")
                     continue // only read the bigram part, expect ordered ngrams
                 if (secondWordOfBigram == null)
                     throw RuntimeException("Wrong format: $line")
                 bigrams.add(WeightedString(secondWordOfBigram, bigramProbabilityInfo))
             }
-            line = reader.readLine()
+            line = reader.readLine()?.trimStart()
         }
         if (null != word) {
             dict.add(

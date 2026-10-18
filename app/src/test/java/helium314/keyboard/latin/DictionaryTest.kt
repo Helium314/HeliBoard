@@ -52,4 +52,16 @@ class DictionaryTest {
         tempFile.delete()
         tempFile2.delete()
     }
+
+    @Test fun readCombinedOutputForHistoryDict() {
+        val dict = DictIO.readCombinedDictionary("src/test/resources/history_export.combined")
+        val tempFile = File("src/test/resources/somelist.temp")
+        DictIO.writeCombinedDictionary(tempFile.absolutePath, dict)
+        val dict2 = DictIO.readCombinedDictionary(tempFile.absolutePath)
+        val tempFile2 = File("src/test/resources/somelist2.temp")
+        DictIO.writeCombinedDictionary(tempFile2.absolutePath, dict2)
+        assertEquals(tempFile.readText(), tempFile2.readText())
+        tempFile.delete()
+        tempFile2.delete()
+    }
 }
