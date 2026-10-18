@@ -125,10 +125,6 @@ public final class InputLogic {
     private boolean mIsAutoCorrectionIndicatorOn;
     private long mDoubleSpacePeriodCountdownStart;
 
-    // The word being corrected while the cursor is in the middle of the word.
-    // Note: This does not have a composing span, so it must be handled separately.
-    private String mWordBeingCorrectedByCursor = null;
-
     private boolean mJustRevertedACommit = false;
 
     private long mCursorMoveExpectedUntil = 0L;
@@ -160,8 +156,7 @@ public final class InputLogic {
      * @param combiningSpec the combining spec string for this subtype (from extra value)
      * @param settingsValues the current settings values
      */
-    public void startInput(final String combiningSpec, final SettingsValues settingsValues) {
-        mWordBeingCorrectedByCursor = null;
+    public void startInput(String combiningSpec, SettingsValues settingsValues) {
         mConnection.onStartInput();
         if (!mWordComposer.getTypedWord().isEmpty()) {
             // For messaging apps that offer send button, the IME does not get the opportunity
@@ -268,7 +263,6 @@ public final class InputLogic {
         mConnection.endBatchEdit();
         // Space state must be updated before calling updateShiftState
         mSpaceState = SpaceState.NONE;
-        mWordBeingCorrectedByCursor = null;
         inputTransaction.setDidAffectContents();
         inputTransaction.requireShiftUpdate(InputTransaction.SHIFT_UPDATE_NOW);
         return inputTransaction;
@@ -443,12 +437,6 @@ public final class InputLogic {
             // it here, which means we'll keep outdated suggestions for a split second but the
             // visual result is better.
             resetEntireInputState(newSelStart, newSelEnd, false /* clearSuggestionStrip */);
-            // If the user is in the middle of correcting a word, we should learn it before moving
-            // the cursor away.
-            if (!TextUtils.isEmpty(mWordBeingCorrectedByCursor)) {
-                performAdditionToUserHistoryDictionary(settingsValues, mWordBeingCorrectedByCursor,
-                        NgramContext.EMPTY_PREV_WORDS_INFO);
-            }
         } else {
             // resetEntireInputState calls resetCachesUponCursorMove, but forcing the
             // composition to end. But in all cases where we don't reset the entire input
@@ -464,7 +452,6 @@ public final class InputLogic {
         mLatinIME.mHandler.postResumeSuggestions(true /* shouldDelay */);
         // Stop the last recapitalization, if started.
         mRecapitalizeStatus.stop();
-        mWordBeingCorrectedByCursor = null;
         return true;
     }
 
@@ -487,7 +474,6 @@ public final class InputLogic {
      */
     public InputTransaction onCodeInput(SettingsValues settingsValues, @NonNull Event event,
             CapsMode keyboardCapsMode, LatinIME.UIHandler handler) {
-        mWordBeingCorrectedByCursor = null;
         mJustRevertedACommit = false;
 
         if (GestureDataGatheringKt.useBackgroundGathering && mConnection.hasSelection())
@@ -527,14 +513,6 @@ public final class InputLogic {
             }
             currentEvent = currentEvent.getNextEvent();
         }
-        // Try to record the word being corrected when the user enters a word character or
-        // the backspace key.
-        if (!mConnection.hasSlowInputConnection() && !mWordComposer.isComposingWord()
-                && (settingsValues.isWordCodePoint(processedEvent.getCodePoint())
-                    || processedEvent.getKeyCode() == KeyCode.DELETE)
-                ) {
-            mWordBeingCorrectedByCursor = getWordAtCursor(settingsValues);
-        }
         if (!inputTransaction.didAutoCorrect() && processedEvent.getKeyCode() != KeyCode.SHIFT
                 && processedEvent.getKeyCode() != KeyCode.CAPS_LOCK
                 && processedEvent.getKeyCode() != KeyCode.SYMBOL_ALPHA
@@ -545,9 +523,7 @@ public final class InputLogic {
         return inputTransaction;
     }
 
-    public void onStartBatchInput(final SettingsValues settingsValues,
-            final KeyboardSwitcher keyboardSwitcher, final LatinIME.UIHandler handler) {
-        mWordBeingCorrectedByCursor = null;
+    public void onStartBatchInput(SettingsValues settingsValues, KeyboardSwitcher keyboardSwitcher, LatinIME.UIHandler handler) {
         mInputLogicHandler.onStartBatchInput();
         handler.showGesturePreviewAndSetSuggestions(SuggestedWords.getEmptyBatchInstance(), false);
         handler.cancelUpdateSuggestionStrip();
