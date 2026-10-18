@@ -29,7 +29,6 @@ import java.util.Map;
 public class UserHistoryDictionary extends ExpandableBinaryDictionary {
     public static final String NAME = UserHistoryDictionary.class.getSimpleName();
 
-    // TODO: Make this constructor private
     UserHistoryDictionary(final Context context, final Locale locale) {
         super(context, getUserHistoryDictName(NAME, locale, null), locale, Dictionary.TYPE_USER_HISTORY, null);
         if (mLocale != null && mLocale.toString().length() > 1) {
@@ -37,10 +36,7 @@ public class UserHistoryDictionary extends ExpandableBinaryDictionary {
         }
     }
 
-    /**
-     * @returns the name of the {@link UserHistoryDictionary}.
-     */
-    static String getUserHistoryDictName(final String name, final Locale locale, @Nullable final File dictFile) {
+    private static String getUserHistoryDictName(final String name, final Locale locale, @Nullable final File dictFile) {
         return getDictName(name, locale, dictFile);
     }
 

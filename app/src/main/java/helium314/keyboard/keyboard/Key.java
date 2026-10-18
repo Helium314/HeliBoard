@@ -124,7 +124,6 @@ public class Key implements Comparable<Key> {
     private static final int POPUP_KEYS_FLAGS_HAS_LABELS = 0x40000000;
     private static final int POPUP_KEYS_FLAGS_NEEDS_DIVIDERS = 0x20000000;
     private static final int POPUP_KEYS_FLAGS_NO_PANEL_AUTO_POPUP_KEY = 0x10000000;
-    // TODO: Rename these specifiers to !autoOrder! and !fixedOrder! respectively.
     public static final String POPUP_KEYS_AUTO_COLUMN_ORDER = "!autoColumnOrder!";
     public static final String POPUP_KEYS_FIXED_COLUMN_ORDER = "!fixedColumnOrder!";
     public static final String POPUP_KEYS_HAS_LABELS = "!hasLabels!";

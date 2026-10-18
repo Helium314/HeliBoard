@@ -57,12 +57,6 @@ import java.io.FileInputStream
 import java.util.zip.ZipEntry
 import java.util.zip.ZipOutputStream
 
-// todo: with compose, app startup is slower and UI needs some "warmup" time to be snappy
-//  maybe baseline profiles help?
-//  https://developer.android.com/codelabs/android-baseline-profiles-improve
-//  https://developer.android.com/codelabs/jetpack-compose-performance#2
-//  https://developer.android.com/topic/performance/baselineprofiles/overview
-// todo: consider viewModel, at least for LanguageScreen and ColorsScreen it might help making them less awkward and complicated
 open class SettingsActivity : ComponentActivity(), SharedPreferences.OnSharedPreferenceChangeListener {
     private val prefs by lazy { this.prefs() }
     val prefChanged = MutableStateFlow(0) // simple counter, as the only relevant information is that something changed

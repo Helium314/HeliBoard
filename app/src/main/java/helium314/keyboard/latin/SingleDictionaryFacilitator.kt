@@ -27,7 +27,7 @@ class SingleDictionaryFacilitator(private val dict: Dictionary) : DictionaryFaci
      * Other suggestion fields of combined matches are taken from the highest-score one.
      */
     fun getSuggestions(words: List<String>): SuggestionResults {
-        val suggestionResults = SuggestionResults(SuggestedWords.MAX_SUGGESTIONS, false, false)
+        val suggestionResults = SuggestionResults(SuggestedWords.MAX_SUGGESTIONS, NgramContext.EMPTY_PREV_WORDS_INFO, false)
         words.flatMap { word -> getSuggestions(word).distinctBy { it.word } } // Filter out duplicate results per word
             .groupBy { it.word }
             .forEach { (_, results) ->
@@ -59,10 +59,7 @@ class SingleDictionaryFacilitator(private val dict: Dictionary) : DictionaryFaci
         composedData: ComposedData, ngramContext: NgramContext, keyboard: Keyboard,
         settingsValuesForSuggestion: SettingsValuesForSuggestion, sessionId: Int, inputStyle: Int
     ): SuggestionResults {
-        val suggestionResults = SuggestionResults(
-            SuggestedWords.MAX_SUGGESTIONS, ngramContext.isBeginningOfSentenceContext,
-            false
-        )
+        val suggestionResults = SuggestionResults(SuggestedWords.MAX_SUGGESTIONS, ngramContext, false)
         suggestionResults.addAll(
             dict.getSuggestions(composedData, ngramContext, keyboard.proximityInfo.nativeProximityInfo,
                 settingsValuesForSuggestion, sessionId, 1f,

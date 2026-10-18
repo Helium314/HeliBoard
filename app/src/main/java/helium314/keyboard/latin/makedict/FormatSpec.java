@@ -176,8 +176,6 @@ public final class FormatSpec {
     static final int MINIMUM_SUPPORTED_DYNAMIC_VERSION = VERSION4;
     static final int MAXIMUM_SUPPORTED_DYNAMIC_VERSION = VERSION403;
 
-    // TODO: Make this value adaptative to content data, store it in the header, and
-    // use it in the reading code.
     static final int MAX_WORD_LENGTH = DecoderSpecificConstants.DICTIONARY_MAX_WORD_LENGTH;
 
     // These flags are used only in the static dictionary.

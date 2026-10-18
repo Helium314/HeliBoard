@@ -7,6 +7,7 @@
 package helium314.keyboard.latin.utils;
 
 import androidx.annotation.Nullable;
+import helium314.keyboard.latin.NgramContext;
 import helium314.keyboard.latin.SuggestedWords.SuggestedWordInfo;
 import helium314.keyboard.latin.define.ProductionFlags;
 
@@ -21,21 +22,18 @@ import java.util.TreeSet;
  */
 public final class SuggestionResults extends TreeSet<SuggestedWordInfo> {
     public final ArrayList<SuggestedWordInfo> mRawSuggestions;
-    // TODO: Instead of a boolean , we may want to include the context of this suggestion results,
-    // such as {@link NgramContext}.
-    public final boolean mIsBeginningOfSentence;
+    public final NgramContext mNgramContext;
     public final boolean mFirstSuggestionExceedsConfidenceThreshold;
     private final int mCapacity;
 
-    public SuggestionResults(final int capacity, final boolean isBeginningOfSentence,
-            final boolean firstSuggestionExceedsConfidenceThreshold) {
-        this(sSuggestedWordInfoComparator, capacity, isBeginningOfSentence,
+    public SuggestionResults(int capacity, NgramContext ngramContext,
+            boolean firstSuggestionExceedsConfidenceThreshold) {
+        this(sSuggestedWordInfoComparator, capacity, ngramContext,
                 firstSuggestionExceedsConfidenceThreshold);
     }
 
-    private SuggestionResults(final Comparator<SuggestedWordInfo> comparator, final int capacity,
-            final boolean isBeginningOfSentence,
-            final boolean firstSuggestionExceedsConfidenceThreshold) {
+    private SuggestionResults(Comparator<SuggestedWordInfo> comparator, int capacity, NgramContext ngramContext,
+            boolean firstSuggestionExceedsConfidenceThreshold) {
         super(comparator);
         mCapacity = capacity;
         if (ProductionFlags.INCLUDE_RAW_SUGGESTIONS) {
@@ -43,7 +41,7 @@ public final class SuggestionResults extends TreeSet<SuggestedWordInfo> {
         } else {
             mRawSuggestions = null;
         }
-        mIsBeginningOfSentence = isBeginningOfSentence;
+        mNgramContext = ngramContext;
         mFirstSuggestionExceedsConfidenceThreshold = firstSuggestionExceedsConfidenceThreshold;
     }
 

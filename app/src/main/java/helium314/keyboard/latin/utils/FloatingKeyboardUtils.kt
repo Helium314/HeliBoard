@@ -20,7 +20,6 @@ import helium314.keyboard.latin.define.DebugFlags
 import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.settings.setFloatingSize
 
-// todo: add a frame around the keyboard (because other people care more about optics than I do)
 object FloatingKeyboardUtils {
     private val TAG = this::class.java.simpleName
     private val windowFrame = Rect()

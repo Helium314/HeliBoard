@@ -105,7 +105,6 @@ class KeyboardLayoutSet internal constructor(private val mContext: Context, priv
         var mode = KeyboardMode.TEXT
         var disableTouchPositionCorrectionDataForTest: Boolean = false // remove
 
-        // TODO: Use {@link InputAttributes} instead of these variables.
         lateinit var editorInfo: EditorInfo
         lateinit var subtype: RichInputMethodSubtype
         var settingsValues: SettingsValues? = null
@@ -123,10 +122,8 @@ class KeyboardLayoutSet internal constructor(private val mContext: Context, priv
         private val params = Params()
 
         init {
-            val editorInfo = ei ?: EMPTY_EDITOR_INFO
-            params.mode = getKeyboardMode(editorInfo)
-            // TODO: Consolidate those with {@link InputAttributes}.
-            params.editorInfo = editorInfo
+            params.mode = getKeyboardMode(settingsValues?.mInputAttributes?.mInputType ?: ei?.inputType ?: InputType.TYPE_NULL)
+            params.editorInfo = ei ?: EMPTY_EDITOR_INFO
             params.settingsValues = settingsValues
         }
 
@@ -178,8 +175,7 @@ class KeyboardLayoutSet internal constructor(private val mContext: Context, priv
                 return builder.build()
             }
 
-            private fun getKeyboardMode(editorInfo: EditorInfo): KeyboardMode {
-                val inputType = editorInfo.inputType
+            private fun getKeyboardMode(inputType: Int): KeyboardMode {
                 val variation = inputType and InputType.TYPE_MASK_VARIATION
 
                 return when (inputType and InputType.TYPE_MASK_CLASS) {

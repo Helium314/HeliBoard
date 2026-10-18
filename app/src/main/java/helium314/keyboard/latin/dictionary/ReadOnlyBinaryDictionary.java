@@ -40,7 +40,7 @@ public final class ReadOnlyBinaryDictionary extends Dictionary {
     }
 
     public boolean isValidDictionary() {
-        return mBinaryDictionary.isValidDictionary();
+        return !mBinaryDictionary.isCorrupted();
     }
 
     @Override

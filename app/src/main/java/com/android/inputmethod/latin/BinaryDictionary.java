@@ -204,14 +204,12 @@ public final class BinaryDictionary extends Dictionary {
     private static native boolean migrateNative(long dict, String dictFilePath,
             long newFormatVersion);
 
-    // TODO: Move native dict into session
     private void loadDictionary(final String path, final long startOffset,
             final long length, final boolean isUpdatable) {
         mHasUpdated = false;
         mNativeDict = openNative(path, startOffset, length, isUpdatable);
     }
 
-    // TODO: Check isCorrupted() for main dictionaries.
     public boolean isCorrupted() {
         if (!isValidDictionary()) {
             return false;
@@ -219,7 +217,6 @@ public final class BinaryDictionary extends Dictionary {
         if (!isCorruptedNative(mNativeDict)) {
             return false;
         }
-        // TODO: Record the corruption.
         Log.e(TAG, "BinaryDictionary (" + mDictFilePath + ") is corrupted.");
         Log.e(TAG, "locale: " + mLocale);
         Log.e(TAG, "dict size: " + mDictSize);

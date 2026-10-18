@@ -70,7 +70,6 @@ class MoreSuggestionsView @JvmOverloads constructor(
     private var originX = 0
     private var originY = 0
 
-    // TODO: Remove redundant override method.
     override fun setKeyboard(keyboard: Keyboard) {
         super.setKeyboard(keyboard)
         isInModalMode = false

@@ -120,7 +120,7 @@ class Suggest(private val mDictionaryFacilitator: DictionaryFacilitator) {
             else suggestionsContainer
 
         val inputStyle = if (resultsArePredictions) {
-            if (suggestionResults.mIsBeginningOfSentence) SuggestedWords.INPUT_STYLE_BEGINNING_OF_SENTENCE_PREDICTION
+            if (suggestionResults.mNgramContext.isBeginningOfSentenceContext) SuggestedWords.INPUT_STYLE_BEGINNING_OF_SENTENCE_PREDICTION
             else SuggestedWords.INPUT_STYLE_PREDICTION
         } else {
             inputStyleIfNotPrediction

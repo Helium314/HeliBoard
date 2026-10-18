@@ -143,7 +143,7 @@ fun ColorsScreen(
                     nameField = it
                 },
                 isError = !nameValid,
-//                supportingText = { if (!nameValid) Text(stringResource(R.string.name_invalid)) } // todo: this is cutting off bottom half of the actual text...
+                supportingText = { if (!nameValid) Text(stringResource(R.string.name_invalid)) },
                 trailingIcon = { if (!nameValid) CloseIcon(R.string.name_invalid) },
                 singleLine = true,
                 textStyle = contentTextDirectionStyle,

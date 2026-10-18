@@ -313,7 +313,6 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
         mPrefs.registerOnSharedPreferenceChangeListener(this);
     }
 
-    // TODO: Remove this method and add proxy method to SettingsValues.
     public SettingsValues getCurrent() {
         return mSettingsValues;
     }

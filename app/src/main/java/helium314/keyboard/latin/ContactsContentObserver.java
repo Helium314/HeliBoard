@@ -99,7 +99,6 @@ public class ContactsContentObserver implements Runnable {
         if (contactCount > ContactsDictionaryConstants.MAX_CONTACTS_PROVIDER_QUERY_LIMIT) {
             // If there are too many contacts then return false. In this rare case it is impossible
             // to include all of them anyways and the cost of rebuilding the dictionary is too high.
-            // TODO: Sort and check only the most recent contacts?
             return false;
         }
         if (contactCount != mManager.getContactCountAtLastRebuild()) {
