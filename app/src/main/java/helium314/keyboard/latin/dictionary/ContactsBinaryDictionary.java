@@ -32,7 +32,7 @@ import java.util.Locale;
 public class ContactsBinaryDictionary extends ExpandableBinaryDictionary
         implements ContactsChangedListener {
     private static final String TAG = ContactsBinaryDictionary.class.getSimpleName();
-    private static final String NAME = "contacts";
+    public static final String NAME = "contacts";
 
     private static final boolean DEBUG = false;
     private static final boolean DEBUG_DUMP = false;

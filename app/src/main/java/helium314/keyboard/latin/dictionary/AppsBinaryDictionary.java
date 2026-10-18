@@ -16,7 +16,7 @@ import helium314.keyboard.latin.utils.SpacedTokens;
 //  have one for each language, and may even have multiple instances in multilingual typing
 public class AppsBinaryDictionary extends ExpandableBinaryDictionary implements AppsManager.AppsChangedListener {
     private static final String TAG = AppsBinaryDictionary.class.getSimpleName();
-    private static final String NAME = "apps";
+    public static final String NAME = "apps";
 
     private static final int FREQUENCY_FOR_APPS = 100;
     private static final int FREQUENCY_FOR_APPS_BIGRAM = 200;

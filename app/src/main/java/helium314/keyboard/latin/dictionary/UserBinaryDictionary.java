@@ -48,7 +48,7 @@ public class UserBinaryDictionary extends ExpandableBinaryDictionary {
             Words.FREQUENCY,
     };
 
-    private static final String NAME = "userunigram";
+    public static final String NAME = "userunigram";
 
     private ContentObserver mObserver;
     // this really needs to be the locale string, as it interacts with system

@@ -5,6 +5,7 @@ package helium314.keyboard.latin.makedict
 import com.android.inputmethod.latin.BinaryDictionary
 import helium314.keyboard.latin.common.LocaleUtils.constructLocale
 import helium314.keyboard.latin.makedict.FormatSpec.FormatOptions
+import helium314.keyboard.latin.utils.CombinedFormatUtils
 import helium314.keyboard.latin.utils.DictionaryInfoUtils
 import org.xml.sax.SAXException
 import java.io.BufferedWriter
@@ -40,6 +41,18 @@ object DictIO {
             CombinedInputOutput.writeDictionaryCombined(writer, dict)
         }
     }
+
+    // write directly instead of via FusionDictionary, because FusionDictionary can't deal with empty words (from history dictionary)
+    @Throws(FileNotFoundException::class, IOException::class)
+    fun writeCombinedDictionary(writer: BufferedWriter, dict: BinaryDictionary) {
+        writer.append(CombinedFormatUtils.formatAttributeMap(dict.header.mDictionaryOptions.mAttributes))
+        var token = 0
+        do {
+            val next = dict.getNextWordProperty(token)
+            writer.append(CombinedFormatUtils.formatWordProperty(next.mWordProperty))
+            token = next.mNextToken
+        } while (token != 0)
+   }
 
     @Throws(FileNotFoundException::class, IOException::class, UnsupportedFormatException::class)
     fun readBinaryDictionary(binaryFilename: String): FusionDictionary {
