@@ -58,7 +58,7 @@ data class KeyboardId(
         params.settingsValues?.mShowsDpadKey ?: false,
         params.editorInfo.actionLabel?.toString(),
         params.settingsValues?.mShowsVoiceInputKey ?: false,
-        params.isSplitLayoutEnabled,
+        params.settingsValues?.mIsSplitKeyboardEnabled ?: false,
         params.settingsValues?.mOneHandedModeEnabled ?: false,
         params.internalAction,
         params.emojiSearchAvailable,
