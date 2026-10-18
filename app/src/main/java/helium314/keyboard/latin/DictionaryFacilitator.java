@@ -144,10 +144,6 @@ public interface DictionaryFacilitator {
 
     void clearUserHistoryDictionary(final Context context);
 
-    String dump(final Context context);
-
-    void dumpDictionaryForDebug(final String dictName);
-
     @NonNull List<DictionaryStats> getDictionaryStats(final Context context);
 
     enum UnlearnEvent { BACKSPACE, REJECTION, REVERT }

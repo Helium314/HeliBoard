@@ -135,11 +135,7 @@ class SingleDictionaryFacilitator(private val dict: Dictionary) : DictionaryFaci
 
     override fun localesAndConfidences(): String? = null
 
-    override fun dumpDictionaryForDebug(dictName: String) {}
-
     override fun getDictionaryStats(context: Context): List<DictionaryStats> = emptyList()
-
-    override fun dump(context: Context) = getDictionaryStats(context).joinToString("\n")
 
     companion object {
         interface SuggestionLogger {

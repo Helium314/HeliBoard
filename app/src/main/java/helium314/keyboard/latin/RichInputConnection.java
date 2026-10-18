@@ -177,11 +177,11 @@ public final class RichInputConnection implements PrivateCommandPerformer {
                         beforeCursor.length()).toString();
         if (et.selectionStart != mExpectedSelStart
                 || !(reference.equals(internal.toString()))) {
-            final String context = "Expected selection start = " + mExpectedSelStart
+            String context = "Expected selection start = " + mExpectedSelStart
                     + "\nActual selection start = " + et.selectionStart
                     + "\nExpected text = " + internal.length() + " " + internal
                     + "\nActual text = " + reference.length() + " " + reference;
-            ((LatinIME)mParent).debugDumpStateAndCrashWithException(context);
+            throw new RuntimeException(context);
         } else {
             Log.e(TAG, DebugLogUtils.getStackTrace(2));
             Log.e(TAG, "Exp <> Actual : " + mExpectedSelStart + " <> " + et.selectionStart);
@@ -837,13 +837,11 @@ public final class RichInputConnection implements PrivateCommandPerformer {
             // TODO: right now the following works because mComposingText holds the part of the
             //  composing text that is before the cursor, but this is very confusing. We should
             //  fix it.
-            final StringBuilder internal = new StringBuilder()
-                    .append(mCommittedTextBeforeComposingText).append(mComposingText);
+            StringBuilder internal = new StringBuilder().append(mCommittedTextBeforeComposingText).append(mComposingText);
             if (internal.length() > checkLength) {
                 internal.delete(0, internal.length() - checkLength);
                 if (!(reference.equals(internal.toString()))) {
-                    final String context = "Expected text = " + internal + "\nActual text = " + reference;
-                    ((LatinIME)mParent).debugDumpStateAndCrashWithException(context);
+                    throw new RuntimeException("Expected text = " + internal + "\nActual text = " + reference);
                 }
             }
         }

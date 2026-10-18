@@ -120,25 +120,4 @@ public final class SpacingAndPunctuations {
     public boolean isSentenceSeparator(final int code) {
         return code == mSentenceSeparator;
     }
-
-    public String dump() {
-        return "mSortedSymbolsPrecededBySpace = " +
-                "" + Arrays.toString(mSortedSymbolsPrecededBySpace) +
-                "\n   mSortedSymbolsFollowedBySpace = " +
-                "" + Arrays.toString(mSortedSymbolsFollowedBySpace) +
-                "\n   mSortedWordConnectors = " +
-                "" + Arrays.toString(mSortedWordConnectors) +
-                "\n   mSortedWordSeparators = " +
-                "" + Arrays.toString(mSortedWordSeparators) +
-                "\n   mSentenceSeparator = " +
-                "" + mSentenceSeparator +
-                "\n   mSentenceSeparatorAndSpace = " +
-                "" + mSentenceSeparatorAndSpace +
-                "\n   mCurrentLanguageHasSpaces = " +
-                "" + mCurrentLanguageHasSpaces +
-                "\n   mUsesAmericanTypography = " +
-                "" + mUsesAmericanTypography +
-                "\n   mUsesGermanRules = " +
-                "" + mUsesGermanRules;
-    }
 }

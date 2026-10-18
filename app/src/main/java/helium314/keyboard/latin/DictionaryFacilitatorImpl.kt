@@ -599,21 +599,10 @@ class DictionaryFacilitatorImpl : DictionaryFacilitator {
         return dictionaryGroups.joinToString(", ") { "${it.locale} ${it.confidence}" }
     }
 
-    override fun dumpDictionaryForDebug(dictName: String) {
-        val dictToDump = dictionaryGroups[0].getSubDict(dictName)
-        if (dictToDump == null) {
-            Log.e(TAG, ("Cannot dump $dictName. The dictionary is not being used for suggestion or cannot be dumped."))
-            return
-        }
-        dictToDump.dumpAllWordsForDebug()
-    }
-
     override fun getDictionaryStats(context: Context): List<DictionaryStats> =
         DictionaryFacilitator.DYNAMIC_DICTIONARY_TYPES.flatMap { dictType ->
             dictionaryGroups.mapNotNull { it.getSubDict(dictType)?.dictionaryStats }
         }
-
-    override fun dump(context: Context) = getDictionaryStats(context).joinToString("\n")
 
     companion object {
         private val TAG = DictionaryFacilitatorImpl::class.java.simpleName
