@@ -1447,7 +1447,7 @@ public final class InputLogic {
     }
 
     /**
-     * Handle a press on the swipe-to-delete-word gesture.
+     * Handle a long press on the delete key by deleting the word before the cursor
      * @param event The event to handle.
      * @param inputTransaction The transaction in progress.
      */

@@ -1162,19 +1162,6 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
 
         final int code = key.getCode();
 
-        // Delete Word Feature
-        if (code == KeyCode.DELETE && Settings.getValues().mDeleteLongPressEnabled) {
-            mWordDeleteTickCounter = 0; // Reset the pace counter
-
-            // Fire the first word instantly
-            sListener.onCodeInput(KeyCode.DELETE_WORD, Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE, false);
-
-            // Tell the static timer proxy to start looping this tracker's onKeyRepeat
-            startKeyRepeatTimer(1);
-            return;
-        }
-        // --------------------------------------
-
         if (code == KeyCode.LANGUAGE_SWITCH
             || (code == Constants.CODE_SPACE && key.getPopupKeys() == null && Settings.getValues().mSpaceForLangChange)
         ) {
@@ -1339,12 +1326,16 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
 
         // Long Press Delete button (Delete Word)
         if (code == KeyCode.DELETE && Settings.getValues().mDeleteLongPressEnabled) {
+            if (repeatCount == 1) {
+                mWordDeleteTickCounter = 0;
+                callListenerOnCodeInput(key, KeyCode.DELETE_WORD, mKeyX, mKeyY, SystemClock.uptimeMillis(), true);
+                return; // before cnt inc (start with 2nd word)
+            }
             mWordDeleteTickCounter++;
 
             // Only execute on every after long press delay
             if (mWordDeleteTickCounter %
-                Math.round(Settings.getValues().mKeyLongpressTimeout / 50f) == 0) {
-                // FIRE CUSTOM -8 CODE, NOT THE INCOMING -7
+                Math.max(1, Settings.getValues().mKeyLongpressTimeout / sParams.mKeyRepeatInterval) == 0) {
                 callListenerOnCodeInput(key, KeyCode.DELETE_WORD, mKeyX, mKeyY, SystemClock.uptimeMillis(), true);
             }
             return;
